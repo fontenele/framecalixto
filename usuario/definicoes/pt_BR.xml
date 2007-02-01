@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>Usuario</nome>
+		<propriedades>
+		<propriedade nome='idUsuario'>
+			<nome>Id Usuario</nome>
+			<abreviacao>Id</abreviacao>
+			<descricao>Identificador do usuario</descricao>
+		</propriedade>
+		<propriedade nome='idPessoa'>
+			<nome>Pessoa</nome>
+			<abreviacao>Pessoa</abreviacao>
+			<descricao>Pessoa</descricao>
+		</propriedade>
+		<propriedade nome='nmUsuario'>
+			<nome>Nome</nome>
+			<abreviacao>Nome</abreviacao>
+			<descricao>Nome do usuário</descricao>
+		</propriedade>
+		<propriedade nome='senha'>
+			<nome>senha</nome>
+			<abreviacao>senha</abreviacao>
+			<descricao>senha</descricao>
+		</propriedade>
+		<propriedade nome='status'>
+			<nome>status</nome>
+			<abreviacao>status</abreviacao>
+			<descricao>Statuso do usuario</descricao>
+			<dominio>
+				<opcao id='A'>Ativo</opcao>
+				<opcao id='I'>Inativo</opcao>
+			</dominio>
+		</propriedade>
+		<propriedade nome='dtCadastro'>
+			<nome>Cadastro</nome>
+			<abreviacao>Cadastro</abreviacao>
+			<descricao>Data de Cadastro</descricao>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de Usuario</titulo>
+	</controles>
+</internacionalizacao>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>funcionalidade</nome>
+		<propriedades>
+		<propriedade nome='idFuncionalidade'>
+			<nome>id funcionalidade</nome>
+			<abreviacao>id</abreviacao>
+			<descricao>Identificador da funcionalidade</descricao>
+		</propriedade>
+		<propriedade nome='nmFuncionalidade'>
+			<nome>nm funcionalidade</nome>
+			<abreviacao>nome</abreviacao>
+			<descricao>nome da funcionalidade</descricao>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de funcionalidade</titulo>
+	</controles>
+</internacionalizacao>

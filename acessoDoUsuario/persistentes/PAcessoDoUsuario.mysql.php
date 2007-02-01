@@ -1,0 +1,26 @@
+<?php
+/**
+* Classe de persistência
+* @package Sistema
+* @subpackage acessoDoUsuario
+*/
+class PAcessoDoUsuario extends persistentePadraoMySql{
+	/**
+	* @var [array] array com a estrutura dos objetos persistentes
+	* criado para a execução de cache
+	*/
+	private static $estrutura;
+	/**
+	* Método que retorna a estrutura da persitente
+	* sobrescrito para a execução de cache
+	* @return [vetor] estrutura da persitente
+	*/
+	public function pegarEstrutura(){
+		if(!is_array(PAcessoDoUsuario::$estrutura)){
+			return PAcessoDoUsuario::$estrutura = $this->mapearPersistente(definicaoArquivo::pegarXmlEntidade($this));
+		}else{
+			return PAcessoDoUsuario::$estrutura;
+		}
+	}
+}
+?>
