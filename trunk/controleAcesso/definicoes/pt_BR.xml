@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding="iso-8859-1" ?>
+<internacionalizacao>
+	<entidade>
+		<nome>login</nome>
+		<propriedades>
+			<propriedade nome="login">
+				<nome>Usuário</nome>
+				<abreviacao>Usuário</abreviacao>
+				<descricao>Identificador de login da pessoa</descricao>
+			</propriedade>
+			<propriedade nome="senha">
+				<nome>Senha</nome>
+				<abreviacao>Senha</abreviacao>
+				<descricao>Palavra chave de acesso</descricao>
+			</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Acesso ao Sistema</titulo>
+		<textos>
+			<texto id="verLogin">Acessar</texto>
+			<texto id="verPrincipal">Principal</texto>
+		</textos>
+	</controles>
+</internacionalizacao>

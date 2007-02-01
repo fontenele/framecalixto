@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>Atividade</nome>
+		<propriedades>
+		<propriedade nome='idAtividade'>
+			<nome>Id Atividade</nome>
+			<abreviacao>Id</abreviacao>
+			<descricao>Identificador da atividade</descricao>
+		</propriedade>
+		<propriedade nome='idTarefa'>
+			<nome>Id Tarefa</nome>
+			<abreviacao>Tarefa</abreviacao>
+			<descricao>Tarefa referente a atividade</descricao>
+		</propriedade>
+		<propriedade nome='dsAtividade'>
+			<nome>Ds Atividade</nome>
+			<abreviacao>Desc.</abreviacao>
+			<descricao>Descrição da atividade</descricao>
+		</propriedade>
+		<propriedade nome='dtInicio'>
+			<nome>Dt Inicio</nome>
+			<abreviacao>Inicio</abreviacao>
+			<descricao>Data de início da atividade</descricao>
+		</propriedade>
+		<propriedade nome='dtFim'>
+			<nome>Dt Fim</nome>
+			<abreviacao>Fim</abreviacao>
+			<descricao>Data de fim da atividade</descricao>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de Atividade</titulo>
+	</controles>
+</internacionalizacao>

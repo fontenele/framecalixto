@@ -1,0 +1,35 @@
+<?php
+/**
+* Classe de representação de uma camada de negócio da entidade 
+* A camada de negócio é a parte que engloba as regras e efetua os comandos de execução de um sistema
+* @package Sistema
+* @subpackage atividade
+*/
+class NAtividade extends negocioPadrao{
+	/**
+	* @var [numerico] Id Atividade
+	*/
+	public $idAtividade;
+	/**
+	* @var [numerico] Id Tarefa
+	*/
+	public $idTarefa;
+	/**
+	* @var [texto] Ds Atividade
+	*/
+	public $dsAtividade;
+	/**
+	* @var [data] Dt Inicio
+	*/
+	public $dtInicio;
+	/**
+	* @var [data] Dt Fim
+	*/
+	public $dtFim;
+		/**
+	* Retorna o nome da propriedade que contém o valor chave de negócio
+	* @return [string] 
+	*/
+	function nomeChave(){ return 'idAtividade'; }
+}
+?>

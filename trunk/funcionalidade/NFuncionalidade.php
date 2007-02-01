@@ -1,0 +1,40 @@
+<?php
+/**
+* Classe de representação de uma camada de negócio da entidade 
+* A camada de negócio é a parte que engloba as regras e efetua os comandos de execução de um sistema
+* @package Sistema
+* @subpackage funcionalidade
+*/
+class NFuncionalidade extends negocioPadrao{
+	/**
+	* @var [array] array com a estrutura do mapeamento  entre persistente e negócio
+	* criado para a execução de cache
+	*/
+	private static $estrutura;
+	/**
+	* @var [numerico] id funcionalidade
+	*/
+	public $idFuncionalidade;
+	/**
+	* @var [texto] nm funcionalidade
+	*/
+	public $nmFuncionalidade;
+		/**
+	* Retorna o nome da propriedade que contém o valor chave de negócio
+	* @return [string] 
+	*/
+	function nomeChave(){ return 'idFuncionalidade'; }
+	/**
+	* Método que retorna o array com o mapeamento entre persistente e negócio
+	* sobrescrito para a execução de cache
+	* @return [vetor] de mapeamento  entre persistente e negócio
+	*/
+	public function pegarMapeamento(){
+		if(!is_array(NFuncionalidade::$estrutura)){
+			return NFuncionalidade::$estrutura = $this->mapearNegocio(definicaoArquivo::pegarXmlEntidade($this));
+		}else{
+			return NFuncionalidade::$estrutura;
+		}
+	}
+}
+?>
