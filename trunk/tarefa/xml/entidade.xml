@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<entidade nomeBanco='tarefa'>
+	<propriedades>
+		<propriedade id='idTarefa' tipo='numerico' tamanho='16' obrigatorio='sim' indicePrimario='sim' descritivo='1'  >
+			<banco nome='Tare_id_tarefa'  />
+			<apresentacao componente='oculto' >
+				<listagem ordem='1' tamanho='3%' hyperlink='sim' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='idTarefaPai' tipo='numerico' tamanho='16' classeAssociativa='NTarefa' metodoLeitura='lerTodos'  >
+			<banco nome='Tare_id_tarefa_pai' ordem='1' >
+				<chaveEstrangeira tabela='Tarefa' campo='Tare_id_tarefa' />
+			</banco>
+			<apresentacao componente='caixa de combinacao'  />
+		</propriedade>
+		<propriedade id='idTarefaPredecessora' tipo='numerico' tamanho='16' classeAssociativa='NTarefa' metodoLeitura='lerTodos' >
+			<banco nome='Tare_id_tarefa_predecessora'  >
+				<chaveEstrangeira tabela='Tarefa' campo='Tare_id_tarefa' />
+			</banco>
+			<apresentacao componente='caixa de combinacao' />
+		</propriedade>
+		<propriedade id='csTipoTarefa' tipo='numerico' tamanho='2' obrigatorio='sim' >
+			<banco nome='Tare_cs_tipo_tarefa'  />
+			<dominio>
+				<opcao id='1' />
+				<opcao id='2' />
+				<opcao id='3' />
+				<opcao id='4' />
+			</dominio>
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='8' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='idDono' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NPessoa' metodoLeitura='lerTodos'  >
+			<banco nome='Tare_id_dono' >
+				<chaveEstrangeira tabela='pessoa' campo='pess_id_pessoa' />
+			</banco>
+			<apresentacao componente='caixa de combinacao'  />
+		</propriedade>
+		<propriedade id='idCriador' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NUsuario' metodoLeitura='lerTodos'  >
+			<banco nome='Tare_id_criador' >
+				<chaveEstrangeira tabela='usuario' campo='Usua_id_usuario' />
+			</banco>
+			<apresentacao componente='caixa de combinacao'  />
+		</propriedade>
+		<propriedade id='idResponsavel' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NUsuario' metodoLeitura='lerTodos'  >
+			<banco nome='Tare_id_responsavel' ordem='3' >
+				<chaveEstrangeira tabela='usuario' campo='Usua_id_usuario' />
+			</banco>
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='2' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='idResponsavelAnterior' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NUsuario' metodoLeitura='lerTodos'  >
+			<banco nome='Tare_id_responsavel_ant'>
+				<chaveEstrangeira tabela='usuario' campo='Usua_id_usuario' />
+			</banco>
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='2' tamanho='3%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='dsTarefa' tipo='texto' tamanho='600' obrigatorio='sim' descritivo='2'  >
+			<banco nome='Tare_ds_tarefa'  />
+			<apresentacao componente='caixa de texto' >
+				<listagem ordem='3' tamanho='30%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='dtInicioPrevisto' tipo='data' obrigatorio='sim'  >
+			<banco nome='Tare_dt_inicio_previsto' ordem='2'  />
+			<apresentacao componente='data e hora' >
+				<listagem ordem='4' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='dtFimPrevisto' tipo='data' obrigatorio='sim'  >
+			<banco nome='Tare_dt_fim_previsto'  />
+			<apresentacao componente='data e hora' >
+				<listagem ordem='5' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='dtInicio' tipo='data'  >
+			<banco nome='Tare_dt_inicio'  />
+			<apresentacao componente='data e hora' >
+				<listagem ordem='6' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='dtFim' tipo='data'  >
+			<banco nome='Tare_dt_fim'  />
+			<apresentacao componente='data e hora' >
+				<listagem ordem='7' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='csStatus' tipo='texto' tamanho='1' obrigatorio='sim' >
+			<dominio>
+				<opcao id='A' />
+				<opcao id='F' />
+			</dominio>
+			<banco nome='Tare_cs_status' ordem='2'  />
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='9' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='nrPercentual' tipo='numerico' tamanho='3' >
+			<banco nome='Tare_nr_percentual'  />
+			<apresentacao componente='VSelectPercentual' >
+				<listagem ordem='8' tamanho='3%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='nrPrioridade' tipo='numerico' tamanho='1' obrigatorio='sim' >
+			<dominio>
+				<opcao id='1' />
+				<opcao id='2' />
+				<opcao id='3' />
+				<opcao id='4' />
+				<opcao id='5' />
+				<opcao id='6' />
+			</dominio>
+			<banco nome='Tare_nr_prioridade'  />
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='10' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+	</propriedades>
+</entidade>

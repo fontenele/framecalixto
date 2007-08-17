@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding="utf-8" ?>
+<internacionalizacao>
+	<controles>
+		<titulo>Data People</titulo>
+		<textos>
+			<texto id="ajudaDefinicao">Defina o nome da entidade e suas propriedades ou atributos e clique em [definir].</texto>
+			<texto id="adicionar">adicionar</texto>
+		</textos>
+	</controles>
+</internacionalizacao>

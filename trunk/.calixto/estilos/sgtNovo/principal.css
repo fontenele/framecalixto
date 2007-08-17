@@ -1,0 +1,50 @@
+@import url(padrao.css) ;
+@import url(pagina.css) ;
+@import url(menu1.css) ;
+@import url(menu2.css) ;
+@import url(menu3.css) ;
+@import url(abas.css) ;
+@import url(container0.css) ;
+@import url(container1.css) ;
+@import url(container2.css) ;
+@import url(container3.css) ;
+@import url(container4.css) ;
+@import url(container5.css) ;
+@import url(container6.css) ;
+@import url(container7.css) ;
+@import url(container8.css) ;
+@import url(container9.css) ;
+@import url(comunicacao.css) ;
+@import url(rodape.css) ;
+@import url(tabela0.css) ;
+@import url(tabela1.css) ;
+a{
+	color:#066ea4;
+}
+.numerico{
+	text-align: right;
+}
+.data{
+	text-align: center;
+}
+.hora{
+	text-align: center;
+}
+button{
+	PADDING-RIGHT: 5px; 
+	PADDING-LEFT: 5px; 
+	PADDING-BOTTOM: 2px; 
+	MARGIN-LEFT: -2px; 
+	VERTICAL-ALIGN: middle; 
+	CURSOR: default; 
+	MARGIN-RIGHT: 0px; 
+	PADDING-TOP: 3px; 
+	BORDER-BOTTOM: menu 1px solid; 
+	BACKGROUND-COLOR: menu;
+	
+	
+	background	: #00A url(../../imagens/temaSGT/im_tdsupcentro.gif);
+	color		: #000;
+	display		: block;
+	text-decoration: none;
+}

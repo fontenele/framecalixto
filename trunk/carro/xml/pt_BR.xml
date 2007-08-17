@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>carro</nome>
+		<propriedades>
+		<propriedade nome='id'>
+			<nome>id</nome>
+			<abreviacao>id</abreviacao>
+			<descricao>identificador</descricao>
+		</propriedade>
+		<propriedade nome='cod'>
+			<nome>cod</nome>
+			<abreviacao>cod</abreviacao>
+			<descricao>código</descricao>
+		</propriedade>
+		<propriedade nome='nm'>
+			<nome>nm</nome>
+			<abreviacao>nome</abreviacao>
+			<descricao>nome</descricao>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de carro</titulo>
+	</controles>
+</internacionalizacao>

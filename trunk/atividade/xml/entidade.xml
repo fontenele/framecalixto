@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<entidade nomeBanco='atividade'>
+	<propriedades>
+		<propriedade id='idAtividade' tipo='numerico' tamanho='20' obrigatorio='sim' indicePrimario='sim'  >
+			<banco nome='Ativ_id_atividade'  />
+			<apresentacao componente='oculto' >
+				<listagem ordem='1' tamanho='2%' hyperlink='sim' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='idTarefa' tipo='numerico' tamanho='16' obrigatorio='sim' classeAssociativa='NTarefa'  >
+			<banco nome='Ativ_id_tarefa' >
+				<chaveEstrangeira tabela='tarefa' campo='tare_id_tarefa' />
+			</banco>
+			<apresentacao componente='caixa de combinacao' />
+		</propriedade>
+		<propriedade id='idUsuario' tipo='numerico' tamanho='16' obrigatorio='sim' classeAssociativa='NUsuario'  >
+			<banco nome='Ativ_id_usuario' >
+				<chaveEstrangeira tabela='usuario' campo='usua_id_usuario' />
+			</banco>
+			<apresentacao componente='caixa de combinacao'  >
+				<listagem ordem='5' tamanho='10%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='dsAtividade' tipo='texto' tamanho='600' obrigatorio='sim' descritivo='1'  >
+			<banco nome='Ativ_ds_atividade'  />
+			<apresentacao componente='caixa de entrada' >
+				<listagem ordem='6' tamanho='50%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='dtInicio' tipo='data' obrigatorio='sim'  >
+			<banco nome='Ativ_dt_inicio' ordem='1'  />
+			<apresentacao componente='data e hora' >
+				<listagem ordem='3' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='dtFim' tipo='data' obrigatorio='sim'  >
+			<banco nome='Ativ_dt_fim'  />
+			<apresentacao componente='data e hora' >
+				<listagem ordem='4' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='csAtividade' tipo='texto' obrigatorio='sim'  >
+			<banco nome='Ativ_cs_atividade'  />
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='2' tamanho='10%' />
+			</apresentacao>
+			<dominio>
+				<opcao id='1' />
+				<opcao id='2' />
+			</dominio>
+		</propriedade>
+	</propriedades>
+</entidade>

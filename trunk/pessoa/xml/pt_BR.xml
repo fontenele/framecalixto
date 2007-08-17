@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>Pessoa</nome>
+		<propriedades>
+		<propriedade nome='idPessoa'>
+			<nome>Id Pessoa</nome>
+			<abreviacao>Identificador</abreviacao>
+			<descricao>Identificador da pessoa</descricao>
+		</propriedade>
+		<propriedade nome='nmPessoa'>
+			<nome>Nome</nome>
+			<abreviacao>Nome</abreviacao>
+			<descricao>Nome da pessoa</descricao>
+		</propriedade>
+		<propriedade nome='endereco'>
+			<nome>Endereço</nome>
+			<abreviacao>End.</abreviacao>
+			<descricao>Endereço da pessoa</descricao>
+		</propriedade>
+		<propriedade nome='telefone'>
+			<nome>Telefone</nome>
+			<abreviacao>Tel.</abreviacao>
+			<descricao>Telefone da pessoa</descricao>
+		</propriedade>
+		<propriedade nome='csPessoa'>
+			<nome>Tipo</nome>
+			<abreviacao>Tipo Pessoa</abreviacao>
+			<descricao>Tipo da Pessoa</descricao>
+			<dominio>
+				<opcao id='FI'>Física Interna</opcao>
+				<opcao id='FE'>Física Externa</opcao>
+				<opcao id='JI'>Jurídica Interna</opcao>
+				<opcao id='JE'>Jurídica Externa</opcao>
+			</dominio>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de Pessoa</titulo>
+		<textos>
+			<texto id='novaTarefa'>Nova Tarefa</texto>
+		</textos>
+	</controles>
+</internacionalizacao>

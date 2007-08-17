@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>item</nome>
+		<propriedades>
+		<propriedade nome='iditem'>
+			<nome>idItem</nome>
+			<abreviacao>Identificador</abreviacao>
+			<descricao>Identificador do item</descricao>
+		</propriedade>
+		<propriedade nome='nmItem'>
+			<nome>Nome</nome>
+			<abreviacao>Nome</abreviacao>
+			<descricao>Nome do item</descricao>
+		</propriedade>
+		<propriedade nome='csItem'>
+			<nome>Tipo</nome>
+			<abreviacao>Tipo</abreviacao>
+			<descricao>Tipo do item</descricao>
+			<dominio>
+				<opcao id='1'>Adminstrativo</opcao>
+				<opcao id='2'>Hardware</opcao>
+				<opcao id='3'>Software</opcao>
+				<opcao id='4'>Netware</opcao>
+			</dominio>
+		</propriedade>
+		<propriedade nome='vlItem'>
+			<nome>Valor</nome>
+			<abreviacao>Valor</abreviacao>
+			<descricao>Valor do item</descricao>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de item</titulo>
+	</controles>
+</internacionalizacao>

@@ -1,0 +1,40 @@
+.menu3 {
+	margin: 0px 0 0 0px;
+	padding: 0;
+	height: 20px;
+}
+.menu3 ul li {
+	width: 150px;
+    list-style: none;
+	// float: left;
+}
+.menu3 ul li a {
+	color: #FFFFFF;
+	padding: 2px;
+	padding-left: 3px;
+	font: normal 12px/18px "Lucida Grande", "Lucida Sans Unicode", verdana, lucida, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	display: block;
+	margin: 0px;
+	width: 100%;
+	text-align: center;
+	background-repeat: repeat-x;
+	background-image:url(../imagens/temaPadrao/barra_azul.png);
+}
+.menu3 ul li a:hover {
+	color: #505050;
+	text-decoration: none;
+	background-repeat: repeat-x;
+	background-image:url(../imagens/temaPadrao/barra_amarela.png);
+}
+.menu3 ul li a:active {
+	padding-left: 4px;
+	padding-top: 3px;
+	padding-bottom: 1px;
+	padding-right: 1px;
+	color: #505050;
+	text-decoration: none;
+	background-repeat: repeat-x;
+	background-image:url(../imagens/temaPadrao/barra_amarela.png);
+}

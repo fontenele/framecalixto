@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<classes>
+	<classe nome='NPessoa'>
+		<nmPessoa>Calixto Jorge</nmPessoa>
+		<endereco>CSA 01</endereco>
+		<telefone>81423181</telefone>
+		<csPessoa>FI</csPessoa>
+	</classe>
+	<classe nome='NPessoa'>
+		<nmPessoa>Gleiverton Ramalho</nmPessoa>
+		<endereco>QSA 15</endereco>
+		<telefone>sei lah</telefone>
+		<csPessoa>FI</csPessoa>
+	</classe>
+	<classe nome='NPessoa'>
+		<nmPessoa>Elvis Chester</nmPessoa>
+		<endereco>CSA 02</endereco>
+		<telefone>sei lah</telefone>
+		<csPessoa>FI</csPessoa>
+	</classe>
+</classes>

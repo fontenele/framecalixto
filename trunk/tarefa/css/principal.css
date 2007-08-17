@@ -1,0 +1,28 @@
+.descricaoAdministrativa{
+	margin: 15px;
+	background-color: #9cc9de;
+	border		: 1px solid #069;
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+}
+.descricaoHardware{
+	margin: 15px;
+	background-color: #af9cde;
+	border		: 1px solid #069;
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+}
+.descricaoSoftware{
+	margin: 15px;
+	background-color: #dec99c;
+	border		: 1px solid #069;
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+}
+.descricaoRede{
+	margin: 15px;
+	background-color: #9cdebd;
+	border		: 1px solid #069;
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+}

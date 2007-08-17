@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding="utf-8" ?>
+<internacionalizacao>
+	<entidade>
+		<nome>login</nome>
+		<propriedades>
+			<propriedade nome="login">
+				<nome>User</nome>
+				<abreviacao>User</abreviacao>
+				<descricao>User login</descricao>
+			</propriedade>
+			<propriedade nome="senha">
+				<nome>Password</nome>
+				<abreviacao>Passwd</abreviacao>
+				<descricao>Password</descricao>
+			</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>System Access</titulo>
+		<textos>
+			<texto id="verLogin">Login</texto>
+		</textos>
+	</controles>
+</internacionalizacao>
