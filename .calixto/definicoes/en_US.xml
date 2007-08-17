@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding="utf-8" ?>
+<internacionalizacao>
+	<sistema>
+		<titulo>TEST</titulo>
+		<subtitulo>Detailed heading of the test system</subtitulo>
+	</sistema>
+	<controles>
+		<textos>
+			<texto id="botaoNovo">New</texto>
+			<texto id="botaoGravar">Save</texto>
+			<texto id="botaoExcluir">Delete</texto>
+			<texto id="botaoListagem">List</texto>
+			<texto id="botaoPesquisar">Search</texto>
+			<texto id="verPesquisa">Search</texto>
+			<texto id="ver">Edition</texto>
+			<texto id="tituloListagem">List</texto>
+			<texto id="enviar">Submit</texto>
+		</textos>
+	</controles>
+	<mensagens>
+		<mensagem id="registrosNaoEncontrados">Registers had not been found</mensagem>
+		<mensagem id="obrigatorio">The field [%s] is required!</mensagem>
+	</mensagens>
+</internacionalizacao>

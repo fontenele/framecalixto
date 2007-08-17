@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>Atividade</nome>
+		<propriedades>
+		<propriedade nome='idAtividade'>
+			<nome>Identificador da Atividade</nome>
+			<abreviacao>Id</abreviacao>
+			<descricao>Identificador da atividade</descricao>
+		</propriedade>
+		<propriedade nome='idTarefa'>
+			<nome>Identificador da Tarefa</nome>
+			<abreviacao>Tarefa</abreviacao>
+			<descricao>Tarefa referente a atividade</descricao>
+		</propriedade>
+		<propriedade nome='idUsuario'>
+			<nome>Identificador Usuário</nome>
+			<abreviacao>Usuário</abreviacao>
+			<descricao>Usuário criador da atividade</descricao>
+		</propriedade>
+		<propriedade nome='dsAtividade'>
+			<nome>Descrição</nome>
+			<abreviacao>Desc.</abreviacao>
+			<descricao>Descrição da atividade</descricao>
+		</propriedade>
+		<propriedade nome='dtInicio'>
+			<nome>Data Inicial</nome>
+			<abreviacao>Inicio</abreviacao>
+			<descricao>Data de início da atividade</descricao>
+		</propriedade>
+		<propriedade nome='dtFim'>
+			<nome>Data Final</nome>
+			<abreviacao>Fim</abreviacao>
+			<descricao>Data de fim da atividade</descricao>
+		</propriedade>
+		<propriedade nome='csAtividade'>
+			<nome>Tipo</nome>
+			<abreviacao>Tipo</abreviacao>
+			<descricao>Tipo da atividade</descricao>
+			<dominio>
+				<opcao id='1' >Execução</opcao>
+				<opcao id='2' >Comunicação</opcao>
+			</dominio>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de Atividade</titulo>
+	</controles>
+	<mensagens>
+		<mensagem id="impossivelAtualizarAtividadeFechada">Não é possível atualizar uma atividade de uma tarefa fechada!</mensagem>
+	</mensagens>
+</internacionalizacao>

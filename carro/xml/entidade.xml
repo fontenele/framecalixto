@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<entidade nomeBanco='carro'>
+	<propriedades>
+		<propriedade id='id' tipo='numerico' tamanho='20' obrigatorio='sim' indicePrimario='sim'  >
+			<banco nome='carr_id'  />
+			<apresentacao componente='oculto' >
+				<listagem ordem='1' tamanho='10%%' hyperlink='sim' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='cod' tipo='texto' tamanho='20' descritivo='1'  >
+			<banco nome='carr_cod' ordem='2'  />
+			<apresentacao componente='caixa de entrada' >
+				<listagem ordem='2' tamanho='10%%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='nm' tipo='texto' tamanho='60' descritivo='2'  >
+			<banco nome='carr_nm' ordem='1'  />
+			<apresentacao componente='caixa de entrada' >
+				<listagem ordem='3' tamanho='80%%' />
+			</apresentacao>
+		</propriedade>
+	</propriedades>
+</entidade>

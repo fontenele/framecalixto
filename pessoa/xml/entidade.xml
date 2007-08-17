@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<entidade nomeBanco='pessoa'>
+	<propriedades>
+		<propriedade id='idPessoa' tipo='numerico' tamanho='10' obrigatorio='sim' indicePrimario='sim'  >
+			<banco nome='Pess_id_pessoa'  />
+			<apresentacao componente='oculto' >
+				<listagem ordem='1' tamanho='10%' hyperlink='sim' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='nmPessoa' tipo='texto' tamanho='100' obrigatorio='sim' indiceUnico='sim' descritivo='1' >
+			<banco nome='Pess_nm_pessoa' ordem='1'  />
+			<apresentacao componente='caixa de entrada' >
+				<listagem ordem='2' tamanho='40%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='endereco' tipo='texto' tamanho='254' obrigatorio='sim' >
+			<banco nome='Pess_endereco' />
+			<apresentacao componente='caixa de entrada' >
+				<listagem tamanho='40%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='telefone' tipo='texto' tamanho='50' obrigatorio='sim' >
+			<banco nome='Pess_telefone' />
+			<apresentacao componente='caixa de entrada' >
+				<listagem tamanho='20%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='csPessoa' tipo='texto' tamanho='2' obrigatorio='sim' >
+			<dominio>
+				<opcao id='FI' />
+				<opcao id='FE' />
+				<opcao id='JI' />
+				<opcao id='JE' />
+			</dominio>
+			<banco nome='Pess_cs_pessoa' ordem='2'  />
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='3' tamanho='30%' />
+			</apresentacao>
+		</propriedade>
+	</propriedades>
+</entidade>

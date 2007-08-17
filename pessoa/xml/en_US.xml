@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>Pessoa</nome>
+		<propriedades>
+		<propriedade nome='idPessoa'>
+			<nome>Id Pessoa</nome>
+			<abreviacao>Identificador</abreviacao>
+			<descricao>Identificador da pessoa</descricao>
+		</propriedade>
+		<propriedade nome='nmPessoa'>
+			<nome>Nome</nome>
+			<abreviacao>Nome</abreviacao>
+			<descricao>Nome da pessoa</descricao>
+		</propriedade>
+		<propriedade nome='endereco'>
+			<nome>Endereço</nome>
+			<abreviacao>End.</abreviacao>
+			<descricao>Endereço da pessoa</descricao>
+		</propriedade>
+		<propriedade nome='telefone'>
+			<nome>Telefone</nome>
+			<abreviacao>Tel.</abreviacao>
+			<descricao>Telefone da pessoa</descricao>
+		</propriedade>
+		<propriedade nome='csPessoa'>
+			<nome>Tipo</nome>
+			<abreviacao>Type</abreviacao>
+			<descricao>Tipo da Pessoa</descricao>
+			<dominio>
+				<opcao id='FI'>Internal Fisical</opcao>
+				<opcao id='FE'>External Fisical</opcao>
+				<opcao id='JI'>Jurídica Interna</opcao>
+				<opcao id='JE'>Jurídica Externa</opcao>
+			</dominio>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de Pessoa</titulo>
+		<textos>
+			<texto id='FI'>Internal Fisical</texto>
+			<texto id='FE'>External Fisical</texto>
+			<texto id='JI'>Jurídica Interna</texto>
+			<texto id='JE'>Jurídica Externa</texto>
+		</textos>
+	</controles>
+</internacionalizacao>
