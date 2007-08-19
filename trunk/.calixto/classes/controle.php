@@ -26,7 +26,7 @@ abstract class controle extends objeto{
 			if($session) sessaoSistema::iniciar();
 			$this->gerente = $gerente;
 			$this->sessao = new sessaoPrograma(definicaoEntidade::entidade($this));
-			$this->validarAcessoAoControle(); 
+			$this->validarAcessoAoControle();
 			$this->criarVisualizacaoPadrao();
 			$this->criarInternacionalizacaoPadrao();
 			$this->inicial();
@@ -39,7 +39,7 @@ abstract class controle extends objeto{
 	* Método de validação do controle de acesso
 	* @return [booleano] resultado da validação
 	*/
-	public function validarAcessoAoControle(){ 
+	public function validarAcessoAoControle(){
 		try{
 			$definicoes = definicao::pegarDefinicao();
 			$controleDeAcesso = $definicoes->xpath('//controleDeAcesso');
