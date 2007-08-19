@@ -73,7 +73,7 @@ function debug2($var,$metodos = true, $visualizacao = false){
 								echo '<tr><td><font class=keyword>var <font class=tipoClasse >('.get_class($valor).')</font></font> <font class=variavel>$'.$propriedade.'</font></td><td>';
 							break;
 							case is_array($valor):
-								echo '<tr><td><font class=keyword>var <font class=tipoPrimario >(array)</font></font> <font class=variavel>$'.$propriedade.'</font></td><td>';
+								echo '<tr><td><font class=keyword>var <font class=tipoPrimario >(array #'.count($valor).')</font></font> <font class=variavel>$'.$propriedade.'</font></td><td>';
 							break;
 							default:
 								echo '<tr><td><font class=keyword>var </font><font class=variavel>$'.$propriedade.'</font></td><td>';
