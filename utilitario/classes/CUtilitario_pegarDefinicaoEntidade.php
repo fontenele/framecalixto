@@ -8,9 +8,8 @@
 class CUtilitario_pegarDefinicaoEntidade extends controlePadrao{
 	public $nomeEntidade;
 	public $nomeNegocio;
-	public $nomeTabela;
 	public $entidade;
-	
+
 	/**
 	* Método inicial do controle
 	*/
@@ -29,15 +28,8 @@ class CUtilitario_pegarDefinicaoEntidade extends controlePadrao{
 		if(arquivo::legivel("{$this->nomeEntidade}/xml/pt_BR.xml")){
 			$xml['inter'] = simplexml_load_file("{$this->nomeEntidade}/xml/pt_BR.xml");
 		}
-		x2($this);
 		$j = new json();
-		$a = $j->pegarJson($xml);
-		echo "
-			<script language='javascript'>
-			eval(res = $a);
-			alert(res.@attributes.nomeBanco);
-			</script>
-		";
+		echo $j->pegarJson($xml);
 	}
 }
 ?>
