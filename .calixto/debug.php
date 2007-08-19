@@ -28,19 +28,19 @@ function debug1($var){
 function debug2($var,$metodos = true, $visualizacao = false){
 	echo '<link rel="stylesheet" href=".calixto/estilos/debug.css" />';
 	switch(true){
-		case is_bool($var): 
+		case is_bool($var):
 			echo ($var ? '<font class=tipoPrimario >(booleano)</font> = <font class=booleano >true</font>' : '<font class=tipoPrimario>(booleano)</font> = <font class=booleano >false</font>');
 		break;
-		case is_integer($var): 
+		case is_integer($var):
 			echo '<font class=tipoPrimario >(integer)</font> = <font class=numero >'.((int) $var).'</font>';
 		break;
-		case is_double($var): 
+		case is_double($var):
 			echo '<font class=tipoPrimario >(double) = <font class=numero >'.((double) $var).'</font>';
 		break;
-		case is_float($var): 
+		case is_float($var):
 			echo '<font class=tipoPrimario >(float) = <font class=numero >'.((float) $var).'</font>';
 		break;
-		case is_string($var): 
+		case is_string($var):
 			echo '<font class=tipoPrimario >(string) = <font class=string >"'.((string) $var).'"</font>';
 		break;
 		case is_array($var):
@@ -85,10 +85,10 @@ function debug2($var,$metodos = true, $visualizacao = false){
 			}
 			echo '</tr></table></td></tr></table>';
 		break;
-		case is_resource($var): 
+		case is_resource($var):
 			echo '<font class=tipoPrimario >(resource)</font> = '.$var;
 		break;
-		case is_null($var): 
+		case is_null($var):
 			echo '<font class=tipoPrimario > (null)</font> = <font class=nulo >null</font>';
 		break;
 		case true:
@@ -111,7 +111,7 @@ function debug3(objeto $var){
 		echo '</div></pre>';
 }
 /**
-* Função para debugar 
+* Função para debugar
 * @param [mixed]
 * @return [string]
 */
