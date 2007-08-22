@@ -13,7 +13,7 @@
 function debug1($var){
 	ob_start();
 	echo '<link rel="stylesheet" href=".calixto/estilos/debug.css" />';
-	echo '<div class=debug><pre>';
+	echo '<div class="debug"><pre>';
 	var_dump($var);
 	echo '</pre></div>';
 	echo ob_get_clean();
@@ -29,34 +29,36 @@ function debug2($var,$metodos = true, $visualizacao = false){
 	echo '<link rel="stylesheet" href=".calixto/estilos/debug.css" />';
 	switch(true){
 		case is_bool($var):
-			echo ($var ? '<font class=tipoPrimario >(booleano)</font> = <font class=booleano >true</font>' : '<font class=tipoPrimario>(booleano)</font> = <font class=booleano >false</font>');
+			echo ($var ? '<font class="tipoPrimario" >(booleano)</font> = <font class="booleano" >true</font>' : '<font class="tipoPrimario">(booleano)</font> = <font class="booleano">false</font>');
 		break;
 		case is_integer($var):
-			echo '<font class=tipoPrimario >(integer)</font> = <font class=numero >'.((int) $var).'</font>';
+			echo '<font class="tipoPrimario" >(integer)</font> = <font class="numero" >'.((int) $var).'</font>';
 		break;
 		case is_double($var):
-			echo '<font class=tipoPrimario >(double) = <font class=numero >'.((double) $var).'</font>';
+			echo '<font class="tipoPrimario" >(double) = <font class="numero" >'.((double) $var).'</font>';
 		break;
 		case is_float($var):
-			echo '<font class=tipoPrimario >(float) = <font class=numero >'.((float) $var).'</font>';
+			echo '<font class="tipoPrimario" >(float) = <font class="numero" >'.((float) $var).'</font>';
 		break;
 		case is_string($var):
-			echo '<font class=tipoPrimario >(string) = <font class=string >"'.((string) $var).'"</font>';
+			echo '<font class="tipoPrimario" >(string) = <font class="string" >"'.((string) $var).'"</font>';
 		break;
 		case is_array($var):
-			echo '<table border=1 class=array><tr><td><table class=itens>';
+			echo '<table border=1 class="array"><tr><td><table class="itens">';
+			echo '<tr><td><font class="tipoPrimario" >(array) #'.count($var).':</font></td></tr>';
 			foreach($var as $indice => $valor){
-				echo "<tr><td><font class=keyword>[$indice]=></font></td><td>";
+				echo "<tr><td><font class='keyword'>[{$indice}]=></font></td><td>";
 				echo debug2($valor,$metodos);
 				echo '</td></tr>';
 			}
 			echo '</tr></table></td></tr></table>';
 		break;
 		case is_object($var):
-			echo '<table border=1 class=objeto><tr><td><table class=propriedades>';
+			echo '<table border=1 class="objeto"><tr><td><table class="propriedades">';
+			echo '<tr><td><font class="tipoClasse"><b>('.get_class($var).')</b></font></td></tr>';
 			if($metodos){
 				foreach(get_class_methods($var) as $propriedade => $valor){
-					echo '<tr><td>-><font class=metodo>'.$valor.'</font>()</td></tr>';
+					echo '<tr><td>-><font class="metodo">'.$valor.'</font>()</td></tr>';
 				}
 			}
 			switch(true){
@@ -68,17 +70,7 @@ function debug2($var,$metodos = true, $visualizacao = false){
 				break;
 				default:
 					foreach(get_object_vars($var) as $propriedade => $valor){
-						switch (true){
-							case is_object($valor):
-								echo '<tr><td><font class=keyword>var <font class=tipoClasse >('.get_class($valor).')</font></font> <font class=variavel>$'.$propriedade.'</font></td><td>';
-							break;
-							case is_array($valor):
-								echo '<tr><td><font class=keyword>var <font class=tipoPrimario >(array #'.count($valor).')</font></font> <font class=variavel>$'.$propriedade.'</font></td><td>';
-							break;
-							default:
-								echo '<tr><td><font class=keyword>var </font><font class=variavel>$'.$propriedade.'</font></td><td>';
-							break;
-						}
+						echo '<tr><td><font class="keyword">var </font><font class="variavel">$'.$propriedade.'</font></td><td>';
 						echo debug2($valor,$metodos);
 						echo '</td></tr>';
 					}
@@ -86,13 +78,13 @@ function debug2($var,$metodos = true, $visualizacao = false){
 			echo '</tr></table></td></tr></table>';
 		break;
 		case is_resource($var):
-			echo '<font class=tipoPrimario >(resource)</font> = '.$var;
+			echo '<font class="tipoPrimario" >(resource)</font> = '.$var;
 		break;
 		case is_null($var):
-			echo '<font class=tipoPrimario > (null)</font> = <font class=nulo >null</font>';
+			echo '<font class="tipoPrimario" > (null)</font> = <font class="nulo" >null</font>';
 		break;
 		case true:
-			echo '<font class=tipoPrimario >(mixed)</font> = "'.$var.'"';
+			echo '<font class="tipoPrimario" >(mixed)</font> = "'.$var.'"';
 		break;
 	}
 }
@@ -103,7 +95,7 @@ function debug2($var,$metodos = true, $visualizacao = false){
 */
 function debug3(objeto $var){
 		echo '<link rel="stylesheet" href=".calixto/estilos/debug.css" />';
-		echo '<div class=debug><pre>';
+		echo '<div class="debug"><pre>';
 		ob_start();
 		Reflection::export(new ReflectionClass($var));
 		$out = ob_get_clean();
