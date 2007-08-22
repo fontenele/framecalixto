@@ -10,6 +10,8 @@ class CUtilitario_listarEntidade extends controlePadraoPesquisar{
 	* Método inicial do controle
 	*/
 	function inicial(){
+		$p = new NPessoa();
+		$ps = $p->lerTodos();
 		$d = dir(".");
 		$negocios = new colecao();
 		while (false !== ($arquivo = $d->read())) {
@@ -23,7 +25,7 @@ class CUtilitario_listarEntidade extends controlePadraoPesquisar{
 			}
 		}
 		$d->close();
-		x($negocios);
+		x($negocios,true);
 	}
 }
 ?>
