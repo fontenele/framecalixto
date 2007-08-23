@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Classe de representação de uma conexão com Banco de Dados
 * @package Infra-estrutura
@@ -25,7 +25,7 @@ class conexaoPadraoPG extends conexao{
 			throw $e;
 		}
 	}
-	
+
 	/**
 	* Cria um conversor para o Banco de Dados atual
 	* @return [conversor]
@@ -33,7 +33,7 @@ class conexaoPadraoPG extends conexao{
 	function pegarConversor(){
 		return new conversorPg();
 	}
-	
+
 	/**
 	* Inicia uma Transação no Banco de Dados
 	*/
@@ -51,7 +51,7 @@ class conexaoPadraoPG extends conexao{
 			throw $e;
 		}
 	}
-	
+
 	/**
 	* Confirma uma Transação no Banco de Dados
 	*/
@@ -69,7 +69,7 @@ class conexaoPadraoPG extends conexao{
 			throw $e;
 		}
 	}
-	
+
 	/**
 	* Desfaz uma Transação aberta no Banco de Dados
 	*/
@@ -87,7 +87,7 @@ class conexaoPadraoPG extends conexao{
 			throw $e;
 		}
 	}
-	
+
 	/**
 	* Fecha a Conexão com o Banco de Dados
 	*/
@@ -103,7 +103,7 @@ class conexaoPadraoPG extends conexao{
 			throw $e;
 		}
 	}
-	
+
 	/**
 	* Executa uma query SQL no Banco de Dados
 	* @param [st] Comando SQL a ser executado
@@ -125,10 +125,10 @@ class conexaoPadraoPG extends conexao{
 			throw $e;
 		}
 	}
-	
+
 	/**
 	* Retorna um array com o registro retornados corrente da conexão
-	* @return [array] 
+	* @return [array]
 	*/
 	function pegarRegistro(){
 		try{
