@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <internacionalizacao>
 	<entidade>
-		<nome>carro</nome>
+		<nome>Carro</nome>
 		<propriedades>
 		<propriedade nome='id'>
 			<nome>id</nome>
