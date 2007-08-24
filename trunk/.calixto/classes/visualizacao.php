@@ -7,7 +7,7 @@ include_once('externas/Smarty-2.6.13/libs/Smarty.class.php');
 */
 class visualizacao extends Smarty{
 	/**
-	* 
+	*
 	*/
 	public $_cache_include_info;
 	/**
@@ -36,7 +36,7 @@ class visualizacao extends Smarty{
 	* @param [texto] caminho da pagina
 	*/
 	function mostrar($pagina = null){
-		$this->display($pagina);
+		if( $pagina ) $this->display($pagina);
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
