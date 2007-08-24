@@ -80,6 +80,7 @@ class VEtiquetaHtml extends objeto{
 		$stEtiqueta = "<{$this->etiqueta}";
 		foreach($this->propriedades as $propriedade => $valor){
 			if(!is_array($valor)){
+				$valor = str_replace("'","&apos;",$valor);
 				$stEtiqueta .= " {$propriedade}='{$valor}' ";
 			}else{
 				$valor = implode(';',$valor);
