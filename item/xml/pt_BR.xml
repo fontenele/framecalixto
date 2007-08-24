@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <internacionalizacao>
 	<entidade>
-		<nome>item</nome>
+		<nome>Item</nome>
 		<propriedades>
 		<propriedade nome='iditem'>
 			<nome>idItem</nome>
