@@ -38,9 +38,9 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 	*/
 	function montarMenuPrograma(){
 		$link = "?c=%s";
-		$menu[$this->inter->pegarTexto('botaoNovo')] = 
+		$menu[$this->inter->pegarTexto('botaoNovo')] =
 			sprintf($link,definicaoEntidade::controle($this,'verEdicao'));
-		$menu[$this->inter->pegarTexto('botaoPesquisar')] = 
+		$menu[$this->inter->pegarTexto('botaoPesquisar')] =
 			'javascript:document.formulario.submit();';
 		return $menu;
 	}
@@ -55,7 +55,7 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 	* Método de criação da coleção a ser listada
 	* @return [colecao] coleção a ser listada
 	*/
-	public function definirColecao(){ 
+	public function definirColecao(){
 		if($this->sessao->tem('filtro')){
 			$negocio = $this->sessao->pegar('filtro');
 			return $negocio->pesquisar($this->pegarPagina());
