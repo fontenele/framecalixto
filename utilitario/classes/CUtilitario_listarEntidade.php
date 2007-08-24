@@ -5,7 +5,7 @@
 * @package Sistema
 * @subpackage Gerador
 */
-class CUtilitario_listarEntidade extends controlePadraoPesquisar{
+class CUtilitario_listarEntidade extends controlePadraoVerPesquisa{
 	/**
 	* Método inicial do controle
 	*/
@@ -19,13 +19,22 @@ class CUtilitario_listarEntidade extends controlePadraoPesquisar{
 				if(is_file($arquivo.'/classes/N'.ucfirst($arquivo).'.php')){
 					$negocio = 'N'.ucfirst($arquivo);
 					$obNegocio = new $negocio();
-					x2($obNegocio,true);
-//					$negocios->$negocio = $obNegocio->inter->pegarTitulo();
+					if( isset($obNegocio->inter) ) {
+						$negocios->$negocio = $obNegocio->inter->pegarNome();
+					}
 				}
 			}
 		}
 		$d->close();
-		x($negocios,true);
+		$this->gerarMenus();
+		$this->registrarInternacionalizacao();
+		$this->pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina'): new pagina();
+		$this->listagem = $this->criarControleListagem();
+		$this->listagem->passarPagina($this->pegarPagina());
+		$this->listagem->colecao = $negocios;
+		$this->listagem->controle = definicaoEntidade::controle($this,'mudarPagina');
+	echo $this->visualizacao->listagem = $this->listagem;
+		$this->visualizacao->mostrar('');
 	}
 }
 ?>
