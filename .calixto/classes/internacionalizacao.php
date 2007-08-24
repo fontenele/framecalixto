@@ -98,38 +98,38 @@ class internacionalizacao extends objeto{
 	}
 	/**
 	* Método que retorna o nome da entidade
-	* @return [string] nome da entidade internacionalizada 
+	* @return [string] nome da entidade internacionalizada
 	*/
-	public function pegarNome($identificador){
+	public function pegarNome(){
 		$estrutura = $this->pegarInternacionalizacao();
-		if(isset($estrutura['nome'])) 
+		if(isset($estrutura['nome']))
 		return $estrutura['nome'];
 	}
 	/**
 	* Método que retorna o título de apresentação da entidade
-	* @return [string] título de apresentação da entidade internacionalizada 
+	* @return [string] título de apresentação da entidade internacionalizada
 	*/
 	public function pegarTituloSistema(){
 		$estrutura = $this->pegarInternacionalizacao();
-		if(isset($estrutura['tituloSistema'])) 
+		if(isset($estrutura['tituloSistema']))
 		return $estrutura['tituloSistema'];
 	}
 	/**
 	* Método que retorna o título de apresentação da entidade
-	* @return [string] título de apresentação da entidade internacionalizada 
+	* @return [string] título de apresentação da entidade internacionalizada
 	*/
 	public function pegarSubtituloSistema(){
 		$estrutura = $this->pegarInternacionalizacao();
-		if(isset($estrutura['subtituloSistema'])) 
+		if(isset($estrutura['subtituloSistema']))
 		return $estrutura['subtituloSistema'];
 	}
 	/**
 	* Método que retorna o título de apresentação da entidade
-	* @return [string] título de apresentação da entidade internacionalizada 
+	* @return [string] título de apresentação da entidade internacionalizada
 	*/
 	public function pegarTitulo(){
 		$estrutura = $this->pegarInternacionalizacao();
-		if(isset($estrutura['titulo'])) 
+		if(isset($estrutura['titulo']))
 		return $estrutura['titulo'];
 	}
 	/**
@@ -140,7 +140,7 @@ class internacionalizacao extends objeto{
 	*/
 	public function pegarPropriedade($propriedade,$tipo = 'nome'){
 		$estrutura = $this->pegarInternacionalizacao();
-		if(isset($estrutura['propriedade'][$propriedade][$tipo])) 
+		if(isset($estrutura['propriedade'][$propriedade][$tipo]))
 		return $estrutura['propriedade'][$propriedade][$tipo];
 	}
 	/**
@@ -151,27 +151,27 @@ class internacionalizacao extends objeto{
 	*/
 	public function pegarOpcao($propriedade,$indice){
 		$estrutura = $this->pegarInternacionalizacao();
-		if(isset($estrutura['propriedade'][$propriedade]['dominio'][$indice])) 
+		if(isset($estrutura['propriedade'][$propriedade]['dominio'][$indice]))
 		return $estrutura['propriedade'][$propriedade]['dominio'][$indice];
 	}
 	/**
 	* Método que retorna o valor de um texto
 	* @param [string] Identificador do texto
-	* @return [string] texto internacionalizado 
+	* @return [string] texto internacionalizado
 	*/
 	public function pegarTexto($identificador){
 		$estrutura = $this->pegarInternacionalizacao();
-		if(isset($estrutura['texto'][$identificador])) 
+		if(isset($estrutura['texto'][$identificador]))
 		return $estrutura['texto'][$identificador];
 	}
 	/**
 	* Método que retorna o valor de uma mensagem
 	* @param [string] Identificador da mensagem
-	* @return [string] mensagem internacionalizada 
+	* @return [string] mensagem internacionalizada
 	*/
 	public function pegarMensagem($identificador){
 		$estrutura = $this->pegarInternacionalizacao();
-		if(isset($estrutura['mensagem'][$identificador])) 
+		if(isset($estrutura['mensagem'][$identificador]))
 		return $estrutura['mensagem'][$identificador];
 	}
 }
