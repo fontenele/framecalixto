@@ -1,6 +1,6 @@
 <?php
 /**
-* Classe de definição da camada de controle 
+* Classe de definição da camada de controle
 * Formação especialista para montar a listagem de uma coleção de objetos de negocio
 * @package Infra-estrutura
 * @subpackage Controle
@@ -43,7 +43,7 @@ class controlePadraoListagem extends controlePadrao{
 	* Método de validação do controle de acesso
 	* @return [booleano] resultado da validação
 	*/
-	public function validarAcessoAoControle(){ 
+	public function validarAcessoAoControle(){
 		return true;
 	}
 	/**
@@ -135,7 +135,7 @@ class controlePadraoListagem extends controlePadrao{
 							'titulo'			=> $this->inter->pegarPropriedade(caracteres($propriedade['id']),'abreviacao'),
 							'hyperlink'			=> caracteres($propriedade->apresentacao->listagem['hyperlink']	),
 							'tamanho'			=> caracteres($propriedade->apresentacao->listagem['tamanho']	),
-							'ordem'				=> caracteres($propriedade->apresentacao->listagem['ordem']	), 
+							'ordem'				=> caracteres($propriedade->apresentacao->listagem['ordem']	),
 							'campoPersonalizado'=> caracteres($propriedade->apresentacao->listagem['campoPersonalizado']	),
 							'dominio'			=> $arValores,
 							'classeAssociativa'	=> caracteres($propriedade['classeAssociativa']		),
