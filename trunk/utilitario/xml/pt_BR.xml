@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding="utf-8" ?>
 <internacionalizacao>
+	<nome>Utilitario</nome>
 	<controles>
 		<titulo>Gerador de cadastros</titulo>
 		<textos>
