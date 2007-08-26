@@ -48,3 +48,7 @@ button{
 	display		: block;
 	text-decoration: none;
 }
+.lista ul{
+	list-style-type: square;
+	padding-left: 30px;
+}
