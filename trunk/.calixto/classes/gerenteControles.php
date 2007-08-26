@@ -43,7 +43,10 @@ class gerenteControles extends objeto{
 			$this->redirecionar(sprintf('?c=%s',definicaoSistema::pegarControleErro()));
 		}
 		catch (erro $e){
-			throw $e;
+			echo $e->__toHtml();
+		}
+		catch (Exception $e){
+			echo $e;
 		}
 	}
 	/**

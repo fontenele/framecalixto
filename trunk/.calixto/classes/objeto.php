@@ -40,7 +40,7 @@ abstract class objeto{
 	* Método de sobrecarga para printar a classe
 	* @return [string] texto de saída da classe
 	*/
-	protected function __toString(){
+	public function __toString(){
 		debug2($this);
 		return '';
 	}
