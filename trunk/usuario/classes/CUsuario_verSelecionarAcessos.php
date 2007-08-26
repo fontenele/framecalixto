@@ -35,7 +35,10 @@ class CUsuario_verSelecionarAcessos extends CUsuario_verEdicao{
 				if($arControle[0] != $entidadeControle ){
 					$entidadeControle = $arControle[0];
 					$entidade = definicaoEntidade::entidade($controle).'<br/>';
-					$listagem.= "\t\t\t<tr><td colspan='3' ><input type='checkbox' onclick='javascript:marcar(this.checked,\"{$arControle[0]}\");' />&nbsp;$entidade</td></tr>\n";
+					$listagem.= "\t\t\t<tr><td colspan='3' >
+					<img alt='marcar' src='usuario/imagens/marcar.png' onclick='javascript:marcar(true,\"{$arControle[0]}\");' />
+					<img alt='desmarcar' src='usuario/imagens/desmarcar.png' onclick='javascript:marcar(false,\"{$arControle[0]}\");' />
+					&nbsp;<b>$entidade</b></td></tr>\n";
 				}
 				$vCheckBox = VComponente::montar('checkbox','controle[]',$controle);
 				if(isset($controlesUsuario[$controle])) $vCheckBox->passarChecked();
