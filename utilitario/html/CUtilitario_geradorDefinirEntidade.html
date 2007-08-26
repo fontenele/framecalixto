@@ -135,31 +135,34 @@ function campoVazio(componente,texto){
 		return false;
 	}
 }
+function $(elementId){
+	return document.getElementById(elementId);
+}
 function ini(tipo){return document.createElement(tipo);}
 function set(componente,atributo,valor){componente.setAttribute(atributo,valor);}
 function rem(componente){componente.parentNode.removeChild(componente);}
 function criarAbas(){
         t = new Bs_TabSet('tabset');
-        t.addTab('Entidade', document.getElementById('definicaoEntidade'));
-        t.addTab('Negócio', document.getElementById('definicaoNegocio'));
-        t.addTab('Persistente', document.getElementById('definicaoPersistente'));
-        t.addTab('Visualização', document.getElementById('definicaoVisualizacao'));
+        t.addTab('Entidade',	$('definicaoEntidade'));
+        t.addTab('Negócio',		$('definicaoNegocio'));
+        t.addTab('Persistente',	$('definicaoPersistente'));
+        t.addTab('Visualização',$('definicaoVisualizacao'));
         t.draw();
 }
 function novoInput(nome){
-	componente = document.createElement('input');
-	set(componente,'name',nome);
-	set(componente,'id',nome);
-	set(componente,'type','text');
-	set(componente,'tabindex','1');
-	return componente;
+	e = document.createElement('input');
+	set(e,'name',nome);
+	set(e,'id',nome);
+	set(e,'type','text');
+	set(e,'tabindex','1');
+	return e;
 }
 function novoSelect(nome){
-	componente = document.createElement('select');
-	set(componente,'name',nome);
-	set(componente,'id',nome);
-	set(componente,'tabindex','1');
-	return componente;
+	e = document.createElement('select');
+	set(e,'name',nome);
+	set(e,'id',nome);
+	set(e,'tabindex','1');
+	return e;
 }
 function novoOption(componente, valor, texto){
 	opcao = ini('option');
@@ -168,11 +171,11 @@ function novoOption(componente, valor, texto){
 	componente.appendChild(opcao);
 }
 function alterarPropriedade(componente){
-	var colunaNegocio = document.getElementById('indice_ng_' + componente.name);
+	var colunaNegocio = $('indice_ng_' + componente.name);
 	colunaNegocio.innerHTML = componente.value;
-	var colunaNegocio = document.getElementById('indice_bd_' + componente.name);
+	var colunaNegocio = $('indice_bd_' + componente.name);
 	colunaNegocio.innerHTML = componente.value;
-	var colunaNegocio = document.getElementById('indice_vi_' + componente.name);
+	var colunaNegocio = $('indice_vi_' + componente.name);
 	colunaNegocio.innerHTML = componente.value;
 	sugerirNomePersistente(componente);
 	sugerirNomeNegocio(componente);
@@ -183,7 +186,7 @@ function sugerirNomePersistente(componente){
 	for(i in arNome){
 		nome += '_' + arNome[i]
 	}
-	campo = document.getElementById('bd_campo' + componente.name.substr(7,componente.name.length));
+	campo = $('bd_campo' + componente.name.substr(7,componente.name.length));
 	campo.value = d.entidade.value.substr(0,4) + '_' + nome.substr(1,nome.length);
 }
 function sugerirNomeNegocio(componente){
@@ -197,15 +200,15 @@ function sugerirNomeNegocio(componente){
 		}
 		nome += ucfirst + arNome[i].substr(1,arNome[i].length);
 	}
-	campo = document.getElementById('ng_nome' + componente.name.substr(7,componente.name.length));
+	campo = $('ng_nome' + componente.name.substr(7,componente.name.length));
 	campo.value = nome;
 }
 function alterarFK(componente){
 	var item = componente.name.substr(5,componente.name.length);
-	tabela = document.getElementById('bd_referencia_tabela' + item);
-	campo = document.getElementById('bd_referencia_campo' + item);
-	classe = document.getElementById('ng_associativa' + item);
-	metodo = document.getElementById('ng_metodo' + item);
+	tabela	= $('bd_referencia_tabela' + item);
+	campo	= $('bd_referencia_campo' + item);
+	classe	= $('ng_associativa' + item);
+	metodo	= $('ng_metodo' + item);
 	if(componente.checked){
 		tabela.setAttribute('type','text');
 		campo.setAttribute('type','text');
@@ -219,19 +222,19 @@ function alterarFK(componente){
 	}
 }
 function alterarPK(componente){
-	tipoDado = document.getElementById('ng_tipo[' + componente.value + ']');
+	tipoDado = $('ng_tipo[' + componente.value + ']');
 	tipoDado.value = 'numerico';
 }
 function removerAtributo(atributo){
-	rem(document.getElementById('en_linha_' + atributo));
-	rem(document.getElementById('ng_linha_' + atributo));
-	rem(document.getElementById('bd_linha_' + atributo));
-	rem(document.getElementById('vi_linha_' + atributo));
+	rem($('en_linha_' + atributo));
+	rem($('ng_linha_' + atributo));
+	rem($('bd_linha_' + atributo));
+	rem($('vi_linha_' + atributo));
 }
 function adicionar(){
 	indice++;
 	// ENTIDADE
-	var en_campos = document.getElementById('en_campos');
+	var en_campos = $('en_campos');
 		linha = ini('tr');
 		set(linha,'id','en_linha_' + indice);
 		// Nome
@@ -257,7 +260,7 @@ function adicionar(){
 		linha.appendChild(col);
 	en_campos.appendChild(linha);
 	// NEGOCIO
-	var ng_campos = document.getElementById('ng_campos');
+	var ng_campos = $('ng_campos');
 		linha = ini('tr');
 		set(linha,'id','ng_linha_' + indice);
 		// indice
@@ -334,7 +337,7 @@ function adicionar(){
 		linha.appendChild(col);
 	ng_campos.appendChild(linha);
 	// PERSISTENTE
-	var bd_campos = document.getElementById('bd_campos');
+	var bd_campos = $('bd_campos');
 		linha = ini('tr');
 		set(linha,'id','bd_linha_' + indice);
 		// indice
@@ -365,7 +368,7 @@ function adicionar(){
 		linha.appendChild(col);
 	bd_campos.appendChild(linha);
 	// VISUALIZACAO
-	var vi_campos = document.getElementById('vi_campos');
+	var vi_campos = $('vi_campos');
 		linha = ini('tr');
 		set(linha,'id','vi_linha_' + indice);
 		// indice

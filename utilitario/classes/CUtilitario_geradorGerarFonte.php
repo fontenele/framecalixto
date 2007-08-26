@@ -24,9 +24,10 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->nomeEntidade = implode('',$arNome);
 		$this->nomeNegocio = 'N'.ucFirst(implode('',$arNome));
 		$this->nomeTabela = str_replace(' ','_',strtolower($this->entidade['entidade']));
-		exec("mkdir -p {$this->nomeEntidade}/classes");
-		exec("mkdir -p {$this->nomeEntidade}/xml");
-		exec("mkdir -p {$this->nomeEntidade}/html");
+		mkdir($this->nomeEntidade,0777);
+		mkdir("{$this->nomeEntidade}/classes",0777);
+		mkdir("{$this->nomeEntidade}/xml",0777);
+		mkdir("{$this->nomeEntidade}/html",0777);
 		$this->visualizacao->classe = 'class';
 		$this->montarArquivoDefinicaoXML();
 		$this->montarArquivoInternacionalizacaoXML();
@@ -41,7 +42,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->montarControleVerPesquisa();
 		$this->montarTemplateVerEdicao();
 		$this->montarTemplateVerPesquisa();
-		exec("chmod -R 777 {$this->nomeEntidade}");
 		if(isset($this->entidade['recriarBase'])){
 			$persistente = definicaoEntidade::persistente($this->nomeNegocio);
 			$conexao = conexao::criar();

@@ -26,6 +26,7 @@ class CUtilitario_listarEntidade extends controlePadraoVerPesquisa{
 			}
 		}
 		$d->close();
+		asort($negocios->itens);
 		$this->gerarMenus();
 		$this->registrarInternacionalizacao();
 		$this->visualizacao->listagem = $negocios->itens;
@@ -36,8 +37,9 @@ class CUtilitario_listarEntidade extends controlePadraoVerPesquisa{
 	* @return [array] itens do menu do programa
 	*/
 	function montarMenuPrograma(){
-		$menu = parent::montarMenuPrograma();
-		unset($menu[$this->inter->pegarTexto('botaoPesquisar')]);
+		$link = "?c=%s";
+		$menu[$this->inter->pegarTexto('botaoNovo')] =
+			sprintf($link,definicaoEntidade::controle($this,'geradorDefinirEntidade'));
 		return $menu;
 	}
 }

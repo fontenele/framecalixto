@@ -25,7 +25,6 @@ class CUsuario_verSelecionarAcessos extends CUsuario_verEdicao{
 		    }
 		}
 		$sistema->close();
-		//$controlesSistema = explode("\n",shell_exec('find ./*/classes/C*.php'));
 		$entidadeControle = '';
 		$listagem = '';
 		foreach($controlesSistema as $controle){
