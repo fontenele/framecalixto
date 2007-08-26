@@ -37,7 +37,7 @@ class NControleMenu extends negocio{
 			$menu['Cadastros']['Atividades'] = '?c=CAtividade_verPesquisa';
 			$menu['Cadastros']['Itens'] = '?c=CItem_verPesquisa';
 			$menu['Movimento']['Tarefas do Usuário'] = '?c=CTarefa_verTarefasDoUsuario';
-			$menu['Apoio']['Gerador'] = '?c=CUtilitario_geradorDefinirEntidade';
+			$menu['Apoio']['Gerador'] = '?c=CUtilitario_listarEntidade';
 			$menu['Apoio']['Atualizador de Base'] = '?c=CUtilitario_atualizadorBase';
 			return $menu;
 		}
