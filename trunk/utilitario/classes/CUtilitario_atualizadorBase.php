@@ -10,18 +10,26 @@ class CUtilitario_atualizadorBase extends controlePadrao{
 	* Método inicial do controle
 	*/
 	function inicial(){
- 		$persistentes[] = 'PPessoa';
- 		$persistentes[] = 'PUsuario';
- 		$persistentes[] = 'PTarefa';
- 		$persistentes[] = 'PAtividade';
- 		$persistentes[] = 'PItem';
-		$persistentes[] = 'PAcessoDoUsuario';
 		$c = conexao::criar();
+		$persistentes = $this->classes();
 		foreach($persistentes as $persistente){
 			$persistente = new $persistente($c);
 			$persistente->recriar();
 		}
 		$c->fechar();
 	}
+	/**
+	* Método de geração das classes e ordem a serem recriadas
+	*/
+	function classes(){
+ 		$classes[] = 'PPessoa';
+ 		$classes[] = 'PUsuario';
+ 		$classes[] = 'PTarefa';
+ 		$classes[] = 'PAtividade';
+ 		$classes[] = 'PItem';
+		$classes[] = 'PAcessoDoUsuario';
+		return $classes;
+	}
+
 }
 ?>
