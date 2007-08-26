@@ -20,7 +20,7 @@ class CUtilitario_listarEntidade extends controlePadraoVerPesquisa{
 					$negocio = 'N'.ucfirst($arquivo);
 					$obNegocio = new $negocio();
 					if( isset($obNegocio->inter) ) {
-						$negocios->$negocio = $obNegocio->inter->pegarNome();
+						$negocios->$arquivo = $obNegocio->inter->pegarNome();
 					}
 				}
 			}
@@ -28,13 +28,17 @@ class CUtilitario_listarEntidade extends controlePadraoVerPesquisa{
 		$d->close();
 		$this->gerarMenus();
 		$this->registrarInternacionalizacao();
-		$this->pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina'): new pagina();
-		$this->listagem = $this->criarControleListagem();
-		$this->listagem->passarPagina($this->pegarPagina());
-		$this->listagem->colecao = $negocios;
-		$this->listagem->controle = definicaoEntidade::controle($this,'mudarPagina');
-	echo $this->visualizacao->listagem = $this->listagem;
+		$this->visualizacao->listagem = $negocios->itens;
 		$this->visualizacao->mostrar('');
+	}
+	/**
+	* Retorna um array com os itens do menu do programa
+	* @return [array] itens do menu do programa
+	*/
+	function montarMenuPrograma(){
+		$menu = parent::montarMenuPrograma();
+		unset($menu[$this->inter->pegarTexto('botaoPesquisar')]);
+		return $menu;
 	}
 }
 ?>
