@@ -74,7 +74,19 @@ function __autoload($stClasse){
 			break;
 		}
 	}catch (Exception $e) {
-		ECHO $e->__toString();
+			$debug = debug_backtrace();
+			echo "
+			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
+			<div class='erroNegro'>
+				<table class='erroNegro'>
+					<tr><th colspan=2 >Tentativa de instanciar uma classe inexistente!</th></tr>
+					<tr><td>Classe:</td><td><font size='6px'>{$stClasse} ???</font></td></tr>
+					<tr><td>Arquivo:</td><td>{$debug[0]['file']}</td></tr>
+					<tr><td>Linha:</td><td>{$debug[0]['line']}</td></tr>
+				</table>
+			</div>
+			";
+			die();
 	}
 }
 
