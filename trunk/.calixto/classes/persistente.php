@@ -114,7 +114,8 @@ abstract class persistente extends objeto{
 	*/
 	public final function pegarConexao(){
 		try{
-			if(is_subclass_of($this->conexao,'conexao')){
+			if($this->conexao instanceof conexao){
+//				if(!is_resource($this->conexao->conexao)) x(debug_backtrace());
 				return  $this->conexao;
 			}else{
 				return conexao::criar();

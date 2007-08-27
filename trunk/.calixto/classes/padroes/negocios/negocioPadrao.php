@@ -248,7 +248,7 @@ abstract class negocioPadrao extends negocio{
 			$mapeador = $this->pegarMapeamento();
 			$variaveisClasse = array_keys(get_class_vars(get_class($this)));
 			foreach($mapeador as $valor){
-				// Testa campos obrigatï¿½ios
+				// Testa campos obrigatórios
 				if(($valor['propriedade'] != $this->nomeChave()) && ($valor['obrigatorio'] == 'sim') && in_array($valor['propriedade'], $variaveisClasse)){
 					$metodo = "pegar{$valor['propriedade']}";
 					if($this->$metodo() == null){

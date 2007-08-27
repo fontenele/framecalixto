@@ -19,7 +19,7 @@ class conexaoPadraoPG extends conexao{
 			$this->conexao = pg_connect($stConexao);
 			$this->executarComando("SET DATESTYLE TO German;");
 			$this->executarComando("SET CLIENT_ENCODING TO UTF8;");
-			if( !$this->conexao ) throw new erroBanco( 'erro na conexão com banco de dados' );
+			if( !is_resource($this->conexao) ) throw new erroBanco( 'erro na conexão com banco de dados' );
 		}
 		catch(erroBanco $e){
 			throw $e;
@@ -39,7 +39,7 @@ class conexaoPadraoPG extends conexao{
 	*/
 	function iniciarTransacao(){
 		try{
-			if( !$this->conexao ) throw new erroBanco( 'conexão com banco de dados não iniciada' );
+			if( !is_resource($this->conexao) ) throw new erroBanco( 'conexão com banco de dados não iniciada' );
 			$this->autoCommit = false;
 			pg_query($this->conexao, 'begin');
 			$sterro = pg_last_error($this->conexao);
@@ -57,7 +57,7 @@ class conexaoPadraoPG extends conexao{
 	*/
 	function validarTransacao(){
 		try{
-			if( !$this->conexao ) throw new erroBanco( 'conexão com banco de dados não iniciada' );
+			if( !is_resource($this->conexao) ) throw new erroBanco( 'conexão com banco de dados não iniciada' );
 			$this->autoCommit = false;
 			pg_query($this->conexao, 'commit');
 			$sterro = pg_last_error($this->conexao);
@@ -75,7 +75,7 @@ class conexaoPadraoPG extends conexao{
 	*/
 	function desfazerTransacao(){
 		try{
-			if( !$this->conexao ) throw new erroBanco( 'conexão com banco de dados não iniciada' );
+			if( !is_resource($this->conexao) ) throw new erroBanco( 'conexão com banco de dados não iniciada' );
 			$this->autoCommit = false;
 			pg_query($this->conexao, 'rollback');
 			$sterro = pg_last_error($this->conexao);
@@ -111,7 +111,11 @@ class conexaoPadraoPG extends conexao{
 	*/
 	function executarComando($sql){
 		try{
-			if( !$this->conexao ) throw new erroBanco( 'conexão com banco de dados não iniciada' );
+			if( !is_resource($this->conexao) ) {
+				$erro = new erroBanco( 'conexão com banco de dados não iniciada' );
+				$erro->comando = $sql;
+				throw $erro;
+			}
 			$this->cursor = @ pg_query($this->conexao,stripslashes($sql));
 			$sterro = pg_last_error($this->conexao);
 			if (!empty($sterro)) {
@@ -132,7 +136,7 @@ class conexaoPadraoPG extends conexao{
 	*/
 	function pegarRegistro(){
 		try{
-			if( !$this->conexao ) throw new erroBanco( 'conexão com banco de dados não iniciada' );
+			if( !is_resource($this->conexao) ) throw new erroBanco( 'conexão com banco de dados não iniciada' );
 			if ($arRes = pg_fetch_array ($this->cursor,NULL,PGSQL_ASSOC)) {
 				foreach($arRes as $stNomeCampo => $stConteudoCampo) {
 					$arTupla[strtolower($stNomeCampo)] = $stConteudoCampo;
