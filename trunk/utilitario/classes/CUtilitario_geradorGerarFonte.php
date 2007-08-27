@@ -28,7 +28,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		mkdir("{$this->nomeEntidade}/classes",0777);
 		mkdir("{$this->nomeEntidade}/xml",0777);
 		mkdir("{$this->nomeEntidade}/html",0777);
-		umask(0000);
+		umask(0111);
 		$this->visualizacao->classe = 'class';
 		$this->montarArquivoDefinicaoXML();
 		$this->montarArquivoInternacionalizacaoXML();
@@ -43,6 +43,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->montarControleVerPesquisa();
 		$this->montarTemplateVerEdicao();
 		$this->montarTemplateVerPesquisa();
+		exec("chmod -R 777 {$this->nomeEntidade}");
 		if(isset($this->entidade['recriarBase'])){
 			$persistente = definicaoEntidade::persistente($this->nomeNegocio);
 			$conexao = conexao::criar();
