@@ -30,7 +30,7 @@ abstract class negocio extends objeto{
 	*/
 	final function pegarConexao(){
 		try{
-			if(is_subclass_of($this->conexao,'conexao')){
+			if($this->conexao instanceof conexao){
 				return  $this->conexao;
 			}else{
 				return conexao::criar();
