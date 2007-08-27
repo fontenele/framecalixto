@@ -249,6 +249,7 @@ class NTarefa extends negocioPadrao{
 			}
 			if($negocio->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarTarefaFechada'));
 			if($this->pegarNrPercentual() == '100') $this->fechar();
+			$this->fecharConexao($conexao);
 		}
 		catch(Erro $e){
 			throw $e;
