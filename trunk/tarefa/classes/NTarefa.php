@@ -1,6 +1,6 @@
 <?php
 /**
-* Classe de representação de uma camada de negócio da entidade 
+* Classe de representação de uma camada de negócio da entidade
 * A camada de negócio é a parte que engloba as regras e efetua os comandos de execução de um sistema
 * @package Sistema
 * @subpackage tarefa
@@ -99,7 +99,7 @@ class NTarefa extends negocioPadrao{
 	}
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string] 
+	* @return [string]
 	*/
 	function nomeChave(){ return 'idTarefa'; }
 	/**
@@ -221,14 +221,12 @@ class NTarefa extends negocioPadrao{
 	public function verificarAntesInserir(){
 		try{
 			parent::verificarAntesInserir();
-			$conexao = $this->pegarConexao();
 			if($this->pegarIdTarefaPai()){
-				$nTarefa = new NTarefa($conexao);
+				$nTarefa = new NTarefa($this->conexao);
 				$nTarefa->ler($this->pegarIdTarefaPai());
 				if($nTarefa->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarTarefaFechada'));
 			}
 			if($this->pegarNrPercentual() == '100') $this->fechar();
-			$this->fecharConexao($conexao);
 		}
 		catch(Erro $e){
 			throw $e;
@@ -241,15 +239,13 @@ class NTarefa extends negocioPadrao{
 	public function verificarAntesAlterar($negocio){
 		try{
 			parent::verificarAntesAlterar($negocio);
-			$conexao = $this->pegarConexao();
 			if($this->pegarIdTarefaPai()){
-				$nTarefa = new NTarefa($conexao);
+				$nTarefa = new NTarefa($this->conexao);
 				$nTarefa->ler($this->pegarIdTarefaPai());
 				if($nTarefa->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarTarefaFechada'));
 			}
 			if($negocio->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarTarefaFechada'));
 			if($this->pegarNrPercentual() == '100') $this->fechar();
-			$this->fecharConexao($conexao);
 		}
 		catch(Erro $e){
 			throw $e;
@@ -262,7 +258,7 @@ class NTarefa extends negocioPadrao{
 		try{
 			$conexao = $this->pegarConexao();
 			$this->carregarAtividadesExecucao();
-			if(!$this->coAtividades->contarItens()) 
+			if(!$this->coAtividades->contarItens())
 			throw new erroNegocio(sprintf($this->inter->pegarMensagem('impossivelFecharTarefaSemAtividade'),$this->valorDescricao()));
 			while($nAtividade = $this->coAtividades->avancar()){
 				if(!$nAtividade->encerrada()) {

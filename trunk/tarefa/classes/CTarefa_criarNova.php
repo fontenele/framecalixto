@@ -1,16 +1,16 @@
 <?php
 /**
 * Classe de controle
-* Executa o encaminhamento de um objeto : Tarefa
+* Executa a criação de um objeto : Tarefa
 * @package Sistema
 * @subpackage tarefa
 */
-class CTarefa_encaminhar extends controlePadrao{
+class CTarefa_criarNova extends controlePadrao{
 	/**
 	* Método inicial do controle
 	*/
 	public function inicial(){
-		$this->passarProximoControle(definicaoEntidade::controle($this,'verEdicao'));
+/*		$this->passarProximoControle(definicaoEntidade::controle($this,'verEdicao'));
 		$nTarefa = new NTarefa();
 		$nTarefa->ler($_POST['idTarefa']);
 		$nUsuario = new Usuario();
@@ -23,7 +23,7 @@ class CTarefa_encaminhar extends controlePadrao{
 			$negocioSessao = $this->sessao->pegar('negocio');
 			if(!$negocioSessao->valorChave()) $this->sessao->retirar('negocio');
 		}
-		$this->registrarComunicacao($this->inter->pegarMensagem('gravarSucesso'));
+		$this->registrarComunicacao($this->inter->pegarMensagem('gravarSucesso'));*/
 	}
 }
 ?>
