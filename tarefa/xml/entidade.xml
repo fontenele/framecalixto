@@ -62,31 +62,31 @@
 		<propriedade id='dsTarefa' tipo='texto' tamanho='600' obrigatorio='sim' descritivo='2'  >
 			<banco nome='Tare_ds_tarefa'  />
 			<apresentacao componente='caixa de texto' >
-				<listagem ordem='3' tamanho='30%' />
+				<listagem ordem='3' tamanho='25%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='dtInicioPrevisto' tipo='data' obrigatorio='sim'  >
 			<banco nome='Tare_dt_inicio_previsto' ordem='2'  />
 			<apresentacao componente='data e hora' >
-				<listagem ordem='4' tamanho='5%' />
+				<listagem ordem='4' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='dtFimPrevisto' tipo='data' obrigatorio='sim'  >
 			<banco nome='Tare_dt_fim_previsto'  />
 			<apresentacao componente='data e hora' >
-				<listagem ordem='5' tamanho='5%' />
+				<listagem ordem='5' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='dtInicio' tipo='data'  >
 			<banco nome='Tare_dt_inicio'  />
 			<apresentacao componente='data e hora' >
-				<listagem ordem='6' tamanho='5%' />
+				<listagem ordem='6' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='dtFim' tipo='data'  >
 			<banco nome='Tare_dt_fim'  />
 			<apresentacao componente='data e hora' >
-				<listagem ordem='7' tamanho='5%' />
+				<listagem ordem='7' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='csStatus' tipo='texto' tamanho='1' obrigatorio='sim' >
