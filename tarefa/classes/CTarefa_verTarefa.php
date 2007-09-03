@@ -34,27 +34,42 @@ class CTarefa_verTarefa extends controlePadrao{
 		$arUsuarios = $this->montarVetorDescritivo('NUsuario','lerTodos');
 		$icone = new VEtiquetaHtml('img');
 		switch(true){
-			case $negocio->pegarCsStatus()== 'F'  :
-				$this->visualizacao->cssDescricao = 'descricaoFechada';
-			break;
 			case $negocio->pegarCsTipoTarefa()== 1:
 				$this->visualizacao->cssDescricao = 'descricaoAdministrativa';
 				$icone->passarAlt('Administrativa');
-				$icone->passarSrc('tarefa/imagens/background_software.png');
+				$icone->passarSrc('tarefa/imagens/icone_administrativa.png');
 				$this->visualizacao->icone = $icone;
 			break;
 			case $negocio->pegarCsTipoTarefa()== 2:
 				$this->visualizacao->cssDescricao = 'descricaoHardware';
+				$icone->passarAlt('Hardware');
+				$icone->passarSrc('tarefa/imagens/icone_hardware.png');
+				$this->visualizacao->icone = $icone;
 			break;
 			case $negocio->pegarCsTipoTarefa()== 3:
 				 $this->visualizacao->cssDescricao = 'descricaoSoftware';
-				$icone->passarAlt('Administrativa');
-				$icone->passarSrc('tarefa/imagens/background_software.png');
+				$icone->passarAlt('Software');
+				$icone->passarSrc('tarefa/imagens/icone_software.png');
 				$this->visualizacao->icone = $icone;
 			break;
 			case $negocio->pegarCsTipoTarefa()== 4:
 				 $this->visualizacao->cssDescricao = 'descricaoRede';
+				$icone->passarAlt('Rede');
+				$icone->passarSrc('tarefa/imagens/icone_network.png');
+				$this->visualizacao->icone = $icone;
 			break;
+		}
+		$status = new VEtiquetaHtml('img');
+		switch(true){
+			case $negocio->pegarCsStatus()  == 'F':
+				$status->passarAlt('Fechada');
+				$status->passarSrc('tarefa/imagens/atividade_executado.png')		;
+				$this->visualizacao->iconeStatus = $status;
+			break;
+			default:
+				$status->passarAlt('Aberta');
+				$status->passarSrc('tarefa/imagens/atividade_execucao.png');
+				$this->visualizacao->iconeStatus = $status;
 		}
 		$nUsuario = sessaoSistema::pegar('usuario');
 		switch(true){
