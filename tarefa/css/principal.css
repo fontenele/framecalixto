@@ -7,21 +7,21 @@
 }
 .descricaoHardware{
 	margin: 15px;
-	background-color: #af9cde;
+	background-color: #9cdebd;
 	border		: 1px solid #069;
 	margin-bottom: 10px;
 	padding-bottom: 20px;
 }
 .descricaoSoftware{
 	margin: 15px;
-	background-color: #dec99c;
+	background: #FFFFFF;
 	border		: 1px solid #069;
 	margin-bottom: 10px;
 	padding-bottom: 20px;
 }
 .descricaoRede{
 	margin: 15px;
-	background-color: #9cdebd;
+	background-color: #f0f1c6;
 	border		: 1px solid #069;
 	margin-bottom: 10px;
 	padding-bottom: 20px;
