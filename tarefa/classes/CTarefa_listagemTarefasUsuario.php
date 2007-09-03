@@ -1,6 +1,6 @@
 <?php
 /**
-* Classe de definição da camada de controle 
+* Classe de definição da camada de controle
 * Formação especialista para montar a listagem de uma coleção de objetos de negocio
 * @package Sistema
 * @subpackage tarefa
@@ -15,7 +15,7 @@ class CTarefa_listagemTarefasUsuario extends CTarefa_listagem{
 	}
 	/**
 	* Método personalização de coluna
-	* @param [negocio] 
+	* @param [negocio]
 	*/
 	function ultimoEncaminhamento(NTarefa $negocio){
 		$nAtividade = new NAtividade();
@@ -26,7 +26,7 @@ class CTarefa_listagemTarefasUsuario extends CTarefa_listagem{
 	* Método de abertura da linha da listagem
 	* @param [mixed] item a ser apresentado na listagem
 	* @param [numerico] número da linha a ser apresentada
-	*
+	*/
 	public function abrirLinha($negocio,$nrLinha){
 		switch(true){
 			case $negocio->pegarCsStatus()  == 'F': $css = 'descricaoFechada'		;break;
@@ -42,6 +42,6 @@ class CTarefa_listagemTarefasUsuario extends CTarefa_listagem{
 				}
 		}
 		return "\t<tr class='{$css}'>\n";
-	}*/
+	}
 }
 ?>

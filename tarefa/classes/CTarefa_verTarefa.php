@@ -32,12 +32,29 @@ class CTarefa_verTarefa extends controlePadrao{
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		$arPessoas = $this->montarVetorDescritivo('NPessoa','lerTodos');
 		$arUsuarios = $this->montarVetorDescritivo('NUsuario','lerTodos');
+		$icone = new VEtiquetaHtml('img');
 		switch(true){
-			case $negocio->pegarCsStatus()== 'F'  : $this->visualizacao->cssDescricao = 'descricaoFechada'			;break;
-			case $negocio->pegarCsTipoTarefa()== 1: $this->visualizacao->cssDescricao = 'descricaoAdministrativa'	;break;
-			case $negocio->pegarCsTipoTarefa()== 2: $this->visualizacao->cssDescricao = 'descricaoHardware'		;break;
-			case $negocio->pegarCsTipoTarefa()== 3: $this->visualizacao->cssDescricao = 'descricaoSoftware'		;break;
-			case $negocio->pegarCsTipoTarefa()== 4: $this->visualizacao->cssDescricao = 'descricaoRede'			;break;
+			case $negocio->pegarCsStatus()== 'F'  :
+				$this->visualizacao->cssDescricao = 'descricaoFechada';
+			break;
+			case $negocio->pegarCsTipoTarefa()== 1:
+				$this->visualizacao->cssDescricao = 'descricaoAdministrativa';
+				$icone->passarAlt('Administrativa');
+				$icone->passarSrc('tarefa/imagens/background_software.png');
+				$this->visualizacao->icone = $icone;
+			break;
+			case $negocio->pegarCsTipoTarefa()== 2:
+				$this->visualizacao->cssDescricao = 'descricaoHardware';
+			break;
+			case $negocio->pegarCsTipoTarefa()== 3:
+				 $this->visualizacao->cssDescricao = 'descricaoSoftware';
+				$icone->passarAlt('Administrativa');
+				$icone->passarSrc('tarefa/imagens/background_software.png');
+				$this->visualizacao->icone = $icone;
+			break;
+			case $negocio->pegarCsTipoTarefa()== 4:
+				 $this->visualizacao->cssDescricao = 'descricaoRede';
+			break;
 		}
 		$nUsuario = sessaoSistema::pegar('usuario');
 		switch(true){
