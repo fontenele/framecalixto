@@ -51,7 +51,7 @@ class sessaoSistema extends objeto{
 			}
 			return $valor;
 		}
-		throw(new erro('Variavel inexistente na Sessao do Sistema !'));
+		throw(new erroSessao(sprintf('Variavel [%s] inexistente na Sessao do Sistema !',$variavel)));
 	}
 	/**
 	* Retorna o valor por sistema
@@ -66,7 +66,7 @@ class sessaoSistema extends objeto{
 			}
 			return $_SESSION[definicaoSistema::pegarNome()]['variaveisDeSistema'][$variavel];
 		}
-		throw(new erro('Variavel inexistente na Sessao do Sistema !'));
+		throw(new erroSessao(sprintf('Variavel [%s] inexistente na Sessao do Sistema !',$variavel)));
 	}
 	/**
 	* Retorna um booleano da verificação de existencia

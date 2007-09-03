@@ -56,7 +56,7 @@ abstract class negocioPadrao extends negocio{
 						}
 						$mapeador[] = array(
 							'propriedade'		=> caracteres($propriedade['id']		),
-							'tipo'				=> caracteres($propriedade['tipo']			), 
+							'tipo'				=> caracteres($propriedade['tipo']			),
 							'campo'				=> strtolower(caracteres($propriedade->banco['nome']	)),
 							'obrigatorio'		=> caracteres($propriedade['obrigatorio']	),
 							'dominio'			=> $dominio,
@@ -92,7 +92,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string] 
+	* @return [string]
 	*/
 	abstract function nomeChave();
 	/**
@@ -197,7 +197,7 @@ abstract class negocioPadrao extends negocio{
 		}
 	}
 	/**
-	* Executa o comando de leitura do objeto 
+	* Executa o comando de leitura do objeto
 	* @param [string] chave nica de identificação do registro
 	*/
 	public function ler($identificador){
@@ -256,6 +256,7 @@ abstract class negocioPadrao extends negocio{
 					}
 				}
 			}
+			return 'calixto';
 		}
 		catch(Erro $e){
 			throw $e;
