@@ -22,23 +22,23 @@ class gerenteControles extends objeto{
 		try{
 			$controle = new $controle($this,true);
 			$this->passarControle($controle);
-			if(!empty($this->proximoControle)) 
+			if(!empty($this->proximoControle))
 				$this->redirecionar("?c={$this->proximoControle}");
 		}
 		catch (erroNegocio $e){
 			sessaoSistema::registrar('comunicacao', $e->getMessage());
-			if(!empty($this->proximoControle)) 
+			if(!empty($this->proximoControle))
 				$this->redirecionar("?c={$this->proximoControle}");
 		}
 		catch (erroLogin $e){
 			sessaoSistema::registrar('comunicacao', $e->getMessage());
-			if(!empty($this->proximoControle)) 
+			if(!empty($this->proximoControle))
 				$this->redirecionar("?c={$this->proximoControle}");
 			$this->redirecionar('?c='.definicaoSistema::pegarControleInicial());
 		}
 		catch (erroAcesso $e){
 			sessaoSistema::registrar('comunicacao', $e->getMessage());
-			if(!empty($this->proximoControle)) 
+			if(!empty($this->proximoControle))
 				$this->redirecionar("?c={$this->proximoControle}");
 			$this->redirecionar(sprintf('?c=%s',definicaoSistema::pegarControleErro()));
 		}

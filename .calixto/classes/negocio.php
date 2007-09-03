@@ -8,7 +8,7 @@
 abstract class negocio extends objeto{
 	/**
 	* objeto de conexão com o banco de dados
-	* @var [conexao] 
+	* @var [conexao]
 	*/
 	public $conexao;
 	/**
@@ -31,7 +31,7 @@ abstract class negocio extends objeto{
 	final function pegarConexao(){
 		try{
 			if($this->conexao instanceof conexao){
-				return  $this->conexao;
+				return $this->conexao;
 			}else{
 				return conexao::criar();
 			}

@@ -51,7 +51,7 @@ class sessaoPrograma extends objeto{
 			}
 			return $valor;
 		}
-		throw(new erro(sprintf('Variavel [%s] inexistente na Sessao do Sistema !',$variavel)));
+		throw(new erroSessao(sprintf('Variavel [%s] inexistente na Sessao do Programa !',$variavel)));
 	}
 	/**
 	* Retorna valor por programa
@@ -67,7 +67,7 @@ class sessaoPrograma extends objeto{
 			}
 			return $valor;
 		}
-		throw(new erro(sprintf('Variavel [%s] inexistente na Sessao do Sistema !',$variavel)));
+		throw(new erroSessao(sprintf('Variavel [%s] inexistente na Sessao do Programa !',$variavel)));
 	}
 	/**
 	* Retorna um booleano da verificação de existencia

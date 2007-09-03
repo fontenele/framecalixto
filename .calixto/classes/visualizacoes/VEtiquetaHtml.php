@@ -78,13 +78,15 @@ class VEtiquetaHtml extends objeto{
 	public function __toString(){
 		$this->configurar();
 		$stEtiqueta = "<{$this->etiqueta}";
-		foreach($this->propriedades as $propriedade => $valor){
-			if(!is_array($valor)){
-				$valor = str_replace("\"","&quot;",$valor);
-				$stEtiqueta .= " {$propriedade}=\"{$valor}\" ";
-			}else{
-				$valor = implode(';',$valor);
-				$stEtiqueta .= " {$propriedade}=\"javascript:{$valor};\" ";
+		if(is_array($this->propriedades)){
+			foreach($this->propriedades as $propriedade => $valor){
+				if(!is_array($valor)){
+					$valor = str_replace("\"","&quot;",$valor);
+					$stEtiqueta .= " {$propriedade}=\"{$valor}\" ";
+				}else{
+					$valor = implode(';',$valor);
+					$stEtiqueta .= " {$propriedade}=\"javascript:{$valor};\" ";
+				}
 			}
 		}
 		if($this->fechada){

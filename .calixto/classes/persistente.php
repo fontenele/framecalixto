@@ -66,7 +66,7 @@ abstract class persistente extends objeto{
 					$estrutura['nomeTabela'] = caracteres($xml['nomeBanco']);
 					foreach($xml->propriedades->propriedade as $campo){
 						$nomeCampo = strtolower(caracteres($campo->banco['nome']));
-						if(isset($campo['indicePrimario']) && strtolower(caracteres($campo['indicePrimario'])) == 'sim'){ 
+						if(isset($campo['indicePrimario']) && strtolower(caracteres($campo['indicePrimario'])) == 'sim'){
 							$estrutura['chavePrimaria'] = $nomeCampo;
 						}
 						$estrutura['campo'][$nomeCampo]['tipo'] = strtolower(caracteres($campo['tipo']));
@@ -115,8 +115,7 @@ abstract class persistente extends objeto{
 	public final function pegarConexao(){
 		try{
 			if($this->conexao instanceof conexao){
-//				if(!is_resource($this->conexao->conexao)) x(debug_backtrace());
-				return  $this->conexao;
+				return $this->conexao;
 			}else{
 				return conexao::criar();
 			}
@@ -167,7 +166,7 @@ abstract class persistente extends objeto{
 	* @return [array] mapeamento
 	*/
 	public abstract function mapeamento();
-	
+
 	//**************************************************************************
 	//**************************************************************************
 	// 							COMANDOS DML
@@ -460,7 +459,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Gera o comando de exclusão de um registro no banco de dados
-	* @param [string] chave primária do registro 
+	* @param [string] chave primária do registro
 	* @return [string] o comando de exclusão de um registro no banco de dados
 	*/
 	public function gerarComandoExcluir($valorChave){
@@ -489,7 +488,7 @@ abstract class persistente extends objeto{
 	/**
 	* Gera o comando de alteração de um registro no banco de dados
 	* @param [array] correlativa entre campos e valores do registro
-	* @param [string] chave primária do registro 
+	* @param [string] chave primária do registro
 	* @return [string] comando de alteração
 	*/
 	public function gerarComandoAlterar($array,$valorChave){
@@ -519,7 +518,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Altera um registro no banco
-	* @param [array] array de campos e valores 
+	* @param [array] array de campos e valores
 	* @param [string] chave primária do registro
 	*/
 	public function alterar($array, $valorChave){
@@ -538,7 +537,7 @@ abstract class persistente extends objeto{
 	//**************************************************************************
 	//**************************************************************************
 	/**
-	* Monta o comando de criação da sequence no banco de dados 
+	* Monta o comando de criação da sequence no banco de dados
 	* @return [string] comando de criação
 	*/
 	public function gerarComandoCriacaoSequence(){
@@ -607,7 +606,7 @@ abstract class persistente extends objeto{
 		}
 	}
 	/**
-	* Monta o comando de criação da chave primaria da tabela 
+	* Monta o comando de criação da chave primaria da tabela
 	* @return [string] comando de criação
 	*/
 	public function gerarComandoCriacaoChavePrimaria(){
@@ -640,7 +639,7 @@ abstract class persistente extends objeto{
 		}
 	}
 	/**
-	* Monta o comando de criação das chaves estrangeiras no banco de dados 
+	* Monta o comando de criação das chaves estrangeiras no banco de dados
 	* @return [string] comando de criação
 	*/
 	public function gerarComandoCriacaoChavesEstrangeiras(){
@@ -648,8 +647,8 @@ abstract class persistente extends objeto{
 			$estrutura = $this->pegarEstrutura();
 			$comando = "";
 			foreach($estrutura['campo'] as $nomeCampo => $referencia){
-				if(isset($referencia['chaveEstrangeira'])) 
-					$comando .= "alter table only {$estrutura['nomeTabela']} \n	
+				if(isset($referencia['chaveEstrangeira']))
+					$comando .= "alter table only {$estrutura['nomeTabela']} \n
 					add constraint {$estrutura['nomeTabela']}_{$nomeCampo}_fk foreign key ($nomeCampo) references {$referencia['chaveEstrangeira']['tabela']}({$referencia['chaveEstrangeira']['campo']});";
 			}
 			return $comando;
@@ -674,7 +673,7 @@ abstract class persistente extends objeto{
 		}
 	}
 	/**
-	* @return [string] comando de criação de restrição de domínios no banco de dados 
+	* @return [string] comando de criação de restrição de domínios no banco de dados
 	*/
 	public function gerarComandoRestricao(){
 		try{
@@ -688,7 +687,7 @@ abstract class persistente extends objeto{
 						$valores .="'$valor',";
 					}
 					$valores = substr($valores,0,-1);
-					$comando .= "alter table only {$estrutura['nomeTabela']} \n	
+					$comando .= "alter table only {$estrutura['nomeTabela']} \n
 					add check ($nomeCampo in ($valores))";
 				}
 			}

@@ -198,6 +198,7 @@ class controlePadraoListagem extends controlePadrao{
 					$retorno.= $this->abrirLinha($item,++$x);
 					foreach($chaves as $chave){
 						$campo = $this->campos[$chave];
+						$classeHTML = null;
 						switch(true){
 							case(isset($campo['campoPersonalizado'])):
 								$retorno.="\t\t<td>".$this->$campo['campoPersonalizado']($item)."</td>\n";
