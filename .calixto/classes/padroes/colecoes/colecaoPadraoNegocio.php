@@ -35,32 +35,13 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 		parent::__set($variavel, $parametros);
     }
 	/**
-	+ Retorna a conexão com o banco de dados, caso não exista, cria uma conexão
+	* Metodo construtor
+	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
-	final function pegarConexao(){
+	public final function conectar(){
 		try{
-			if(is_subclass_of($this->conexao,'conexao')){
-				return  $this->conexao;
-			}else{
-				return conexao::criar();
-			}
-		}
-		catch(erro $e){
-			throw $e;
-		}
-	}
-	/**
-	* Caso o recurso de conexão não tenha sido passado para a persistente fecha a conexão.
-	* @param [conexao] conexão com o banco de dados
-	* @return [booleano] se a conexão foi fechada (true) se não.(false)
-	*/
-	final function fecharConexao(conexao $conexao){
-		try{
-			if($this->conexao !== $conexao){
-				$conexao->fechar();
-				return true;
-			}
-			return false;
+			if(is_resource($this->conexao)) return;
+			$this->conexao = conexao::criar();
 		}
 		catch(erro $e){
 			throw $e;
