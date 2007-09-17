@@ -37,6 +37,7 @@ class conexaoPadraoMySql extends conexao{
 	*/
 	function iniciarTransacao(){
 		try{
+			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para iniciar uma transação!' );
 			$this->autoCommit = false;
 			mysql_query($this->conexao, 'begin');
 			$sterro = mysql_error($this->conexao);
@@ -54,6 +55,7 @@ class conexaoPadraoMySql extends conexao{
 	*/
 	function validarTransacao(){
 		try{
+			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para validar uma transação!' );
 			$this->autoCommit = false;
 			mysql_query($this->conexao, 'commit');
 			$sterro = mysql_error($this->conexao);
@@ -71,6 +73,7 @@ class conexaoPadraoMySql extends conexao{
 	*/
 	function desfazerTransacao(){
 		try{
+			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para desfazer uma transação!' );
 			$this->autoCommit = false;
 			mysql_query($this->conexao, 'rollback');
 			$sterro = mysql_error($this->conexao);
@@ -88,9 +91,19 @@ class conexaoPadraoMySql extends conexao{
 	*/
 	function fechar(){
 		try{
-			mysql_close ($this->conexao);
+			if(is_resource($this->conexao)){
+				mysql_close ($this->conexao);
+			}else{
+				throw new erroBanco('Não existe conexão para fechar!');
+			}
 		}
 		catch(erroBanco $e){
+			ob_start();
+			debug_print_backtrace();
+			$erro = ob_get_clean();
+			echo '<pre>';
+			x("\n{$erro}");
+			echo '</pre>';
 			throw $e;
 		}
 	}
@@ -102,6 +115,11 @@ class conexaoPadraoMySql extends conexao{
 	*/
 	function executarComando($sql){
 		try{
+			if( !is_resource($this->conexao) ) {
+				$erro = new erroBanco( 'Conexão fechada para executar um comando!' );
+				$erro->comando = $sql;
+				throw $erro;
+			}
 			$this->cursor = mysql_query(stripslashes($sql),$this->conexao);
 			$sterro = mysql_error($this->conexao);
 			if (!empty($sterro)) {
@@ -122,6 +140,7 @@ class conexaoPadraoMySql extends conexao{
 	*/
 	function pegarRegistro(){
 		try{
+			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para pegar um registro!' );
 			if ($arRes = mysql_fetch_array ($this->cursor,MYSQL_ASSOC)) {
 				foreach($arRes as $stNomeCampo => $stConteudoCampo) {
 					$arTupla[strtolower($stNomeCampo)] = $stConteudoCampo;

@@ -63,7 +63,9 @@ class sessaoPrograma extends objeto{
 			$valor = $_SESSION[definicaoSistema::pegarNome()]['variaveisDePrograma'][$this->programa][$variavel];
 			if(is_array($valor) && isset($valor['tipoObjeto']) && isset($valor['objeto'])){
 				__autoload($valor['tipoObjeto']);
-				return unserialize($valor['objeto']);
+				$objeto = unserialize($valor['objeto']);
+				if(method_exists($objeto,'conectar')) $objeto->conectar();
+				return $objeto;
 			}
 			return $valor;
 		}

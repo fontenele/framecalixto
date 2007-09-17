@@ -90,12 +90,12 @@ class NTarefa extends negocioPadrao{
 	* Metodo construtor
 	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
-	public function __construct($conexao = null){
+	public function __construct(conexao $conexao = null){
+		parent::__construct($conexao);
 		$this->coPais = new colecaoPadraoNegocio(null,$conexao);
 		$this->coTarefas = new colecaoPadraoNegocio(null,$conexao);
 		$this->coAtividades = new colecaoPadraoNegocio(null,$conexao);
 		$this->coOrcamentos = new colecaoPadraoNegocio(null,$conexao);
-		parent::__construct($conexao);
 	}
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
@@ -103,53 +103,45 @@ class NTarefa extends negocioPadrao{
 	*/
 	function nomeChave(){ return 'idTarefa'; }
 	/**
+	* Retorna uma coleção com as tarefas filhas desta tarefa
+	* @return [colecao]
+	*/
+	public function carregarSubTarefas(){
+		try{
+			$nTarefa = new NTarefa();
+			$nTarefa->passarIdTarefaPai($this->pegarIdTarefa());
+			$this->passarCoTarefas($nTarefa->pesquisar(new pagina(0)));
+		}
+		catch(erro $e){
+			throw $e;
+		}
+	}
+	/**
 	* Retorna uma coleção com as atividades da tarefa
 	* @return [colecao]
 	*/
 	public function carregarAtividades(){
-		$conexao = $this->pegarConexao();
-		$nAtividade = new NAtividade($conexao);
+		$nAtividade = new NAtividade();
 		$nAtividade->passarIdTarefa($this->pegarIdTarefa());
 		$nAtividade->passarCsAtividade(null);
 		$this->passarCoAtividades($nAtividade->pesquisar(new pagina(0)));
-		$this->fecharConexao($conexao);
 	}
 	/**
 	* Retorna uma coleção com as atividades da tarefa
 	* @return [colecao]
 	*/
 	public function carregarAtividadesExecucao(){
-		$conexao = $this->pegarConexao();
-		$nAtividade = new NAtividade($conexao);
+		$nAtividade = new NAtividade($this->conexao);
 		$nAtividade->passarIdTarefa($this->pegarIdTarefa());
 		$nAtividade->passarCsAtividade(1);
 		$this->passarCoAtividades($nAtividade->pesquisar(new pagina(0)));
-		$this->fecharConexao($conexao);
 	}
 	/**
 	* Retorna uma coleção com os itens do orçamento da tarefa
 	* @return [colecao]
 	*/
 	public function carregarOrcamento(){
-		$conexao = $this->pegarConexao();
 		$colecao = new colecao();
-		$this->fecharConexao($conexao);
-	}
-	/**
-	* Retorna uma coleção com as tarefas filhas desta tarefa
-	* @return [colecao]
-	*/
-	public function carregarSubTarefas(){
-		try{
-			$conexao = $this->pegarConexao();
-			$nTarefa = new NTarefa($conexao);
-			$nTarefa->passarIdTarefaPai($this->pegarIdTarefa());
-			$this->passarCoTarefas($nTarefa->pesquisar(new pagina(0)));
-			$this->fecharConexao($conexao);
-		}
-		catch(erro $e){
-			throw $e;
-		}
 	}
 	/**
 	* Retorna uma coleção com as tarefas do usuario
@@ -157,12 +149,10 @@ class NTarefa extends negocioPadrao{
 	* @return [colecao]
 	*/
 	public function lerTarefasDoUsuario(NUsuario $usuario, pagina $pagina){
-		$conexao = $this->pegarConexao();
-		$nTarefa = new NTarefa($conexao);
+		$nTarefa = new NTarefa($this->conexao);
 		$nTarefa->passarIdResponsavel($usuario->pegarIdUsuario());
 		$nTarefa->passarCsStatus('A');
 		$colecao = $nTarefa->pesquisar($pagina);
-		$this->fecharConexao($conexao);
 		return $colecao;
 	}
 	/**
@@ -170,14 +160,12 @@ class NTarefa extends negocioPadrao{
 	* @return [colecao]
 	*/
 	public function trilharPais(colecao $colecaoPais){
-		$conexao = $this->pegarConexao();
-		$nTarefa = new NTarefa($conexao);
+		$nTarefa = new NTarefa($this->conexao);
 		if($this->pegarIdTarefaPai()){
 			$nTarefa->ler($this->pegarIdTarefaPai());
 			if($nTarefa->pegarIdTarefaPai()) $nTarefa->trilharPais($colecaoPais);
 			$colecaoPais->itens[] = $nTarefa;
 		}
-		$this->fecharConexao($conexao);
 	}
 	/**
 	* Método que executa o encaminhamento da tarefa
@@ -186,7 +174,6 @@ class NTarefa extends negocioPadrao{
 	*/
 	public function encaminharTarefa(NUsuario $nEncaminhador, NUsuario $nUsuario, $texto = null){
 		try{
-			$conexao = $this->pegarConexao();
 			if($nUsuario->pegarIdUsuario() == $this->pegarIdResponsavel())
 				throw new erroNegocio($this->inter->pegarMensagem('recebedorEstaComoResponsavel'));
 			$this->ler($this->pegarIdTarefa());
@@ -195,7 +182,7 @@ class NTarefa extends negocioPadrao{
 				$tDataInicial = TData::agora();
 				$tDataFinal = TData::agora();
 				$tDataFinal->somarSegundo();
-				$nAtividade = new NAtividade($conexao);
+				$nAtividade = new NAtividade($this->conexao);
 				$nAtividade->passarIdUsuario($nEncaminhador->pegarIdUsuario());
 				$nAtividade->passarIdTarefa($this->pegarIdTarefa());
 				$nAtividade->passarDtInicio($tDataInicial);
@@ -209,7 +196,6 @@ class NTarefa extends negocioPadrao{
 			}else{
 				throw new erroNegocio($this->inter->pegarMensagem('somenteDonoOuResponsavelPodeEncaminhar'));
 			}
-			$this->fecharConexao($conexao);
 		}
 		catch(erro $e){
 			throw $e;
@@ -256,13 +242,12 @@ class NTarefa extends negocioPadrao{
 	*/
 	protected function fechar(){
 		try{
-			$conexao = $this->pegarConexao();
 			$this->carregarAtividadesExecucao();
 			if(!$this->coAtividades->contarItens())
 			throw new erroNegocio(sprintf($this->inter->pegarMensagem('impossivelFecharTarefaSemAtividade'),$this->valorDescricao()));
 			while($nAtividade = $this->coAtividades->avancar()){
 				if(!$nAtividade->encerrada()) {
-					$nUsuario = new NUsuario($conexao);
+					$nUsuario = new NUsuario($this->conexao);
 					$nUsuario->ler($nAtividade->pegarIdUsuario());
 					throw new erroNegocio(sprintf($this->inter->pegarMensagem('impossivelFecharComAtividadeAberta'),$this->valorDescricao(),$nUsuario->valorDescricao()));
 				}
@@ -274,7 +259,6 @@ class NTarefa extends negocioPadrao{
 			$this->passarNrPercentual(100);
 			$this->passarCsStatus('F');
 			$this->passarDtFim(TData::agora());
-			$this->fecharConexao($conexao);
 		}
 		catch(erro $e){
 			throw $e;

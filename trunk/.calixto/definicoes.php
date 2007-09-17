@@ -9,16 +9,28 @@ include_once('.calixto/classes/definicao.php');
 $definicoes = definicao::pegarDefinicao();
 //$definicoes = simplexml_load_file('.calixto/definicoes.xml');
 
-//Lendo o diretorio de definiçoes e efetuando includes das classes de definição
+//Incluindo as classes de definições
 foreach($definicoes->xpath('//classes/classe') as $index => $classe){
-	if(isset($classe['id']) && caracteres($classe['id']) == 'definicao'){
-		$dir = caracteres($classe['dir']).'/';
+	if(isset($classe['id']) && strval($classe['id']) == 'definicao'){
+		$dirDefinicao = strval($classe['dir']).'/';
 		break;
 	}
 }
+$dir = dir($dirDefinicao);
+while (false !== ($classe = $dir->read())) {
+	if(preg_match('/(php)(.*)/', $classe, $resultado))
+	include_once("{$dir->path}{$classe}");
+}
+$dir->close();
 
-//Incluindo os arquivos do diretório de definições
-$dir = dir($dir);
+//Incluindo as classes de tipos de erros
+foreach($definicoes->xpath('//classes/classe') as $index => $classe){
+	if(isset($classe['id']) && strval($classe['id']) == 'erro'){
+		$dirErro = strval($classe['dir']).'/';
+		break;
+	}
+}
+$dir = dir($dirErro);
 while (false !== ($classe = $dir->read())) {
 	if(preg_match('/(php)(.*)/', $classe, $resultado))
 	include_once("{$dir->path}{$classe}");
@@ -37,20 +49,20 @@ function __autoload($stClasse){
 		$stEntidade = definicaoEntidade::entidade($stClasse);
 		foreach($definicoes->xpath('//classes/classe') as $index => $classe){
 			if(isset($classe['id'])){
-				$id = caracteres($classe['id']);
+				$id = strval($classe['id']);
 				$slice = substr($stClasse,0,strlen($id));
 				if($id == $slice){
-					if(caracteres($classe['entidade']) == 'sim') {
-						$dir = "{$stEntidade}/".caracteres($classe['dir']).'/';
-						$tipoBanco = caracteres($classe['tipoBanco']) == 'sim' ? caracteres($definicoes->banco['tipo']) : null ;
+					if(strval($classe['entidade']) == 'sim') {
+						$dir = "{$stEntidade}/".strval($classe['dir']).'/';
+						$tipoBanco = strval($classe['tipoBanco']) == 'sim' ? strval($definicoes->banco['tipo']) : null ;
 					}else{
-						$dir = caracteres($classe['dir']).'/';
-						$tipoBanco = caracteres($classe['tipoBanco']) == 'sim' ? caracteres($definicoes->banco['tipo']) : null ;
+						$dir = strval($classe['dir']).'/';
+						$tipoBanco = strval($classe['tipoBanco']) == 'sim' ? strval($definicoes->banco['tipo']) : null ;
 					}
 				}
 			}else{
 				$dirPadrao = $classe['dir'];
-				$tipoBanco = caracteres($classe['tipoBanco']) == 'sim' ? caracteres($definicoes->banco['tipo']) : null ;
+				$tipoBanco = strval($classe['tipoBanco']) == 'sim' ? strval($definicoes->banco['tipo']) : null ;
 			}
 		}
 		$stDiretorio = isset($dir) ? $dir : $dirPadrao ;

@@ -25,10 +25,9 @@ class persistentePadraoPG extends persistente{
 	*/
 	public function gerarSequencia(){
 		try{
+			x($this);
 			$estrutura = $this->pegarEstrutura();
-			$conexao = $this->pegarConexao();
 			$retorno = $this->pegarSelecao("select nextval('sq_{$estrutura['nomeTabela']}') as sequencia;");
-			$this->fecharConexao($conexao);
 			return $retorno[0]['sequencia'];
 		}
 		catch(erro $e){

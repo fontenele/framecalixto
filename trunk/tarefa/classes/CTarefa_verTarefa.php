@@ -10,6 +10,7 @@ class CTarefa_verTarefa extends controlePadrao{
 	* Método inicial do controle
 	*/
 	public function inicial(){
+		if(!sessaoSistema::tem('usuario')) throw(new erroLogin('Usuário não registrado para acessar suas tarefas!'));
 		$this->gerarMenus();
 		$this->registrarInternacionalizacao();
 		$nTarefa = new NTarefa();

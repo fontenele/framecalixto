@@ -1,6 +1,6 @@
 <?php
 /**
-* Classe de definição da camada de controle 
+* Classe de definição da camada de controle
 * Formação especialista para gravar um objeto de negocio
 * @package Infra-estrutura
 * @subpackage Controle

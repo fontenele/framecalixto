@@ -49,20 +49,20 @@ abstract class negocioPadrao extends negocio{
 						if(isset($propriedade->dominio)){
 							$dominio = array();
 							foreach($propriedade->dominio->opcao as $opcao){
-								$dominio[caracteres($opcao['id'])] = caracteres($opcao);
+								$dominio[strval($opcao['id'])] = strval($opcao);
 							}
 						}else{
 							$dominio = false;
 						}
 						$mapeador[] = array(
-							'propriedade'		=> caracteres($propriedade['id']		),
-							'tipo'				=> caracteres($propriedade['tipo']			),
-							'campo'				=> strtolower(caracteres($propriedade->banco['nome']	)),
-							'obrigatorio'		=> caracteres($propriedade['obrigatorio']	),
+							'propriedade'		=> strval($propriedade['id']		),
+							'tipo'				=> strval($propriedade['tipo']			),
+							'campo'				=> strtolower(strval($propriedade->banco['nome']	)),
+							'obrigatorio'		=> strval($propriedade['obrigatorio']	),
 							'dominio'			=> $dominio,
-							'descritivo'		=> caracteres($propriedade['descritivo']		),
-							'classeAssociativa'	=> caracteres($propriedade['classeAssociativa']		),
-							'metodoLeitura'		=> caracteres($propriedade['metodoLeitura']		)
+							'descritivo'		=> strval($propriedade['descritivo']		),
+							'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
+							'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
 						);
 					}
 				break;
@@ -141,7 +141,7 @@ abstract class negocioPadrao extends negocio{
 	public function xmlPraNegocio(SimpleXMLElement $xml){
 		foreach($xml as $index => $propriedade){
 			$metodo = 'passar'.ucFirst($index);
-			$this->$metodo(caracteres($propriedade));
+			$this->$metodo(strval($propriedade));
 		}
 	}
 	/**
@@ -351,13 +351,13 @@ abstract class negocioPadrao extends negocio{
 				$classe = get_class($this);
 				if($this->nomeChave()){
 					foreach($arResultadoLeitura as $array){
-						$negocio = new $classe();
+						$negocio = new $classe($this->conexao);
 						$negocio->vetorPraNegocio($array);
 						$itens[$negocio->valorChave()] = $negocio;
 					}
 				}else{
 					foreach($arResultadoLeitura as $array){
-						$negocio = new $classe();
+						$negocio = new $classe($this->conexao);
 						$negocio->vetorPraNegocio($array);
 						$itens[] = $negocio;
 					}

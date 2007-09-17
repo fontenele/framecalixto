@@ -20,13 +20,11 @@ class NControleAcesso extends negocio{
 	*/
 	public function validarAcesso($controleAcessado){
 		try{
-			$conexao = $this->pegarConexao();
 			switch(true){
 				case(!sessaoSistema::tem('usuario')):
 					throw(new erroAcesso('Acesso não permitido, usuário não registrado !'));
 				default:
 					$nUsuario = sessaoSistema::pegar('usuario');
-					$nUsuario->passarConexao($conexao);
 					$nAcesso = new NAcessoDoUsuario();
 					$nAcesso->passarIdUsuario($nUsuario->pegarIdUsuario());
 					$nAcesso->passarControle($controleAcessado);
@@ -34,7 +32,6 @@ class NControleAcesso extends negocio{
 					if(!$colecao->contarItens())
 						throw(new erroAcesso('Acesso Não Permitido !'));
 			}
-			$this->fecharConexao($conexao);
 		}
 		catch(erro $e){
 			throw $e;

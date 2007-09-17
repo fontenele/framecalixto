@@ -128,18 +128,18 @@ class controlePadraoListagem extends controlePadrao{
 						$arValores = false;
 						if(isset($propriedade->dominio->opcao))
 						foreach($propriedade->dominio->opcao as $opcao){
-							$arValores[caracteres($opcao['id'])] = $this->inter->pegarOpcao(caracteres($propriedade['id']),caracteres($opcao['id']));
+							$arValores[strval($opcao['id'])] = $this->inter->pegarOpcao(strval($propriedade['id']),strval($opcao['id']));
 						}
 						if(isset($propriedade->apresentacao->listagem))
-						$mapeador[caracteres($propriedade['id'])] = array(
-							'titulo'			=> $this->inter->pegarPropriedade(caracteres($propriedade['id']),'abreviacao'),
-							'hyperlink'			=> caracteres($propriedade->apresentacao->listagem['hyperlink']	),
-							'tamanho'			=> caracteres($propriedade->apresentacao->listagem['tamanho']	),
-							'ordem'				=> caracteres($propriedade->apresentacao->listagem['ordem']	),
-							'campoPersonalizado'=> caracteres($propriedade->apresentacao->listagem['campoPersonalizado']	),
+						$mapeador[strval($propriedade['id'])] = array(
+							'titulo'			=> $this->inter->pegarPropriedade(strval($propriedade['id']),'abreviacao'),
+							'hyperlink'			=> strval($propriedade->apresentacao->listagem['hyperlink']	),
+							'tamanho'			=> strval($propriedade->apresentacao->listagem['tamanho']	),
+							'ordem'				=> strval($propriedade->apresentacao->listagem['ordem']	),
+							'campoPersonalizado'=> strval($propriedade->apresentacao->listagem['campoPersonalizado']	),
 							'dominio'			=> $arValores,
-							'classeAssociativa'	=> caracteres($propriedade['classeAssociativa']		),
-							'metodoLeitura'		=> caracteres($propriedade['metodoLeitura']		)
+							'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
+							'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
 						);
 					}
 				break;
@@ -179,6 +179,7 @@ class controlePadraoListagem extends controlePadrao{
 	*/
 	function montarListagem(){
 		if(is_array($this->campos)){
+			$conexao = conexao::criar();
 			$chaves = array_keys($this->campos);
 			sort($chaves);
 			$retorno = "\n<table class=\"tabela0\">\n";
@@ -210,7 +211,7 @@ class controlePadraoListagem extends controlePadrao{
 								$classeHTML = '';
 								switch(true){
 									case($mapeador[$campo['campoLink']]['classeAssociativa']):
-										$classeAssociativa = new $mapeador[$campo['campoLink']]['classeAssociativa']();
+										$classeAssociativa = new $mapeador[$campo['campoLink']]['classeAssociativa']($conexao);
 										$classeAssociativa->ler($item->$pegar());
 										$valorDoCampo = $classeAssociativa->valorDescricao();
 									break;
@@ -237,7 +238,7 @@ class controlePadraoListagem extends controlePadrao{
 								$pegar = 'pegar'.ucfirst($campo['campo']);
 								switch(true){
 									case($mapeador[$campo['campo']]['classeAssociativa']):
-										$classeAssociativa = new $mapeador[$campo['campo']]['classeAssociativa']();
+										$classeAssociativa = new $mapeador[$campo['campo']]['classeAssociativa']($conexao);
 										$classeAssociativa->ler($item->$pegar());
 										$valorDoCampo = $classeAssociativa->valorDescricao();
 									break;
@@ -274,6 +275,7 @@ class controlePadraoListagem extends controlePadrao{
 				$retorno.= "\t</tr>\n";
 				return $retorno.= "</table>\n";
 			}
+			$conexao->fechar();
 		}else{
 			return '';
 		}
