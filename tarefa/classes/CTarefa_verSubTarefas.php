@@ -11,6 +11,7 @@ class CTarefa_verSubTarefas extends CTarefa_verTarefa{
 	* @param [negocio] objeto para a apresentação
 	*/
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
+		if(!sessaoSistema::tem('usuario')) throw(new erroLogin('Usuário não registrado para acessar suas tarefas!'));
 		parent::montarApresentacao($negocio,$tipo);
  		$estrutura = $this->mapearControle(definicaoArquivo::pegarXmlEntidade($this));
 		$negocio->carregarSubTarefas();

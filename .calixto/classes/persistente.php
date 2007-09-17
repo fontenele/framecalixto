@@ -15,15 +15,18 @@ abstract class persistente extends objeto{
 	*/
 	public $conexao;
 	/**
+	* Verificador de criação de conexão com o banco de dados
+	* @var [booleano]
+	*/
+	protected $criouConexao = false;
+	/**
 	* Metodo construtor
 	* @param [conexao] (opcional) conexão com o banco de dados
 	* @param [string] (opcional) nome do arquivo de configuração da persistente
 	*/
-	public function __construct($conexao = null,$arquivoXML = null){
+	public function __construct(conexao $conexao,$arquivoXML = null){
 		try{
-			if(is_subclass_of($conexao,'conexao')){
-				$this->conexao = $conexao;
-			}
+			$this->conexao = $conexao;
 		}
 		catch(erro $e){
 			throw $e;
@@ -63,25 +66,25 @@ abstract class persistente extends objeto{
 				break;
 				default:
 					$xml = simplexml_load_file($arquivoXML);
-					$estrutura['nomeTabela'] = caracteres($xml['nomeBanco']);
+					$estrutura['nomeTabela'] = strval($xml['nomeBanco']);
 					foreach($xml->propriedades->propriedade as $campo){
-						$nomeCampo = strtolower(caracteres($campo->banco['nome']));
-						if(isset($campo['indicePrimario']) && strtolower(caracteres($campo['indicePrimario'])) == 'sim'){
+						$nomeCampo = strtolower(strval($campo->banco['nome']));
+						if(isset($campo['indicePrimario']) && strtolower(strval($campo['indicePrimario'])) == 'sim'){
 							$estrutura['chavePrimaria'] = $nomeCampo;
 						}
-						$estrutura['campo'][$nomeCampo]['tipo'] = strtolower(caracteres($campo['tipo']));
-						$estrutura['campo'][$nomeCampo]['tamanho'] = caracteres($campo['tamanho']);
-						$estrutura['campo'][$nomeCampo]['obrigatorio'] = (strtolower(caracteres($campo['obrigatorio'])) == 'sim') ? 'sim' : 'nao';
+						$estrutura['campo'][$nomeCampo]['tipo'] = strtolower(strval($campo['tipo']));
+						$estrutura['campo'][$nomeCampo]['tamanho'] = strval($campo['tamanho']);
+						$estrutura['campo'][$nomeCampo]['obrigatorio'] = (strtolower(strval($campo['obrigatorio'])) == 'sim') ? 'sim' : 'nao';
 						if(isset($campo->banco->chaveEstrangeira)){
-							$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['tabela'] = caracteres($campo->banco->chaveEstrangeira['tabela']);
-							$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['campo'] = caracteres($campo->banco->chaveEstrangeira['campo']);
+							$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['tabela'] = strval($campo->banco->chaveEstrangeira['tabela']);
+							$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['campo'] = strval($campo->banco->chaveEstrangeira['campo']);
 						}
 						if(isset($campo->dominio->opcao)){
 							foreach($campo->dominio->opcao as $opcao){
-								$estrutura['campo'][$nomeCampo]['valoresPossiveis'][] = caracteres($opcao['id']);
+								$estrutura['campo'][$nomeCampo]['valoresPossiveis'][] = strval($opcao['id']);
 							}
 						}
-						if(isset($campo->banco['ordem'])) $estrutura['ordem'][caracteres($campo->banco['ordem'])] = $nomeCampo;
+						if(isset($campo->banco['ordem'])) $estrutura['ordem'][strval($campo->banco['ordem'])] = $nomeCampo;
 					}
 				break;
 			}
@@ -109,53 +112,13 @@ abstract class persistente extends objeto{
 		}
 	}
 	/**
-	+ Retorna a conexão com o banco de dados, caso não exista, cria uma conexão
-	* @return [conexao] conexao com o banco de dados .
-	*/
-	public final function pegarConexao(){
-		try{
-			if($this->conexao instanceof conexao){
-				return $this->conexao;
-			}else{
-				return conexao::criar();
-			}
-		}
-		catch(erro $e){
-			throw $e;
-		}
-	}
-	/**
-	* Caso o recurso de conexão não tenha sido passado para a persistente fecha a conexão.
-	* @param [conexao] conexão com o banco de dados
-	* @return [booleano] se a conexão foi fechada (true) se não.(false)
-	*/
-	public final function fecharConexao(conexao $conexao){
-		try{
-			if($this->conexao !== $conexao){
-				$conexao->fechar();
-				return true;
-			}
-			return false;
-		}
-		catch(erro $e){
-			throw $e;
-		}
-	}
-	/**
 	* Executa um comando SQL no banco de dados.(necessita de controle de transação)
 	* @param [string] comando SQL para a execução
 	* @return [int] número de linhas afetadas
 	*/
 	public function executarComando($comando = null){
 		try{
-			$conexao = $this->pegarConexao();
-			$retorno = $conexao->executarComando($comando);
-			if($this->fecharConexao($conexao)){
-				$erro = new erroPersistente('Utilização incorreta da persistente! Possívelmente você efetuou uma chamada do método '.get_class($this).'::executarComando() sem controle de conexão!');
-				$erro->comando = $comando;
-				throw $erro;
-			}
-			return $retorno;
+			return $this->conexao->executarComando($comando);
 		}
 		catch(erro $e){
 			throw $e;
@@ -232,13 +195,11 @@ abstract class persistente extends objeto{
 	*/
 	public function pegarSelecao($comando = null){
 		try{
-			$conexao = $this->pegarConexao();
-			$conexao->executarComando($comando);
+			$this->conexao->executarComando($comando);
 			while ($arTupla = $this->pegarRegistro()) {
 				$recordSet[] = $arTupla;
 			}
 			$retorno = isset($recordSet)? $recordSet : false ;
-			$this->fecharConexao($conexao);
 			return $retorno;
 		}
 		catch(erro $e){
@@ -449,9 +410,7 @@ abstract class persistente extends objeto{
 	*/
 	public function inserir($array){
 		try{
-			$conexao = $this->pegarConexao();
-			$conexao->executarComando($this->gerarComandoInserir($array));
-			$this->fecharConexao($conexao);
+			$this->conexao->executarComando($this->gerarComandoInserir($array));
 		}
 		catch(erro $e){
 			throw $e;
@@ -477,9 +436,7 @@ abstract class persistente extends objeto{
 	*/
 	public function excluir($valorChave){
 		try{
-			$conexao = $this->pegarConexao();
-			$conexao->executarComando($this->gerarComandoExcluir($valorChave));
-			$this->fecharConexao($conexao);
+			$this->conexao->executarComando($this->gerarComandoExcluir($valorChave));
 		}
 		catch(erro $e){
 			throw $e;
@@ -523,9 +480,7 @@ abstract class persistente extends objeto{
 	*/
 	public function alterar($array, $valorChave){
 		try{
-			$conexao = $this->pegarConexao();
-			$conexao->executarComando($this->gerarComandoAlterar($array,$valorChave));
-			$this->fecharConexao($conexao);
+			$this->conexao->executarComando($this->gerarComandoAlterar($array,$valorChave));
 		}
 		catch(erro $e){
 			throw $e;
@@ -555,13 +510,11 @@ abstract class persistente extends objeto{
 	public function criarSequence(){
 		try{
 			if($comandoCriacaoSequence = $this->gerarComandoCriacaoSequence()){
-				$conexao = $this->pegarConexao();
-				$conexao->executarComando($comandoCriacaoSequence);
-				$this->fecharConexao($conexao);
+				$this->conexao->executarComando($comandoCriacaoSequence);
 			}
 		}
 		catch(erro $e){
-			$conexao->executarComando("alter sequence sq_{$estrutura['nomeTabela']} restart 1;");
+			$this->conexao->executarComando("alter sequence sq_{$estrutura['nomeTabela']} restart 1;");
 		}
 		catch(erro $e){
 			throw $e;
@@ -596,9 +549,7 @@ abstract class persistente extends objeto{
 	public function criarTabela(){
 		try{
 			if($comandoCriacaoTabela = $this->gerarComandoCriacaoTabela()){
-				$conexao = $this->pegarConexao();
-				$conexao->executarComando($comandoCriacaoTabela);
-				$this->fecharConexao($conexao);
+				$this->conexao->executarComando($comandoCriacaoTabela);
 			}
 		}
 		catch(erro $e){
@@ -629,9 +580,7 @@ abstract class persistente extends objeto{
 	public function criarChavePrimaria(){
 		try{
 			if($comandoCriacaoChavePrimaria = $this->gerarComandoCriacaoChavePrimaria()){
-				$conexao = $this->pegarConexao();
-				$conexao->executarComando($comandoCriacaoChavePrimaria);
-				$this->fecharConexao($conexao);
+				$this->conexao->executarComando($comandoCriacaoChavePrimaria);
 			}
 		}
 		catch(erro $e){
@@ -663,9 +612,7 @@ abstract class persistente extends objeto{
 	public function criarChavesEstrangeiras(){
 		try{
 			if($comandoCriacaoChavesEstrangeiras = $this->gerarComandoCriacaoChavesEstrangeiras()){
-				$conexao = $this->pegarConexao();
-				$conexao->executarComando($comandoCriacaoChavesEstrangeiras);
-				$this->fecharConexao($conexao);
+				$this->conexao->executarComando($comandoCriacaoChavesEstrangeiras);
 			}
 		}
 		catch(erro $e){
@@ -703,9 +650,7 @@ abstract class persistente extends objeto{
 	public function criarRestricoes(){
 		try{
 			if($comandoRestricao = $this->gerarComandoRestricao()){
-				$conexao = $this->pegarConexao();
-				$conexao->executarComando($comandoRestricao);
-				$this->fecharConexao($conexao);
+				$this->conexao->executarComando($comandoRestricao);
 			}
 		}
 		catch(erro $e){
@@ -746,9 +691,7 @@ abstract class persistente extends objeto{
 	public function destruirSequence(){
 		try{
 			if($comandoDestruicaoSequence = $this->gerarComandoDestruicaoSequence()){
-				$conexao = $this->pegarConexao();
-				$conexao->executarComando($comandoDestruicaoSequence);
-				$this->fecharConexao($conexao);
+				$this->conexao->executarComando($comandoDestruicaoSequence);
 			}
 		}
 		catch(erro $e){
@@ -775,9 +718,7 @@ abstract class persistente extends objeto{
 		try{
 			$this->ler(null);
 			if($comandoDestruicaoTabela = $this->gerarComandoDestruicaoTabela()){
-				$conexao = $this->pegarConexao();
-				$conexao->executarComando($comandoDestruicaoTabela );
-				$this->fecharConexao($conexao);
+				$this->conexao->executarComando($comandoDestruicaoTabela );
 			}
 		}
 		catch(erro $e){

@@ -25,7 +25,7 @@ class CControleAcesso_validar extends controle{
 	* Método de validação do controle de acesso
 	* @return [booleano] resultado da validação
 	*/
-	public function validarAcessoAoControle(){ 
+	public function validarAcessoAoControle(){
 		return true;
 	}
 }

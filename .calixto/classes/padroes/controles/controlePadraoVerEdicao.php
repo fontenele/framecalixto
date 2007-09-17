@@ -22,7 +22,7 @@ class controlePadraoVerEdicao extends controlePadrao{
 		parent::inicial();
 	}
 	/**
-	* Método criado para definir o objeto de negócio a ser apresentado 
+	* Método criado para definir o objeto de negócio a ser apresentado
 	*/
 	public function definirNegocio(){
 		$this->negocio = $this->pegarNegocio();

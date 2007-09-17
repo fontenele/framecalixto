@@ -14,6 +14,7 @@ class CTarefa_verTarefasDoUsuario extends controlePadraoVerPesquisa{
 	* Método inicial do controle
 	*/
 	public function inicial(){
+		if(!sessaoSistema::tem('usuario')) throw(new erroLogin('Usuário não registrado para acessar suas tarefas!'));
 		$this->gerarMenus();
 		$this->registrarInternacionalizacao();
 		$this->usuario = sessaoSistema::pegar('usuario');
@@ -24,7 +25,7 @@ class CTarefa_verTarefasDoUsuario extends controlePadraoVerPesquisa{
 	* Método de criação da coleção a ser listada
 	* @return [colecao] coleção a ser listada
 	*/
-	public function definirColecao(){ 
+	public function definirColecao(){
 		$negocio = definicaoEntidade::negocio($this);
 		$negocio = new $negocio();
 		return $negocio->lerTarefasDoUsuario($this->pegarUsuario(), $this->pegarPagina());
@@ -42,9 +43,9 @@ class CTarefa_verTarefasDoUsuario extends controlePadraoVerPesquisa{
 	*/
 	function montarMenuPrograma(){
 		$link = "?c=%s";
-		$menu[$this->inter->pegarTexto('tarefasDoUsuario')]  = 
+		$menu[$this->inter->pegarTexto('tarefasDoUsuario')]  =
 			'javascript:document.formulario.submit();';
-		$menu[$this->inter->pegarTexto('botaoNovo')] = 
+		$menu[$this->inter->pegarTexto('botaoNovo')] =
 			sprintf($link,definicaoEntidade::controle($this,'verEdicao'));
 		return $menu;
 	}

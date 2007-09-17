@@ -16,6 +16,11 @@ abstract class conexao extends objeto{
 	*/
 	public $cursor;
 	/**
+	* String de conexao
+	* @var [string]
+	*/
+	public $strConn;
+	/**
 	* Método construtor
 	* Faz a chamada de validação de acesso ao controle
 	*/
@@ -37,14 +42,28 @@ abstract class conexao extends objeto{
 		$senha		= $senha	?	$senha		:	definicaoBanco::pegarSenha();
 		switch(definicaoBanco::pegarTipo()){
 			case 'postgres':
-				return new conexaoPadraoPG($servidor, $porta, $banco, $usuario, $senha);
+				$conexao = new conexaoPadraoPG($servidor, $porta, $banco, $usuario, $senha);
 			break;
 			case 'mysql':
-				return new conexaoPadraoMySql($servidor, $porta, $banco, $usuario, $senha);
+				$conexao = new conexaoPadraoMySql($servidor, $porta, $banco, $usuario, $senha);
 			break;
 			case 'oracle':
-				return new conexaoPadraoOCI($servidor, $porta, $banco, $usuario, $senha);
+				$conexao = new conexaoPadraoOCI($servidor, $porta, $banco, $usuario, $senha);
 			break;
+		}
+		return $conexao;
+	}
+	/**
+	* Metodo destrutor
+	*/
+	public function __destruct(){
+		try{
+			if(is_resource($this->conexao)){
+				$this->fechar();
+			}
+		}
+		catch(erro $e){
+			throw $e;
 		}
 	}
 }

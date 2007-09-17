@@ -9,25 +9,25 @@ class definicaoSistema{
 	* Retorna o nome do sistema
 	*/
 	static function pegarNome(){
-		return caracteres(definicao::pegarDefinicao()->sistema['nome']);
+		return strval(definicao::pegarDefinicao()->sistema['nome']);
 	}
 	/**
 	* Retorna o nome detalhado do sistema
 	*/
 	static function pegarNomeDetalhado(){
-		return caracteres(definicao::pegarDefinicao()->sistema);
+		return strval(definicao::pegarDefinicao()->sistema);
 	}
 	/**
 	* Retorna a pagina inicial do sistema
 	*/
 	static function pegarControleInicial(){
-		return caracteres(definicao::pegarDefinicao()->sistema['paginaInicial']);
+		return strval(definicao::pegarDefinicao()->sistema['paginaInicial']);
 	}
 	/**
 	* Retorna a pagina de erro do sistema
 	*/
 	static function pegarControleErro(){
-		return caracteres(definicao::pegarDefinicao()->sistema['paginaErro']);
+		return strval(definicao::pegarDefinicao()->sistema['paginaErro']);
 	}
 }
 ?>

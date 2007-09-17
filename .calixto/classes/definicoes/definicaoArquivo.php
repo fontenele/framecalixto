@@ -29,8 +29,8 @@ class definicaoArquivo{
 			return definicaoArquivo::$xmlEntidade;
 		}else{
 			foreach(definicao::pegarDefinicao()->arquivos->arquivo as $arquivo){
-				if(caracteres($arquivo['tipo']) == "definicao de entidade") {
-					definicaoArquivo::$xmlEntidade = caracteres($arquivo['nome']);
+				if(strval($arquivo['tipo']) == "definicao de entidade") {
+					definicaoArquivo::$xmlEntidade = strval($arquivo['nome']);
 					break;
 				}
 			}
@@ -39,8 +39,8 @@ class definicaoArquivo{
 	}
 	/**
 	* Retorna o caminho do xml configurador da entidade
-	* @param [objeto|string] 
-	* @param [string] caminho forçado do xml 
+	* @param [objeto|string]
+	* @param [string] caminho forçado do xml
 	*/
 	static static final function pegarXmlEntidade($classe = null,$arquivoXML = null){
 		try{
@@ -62,8 +62,8 @@ class definicaoArquivo{
 			return definicaoArquivo::$xmlInternacionalizacao;
 		}else{
 			foreach(definicao::pegarDefinicao()->arquivos->arquivo as $arquivo){
-				if(caracteres($arquivo['tipo']) == "internacionalizacao") {
-					definicaoArquivo::$xmlInternacionalizacao = caracteres($arquivo['nome']);
+				if(strval($arquivo['tipo']) == "internacionalizacao") {
+					definicaoArquivo::$xmlInternacionalizacao = strval($arquivo['nome']);
 					break;
 				}
 			}
@@ -72,8 +72,8 @@ class definicaoArquivo{
 	}
 	/**
 	* Retorna o caminho do xml configurador da internacionalização
-	* @param [objeto|string] 
-	* @param [string] caminho forçado do xml 
+	* @param [objeto|string]
+	* @param [string] caminho forçado do xml
 	*/
 	static static final function pegarXmlInternacionalizacao($classe = null,$arquivoXML = null){
 		try{
@@ -95,8 +95,8 @@ class definicaoArquivo{
 			return definicaoArquivo::$xmlInternacionalizacaoDoSistema;
 		}else{
 			foreach(definicao::pegarDefinicao()->arquivos->arquivo as $arquivo){
-				if(caracteres($arquivo['tipo']) == "internacionalizacao do sistema") {
-					definicaoArquivo::$xmlInternacionalizacaoDoSistema = caracteres($arquivo['nome']);
+				if(strval($arquivo['tipo']) == "internacionalizacao do sistema") {
+					definicaoArquivo::$xmlInternacionalizacaoDoSistema = strval($arquivo['nome']);
 					break;
 				}
 			}
@@ -105,8 +105,8 @@ class definicaoArquivo{
 	}
 	/**
 	* Retorna o caminho do xml configurador da internacionalização do sistema
-	* @param [objeto|string] 
-	* @param [string] caminho forçado do xml 
+	* @param [objeto|string]
+	* @param [string] caminho forçado do xml
 	*/
 	static static final function pegarXmlInternacionalizacaoDoSistema($arquivoXML = null){
 		try{
@@ -129,8 +129,8 @@ class definicaoArquivo{
 			return definicaoArquivo::$css;
 		}else{
 			foreach(definicao::pegarDefinicao()->arquivos->arquivo as $arquivo){
-				if(caracteres($arquivo['tipo']) == "folha de estilo css") {
-					definicaoArquivo::$css = caracteres($arquivo['nome']);
+				if(strval($arquivo['tipo']) == "folha de estilo css") {
+					definicaoArquivo::$css = strval($arquivo['nome']);
 					break;
 				}
 			}

@@ -16,8 +16,8 @@ class CUtilitario_importadorXML extends controlePadrao{
 			$xml = simplexml_load_string($string);
 			$vetor = array();
 			foreach($xml->classe as $classe){
-				$nomeClasse = (caracteres($classe['nome'])) ? caracteres($classe['nome']) : false;
-				$operacao = (caracteres($classe['operacao'])) ? caracteres($classe['operacao']) : false;
+				$nomeClasse = (strval($classe['nome'])) ? strval($classe['nome']) : false;
+				$operacao = (strval($classe['operacao'])) ? strval($classe['operacao']) : false;
 				if($nomeClasse){
 					$negocio = new $nomeClasse();
 					$negocio->xmlPraNegocio($classe);

@@ -16,17 +16,17 @@ class internacionalizacao extends objeto{
 	*/
 	public function mapearInternacionalizacaoGeral(&$estrutura){
 		$xml = simplexml_load_file(definicaoArquivo::pegarXmlInternacionalizacaoDoSistema());
-		$estrutura['nome'] = caracteres($xml->entidade->nome);
-		$estrutura['titulo'] = caracteres($xml->controles->titulo);
-		$estrutura['tituloSistema'] = caracteres($xml->sistema->titulo);
-		$estrutura['subtituloSistema'] = caracteres($xml->sistema->subtitulo);
+		$estrutura['nome'] = strval($xml->entidade->nome);
+		$estrutura['titulo'] = strval($xml->controles->titulo);
+		$estrutura['tituloSistema'] = strval($xml->sistema->titulo);
+		$estrutura['subtituloSistema'] = strval($xml->sistema->subtitulo);
 		if(isset($xml->controles->textos))
 		foreach($xml->controles->textos->texto as $texto){
-			if(isset($texto['id'])) $estrutura['texto'][caracteres($texto['id'])] = caracteres($texto);
+			if(isset($texto['id'])) $estrutura['texto'][strval($texto['id'])] = strval($texto);
 		}
 		if(isset($xml->mensagens))
 		foreach($xml->mensagens->mensagem as $mensagem){
-			if(isset($mensagem['id'])) $estrutura['mensagem'][caracteres($mensagem['id'])] = caracteres($mensagem);
+			if(isset($mensagem['id'])) $estrutura['mensagem'][strval($mensagem['id'])] = strval($mensagem);
 		}
 	}
 	/**
@@ -47,30 +47,30 @@ class internacionalizacao extends objeto{
 				default:
 					$xml = simplexml_load_file($arquivoXML);
 					$this->mapearInternacionalizacaoGeral($estrutura);
-					$estrutura['nome'] = caracteres($xml->entidade->nome);
-					$estrutura['titulo'] = caracteres($xml->controles->titulo);
+					$estrutura['nome'] = strval($xml->entidade->nome);
+					$estrutura['titulo'] = strval($xml->controles->titulo);
 					if(isset($xml->entidade->propriedades))
 					foreach($xml->entidade->propriedades->propriedade as $propriedade){
 						if(isset($propriedade['nome'])) {
-							$estrutura['propriedade'][caracteres($propriedade['nome'])]['nome'] = caracteres($propriedade->nome);
-							$estrutura['propriedade'][caracteres($propriedade['nome'])]['abreviacao'] = caracteres($propriedade->abreviacao);
-							$estrutura['propriedade'][caracteres($propriedade['nome'])]['descricao'] = caracteres($propriedade->descricao);
+							$estrutura['propriedade'][strval($propriedade['nome'])]['nome'] = strval($propriedade->nome);
+							$estrutura['propriedade'][strval($propriedade['nome'])]['abreviacao'] = strval($propriedade->abreviacao);
+							$estrutura['propriedade'][strval($propriedade['nome'])]['descricao'] = strval($propriedade->descricao);
 						}
 						if(isset($propriedade->dominio)){
 							$dominio = array();
 							foreach($propriedade->dominio->opcao as $opcao){
-								$dominio[caracteres($opcao['id'])] = caracteres($opcao);
+								$dominio[strval($opcao['id'])] = strval($opcao);
 							}
-							$estrutura['propriedade'][caracteres($propriedade['nome'])]['dominio'] = $dominio;
+							$estrutura['propriedade'][strval($propriedade['nome'])]['dominio'] = $dominio;
 						}
 					}
 					if(isset($xml->controles->textos))
 					foreach($xml->controles->textos->texto as $texto){
-						if(isset($texto['id'])) $estrutura['texto'][caracteres($texto['id'])] = caracteres($texto);
+						if(isset($texto['id'])) $estrutura['texto'][strval($texto['id'])] = strval($texto);
 					}
 					if(isset($xml->mensagens))
 					foreach($xml->mensagens->mensagem as $mensagem){
-						if(isset($mensagem['id'])) $estrutura['mensagem'][caracteres($mensagem['id'])] = caracteres($mensagem);
+						if(isset($mensagem['id'])) $estrutura['mensagem'][strval($mensagem['id'])] = strval($mensagem);
 					}
 				break;
 			}

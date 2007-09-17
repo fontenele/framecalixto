@@ -19,19 +19,17 @@ class CUtilitario_testeTransacao extends controlePadrao{
 			$pessoa->passarTelefone('35627755');
 			$pessoa->passarCsPessoa('FI');
 			$pessoa->gravar();
-			
+
 			$usuario = new NUsuario($c);
 			$usuario->passarIdPessoa($pessoa->pegarIdPessoa());
 			$usuario->passarNmUsuario('tonho');
-			// $usuario->passarSenha('123');
+			//$usuario->passarSenha('123');
 			$usuario->passarStatus('A');
 			$usuario->gravar();
 			$c->validarTransacao();
-			$c->fechar();
 		}
 		catch(erro $e){
 			$c->desfazerTransacao();
-			$c->fechar();
 			x($e);die($e->__toString());
 		}
 	}

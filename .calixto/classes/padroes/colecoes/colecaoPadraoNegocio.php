@@ -8,7 +8,7 @@
 class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 	/**
 	* objeto de conexão com o banco de dados
-	* @var [conexao] 
+	* @var [conexao]
 	*/
 	public $conexao;
 	/**
@@ -16,9 +16,13 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 	* @param [vetor] (opcional) dados da colecao
 	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
-	public function __construct($array = null,$conexao = null){
+	public function __construct($array = null,conexao $conexao = null){
 		parent::__construct($array);
-		if(($conexao instanceof conexao)) $this->conexao = $conexao;
+		if($conexao){
+			$this->conexao = $conexao;
+		}else{
+			$this->conexao = conexao::criar();
+		}
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
@@ -65,7 +69,7 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
     /**
     * Método de gravação da coleção de negócios no banco de dados
     * @param [conexao] conexao para executar a gravação
-    * @return [vetor] vetor com os valores do atributo dos negócios 
+    * @return [vetor] vetor com os valores do atributo dos negócios
     */
     function gravar(){
 		try{
@@ -83,7 +87,7 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
     /**
     * Método de gravação da coleção de negócios no banco de dados
     * @param [conexao] conexao para executar a gravação
-    * @return [vetor] vetor com os valores do atributo dos negócios 
+    * @return [vetor] vetor com os valores do atributo dos negócios
     */
     function excluir(){
 		try{
@@ -116,7 +120,7 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
     /**
     * Método de geração de um vetor de um atributo do negócio
     * @param [string] primeiro item
-    * @return [vetor] vetor com os valores do atributo dos negócios 
+    * @return [vetor] vetor com os valores do atributo dos negócios
     */
     function gerarVetorDescritivo($vazio = false){
 		$arRetorno = array();

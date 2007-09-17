@@ -15,25 +15,12 @@ abstract class negocio extends objeto{
 	* Metodo construtor
 	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
-	public function __construct($conexao = null){
+	public function __construct(conexao $conexao = null){
 		try{
-			if($conexao instanceof conexao){
+			if($conexao){
 				$this->conexao = $conexao;
-			}
-		}
-		catch(erro $e){
-			throw $e;
-		}
-	}
-	/**
-	+ Retorna a conexão com o banco de dados, caso não exista, cria uma conexão
-	*/
-	final function pegarConexao(){
-		try{
-			if($this->conexao instanceof conexao){
-				return $this->conexao;
 			}else{
-				return conexao::criar();
+				$this->conexao = conexao::criar();
 			}
 		}
 		catch(erro $e){
@@ -41,17 +28,13 @@ abstract class negocio extends objeto{
 		}
 	}
 	/**
-	* Caso o recurso de conexão não tenha sido passado para a persistente fecha a conexão.
-	* @param [conexao] conexão com o banco de dados
-	* @return [booleano] se a conexão foi fechada (true) se não.(false)
+	* Metodo construtor
+	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
-	final function fecharConexao(conexao $conexao){
+	public final function conectar(){
 		try{
-			if($this->conexao !== $conexao){
-				$conexao->fechar();
-				return true;
-			}
-			return false;
+			if(is_resource($this->conexao)) return;
+			$this->conexao = conexao::criar();
 		}
 		catch(erro $e){
 			throw $e;

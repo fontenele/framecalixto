@@ -51,18 +51,18 @@ class controlePadrao extends controle{
 						if(isset($propriedade->dominio->opcao)){
 							$arValores[''] = '&nbsp;';
 							foreach($propriedade->dominio->opcao as $opcao){
-								$arValores[caracteres($opcao['id'])] = $this->inter->pegarOpcao(caracteres($propriedade['id']),caracteres($opcao['id']));
+								$arValores[strval($opcao['id'])] = $this->inter->pegarOpcao(strval($propriedade['id']),strval($opcao['id']));
 							}
 						}
-						$mapeador[caracteres($propriedade['id'])] = array(
-							'componente'	=> caracteres($propriedade->apresentacao['componente']	),
-							'tamanho'		=> caracteres($propriedade['tamanho']	), 
-							'tipo'			=> caracteres($propriedade['tipo']	),
-							'obrigatorio'	=> caracteres($propriedade['obrigatorio']	),
-							'pesquisa'		=> caracteres($propriedade->apresentacao['pesquisa']	),
+						$mapeador[strval($propriedade['id'])] = array(
+							'componente'	=> strval($propriedade->apresentacao['componente']	),
+							'tamanho'		=> strval($propriedade['tamanho']	),
+							'tipo'			=> strval($propriedade['tipo']	),
+							'obrigatorio'	=> strval($propriedade['obrigatorio']	),
+							'pesquisa'		=> strval($propriedade->apresentacao['pesquisa']	),
 							'valores'		=> $arValores,
-							'classeAssociativa'	=> caracteres($propriedade['classeAssociativa']		),
-							'metodoLeitura'		=> caracteres($propriedade['metodoLeitura']		)
+							'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
+							'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
 						);
 					}
 				break;
@@ -79,7 +79,7 @@ class controlePadrao extends controle{
 	public function registrarInternacionalizacao(){
 		$this->visualizacao->titulo		= $this->inter->pegarTituloSistema();
 		$this->visualizacao->subtitulo	= $this->inter->pegarSubtituloSistema();
-		$this->visualizacao->tituloEspecifico = 
+		$this->visualizacao->tituloEspecifico =
 			sprintf('%s - %s',$this->inter->pegarTitulo(),$this->inter->pegarTexto(definicaoEntidade::funcionalidade($this)));
 		$internacionalizacao = $this->inter->pegarInternacionalizacao();
 		if(isset($internacionalizacao['propriedade']))
@@ -151,7 +151,9 @@ class controlePadrao extends controle{
 			$metodo = strval($controleDeMenu[0]['metodoMenuSite']);
 			if($classe && $metodo){
 				$classe = new $classe();
-				return $classe->$metodo(get_class($this));
+				$return = $classe->$metodo(get_class($this));
+				$a = $classe->pegarConexao();
+				return $return ;
 			}
 			return array();
 		}
@@ -200,12 +202,12 @@ class controlePadrao extends controle{
 		}
 	}
 	/**
-	* Método montador de array descritivo 
+	* Método montador de array descritivo
 	* Monta um array [chave]=>descricao de uma coleção de objetos de negocio
 	*/
 	public function montarVetorDescritivo($classe,$metodo = 'lerTodos'){
-		$classe = new $classe();
 		if(is_subclass_of($classe,'negocio')){
+			$classe = new $classe();
 			$colecao = $classe->$metodo();
 			return $colecao->gerarVetorDescritivo('&nbsp;');
 		}else{
@@ -216,12 +218,12 @@ class controlePadrao extends controle{
 	* metodo de apresentação do negocio
 	* @param [negocio] objeto para a apresentação
 	*/
-	public function montarApresentacaoVisual(negocio $negocio){
+	public function montarApresentacaoVisual(negocio $negocio = null){
 		$estrutura = $this->mapearControle(definicaoArquivo::pegarXmlEntidade($this));
 		foreach($estrutura as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
 			$valor = $negocio->$pegarPropriedade();
-			if($opcoes['componente']){ 
+			if($opcoes['componente']){
 				switch(true){
 					case($opcoes['classeAssociativa'] && $opcoes['metodoLeitura']):
 						$array = $this->montarVetorDescritivo($opcoes['classeAssociativa'],$opcoes['metodoLeitura']);
@@ -250,7 +252,7 @@ class controlePadrao extends controle{
 		foreach($estrutura as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
 			$valor = $negocio->$pegarPropriedade();
-			if($opcoes['componente']){ 
+			if($opcoes['componente']){
 				switch(true){
 					case($opcoes['classeAssociativa'] && $opcoes['metodoLeitura']):
 						$array = $this->montarVetorDescritivo($opcoes['classeAssociativa'],$opcoes['metodoLeitura']);

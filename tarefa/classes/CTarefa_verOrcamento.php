@@ -11,8 +11,9 @@ class CTarefa_verOrcamento extends CTarefa_verTarefa{
 	* @param [negocio] objeto para a apresentação
 	*/
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
+		if(!sessaoSistema::tem('usuario')) throw(new erroLogin('Usuário não registrado para acessar suas tarefas!'));
 		parent::montarApresentacao($negocio,$tipo);
-		$this->visualizacao->textoOrcamentos = 
+		$this->visualizacao->textoOrcamentos =
 		sprintf($this->inter->pegarTexto('orcamentos'),"(".$negocio->coOrcamentos->contarItens().")");
 		$this->visualizacao->gravarOrcamento = VComponente::montar('botao','gravarOrcamento','Gravar Orçamento');
 		$negocio->carregarOrcamento();
