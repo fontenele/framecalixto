@@ -82,11 +82,9 @@ class CTarefa_atualizarTarefa extends controlePadrao{
 				break;
 			}
 			$conexao->validarTransacao();
-			$conexao->fechar();
 		}
 		catch(erro $e){
-			$conexao->validarTransacao();
-			$conexao->fechar();
+			$conexao->desfazerTransacao();
 			throw $e;
 		}
 	}

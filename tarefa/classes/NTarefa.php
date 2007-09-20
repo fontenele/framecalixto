@@ -108,7 +108,7 @@ class NTarefa extends negocioPadrao{
 	*/
 	public function carregarSubTarefas(){
 		try{
-			$nTarefa = new NTarefa();
+			$nTarefa = new NTarefa($this->conexao);
 			$nTarefa->passarIdTarefaPai($this->pegarIdTarefa());
 			$this->passarCoTarefas($nTarefa->pesquisar(new pagina(0)));
 		}
@@ -121,7 +121,7 @@ class NTarefa extends negocioPadrao{
 	* @return [colecao]
 	*/
 	public function carregarAtividades(){
-		$nAtividade = new NAtividade();
+		$nAtividade = new NAtividade($this->conexao);
 		$nAtividade->passarIdTarefa($this->pegarIdTarefa());
 		$nAtividade->passarCsAtividade(null);
 		$this->passarCoAtividades($nAtividade->pesquisar(new pagina(0)));
@@ -231,7 +231,7 @@ class NTarefa extends negocioPadrao{
 				if($nTarefa->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarTarefaFechada'));
 			}
 			if($negocio->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarTarefaFechada'));
-			if($this->pegarNrPercentual() == '100') $this->fechar();
+			if($this->pegarNrPercentual() == '100' || $this->pegarCsStatus() == 'F') $this->fechar();
 		}
 		catch(Erro $e){
 			throw $e;
