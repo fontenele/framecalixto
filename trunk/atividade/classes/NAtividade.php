@@ -53,11 +53,9 @@ class NAtividade extends negocioPadrao{
 	public function verificarAntesInserir(){
 		try{
 			parent::verificarAntesInserir();
-			$conexao = $this->pegarConexao();
-			$nTarefa = new NTarefa($conexao);
+			$nTarefa = new NTarefa($this->conexao);
 			$nTarefa->ler($this->pegarIdTarefa());
 			if($nTarefa->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarAtividadeFechada'));
-			$this->fecharConexao($conexao);
 		}
 		catch(Erro $e){
 			throw $e;
@@ -70,11 +68,9 @@ class NAtividade extends negocioPadrao{
 	public function verificarAntesAlterar($negocio){
 		try{
 			parent::verificarAntesAlterar($negocio);
-			$conexao = $this->pegarConexao();
-			$nTarefa = new NTarefa($conexao);
+			$nTarefa = new NTarefa($this->conexao);
 			$nTarefa->ler($this->pegarIdTarefa());
 			if($nTarefa->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarAtividadeFechada'));
-			$this->fecharConexao($conexao);
 		}
 		catch(Erro $e){
 			throw $e;
