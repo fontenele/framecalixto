@@ -1,6 +1,6 @@
 <?php
 /**
-* Classe de representação de uma camada de negócio da entidade 
+* Classe de representação de uma camada de negócio da entidade
 * A camada de negócio é a parte que engloba as regras e efetua os comandos de execução de um sistema
 * @package Sistema
 * @subpackage usuario
@@ -44,18 +44,16 @@ class NUsuario extends negocioPadrao{
 	}
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string] 
+	* @return [string]
 	*/
 	function nomeChave(){ return 'idUsuario'; }
 	/**
 	* Carrega a coleção de acessos do usuário
 	*/
 	public function carregarAcessos(){
-		$conexao = $this->pegarConexao();
-		$nAcesso = new NAcessoDoUsuario($conexao);
+		$nAcesso = new NAcessoDoUsuario($this->conexao);
 		$nAcesso->passarIdUsuario($this->pegarIdUsuario());
 		$this->coAcessos = $nAcesso->pesquisar(new pagina(0));
-		$this->fecharConexao($conexao);
 	}
 }
 ?>
