@@ -54,12 +54,10 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
     */
     function gravar(){
 		try{
-			$conexao = $this->pegarConexao();
 			foreach($this->itens as $indice => $objeto){
-				$objeto->passarConexao($conexao);
+				$objeto->passarConexao($this->conexao);
 				$objeto->gravar();
 			}
-			$this->fecharConexao($conexao);
 		}
 		catch(erro $e){
 			throw $e;
@@ -72,12 +70,10 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
     */
     function excluir(){
 		try{
-			$conexao = $this->pegarConexao();
 			foreach($this->itens as $indice => $objeto){
-				$objeto->passarConexao($conexao);
+				$objeto->passarConexao($this->conexao);
 				$objeto->excluir();
 			}
-			$this->fecharConexao($conexao);
 		}
 		catch(erro $e){
 			throw $e;
