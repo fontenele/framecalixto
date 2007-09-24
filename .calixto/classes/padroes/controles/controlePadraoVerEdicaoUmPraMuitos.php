@@ -19,7 +19,7 @@ class controlePadraoVerEdicaoUmPraMuitos extends controlePadrao{
 		parent::inicial();
 	}
 	/**
-	* Método criado para definir o objeto de negócio a ser apresentado 
+	* Método criado para definir o objeto de negócio a ser apresentado
 	*/
 	public function definirNegocio(){
 		$this->negocio = $this->pegarNegocio();
@@ -38,9 +38,9 @@ class controlePadraoVerEdicaoUmPraMuitos extends controlePadrao{
 	* @param [string] tipo de visualização a ser utilizada 'edicao' ou 'visual'
 	*/
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
-		$arControle = explode('_',get_class($this));
+/*		$arControle = explode('_',get_class($this));
 		preg_match('/(verEdicao)(.*)/', $arControle[1], $resultado);
-		$negocioColecao = (definicaoEntidade::negocio(' '.$resultado[2]));
+		$negocioColecao = (definicaoEntidade::negocio(' '.$resultado[2]));*/
 		parent::montarApresentacao($negocio, $tipo);
 	}
 	/**
