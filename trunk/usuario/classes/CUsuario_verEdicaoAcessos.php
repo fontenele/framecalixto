@@ -5,13 +5,5 @@
 * @package Sistema
 * @subpackage usuario
 */
-class CUsuario_verEdicaoAcessos extends controlePadraoVerEdicaoUmPraMuitos{
-/*	function inicial(){
-		$persistente = new NUsuario();
-		echo $persistente;
-	}*/
-	function montarApresentacao($negocio){
-		parent::montarApresentacao($negocio,'edicao');
-	}
-}
+class CUsuario_verEdicaoAcessos extends controlePadraoVerEdicaoUmPraMuitos{}
 ?>

@@ -5,13 +5,13 @@
 * @package Sistema
 * @subpackage usuario
 */
-class CUsuario_verSelecionarAcessos extends CUsuario_verEdicao{
+class CUsuario_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 	/**
 	* metodo de apresentação do negocio
 	* @param [negocio] objeto para a apresentação
 	*/
 	public function montarApresentacaoEdicao(negocio $negocio){
-		$negocio->carregarAcessos();
+		if($negocio->valorChave()) {$negocio->carregarAcessos();}
 		$controlesUsuario = array_flip($negocio->coAcessos->gerarVetorDeAtributo('controle'));
 		$sistema = dir(".");
 		while (false !== ($diretorio = $sistema->read())) {
@@ -40,7 +40,7 @@ class CUsuario_verSelecionarAcessos extends CUsuario_verEdicao{
 					&nbsp;<b>$entidade</b></td></tr>\n";
 				}
 				$vCheckBox = VComponente::montar('checkbox','controle[]',$controle);
-				if(isset($controlesUsuario[$controle])) $vCheckBox->passarChecked();
+				$vCheckBox->passarChecked(isset($controlesUsuario[$controle]));
 				$vCheckBox = $vCheckBox->__toString();
 				$listagem .= "\t\t\t<tr><td></td><td>{$vCheckBox}</td><td>{$arControle[1]}</td></tr>\n";
 			}

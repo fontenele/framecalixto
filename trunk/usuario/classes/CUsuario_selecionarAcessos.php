@@ -26,19 +26,14 @@ class CUsuario_selecionarAcessos extends controlePadrao{
 				$nAcesso->passarControle($controle);
 				$negocio->coAcessos->$index = $nAcesso;
 			}
-			$this->sessao->registrar('negocio',$negocio);
 			$negocio->coAcessos->gravar();
-			if($this->sessao->tem('negocio')){
-				$negocioSessao = $this->sessao->pegar('negocio');
-				if(!$negocioSessao->valorChave()) $this->sessao->retirar('negocio');
-			}
+			$this->sessao->registrar('negocio',$negocio);
 			$this->registrarComunicacao($this->inter->pegarMensagem('gravarSucesso'));
 			$conexao->validarTransacao();
-			$conexao->fechar();
+			$this->passarProximoControle(definicaoEntidade::controle($this,'verPesquisa'));
 		}
 		catch(erro $e){
 			$conexao->desfazerTransacao();
-			$conexao->fechar();
 			throw $e;
 		}
 	}
