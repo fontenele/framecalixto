@@ -9,5 +9,12 @@ class VRadio extends VInput{
 		parent::__construct($nome, $valor);
 		$this->passarType('radio');
 	}
+	/**
+	* Método de checagem do componente
+	* @param [booleano]
+	*/
+	function passarChecked($valor = false){
+		if($valor)	$this->propriedades['checked'] = 'checked';
+	}
 }
 ?>
