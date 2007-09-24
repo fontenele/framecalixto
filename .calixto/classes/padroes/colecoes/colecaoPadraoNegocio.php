@@ -35,6 +35,50 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 		parent::__set($variavel, $parametros);
     }
 	/**
+	* Método de sobrecarga para evitar a criação de métodos repetitivos
+	* @param [string] metodo chamado
+	* @param [array] parâmetros parassados para o método chamado
+	*/
+	protected function __call($metodo, $parametros){
+		try{
+			switch(true){
+				case (preg_match('/(pegar|passar)(.*)/', $metodo, $resultado)) :
+					$var = strtolower($resultado[2]{0}).substr($resultado[2],1,strlen($resultado[2]));
+					if ($resultado[1] == 'passar') {
+						$this->$var = $parametros[0];
+						return;
+					} else {
+						return $this->$var;
+					}
+				break;
+				default:
+					foreach($this->itens as $indice => $objeto){
+						$objeto->passarConexao($this->conexao);
+						$argumentos = array();
+						foreach($parametros as $arg => $parametro){
+							$variavel = 'var_'.$arg;
+							$$variavel = $parametro;
+							$argumentos[] = $variavel;
+						}
+						$chamadaDeMetodoNoObjeto = '$objeto->'.$metodo.'('.implode(',',$argumentos).');';
+						eval($chamadaDeMetodoNoObjeto);
+					}
+				break;
+			}
+		}
+		catch(erro $e){
+			$debug = debug_backtrace();
+			echo 'Chamada de método inexistente !!!';
+			$arRetorno['No Arquivo'] = $debug[1]['file'];
+			$arRetorno['Na Linha'] = $debug[1]['line'];
+			$arRetorno['Na Chamada'] = $debug[1]['function'];
+			$arRetorno['Da Classe'] = $debug[1]['class'];
+			$arRetorno['Argumentos'] = $debug[1]['args'];
+			x($arRetorno);
+			throw $e;
+		}
+    }
+	/**
 	* Metodo construtor
 	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
@@ -47,38 +91,6 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 			throw $e;
 		}
 	}
-    /**
-    * Método de gravação da coleção de negócios no banco de dados
-    * @param [conexao] conexao para executar a gravação
-    * @return [vetor] vetor com os valores do atributo dos negócios
-    */
-    function gravar(){
-		try{
-			foreach($this->itens as $indice => $objeto){
-				$objeto->passarConexao($this->conexao);
-				$objeto->gravar();
-			}
-		}
-		catch(erro $e){
-			throw $e;
-		}
-    }
-    /**
-    * Método de gravação da coleção de negócios no banco de dados
-    * @param [conexao] conexao para executar a gravação
-    * @return [vetor] vetor com os valores do atributo dos negócios
-    */
-    function excluir(){
-		try{
-			foreach($this->itens as $indice => $objeto){
-				$objeto->passarConexao($this->conexao);
-				$objeto->excluir();
-			}
-		}
-		catch(erro $e){
-			throw $e;
-		}
-    }
     /**
     * Método de indexação de itens pelo identificador da classe de negócio
     */
