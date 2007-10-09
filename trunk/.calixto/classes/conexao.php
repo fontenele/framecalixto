@@ -50,6 +50,8 @@ abstract class conexao extends objeto{
 			case 'oracle':
 				$conexao = new conexaoPadraoOCI($servidor, $porta, $banco, $usuario, $senha);
 			break;
+			default:
+				$conexao = false;
 		}
 		return $conexao;
 	}
