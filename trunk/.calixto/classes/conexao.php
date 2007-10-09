@@ -53,18 +53,5 @@ abstract class conexao extends objeto{
 		}
 		return $conexao;
 	}
-	/**
-	* Metodo destrutor
-	*/
-	public function __destruct(){
-		try{
-			if(is_resource($this->conexao)){
-				$this->fechar();
-			}
-		}
-		catch(erro $e){
-			throw $e;
-		}
-	}
 }
 ?>

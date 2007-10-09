@@ -275,7 +275,6 @@ class controlePadraoListagem extends controlePadrao{
 				$retorno.= "\t</tr>\n";
 				return $retorno.= "</table>\n";
 			}
-			$conexao->fechar();
 		}else{
 			return '';
 		}

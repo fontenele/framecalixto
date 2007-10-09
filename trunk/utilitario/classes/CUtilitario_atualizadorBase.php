@@ -16,7 +16,6 @@ class CUtilitario_atualizadorBase extends controlePadrao{
 			$persistente = new $persistente($c);
 			$persistente->recriar();
 		}
-		$c->fechar();
 	}
 	/**
 	* Método de geração das classes e ordem a serem recriadas
