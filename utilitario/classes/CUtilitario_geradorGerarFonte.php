@@ -49,7 +49,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 			$conexao = conexao::criar();
 			$obPersistente = new $persistente($conexao);
 			$obPersistente->recriar();
-			$conexao->fechar();
 		}
 	}
 	function validar(){
