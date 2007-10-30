@@ -44,7 +44,7 @@ function debug2($var,$metodos = true, $visualizacao = false){
 			echo '<font class="tipoPrimario" >(string) = <font class="string" >"'.((string) $var).'"</font>';
 		break;
 		case is_array($var):
-			echo '<table border=1 class="array"><tr><td><table class="itens">';
+			echo '<table summary="text" border=1 class="array"><tr><td><table class="itens">';
 			echo '<tr><td><font class="tipoPrimario" >(array) #'.count($var).':</font></td></tr>';
 			foreach($var as $indice => $valor){
 				echo "<tr><td><font class='keyword'>[{$indice}]=></font></td><td>";
@@ -54,7 +54,7 @@ function debug2($var,$metodos = true, $visualizacao = false){
 			echo '</tr></table></td></tr></table>';
 		break;
 		case is_object($var):
-			echo '<table border=1 class="objeto"><tr><td><table class="propriedades">';
+			echo '<table summary="text" border=1 class="objeto"><tr><td><table class="propriedades">';
 			echo '<tr><td><font class="tipoClasse"><b>('.get_class($var).')</b></font></td></tr>';
 			if($metodos){
 				foreach(get_class_methods($var) as $propriedade => $valor){
