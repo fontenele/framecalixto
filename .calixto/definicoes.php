@@ -90,7 +90,7 @@ function __autoload($stClasse){
 			echo "
 			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
 			<div class='erroNegro'>
-				<table class='erroNegro'>
+				<table summary='text' class='erroNegro'>
 					<tr><th colspan=2 >Tentativa de instanciar uma classe inexistente!</th></tr>
 					<tr><td>Classe:</td><td><font size='6px'>{$stClasse} ???</font></td></tr>
 					<tr><td>Arquivo:</td><td>{$debug[0]['file']}</td></tr>

@@ -36,7 +36,7 @@ class VMenu extends VEtiquetaHtml{
 		foreach($valores as $texto => $url){
 			if(is_array($url)){
 				$stLinks .= "<li><a href=\"#\">{$texto}\n<!--[if IE 7]><!--></a><!--<![endif]-->\n";
-				$stLinks .= "<table><tr><td>".$this->montarBotoes($url)."</td></tr></table>";
+				$stLinks .= "<table summary='text' ><tr><td>".$this->montarBotoes($url)."</td></tr></table>";
 				$stLinks .= "\n<!--[if lte IE 6]></a><![endif]-->\n</li>\n";
 			}else{
 				$stLinks .= "<li><a href='{$url}' tabindex='{$this->tabIndex}'>{$texto}</a></li>\n";

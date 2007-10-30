@@ -13,7 +13,7 @@ class erroBanco extends erro{
 		return  "
 			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
 			<div class='erroNegro'>
-				<table class='erroNegro'>
+				<table summary='text' class='erroNegro'>
 					<tr><th colspan=2 >Erro de Banco</th></tr>
 					<tr><td>Arquivo:</td><td>{$this->getFile()}</td></tr>
 					<tr><td>Linha:</td><td>{$this->getLine()}</td></tr>

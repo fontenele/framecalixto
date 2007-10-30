@@ -182,7 +182,7 @@ class controlePadraoListagem extends controlePadrao{
 			$conexao = conexao::criar();
 			$chaves = array_keys($this->campos);
 			sort($chaves);
-			$retorno = "\n<table class=\"tabela0\">\n";
+			$retorno = "\n<table summary='text' class=\"tabela0\">\n";
 			$retorno.= "<tr>\n";
 			foreach($chaves as $chave){
 				$campo = $this->campos[$chave];
