@@ -63,46 +63,39 @@ class VComponente extends VEtiquetaHtml{
 				case 'caixa de entrada':
 					$objeto = new VInput($nome,$valor);
 				break;
+				case 'nr documento':
+				case 'documento pessoal':
+					$tTipoDado = ($valor instanceof TNumerico) ? $valor : new TDocumentoPessoal(null) ;
+					$objeto = new VInputDocumentoPessoal($nome,$tTipoDado);
+				break;
+				case 'cep':
+					$tTipoDado = ($valor instanceof TCep) ? $valor : new TCep(null) ;
+					$objeto = new VInputCep($nome,$tTipoDado);
+				break;
+				case 'telefone':
+					$tTipoDado = ($valor instanceof TTelefone) ? $valor : new TTelefone(null) ;
+					$objeto = new VInputTelefone($nome,$tTipoDado);
+				break;
 				case 'data':
-					if(get_class($valor) != 'TData'){
-						$tData = new TData(null);
-					}else{
-						$tData = $valor;
-					}
-					$objeto = new VInputData($nome,$tData);
+					$tTipoDado =  ($valor instanceof TData) ? $valor : new TData(null)  ;
+					$objeto = new VInputData($nome,$tTipoDado);
 				break;
 				case 'hora':
-					if(get_class($valor) != 'TData'){
-						$tData = new TData(null);
-					}else{
-						$tData = $valor;
-					}
-					$objeto = new VInputHora($nome,$tData);
+					$tTipoDado =  ($valor instanceof TData) ? $valor : new TData(null)  ;
+					$objeto = new VInputHora($nome,$tTipoDado);
 				break;
 				case 'data e hora':
-					if(get_class($valor) != 'TData'){
-						$tData = new TData(null);
-					}else{
-						$tData = $valor;
-					}
-					$objeto = new VInputDataHora($nome,$tData);
+					$tTipoDado =  ($valor instanceof TData) ? $valor : new TData(null)  ;
+					$objeto = new VInputDataHora($nome,$tTipoDado);
 				break;
 				case 'numero':
 				case 'numerico':
-					if(!($valor instanceof TNumerico)){
-						$tNumerico = new TNumerico(null);
-					}else{
-						$tNumerico = $valor;
-					}
-					$objeto = new VInputNumerico($nome,$tNumerico);
+					$tTipoDado = ($valor instanceof TNumerico) ? $valor : new TNumerico(null) ;
+					$objeto = new VInputNumerico($nome,$tTipoDado);
 				break;
 				case 'moeda':
-					if(!($valor instanceof TMoeda)){
-						$tMoeda = new TMoeda(null);
-					}else{
-						$tMoeda = $valor;
-					}
-					$objeto = new VInputMoeda($nome,$tMoeda);
+					$tTipoDado = ($valor instanceof TMoeda) ? $valor : new TMoeda(null) ;
+					$objeto = new VInputMoeda($nome,$tTipoDado);
 				break;
 				case 'oculto':
 					$objeto = new VHidden($nome,$valor);

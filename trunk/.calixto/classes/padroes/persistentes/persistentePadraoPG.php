@@ -16,6 +16,7 @@ class persistentePadraoPG extends persistente{
 		$mapeamento['numerico'] = 'numeric';
 		$mapeamento['tnumerico'] = 'numeric';
 		$mapeamento['tmoeda'] = 'numeric';
+		$mapeamento['ttelefone'] = 'character varying';
 		$mapeamento['data'] = 'timestamp';
 		return $mapeamento;
 	}
