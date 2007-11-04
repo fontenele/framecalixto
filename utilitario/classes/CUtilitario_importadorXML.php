@@ -21,7 +21,7 @@ class CUtilitario_importadorXML extends controlePadrao{
 				if($nomeClasse){
 					$negocio = new $nomeClasse();
 					$negocio->xmlPraNegocio($classe);
-					$operacao ? $negocio->$operacao() : $negocio->gravar() ;
+					$operacao ? $negocio->$operacao() : $negocio->importar() ;
 				}
 			}
 		}
