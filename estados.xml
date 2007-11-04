@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<classes>
+	<classe nome='NEstado'>
+		<sigla>AM</sigla>
+		<estado>Amazônia</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>PA</sigla>
+		<estado>Pará</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>MT</sigla>
+		<estado>Mato Grosso</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>MG</sigla>
+		<estado>Minas Gerais</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>BA</sigla>
+		<estado>Bahia</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>MS</sigla>
+		<estado>Mato Grosso do Sul</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>GO</sigla>
+		<estado>Goiás</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>MA</sigla>
+		<estado>Maranhão</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>RS</sigla>
+		<estado>Rio Grande do Sul</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>TO</sigla>
+		<estado>Tocantins</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>PI</sigla>
+		<estado>Piauí</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>SP</sigla>
+		<estado>São Paulo</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>RO</sigla>
+		<estado>Roraima</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>RR</sigla>
+		<estado>Rondônia</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>PR</sigla>
+		<estado>Paraná</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>AC</sigla>
+		<estado>Acre</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>CE</sigla>
+		<estado>Ceará</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>AP</sigla>
+		<estado>Amapá</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>PE</sigla>
+		<estado>Pernambuco</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>SC</sigla>
+		<estado>Santa Catarina</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>PB</sigla>
+		<estado>Paraíba</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>RN</sigla>
+		<estado>Rio Grande do Norte</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>ES</sigla>
+		<estado>Espírito Santo</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>RJ</sigla>
+		<estado>Rio de Janeiro</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>AL</sigla>
+		<estado>Alagoas</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>SE</sigla>
+		<estado>Sergipe</estado>
+	</classe>
+	<classe nome='NEstado'>
+		<sigla>DF</sigla>
+		<estado>Distrito Federal</estado>
+	</classe>
+</classes>
