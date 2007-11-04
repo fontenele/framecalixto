@@ -17,6 +17,8 @@ abstract class persistentePadraoMySql extends persistente{
 		$mapeamento['tnumerico'] = 'INT';
 		$mapeamento['tmoeda'] = 'INT';
 		$mapeamento['ttelefone'] = 'VARCHAR';
+		$mapeamento['tdocumentopessoal'] = 'VARCHAR';
+		$mapeamento['tcep'] = 'VARCHAR';
 		$mapeamento['data'] = 'DATETIME';
 		return $mapeamento;
 	}
