@@ -12,21 +12,73 @@
 		«$idPessoa»
 		<table summary="text" class="tabela2">
 			<tr>
+				<td class="campo1">«$nomeCsPessoa»:</td>
+				<td class="campo2">«$csPessoa»</td>
+			</tr>
+			<tr>
 				<td class="campo1">«$nomeNmPessoa»:</td>
 				<td class="campo2">«$nmPessoa»</td>
 			</tr>
 			<tr>
-				<td class="campo1">«$nomeEndereco»:</td>
-				<td class="campo2">«$endereco»</td>
+				<td class="campo1">«$nomeDocumento»:</td>
+				<td class="campo2">«$documento»</td>
 			</tr>
 			<tr>
 				<td class="campo1">«$nomeTelefone»:</td>
 				<td class="campo2">«$telefone»</td>
 			</tr>
 			<tr>
-				<td class="campo1">«$nomeCsPessoa»:</td>
-				<td class="campo2">«$csPessoa»</td>
+				<td class="campo1">«$nomeTelefone2»:</td>
+				<td class="campo2">«$telefone2»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$nomeTelefone3»:</td>
+				<td class="campo2">«$telefone3»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$nomeCep»:</td>
+				<td class="campo2">«$cep»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$nomeEstado»:</td>
+				<td class="campo2">«$estado»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$nomeMunicipio»:</td>
+				<td class="campo2">«$municipio»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$nomeBairro»:</td>
+				<td class="campo2">«$bairro»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$nomeEndereco»:</td>
+				<td class="campo2">«$endereco»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$nomeEmail»:</td>
+				<td class="campo2">«$email»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$nomeSite»:</td>
+				<td class="campo2">«$site»</td>
 			</tr>
 		</table>
 	</div>
 </div>
+<script type='text/javascript' language='javascript'>
+var tipo = 'cpf';
+function ajustarDocumento(){
+	var f = document.formulario;
+	desformatarDocumentoPessoal(f.documento);
+	if(f.csPessoa.value.charAt(0) != 'J'){
+		tipo = 'cpf';
+	}else{
+		tipo = 'cnpj';
+	}
+	formatarDocumento();
+}
+function formatarDocumento(){
+	formatarDocumentoPessoal(document.formulario.documento,tipo);
+}
+</script>
