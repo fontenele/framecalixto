@@ -21,6 +21,7 @@ class CUtilitario_atualizadorBase extends controlePadrao{
 	* Método de geração das classes e ordem a serem recriadas
 	*/
 	function classes(){
+ 		$classes[] = 'PEstado';
  		$classes[] = 'PPessoa';
  		$classes[] = 'PUsuario';
  		$classes[] = 'PTarefa';
