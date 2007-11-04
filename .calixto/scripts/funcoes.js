@@ -1,9 +1,10 @@
 //====================================================================================
-//                      
+//
 //====================================================================================
+function $(id){	return document.getElementById(id);}
 function Ajax(){
 	var xmlhttp, completo = false;
-	
+
 	try { xmlhttp = new ActiveXObject("Msxml2.XMLHTTP"); }
 	catch (e) { try { xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); }
 	catch (e) { try { xmlhttp = new XMLHttpRequest(); }
@@ -63,7 +64,7 @@ function Ajax(){
 	return this;
 }
 
-/**  
+/**
 * Esta função captura uma tecla digitada
 * Parametros necessarios :
 * @var [ob] event =>  evento para a captura ex: onKeypres, onKeyup,onKeydown.
@@ -160,16 +161,16 @@ function sprintf() {
 					var arrTmp = new Array(padLeft+1);
 					var padding = arrTmp.join(pad?pad:" ");
 				} else {
-				var padding = ""; } 
+				var padding = ""; }
 			}
 			str = leftpart + padding + subst + rightPart;
 		}
 		return str;
 	}
 	catch(e){alert(e);}
-} 
+}
 /**
-* Retorna a validação de um email 
+* Retorna a validação de um email
 * @var [txt] endereço eletrônico de email
 * @return [booleano]
 */
@@ -401,7 +402,7 @@ function FormataNumero(stValor,charDecimal,charMilhar,nrCasasDecimais,simbolo,po
     var ParteDecimal = "";
     var Resultado = "";
     var negativo = false;
-	
+
     if(PosicaoDecimal == 0){
         ParteInteira = LimpaNumero(STR,"Inteiro");
         ParteInteira = SeparaEmMilhar(ParteInteira,charMilhar);
@@ -574,4 +575,77 @@ function FixaTamanho(STR,nrCasasDecimais){
         STR = STR.substr(0,STR.length - (STR.length - nrCasasDecimais));
     }
     return STR;
+}
+//====================================================================================
+//                      FORMATAÇÃO E VALIDAÇÃO DE TELEFONE
+//====================================================================================
+function desformatarTelefone(componente){
+	if(componente.value)
+	componente.value = LimpaNumero(componente.value,"Decimal");
+}
+function formatarTelefone(componente){
+    var STRfinal = "";
+    var i=1;
+	STR = InverteString(componente.value);
+    while (i <= STR.length){
+        STRfinal = STR.charAt(i-1) + STRfinal;
+        if(i == 4){STRfinal = '-' + STRfinal;}
+		if(i == 8 && STR.length > 8){STRfinal = ')' + STRfinal;}
+        i++;
+    }
+	if(STR.length > 8){STRfinal = '(' + STRfinal;}
+	componente.value = STRfinal;
+}
+//====================================================================================
+//                      FORMATAÇÃO E VALIDAÇÃO DE CEP
+//====================================================================================
+function desformatarCep(componente){
+	if(componente.value)
+	componente.value = LimpaNumero(componente.value,"Decimal");
+}
+function formatarCep(componente){
+    var STRfinal = "";
+    var i=1;
+	STR = InverteString(componente.value);
+    while (i <= STR.length){
+        STRfinal = STR.charAt(i-1) + STRfinal;
+        if(i == 3){STRfinal = '-' + STRfinal;}
+		if(i == 6){STRfinal = '.' + STRfinal;}
+        i++;
+    }
+	componente.value = STRfinal;
+}
+//====================================================================================
+//                      FORMATAÇÃO E VALIDAÇÃO DE CPF/CNPJ
+//====================================================================================
+function desformatarDocumentoPessoal(componente){
+	if(componente.value)
+	componente.value = LimpaNumero(componente.value,"Decimal");
+}
+function formatarDocumentoPessoal(componente, tipo ){
+	var tipo = tipo || "cpf";
+    var STRfinal = "";
+    var i=1;
+	STR = InverteString(componente.value);
+	if(tipo == "cpf"){
+		while (i <= STR.length){
+			if(i == 12) break;
+			STRfinal = STR.charAt(i-1) + STRfinal;
+			if(i == 2){STRfinal = '-' + STRfinal;}
+			if(i == 5){STRfinal = '.' + STRfinal;}
+			if(i == 8){STRfinal = '.' + STRfinal;}
+			i++;
+		}
+	}else{
+		while (i <= STR.length){
+			if(i == 15) break;
+			STRfinal = STR.charAt(i-1) + STRfinal;
+			if(i == 2){STRfinal = '-' + STRfinal;}
+			if(i == 6){STRfinal = '/' + STRfinal;}
+			if(i == 9){STRfinal = '.' + STRfinal;}
+			if(i == 12){STRfinal = '.' + STRfinal;}
+			i++;
+		}
+	}
+	componente.value = STRfinal;
 }
