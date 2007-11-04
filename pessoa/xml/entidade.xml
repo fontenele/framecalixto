@@ -3,27 +3,7 @@
 	<propriedades>
 		<propriedade id='idPessoa' tipo='numerico' tamanho='10' obrigatorio='sim' indicePrimario='sim'  >
 			<banco nome='Pess_id_pessoa'  />
-			<apresentacao componente='oculto' >
-				<listagem ordem='1' tamanho='10%' hyperlink='sim' />
-			</apresentacao>
-		</propriedade>
-		<propriedade id='nmPessoa' tipo='texto' tamanho='100' obrigatorio='sim' indiceUnico='sim' descritivo='1' >
-			<banco nome='Pess_nm_pessoa' ordem='1'  />
-			<apresentacao componente='caixa de entrada' >
-				<listagem ordem='2' tamanho='40%' />
-			</apresentacao>
-		</propriedade>
-		<propriedade id='endereco' tipo='texto' tamanho='254' obrigatorio='sim' >
-			<banco nome='Pess_endereco' />
-			<apresentacao componente='caixa de entrada' >
-				<listagem tamanho='40%' />
-			</apresentacao>
-		</propriedade>
-		<propriedade id='telefone' tipo='texto' tamanho='50' obrigatorio='sim' >
-			<banco nome='Pess_telefone' />
-			<apresentacao componente='caixa de entrada' >
-				<listagem tamanho='20%' />
-			</apresentacao>
+			<apresentacao componente='oculto' />
 		</propriedade>
 		<propriedade id='csPessoa' tipo='texto' tamanho='2' obrigatorio='sim' >
 			<dominio>
@@ -36,6 +16,66 @@
 			<apresentacao componente='caixa de combinacao' >
 				<listagem ordem='3' tamanho='30%' />
 			</apresentacao>
+		</propriedade>
+		<propriedade id='nmPessoa' tipo='texto' tamanho='100' obrigatorio='sim' indiceUnico='sim' descritivo='1' >
+			<banco nome='Pess_nm_pessoa' ordem='1'  />
+			<apresentacao componente='caixa de entrada' >
+				<listagem ordem='3' tamanho='45%' hyperlink='sim' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='documento' tipo='tdocumentopessoal' tamanho='25' indiceUnico='sim' >
+			<banco nome='Pess_documento' />
+			<apresentacao componente='documento pessoal' >
+				<listagem ordem='2' tamanho='12%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='cep' tipo='tcep' tamanho='8' >
+			<banco nome='Pess_cep' />
+			<apresentacao componente='cep' />
+		</propriedade>
+		<propriedade id='telefone' tipo='ttelefone' tamanho='10' >
+			<banco nome='Pess_telefone' />
+			<apresentacao componente='telefone' >
+				<listagem tamanho='10%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='telefone2' tipo='ttelefone' tamanho='10' >
+			<banco nome='Pess_telefone2' />
+			<apresentacao componente='telefone' >
+				<listagem tamanho='10%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='telefone3' tipo='ttelefone' tamanho='10' >
+			<banco nome='Pess_telefone3' />
+			<apresentacao componente='telefone' >
+				<listagem tamanho='10%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='estado' tipo='numerico' tamanho='2'  classeAssociativa='NEstado'  >
+			<banco nome='Pess_estado' >
+				<chaveEstrangeira tabela='Estado' campo='esta_id' />
+			</banco>
+			<apresentacao componente='caixa de combinacao' />
+		</propriedade>
+		<propriedade id='municipio' tipo='texto' tamanho='100' >
+			<banco nome='Pess_municipio' />
+			<apresentacao componente='caixa de entrada' />
+		</propriedade>
+		<propriedade id='bairro' tipo='texto' tamanho='100' >
+			<banco nome='Pess_bairro' />
+			<apresentacao componente='caixa de entrada' />
+		</propriedade>
+		<propriedade id='endereco' tipo='texto' tamanho='254' >
+			<banco nome='Pess_endereco' />
+			<apresentacao componente='caixa de texto' />
+		</propriedade>
+		<propriedade id='email' tipo='texto' tamanho='255' >
+			<banco nome='Pess_email' />
+			<apresentacao componente='caixa de entrada' />
+		</propriedade>
+		<propriedade id='site' tipo='texto' tamanho='1000' >
+			<banco nome='Pess_site' />
+			<apresentacao componente='caixa de entrada' />
 		</propriedade>
 	</propriedades>
 </entidade>

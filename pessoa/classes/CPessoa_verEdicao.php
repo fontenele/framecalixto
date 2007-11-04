@@ -12,9 +12,18 @@ class CPessoa_verEdicao extends controlePadraoVerEdicao{
 	*/
 	function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
-		$menu[$this->inter->pegarTexto('novaTarefa')]= sprintf('?c=%s&pessoa=%s','CTarefa_criarNova',$this->negocio->pegarIdPessoa());
+		$menu[$this->inter->pegarTexto('novaTarefa')]= sprintf('?c=%s&amp;pessoa=%s','CTarefa_criarNova',$this->negocio->pegarIdPessoa());
 		return $menu;
 	}
-
+	/**
+	* metodo de apresentação do negocio
+	* @param [negocio] objeto para a apresentação
+	*/
+	public function montarApresentacaoEdicao(negocio $negocio){
+		parent::montarApresentacaoEdicao($negocio);
+		$this->visualizacao->csPessoa->adicionarOnChange("ajustarDocumento();");
+		$this->visualizacao->documento->removerOnBlur();
+		$this->visualizacao->documento->adicionarOnBlur("formatarDocumento();");
+	}
 }
 ?>
