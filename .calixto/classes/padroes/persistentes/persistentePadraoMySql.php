@@ -16,6 +16,7 @@ abstract class persistentePadraoMySql extends persistente{
 		$mapeamento['numerico'] = 'INT';
 		$mapeamento['tnumerico'] = 'INT';
 		$mapeamento['tmoeda'] = 'INT';
+		$mapeamento['ttelefone'] = 'VARCHAR';
 		$mapeamento['data'] = 'DATETIME';
 		return $mapeamento;
 	}
@@ -46,14 +47,14 @@ abstract class persistentePadraoMySql extends persistente{
 		$valores = implode(',',$valores);
 		return "insert into {$estrutura['nomeTabela']} ($campos) values ($valores);\n";
 	}
-	
+
 	//**************************************************************************
 	//**************************************************************************
 	// 							COMANDOS DDL
 	//**************************************************************************
 	//**************************************************************************
 	/**
-	* Monta o comando de criação da sequence no banco de dados 
+	* Monta o comando de criação da sequence no banco de dados
 	* @return [string] comando de criação
 	*/
 	public function gerarComandoCriacaoSequence(){
@@ -86,21 +87,21 @@ abstract class persistentePadraoMySql extends persistente{
 		return $comando;
 	}
 	/**
-	* Monta o comando de criação das chaves estrangeiras no banco de dados 
+	* Monta o comando de criação das chaves estrangeiras no banco de dados
 	* @return [string] comando de criação
 	*/
 	public function gerarComandoCriacaoChavesEstrangeiras(){
 		$estrutura = $this->pegarEstrutura();
 		$comando = "";
 		foreach($estrutura['campo'] as $nomeCampo => $referencia){
-			if(isset($referencia['chaveEstrangeira'])) 
-				$comando .= "alter table {$estrutura['nomeTabela']} \n	
+			if(isset($referencia['chaveEstrangeira']))
+				$comando .= "alter table {$estrutura['nomeTabela']} \n
 				add constraint {$estrutura['nomeTabela']}_{$nomeCampo}_fk foreign key ($nomeCampo) references {$referencia['chaveEstrangeira']['tabela']}({$referencia['chaveEstrangeira']['campo']});";
 		}
 		return $comando;
 	}
 	/**
-	* Monta o comando de criação da chave primaria da tabela 
+	* Monta o comando de criação da chave primaria da tabela
 	* @return [string] comando de criação
 	*/
 	public function gerarComandoCriacaoChavePrimaria(){

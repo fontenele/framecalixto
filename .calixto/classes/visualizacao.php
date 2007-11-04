@@ -46,5 +46,17 @@ class visualizacao extends Smarty{
 	function __set($variavel, $parametros){
 		$this->assign($variavel,$parametros);
     }
+	/**
+	* Método de sobrecarga para evitar a criação de métodos repetitivos
+	* @param [string] metodo chamado
+	* @param [array] parâmetros parassados para o método chamado
+	*/
+	function __get($variavel){
+		if(isset($this->_tpl_vars[$variavel])){
+			return $this->_tpl_vars[$variavel];
+		}else{
+			return false;
+		}
+    }
 }
 ?>

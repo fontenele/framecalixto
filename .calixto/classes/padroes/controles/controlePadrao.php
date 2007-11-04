@@ -355,6 +355,15 @@ class controlePadrao extends controle{
 			case 'data':
 				$negocio->$metodo(new TData($valor));
 			break;
+			case 'ttelefone':
+				$negocio->$metodo(new TTelefone($valor));
+			break;
+			case 'tcep':
+				$negocio->$metodo(new TCep($valor));
+			break;
+			case 'tdocumentopessoal':
+				$negocio->$metodo(new TDocumentoPessoal($valor));
+			break;
 			default:
 				$negocio->$metodo($valor);
 		}

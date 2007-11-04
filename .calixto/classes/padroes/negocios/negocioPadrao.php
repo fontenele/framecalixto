@@ -241,6 +241,12 @@ abstract class negocioPadrao extends negocio{
 		}
 	}
 	/**
+	* Executa o comando de importação do objeto
+	*/
+	public function importar(){
+		$this->gravar();
+	}
+	/**
 	* Método utilizado para efetuar as verificações antes de executar a inclusão
 	*/
 	public function verificarAntesInserir(){

@@ -151,6 +151,15 @@ abstract class persistente extends objeto{
 				case 'tmoeda':
 					return new TMoeda($valor);
 				break;
+				case 'ttelefone':
+					return new TTelefone($valor);
+				break;
+				case 'tcep':
+					return new TCep($valor);
+				break;
+				case 'tdocumentopessoal':
+					return new TDocumentoPessoal($valor);
+				break;
 				default:
 					return $valor;
 			}
