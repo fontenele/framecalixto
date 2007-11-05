@@ -17,6 +17,7 @@ class VComponente extends VEtiquetaHtml{
 			switch(strtolower($componente)){
 				case 'envio':
 				case 'enviar':
+				case 'confirmar':
 					$objeto = new VButtonSubmit($nome,$valor);
 					$objeto->passarConteudo($valor);
 				break;
