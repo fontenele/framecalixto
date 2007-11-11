@@ -82,10 +82,20 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 	* Metodo construtor
 	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
-	public final function conectar(){
+	public final function conectar(conexao $conexao = null){
 		try{
-			if(is_resource($this->conexao)) return;
-			$this->conexao = conexao::criar();
+			switch(true){
+				case($conexao):
+					$this->passarConexao($conexao);
+				break;
+				case(is_resource($this->pegarConexao()->pegarConexao())):
+				break;
+				default:
+					$this->passarConexao(conexao::criar());
+			}
+			foreach($this->itens as $indice => $negocio){
+				$this->itens[$indice]->conectar($this->conexao);
+			}
 		}
 		catch(erro $e){
 			throw $e;
