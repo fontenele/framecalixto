@@ -31,10 +31,22 @@ abstract class negocio extends objeto{
 	* Metodo construtor
 	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
-	public final function conectar(){
+	public final function conectar(conexao $conexao = null){
 		try{
-			if(is_resource($this->conexao)) return;
-			$this->conexao = conexao::criar();
+			switch(true){
+				case($conexao):
+					$this->passarConexao($conexao);
+				break;
+				case(is_resource($this->pegarConexao()->pegarConexao())):
+				break;
+				default:
+					$this->passarConexao(conexao::criar());
+			}
+			$props = array_keys(get_object_vars($this));
+			foreach($props as $prop){
+				if(is_object($this->$prop) && method_exists($this->$prop,'conectar') && !($this->$prop instanceof conexao))
+					$this->$prop->conectar($this->conexao);
+			}
 		}
 		catch(erro $e){
 			throw $e;
