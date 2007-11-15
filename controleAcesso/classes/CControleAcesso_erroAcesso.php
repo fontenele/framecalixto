@@ -11,6 +11,7 @@ class CControleAcesso_erroAcesso extends controlePadrao{
 	*/
 	function inicial(){
 		$this->gerarMenuPrincipal();
+		$this->gerarMenuModulo();
 		$this->registrarInternacionalizacao();
 		$this->visualizacao->mensagemErro = (isset($_GET['mensagemErro'])) ? $_GET['mensagemErro'] : '' ;
 		$this->visualizacao->mostrar();
@@ -19,7 +20,7 @@ class CControleAcesso_erroAcesso extends controlePadrao{
 	* Método de validação do controle de acesso
 	* @return [booleano] resultado da validação
 	*/
-	public function validarAcessoAoControle(){ 
+	public function validarAcessoAoControle(){
 		return true;
 	}
 }
