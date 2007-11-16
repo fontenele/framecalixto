@@ -44,7 +44,7 @@ class CPessoa_listagem extends controlePadraoListagem{
 		$imagem->passarSrc('pessoa/imagens/novaTarefa.png')	;
 		$imagem->passarBorder(0);
 		$link = new VEtiquetaHtml('a');
-		$link->passarHref(sprintf('?c=%s&amp;pessoa=%s','CTarefa_criarNova',$nPessoa->pegarIdPessoa()));
+		$link->passarHref(sprintf('?c=%s&amp;pessoa=%s','CTarefa_verCriarNova',$nPessoa->pegarIdPessoa()));
 		$link->passarConteudo($imagem->__toString());
 		$link->passarTitle('Nova tarefa para: '.$nPessoa->pegarNmPessoa());
 		$center = new VEtiquetaHtml('center');

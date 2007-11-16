@@ -1,6 +1,6 @@
 <?php
 /**
-* Classe de representação de uma camada de negócio da entidade 
+* Classe de representação de uma camada de negócio da entidade
 * A camada de negócio é a parte que engloba as regras e efetua os comandos de execução de um sistema
 * @package Sistema
 * @subpackage atividade
@@ -36,17 +36,17 @@ class NAtividade extends negocioPadrao{
 	public $csAtividade = 1;
 		/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string] 
+	* @return [string]
 	*/
 	function nomeChave(){ return 'idAtividade'; }
 	/**
 	* Retorna se a atividade está encerrada
-	* @return [booleano] 
+	* @return [booleano]
 	*/
 	public function encerrada(){
 		return (boolean) ($this->dtInicio->__toString() != $this->dtFim->__toString());
 	}
-	
+
 	/**
 	* Método utilizado para efetuar as verificações antes de executar a inclusão
 	*/
@@ -56,6 +56,10 @@ class NAtividade extends negocioPadrao{
 			$nTarefa = new NTarefa($this->conexao);
 			$nTarefa->ler($this->pegarIdTarefa());
 			if($nTarefa->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarAtividadeFechada'));
+			if(!$nTarefa->pegarDtInicio() && $this->csAtividade == 1){
+				$nTarefa->passarDtInicio($this->dtInicio);
+				$nTarefa->gravar();
+			}
 		}
 		catch(Erro $e){
 			throw $e;

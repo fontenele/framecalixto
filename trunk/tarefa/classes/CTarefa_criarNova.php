@@ -5,25 +5,20 @@
 * @package Sistema
 * @subpackage tarefa
 */
-class CTarefa_criarNova extends controlePadrao{
+class CTarefa_criarNova extends controlePadraoGravar{
 	/**
 	* Método inicial do controle
 	*/
 	public function inicial(){
-/*		$this->passarProximoControle(definicaoEntidade::controle($this,'verEdicao'));
-		$nTarefa = new NTarefa();
-		$nTarefa->ler($_POST['idTarefa']);
-		$nUsuario = new Usuario();
-		$nUsuario->ler($_POST['idResponsavel']);
-		$this->validarEncaminhamento($nTarefa,$nUsuario);
-		$this->encaminharTarefa($nTarefa);
-		$this->sessao->registrar('negocio',$nTarefa);
-		$nTarefa->gravar();
-		if($this->sessao->tem('negocio')){
-			$negocioSessao = $this->sessao->pegar('negocio');
-			if(!$negocioSessao->valorChave()) $this->sessao->retirar('negocio');
-		}
-		$this->registrarComunicacao($this->inter->pegarMensagem('gravarSucesso'));*/
+			$this->passarProximoControle('CTarefa_verCriarNova');
+			$negocio = definicaoEntidade::negocio($this);
+			$negocio = new $negocio();
+			$this->montarNegocio($negocio);
+			$negocio->passarCsStatus('A');
+			$this->sessao->registrar('negocio',$negocio);
+			$negocio->gravar();
+			$this->registrarComunicacao($this->inter->pegarMensagem('gravarSucesso'));
+			$this->passarProximoControle('CTarefa_verTarefa&chave='.$negocio->valorChave());
 	}
 }
 ?>

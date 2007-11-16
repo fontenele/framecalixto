@@ -167,7 +167,7 @@ class TData extends objeto{
 		return null;
 	}
 	/**
-	* metodo de retorno da string de data 
+	* metodo de retorno da string de data
 	* @param [string] formato da data
 	* @return [string] data formatada
 	*/

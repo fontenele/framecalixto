@@ -19,7 +19,7 @@ abstract class conexao extends objeto{
 	* String de conexao
 	* @var [string]
 	*/
-	public $strConn;
+	protected $strConn;
 	/**
 	* Método construtor
 	* Faz a chamada de validação de acesso ao controle

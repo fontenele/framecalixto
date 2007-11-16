@@ -23,7 +23,11 @@ class CTarefa_atualizarTarefa extends controlePadrao{
 						case $nTarefa->pegarIdResponsavel():
 						case $nTarefa->pegarIdDono():
 							parent::montarNegocio($nTarefa);
-							$nTarefa->gravar();
+							if($nTarefa->pegarNrPercentual() == '100' || $nTarefa->pegarCsStatus() == 'F'){
+								$nTarefa->fechar();
+							}else{
+								$nTarefa->gravar();
+							}
 						break;
 						default:
 							throw new erroNegocio('Somente o dono ou o responsável podem alterar a tarefa atual !');
@@ -62,7 +66,6 @@ class CTarefa_atualizarTarefa extends controlePadrao{
 					$novaTarefa->passarIdTarefaPai			($nTarefa->pegarIdTarefa());
 					$novaTarefa->passarIdDono				($nTarefa->pegarIdDono());
 					$novaTarefa->passarCsStatus				('A');
-					
 					$novaTarefa->passarNrPercentual			($_POST['nrPercentualSubTarefa']);
 					$novaTarefa->passarDtInicioPrevisto		(TData::agora());
 					$novaTarefa->passarDtFimPrevisto		(TData::agora());
