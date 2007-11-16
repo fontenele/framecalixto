@@ -172,29 +172,36 @@ class NTarefa extends negocioPadrao{
 	* Muda o responsável pela tarefa
 	* @param [NUsuario]
 	*/
-	public function encaminharTarefa(NUsuario $nEncaminhador, NUsuario $nUsuario, $texto = null){
+	public function encaminharTarefa(NUsuario $nEncaminhador, NUsuario $nRecebedor, $texto = null){
 		try{
-			if($nUsuario->pegarIdUsuario() == $this->pegarIdResponsavel())
-				throw new erroNegocio($this->inter->pegarMensagem('recebedorEstaComoResponsavel'));
 			$this->ler($this->pegarIdTarefa());
-			if($nEncaminhador->pegarIdUsuario() == $this->pegarIdResponsavel() || $nEncaminhador->pegarIdUsuario() == $this->pegarIdDono()){
-				// criando atividade de encaminhamento
-				$tDataInicial = TData::agora();
-				$tDataFinal = TData::agora();
-				$tDataFinal->somarSegundo();
-				$nAtividade = new NAtividade($this->conexao);
-				$nAtividade->passarIdUsuario($nEncaminhador->pegarIdUsuario());
-				$nAtividade->passarIdTarefa($this->pegarIdTarefa());
-				$nAtividade->passarDtInicio($tDataInicial);
-				$nAtividade->passarDtFim($tDataFinal);
-				$nAtividade->passarDsAtividade($texto);
-				$nAtividade->passarCsAtividade(2);
-				$nAtividade->gravar();
-				// encaminhando a tarefa
-				$this->passarIdResponsavel($nUsuario->pegarIdUsuario());
-				$this->gravar();
-			}else{
-				throw new erroNegocio($this->inter->pegarMensagem('somenteDonoOuResponsavelPodeEncaminhar'));
+			switch(true){
+				// Se o recebedor for o próprio usuario
+				case ($nRecebedor->pegarIdUsuario() == $this->pegarIdResponsavel()):
+					throw new erroNegocio($this->inter->pegarMensagem('recebedorEstaComoResponsavel'));
+				// Se o encaminhador for o responsável
+				case ($nEncaminhador->pegarIdUsuario() == $this->pegarIdResponsavel()):
+				// Se o encaminhador for o dono
+				case ($nEncaminhador->pegarIdUsuario() == $this->pegarIdDono()):
+					// criando atividade de encaminhamento
+					$tDataInicial = TData::agora();
+					$tDataFinal = TData::agora();
+					$tDataFinal->somarSegundo();
+					$nAtividade = new NAtividade($this->conexao);
+					$nAtividade->passarIdUsuario($nEncaminhador->pegarIdUsuario());
+					$nAtividade->passarIdTarefa($this->pegarIdTarefa());
+					$nAtividade->passarDtInicio($tDataInicial);
+					$nAtividade->passarDtFim($tDataFinal);
+					$nAtividade->passarDsAtividade($texto);
+					$nAtividade->passarCsAtividade(2);
+					$nAtividade->gravar();
+					// encaminhando a tarefa
+					$this->passarIdResponsavel($nRecebedor->pegarIdUsuario());
+					$this->gravar();
+				break;
+				// Sem permisão de encaminhar
+				default:
+					throw new erroNegocio($this->inter->pegarMensagem('somenteDonoOuResponsavelPodeEncaminhar'));
 			}
 		}
 		catch(erro $e){
@@ -231,7 +238,7 @@ class NTarefa extends negocioPadrao{
 				if($nTarefa->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarTarefaFechada'));
 			}
 			if($negocio->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarTarefaFechada'));
-			if($this->pegarNrPercentual() == '100' || $this->pegarCsStatus() == 'F') $this->fechar();
+			if($this->pegarNrPercentual() == '100') $this->passarCsStatus('F');
 		}
 		catch(Erro $e){
 			throw $e;
@@ -240,11 +247,16 @@ class NTarefa extends negocioPadrao{
 	/**
 	* Metodo de fechamento da tarefa
 	*/
-	protected function fechar(){
+	public function fechar(){
 		try{
+			$this->carregarSubTarefas();
+			while($nTarefa = $this->coTarefas->avancar()){
+				$nTarefa->fechar();
+			}
 			$this->carregarAtividadesExecucao();
-			if(!$this->coAtividades->contarItens())
-			throw new erroNegocio(sprintf($this->inter->pegarMensagem('impossivelFecharTarefaSemAtividade'),$this->valorDescricao()));
+			if(!$this->coAtividades->contarItens()){
+				throw new erroNegocio(sprintf($this->inter->pegarMensagem('impossivelFecharTarefaSemAtividade'),$this->valorDescricao()));
+			}
 			while($nAtividade = $this->coAtividades->avancar()){
 				if(!$nAtividade->encerrada()) {
 					$nUsuario = new NUsuario($this->conexao);
@@ -252,13 +264,10 @@ class NTarefa extends negocioPadrao{
 					throw new erroNegocio(sprintf($this->inter->pegarMensagem('impossivelFecharComAtividadeAberta'),$this->valorDescricao(),$nUsuario->valorDescricao()));
 				}
 			}
-			$this->carregarSubTarefas();
-			while($nTarefa = $this->coTarefas->avancar()){
-				$nTarefa->fechar();
-			}
 			$this->passarNrPercentual(100);
 			$this->passarCsStatus('F');
 			$this->passarDtFim(TData::agora());
+			$this->gravar();
 		}
 		catch(erro $e){
 			throw $e;
