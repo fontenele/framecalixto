@@ -75,6 +75,11 @@ abstract class persistente extends objeto{
 						$estrutura['campo'][$nomeCampo]['tipo'] = strtolower(strval($campo['tipo']));
 						$estrutura['campo'][$nomeCampo]['tamanho'] = strval($campo['tamanho']);
 						$estrutura['campo'][$nomeCampo]['obrigatorio'] = (strtolower(strval($campo['obrigatorio'])) == 'sim') ? 'sim' : 'nao';
+						if($estrutura['campo'][$nomeCampo]['tipo'] == 'texto'){
+							$estrutura['campo'][$nomeCampo]['operador'] = isset($campo->banco['operador']) ? strtolower(strval($campo->banco['operador'])): 'como';
+						}else{
+							$estrutura['campo'][$nomeCampo]['operador'] = isset($campo->banco['operador']) ? strtolower(strval($campo->banco['operador'])): 'igual';
+						}
 						if(isset($campo->banco->chaveEstrangeira)){
 							$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['tabela'] = strval($campo->banco->chaveEstrangeira['tabela']);
 							$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['campo'] = strval($campo->banco->chaveEstrangeira['campo']);
@@ -104,6 +109,7 @@ abstract class persistente extends objeto{
 	/**
 	* Método que retorna a estrutura da persitente
 	* @return [vetor] estrutura da persitente
+
 	*/
 	public function pegarEstrutura($arquivoXML = null){
 		try{
@@ -262,17 +268,31 @@ abstract class persistente extends objeto{
 			$tamanhoComando = strlen($comando);
 			foreach($filtro as $campo => $valor){
 				$valor = $this->converterDado($valor);
-				switch(true){
-					case($estrutura['campo'][$campo]['tipo'] == 'numero'):
-						$comando.= ($valor) ? " {$campo} = {$valor} and ":"";
+				if(!$valor) continue;
+				switch($estrutura['campo'][$campo]['operador']){
+					case('diferente'):
+						if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+							$operacao = " %s <> %s and ";
+						}else{
+							$operacao = " %s <> '%s' and ";
+						}
 					break;
-					case($estrutura['campo'][$campo]['tipo'] == 'texto'):
-						$comando.= ($valor) ? " upper({$campo}) like upper('%$valor%') and ":"";
+					case('como'):
+						if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+							$operacao = " upper(%s) like upper(%%%s%%) and ";
+						}else{
+							$operacao = " upper(%s) like upper('%%%s%%') and ";
+						}
 					break;
-					default:
-						$comando.= ($valor) ? " {$campo} = '{$valor}' and ":"";
+					case('igual'):
+						if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+							$operacao = " %s = %s and ";
+						}else{
+							$operacao = " %s = '%s' and ";
+						}
 					break;
 				}
+				$comando.= sprintf($operacao,$campo,$valor);
 			}
 			if($tamanhoComando != strlen($comando)){
 				$comando = substr($comando,0,-4);
