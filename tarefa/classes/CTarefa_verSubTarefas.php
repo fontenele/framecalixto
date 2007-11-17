@@ -20,7 +20,7 @@ class CTarefa_verSubTarefas extends CTarefa_verTarefa{
  		$this->visualizacao->dsTarefaSubTarefa = VComponente::montar($estrutura['dsTarefa']['componente'],'dsTarefaSubTarefa',null,null,$estrutura['dsTarefa']['valores']);
  		$this->visualizacao->csTipoTarefaSubTarefa = VComponente::montar($estrutura['csTipoTarefa']['componente'],'csTipoTarefaSubTarefa',null,null,$estrutura['csTipoTarefa']['valores']);
  		$this->visualizacao->nrPrioridadeSubTarefa = VComponente::montar($estrutura['nrPrioridade']['componente'],'nrPrioridadeSubTarefa',null,null,$estrutura['nrPrioridade']['valores']);
-		$this->visualizacao->gravarTarefa = VComponente::montar('botao','iniciarTarefa','Criar nova SubTarefa');
+		$this->visualizacao->gravarTarefa = VComponente::montar('confirmar','iniciarTarefa','Criar nova SubTarefa');
 		$listagemTarefas = new CTarefa_listagem();
 		$listagemTarefas->colecao = $negocio->pegarCoTarefas();
 		$listagemTarefas->controle= definicaoEntidade::controle($this);

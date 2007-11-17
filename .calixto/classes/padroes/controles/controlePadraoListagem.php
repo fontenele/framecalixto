@@ -57,7 +57,7 @@ class controlePadraoListagem extends controlePadrao{
 	function adicionarColuna($titulo, $campo, $tamanho = null, $alinhamento = null,$posicao = null){
 		switch(strtolower($alinhamento)){
 			case('centro'): $alinhamento = 'center'; break;
-			case('direita'):$alinhamento = 'rigth'; break;
+			case('direita'):$alinhamento = 'right'; break;
 			case('esquerda'):$alinhamento = 'left'; break;
 		}
 		if($posicao){
@@ -65,6 +65,13 @@ class controlePadraoListagem extends controlePadrao{
 		}else{
 			$this->campos[] = array('titulo'=>$titulo,'campo'=>$campo,'tamanho'=>$tamanho,'alinhamento'=>$alinhamento);
 		}
+	}
+	function removerColuna($posicao){
+		unset($this->campos[$posicao]);
+	}
+	function alterarPosicao($antiga,$nova){
+		$this->campos[$nova] = $this->campos[$antiga];
+		unset($this->campos[$antiga]);
 	}
 	/**
 	* Método de adição de um campo a listagem
@@ -77,7 +84,7 @@ class controlePadraoListagem extends controlePadrao{
 	function adicionarColunaLink($titulo, $campo, $tamanho = null, $alinhamento = null,$posicao = null){
 		switch(strtolower($alinhamento)){
 			case('centro'): $alinhamento = 'center'; break;
-			case('direita'):$alinhamento = 'rigth'; break;
+			case('direita'):$alinhamento = 'right'; break;
 			case('esquerda'):$alinhamento = 'left'; break;
 		}
 		if($posicao){
@@ -97,7 +104,7 @@ class controlePadraoListagem extends controlePadrao{
 	function adicionarColunaPersonalizada($titulo, $campo, $tamanho = null, $alinhamento = null,$posicao = null){
 		switch(strtolower($alinhamento)){
 			case('centro'): $alinhamento = 'center'; break;
-			case('direita'):$alinhamento = 'rigth'; break;
+			case('direita'):$alinhamento = 'right'; break;
 			case('esquerda'):$alinhamento = 'left'; break;
 		}
 		if($posicao){
@@ -200,9 +207,10 @@ class controlePadraoListagem extends controlePadrao{
 					foreach($chaves as $chave){
 						$campo = $this->campos[$chave];
 						$classeHTML = null;
+						$alinhamento = ($campo['alinhamento']) ? "align='{$campo['alinhamento']}'" : '' ;
 						switch(true){
 							case(isset($campo['campoPersonalizado'])):
-								$retorno.="\t\t<td>".$this->$campo['campoPersonalizado']($item)."</td>\n";
+								$retorno.="\t\t<td {$alinhamento}>".$this->$campo['campoPersonalizado']($item)."</td>\n";
 							break;
 							case(isset($campo['campoLink'])):
 								$controle = definicaoEntidade::controle($item,'verEdicao');
@@ -232,7 +240,7 @@ class controlePadraoListagem extends controlePadrao{
 											$valorDoCampo = $valorDoCampo->__toString();
 										}
 								}
-								$retorno.="\t\t<td {$classeHTML}><a href='{$link}' >{$valorDoCampo}</a></td>\n";
+								$retorno.="\t\t<td {$alinhamento} {$classeHTML}><a href='{$link}' >{$valorDoCampo}</a></td>\n";
 							break;
 							default:
 								$pegar = 'pegar'.ucfirst($campo['campo']);
@@ -259,7 +267,7 @@ class controlePadraoListagem extends controlePadrao{
 											$valorDoCampo = $valorDoCampo->__toString();
 										}
 								}
-								$retorno.="\t\t<td {$classeHTML}>{$valorDoCampo}</td>\n";
+								$retorno.="\t\t<td {$alinhamento} {$classeHTML}>{$valorDoCampo}</td>\n";
 							break;
 						}
 					}

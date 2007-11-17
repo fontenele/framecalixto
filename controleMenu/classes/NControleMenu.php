@@ -39,6 +39,7 @@ class NControleMenu extends negocio{
 			$menu['Movimento']['Tarefas do Usuário'] = '?c=CTarefa_verTarefasDoUsuario';
 			$menu['Apoio']['Gerador'] = '?c=CUtilitario_listarEntidade';
 			$menu['Apoio']['Atualizador de Base'] = '?c=CUtilitario_atualizadorBase';
+			$menu['Relatórios']['Cliente'] = '?c=CTarefa_verTarefasDoDono';
 			return $menu;
 		}
 		catch(erro $e){
