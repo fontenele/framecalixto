@@ -14,7 +14,7 @@ class CTarefa_verAtividades extends CTarefa_verTarefa{
 		parent::montarApresentacao($negocio,$tipo);
  		$negocio->carregarAtividades();
 		$this->visualizacao->textoAtividades = sprintf($this->inter->pegarTexto('atividades'),"(".$negocio->coAtividades->contarItens().")");
-		$this->visualizacao->gravarAtividade = VComponente::montar('botao','iniciarAtividade','Iniciar nova atividade');
+		$this->visualizacao->gravarAtividade = VComponente::montar('confirmar','iniciarAtividade','Iniciar nova atividade');
 		$this->visualizacao->dsAtividade = VComponente::montar('caixa de texto','dsAtividade',null);
 		$listagemAtividades = new CAtividade_listagem();
 		$listagemAtividades->colecao = $negocio->pegarCoAtividades();

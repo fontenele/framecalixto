@@ -11,11 +11,14 @@ class CTarefa_listagem extends controlePadraoListagem{
 	*/
 	function definirListagem(){
 		parent::definirListagem();
-		$this->adicionarColunaPersonalizada('Tipo', 'apresentarCsTipoTarefa', '1%', $alinhamento, 1);
-		$this->adicionarColunaPersonalizada('Tarefa', 'apresentarTarefa', '5%', $alinhamento, 2);
+		$this->adicionarColunaPersonalizada('Prior.', 'apresentarNrPrioridade', '1%', $alinhamento, -2);
+		$this->adicionarColunaPersonalizada('Tipo', 'apresentarCsTipoTarefa', '1%', $alinhamento, -1);
+		$this->adicionarColunaPersonalizada('Tarefa', 'apresentarTarefa', '5%', 'direita', 2);
 		$this->adicionarColunaPersonalizada('De', 'apresentarUsuarioAnterior', '10%', $alinhamento, 3);
 		$this->adicionarColuna('Descrição', 'dsTarefa', '30%', $alinhamento, 4);
-		$this->adicionarColunaPersonalizada('Sit.', 'apresentarSituacao', '1%', $alinhamento, 9);
+		$this->adicionarColunaPersonalizada('Sit.', 'apresentarSituacao', '1%', $alinhamento, 1);
+		$this->removerColuna(10);
+		$this->removerColuna(9);
 	}
 	/**
 	* Método de personalização de campo
@@ -81,6 +84,18 @@ class CTarefa_listagem extends controlePadraoListagem{
 				$imagem->passarAlt('Aberta');
 				$imagem->passarSrc('tarefa/imagens/atividade_execucao.png');
 		}
+		$center = new VEtiquetaHtml('center');
+		$center->passarConteudo($imagem->__toString());
+		return $center->__toString();
+	}
+	/**
+	* Método de personalização de campo
+	* @param [negocio] negocio para a personalização
+	*/
+	function apresentarNrPrioridade(NTarefa $negocio){
+		$imagem = new VEtiquetaHtml('img');
+		$imagem->passarAlt('Fechada');
+		$imagem->passarSrc("tarefa/imagens/".$negocio->pegarNrPrioridade().".png");
 		$center = new VEtiquetaHtml('center');
 		$center->passarConteudo($imagem->__toString());
 		return $center->__toString();

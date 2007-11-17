@@ -1,6 +1,6 @@
 <?php
 /**
-* Classe de definição da camada de controle 
+* Classe de definição da camada de controle
 * Formação especialista para montar a listagem de uma coleção de objetos de negocio
 * @package Sistema
 * @subpackage tarefa
@@ -25,7 +25,7 @@ class CAtividade_listagem extends controlePadraoListagem{
 		if($nUsuario->pegarIdUsuario() == $negocio->pegarIdUsuario()) {
 			$id = $negocio->pegarIdAtividade();
 			if($dtInicio->__toString() == $dtFim->__toString())
-			return VComponente::montar('botao',"encerrarAtividade[$id]",'encerrar')->__toString();
+			return VComponente::montar('confirmar',"encerrarAtividade[$id]",'encerrar')->__toString();
 		}
 		return $dtFim->__toString();
 	}
@@ -36,16 +36,21 @@ class CAtividade_listagem extends controlePadraoListagem{
 	function apresentarTipo(NAtividade $negocio){
 		switch(true){
 			case($negocio->pegarCsAtividade() == '2'):
-				$imagem = 'atividade_comunicacao.png';
+				$imagem = 'tarefa/imagens/atividade_comunicacao.png';
+				$alt = 'Comunicação';
+			break;
+			case ($negocio->pegarDtInicio()->__toString() == $negocio->pegarDtFim()->__toString()):
+				$imagem = 'tarefa/imagens/atividade_execucao.png' ;
+				$alt = 'Executando';
 			break;
 			default:
-				$dtInicio = $negocio->pegarDtInicio();
-				$dtFim = $negocio->pegarDtFim();
-				$imagem = ($dtInicio->__toString() == $dtFim->__toString()) ? 'atividade_execucao.png' : 'atividade_executado.png';
+				$imagem = 'tarefa/imagens/atividade_executado.png';
+				$alt = 'Concluído';
 			break;
 		}
 		$img = new VEtiquetaHtml('img');
-		$img->passarSrc('tarefa/imagens/'.$imagem);
+		$img->passarSrc($imagem);
+		$img->passarAlt($alt);
 		return $img->__toString();
 	}
 }

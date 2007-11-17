@@ -109,7 +109,7 @@ class CTarefa_verTarefa extends controlePadrao{
 	*/
 	public function montarApresentacaoDono($negocio){
 		parent::montarApresentacaoEdicao($negocio);
-		$this->visualizacao->atualizarTarefa = VComponente::montar('botao','atualizarTarefa','Atualizar tarefa');
+		$this->visualizacao->atualizarTarefa = VComponente::montar('confirmar','atualizarTarefa','Atualizar tarefa');
 	}
 	/**
 	* Método que monta a apresentação para o responsável da tarefa
@@ -117,7 +117,7 @@ class CTarefa_verTarefa extends controlePadrao{
 	public function montarApresentacaoResponsavel($negocio){
 		parent::montarApresentacaoVisual($negocio);
 		$this->visualizacao->nrPercentual = VComponente::montar('VSelectPercentual','nrPercentual',$negocio->pegarNrPercentual());
-		$this->visualizacao->atualizarTarefa = VComponente::montar('botao','atualizarTarefa','Atualizar tarefa');
+		$this->visualizacao->atualizarTarefa = VComponente::montar('confirmar','atualizarTarefa','Atualizar tarefa');
 	}
 	/**
 	* Retorna um array com os itens do menu do programa
