@@ -22,7 +22,7 @@ class CTarefa_verEncaminhamento extends CTarefa_verTarefa{
 			// Se for o usuário responsável
 			case(($negocio->pegarIdResponsavel() == $nUsuario->pegarIdUsuario())):
 				$this->visualizacao->idRecebedor = VComponente::montar($estrutura['idResponsavel']['componente'],'idRecebedor',null,null,$arUsuarios);
-				$this->visualizacao->encaminharTarefa = VComponente::montar('botao','encaminharTarefa','Encaminhar tarefa');
+				$this->visualizacao->encaminharTarefa = VComponente::montar('confirmar','encaminharTarefa','Encaminhar tarefa');
 				$this->visualizacao->dsEncaminhamento = VComponente::montar('caixa de texto','dsEncaminhamento',null);
 			break;
 		}

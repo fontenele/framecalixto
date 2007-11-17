@@ -17,7 +17,7 @@ class CControleAcesso_verLogin extends controlePadrao{
 		$this->visualizacao->login->passarSize(15);
 		$this->visualizacao->senha = VComponente::montar('senha','senha', null);
 		$this->visualizacao->senha->passarSize(15);
-		$this->visualizacao->enviar = VComponente::montar('enviar','enviar', $this->inter->pegarTexto('enviar'));
+		$this->visualizacao->enviar = VComponente::montar('confirmar','enviar', $this->inter->pegarTexto('enviar'));
 		$this->visualizacao->mostrar();
 		sessaoSistema::encerrar();
 	}

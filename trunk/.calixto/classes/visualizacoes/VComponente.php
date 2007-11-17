@@ -18,8 +18,13 @@ class VComponente extends VEtiquetaHtml{
 				case 'envio':
 				case 'enviar':
 				case 'confirmar':
-					$objeto = new VButtonSubmit($nome,$valor);
-					$objeto->passarConteudo($valor);
+					if(definicaoNavegador::pegarNome() == 'mozilla'){
+						$objeto = new VButtonSubmit($nome,$valor);
+						$objeto->passarConteudo($valor);
+					}else{
+						$objeto = new VInputButton($nome,$valor);
+						$objeto->passarType('submit');
+					}
 				break;
 				case 'botão':
 				case 'botao':

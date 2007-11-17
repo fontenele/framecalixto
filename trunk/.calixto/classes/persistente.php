@@ -84,7 +84,13 @@ abstract class persistente extends objeto{
 								$estrutura['campo'][$nomeCampo]['valoresPossiveis'][] = strval($opcao['id']);
 							}
 						}
-						if(isset($campo->banco['ordem'])) $estrutura['ordem'][strval($campo->banco['ordem'])] = $nomeCampo;
+						if(isset($campo->banco['ordem'])){
+							if(isset($campo->banco['tipoOrdem']) && $campo->banco['tipoOrdem'] == 'inversa'){
+								$estrutura['ordem'][strval($campo->banco['ordem'])] = $nomeCampo.' desc';
+							}else{
+								$estrutura['ordem'][strval($campo->banco['ordem'])] = $nomeCampo;
+							}
+						}
 					}
 				break;
 			}

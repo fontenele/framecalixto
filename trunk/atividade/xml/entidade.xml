@@ -28,7 +28,7 @@
 			</apresentacao>
 		</propriedade>
 		<propriedade id='dtInicio' tipo='data' obrigatorio='sim'  >
-			<banco nome='Ativ_dt_inicio' ordem='1'  />
+			<banco nome='Ativ_dt_inicio' ordem='1' tipoOrdem='inversa' />
 			<apresentacao componente='data e hora' >
 				<listagem ordem='3' tamanho='5%' />
 			</apresentacao>
