@@ -5,7 +5,7 @@
 * @package Sistema
 * @subpackage ControleAcesso
 */
-class CControleAcesso_verLogin extends controlePadrao{
+class CControleAcesso_verLogin extends controlePadraoLiberado{
 	/**
 	* Método inicial do controle
 	*/
