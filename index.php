@@ -1,6 +1,6 @@
 <?php
 /**
-* Arquivo de indice para o funcionamento do sistema 
+* Arquivo de indice para o funcionamento do sistema
 */
 error_reporting(E_ALL | E_STRICT);
 header("Content-type:text/html; charset=utf-8");
