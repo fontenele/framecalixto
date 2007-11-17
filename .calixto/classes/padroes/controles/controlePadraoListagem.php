@@ -338,12 +338,17 @@ class controlePadraoListagem extends controlePadrao{
 	* @return [string] texto de saída da classe
 	*/
 	function __toString(){
-		$classe = definicaoEntidade::internacionalizacao($this->controle);
-		$this->inter = new $classe();
-		$this->definirListagem();
-		$retorno = $this->montarListagem();
-		$retorno.= $this->montarPaginador();
-		return $retorno;
+		try{
+			$classe = definicaoEntidade::internacionalizacao($this->controle);
+			$this->inter = new $classe();
+			$this->definirListagem();
+			$retorno = $this->montarListagem();
+			$retorno.= $this->montarPaginador();
+			return $retorno;
+		}
+		catch(erro $e){
+			return $e->getMessage();
+		}
 	}
 }
 ?>
