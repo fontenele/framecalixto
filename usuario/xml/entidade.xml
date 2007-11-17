@@ -16,13 +16,13 @@
 			</apresentacao>
 		</propriedade>
 		<propriedade id='nmUsuario' tipo='texto' tamanho='30' obrigatorio='sim'  descritivo='1' >
-			<banco nome='Usua_nm_usuario' ordem='1'  />
+			<banco nome='Usua_nm_usuario' ordem='1' operador='igual' />
 			<apresentacao componente='caixa de entrada' >
 				<listagem ordem='2' tamanho='40%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='senha' tipo='texto' tamanho='30' obrigatorio='sim'  >
-			<banco nome='Usua_senha'  />
+		<propriedade id='senha' tipo='texto' tamanho='30' obrigatorio='sim' >
+			<banco nome='Usua_senha' operador='igual' />
 			<apresentacao componente='palavra chave'  />
 		</propriedade>
 		<propriedade id='status' tipo='texto' tamanho='1'  >
