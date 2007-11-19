@@ -3,7 +3,7 @@
 * Classe que codifica um objeto para JSON
 * JavaScript Object Notation
 * @package Infra-estrutura
-* @subpackage visualiza��o
+* @subpackage visualização
 */
 class json {
 	/**
@@ -18,7 +18,7 @@ class json {
 			case 'integer': return (int) $var;
 			case 'double': return (double) $var;
 			case 'float': return (float) $var;
-			case 'string': 
+			case 'string':
 				$var = $var;
 				return (string) '"'.$var.'"';
 			case 'array':
@@ -28,8 +28,8 @@ class json {
 		}
 	}
 	/**
-	* Faz a codifica��o de array
-	* @param [array] array para a codifica��o .
+	* Faz a codificação de array
+	* @param [array] array para a codificação .
 	* @return [string] json do array
 	*/
 	function codificarArray($var){
@@ -39,13 +39,13 @@ class json {
 		return $this->pegarJson($var);
 	}
 	/**
-	* Faz a codifica��o de uma chave do json
+	* Faz a codificação de uma chave do json
 	* @param [st] nome da chave .
 	* @param [mixed] valor da chave
-	* @return [string] json 
+	* @return [string] json
 	*/
 	function montaChave($name, $value){
 		return (sprintf("%s:%s", $this->codificarArray(strval($name)), $this->codificarArray($value)));
-	}        
+	}
 }
 ?>

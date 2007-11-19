@@ -142,12 +142,12 @@ function ini(tipo){return document.createElement(tipo);}
 function set(componente,atributo,valor){componente.setAttribute(atributo,valor);}
 function rem(componente){componente.parentNode.removeChild(componente);}
 function criarAbas(){
-        t = new Bs_TabSet('tabset');
-        t.addTab('Entidade',	$('definicaoEntidade'));
-        t.addTab('Negócio',		$('definicaoNegocio'));
-        t.addTab('Persistente',	$('definicaoPersistente'));
-        t.addTab('Visualização',$('definicaoVisualizacao'));
-        t.draw();
+	t = new Bs_TabSet('tabset');
+	t.addTab('Entidade',	$('definicaoEntidade'));
+	t.addTab('Negócio',		$('definicaoNegocio'));
+	t.addTab('Persistente',	$('definicaoPersistente'));
+	t.addTab('Visualização',$('definicaoVisualizacao'));
+	t.draw();
 }
 function novoInput(nome){
 	e = document.createElement('input');
@@ -419,4 +419,8 @@ function adicionar(){
 	vi_campos.appendChild(linha);
 }
 criarAbas();
+«foreach key=indice item=campo from=$campos»
+adicionar();
+«/foreach»
+entidade = eval('«$dados»');
 </script>

@@ -45,6 +45,14 @@ abstract class objeto{
 		return '';
 	}
 	/**
+	* Método de codificação para JSON
+	* @return [string] JSON
+	*/
+	public function json(){
+		$json = new json();
+		return $json->pegarJson($this);
+	}
+	/**
 	* Método de sobrecarga para serializar a classe
 	*/
 	protected function __sleep(){
