@@ -1,6 +1,26 @@
 //====================================================================================
 //
 //====================================================================================
+/**
+* Debug para javascript
+*/
+function x(obj){
+	document.write('<pre>' + var_dump(obj) + '</pre>');
+}
+function var_dump(obj,tab) {
+	var tab = tab || 0;
+	var tabulacao = '';
+	if(tab > 0)for(i = 0; i < tab; i++){tabulacao += "    ";}
+	if(typeof obj == "object") {
+		res = '';
+		for(i in obj){
+			res += tabulacao + '[' + i + '] => ' + var_dump(obj[i],tab + 1);
+		}
+		return "\n" + res;
+	}
+	return "(" + typeof(obj) + ") '" + obj + "'\n";
+}//end function var_dump
+
 function $(id){	return document.getElementById(id);}
 function Ajax(){
 	var xmlhttp, completo = false;
