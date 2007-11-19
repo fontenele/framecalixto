@@ -124,7 +124,7 @@ abstract class negocioPadrao extends negocio{
 			foreach($mapeador as $valor){
 				if($valor['descritivo']){
 					$metodo = "pegar{$valor['propriedade']}";
-					$descricao[$valor['descritivo']] = $this->$metodo();
+					$descricao[$valor['descritivo']] = is_object($this->$metodo()) ? $this->$metodo()->__toString() : $this->$metodo();
 				}
 			}
 			ksort($descricao);

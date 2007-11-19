@@ -16,7 +16,7 @@ class CTarefa_verOrcamento extends CTarefa_verTarefa{
 		$this->visualizacao->textoOrcamentos =
 		sprintf($this->inter->pegarTexto('orcamentos'),"(".$negocio->coOrcamentos->contarItens().")");
 		$this->visualizacao->gravarOrcamento = VComponente::montar('confirmar','gravarOrcamento','Gravar Orçamento');
-		$negocio->carregarOrcamento();
+		$negocio->carregarOrcamentos();
 		$this->visualizacao->verTarefa = $this->visualizacao->pegar('CTarefa_verTarefa.html');
 	}
 	/**

@@ -107,14 +107,9 @@ class NTarefa extends negocioPadrao{
 	* @return [colecao]
 	*/
 	public function carregarSubTarefas(){
-		try{
-			$nTarefa = new NTarefa($this->conexao);
-			$nTarefa->passarIdTarefaPai($this->pegarIdTarefa());
-			$this->passarCoTarefas($nTarefa->pesquisar(new pagina(0)));
-		}
-		catch(erro $e){
-			throw $e;
-		}
+		$nTarefa = new NTarefa($this->conexao);
+		$nTarefa->passarIdTarefaPai($this->pegarIdTarefa());
+		$this->passarCoTarefas($nTarefa->pesquisar(new pagina(0)));
 	}
 	/**
 	* Retorna uma coleção com as atividades da tarefa
@@ -140,8 +135,10 @@ class NTarefa extends negocioPadrao{
 	* Retorna uma coleção com os itens do orçamento da tarefa
 	* @return [colecao]
 	*/
-	public function carregarOrcamento(){
-		$colecao = new colecao();
+	public function carregarOrcamentos(){
+		$nOrcamento = new NOrcamento($this->conexao);
+		$nOrcamento->passarIdTarefa($this->pegarIdTarefa());
+		$this->passarCoOrcamentos($nOrcamento->pesquisar(new pagina(0)));
 	}
 	/**
 	* Retorna uma coleção com as tarefas do usuario
