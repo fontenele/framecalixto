@@ -108,7 +108,7 @@
 				<opcao id='5' />
 				<opcao id='6' />
 			</dominio>
-			<banco nome='Tare_nr_prioridade'  />
+			<banco nome='Tare_nr_prioridade'  ordem='0' />
 			<apresentacao componente='caixa de combinacao' >
 				<listagem ordem='10' tamanho='5%' />
 			</apresentacao>

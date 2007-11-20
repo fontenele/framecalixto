@@ -29,9 +29,15 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 	*/
 	function montarEntidade(){
 		$negocio = 'N'.ucfirst($_GET['entidade']);
+		$persistente = 'P'.ucfirst($_GET['entidade']);
+		$internacionalizacao = 'I'.ucfirst($_GET['entidade']);
 		$json = new json();
 		$negocio = new $negocio();
-		$mapNegocio = $negocio->pegarMapeamento();
+		$persistente = new $persistente($negocio->pegarConexao());
+		$internacionalizacao = new $internacionalizacao();
+		$mapNegocio[] = $negocio->pegarMapeamento();
+		$mapNegocio[] = $persistente->pegarEstrutura();
+		$mapNegocio[] = $internacionalizacao->pegarInternacionalizacao();
 		$this->visualizacao->dados = $json->pegarJson($mapNegocio);
 		$this->visualizacao->campos = $mapNegocio;
 	}
