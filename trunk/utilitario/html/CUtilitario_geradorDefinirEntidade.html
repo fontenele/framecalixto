@@ -232,7 +232,6 @@ function removerAtributo(atributo){
 	rem($('vi_linha_' + atributo));
 }
 function adicionar(){
-	indice++;
 	// ENTIDADE
 	var en_campos = $('en_campos');
 		linha = ini('tr');
@@ -417,10 +416,26 @@ function adicionar(){
 		col.appendChild(check);
 		linha.appendChild(col);
 	vi_campos.appendChild(linha);
+	indice++;
 }
 criarAbas();
-«foreach key=indice item=campo from=$campos»
-adicionar();
-«/foreach»
 entidade = eval('«$dados»');
+if(entidade){
+	document.formulario.entidade.value = entidade[2].nome;
+	for(i in entidade[0]){
+		adicionar();
+	}
+	var i = 0;
+	var en_nome;
+	for(j in entidade[2].propriedade){
+		$('en_nome[' + i + ']').value = entidade[2].propriedade[j].nome;
+		$('en_abreviacao[' + i + ']').value = entidade[2].propriedade[j].abreviacao;
+		$('en_descricao[' + i + ']').value = entidade[2].propriedade[j].descricao;
+		i++;
+	}
+	i = 0;
+	for(j in entidade[2].propriedade){
+		alterarPropriedade($('en_nome[' + i + ']'));
+	}
+}
 </script>
