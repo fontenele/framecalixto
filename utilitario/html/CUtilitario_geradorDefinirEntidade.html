@@ -67,6 +67,7 @@
 									<th title="O nome da propriedade da entidade">Indice</th>
 									<th title="O nome do campo na tabela do banco">Campo da tabela</th>
 									<th title="A prioridade de ordenação do campo na tabela do banco">Ordenação</th>
+									<th title="O tipo de ordenação do campo">Decrescente</th>
 									<th title="Caso chave extrangeira identifique o nome da tabela de referência ">Referencia a tabela</th>
 									<th title="Caso chave extrangeira identifique o nome do campo de referência ">Referencia ao campo</th>
 								</tr>
@@ -170,15 +171,15 @@ function novoOption(componente, valor, texto){
 	set(opcao,'value',valor);
 	componente.appendChild(opcao);
 }
-function alterarPropriedade(componente){
+function alterarPropriedade(componente, values){
 	var colunaNegocio = $('indice_ng_' + componente.name);
 	colunaNegocio.innerHTML = componente.value;
 	var colunaNegocio = $('indice_bd_' + componente.name);
 	colunaNegocio.innerHTML = componente.value;
 	var colunaNegocio = $('indice_vi_' + componente.name);
 	colunaNegocio.innerHTML = componente.value;
-	sugerirNomePersistente(componente);
-	sugerirNomeNegocio(componente);
+	if(values) sugerirNomePersistente(componente);
+	if(values) sugerirNomeNegocio(componente);
 }
 function sugerirNomePersistente(componente){
 	var arNome = componente.value.toLowerCase().split(' ');
@@ -239,7 +240,7 @@ function adicionar(){
 		// Nome
 		col = ini('td');
 		nome = novoInput('en_nome[' + indice + ']');
-		set(nome,'onchange','javascript:alterarPropriedade(this);');
+		set(nome,'onchange','javascript:alterarPropriedade(this,true);');
 		col.appendChild(nome);
 		linha.appendChild(col);
 		// Abreviação
@@ -282,12 +283,18 @@ function adicionar(){
 		novoOption(select,'texto','texto');
 		novoOption(select,'numerico','numerico');
 		novoOption(select,'data','data');
+		novoOption(select,'tdocumentopessoal','TDocumento');
+		novoOption(select,'tcep','CEP');
+		novoOption(select,'ttelefone','TTelefone');
+		novoOption(select,'tnumerico','TNumerico');
+		novoOption(select,'tmoeda','TMoeda');
 		col.appendChild(select);
 		linha.appendChild(col);
 		// chave primaria
 		col = ini('td');
 		col.setAttribute('align','center');
 		radio = novoInput('ng_chave_pk');
+		radio.setAttribute('id','ng_chave_pk[' + indice + ']');
 		radio.setAttribute('type','radio');
 		radio.setAttribute('value',indice);
 		radio.setAttribute('onchange','javascript:alterarPK(this);');
@@ -320,7 +327,9 @@ function adicionar(){
 		linha.appendChild(col);
 		// domínio
 		col = ini('td');
-		col.appendChild(novoInput('ng_dominio[' + indice + ']'));
+		input = novoInput('ng_dominio[' + indice + ']');
+		input.setAttribute('size','30');
+		col.appendChild(input);
 		linha.appendChild(col);
 		// classe associativa
 		col = ini('td');
@@ -352,6 +361,14 @@ function adicionar(){
 		input = novoInput('bd_ordem[' + indice + ']');
 		input.setAttribute('size','6');
 		col.appendChild(input);
+		linha.appendChild(col);
+		// tipo de ordenação
+		col = ini('td');
+		col.setAttribute('align','center');
+		check = novoInput('bd_tipo_ordem[' + indice + ']');
+		check.setAttribute('type','checkbox');
+		check.setAttribute('value',indice);
+		col.appendChild(check);
 		linha.appendChild(col);
 		// referencia tabela
 		col = ini('td');
@@ -387,6 +404,14 @@ function adicionar(){
 		novoOption(select,'data','Campo Data');
 		novoOption(select,'hora','Campo Hora');
 		novoOption(select,'data e hora','Campo Data e Hora');
+		novoOption(select,'caixa de texto','Caixa de Texto');
+		novoOption(select,'telefone','Telefone: (99)9999-9999 ');
+		novoOption(select,'cep','CEP: 99.999-999');
+		novoOption(select,'documento pessoal','Documento: 99.999.999-99');
+		novoOption(select,'numerico','Número: 99.999.999,99');
+		novoOption(select,'moeda','Moeda: R$ 99.999.999,99');
+		novoOption(select,'moeda','Moeda: R$ 99.999.999,99');
+
 		col.appendChild(select);
 		linha.appendChild(col);
 		// ordem
@@ -418,24 +443,55 @@ function adicionar(){
 	vi_campos.appendChild(linha);
 	indice++;
 }
+function preecherTela(definicao){
+	try{
+		document.formulario.entidade.value = definicao.inter.nome;
+		for(i in definicao.entidade){
+			adicionar();
+			valores = definicao.entidade[i];
+			$('en_nome[' + i + ']'			).value = valores.inter.nome;
+			$('en_abreviacao[' + i + ']'	).value = valores.inter.abreviacao;
+			$('en_descricao[' + i + ']'		).value = valores.inter.descricao;
+			$('ng_nome[' + i + ']'			).value = valores.negocio.propriedade;
+			$('ng_tamanho[' + i + ']'		).value = valores.persistente.tamanho;
+			$('ng_tipo[' + i + ']'			).value = valores.persistente.tipo;
+			$('ng_nn[' + i + ']'			).checked = (valores.negocio.obrigatorio) ? true : false;
+			$('ng_dominio[' + i + ']'		).value = valores.inter.dominio;
+			if(valores.negocio.classeAssociativa){
+				var fk = $('ng_fk[' + i + ']');
+				fk.checked =  true;
+				$('ng_associativa[' + i + ']'	).value = valores.negocio.classeAssociativa;
+				$('ng_metodo[' + i + ']'		).value = valores.negocio.metodoLeitura;
+				alterarFK(fk);
+			}
+			$('bd_campo[' + i + ']').value = valores.negocio.campo;
+			$('bd_ordem[' + i + ']').value = valores.persistente.ordem;
+			$('bd_tipo_ordem[' + i + ']').checked = valores.persistente.tipoOrdem;
+			if(valores.persistente.chaveEstrangeira){
+				$('bd_referencia_tabela[' + i + ']').value = valores.persistente.chaveEstrangeira.tabela;
+				$('bd_referencia_campo[' + i + ']').value = valores.persistente.chaveEstrangeira.campo;
+			}
+			$('vi_componente[' + i + ']'		).value = valores.controle.componente;
+			$('vi_ordemDescritivo[' + i + ']'			).value = valores.negocio.descritivo;
+			if(valores.controle.listagem){
+				$('vi_ordem[' + i + ']'			).value = valores.controle.listagem.ordem;
+				$('vi_link[' + i + ']'			).checked = (valores.controle.listagem.hyperlink == 'sim');
+				$('vi_largura[' + i + ']'		).value = LimpaNumero(valores.controle.listagem.tamanho);
+			}
+			if(valores.negocio.campo == definicao.bd.chavePrimaria){
+				$('ng_chave_pk[' + i + ']').checked = true;
+			}
+			alterarPropriedade($('en_nome[' + i + ']'			),false);
+		}
+	}
+	catch(e){
+		alert(e);
+	}
+}
 criarAbas();
-entidade = eval('«$dados»');
-if(entidade){
-	document.formulario.entidade.value = entidade[2].nome;
-	for(i in entidade[0]){
-		adicionar();
-	}
-	var i = 0;
-	var en_nome;
-	for(j in entidade[2].propriedade){
-		$('en_nome[' + i + ']').value = entidade[2].propriedade[j].nome;
-		$('en_abreviacao[' + i + ']').value = entidade[2].propriedade[j].abreviacao;
-		$('en_descricao[' + i + ']').value = entidade[2].propriedade[j].descricao;
-		i++;
-	}
-	i = 0;
-	for(j in entidade[2].propriedade){
-		alterarPropriedade($('en_nome[' + i + ']'));
-	}
+var definicao = eval('«$dados»');
+if(definicao){
+//   	x(definicao);
+	preecherTela(definicao[0]);
 }
 </script>

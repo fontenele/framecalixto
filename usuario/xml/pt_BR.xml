@@ -26,7 +26,7 @@
 		<propriedade nome='status'>
 			<nome>status</nome>
 			<abreviacao>status</abreviacao>
-			<descricao>Statuso do usuario</descricao>
+			<descricao>Status do usuario</descricao>
 			<dominio>
 				<opcao id='A'>Ativo</opcao>
 				<opcao id='I'>Inativo</opcao>

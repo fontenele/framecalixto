@@ -13,6 +13,11 @@
 			<abreviacao>Tarefa</abreviacao>
 			<descricao>Identificador da Tarefa</descricao>
 		</propriedade>
+		<propriedade nome='idUsuario'>
+			<nome>Usuário</nome>
+			<abreviacao>Usuário</abreviacao>
+			<descricao>Identificador do Usuário</descricao>
+		</propriedade>
 		<propriedade nome='idItem'>
 			<nome>Item</nome>
 			<abreviacao>Item</abreviacao>
