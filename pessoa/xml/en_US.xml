@@ -9,7 +9,7 @@
 			<descricao>Identificador da pessoa</descricao>
 		</propriedade>
 		<propriedade nome='nmPessoa'>
-			<nome>Nome</nome>
+			<nome>Name</nome>
 			<abreviacao>Nome</abreviacao>
 			<descricao>Nome da pessoa</descricao>
 		</propriedade>
@@ -24,7 +24,7 @@
 			<descricao>Telefone da pessoa</descricao>
 		</propriedade>
 		<propriedade nome='csPessoa'>
-			<nome>Tipo</nome>
+			<nome>Type</nome>
 			<abreviacao>Type</abreviacao>
 			<descricao>Tipo da Pessoa</descricao>
 			<dominio>
