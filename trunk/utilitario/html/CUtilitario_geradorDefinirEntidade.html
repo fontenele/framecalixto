@@ -233,215 +233,220 @@ function removerAtributo(atributo){
 	rem($('vi_linha_' + atributo));
 }
 function adicionar(){
-	// ENTIDADE
-	var en_campos = $('en_campos');
-		linha = ini('tr');
-		set(linha,'id','en_linha_' + indice);
-		// Nome
-		col = ini('td');
-		nome = novoInput('en_nome[' + indice + ']');
-		set(nome,'onchange','javascript:alterarPropriedade(this,true);');
-		col.appendChild(nome);
-		linha.appendChild(col);
-		// Abreviação
-		col = ini('td');
-		col.appendChild(novoInput('en_abreviacao[' + indice + ']'));
-		linha.appendChild(col);
-		// Descrição
-		col = ini('td');
-		col.appendChild(novoInput('en_descricao[' + indice + ']'));
-		linha.appendChild(col);
-		// Descrição
-		col = ini('td');
-		link = ini('a');
-		set(link,'href','javascript:removerAtributo(' + indice + ')');
-		link.innerHTML = 'remover';
-		col.appendChild(link);
-		linha.appendChild(col);
-	en_campos.appendChild(linha);
-	// NEGOCIO
-	var ng_campos = $('ng_campos');
-		linha = ini('tr');
-		set(linha,'id','ng_linha_' + indice);
-		// indice
-		col = ini('td');
-		set(col,'id','indice_ng_en_nome[' + indice + ']');
-		linha.appendChild(col);
-		// nome
-		col = ini('td');
-		col.appendChild(novoInput('ng_nome[' + indice + ']'));
-		linha.appendChild(col);
-		// tamanho
-		col = ini('td');
-		input = novoInput('ng_tamanho[' + indice + ']');
-		input.setAttribute('size','4');
-		col.appendChild(input);
-		linha.appendChild(col);
-		// tipo de dado
-		col = ini('td');
-		select = novoSelect('ng_tipo[' + indice + ']');
-		novoOption(select,'texto','texto');
-		novoOption(select,'numerico','numerico');
-		novoOption(select,'data','data');
-		novoOption(select,'tdocumentopessoal','TDocumento');
-		novoOption(select,'tcep','CEP');
-		novoOption(select,'ttelefone','TTelefone');
-		novoOption(select,'tnumerico','TNumerico');
-		novoOption(select,'tmoeda','TMoeda');
-		col.appendChild(select);
-		linha.appendChild(col);
-		// chave primaria
-		col = ini('td');
-		col.setAttribute('align','center');
-		radio = novoInput('ng_chave_pk');
-		radio.setAttribute('id','ng_chave_pk[' + indice + ']');
-		radio.setAttribute('type','radio');
-		radio.setAttribute('value',indice);
-		radio.setAttribute('onchange','javascript:alterarPK(this);');
-		col.appendChild(radio);
-		linha.appendChild(col);
-		// nulável
-		col = ini('td');
-		col.setAttribute('align','center');
-		check = novoInput('ng_nn[' + indice + ']');
-		check.setAttribute('type','checkbox');
-		check.setAttribute('value',indice);
-		col.appendChild(check);
-		linha.appendChild(col);
-		// chave única
-		col = ini('td');
-		col.setAttribute('align','center');
-		check = novoInput('ng_uk[' + indice + ']');
-		check.setAttribute('type','checkbox');
-		check.setAttribute('value',indice);
-		col.appendChild(check);
-		linha.appendChild(col);
-		// chave extrangeira
-		col = ini('td');
-		col.setAttribute('align','center');
-		check = novoInput('ng_fk[' + indice + ']');
-		check.setAttribute('type','checkbox');
-		check.setAttribute('value',indice);
-		check.setAttribute('onchange','javascript:alterarFK(this);');
-		col.appendChild(check);
-		linha.appendChild(col);
-		// domínio
-		col = ini('td');
-		input = novoInput('ng_dominio[' + indice + ']');
-		input.setAttribute('size','30');
-		col.appendChild(input);
-		linha.appendChild(col);
-		// classe associativa
-		col = ini('td');
-		input = novoInput('ng_associativa[' + indice + ']');
-		input.setAttribute('type','hidden');
-		col.appendChild(input);
-		linha.appendChild(col);
-		// metodo da classe associativa
-		col = ini('td');
-		input = novoInput('ng_metodo[' + indice + ']');
-		input.setAttribute('type','hidden');
-		col.appendChild(input);
-		linha.appendChild(col);
-	ng_campos.appendChild(linha);
-	// PERSISTENTE
-	var bd_campos = $('bd_campos');
-		linha = ini('tr');
-		set(linha,'id','bd_linha_' + indice);
-		// indice
-		col = ini('td');
-		set(col,'id','indice_bd_en_nome[' + indice + ']');
-		linha.appendChild(col);
-		// campo
-		col = ini('td');
-		col.appendChild(novoInput('bd_campo[' + indice + ']'));
-		linha.appendChild(col);
-		// prioridade de ordenação
-		col = ini('td');
-		input = novoInput('bd_ordem[' + indice + ']');
-		input.setAttribute('size','6');
-		col.appendChild(input);
-		linha.appendChild(col);
-		// tipo de ordenação
-		col = ini('td');
-		col.setAttribute('align','center');
-		check = novoInput('bd_tipo_ordem[' + indice + ']');
-		check.setAttribute('type','checkbox');
-		check.setAttribute('value',indice);
-		col.appendChild(check);
-		linha.appendChild(col);
-		// referencia tabela
-		col = ini('td');
-		input = novoInput('bd_referencia_tabela[' + indice + ']');
-		input.setAttribute('type','hidden');
-		col.appendChild(input);
-		linha.appendChild(col);
-		// referencia campo
-		col = ini('td');
-		input = novoInput('bd_referencia_campo[' + indice + ']');
-		input.setAttribute('type','hidden');
-		col.appendChild(input);
-		linha.appendChild(col);
-	bd_campos.appendChild(linha);
-	// VISUALIZACAO
-	var vi_campos = $('vi_campos');
-		linha = ini('tr');
-		set(linha,'id','vi_linha_' + indice);
-		// indice
-		col = ini('td');
-		set(col,'id','indice_vi_en_nome[' + indice + ']');
-		linha.appendChild(col);
-		// componente de apresentação
-		col = ini('td');
-		select = novoSelect('vi_componente[' + indice + ']');
-		novoOption(select,'oculto','Componente oculto');
-		novoOption(select,'caixa de entrada','Caixa de Entrada');
-		novoOption(select,'caixa de combinacao','Caixa de Combinação');
-		novoOption(select,'caixa de selecao','Caixa de Seleção');
-		novoOption(select,'palavra chave','Palavra Chave');
-		novoOption(select,'marcador','Marcador');
-		novoOption(select,'seletor','Seletor');
-		novoOption(select,'data','Campo Data');
-		novoOption(select,'hora','Campo Hora');
-		novoOption(select,'data e hora','Campo Data e Hora');
-		novoOption(select,'caixa de texto','Caixa de Texto');
-		novoOption(select,'telefone','Telefone: (99)9999-9999 ');
-		novoOption(select,'cep','CEP: 99.999-999');
-		novoOption(select,'documento pessoal','Documento: 99.999.999-99');
-		novoOption(select,'numerico','Número: 99.999.999,99');
-		novoOption(select,'moeda','Moeda: R$ 99.999.999,99');
-		novoOption(select,'moeda','Moeda: R$ 99.999.999,99');
-
-		col.appendChild(select);
-		linha.appendChild(col);
-		// ordem
-		col = ini('td');
-		input = novoInput('vi_ordem[' + indice + ']');
-		input.setAttribute('size','4');
-		col.appendChild(input);
-		linha.appendChild(col);
-		// ordem para descrição
-		col = ini('td');
-		input = novoInput('vi_ordemDescritivo[' + indice + ']');
-		input.setAttribute('size','4');
-		col.appendChild(input);
-		linha.appendChild(col);
-		// largura
-		col = ini('td');
-		input = novoInput('vi_largura[' + indice + ']');
-		input.setAttribute('size','4');
-		col.appendChild(input);
-		linha.appendChild(col);
-		// nulável
-		col = ini('td');
-		col.setAttribute('align','center');
-		check = novoInput('vi_link[' + indice + ']');
-		check.setAttribute('type','checkbox');
-		check.setAttribute('value',indice);
-		col.appendChild(check);
-		linha.appendChild(col);
-	vi_campos.appendChild(linha);
-	indice++;
+	try{
+		// ENTIDADE
+		var en_campos = $('en_campos');
+			linha = ini('tr');
+			set(linha,'id','en_linha_' + indice);
+			// Nome
+			col = ini('td');
+			nome = novoInput('en_nome[' + indice + ']');
+			set(nome,'onchange','javascript:alterarPropriedade(this,true);');
+			col.appendChild(nome);
+			linha.appendChild(col);
+			// Abreviação
+			col = ini('td');
+			col.appendChild(novoInput('en_abreviacao[' + indice + ']'));
+			linha.appendChild(col);
+			// Descrição
+			col = ini('td');
+			col.appendChild(novoInput('en_descricao[' + indice + ']'));
+			linha.appendChild(col);
+			// Descrição
+			col = ini('td');
+			link = ini('a');
+			set(link,'href','javascript:removerAtributo(' + indice + ')');
+			link.innerHTML = 'remover';
+			col.appendChild(link);
+			linha.appendChild(col);
+		en_campos.appendChild(linha);
+		// NEGOCIO
+		var ng_campos = $('ng_campos');
+			linha = ini('tr');
+			set(linha,'id','ng_linha_' + indice);
+			// indice
+			col = ini('td');
+			set(col,'id','indice_ng_en_nome[' + indice + ']');
+			linha.appendChild(col);
+			// nome
+			col = ini('td');
+			col.appendChild(novoInput('ng_nome[' + indice + ']'));
+			linha.appendChild(col);
+			// tamanho
+			col = ini('td');
+			input = novoInput('ng_tamanho[' + indice + ']');
+			input.setAttribute('size','4');
+			col.appendChild(input);
+			linha.appendChild(col);
+			// tipo de dado
+			col = ini('td');
+			select = novoSelect('ng_tipo[' + indice + ']');
+			novoOption(select,'texto','texto');
+			novoOption(select,'numerico','numerico');
+			novoOption(select,'data','data');
+			novoOption(select,'tdocumentopessoal','TDocumento');
+			novoOption(select,'tcep','CEP');
+			novoOption(select,'ttelefone','TTelefone');
+			novoOption(select,'tnumerico','TNumerico');
+			novoOption(select,'tmoeda','TMoeda');
+			col.appendChild(select);
+			linha.appendChild(col);
+			// chave primaria
+			col = ini('td');
+			col.setAttribute('align','center');
+			radio = novoInput('ng_chave_pk');
+			radio.setAttribute('id','ng_chave_pk[' + indice + ']');
+			radio.setAttribute('type','radio');
+			radio.setAttribute('value',indice);
+			radio.setAttribute('onchange','javascript:alterarPK(this);');
+			col.appendChild(radio);
+			linha.appendChild(col);
+			// nulável
+			col = ini('td');
+			col.setAttribute('align','center');
+			check = novoInput('ng_nn[' + indice + ']');
+			check.setAttribute('type','checkbox');
+			check.setAttribute('value',indice);
+			col.appendChild(check);
+			linha.appendChild(col);
+			// chave única
+			col = ini('td');
+			col.setAttribute('align','center');
+			check = novoInput('ng_uk[' + indice + ']');
+			check.setAttribute('type','checkbox');
+			check.setAttribute('value',indice);
+			col.appendChild(check);
+			linha.appendChild(col);
+			// chave extrangeira
+			col = ini('td');
+			col.setAttribute('align','center');
+			check = novoInput('ng_fk[' + indice + ']');
+			check.setAttribute('type','checkbox');
+			check.setAttribute('value',indice);
+			check.setAttribute('onchange','javascript:alterarFK(this);');
+			col.appendChild(check);
+			linha.appendChild(col);
+			// domínio
+			col = ini('td');
+			input = novoInput('ng_dominio[' + indice + ']');
+			input.setAttribute('size','30');
+			col.appendChild(input);
+			linha.appendChild(col);
+			// classe associativa
+			col = ini('td');
+			input = novoInput('ng_associativa[' + indice + ']');
+			input.setAttribute('type','hidden');
+			col.appendChild(input);
+			linha.appendChild(col);
+			// metodo da classe associativa
+			col = ini('td');
+			input = novoInput('ng_metodo[' + indice + ']');
+			input.setAttribute('type','hidden');
+			col.appendChild(input);
+			linha.appendChild(col);
+		ng_campos.appendChild(linha);
+		// PERSISTENTE
+		var bd_campos = $('bd_campos');
+			linha = ini('tr');
+			set(linha,'id','bd_linha_' + indice);
+			// indice
+			col = ini('td');
+			set(col,'id','indice_bd_en_nome[' + indice + ']');
+			linha.appendChild(col);
+			// campo
+			col = ini('td');
+			col.appendChild(novoInput('bd_campo[' + indice + ']'));
+			linha.appendChild(col);
+			// prioridade de ordenação
+			col = ini('td');
+			input = novoInput('bd_ordem[' + indice + ']');
+			input.setAttribute('size','6');
+			col.appendChild(input);
+			linha.appendChild(col);
+			// tipo de ordenação
+			col = ini('td');
+			col.setAttribute('align','center');
+			check = novoInput('bd_tipo_ordem[' + indice + ']');
+			check.setAttribute('type','checkbox');
+			check.setAttribute('value',indice);
+			col.appendChild(check);
+			linha.appendChild(col);
+			// referencia tabela
+			col = ini('td');
+			input = novoInput('bd_referencia_tabela[' + indice + ']');
+			input.setAttribute('type','hidden');
+			col.appendChild(input);
+			linha.appendChild(col);
+			// referencia campo
+			col = ini('td');
+			input = novoInput('bd_referencia_campo[' + indice + ']');
+			input.setAttribute('type','hidden');
+			col.appendChild(input);
+			linha.appendChild(col);
+		bd_campos.appendChild(linha);
+		// VISUALIZACAO
+		var vi_campos = $('vi_campos');
+			linha = ini('tr');
+			set(linha,'id','vi_linha_' + indice);
+			// indice
+			col = ini('td');
+			set(col,'id','indice_vi_en_nome[' + indice + ']');
+			linha.appendChild(col);
+			// componente de apresentação
+			col = ini('td');
+			select = novoSelect('vi_componente[' + indice + ']');
+			novoOption(select,'oculto','Componente oculto');
+			novoOption(select,'caixa de entrada','Caixa de Entrada');
+			novoOption(select,'caixa de combinacao','Caixa de Combinação');
+			novoOption(select,'caixa de selecao','Caixa de Seleção');
+			novoOption(select,'palavra chave','Palavra Chave');
+			novoOption(select,'marcador','Marcador');
+			novoOption(select,'seletor','Seletor');
+			novoOption(select,'data','Campo Data');
+			novoOption(select,'hora','Campo Hora');
+			novoOption(select,'data e hora','Campo Data e Hora');
+			novoOption(select,'caixa de texto','Caixa de Texto');
+			novoOption(select,'telefone','Telefone: (99)9999-9999 ');
+			novoOption(select,'cep','CEP: 99.999-999');
+			novoOption(select,'documento pessoal','Documento: 99.999.999-99');
+			novoOption(select,'numerico','Número: 99.999.999,99');
+			novoOption(select,'moeda','Moeda: R$ 99.999.999,99');
+			novoOption(select,'moeda','Moeda: R$ 99.999.999,99');
+	
+			col.appendChild(select);
+			linha.appendChild(col);
+			// ordem
+			col = ini('td');
+			input = novoInput('vi_ordem[' + indice + ']');
+			input.setAttribute('size','4');
+			col.appendChild(input);
+			linha.appendChild(col);
+			// ordem para descrição
+			col = ini('td');
+			input = novoInput('vi_ordemDescritivo[' + indice + ']');
+			input.setAttribute('size','4');
+			col.appendChild(input);
+			linha.appendChild(col);
+			// largura
+			col = ini('td');
+			input = novoInput('vi_largura[' + indice + ']');
+			input.setAttribute('size','4');
+			col.appendChild(input);
+			linha.appendChild(col);
+			// nulável
+			col = ini('td');
+			col.setAttribute('align','center');
+			check = novoInput('vi_link[' + indice + ']');
+			check.setAttribute('type','checkbox');
+			check.setAttribute('value',indice);
+			col.appendChild(check);
+			linha.appendChild(col);
+		vi_campos.appendChild(linha);
+		indice++;
+	}
+	catch(e){
+		alert(e);
+	}
 }
 function preecherTela(definicao){
 	try{
@@ -491,7 +496,6 @@ function preecherTela(definicao){
 criarAbas();
 var definicao = eval('«$dados»');
 if(definicao){
-//   	x(definicao);
 	preecherTela(definicao[0]);
 }
 </script>

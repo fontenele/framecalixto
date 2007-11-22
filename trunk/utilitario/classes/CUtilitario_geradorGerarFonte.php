@@ -10,13 +10,14 @@ class CUtilitario_geradorGerarFonte extends controle{
 	public $nomeNegocio;
 	public $nomeTabela;
 	public $entidade;
+	protected $debug = false;
 	/**
 	* Método inicial do controle
 	*/
 	function inicial(){
+		//$this->debug = true;
 		$this->passarProximoControle(definicaoEntidade::controle($this,'geradorDefinirEntidade'));
 		$this->entidade = $_POST;
-		$this->validar();
 		$arNome = explode(' ',strtolower($this->entidade['entidade']));
 		$nome = array_shift($arNome);
 		$arNome = array_map("ucFirst", $arNome) ;
@@ -24,10 +25,14 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->nomeEntidade = implode('',$arNome);
 		$this->nomeNegocio = 'N'.ucFirst(implode('',$arNome));
 		$this->nomeTabela = str_replace(' ','_',strtolower($this->entidade['entidade']));
-		mkdir($this->nomeEntidade,0777);
-		mkdir("{$this->nomeEntidade}/classes",0777);
-		mkdir("{$this->nomeEntidade}/xml",0777);
-		mkdir("{$this->nomeEntidade}/html",0777);
+		if(!is_dir($this->nomeEntidade))
+			mkdir($this->nomeEntidade,0777);
+		if(!is_dir("{$this->nomeEntidade}/classes"))
+			mkdir("{$this->nomeEntidade}/classes",0777);
+		if(!is_dir("{$this->nomeEntidade}/xml"))
+			mkdir("{$this->nomeEntidade}/xml",0777);
+		if(!is_dir("{$this->nomeEntidade}/html"))
+			mkdir("{$this->nomeEntidade}/html",0777);
 		umask(0111);
 		$this->visualizacao->classe = 'class';
 		$this->montarArquivoDefinicaoXML();
@@ -50,9 +55,18 @@ class CUtilitario_geradorGerarFonte extends controle{
 			$obPersistente = new $persistente($conexao);
 			$obPersistente->recriar();
 		}
+		if($this->debug){die;}
 	}
-	function validar(){
-	
+	/**
+	* Escreve o arquivo com o conteudo passado
+	* @param [string] caminho do arquivo a ser escrito
+	* @param [string] conteudo do arquivo a ser escrito
+	*/
+	protected function escreverArquivo($caminho,$conteudo){
+		if($this->debug){x($caminho,'<pre>'.htmlspecialchars($conteudo).'</pre>');return ;}
+		$handle = fopen ($caminho, "w");
+		fwrite($handle, $conteudo);
+		fclose($handle);
 	}
 	/**
 	* Monta o conteúdo do arquivo de definção XML
@@ -74,6 +88,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 			$link = isset($this->entidade['vi_link'][$index]) ? "hyperlink='sim' ":'';
 			$chavePrimaria = ($this->entidade['ng_chave_pk'] == $index)  ? "indicePrimario='sim' " : '';
 			$ordenacao = ($this->entidade['bd_ordem'][$index])? "ordem='{$this->entidade['bd_ordem'][$index]}' " : '' ;
+			$tipoOrdenacao = isset($this->entidade['bd_tipo_ordem'][$index]) ? "tipoOrdem='inversa' " : '';
 			$descritivo = ($this->entidade['vi_ordemDescritivo'][$index])? "descritivo='{$this->entidade['vi_ordemDescritivo'][$index]}' " : '' ;
 			$classeAssociativa = ((isset($this->entidade['ng_fk'][$index])) && ($this->entidade['ng_associativa'][$index])) ? "classeAssociativa='{$this->entidade['ng_associativa'][$index]}' " : '';
 			$metodoLeitura = ((isset($this->entidade['ng_fk'][$index])) && ($this->entidade['ng_metodo'][$index])) ? "metodoLeitura='{$this->entidade['ng_metodo'][$index]}' " : '';
@@ -88,11 +103,11 @@ class CUtilitario_geradorGerarFonte extends controle{
 				$xml.="\t\t\t</dominio>\n";
 			}
 			if(isset($this->entidade['ng_fk'][$index])){
-				$xml.= "\t\t\t<banco {$nomeBanco}{$ordenacao}>\n";
+				$xml.= "\t\t\t<banco {$nomeBanco}{$ordenacao}{$tipoOrdenacao}>\n";
 				$xml.= "\t\t\t\t<chaveEstrangeira tabela='{$this->entidade['bd_referencia_tabela'][$index]}' campo='{$this->entidade['bd_referencia_campo'][$index]}' />\n";
 				$xml.= "\t\t\t</banco>\n";
 			}else{
-				$xml.= "\t\t\t<banco {$nomeBanco}{$ordenacao} />\n";
+				$xml.= "\t\t\t<banco {$nomeBanco}{$ordenacao}{$tipoOrdenacao} />\n";
 			}
 			if($this->entidade['vi_ordem'][$index]){
 				$ordem = "ordem='{$this->entidade['vi_ordem'][$index]}' ";
@@ -106,9 +121,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		}
 		$xml.= "\t</propriedades>\n";
 		$xml.= "</entidade>";
-		$handle = fopen ("{$this->nomeEntidade}/xml/entidade.xml", "w");
-		fwrite($handle, $xml);
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/xml/entidade.xml",$xml);
 	}
 	/**
 	* Monta o conteúdo do arquivo de definção XML
@@ -141,9 +154,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$xml.= "\t\t<titulo>Cadastro de {$this->entidade['entidade']}</titulo>\n";
 		$xml.= "\t</controles>\n";
 		$xml.= "</internacionalizacao>\n";
-		$handle = fopen ("{$this->nomeEntidade}/xml/pt_BR.xml", "w");
-		fwrite($handle, $xml);
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/xml/pt_BR.xml", $xml);
 	}
 	/**
 	* Monta as classes persistentes
@@ -152,15 +163,10 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$persistente = definicaoEntidade::persistente($this->nomeNegocio);
 		$this->visualizacao->pacote = "{$this->nomeEntidade}";
 		$this->visualizacao->persistenteNome = $persistente;
-		$this->visualizacao->pegar('classesPersistente.html');
-		$handle1 = fopen ("{$this->nomeEntidade}/classes/{$persistente}.postgres.php", "w");
-		$handle2 = fopen ("{$this->nomeEntidade}/classes/{$persistente}.mysql.php", "w");
 		$this->visualizacao->persistentePai = 'persistentePadraoPG';
-		fwrite($handle1, $this->visualizacao->pegar('classesPersistente.html'));
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$persistente}.postgres.php",$this->visualizacao->pegar('classesPersistente.html'));
 		$this->visualizacao->persistentePai = 'persistentePadraoMySql';
-		fwrite($handle2, $this->visualizacao->pegar('classesPersistente.html'));
-		fclose($handle1);
-		fclose($handle2);
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$persistente}.mysql.php",$this->visualizacao->pegar('classesPersistente.html'));
 	}
 	/**
 	* Monta a classe de negocio
@@ -172,9 +178,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->visualizacao->nomesPropriedades = $this->entidade['en_nome'];
 		$this->visualizacao->tipos = $this->entidade['ng_tipo'];
 		$this->visualizacao->negocioNome = $this->nomeNegocio;
-		$handle = fopen ("{$this->nomeEntidade}/classes/{$this->nomeNegocio}.php", "w");
-		fwrite($handle, $this->visualizacao->pegar('classesNegocio.html'));
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$this->nomeNegocio}.php",$this->visualizacao->pegar('classesNegocio.html'));
 	}
 	/**
 	* Monta a classe de internacionalização
@@ -183,9 +187,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$internacionalizacao = definicaoEntidade::internacionalizacao($this->nomeNegocio);
 		$this->visualizacao->pacote = "{$this->nomeEntidade}";
 		$this->visualizacao->internacionalizacaoNome = $internacionalizacao;
-		$handle = fopen ("{$this->nomeEntidade}/classes/{$internacionalizacao}.php", "w");
-		fwrite($handle, $this->visualizacao->pegar('classesInternacionalizacao.html'));
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$internacionalizacao}.php",$this->visualizacao->pegar('classesInternacionalizacao.html'));
 	}
 	/**
 	* Monta o controle de Exclusão
@@ -196,9 +198,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->visualizacao->pacote = "{$this->nomeEntidade}";
 		$this->visualizacao->controleNome = "{$controle}_excluir";
 		$this->visualizacao->controlePai = 'controlePadraoExcluir';
-		$handle = fopen ("{$this->nomeEntidade}/classes/{$controle}_excluir.php", "w");
-		fwrite($handle, $this->visualizacao->pegar('classesControle.html'));
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_excluir.php",$this->visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Gravação
@@ -209,9 +209,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->visualizacao->pacote = "{$this->nomeEntidade}";
 		$this->visualizacao->controleNome = "{$controle}_gravar";
 		$this->visualizacao->controlePai = 'controlePadraoGravar';
-		$handle = fopen ("{$this->nomeEntidade}/classes/{$controle}_gravar.php", "w");
-		fwrite($handle, $this->visualizacao->pegar('classesControle.html'));
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_gravar.php",$this->visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Mudança de Pagina
@@ -222,9 +220,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->visualizacao->pacote = "{$this->nomeEntidade}";
 		$this->visualizacao->controleNome = "{$controle}_mudarPagina";
 		$this->visualizacao->controlePai = 'controlePadraoMudarPagina';
-		$handle = fopen ("{$this->nomeEntidade}/classes/{$controle}_mudarPagina.php", "w");
-		fwrite($handle, $this->visualizacao->pegar('classesControle.html'));
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_mudarPagina.php",$this->visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Pesquisar
@@ -235,9 +231,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->visualizacao->pacote = "{$this->nomeEntidade}";
 		$this->visualizacao->controleNome = "{$controle}_pesquisar";
 		$this->visualizacao->controlePai = 'controlePadraoPesquisar';
-		$handle = fopen ("{$this->nomeEntidade}/classes/{$controle}_pesquisar.php", "w");
-		fwrite($handle, $this->visualizacao->pegar('classesControle.html'));
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_pesquisar.php",$this->visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Ver
@@ -248,9 +242,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->visualizacao->pacote = "{$this->nomeEntidade}";
 		$this->visualizacao->controleNome = "{$controle}_verEdicao";
 		$this->visualizacao->controlePai = 'controlePadraoVerEdicao';
-		$handle = fopen ("{$this->nomeEntidade}/classes/{$controle}_verEdicao.php", "w");
-		fwrite($handle, $this->visualizacao->pegar('classesControle.html'));
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_verEdicao.php",$this->visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Ver a Pesquisa
@@ -261,9 +253,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->visualizacao->pacote = "{$this->nomeEntidade}";
 		$this->visualizacao->controleNome = "{$controle}_verPesquisa";
 		$this->visualizacao->controlePai = 'controlePadraoVerPesquisa';
-		$handle = fopen ("{$this->nomeEntidade}/classes/{$controle}_verPesquisa.php", "w");
-		fwrite($handle, $this->visualizacao->pegar('classesControle.html'));
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_verPesquisa.php",$this->visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o template de ver
@@ -276,9 +266,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		}
 		$this->visualizacao->nomes = $camposControle;
 		$controle = definicaoEntidade::controle($this->nomeNegocio);
-		$handle = fopen ("{$this->nomeEntidade}/html/{$controle}_verEdicao.html", "w");
-		fwrite($handle, $this->visualizacao->pegar('templateVerEdicao.html'));
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/html/{$controle}_verEdicao.html",$this->visualizacao->pegar('templateVerEdicao.html'));
 	}
 	/**
 	* Monta o template de verPesquisa
@@ -290,9 +278,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		}
 		$this->visualizacao->nomes = $camposControle;
 		$controle = definicaoEntidade::controle($this->nomeNegocio);
-		$handle = fopen ("{$this->nomeEntidade}/html/{$controle}_verPesquisa.html", "w");
-		fwrite($handle, $this->visualizacao->pegar('templateVerPesquisa.html'));
-		fclose($handle);
+		$this->escreverArquivo("{$this->nomeEntidade}/html/{$controle}_verPesquisa.html",$this->visualizacao->pegar('templateVerPesquisa.html'));
 	}
 }
 ?>
