@@ -64,6 +64,17 @@ class controlePadrao extends controle{
 							'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
 							'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
 						);
+						if(isset($propriedade->apresentacao->listagem)){
+							$mapeador[strval($propriedade['id'])]['listagem'] = array(
+								'titulo'			=> $this->inter->pegarPropriedade(strval($propriedade['id']),'abreviacao'),
+								'hyperlink'			=> strval($propriedade->apresentacao->listagem['hyperlink']	),
+								'tamanho'			=> strval($propriedade->apresentacao->listagem['tamanho']	),
+								'ordem'				=> strval($propriedade->apresentacao->listagem['ordem']	),
+								'campoPersonalizado'=> strval($propriedade->apresentacao->listagem['campoPersonalizado']	)
+							);
+						}else{
+							$mapeador[strval($propriedade['id'])]['listagem'] = false;
+						}
 					}
 				break;
 			}
