@@ -308,7 +308,7 @@ function checarData(Componente,separadorData,stFormato, stDataAtual){
 				}
 			break;
 		}
-		var re = /^(0[1-9]|1[1-2])$/;
+		var re = /^(0[1-9]|1[0-2])$/;
 		var resMes = re.exec(inMes);
 		var re = /^2[0-1]\d{2}$/;
 		var resAno = re.exec(inAno);
