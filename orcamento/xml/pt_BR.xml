@@ -3,30 +3,35 @@
 	<entidade>
 		<nome>Orcamento</nome>
 		<propriedades>
-		<propriedade nome='idOrcamento'>
+		<propriedade nome='orcamento'>
 			<nome>Orçamento</nome>
 			<abreviacao>Id.</abreviacao>
 			<descricao>Identificador</descricao>
+		</propriedade>
+		<propriedade nome='usuario'>
+			<nome>Usuário</nome>
+			<abreviacao>Usuário</abreviacao>
+			<descricao>Identificador do Usuário</descricao>
 		</propriedade>
 		<propriedade nome='idTarefa'>
 			<nome>Tarefa</nome>
 			<abreviacao>Tarefa</abreviacao>
 			<descricao>Identificador da Tarefa</descricao>
 		</propriedade>
-		<propriedade nome='idUsuario'>
-			<nome>Usuário</nome>
-			<abreviacao>Usuário</abreviacao>
-			<descricao>Identificador do Usuário</descricao>
-		</propriedade>
 		<propriedade nome='idItem'>
 			<nome>Item</nome>
 			<abreviacao>Item</abreviacao>
 			<descricao>Identificador do Item</descricao>
 		</propriedade>
+		<propriedade nome='quantidade'>
+			<nome>Quantidade</nome>
+			<abreviacao>Qtd.</abreviacao>
+			<descricao>Quantidade de itens</descricao>
+		</propriedade>
 		<propriedade nome='observacao'>
 			<nome>Observação</nome>
 			<abreviacao>Obs.</abreviacao>
-			<descricao>Observação</descricao>
+			<descricao>Observação sobre o item</descricao>
 		</propriedade>
 		</propriedades>
 	</entidade>
