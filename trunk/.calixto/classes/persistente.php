@@ -544,6 +544,7 @@ abstract class persistente extends objeto{
 	*/
 	public function criarSequence(){
 		try{
+			$estrutura = $this->pegarEstrutura();
 			if($comandoCriacaoSequence = $this->gerarComandoCriacaoSequence()){
 				$this->conexao->executarComando($comandoCriacaoSequence);
 			}

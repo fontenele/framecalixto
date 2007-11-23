@@ -18,6 +18,15 @@ class CTarefa_verOrcamento extends CTarefa_verTarefa{
 		$this->visualizacao->gravarOrcamento = VComponente::montar('confirmar','gravarOrcamento','Gravar Orçamento');
 		$negocio->carregarOrcamentos();
 		$this->visualizacao->verTarefa = $this->visualizacao->pegar('CTarefa_verTarefa.html');
+
+
+
+		$listagemAtividades = new CAtividade_listagem();
+		$listagemAtividades->colecao = $negocio->pegarCoAtividades();
+		$listagemAtividades->controle= definicaoEntidade::controle('CAtividade_verPesquisa');
+		$this->visualizacao->listagemAtividades = $listagemAtividades;
+		$this->visualizacao->verTarefa = $this->visualizacao->pegar('CTarefa_verTarefa.html');
+
 	}
 	/**
 	* Método que monta a apresentação para o dono da tarefa

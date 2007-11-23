@@ -1,6 +1,6 @@
 <?php
 /**
-* Classe de representação de uma camada de negócio da entidade
+* Classe de representação de uma camada de negócio da entidade 
 * A camada de negócio é a parte que engloba as regras e efetua os comandos de execução de um sistema
 * @package Sistema
 * @subpackage orcamento
@@ -9,11 +9,11 @@ class NOrcamento extends negocioPadrao{
 	/**
 	* @var [numerico] Orçamento
 	*/
-	public $idOrcamento;
+	public $orcamento;
 	/**
-	* @var [numerico] Usuario
+	* @var [numerico] Usuário
 	*/
-	public $idUsuario;
+	public $usuario;
 	/**
 	* @var [numerico] Tarefa
 	*/
@@ -23,6 +23,10 @@ class NOrcamento extends negocioPadrao{
 	*/
 	public $idItem;
 	/**
+	* @var [numerico] Quantidade
+	*/
+	public $quantidade;
+	/**
 	* @var [texto] Observação
 	*/
 	public $observacao;
@@ -30,6 +34,6 @@ class NOrcamento extends negocioPadrao{
 	* Retorna o nome da propriedade que contém o valor chave de negócio
 	* @return [string]
 	*/
-	function nomeChave(){ return 'idOrcamento'; }
+	function nomeChave(){ return 'orcamento'; }
 }
 ?>
