@@ -126,6 +126,12 @@
 			<texto id="listagemAtividades">Listagem de atividades realizadas para esta tarefa</texto>
 			<texto id="listagemSubTarefas">Listagem de subtarefas geradas para esta tarefa</texto>
 			<texto id="listagemOrcamento">Listagem de orçamentos gerados para esta tarefa</texto>
+			<texto id="idItem">Item</texto>
+			<texto id="quantidade">Quantidade</texto>
+			<texto id="observacao">Observação</texto>
+			<texto id="totalizacao">Totais da tarefa</texto>
+			<texto id="total">Total</texto>
+			<texto id="totalRecursivo">Total Geral</texto>
 			<texto id="ListagemEncaminhamento">Encaminhamento para outro usuário</texto>
 			<texto id="trilha">Trilha de tarefas</texto>
 			<texto id="MensagemEncaminhamento">Mensagem</texto>

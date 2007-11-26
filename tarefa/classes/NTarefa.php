@@ -270,5 +270,31 @@ class NTarefa extends negocioPadrao{
 			throw $e;
 		}
 	}
+	/**
+	* Método de totalização do orçamento
+	* @return [numerico]
+	*/
+	public function pegarTotalOrcamento(){
+		$this->carregarOrcamentos();
+		$nrTotal = 0;
+		while($nOrcamento = $this->coOrcamentos->avancar()){
+			$nItem = new NItem($this->conexao);
+			$nItem->ler($nOrcamento->pegarIdItem());
+			$nrTotal += $nItem->pegarVlItem()->pegarNumero() * $nOrcamento->pegarQuantidade()->pegarNumero();
+		}
+		return $nrTotal;
+	}
+	/**
+	* Método de totalização recursiva dos orçamentos da tarefa
+	* @return [numerico]
+	*/
+	public function pegarTotalOrcamentoTarefa(){
+		$this->carregarSubTarefas();
+		$nrTotal = 0;
+		while($nSubTarefa = $this->coTarefas->avancar()){
+			$nrTotal = $nSubTarefa->pegarTotalOrcamentoTarefa();
+		}
+		return $nrTotal + $this->pegarTotalOrcamento();
+	}
 }
 ?>
