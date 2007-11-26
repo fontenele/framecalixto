@@ -34,6 +34,7 @@ class CTarefa_atualizarTarefa extends controlePadrao{
 					}
 				break;
 				case isset($_POST['iniciarAtividade']):
+					$this->passarProximoControle(definicaoEntidade::controle($this,'verAtividades'));
 					$nTarefa->carregarAtividades();
 					if(!$nTarefa->coAtividades->contarItens()){
 						$nTarefa->passarDtInicio(TData::agora());
@@ -46,9 +47,9 @@ class CTarefa_atualizarTarefa extends controlePadrao{
 					$nAtividade->passarDtFim($data);
 					$nAtividade->passarDsAtividade($_POST['dsAtividade']);
 					$nAtividade->gravar();
-					$this->passarProximoControle(definicaoEntidade::controle($this,'verAtividades'));
 				break;
 				case isset($_POST['encerrarAtividade']):
+					$this->passarProximoControle(definicaoEntidade::controle($this,'verAtividades'));
 					$chave = array_keys($_POST['encerrarAtividade']);
 					if(isset($chave[0])){
 						$nAtividade = new NAtividade($conexao);
@@ -56,9 +57,9 @@ class CTarefa_atualizarTarefa extends controlePadrao{
 						$nAtividade->passarDtFim(TData::agora());
 						$nAtividade->gravar();
 					}
-					$this->passarProximoControle(definicaoEntidade::controle($this,'verAtividades'));
 				break;
 				case isset($_POST['iniciarTarefa']):
+					$this->passarProximoControle(definicaoEntidade::controle($this,'verSubTarefas'));
 					$novaTarefa = new NTarefa($conexao);
 					$novaTarefa->passarIdCriador			($nUsuarioSessao->pegarIdUsuario());
 					$novaTarefa->passarIdResponsavel		($nUsuarioSessao->pegarIdUsuario());
@@ -74,14 +75,30 @@ class CTarefa_atualizarTarefa extends controlePadrao{
 					$novaTarefa->passarNrPrioridade			($_POST['nrPrioridadeSubTarefa']);
 					$novaTarefa->gravar();
 					$this->sessao->registrar('idTarefa',$novaTarefa->pegarIdTarefa());
+					$this->passarProximoControle(definicaoEntidade::controle($this,'verTarefa'));
 				break;
 				case isset($_POST['encaminharTarefa']):
+					$this->passarProximoControle(definicaoEntidade::controle($this,'verEncaminhamento'));
 					$nUsuario = new NUsuario($conexao);
 					$nUsuario->ler($_POST['idRecebedor']);
 					$nTarefa->encaminharTarefa($nUsuarioSessao, $nUsuario, $_POST['dsEncaminhamento']);
 					$this->passarProximoControle(definicaoEntidade::controle($this,'verTarefasDoUsuario'));
 				break;
 				case isset($_POST['gravarOrcamento']):
+					$this->passarProximoControle(definicaoEntidade::controle($this,'verOrcamento'));
+					$nOrcamento = new NOrcamento($conexao);
+					$nOrcamento->passarUsuario($nUsuarioSessao->pegarIdUsuario());
+					$nOrcamento->passarIdTarefa($nTarefa->pegarIdTarefa());
+					$nOrcamento->passarQuantidade($_POST['quantidade']);
+					$nOrcamento->passarIdItem($_POST['idItem']);
+					$nOrcamento->passarObservacao($_POST['observacao']);
+					$nOrcamento->gravar();
+				break;
+				case isset($_GET['removerItem']):
+					$this->passarProximoControle(definicaoEntidade::controle($this,'verOrcamento'));
+					$nOrcamento = new NOrcamento($conexao);
+					$nOrcamento->passarOrcamento($_GET['removerItem']);
+					$nOrcamento->excluir();
 				break;
 			}
 			$conexao->validarTransacao();

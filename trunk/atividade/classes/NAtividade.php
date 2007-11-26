@@ -81,6 +81,20 @@ class NAtividade extends negocioPadrao{
 		}
 	}
 	/**
+	* Método utilizado para efetuar as verificações antes de executar a exclusão
+	*/
+	public function verificarAntesExcluir(){
+		try{
+			parent::verificarAntesExcluir();
+			$nTarefa = new NTarefa($this->conexao);
+			$nTarefa->ler($this->pegarIdTarefa());
+			if($nTarefa->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarAtividadeFechada'));
+		}
+		catch(Erro $e){
+			throw $e;
+		}
+	}
+	/**
 	* Método para leitura da última atividade de encaminhamento
 	* @param [nTarefa] tarefa para leitura da atividade
 	*/

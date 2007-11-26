@@ -38,4 +38,7 @@
 	<controles>
 		<titulo>Cadastro de Orcamento</titulo>
 	</controles>
+	<mensagens>
+		<mensagem id="impossivelAtualizarOrcamentoFechado">Não é possível atualizar um orçamento de uma tarefa fechada!</mensagem>
+	</mensagens>
 </internacionalizacao>

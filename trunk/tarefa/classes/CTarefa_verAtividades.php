@@ -16,10 +16,10 @@ class CTarefa_verAtividades extends CTarefa_verTarefa{
 		$this->visualizacao->textoAtividades = sprintf($this->inter->pegarTexto('atividades'),"(".$negocio->coAtividades->contarItens().")");
 		$this->visualizacao->gravarAtividade = VComponente::montar('confirmar','iniciarAtividade','Iniciar nova atividade');
 		$this->visualizacao->dsAtividade = VComponente::montar('caixa de texto','dsAtividade',null);
-		$listagemAtividades = new CAtividade_listagem();
-		$listagemAtividades->colecao = $negocio->pegarCoAtividades();
-		$listagemAtividades->controle= definicaoEntidade::controle('CAtividade_verPesquisa');
-		$this->visualizacao->listagemAtividades = $listagemAtividades;
+		$listagem = new CAtividade_listagem();
+		$listagem->colecao = $negocio->pegarCoAtividades();
+		$listagem->controle= definicaoEntidade::controle('CAtividade_verPesquisa');
+		$this->visualizacao->listagemAtividades = $listagem;
 		$this->visualizacao->verTarefa = $this->visualizacao->pegar('CTarefa_verTarefa.html');
 	}
 	/**

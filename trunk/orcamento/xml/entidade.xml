@@ -27,9 +27,9 @@
 				<listagem ordem='4' tamanho='30%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='quantidade' tipo='numerico' tamanho='3' obrigatorio='sim'  >
+		<propriedade id='quantidade' tipo='tnumerico' tamanho='3' obrigatorio='sim'  >
 			<banco nome='orca_quantidade'  />
-			<apresentacao componente='caixa de entrada' >
+			<apresentacao componente='numerico' >
 				<listagem ordem='3' tamanho='10%' hyperlink='sim' />
 			</apresentacao>
 		</propriedade>

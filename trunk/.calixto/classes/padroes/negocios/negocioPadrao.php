@@ -295,8 +295,21 @@ abstract class negocioPadrao extends negocio{
 	*/
 	public function excluir(){
 		try{
+			$this->ler($this->valorChave());
+			$this->verificarAntesExcluir();
 			$persistente = $this->pegarPersistente();
 			$persistente->excluir($this->valorChave());
+		}
+		catch(Erro $e){
+			throw $e;
+		}
+	}
+	/**
+	* Método utilizado para efetuar as verificações antes de executar a exclusão
+	*/
+	public function verificarAntesExcluir(){
+		try{
+			return;
 		}
 		catch(Erro $e){
 			throw $e;

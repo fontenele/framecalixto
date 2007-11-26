@@ -8,20 +8,45 @@
 	<div class="f"></div>
 	<div class="g"></div>
 	<div class="h"></div>
+	<h1>«$textoTotalizacao»</h1>
+	<table summary="text" class="tabela2" >
+			<tr>
+				<td class="campo1">«$textoTotal»</td>
+				<td class="campo2">«$total»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$textoTotalRecursivo»</td>
+				<td class="campo2">«$totalRecursivo»</td>
+			</tr>
+	</table>
+</div>
+<div class="container2">
+	<div class="a"></div>
+	<div class="b"></div>
+	<div class="c"></div>
+	<div class="d"></div>
+	<div class="e"></div>
+	<div class="f"></div>
+	<div class="g"></div>
+	<div class="h"></div>
 	<h1>«$textoListagemOrcamento»</h1>
 	<table summary="text" class="tabela2" >
-		<tr>
-			<td class="campo1">Orçamento:</td>
-			<td class="campo2">«$gravarOrcamento»</td>
-		</tr>
+			<tr>
+				<td class="campo1">«$textoQuantidade»:</td>
+				<td class="campo2">«$quantidade»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$textoIdItem»:</td>
+				<td class="campo2">«$idItem»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$textoObservacao»:</td>
+				<td class="campo2">«$observacao»</td>
+			</tr>
+			<tr>
+				<td class="campo1">&nbsp;</td>
+				<td class="campo2">«$gravarOrcamento»</td>
+			</tr>
 	</table>
-	<table summary="text" class="tabela1">
-		<tr>
-			<th title="O nome do usuário responsável da tarefa">«$usuarioResponsavel»</th>
-			<th title="Tipo da tarefa">«$tempoGasto»</th>
-			<th title="A data de inicio da tarefa">«$dtInicio»</th>
-			<th title="A data de fim da tarefa">«$dtFim»</th>
-			<th title="O tempo gasto para a realização da tarefa">«$tempoGasto»</th>
-		</tr>
-	</table>
+	«$listagemOrcamentos»
 </div>
