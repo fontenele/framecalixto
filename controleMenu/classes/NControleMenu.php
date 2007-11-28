@@ -38,7 +38,8 @@ class NControleMenu extends negocio{
 			$menu['Cadastros']['Itens'] = '?c=CItem_verPesquisa';
 			$menu['Movimento']['Tarefas do Usuário'] = '?c=CTarefa_verTarefasDoUsuario';
 			$menu['Apoio']['Gerador'] = '?c=CUtilitario_listarEntidade';
-			$menu['Apoio']['Atualizador de Base'] = '?c=CUtilitario_atualizadorBase';
+			$menu['Apoio']['Recriador de Base'] = '?c=CUtilitario_atualizadorBase';
+			$menu['Apoio']['Importador'] = '?c=CUtilitario_importadorXML';
 			$menu['Relatórios']['Cliente'] = '?c=CTarefa_verTarefasDoDono';
 			return $menu;
 		}

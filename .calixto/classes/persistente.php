@@ -771,7 +771,17 @@ abstract class persistente extends objeto{
 			$this->destruirTabela();
 		}
 		catch(erro $e){
-			throw $e;
+			$this->destruirTabela();
+			$this->destruirSequence();
+		}
+		catch(erro $e){
+			$this->destruirTabela();
+		}
+		catch(erro $e){
+			$this->destruirSequence();
+		}
+		catch(erro $e){
+			return true;
 		}
 	}
 	/**
@@ -784,6 +794,26 @@ abstract class persistente extends objeto{
 		}
 		catch(erro $e){
 			$this->criar();
+		}
+		catch(erro $e){
+			throw $e;
+		}
+	}
+	/**
+	* Retorna o comando de criação da entidade no banco de dados ;
+	*/
+	public function comandoDestruicaoCompleto(){
+		try{
+			$comando = '';
+			if($comandoDestruicaoSequence = $this->gerarComandoDestruicaoSequence()){
+				$comando = "-- Comando de destruição da sequence\n";
+				$comando.= 	"{$comandoDestruicaoSequence};\n";
+			}
+			if($comandoDestruicaoTabela = $this->gerarComandoDestruicaoTabela()){
+				$comando.= "-- Comando de destruição da tabela\n";
+				$comando.= 	"{$comandoDestruicaoTabela};\n";
+			}
+			return $comando;
 		}
 		catch(erro $e){
 			throw $e;
