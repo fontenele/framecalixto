@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding="utf-8" ?>
 <definicoes>
 	<sistema nome="TESTE" paginaInicial="CControleAcesso_verLogin" paginaErro="CControleAcesso_erroAcesso" />
-	<controleDeAcessos classe="NControleAcesso" metodoLiberacao="validarAcesso" />
+	<controleDeAcesso classe="NControleAcesso" metodoLiberacao="validarAcesso" />
 	<controleDeMenu classe="NControleMenu" metodoMenuSite="menuPrincipal" metodoMenuSistema="menuMenuSistema" />
 	<banco tipo="postgres" servidor="localhost" porta="5432" nome="bdi_base" usuario="bdi_base" senha="123456" />
 	<classes>
