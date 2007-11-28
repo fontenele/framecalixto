@@ -85,6 +85,10 @@
 								</tr>
 							</table>
 						</div>
+						<div id="definicaoArquivos" style="width:100%; overflow: inherit">
+							<table summary="text" class="tabela1" id="arquivos">
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -148,6 +152,7 @@ function criarAbas(){
 	t.addTab('Negócio',		$('definicaoNegocio'));
 	t.addTab('Persistente',	$('definicaoPersistente'));
 	t.addTab('Visualização',$('definicaoVisualizacao'));
+	t.addTab('Arquivos',	$('definicaoArquivos'));
 	t.draw();
 }
 function novoInput(nome){
@@ -448,6 +453,59 @@ function adicionar(){
 		alert(e);
 	}
 }
+function montarLinhaArquivo(marcado, arquivo){
+	linha = ini('tr');
+		col = ini('td');
+		chk = novoInput('arquivo[' + arquivo + ']');
+		set(chk,'type','checkbox');
+		if(marcado) set(chk,'checked',true);
+		col.appendChild(chk);
+	linha.appendChild(col);
+		col = ini('td');
+		col.innerHTML = arquivo ;
+	linha.appendChild(col);
+	return linha;
+}
+function definirArquivosEntidade(marcado){
+	var arNome = d.entidade.value.toLowerCase().split(' ');
+	var nome = '';
+	for(i in arNome){
+		if(i > 0){
+			ucfirst = arNome[i].charAt(0).toUpperCase();
+		}else{
+			ucfirst = arNome[i].charAt(0);
+		}
+		nome += ucfirst + arNome[i].substr(1,arNome[i].length);
+	}
+	nomeClasse = nome.charAt(0).toUpperCase() + nome.substr(1,nome.length);
+	// Arquivos
+	var arquivos = $('arquivos');
+	arquivos.innerHTML = '';
+		// Cabeçalho
+		linha = ini('tr');
+			col = ini('th');
+			set(col,'title','Selecione o arquivo para salvá-lo');
+		linha.appendChild(col);
+			col = ini('th');
+			set(col,'title','Caminho do arquivo');
+			col.innerHTML = 'Arquivo';
+		linha.appendChild(col);
+	arquivos.appendChild(linha);
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/C' + nomeClasse + '_excluir.php'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/C' + nomeClasse + '_gravar.php'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/C' + nomeClasse + '_mudarPagina.php'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/C' + nomeClasse + '_pesquisar.php'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/C' + nomeClasse + '_verEdicao.php'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/C' + nomeClasse + '_verPesquisa.php'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/I' + nomeClasse + '.php'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/N' + nomeClasse + '.php'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/P' + nomeClasse + '.mysql.php'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/P' + nomeClasse + '.postgres.php'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/xml/entidade.xml'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/xml/pt_BR.xml'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/html/C' + nomeClasse + '_verEdicao.html'));
+	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/html/C' + nomeClasse + '_verPesquisa.html'));
+}
 function preecherTela(definicao){
 	try{
 		document.formulario.entidade.value = definicao.inter.nome;
@@ -497,5 +555,6 @@ criarAbas();
 var definicao = eval('«$dados»');
 if(definicao){
 	preecherTela(definicao[0]);
+	definirArquivosEntidade(false);
 }
 </script>

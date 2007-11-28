@@ -63,6 +63,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 	* @param [string] conteudo do arquivo a ser escrito
 	*/
 	protected function escreverArquivo($caminho,$conteudo){
+		if(!isset($_POST['arquivo'][$caminho])) return ;
 		if($this->debug){x($caminho,'<pre>'.htmlspecialchars($conteudo).'</pre>');return ;}
 		$handle = fopen ($caminho, "w");
 		fwrite($handle, $conteudo);
