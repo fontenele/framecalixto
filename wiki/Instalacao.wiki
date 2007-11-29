@@ -1,6 +1,4 @@
 #labels Featured,Phase-Requirements
-#Instalação do framecalixto.
-
 = Instalação do framecalixto =
 
 Veja como realizar a instalação do framecalixto.
