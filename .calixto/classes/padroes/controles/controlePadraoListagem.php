@@ -181,8 +181,8 @@ class controlePadraoListagem extends controlePadrao{
 										$classeAssociativa->ler($item->$pegar());
 										$valorDoCampo = $classeAssociativa->valorDescricao();
 									break;
-									case($mapeador[$campo['campoLink']]['dominio']):
-										$valorDoCampo = $mapeador[$campo['campoLink']]['dominio'][$item->$pegar()];
+									case($mapeador[$campo['campoLink']]['valores']):
+										$valorDoCampo = $mapeador[$campo['campoLink']]['valores'][$item->$pegar()];
 									break;
 									default:
 										$valorDoCampo = $item->$pegar();
@@ -208,8 +208,8 @@ class controlePadraoListagem extends controlePadrao{
 										$classeAssociativa->ler($item->$pegar());
 										$valorDoCampo = $classeAssociativa->valorDescricao();
 									break;
-									case($mapeador[$campo['campo']]['dominio']):
-										$valorDoCampo = $mapeador[$campo['campo']]['dominio'][$item->$pegar()];
+									case($mapeador[$campo['campo']]['valores']):
+										$valorDoCampo = $mapeador[$campo['campo']]['valores'][$item->$pegar()];
 									break;
 									default:
 										$valorDoCampo = $item->$pegar();

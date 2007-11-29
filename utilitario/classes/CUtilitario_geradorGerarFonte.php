@@ -95,7 +95,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 			$metodoLeitura = ((isset($this->entidade['ng_fk'][$index])) && ($this->entidade['ng_metodo'][$index])) ? "metodoLeitura='{$this->entidade['ng_metodo'][$index]}' " : '';
 			$xml.= "\t\t<propriedade {$id}{$tipo}{$tamanho}{$obrigatorio}{$chavePrimaria}{$chaveUnica}{$classeAssociativa}{$metodoLeitura}{$descritivo} >\n";
 			if($this->entidade['ng_dominio'][$index]){
-				$arDominio = explode('][',substr($this->entidade['ng_dominio'][$index],1,strlen($this->entidade['ng_dominio'][$index]) -1));
+				$arDominio = explode('][',substr($this->entidade['ng_dominio'][$index],1,strlen($this->entidade['ng_dominio'][$index]) -2));
 				$xml.="\t\t\t<dominio>\n";
 				foreach($arDominio as $item){
 					$item = explode(',',$item);
@@ -139,7 +139,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 			$xml.= "\t\t\t<abreviacao>{$this->entidade['en_abreviacao'][$index]}</abreviacao>\n";
 			$xml.= "\t\t\t<descricao>{$this->entidade['en_descricao'][$index]}</descricao>\n";
 			if($this->entidade['ng_dominio'][$index]){
-				$arDominio = explode('][',substr($this->entidade['ng_dominio'][$index],1,strlen($this->entidade['ng_dominio'][$index]) -1));
+				$arDominio = explode('][',substr($this->entidade['ng_dominio'][$index],1,strlen($this->entidade['ng_dominio'][$index]) -2));
 				$xml.="\t\t\t<dominio>\n";
 				foreach($arDominio as $item){
 					$item = explode(',',$item);
