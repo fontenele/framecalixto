@@ -1,0 +1,1 @@
+Conjunto de bibliotecas e classes que constituem uma infra-estrutura para desenvolver programas ou sistemas de forma organizada, simplificada e extensível.
