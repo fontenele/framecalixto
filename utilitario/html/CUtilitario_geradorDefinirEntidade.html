@@ -537,9 +537,9 @@ function preecherTela(definicao){
 			$('vi_componente[' + i + ']'		).value = valores.controle.componente;
 			$('vi_ordemDescritivo[' + i + ']'			).value = valores.negocio.descritivo;
 			if(valores.controle.listagem){
-				$('vi_ordem[' + i + ']'			).value = valores.controle.listagem.ordem;
-				$('vi_link[' + i + ']'			).checked = (valores.controle.listagem.hyperlink == 'sim');
-				$('vi_largura[' + i + ']'		).value = LimpaNumero(valores.controle.listagem.tamanho);
+				$('vi_ordem[' + i + ']'			).value = valores.controle.ordem;
+				$('vi_link[' + i + ']'			).checked = (valores.controle.hyperlink == 'sim');
+				$('vi_largura[' + i + ']'		).value = LimpaNumero(valores.controle.largura);
 			}
 			if(valores.negocio.campo == definicao.bd.chavePrimaria){
 				$('ng_chave_pk[' + i + ']').checked = true;

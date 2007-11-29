@@ -5,6 +5,7 @@
 * @subpackage Controle
 */
 class controlePadrao extends controle{
+	private static $estrutura;
 	/**
 	* Método inicial do controle
 	*/
@@ -34,51 +35,54 @@ class controlePadrao extends controle{
 	*/
 	public function mapearControle($arquivoXML){
 		try{
-			$mapeador = array();
-			switch(true){
-				case !($arquivoXML):
-				break;
-				case !(is_file($arquivoXML)):
-					throw new erroInclusao("Arquivo [$arquivoXML] inexistente!");
-				break;
-				case !(is_readable($arquivoXML)):
-					throw new erroInclusao("Arquivo [$arquivoXML] sem permissão de leitura!");
-				break;
-				default:
-					$xml = simplexml_load_file($arquivoXML);
-					foreach($xml->propriedades->propriedade as $propriedade){
-						$arValores = array();
-						if(isset($propriedade->dominio->opcao)){
-							$arValores[''] = '&nbsp;';
-							foreach($propriedade->dominio->opcao as $opcao){
-								$arValores[strval($opcao['id'])] = $this->inter->pegarOpcao(strval($propriedade['id']),strval($opcao['id']));
+			$entidade = definicaoEntidade::entidade($this);
+			if(!isset(controlePadrao::$estrutura[$entidade])){
+				$mapeador = array();
+				switch(true){
+					case !($arquivoXML):
+					break;
+					case !(is_file($arquivoXML)):
+						throw new erroInclusao("Arquivo [$arquivoXML] inexistente!");
+					break;
+					case !(is_readable($arquivoXML)):
+						throw new erroInclusao("Arquivo [$arquivoXML] sem permissão de leitura!");
+					break;
+					default:
+						$xml = simplexml_load_file($arquivoXML);
+						foreach($xml->propriedades->propriedade as $propriedade){
+							$arValores = array();
+							$idPropriedade = strval($propriedade['id']);
+							if(isset($propriedade->dominio->opcao)){
+								$arValores[''] = '&nbsp;';
+								foreach($propriedade->dominio->opcao as $opcao){
+									$arValores[strval($opcao['id'])] = $this->inter->pegarOpcao($idPropriedade,strval($opcao['id']));
+								}
+							}
+							$mapeador[$idPropriedade] = array(
+								'componente'	=> strval($propriedade->apresentacao['componente']	),
+								'tamanho'		=> strval($propriedade['tamanho']	),
+								'tipo'			=> strval($propriedade['tipo']	),
+								'obrigatorio'	=> strval($propriedade['obrigatorio']	),
+								'pesquisa'		=> strval($propriedade->apresentacao['pesquisa']	),
+								'valores'		=> $arValores,
+								'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
+								'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
+							);
+							$mapeador[$idPropriedade]['listagem'] = false;
+							if(isset($propriedade->apresentacao->listagem)){
+								$mapeador[$idPropriedade]['listagem'] = true;
+								$mapeador[$idPropriedade]['titulo']	= $this->inter->pegarPropriedade($idPropriedade,'abreviacao');
+								$mapeador[$idPropriedade]['hyperlink'] = strval($propriedade->apresentacao->listagem['hyperlink']);
+								$mapeador[$idPropriedade]['largura'] = strval($propriedade->apresentacao->listagem['tamanho']);
+								$mapeador[$idPropriedade]['ordem'] = strval($propriedade->apresentacao->listagem['ordem']	);
+								$mapeador[$idPropriedade]['campoPersonalizado'] = strval($propriedade->apresentacao->listagem['campoPersonalizado'] );
 							}
 						}
-						$mapeador[strval($propriedade['id'])] = array(
-							'componente'	=> strval($propriedade->apresentacao['componente']	),
-							'tamanho'		=> strval($propriedade['tamanho']	),
-							'tipo'			=> strval($propriedade['tipo']	),
-							'obrigatorio'	=> strval($propriedade['obrigatorio']	),
-							'pesquisa'		=> strval($propriedade->apresentacao['pesquisa']	),
-							'valores'		=> $arValores,
-							'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
-							'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
-						);
-						if(isset($propriedade->apresentacao->listagem)){
-							$mapeador[strval($propriedade['id'])]['listagem'] = array(
-								'titulo'			=> $this->inter->pegarPropriedade(strval($propriedade['id']),'abreviacao'),
-								'hyperlink'			=> strval($propriedade->apresentacao->listagem['hyperlink']	),
-								'tamanho'			=> strval($propriedade->apresentacao->listagem['tamanho']	),
-								'ordem'				=> strval($propriedade->apresentacao->listagem['ordem']	),
-								'campoPersonalizado'=> strval($propriedade->apresentacao->listagem['campoPersonalizado']	)
-							);
-						}else{
-							$mapeador[strval($propriedade['id'])]['listagem'] = false;
-						}
-					}
-				break;
+					break;
+				}
+				controlePadrao::$estrutura[$entidade] = $mapeador;
 			}
-			return $mapeador;
+			return controlePadrao::$estrutura[$entidade];
 		}
 		catch(erro $e){
 			throw $e;

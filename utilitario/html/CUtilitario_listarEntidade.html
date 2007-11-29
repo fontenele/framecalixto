@@ -9,10 +9,10 @@
 	<div class="h"></div>
 	<h1 class="titulo">&nbsp;</h1>
 	<div class="lista">
-		<ul>
-		«foreach from=$listagem key=negocio item=nome»
-		<li><a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" >«$nome»</a></li>
-		«/foreach»
-		</ul>
+			<ul>
+			«foreach from=$listagem key=negocio item=nome»
+			<li><a href="?c=«$controles[$negocio]»" >testar</a>  <a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" >editar</a> «$nome» </li>
+			«/foreach»
+			</ul>
 	</div>
 </div>
