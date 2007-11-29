@@ -31,60 +31,47 @@ abstract class negocioPadrao extends negocio{
 	* retorna um array de mapeamento entre persistente e negócio
 	* @return [array] mapeamento persistente e negocio
 	*/
-	public function mapearNegocio($arquivoXML){
-		try{
-			$mapeador = array();
-			switch(true){
-				case !($arquivoXML):
-				break;
-				case !(is_file($arquivoXML)):
-					throw new erroInclusao("Arquivo [$arquivoXML] inexistente!");
-				break;
-				case !(is_readable($arquivoXML)):
-					throw new erroInclusao("Arquivo [$arquivoXML] sem permissï¿½ de leitura!");
-				break;
-				default:
-					$xml = simplexml_load_file($arquivoXML);
-					foreach($xml->propriedades->propriedade as $propriedade){
-						if(isset($propriedade->dominio)){
-							$dominio = array();
-							foreach($propriedade->dominio->opcao as $opcao){
-								$dominio[strval($opcao['id'])] = strval($opcao);
-							}
-						}else{
-							$dominio = false;
-						}
-						$mapeador[] = array(
-							'propriedade'		=> strval($propriedade['id']		),
-							'tipo'				=> strval($propriedade['tipo']			),
-							'campo'				=> strtolower(strval($propriedade->banco['nome']	)),
-							'obrigatorio'		=> strval($propriedade['obrigatorio']	),
-							'dominio'			=> $dominio,
-							'descritivo'		=> strval($propriedade['descritivo']		),
-							'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
-							'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
-						);
-					}
-				break;
-			}
-			return $mapeador;
-		}
-		catch(erro $e){
-			throw $e;
-		}
-	}
-	/**
-	* Método que retorna o array com o mapeamento entre persistente e negócio
-	* este método pode ser sobrescrito para efetuar um cache de arquivo e evitar processamento de leitura
-	* @return [vetor] de mapeamento  entre persistente e negócio
-	*/
 	public function pegarMapeamento($arquivoXML = null){
 		try{
 			if(!isset(negocioPadrao::$estrutura[get_class($this)])){
-				return negocioPadrao::$estrutura[get_class($this)] = $this->mapearNegocio(definicaoArquivo::pegarXmlEntidade($this,$arquivoXML));
-			}else{
-				return negocioPadrao::$estrutura[get_class($this)];
+				$arquivoXML = definicaoArquivo::pegarXmlEntidade($this,$arquivoXML);
+				$mapeador = array();
+				switch(true){
+					case !($arquivoXML):
+					break;
+					case !(is_file($arquivoXML)):
+						throw new erroInclusao("Arquivo [$arquivoXML] inexistente!");
+					break;
+					case !(is_readable($arquivoXML)):
+						throw new erroInclusao("Arquivo [$arquivoXML] sem permissï¿½ de leitura!");
+					break;
+					default:
+						$xml = simplexml_load_file($arquivoXML);
+						foreach($xml->propriedades->propriedade as $propriedade){
+							if(isset($propriedade->dominio)){
+								$dominio = array();
+								foreach($propriedade->dominio->opcao as $opcao){
+									$dominio[strval($opcao['id'])] = strval($opcao);
+								}
+							}else{
+								$dominio = false;
+							}
+							$mapeador[] = array(
+								'propriedade'		=> strval($propriedade['id']		),
+								'tipo'				=> strval($propriedade['tipo']			),
+								'campo'				=> strtolower(strval($propriedade->banco['nome']	)),
+								'obrigatorio'		=> strval($propriedade['obrigatorio']	),
+								'dominio'			=> $dominio,
+								'descritivo'		=> strval($propriedade['descritivo']		),
+								'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
+								'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
+							);
+						}
+					break;
+				}
+				negocioPadrao::$estrutura[get_class($this)] = $mapeador;
 			}
+			return negocioPadrao::$estrutura[get_class($this)];
 		}
 		catch(erro $e){
 			throw $e;

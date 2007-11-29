@@ -5,15 +5,20 @@
 * @package Sistema
 * @subpackage Gerador
 */
-class CUtilitario_listarEntidade extends controlePadraoVerPesquisa{
+class CUtilitario_listarEntidade extends controlePadraoListagem{
 	/**
 	* Método inicial do controle
 	*/
 	function inicial(){
+		parent::inicial();
+		$this->visualizacao = new visualizacaoPadrao($this);
+		$this->inter = new IUtilitario();
+		$this->criarVisualizacaoPadrao();
 		$p = new NPessoa();
 		$ps = $p->lerTodos();
 		$d = dir(".");
 		$negocios = new colecao();
+		$controles = new colecao();
 		while (false !== ($arquivo = $d->read())) {
 			if( is_dir($arquivo) && ($arquivo{0} !== '.') ){
 				if(is_file($arquivo.'/classes/N'.ucfirst($arquivo).'.php')){
@@ -21,6 +26,7 @@ class CUtilitario_listarEntidade extends controlePadraoVerPesquisa{
 					$obNegocio = new $negocio();
 					if( isset($obNegocio->inter) ) {
 						$negocios->$arquivo = $obNegocio->inter->pegarNome();
+						$controles->$arquivo = 'C'.ucfirst($arquivo).'_verPesquisa';
 					}
 				}
 			}
@@ -30,7 +36,8 @@ class CUtilitario_listarEntidade extends controlePadraoVerPesquisa{
 		$this->gerarMenus();
 		$this->registrarInternacionalizacao();
 		$this->visualizacao->listagem = $negocios->itens;
-		$this->visualizacao->mostrar('');
+		$this->visualizacao->controles = $controles->itens;
+		$this->visualizacao->mostrar();
 	}
 	/**
 	* Retorna um array com os itens do menu do programa

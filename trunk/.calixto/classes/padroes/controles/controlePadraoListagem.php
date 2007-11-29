@@ -114,69 +114,27 @@ class controlePadraoListagem extends controlePadrao{
 		}
 	}
 	/**
-	* Metodo criado para especificar a estrutura da persistente
-	* @param [st] caminho do arquivo
-	*/
-	public function mapearControle($arquivoXML){
-		try{
-			$mapeador = array();
-			switch(true){
-				case !($arquivoXML):
-				break;
-				case !(is_file($arquivoXML)):
-					throw new erroInclusao("Arquivo [$arquivoXML] inexistente!");
-				break;
-				case !(is_readable($arquivoXML)):
-					throw new erroInclusao("Arquivo [$arquivoXML] sem permissão de leitura!");
-				break;
-				default:
-					$xml = simplexml_load_file($arquivoXML);
-					foreach($xml->propriedades->propriedade as $propriedade){
-						$arValores = false;
-						if(isset($propriedade->dominio->opcao))
-						foreach($propriedade->dominio->opcao as $opcao){
-							$arValores[strval($opcao['id'])] = $this->inter->pegarOpcao(strval($propriedade['id']),strval($opcao['id']));
-						}
-						if(isset($propriedade->apresentacao->listagem))
-						$mapeador[strval($propriedade['id'])] = array(
-							'titulo'			=> $this->inter->pegarPropriedade(strval($propriedade['id']),'abreviacao'),
-							'hyperlink'			=> strval($propriedade->apresentacao->listagem['hyperlink']	),
-							'tamanho'			=> strval($propriedade->apresentacao->listagem['tamanho']	),
-							'ordem'				=> strval($propriedade->apresentacao->listagem['ordem']	),
-							'campoPersonalizado'=> strval($propriedade->apresentacao->listagem['campoPersonalizado']	),
-							'dominio'			=> $arValores,
-							'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
-							'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
-						);
-					}
-				break;
-			}
-			return $mapeador;
-		}
-		catch(erro $e){
-			throw $e;
-		}
-	}
-	/**
 	* Método de criação da coleção a ser listada
 	*/
 	function definirListagem(){
 		$estrutura = $this->mapearControle(definicaoArquivo::pegarXmlEntidade($this->pegarControle(),$arquivoXML));
 		foreach($estrutura as $campo => $coluna){
-			$titulo = '';
-			$alinhamento = '';
-			$ordem = $coluna['ordem'] ? $coluna['ordem'] : null ;
-			$tamanho = $coluna['tamanho'] ? $coluna['tamanho'] : null ;
-			switch(true){
-				case ($coluna['campoPersonalizado']):
-					$this->adicionarColunaPersonalizada($coluna['titulo'], $coluna['campoPersonalizado'], $tamanho, $alinhamento, $ordem);
-				break;
-				case ($coluna['hyperlink'] == "sim"):
-					$this->adicionarColunaLink($coluna['titulo'], $campo, $tamanho, $alinhamento, $ordem);
-				break;
-				case (!$coluna['campoPersonalizado']):
-					$this->adicionarColuna($coluna['titulo'], $campo, $tamanho, $alinhamento, $ordem);
-				break;
+			if($coluna['listagem']){
+				$titulo = '';
+				$alinhamento = '';
+				$ordem = $coluna['ordem'] ? $coluna['ordem'] : null ;
+				$tamanho = $coluna['largura'] ? $coluna['largura'] : null ;
+				switch(true){
+					case ($coluna['campoPersonalizado']):
+						$this->adicionarColunaPersonalizada($coluna['titulo'], $coluna['campoPersonalizado'], $tamanho, $alinhamento, $ordem);
+					break;
+					case ($coluna['hyperlink'] == "sim"):
+						$this->adicionarColunaLink($coluna['titulo'], $campo, $tamanho, $alinhamento, $ordem);
+					break;
+					case (!$coluna['campoPersonalizado']):
+						$this->adicionarColuna($coluna['titulo'], $campo, $tamanho, $alinhamento, $ordem);
+					break;
+				}
 			}
 		}
 	}

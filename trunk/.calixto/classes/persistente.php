@@ -53,71 +53,58 @@ abstract class persistente extends objeto{
 	* Metodo criado para especificar a estrutura da persistente
 	* @param [st] caminho do arquivo
 	*/
-	public function mapearPersistente($arquivoXML){
-		try{
-			switch(true){
-				case !($arquivoXML):
-				break;
-				case !(is_file($arquivoXML)):
-					throw new erroInclusao("Arquivo [$arquivoXML] inexistente!");
-				break;
-				case !(is_readable($arquivoXML)):
-					throw new erroInclusao("Arquivo [$arquivoXML] sem permissão de leitura!");
-				break;
-				default:
-					$xml = simplexml_load_file($arquivoXML);
-					$estrutura['nomeTabela'] = strval($xml['nomeBanco']);
-					foreach($xml->propriedades->propriedade as $campo){
-						$nomeCampo = strtolower(strval($campo->banco['nome']));
-						if(isset($campo['indicePrimario']) && strtolower(strval($campo['indicePrimario'])) == 'sim'){
-							$estrutura['chavePrimaria'] = $nomeCampo;
-						}
-						$estrutura['campo'][$nomeCampo]['tipo'] = strtolower(strval($campo['tipo']));
-						$estrutura['campo'][$nomeCampo]['tamanho'] = strval($campo['tamanho']);
-						$estrutura['campo'][$nomeCampo]['obrigatorio'] = (strtolower(strval($campo['obrigatorio'])) == 'sim') ? 'sim' : 'nao';
-						if($estrutura['campo'][$nomeCampo]['tipo'] == 'texto'){
-							$estrutura['campo'][$nomeCampo]['operador'] = isset($campo->banco['operador']) ? strtolower(strval($campo->banco['operador'])): 'como';
-						}else{
-							$estrutura['campo'][$nomeCampo]['operador'] = isset($campo->banco['operador']) ? strtolower(strval($campo->banco['operador'])): 'igual';
-						}
-						if(isset($campo->banco->chaveEstrangeira)){
-							$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['tabela'] = strval($campo->banco->chaveEstrangeira['tabela']);
-							$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['campo'] = strval($campo->banco->chaveEstrangeira['campo']);
-						}
-						if(isset($campo->dominio->opcao)){
-							foreach($campo->dominio->opcao as $opcao){
-								$estrutura['campo'][$nomeCampo]['valoresPossiveis'][] = strval($opcao['id']);
-							}
-						}
-						if(isset($campo->banco['ordem'])){
-							if(isset($campo->banco['tipoOrdem']) && $campo->banco['tipoOrdem'] == 'inversa'){
-								$estrutura['ordem'][strval($campo->banco['ordem'])] = $nomeCampo.' desc';
-							}else{
-								$estrutura['ordem'][strval($campo->banco['ordem'])] = $nomeCampo;
-							}
-						}
-					}
-				break;
-			}
-			if(isset($estrutura['ordem'])) ksort($estrutura['ordem']);
-			return $estrutura;
-		}
-		catch(erro $e){
-			throw $e;
-		}
-	}
-	/**
-	* Método que retorna a estrutura da persitente
-	* @return [vetor] estrutura da persitente
-
-	*/
 	public function pegarEstrutura($arquivoXML = null){
 		try{
 			if(!isset(persistente::$estrutura[get_class($this)])){
-				return persistente::$estrutura[get_class($this)] = $this->mapearPersistente(definicaoArquivo::pegarXmlEntidade($this,$arquivoXML));
-			}else{
-				return persistente::$estrutura[get_class($this)];
+				$arquivoXML = definicaoArquivo::pegarXmlEntidade($this,$arquivoXML);
+				switch(true){
+					case !($arquivoXML):
+					break;
+					case !(is_file($arquivoXML)):
+						throw new erroInclusao("Arquivo [$arquivoXML] inexistente!");
+					break;
+					case !(is_readable($arquivoXML)):
+						throw new erroInclusao("Arquivo [$arquivoXML] sem permissão de leitura!");
+					break;
+					default:
+						$xml = simplexml_load_file($arquivoXML);
+						$estrutura['nomeTabela'] = strval($xml['nomeBanco']);
+						foreach($xml->propriedades->propriedade as $campo){
+							$nomeCampo = strtolower(strval($campo->banco['nome']));
+							if(isset($campo['indicePrimario']) && strtolower(strval($campo['indicePrimario'])) == 'sim'){
+								$estrutura['chavePrimaria'] = $nomeCampo;
+							}
+							$estrutura['campo'][$nomeCampo]['tipo'] = strtolower(strval($campo['tipo']));
+							$estrutura['campo'][$nomeCampo]['tamanho'] = strval($campo['tamanho']);
+							$estrutura['campo'][$nomeCampo]['obrigatorio'] = (strtolower(strval($campo['obrigatorio'])) == 'sim') ? 'sim' : 'nao';
+							if($estrutura['campo'][$nomeCampo]['tipo'] == 'texto'){
+								$estrutura['campo'][$nomeCampo]['operador'] = isset($campo->banco['operador']) ? strtolower(strval($campo->banco['operador'])): 'como';
+							}else{
+								$estrutura['campo'][$nomeCampo]['operador'] = isset($campo->banco['operador']) ? strtolower(strval($campo->banco['operador'])): 'igual';
+							}
+							if(isset($campo->banco->chaveEstrangeira)){
+								$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['tabela'] = strval($campo->banco->chaveEstrangeira['tabela']);
+								$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['campo'] = strval($campo->banco->chaveEstrangeira['campo']);
+							}
+							if(isset($campo->dominio->opcao)){
+								foreach($campo->dominio->opcao as $opcao){
+									$estrutura['campo'][$nomeCampo]['valoresPossiveis'][] = strval($opcao['id']);
+								}
+							}
+							if(isset($campo->banco['ordem'])){
+								if(isset($campo->banco['tipoOrdem']) && $campo->banco['tipoOrdem'] == 'inversa'){
+									$estrutura['ordem'][strval($campo->banco['ordem'])] = $nomeCampo.' desc';
+								}else{
+									$estrutura['ordem'][strval($campo->banco['ordem'])] = $nomeCampo;
+								}
+							}
+						}
+					break;
+				}
+				if(isset($estrutura['ordem'])) ksort($estrutura['ordem']);
+				persistente::$estrutura[get_class($this)] = $estrutura;
 			}
+			return persistente::$estrutura[get_class($this)];
 		}
 		catch(erro $e){
 			throw $e;
