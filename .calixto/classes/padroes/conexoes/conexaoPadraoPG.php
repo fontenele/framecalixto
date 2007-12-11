@@ -6,37 +6,29 @@
 */
 class conexaoPadraoPG extends conexao{
 	/**
-	* Metodo construtor
-	* @param [st] Servidor do Banco de dados
-	* @param [st] Porta do servidor do Banco de dados
-	* @param [st] Nome do Banco de dados
-	* @param [st] Usuário do Banco de dados
-	* @param [st] Senha do Banco de dados
+	* O ponteiro do recurso com o resultado do comando
+	* @var [resource]
 	*/
-	public function __construct($servidor, $porta, $banco, $usuario, $senha){
-		try{
-			$this->strConn = "host=$servidor port=$porta dbname=$banco user=$usuario password=$senha";
-			$this->conectar();
-		}
-		catch(erroBanco $e){
-			throw $e;
-		}
-	}
+	protected static $cursorEstatico;
 	/**
-	* Fecha a Conexão com o Banco de Dados
+	* Conexao statica para singleton
 	*/
-	public function __destruct(){
+	protected static $conexaoEstatica;
+	/**
+	* Verificador de transação
+	*/
+	protected static $autoCommitEstatico;
+	/**
+	* Metodo construtor
+	*/
+	final public function __construct(){}
+	/**
+	* Desconecta do banco de dados
+	*/
+	public function desconectar(){
 		try{
-			$this->desconectar();
-		}
-		catch(erroBanco $e){
-			// O retorno de erro pelo comando destruct impede o redirecionamento de paginas
-		}
-	}
-	protected function desconectar(){
-		try{
-			if(is_resource($this->conexao)){
-				pg_close ($this->conexao);
+			if(is_resource(conexaoPadraoPG::$conexaoEstatica)){
+				pg_close (conexaoPadraoPG::$conexaoEstatica);
 			}else{
 				throw new erroBanco( 'erro na conexão com banco de dados' );
 			}
@@ -45,15 +37,26 @@ class conexaoPadraoPG extends conexao{
 			throw $e;
 		}
 	}
-	protected function conectar(){
+	/**
+	* Metodo de conexão
+	* @param [st] Servidor do Banco de dados
+	* @param [st] Porta do servidor do Banco de dados
+	* @param [st] Nome do Banco de dados
+	* @param [st] Usuário do Banco de dados
+	* @param [st] Senha do Banco de dados
+	*/
+	public static function conectar($servidor, $porta, $banco, $usuario, $senha){
 		try{
-			if(!$this->strConn) debug_print_backtrace();
-			$this->conexao = pg_pconnect($this->strConn);
-			if( !is_resource($this->conexao) ){
-			throw new erroBanco( 'erro na conexão com banco de dados' );
+			if(!is_resource(conexaoPadraoPG::$conexaoEstatica)){
+				echo 'singleton';
+				conexaoPadraoPG::$conexaoEstatica = pg_connect("host=$servidor port=$porta dbname=$banco user=$usuario password=$senha");
+				if( !is_resource(conexaoPadraoPG::$conexaoEstatica) ){
+					throw new erroBanco( 'erro na conexão com banco de dados' );
+				}
+				conexaoPadraoPG::executar("SET DATESTYLE TO German;");
+				conexaoPadraoPG::executar("SET CLIENT_ENCODING TO UTF8;");
 			}
-			$this->executarComando("SET DATESTYLE TO German;");
-			$this->executarComando("SET CLIENT_ENCODING TO UTF8;");
+			return new conexaoPadraoPG();
 		}
 		catch(erroBanco $e){
 			throw $e;
@@ -64,10 +67,10 @@ class conexaoPadraoPG extends conexao{
 	*/
 	function iniciarTransacao(){
 		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para iniciar uma transação!' );
-			$this->autoCommit = false;
-			pg_query($this->conexao, 'begin');
-			$sterro = pg_last_error($this->conexao);
+			if( !is_resource(conexaoPadraoPG::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para iniciar uma transação!' );
+			conexaoPadraoPG::$autoCommitEstatico = false;
+			pg_query(conexaoPadraoPG::$conexaoEstatica, 'begin');
+			$sterro = pg_last_error(conexaoPadraoPG::$conexaoEstatica);
 			if (!empty($sterro)) {
 				throw new erroBanco($sterro);
 			}
@@ -82,10 +85,10 @@ class conexaoPadraoPG extends conexao{
 	*/
 	function validarTransacao(){
 		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para validar uma transação!' );
-			$this->autoCommit = false;
-			pg_query($this->conexao, 'commit');
-			$sterro = pg_last_error($this->conexao);
+			if( !is_resource(conexaoPadraoPG::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para validar uma transação!' );
+			conexaoPadraoPG::$autoCommitEstatico = false;
+			pg_query(conexaoPadraoPG::$conexaoEstatica, 'commit');
+			$sterro = pg_last_error(conexaoPadraoPG::$conexaoEstatica);
 			if (!empty($sterro)) {
 				throw new erroBanco($sterro);
 			}
@@ -100,10 +103,10 @@ class conexaoPadraoPG extends conexao{
 	*/
 	function desfazerTransacao(){
 		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para desfazer uma transação!' );
-			$this->autoCommit = false;
-			pg_query($this->conexao, 'rollback');
-			$sterro = pg_last_error($this->conexao);
+			if( !is_resource(conexaoPadraoPG::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para desfazer uma transação!' );
+			conexaoPadraoPG::$autoCommitEstatico = false;
+			pg_query(conexaoPadraoPG::$conexaoEstatica, 'rollback');
+			$sterro = pg_last_error(conexaoPadraoPG::$conexaoEstatica);
 			if (!empty($sterro)) {
 				throw new erroBanco($sterro);
 			}
@@ -119,21 +122,29 @@ class conexaoPadraoPG extends conexao{
 	* @return [int] número de linhas afetadas
 	*/
 	function executarComando($sql){
+		return conexaoPadraoPG::executar($sql);
+	}
+	/**
+	* Executa uma query SQL no Banco de Dados
+	* @param [st] Comando SQL a ser executado
+	* @return [int] número de linhas afetadas
+	*/
+	protected static function executar($sql){
 		try{
-			if( !is_resource($this->conexao) ) {
+			if( !is_resource(conexaoPadraoPG::$conexaoEstatica) ) {
 				debug_print_backtrace();
 				$erro = new erroBanco( 'Conexão fechada para executar um comando!' );
 				$erro->comando = $sql;
 				throw $erro;
 			}
-			$this->cursor = @ pg_query($this->conexao,stripslashes($sql));
-			$sterro = pg_last_error($this->conexao);
+			conexaoPadraoPG::$cursorEstatico = @ pg_query(conexaoPadraoPG::$conexaoEstatica,stripslashes($sql));
+			$sterro = pg_last_error(conexaoPadraoPG::$conexaoEstatica);
 			if (!empty($sterro)) {
 				$erro = new erroBanco($sterro);
 				$erro->comando = $sql;
 				throw $erro;
 			}
-			return pg_affected_rows($this->cursor);
+			return pg_affected_rows(conexaoPadraoPG::$cursorEstatico);
 		}
 		catch(erroBanco $e){
 			throw $e;
@@ -146,8 +157,8 @@ class conexaoPadraoPG extends conexao{
 	*/
 	function pegarRegistro(){
 		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para pegar um registro!' );
-			if ($arRes = pg_fetch_array ($this->cursor,NULL,PGSQL_ASSOC)) {
+			if( !is_resource(conexaoPadraoPG::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para pegar um registro!' );
+			if ($arRes = pg_fetch_array (conexaoPadraoPG::$cursorEstatico,NULL,PGSQL_ASSOC)) {
 				foreach($arRes as $stNomeCampo => $stConteudoCampo) {
 					$arTupla[strtolower($stNomeCampo)] = $stConteudoCampo;
 				}

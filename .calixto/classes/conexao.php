@@ -40,18 +40,35 @@ abstract class conexao extends objeto{
 		$banco		= $banco	?	$banco		:	definicaoBanco::pegarNome();
 		$usuario	= $usuario	?	$usuario	:	definicaoBanco::pegarUsuario();
 		$senha		= $senha	?	$senha		:	definicaoBanco::pegarSenha();
-		switch(definicaoBanco::pegarTipo()){
-			case 'postgres':
-				$conexao = new conexaoPadraoPG($servidor, $porta, $banco, $usuario, $senha);
-			break;
-			case 'mysql':
-				$conexao = new conexaoPadraoMySql($servidor, $porta, $banco, $usuario, $senha);
-			break;
-			case 'oracle':
-				$conexao = new conexaoPadraoOCI($servidor, $porta, $banco, $usuario, $senha);
-			break;
-			default:
-				$conexao = false;
+ 		$multipla	= definicaoBanco::conexaoMultipla();
+		if($multipla){
+			switch(definicaoBanco::pegarTipo()){
+				case 'postgres':
+					$conexao = new conexaoPadraoMultiplaPG($servidor, $porta, $banco, $usuario, $senha);
+				break;
+				case 'mysql':
+					$conexao = new conexaoPadraoMultiplaMySql($servidor, $porta, $banco, $usuario, $senha);
+				break;
+				case 'oracle':
+					$conexao = new conexaoPadraoMultiplaOCI($servidor, $porta, $banco, $usuario, $senha);
+				break;
+				default:
+					$conexao = false;
+			}
+		}else{
+			switch(definicaoBanco::pegarTipo()){
+				case 'postgres':
+					$conexao = conexaoPadraoPG::conectar($servidor, $porta, $banco, $usuario, $senha);
+				break;
+				case 'mysql':
+					$conexao = conexaoPadraoMySql::conectar($servidor, $porta, $banco, $usuario, $senha);
+				break;
+				case 'oracle':
+					$conexao = conexaoPadraoOCI::conectar($servidor, $porta, $banco, $usuario, $senha);
+				break;
+				default:
+					$conexao = false;
+			}
 		}
 		return $conexao;
 	}
