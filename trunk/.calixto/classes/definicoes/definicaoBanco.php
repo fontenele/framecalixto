@@ -41,5 +41,11 @@ class definicaoBanco{
 	static final function pegarSenha(){
 		return strval(definicao::pegarDefinicao()->banco['senha']);
 	}
+	/**
+	* Retorna se a conexão é multipla
+	*/
+	static final function conexaoMultipla(){
+		return strval(definicao::pegarDefinicao()->banco['conexaoMultipla']) == 'sim';
+	}
 }
 ?>
