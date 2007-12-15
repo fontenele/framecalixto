@@ -40,7 +40,7 @@ class NOrcamento extends negocioPadrao{
 	*/
 	public function verificarAntesInserir(){
 		try{
-			parent::verificarAntesInserir($negocio);
+			parent::verificarAntesInserir();
 			$nTarefa = new NTarefa($this->conexao);
 			$nTarefa->ler($this->pegarIdTarefa());
 			if($nTarefa->pegarCsStatus() == 'F') throw new erroNegocio($this->inter->pegarMensagem('impossivelAtualizarOrcamentoFechado'));
