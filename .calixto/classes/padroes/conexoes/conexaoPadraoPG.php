@@ -48,7 +48,6 @@ class conexaoPadraoPG extends conexao{
 	public static function conectar($servidor, $porta, $banco, $usuario, $senha){
 		try{
 			if(!is_resource(conexaoPadraoPG::$conexaoEstatica)){
-				echo 'singleton';
 				conexaoPadraoPG::$conexaoEstatica = pg_connect("host=$servidor port=$porta dbname=$banco user=$usuario password=$senha");
 				if( !is_resource(conexaoPadraoPG::$conexaoEstatica) ){
 					throw new erroBanco( 'erro na conexão com banco de dados' );
