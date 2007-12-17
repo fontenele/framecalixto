@@ -1,0 +1,33 @@
+div.container2 {
+	margin: 15px;
+	background	: #FFFFFF;
+	border		: 1px solid #C0C0C0;
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+}
+div.container2 h1 {
+	background	: #FFFFFF url(../../imagens/temaSGT/im_tdsupcentro.gifS);
+	border-bottom: 1px solid #C0C0C0;
+	color		: #555555;
+	font-size	: 12px;
+	font-weight	: bold;
+	margin		: 0px;
+	padding		: 3px 0px 3px 30px;
+	position: relative;
+	top: 0px;
+}
+div.container2 div.a {
+	background: url(../../imagens/temaSGT/im_tdlupapesquisa.gifS);
+	position: relative;
+	top: 0px;
+	left: 5px;
+}
+
+div.container2 td.campo1 {
+	width: 200px;
+	text-align: right;
+	font-weight: bold;
+}
+div.container2 td.campo2 {
+	padding-left: 5px;
+}
