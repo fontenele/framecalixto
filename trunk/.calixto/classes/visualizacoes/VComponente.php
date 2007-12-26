@@ -48,6 +48,7 @@ class VComponente extends VEtiquetaHtml{
 				case 'radio':
 					$objeto = new VRadio($nome,$valor);
 				break;
+				case 'radios':
 				case 'listagem de radios':
 				case 'radiolist':
 				case 'radiolista':
