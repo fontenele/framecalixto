@@ -190,6 +190,20 @@ function sprintf() {
 	catch(e){alert(e);}
 }
 /**
+* Simula a função str_replace do PHP
+* @param [] string de busca
+* @param [] string de substituicao
+* @param [] string original
+*/
+function str_replace(strAntiga, strNova, strOriginal){
+	str 	= new String(strOriginal);
+	rExp	= "/"+strAntiga+"/g";
+	rExp	= eval(rExp);
+	newS	= String(strNova);
+	str = new String(str.replace(rExp, newS));
+	return str;
+}
+/**
 * Retorna a validação de um email
 * @var [txt] endereço eletrônico de email
 * @return [booleano]
