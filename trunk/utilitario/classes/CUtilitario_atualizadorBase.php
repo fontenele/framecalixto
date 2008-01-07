@@ -15,6 +15,7 @@ class CUtilitario_atualizadorBase extends controlePadrao{
 		$c = conexao::criar();
 		$persistentes = $this->classes();
 		if($imprimir){
+			echo '<pre>';
 			foreach($persistentes as $nomePersistente){
 				$persistente = new $nomePersistente($c);
 				$nome = str_pad($nomePersistente, 40, "--", STR_PAD_LEFT);
