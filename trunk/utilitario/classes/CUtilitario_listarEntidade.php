@@ -14,8 +14,6 @@ class CUtilitario_listarEntidade extends controlePadraoListagem{
 		$this->visualizacao = new visualizacaoPadrao($this);
 		$this->inter = new IUtilitario();
 		$this->criarVisualizacaoPadrao();
-		$p = new NPessoa();
-		$ps = $p->lerTodos();
 		$d = dir(".");
 		$negocios = new colecao();
 		$controles = new colecao();
