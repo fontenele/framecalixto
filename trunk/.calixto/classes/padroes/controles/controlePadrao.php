@@ -167,7 +167,6 @@ class controlePadrao extends controle{
 			if($classe && $metodo){
 				$classe = new $classe();
 				$return = $classe->$metodo(get_class($this));
-				$a = $classe->pegarConexao();
 				return $return ;
 			}
 			return array();

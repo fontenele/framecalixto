@@ -7,6 +7,11 @@
 */
 abstract class negocioPadrao extends negocio{
 	/**
+	* objeto de conexão com o banco de dados
+	* @var [conexao]
+	*/
+	public $conexao;
+	/**
 	* @var [array] array com a estrutura do mapeamento  entre persistente e negócio
 	* criado para a execução de cache
 	*/
@@ -15,9 +20,43 @@ abstract class negocioPadrao extends negocio{
 	* Metodo construtor
 	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
-	public function __construct($conexao = null){
-		parent::__construct($conexao);
-		$this->inter = $this->internacionalizacao();
+	public function __construct(conexao $conexao = null){
+		try{
+			if($conexao){
+				$this->conexao = $conexao;
+			}else{
+				$this->conexao = conexao::criar();
+			}
+			$this->inter = $this->internacionalizacao();
+		}
+		catch(erro $e){
+			throw $e;
+		}
+	}
+	/**
+	* Metodo construtor
+	* @param [conexao] (opcional) conexão com o banco de dados
+	*/
+	public final function conectar(conexao $conexao = null){
+		try{
+			switch(true){
+				case($conexao):
+					$this->passarConexao($conexao);
+				break;
+				case(is_resource($this->pegarConexao()->pegarConexao())):
+				break;
+				default:
+					$this->passarConexao(conexao::criar());
+			}
+			$props = array_keys(get_object_vars($this));
+			foreach($props as $prop){
+				if(is_object($this->$prop) && method_exists($this->$prop,'conectar') && !($this->$prop instanceof conexao))
+					$this->$prop->conectar($this->conexao);
+			}
+		}
+		catch(erro $e){
+			throw $e;
+		}
 	}
 	/**
 	* retorna um array de mapeamento da internacionalização do negocio
