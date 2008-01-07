@@ -44,6 +44,7 @@ abstract class controle extends objeto{
 			$definicoes = definicao::pegarDefinicao();
 			$controleDeAcesso = $definicoes->xpath('//controleDeAcesso');
 			if(isset($controleDeAcesso[0])){
+				if(strval($controleDeAcesso[0]['liberado']) == 'sim') return true;
 				$classe = strval($controleDeAcesso[0]['classe']);
 				$metodo = strval($controleDeAcesso[0]['metodoLiberacao']);
 				if($classe && $metodo){
