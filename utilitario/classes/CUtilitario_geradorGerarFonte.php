@@ -24,7 +24,8 @@ class CUtilitario_geradorGerarFonte extends controle{
 		array_unshift($arNome,$nome);
 		$this->nomeEntidade = implode('',$arNome);
 		$this->nomeNegocio = 'N'.ucFirst(implode('',$arNome));
-		$this->nomeTabela = str_replace(' ','_',strtolower($this->entidade['entidade']));
+		$this->nomeTabela = $this->entidade['nomeTabela'];
+		$this->nomeSequence = $this->entidade['nomeSequence'] ? $this->entidade['nomeSequence'] : "sq_{$this->nomeTabela}";
 		if(!is_dir($this->nomeEntidade))
 			mkdir($this->nomeEntidade,0777);
 		if(!is_dir("{$this->nomeEntidade}/classes"))
@@ -64,7 +65,11 @@ class CUtilitario_geradorGerarFonte extends controle{
 	*/
 	protected function escreverArquivo($caminho,$conteudo){
 		if(!isset($_POST['arquivo'][$caminho])) return ;
-		if($this->debug){x($caminho,'<pre>'.htmlspecialchars($conteudo).'</pre>');return ;}
+		if($this->debug){
+			echo "<br /><br /><br />No arquivo: {$caminho}<br /><br />";
+			highlight_string($conteudo);
+			return ;
+		}
 		$handle = fopen ($caminho, "w");
 		fwrite($handle, $conteudo);
 		fclose($handle);
@@ -73,8 +78,10 @@ class CUtilitario_geradorGerarFonte extends controle{
 	* Monta o conteúdo do arquivo de definção XML
 	*/
 	function montarArquivoDefinicaoXML(){
+		$tabela = " nomeBanco='{$this->nomeTabela}'";
+		$sequence = " nomeSequencia='{$this->nomeSequence}'";
 		$xml = "<?xml version='1.0' encoding='utf-8' ?>\n";
-		$xml.= "<entidade nomeBanco='{$this->nomeTabela}'>\n";
+		$xml.= "<entidade {$tabela}{$sequence}>\n";
 		$xml.= "\t<propriedades>\n";
 		
 		foreach($this->entidade['ng_nome'] as $index => $nomePropriedadeNegocio){

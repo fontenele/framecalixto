@@ -61,7 +61,14 @@
 							</table>
 						</div>
 						<div id="definicaoPersistente" style="width:100%; overflow: inherit">
-							«$recriarBase» Recriar Base de Dados
+							<table summary="text" class="tabela1">
+								<tr>
+									<td>Tabela</td><td>«$nomeTabela»</td>
+								</tr>
+								<tr>
+									<td>Sequence</td><td>«$nomeSequence»</td>
+								</tr>
+							</table>
 							<table summary="text" class="tabela1"  id="bd_campos">
 								<tr>
 									<th title="O nome da propriedade da entidade">Indice</th>
@@ -86,6 +93,10 @@
 							</table>
 						</div>
 						<div id="definicaoArquivos" style="width:100%; overflow: inherit">
+							<table summary="text" class="tabela1">
+								<tr><th></th><th>Banco de dados</th></tr>
+								<tr><td>«$recriarBase»</td><td>Recriar a tabela no banco de dados</td></tr>
+							</table>
 							<table summary="text" class="tabela1" id="arquivos">
 							</table>
 						</div>
@@ -101,6 +112,10 @@ var d = document.formulario;
 function validar(){
 	if(!d.entidade.value){
 		alert('O nome da entidade não foi definido !');
+		return;
+	}
+	if(!d.nomeTabela.value){
+		alert('O nome da tabela não foi definido !');
 		return;
 	}
 	/*
@@ -148,11 +163,11 @@ function set(componente,atributo,valor){componente.setAttribute(atributo,valor);
 function rem(componente){componente.parentNode.removeChild(componente);}
 function criarAbas(){
 	t = new Bs_TabSet('tabset');
-	t.addTab('Entidade',	$('definicaoEntidade'));
-	t.addTab('Negócio',		$('definicaoNegocio'));
-	t.addTab('Persistente',	$('definicaoPersistente'));
-	t.addTab('Visualização',$('definicaoVisualizacao'));
-	t.addTab('Arquivos',	$('definicaoArquivos'));
+	t.addTab('Entidade',		$('definicaoEntidade'));
+	t.addTab('Negócio',			$('definicaoNegocio'));
+	t.addTab('Persistente',		$('definicaoPersistente'));
+	t.addTab('Visualização',	$('definicaoVisualizacao'));
+	t.addTab('Configurações',	$('definicaoArquivos'));
 	t.draw();
 }
 function novoInput(nome){
@@ -185,6 +200,14 @@ function alterarPropriedade(componente, values){
 	colunaNegocio.innerHTML = componente.value;
 	if(values) sugerirNomePersistente(componente);
 	if(values) sugerirNomeNegocio(componente);
+}
+function sugerirNomeTabela(){
+	var entidade = document.formulario.entidade.value;
+	var tabela = str_replace(' ','_',entidade.toLowerCase());
+	if(document.formulario.nomeTabela.value) return;
+	document.formulario.nomeTabela.value = tabela;
+	if(document.formulario.nomeSequence.value) return;
+	document.formulario.nomeSequence.value = 'sq_' + tabela;
 }
 function sugerirNomePersistente(componente){
 	var arNome = componente.value.toLowerCase().split(' ');
@@ -488,7 +511,7 @@ function definirArquivosEntidade(marcado){
 		linha.appendChild(col);
 			col = ini('th');
 			set(col,'title','Caminho do arquivo');
-			col.innerHTML = 'Arquivo';
+			col.innerHTML = 'Arquivos de sistema';
 		linha.appendChild(col);
 	arquivos.appendChild(linha);
 	arquivos.appendChild(montarLinhaArquivo(marcado, nome + '/classes/C' + nomeClasse + '_excluir.php'));
@@ -509,6 +532,8 @@ function definirArquivosEntidade(marcado){
 function preecherTela(definicao){
 	try{
 		document.formulario.entidade.value = definicao.inter.nome;
+		document.formulario.nomeTabela.value = definicao.bd.nomeTabela;
+		document.formulario.nomeSequence.value = definicao.bd.nomeSequence;
 		for(i in definicao.entidade){
 			adicionar();
 			valores = definicao.entidade[i];

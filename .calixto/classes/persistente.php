@@ -69,7 +69,7 @@ abstract class persistente extends objeto{
 					default:
 						$xml = simplexml_load_file($arquivoXML);
 						$estrutura['nomeTabela'] = strval($xml['nomeBanco']);
-						$estrutura['nomeSequence'] = strval($xml['sequence']) ? strval($xml['sequence']) : "sq_{$estrutura['nomeTabela']}";
+						$estrutura['nomeSequencia'] = strval($xml['nomeSequencia']) ? strval($xml['nomeSequencia']) : "sq_{$estrutura['nomeTabela']}";
 						foreach($xml->propriedades->propriedade as $campo){
 							$nomeCampo = strtolower(strval($campo->banco['nome']));
 							if(isset($campo['indicePrimario']) && strtolower(strval($campo['indicePrimario'])) == 'sim'){
@@ -521,7 +521,7 @@ abstract class persistente extends objeto{
 	public function gerarComandoCriacaoSequence(){
 		try{
 			$estrutura = $this->pegarEstrutura();
-			return "create sequence {$estrutura['nomeSequence']}";
+			return "create sequence {$estrutura['nomeSequencia']}";
 		}
 		catch(erro $e){
 			throw $e;
@@ -538,7 +538,7 @@ abstract class persistente extends objeto{
 			}
 		}
 		catch(erro $e){
-			$this->conexao->executarComando("alter sequence {$estrutura['nomeSequence']} restart 1;");
+			$this->conexao->executarComando("alter sequence {$estrutura['nomeSequencia']} restart 1;");
 		}
 		catch(erro $e){
 			throw $e;
@@ -703,7 +703,7 @@ abstract class persistente extends objeto{
 	public function gerarComandoDestruicaoSequence(){
 		try{
 			$estrutura = $this->pegarEstrutura();
-			return "drop sequence {$estrutura['nomeSequence']}";
+			return "drop sequence {$estrutura['nomeSequencia']}";
 		}
 		catch(erro $e){
 			throw $e;
