@@ -567,6 +567,55 @@ function LimpaNumero(STR,Tipo){
     return STRfinal;
 }
 
+function RetiraAcentos(STR){
+	STR = str_replace('ç','c', STR);
+	STR = str_replace('à','a', STR);
+	STR = str_replace('è','e', STR);
+	STR = str_replace('ì','i', STR);
+	STR = str_replace('ò','o', STR);
+	STR = str_replace('ù','u', STR);
+	STR = str_replace('â','a', STR);
+	STR = str_replace('ê','e', STR);
+	STR = str_replace('î','i', STR);
+	STR = str_replace('ô','o', STR);
+	STR = str_replace('û','u', STR);
+	STR = str_replace('ä','a', STR);
+	STR = str_replace('ë','e', STR);
+	STR = str_replace('ï','i', STR);
+	STR = str_replace('ö','o', STR);
+	STR = str_replace('ü','u', STR);
+	STR = str_replace('á','a', STR);
+	STR = str_replace('é','e', STR);
+	STR = str_replace('í','i', STR);
+	STR = str_replace('ó','o', STR);
+	STR = str_replace('ú','u', STR);
+	STR = str_replace('ã','a', STR);
+	STR = str_replace('õ','o', STR);
+	STR = str_replace('À','A', STR);
+	STR = str_replace('Ç','C', STR);
+	STR = str_replace('È','E', STR);
+	STR = str_replace('Ì','I', STR);
+	STR = str_replace('Ò','O', STR);
+	STR = str_replace('Ù','U', STR);
+	STR = str_replace('Â','A', STR);
+	STR = str_replace('Ê','E', STR);
+	STR = str_replace('Î','I', STR);
+	STR = str_replace('Ô','O', STR);
+	STR = str_replace('Û','U', STR);
+	STR = str_replace('Ä','A', STR);
+	STR = str_replace('Ë','E', STR);
+	STR = str_replace('Ï','I', STR);
+	STR = str_replace('Ö','O', STR);
+	STR = str_replace('Ü','U', STR);
+	STR = str_replace('Á','A', STR);
+	STR = str_replace('É','E', STR);
+	STR = str_replace('Í','I', STR);
+	STR = str_replace('Ó','O', STR);
+	STR = str_replace('Ú','U', STR);
+	STR = str_replace('Ã','A', STR);
+	STR = str_replace('Õ','O', STR);
+	return STR;
+}
 /*  Esta função separa em milhar o numero passado
     Parametros necessarios :
     *   STR         =>  String com o numero,
