@@ -205,9 +205,9 @@ function sugerirNomeTabela(){
 	var entidade = document.formulario.entidade.value;
 	var tabela = str_replace(' ','_',entidade.toLowerCase());
 	if(document.formulario.nomeTabela.value) return;
-	document.formulario.nomeTabela.value = tabela;
+	document.formulario.nomeTabela.value = RetiraAcentos(tabela);
 	if(document.formulario.nomeSequence.value) return;
-	document.formulario.nomeSequence.value = 'sq_' + tabela;
+	document.formulario.nomeSequence.value = 'sq_' + RetiraAcentos(tabela);
 }
 function sugerirNomePersistente(componente){
 	var arNome = componente.value.toLowerCase().split(' ');
@@ -216,7 +216,7 @@ function sugerirNomePersistente(componente){
 		nome += '_' + arNome[i]
 	}
 	campo = $('bd_campo' + componente.name.substr(7,componente.name.length));
-	campo.value = d.entidade.value.substr(0,4) + '_' + nome.substr(1,nome.length);
+	campo.value = RetiraAcentos(d.entidade.value.substr(0,4) + '_' + nome.substr(1,nome.length));
 }
 function sugerirNomeNegocio(componente){
 	var arNome = componente.value.toLowerCase().split(' ');
@@ -230,7 +230,7 @@ function sugerirNomeNegocio(componente){
 		nome += ucfirst + arNome[i].substr(1,arNome[i].length);
 	}
 	campo = $('ng_nome' + componente.name.substr(7,componente.name.length));
-	campo.value = nome;
+	campo.value = RetiraAcentos(nome);
 }
 function alterarFK(componente){
 	var item = componente.name.substr(5,componente.name.length);
@@ -500,7 +500,8 @@ function definirArquivosEntidade(marcado){
 		}
 		nome += ucfirst + arNome[i].substr(1,arNome[i].length);
 	}
-	nomeClasse = nome.charAt(0).toUpperCase() + nome.substr(1,nome.length);
+	nome = RetiraAcentos(nome);
+	nomeClasse = RetiraAcentos(nome.charAt(0).toUpperCase() + nome.substr(1,nome.length));
 	// Arquivos
 	var arquivos = $('arquivos');
 	arquivos.innerHTML = '';
