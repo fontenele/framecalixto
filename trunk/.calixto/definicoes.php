@@ -106,6 +106,6 @@ function __autoload($stClasse){
 * retorna uma string com a codificação correta .
 */
 function caracteres($string,$tipoEntrada = "UTF-8",$tipoSaida = "ISO-8859-1"){
-	return strval($string);
+	return iconv($tipoEntrada,$tipoSaida,$string);
 }
 ?>
