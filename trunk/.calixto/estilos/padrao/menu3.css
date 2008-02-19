@@ -1,40 +1,29 @@
 .menu3 {
-	margin: 0px 0 0 0px;
-	padding: 0;
-	height: 20px;
+	position: relative;
+	top:0px;
+	float : right;
+	width : 160px;
+	margin-top: 0px;
+	color:#FFFFFF;
+	display: line;
 }
-.menu3 ul li {
-	width: 150px;
-    list-style: none;
-	// float: left;
-}
-.menu3 ul li a {
-	color: #FFFFFF;
-	padding: 2px;
-	padding-left: 3px;
-	font: normal 12px/18px "Lucida Grande", "Lucida Sans Unicode", verdana, lucida, sans-serif;
-	font-weight: bold;
-	text-decoration: none;
-	display: block;
+.menu3 h2 {
+	padding-bottom: 5px;
+	padding-left:5px;
 	margin: 0px;
-	width: 100%;
-	text-align: center;
+	font-size: 15px;
+	color: #FFFFFF;
+	padding-top: 0px;
+	background-image: url(/imagens/fundo3d.gif);
 	background-repeat: repeat-x;
-	background-image:url(../imagens/temaPadrao/barra_azul.png);
+	background-position: bottom;
+	font-weight: bold;
 }
-.menu3 ul li a:hover {
-	color: #505050;
-	text-decoration: none;
-	background-repeat: repeat-x;
-	background-image:url(../imagens/temaPadrao/barra_amarela.png);
+.menu3 a{
+    text-decoration: none;
+    color:#FFFFFF;
 }
-.menu3 ul li a:active {
-	padding-left: 4px;
-	padding-top: 3px;
-	padding-bottom: 1px;
-	padding-right: 1px;
-	color: #505050;
-	text-decoration: none;
-	background-repeat: repeat-x;
-	background-image:url(../imagens/temaPadrao/barra_amarela.png);
+.menu3 a:visited{
+    text-decoration: none;
+    color:#FFFFFF;
 }

@@ -11,7 +11,7 @@ class NControleMenu extends negocio{
 	*/
 	public function menuPrincipal(){
 		try{
-			$menu['Principal'] = '#';
+			$menu['Principal'] = '?c=CControleAcesso_verPrincipal';
 			$menu['Serviços']['Rede'] = '#';
 			$menu['Serviços']['Hardware'] = '#';
 			$menu['Serviços']['Software']['livre'] = '#';

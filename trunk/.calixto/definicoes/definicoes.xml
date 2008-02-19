@@ -33,6 +33,6 @@
 		<arquivo tipo="definicao de entidade" nome="xml/entidade.xml" />
 		<arquivo tipo="internacionalizacao" nome="xml/pt_BR.xml" />
 		<arquivo tipo="internacionalizacao do sistema" nome=".calixto/definicoes/pt_BR.xml" />
-		<arquivo tipo="folha de estilo css" nome=".calixto/estilos/branco/principal.css" />
+		<arquivo tipo="folha de estilo css" nome=".calixto/estilos/padrao/principal.css" />
 	</arquivos>
 </definicoes>

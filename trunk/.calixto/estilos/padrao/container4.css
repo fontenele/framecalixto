@@ -1,9 +1,5 @@
 .container4{
-	position:absolute;
-	height: 90px;
-	width: 340px;
-	top: 350px;
-	left: 6px;
+	position:relative;
 	color: #C0C0C0;
 	font-family: times;
 	font-variant: normal;
@@ -12,30 +8,18 @@
 	font-style: normal;
 }
 .container4 .a{
-	position:absolute;
-	height: 25px;
-	width: 300px;
-	top: 0px;
-	left: 20px;
+	position:relative;
 	background-repeat: repeat-x;
 	background-image:url(../imagens/temaPadrao/barra .lilas.png);
 	text-align: center;
 }
 .container4 .b{
-	position:absolute;
-	height: 25px;
-	width: 20px;
-	top: 0px;
-	left: 0px;
+	position:relative;
 	background-image:url(../imagens/temaPadrao/barra_amarela_e.png);
 	text-align: center;
 }
 .container4 .c{
-	position:absolute;
-	height: 25px;
-	width: 20px;
-	top: 0px;
-	left: 320px;
+	position:relative;
 	background-image:url(../imagens/temaPadrao/barra_azul_d.png);
 	text-align: center;
 }
@@ -45,10 +29,6 @@
 .container4 .g{}
 .container4 .h{}
 .texto4{
-	position:absolute;
-	height: 55px;
-	width: 340px;
-	top: 25px;
-	left: 0px;
+	position:relative;
 	background-color: #F0F0F0;
 }
