@@ -1,10 +1,6 @@
 .container2{
-	position:absolute;
-	height: 90px;
-	width: 200px;
-	top: 100px;
-	left: 10px;
-	color: #C0C0C0;
+	position:relative;
+	color: #FFFFFF;
 	font-family: times;
 	font-variant: normal;
 	font-weight: normal;
@@ -12,6 +8,8 @@
 	font-style: normal;
 }
 .container2 h1{
+	background-color: #000;
+	color:#555;
 	text-align:center;
 	font-size:14px;
 }
@@ -20,31 +18,16 @@
 }
 .container2 .titulo{
 	color: #FFFFFF;
-	position:absolute;
-	height: 25px;
-	width: 260px;
-	top: 0px;
-	left: 20px;
 	background-repeat: repeat-x;
 	background-image:url(../imagens/temaPadrao/barra_verde.png);
 	text-align: center;
 	z-index:1;
 }
 .container2 .a{
-	position:absolute;
-	height: 25px;
-	width: 20px;
-	top: 0px;
-	left: 0px;
 	background-image:url(../imagens/temaPadrao/barra_amarela_e.png);
 	text-align: center;
 }
 .container2 .b{
-	position:absolute;
-	height: 25px;
-	width: 20px;
-	top: 0px;
-	left: 280px;
 	background-image:url(../imagens/temaPadrao/barra_preta_d.png);
 	text-align: center;
 }
@@ -55,11 +38,10 @@
 .container2 .g{}
 .container2 .h{}
 .container2 .texto{
-	position:absolute;
-	height: 200px;
-	width: 300px;
-	top: 25px;
-	left: 0px;
-	background-color: #c0c0c0;
-	color:#505050;
+	background-color: #050505;
+	color:#c0c0c0;
+}
+.container2 a{
+    text-decoration: none;
+    color:#FFFFFF;
 }
