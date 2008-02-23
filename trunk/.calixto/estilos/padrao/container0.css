@@ -16,13 +16,17 @@
 	text-align:center;
 }
 .container0 .titulo{
+	width: 100%;
+	font-size: 14px;
 	color: #FFFFFF;
-	position:absolute;
+/* 	position:absolute; */
 	background-repeat: repeat-x;
+	background:#222;
 	background-image:url(../imagens/temaPadrao/barra_verde.png);
 	text-align: center;
 	z-index:1;
 }
+
 .container0 .a{}
 .container0 .b{}
 .container0 .c{}
