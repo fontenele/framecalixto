@@ -108,4 +108,79 @@
 		<sigla>DF</sigla>
 		<estado>Distrito Federal</estado>
 	</classe>
+	<classe nome='NPessoa'>
+		<csPessoa>FI</csPessoa>
+		<nmPessoa>Calixto Jorge</nmPessoa>
+		<documento>78151597100</documento>
+		<cep>72015015</cep>
+		<telefone>39653790</telefone>
+		<telefone2>81423181</telefone2>
+		<telefone3>21049952</telefone3>
+		<estado>DF</estado>
+		<municipio>Taguatinga</municipio>
+		<bairro>Taguatinga Sul</bairro>
+		<endereco>CSA 01 LOTE 14/15 APTO 206</endereco>
+		<email>calixto.jorge@gmail.com</email>
+		<site>www.basedainformacao.com.br</site>
+	</classe>
+	<classe nome='NPessoa'>
+		<csPessoa>FI</csPessoa>
+		<nmPessoa>Gleiverton Ramalho Lima</nmPessoa>
+		<documento></documento>
+		<cep>72015025</cep>
+		<telefone>33526182</telefone>
+		<telefone2>84097572</telefone2>
+		<telefone3></telefone3>
+		<estado>DF</estado>
+		<municipio>Taguatinga</municipio>
+		<bairro>Taguatinga Sul</bairro>
+		<endereco>CSA 02</endereco>
+		<email>peteixan@gmail.com</email>
+		<site>www.basedainformacao.com.br</site>
+	</classe>
+	<classe nome='NPessoa'>
+		<csPessoa>FI</csPessoa>
+		<nmPessoa>Elvis Chester</nmPessoa>
+		<documento></documento>
+		<cep>72015025</cep>
+		<telefone></telefone>
+		<telefone2>84091679</telefone2>
+		<telefone3></telefone3>
+		<estado>DF</estado>
+		<municipio>Taguatinga</municipio>
+		<bairro>Taguatinga Sul</bairro>
+		<endereco>CSA 02</endereco>
+		<email>elvischester@hotmail.com</email>
+		<site>www.basedainformacao.com.br</site>
+	</classe>
+	<classe nome='NItem'>
+		<nmItem>Gerenciamento de Projeto</nmItem>
+		<csItem>3</csItem>
+		<vlItem>45</vlItem>
+	</classe>
+	<classe nome='NItem'>
+		<nmItem>Levantamento de Requisitos</nmItem>
+		<csItem>3</csItem>
+		<vlItem>25</vlItem>
+	</classe>
+	<classe nome='NItem'>
+		<nmItem>Análise de Requisitos</nmItem>
+		<csItem>3</csItem>
+		<vlItem>30</vlItem>
+	</classe>
+	<classe nome='NItem'>
+		<nmItem>Documentação de Software</nmItem>
+		<csItem>3</csItem>
+		<vlItem>15</vlItem>
+	</classe>
+	<classe nome='NItem'>
+		<nmItem>Codificação de Software</nmItem>
+		<csItem>3</csItem>
+		<vlItem>25</vlItem>
+	</classe>
+	<classe nome='NItem'>
+		<nmItem>Implantação de Software</nmItem>
+		<csItem>3</csItem>
+		<vlItem>15</vlItem>
+	</classe>
 </classes>
