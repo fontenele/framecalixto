@@ -12,6 +12,7 @@ class controlePadraoPDF extends controle{
 	*/
 	public function criarVisualizacaoPadrao(){
 		$this->visualizacao = new Spdf();
+		$this->visualizacao->AliasNbPages('{nb}');
 	}
 	/**
 	* Método de criação da visualizacao
@@ -97,6 +98,7 @@ class controlePadraoPDF extends controle{
 	*
 	*/
 	public function mostrar(){
+		$this->visualizacao->close();
 		$this->visualizacao->output();
 	}
 	public function ln($h = 7){
