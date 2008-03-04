@@ -21,11 +21,13 @@ class visualizacaoPadrao extends visualizacao{
 		if(sessaoSistema::tem('comunicacao')){
 			$sessao = new sessaoSistema();
 			$this->comunicacaoSistema = new VComunicacao($sessao->retirar('comunicacao'));
+		}else{
+			$this->comunicacaoSistema = false;
 		}
 	}
 	/**
 	* Executa o processamento e mostra a página
-	* @param [texto] Nome do arquivo de formatação da visualização 
+	* @param [texto] Nome do arquivo de formatação da visualização
 	*/
 	function mostrar($pagina = null){
 		if($pagina) {

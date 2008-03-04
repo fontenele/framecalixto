@@ -11,6 +11,7 @@ class VSelect extends VComponente{
 		$this->valor = $valor;
 	}
 	function configurar(){
+		$conteudo = '';
 		if(is_array($this->conteudo)){
 			foreach($this->conteudo as $indice => $texto){
 				if($indice == $this->valor){

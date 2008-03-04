@@ -11,6 +11,7 @@ class CTarefa_listagem extends controlePadraoListagem{
 	*/
 	function definirListagem(){
 		parent::definirListagem();
+		$alinhamento = null;
 		$this->adicionarColunaPersonalizada('Prior.', 'apresentarNrPrioridade', '1%', $alinhamento, -2);
 		$this->adicionarColunaPersonalizada('Tipo', 'apresentarCsTipoTarefa', '1%', $alinhamento, -1);
 		$this->adicionarColunaPersonalizada('Tarefa', 'apresentarTarefa', '5%', 'direita', 2);

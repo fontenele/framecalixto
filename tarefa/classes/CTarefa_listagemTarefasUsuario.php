@@ -11,6 +11,7 @@ class CTarefa_listagemTarefasUsuario extends CTarefa_listagem{
 	*/
 	function definirListagem(){
 		parent::definirListagem();
+		$alinhamento = null;
 		$this->adicionarColunaPersonalizada('Ultimo', 'ultimoEncaminhamento', '10%', $alinhamento, 3);
 	}
 	/**

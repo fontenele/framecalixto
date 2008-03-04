@@ -18,6 +18,15 @@ class controlePadrao extends controle{
 		}
 	}
 	/**
+	* Método de criação da visualizacao
+	*/
+	public function criarVisualizacaoPadrao(){
+		$this->visualizacao = new visualizacaoPadrao($this);
+		$this->visualizacao->menuPrincipal = '';
+		$this->visualizacao->menuModulo = '';
+		$this->visualizacao->menuPrograma = '';
+	}
+	/**
 	* Método que retorna o negócio referente ao controle
 	*/
 	public function pegarNegocio(){

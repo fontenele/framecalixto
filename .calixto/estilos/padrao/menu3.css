@@ -4,6 +4,7 @@ div.menu3 {
 	font-size: 12px;
 	font-weight: bold;
 	z-index: 0;
+	background-color:#111111;
 }
 div.menu3 ul {
 	list-style-type: none;

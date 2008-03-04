@@ -13,6 +13,12 @@
 			</banco>
 			<apresentacao componente='caixa de combinacao'  />
 		</propriedade>
+		<propriedade id='idTarefaPredecessora' tipo='numerico' tamanho='16' classeAssociativa='NTarefa' metodoLeitura='lerTodos'  >
+			<banco nome='Tare_id_tarefa_predecessora' ordem='1' >
+				<chaveEstrangeira tabela='Tarefa' campo='Tare_id_tarefa' />
+			</banco>
+			<apresentacao componente='caixa de combinacao'  />
+		</propriedade>
 		<propriedade id='csTipoTarefa' tipo='numerico' tamanho='2' obrigatorio='sim' >
 			<banco nome='Tare_cs_tipo_tarefa'  />
 			<dominio>

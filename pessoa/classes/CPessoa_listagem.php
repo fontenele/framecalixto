@@ -11,8 +11,8 @@ class CPessoa_listagem extends controlePadraoListagem{
 	*/
 	function definirListagem(){
 		parent::definirListagem();
-		$this->adicionarColunaPersonalizada('Tipo', 'tipoPessoa', '5%', $alinhamento, -1);
-		$this->adicionarColunaPersonalizada('Tarefa', 'novaTarefa', '20%', $alinhamento, 30);
+		$this->adicionarColunaPersonalizada('Tipo', 'tipoPessoa', '5%', null, -1);
+		$this->adicionarColunaPersonalizada('Tarefa', 'novaTarefa', '20%', null, 30);
 	}
 	/**
 	* Retorno da apresentação do tipo de pessoa .

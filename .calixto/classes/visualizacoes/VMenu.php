@@ -50,8 +50,8 @@ class VMenu extends VEtiquetaHtml{
 	*/
 	function __toString(){
 		if(count($this->valores)){
-			$stSaida .= "<div class='{$this->classe}'>";
-			$stSaida .= $this->montarBotoes($this->valores,$tabindexMenu);
+			$stSaida = "<div class='{$this->classe}'>";
+			$stSaida .= $this->montarBotoes($this->valores,$this->tabIndex);
 			$stSaida .= "</div>";
 			return $stSaida;
 		}else{
