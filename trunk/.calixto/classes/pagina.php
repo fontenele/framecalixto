@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe que representa uma página abstrata
-* Esta classe padroniza a forma de definição de uma página no sistema
+* Esta classe padroniza a forma de definição do tanto de linhas de uma página no sistema
 * @package Infra-estrutura
 * @subpackage Utilitários
 */
@@ -23,7 +23,7 @@ class pagina extends objeto{
 	public $pagina = 1;
 	/**
 	* Método construtor
-	* @param [in] tamanho da página 
+	* @param [in] tamanho da página
 	*/
 	public function __construct($tamanhoPagina = 7){
 		$this->tamanhoPagina = $tamanhoPagina;

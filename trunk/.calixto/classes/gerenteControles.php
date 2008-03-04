@@ -42,6 +42,12 @@ class gerenteControles extends objeto{
 				$this->redirecionar("?c={$this->proximoControle}");
 			$this->redirecionar(sprintf('?c=%s',definicaoSistema::pegarControleErro()));
 		}
+		catch (erroSessao $e){
+			sessaoSistema::registrar('comunicacao', $e->getMessage());
+			if(!empty($this->proximoControle))
+				$this->redirecionar("?c={$this->proximoControle}");
+			$this->redirecionar(sprintf('?c=%s',definicaoSistema::pegarControleErro()));
+		}
 		catch (erro $e){
 			echo $e->__toHtml();
 		}
