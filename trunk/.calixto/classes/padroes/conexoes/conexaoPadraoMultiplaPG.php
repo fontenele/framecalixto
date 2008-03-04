@@ -33,6 +33,9 @@ class conexaoPadraoMultiplaPG extends conexao{
 			// O retorno de erro pelo comando destruct impede o redirecionamento de paginas
 		}
 	}
+	/**
+	* Método que fecha a conexão com o banco de dados
+	*/
 	protected function desconectar(){
 		try{
 			if(is_resource($this->conexao)){
@@ -45,6 +48,9 @@ class conexaoPadraoMultiplaPG extends conexao{
 			throw $e;
 		}
 	}
+	/**
+	* Método que abre a conexão com o banco de dados
+	*/
 	protected function conectar(){
 		try{
 			if(!$this->strConn) debug_print_backtrace();

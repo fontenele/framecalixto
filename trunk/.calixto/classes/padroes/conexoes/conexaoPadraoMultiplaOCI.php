@@ -6,6 +6,10 @@
 */
 class conexaoPadraoMultiplaOCI extends conexao{
 	/**
+	* Controlador de transação do oracle
+	*/
+	public $autoCommit = true;
+	/**
 	* Metodo construtor
 	* @param [st] Servidor do Banco de dados
 	* @param [st] Porta do servidor do Banco de dados
@@ -15,7 +19,17 @@ class conexaoPadraoMultiplaOCI extends conexao{
 	*/
 	public function __construct($servidor, $porta, $banco, $usuario, $senha){
 		try{
-			$this->strConn = "host=$servidor port=$porta dbname=$banco user=$usuario password=$senha";
+			$strConn = "(DESCRIPTION =
+							(ADDRESS =
+								(PROTOCOL = TCP)
+								(HOST = {$servidor})
+								(PORT = {$porta})
+							)
+							(CONNECT_DATA =(SID = {$banco}))
+						)";
+			$this->strConn['usuario'] = $usuario;
+			$this->strConn['senha']  = $senha;
+			$this->strConn['banco'] = $strConn;
 			$this->conectar();
 		}
 		catch(erroBanco $e){
@@ -33,10 +47,13 @@ class conexaoPadraoMultiplaOCI extends conexao{
 			// O retorno de erro pelo comando destruct impede o redirecionamento de paginas
 		}
 	}
+	/**
+	* Método que fecha a conexão com o banco de dados
+	*/
 	protected function desconectar(){
 		try{
 			if(is_resource($this->conexao)){
-				pg_close ($this->conexao);
+				oci_close ($this->conexao);
 			}else{
 				throw new erroBanco( 'erro na conexão com banco de dados' );
 			}
@@ -45,32 +62,24 @@ class conexaoPadraoMultiplaOCI extends conexao{
 			throw $e;
 		}
 	}
+	/**
+	* Método que abre a conexão com o banco de dados
+	*/
 	protected function conectar(){
-		try{
-			if(!$this->strConn) debug_print_backtrace();
-			$this->conexao = pg_pconnect($this->strConn);
-			if( !is_resource($this->conexao) ){
-			throw new erroBanco( 'erro na conexão com banco de dados' );
-			}
-			$this->executarComando("SET DATESTYLE TO German;");
-			$this->executarComando("SET CLIENT_ENCODING TO UTF8;");
-		}
-		catch(erroBanco $e){
-			throw $e;
-		}
+		putenv('NLS_LANGUAGE="AMERICAN"');
+		putenv('NLS_TERRITORY="AMERICA"');
+		putenv('NLS_ISO_CURRENCY="AMERICA"');
+		putenv('NLS_CHARACTERSET="WE8ISO8859P15"');
+		
+		$this->conexao = oci_connect( $this->strConn['usuario'], $this->strConn['senha'], $this->strConn['banco'], "WE8ISO8859P15" );
+		if(!is_resource($this->conexao)) throw new erroBanco( 'erro na conexão com banco de dados' );
 	}
 	/**
 	* Inicia uma Transação no Banco de Dados
 	*/
 	function iniciarTransacao(){
 		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para iniciar uma transação!' );
 			$this->autoCommit = false;
-			pg_query($this->conexao, 'begin');
-			$sterro = pg_last_error($this->conexao);
-			if (!empty($sterro)) {
-				throw new erroBanco($sterro);
-			}
 		}
 		catch(erroBanco $e){
 			throw $e;
@@ -82,12 +91,10 @@ class conexaoPadraoMultiplaOCI extends conexao{
 	*/
 	function validarTransacao(){
 		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para validar uma transação!' );
-			$this->autoCommit = false;
-			pg_query($this->conexao, 'commit');
-			$sterro = pg_last_error($this->conexao);
-			if (!empty($sterro)) {
-				throw new erroBanco($sterro);
+			ociCommit($this->conexao);
+			$arErroOci = ociError($this->conexao);
+			if( is_array($arErroOci) ) {
+				throw new erroBanco($arErroOci['message']);
 			}
 		}
 		catch(erroBanco $e){
@@ -100,12 +107,15 @@ class conexaoPadraoMultiplaOCI extends conexao{
 	*/
 	function desfazerTransacao(){
 		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para desfazer uma transação!' );
-			$this->autoCommit = false;
-			pg_query($this->conexao, 'rollback');
-			$sterro = pg_last_error($this->conexao);
-			if (!empty($sterro)) {
-				throw new erroBanco($sterro);
+			$resultado = ociRollback ($this->conexao);
+			if(!$resultado) {
+				$arErroOci = ociError($this->conexao);
+				if( is_array($arErroOci) ) {
+					throw new erroBanco($arErroOci['message']);
+				}
+				else{
+					throw new erroBanco('Erro não identificado no rollback.');
+				}
 			}
 		}
 		catch(erroBanco $e){
@@ -118,24 +128,23 @@ class conexaoPadraoMultiplaOCI extends conexao{
 	* @param [st] Comando SQL a ser executado
 	* @return [int] número de linhas afetadas
 	*/
-	function executarComando($sql){
+	public function executarComando($sql){
 		try{
-			if( !is_resource($this->conexao) ) {
-				debug_print_backtrace();
-				$erro = new erroBanco( 'Conexão fechada para executar um comando!' );
-				$erro->comando = $sql;
-				throw $erro;
+			$this->cursor = ociParse(  $this->conexao , stripslashes($sql)  );
+			if (!$this->cursor) {
+				$arErroOci = ociError($this->conexao);
+			}else{
+				ob_start();
+				if($this->autoCommit) {
+					$result = @ociExecute($this->cursor,OCI_COMMIT_ON_SUCCESS);
+				}else{
+					$result = @ociExecute($this->cursor,OCI_DEFAULT);
+				}
+				$erro = ob_get_clean();
+				if($erro) throw new erroBanco($erro);
+				return oci_num_rows($this->cursor);
 			}
-			$this->cursor = @ pg_query($this->conexao,stripslashes($sql));
-			$sterro = pg_last_error($this->conexao);
-			if (!empty($sterro)) {
-				$erro = new erroBanco($sterro);
-				$erro->comando = $sql;
-				throw $erro;
-			}
-			return pg_affected_rows($this->cursor);
-		}
-		catch(erroBanco $e){
+		}catch(erroBanco $e){
 			throw $e;
 		}
 	}
@@ -144,17 +153,14 @@ class conexaoPadraoMultiplaOCI extends conexao{
 	* Retorna um array com o registro retornados corrente da conexão
 	* @return [array]
 	*/
-	function pegarRegistro(){
+	public function pegarRegistro(){
 		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para pegar um registro!' );
-			if ($arRes = pg_fetch_array ($this->cursor,NULL,PGSQL_ASSOC)) {
-				foreach($arRes as $stNomeCampo => $stConteudoCampo) {
-					$arTupla[strtolower($stNomeCampo)] = $stConteudoCampo;
-				}
-				return $arTupla;
-			}
-		}
-		catch(erroBanco $e){
+			ob_start();
+			ociFetchInto ($this->cursor, $res, OCI_ASSOC+OCI_RETURN_NULLS);
+			$erro = ob_get_clean();
+			if($erro) throw new erroBanco($erro);
+			return $res;
+		}catch(erroBanco $e){
 			throw $e;
 		}
 	}
