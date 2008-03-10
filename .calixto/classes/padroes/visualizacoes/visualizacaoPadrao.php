@@ -39,7 +39,7 @@ class visualizacaoPadrao extends visualizacao{
 		$this->CssGlobal = definicaoArquivo::pegarCss();
 		$this->CssLocal = definicaoPasta::css($this->controle).'principal.css';
 		$this->template_dir = '.';
-		echo $this->pegar('.calixto/pagina.html');
+		echo $this->pegar(definicaoArquivo::pegarHtmlPadrao());
 	}
 }
 ?>

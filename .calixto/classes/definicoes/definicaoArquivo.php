@@ -18,6 +18,10 @@ class definicaoArquivo{
 	*/
 	private static $xmlInternacionalizacaoDoSistema;
 	/**
+	* @var [string] caminho do arquivo html padrao do sistema
+	*/
+	private static $html;
+	/**
 	* @var [string] caminho do arquivo CSS principal
 	*/
 	private static $css;
@@ -130,6 +134,23 @@ class definicaoArquivo{
 		}else{
 			foreach(definicao::pegarDefinicao()->arquivos->arquivo as $arquivo){
 				if(strval($arquivo['tipo']) == "folha de estilo css") {
+					definicaoArquivo::$css = strval($arquivo['nome']);
+					break;
+				}
+			}
+			return definicaoArquivo::$css;
+		}
+	}
+	/**
+	* Retorna o caminho arquivo de template do sistema
+	* @return [string] caminho do arquivo de template do sistema
+	*/
+	static static final function pegarHtmlPadrao(){
+		if(definicaoArquivo::$html){
+			return definicaoArquivo::$html;
+		}else{
+			foreach(definicao::pegarDefinicao()->arquivos->arquivo as $arquivo){
+				if(strval($arquivo['tipo']) == "html padrao do sistema") {
 					definicaoArquivo::$css = strval($arquivo['nome']);
 					break;
 				}

@@ -15,6 +15,6 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha){
 }
 header("Content-type:text/html; charset=utf-8");
 date_default_timezone_set('America/Sao_Paulo');
-include_once('.calixto/definicoes.php');
+include_once('.sistema/definicoes.php');
 new gerenteControles(isset($_GET['c'])?$_GET['c']:definicaoSistema::pegarControleInicial());
 ?>
