@@ -13,7 +13,7 @@ class definicao{
 	* retorna a definição do sistema
 	* @param [string] caminho do arquivo de definição
 	*/
-	final static function pegarDefinicao($arquivoDefinicao = '.calixto/definicoes/definicoes.xml'){
+	final static function pegarDefinicao($arquivoDefinicao = null){
 		if(!definicao::$definicao){
 			return definicao::$definicao = simplexml_load_file($arquivoDefinicao);
 		}else{

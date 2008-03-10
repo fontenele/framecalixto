@@ -6,7 +6,7 @@
 */
 include_once('.calixto/classes/definicao.php');
 //Lendo o arquivo XML de definições de diretórios e arquivos
-$definicoes = definicao::pegarDefinicao();
+$definicoes = definicao::pegarDefinicao('.sistema/xml/definicoes.xml');
 //$definicoes = simplexml_load_file('.calixto/definicoes.xml');
 
 //Incluindo as classes de definições
