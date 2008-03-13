@@ -3,7 +3,10 @@
 	<sistema paginaInicial="CControleAcesso_verLogin" paginaErro="CControleAcesso_erroAcesso" />
 	<controleDeAcesso liberado='sim' classe="NControleAcesso" metodoLiberacao="validarAcesso" />
 	<controleDeMenu classe="NControleMenu" metodoMenuSite="menuPrincipal" metodoMenuSistema="menuMenuSistema" />
-	<banco tipo="postgres" servidor="localhost" porta="5432" nome="calixto_base" usuario="calixto_base" senha="123456" conexaoMultipla="nao" />
+	<bancos>
+		<banco id="padrao" tipo="postgres" servidor="localhost" porta="5432" nome="calixto_base" usuario="calixto_base" senha="123456" conexaoMultipla="sim" />
+		<banco id="secundario" tipo="oracle" servidor="171.255.66.13" porta="1521" nome="fnde" usuario="usuario_sgb" senha="usuario_sgb" conexaoMultipla="nao" />
+	</bancos>
 	<classes>
 		<classe dir=".calixto/classes/" />
 		<classe id="T" dir=".calixto/classes/tiposDeDados/" />

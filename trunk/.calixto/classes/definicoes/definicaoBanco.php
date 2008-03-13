@@ -6,46 +6,65 @@
 */
 class definicaoBanco{
 	/**
-	* Retorna o tipo do banco
+	* Retorna o identificador do banco pelo nome
+	* @param [string] nome da conexao
 	*/
-	static final function pegarTipo(){
-		return strval(definicao::pegarDefinicao()->banco['tipo']);
+	static final function pegarId($nome = false){
+		foreach (definicao::pegarDefinicao()->xpath('/definicoes/bancos/banco') as $id => $banco){
+			if(strval($banco['id']) == $nome){
+				return $id;
+			}
+		}
+		return 0;
+	}
+	/**
+	* Retorna o tipo do banco
+	* @param [numerico] identificador da conexao
+	*/
+	static final function pegarTipo($id = 0){
+		return strval( definicao::pegarDefinicao()->bancos->banco[$id]['tipo'] );
 	}
 	/**
 	* Retorna o nome servidor
+	* @param [numerico] identificador da conexao
 	*/
-	static final function pegarServidor(){
-		return strval(definicao::pegarDefinicao()->banco['servidor']);
+	static final function pegarServidor($id = 0){
+		return strval( definicao::pegarDefinicao()->bancos->banco[$id]['servidor'] );
 	}
 	/**
 	* Retorna a porta do banco
+	* @param [numerico] identificador da conexao
 	*/
-	static final function pegarPorta(){
-		return strval(definicao::pegarDefinicao()->banco['porta']);
+	static final function pegarPorta($id = 0){
+		return strval(definicao::pegarDefinicao()->bancos->banco[$id]['porta']);
 	}
 	/**
 	* Retorna o nome do banco
+	* @param [numerico] identificador da conexao
 	*/
-	static final function pegarNome(){
-		return strval(definicao::pegarDefinicao()->banco['nome']);
+	static final function pegarNome($id = 0){
+		return strval(definicao::pegarDefinicao()->bancos->banco[$id]['nome']);
 	}
 	/**
 	* Retorna o usuario
+	* @param [numerico] identificador da conexao
 	*/
-	static final function pegarUsuario(){
-		return strval(definicao::pegarDefinicao()->banco['usuario']);
+	static final function pegarUsuario($id = 0){
+		return strval(definicao::pegarDefinicao()->bancos->banco[$id]['usuario']);
 	}
 	/**
 	* Retorna a senha
+	* @param [numerico] identificador da conexao
 	*/
-	static final function pegarSenha(){
-		return strval(definicao::pegarDefinicao()->banco['senha']);
+	static final function pegarSenha($id = 0){
+		return strval(definicao::pegarDefinicao()->bancos->banco[$id]['senha']);
 	}
 	/**
 	* Retorna se a conexão é multipla
+	* @param [numerico] identificador da conexao
 	*/
-	static final function conexaoMultipla(){
-		return strval(definicao::pegarDefinicao()->banco['conexaoMultipla']) == 'sim';
+	static final function conexaoMultipla($id = 0){
+		return strval(definicao::pegarDefinicao()->bancos->banco[$id]['conexaoMultipla']) == 'sim';
 	}
 }
 ?>

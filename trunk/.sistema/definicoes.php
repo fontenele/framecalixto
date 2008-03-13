@@ -54,15 +54,15 @@ function __autoload($stClasse){
 				if($id == $slice){
 					if(strval($classe['entidade']) == 'sim') {
 						$dir = "{$stEntidade}/".strval($classe['dir']).'/';
-						$tipoBanco = strval($classe['tipoBanco']) == 'sim' ? strval($definicoes->banco['tipo']) : null ;
+						$tipoBanco = strval($classe['tipoBanco']) == 'sim' ? strval($definicoes->bancos->banco[0]['tipo']) : null ;
 					}else{
 						$dir = strval($classe['dir']).'/';
-						$tipoBanco = strval($classe['tipoBanco']) == 'sim' ? strval($definicoes->banco['tipo']) : null ;
+						$tipoBanco = strval($classe['tipoBanco']) == 'sim' ? strval($definicoes->bancos->banco[0]['tipo']) : null ;
 					}
 				}
 			}else{
 				$dirPadrao = $classe['dir'];
-				$tipoBanco = strval($classe['tipoBanco']) == 'sim' ? strval($definicoes->banco['tipo']) : null ;
+				$tipoBanco = strval($classe['tipoBanco']) == 'sim' ? strval($definicoes->bancos->banco[0]['tipo']) : null ;
 			}
 		}
 		$stDiretorio = isset($dir) ? $dir : $dirPadrao ;
