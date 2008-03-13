@@ -1,4 +1,4 @@
-  <?php
+<?php
 /**
 * Arquivo de indice para o funcionamento do sistema
 */
