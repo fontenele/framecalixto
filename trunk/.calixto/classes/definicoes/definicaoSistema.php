@@ -21,7 +21,8 @@ class definicaoSistema{
 	* Retorna a pagina inicial do sistema
 	*/
 	static function pegarControleInicial(){
-		return strval(definicao::pegarDefinicao()->sistema['paginaInicial']);
+		$controleInicial = strval(definicao::pegarDefinicao()->sistema['paginaInicial']);
+		return ($controleInicial)?$controleInicial:'CUtilitario_geradorDefinirSistema';
 	}
 	/**
 	* Retorna a pagina de erro do sistema

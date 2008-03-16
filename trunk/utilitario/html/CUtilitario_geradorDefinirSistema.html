@@ -1,0 +1,114 @@
+<div class="container0">
+	<div class="a"></div>
+	<div class="b"></div>
+	<div class="c"></div>
+	<div class="d"></div>
+	<div class="e"></div>
+	<div class="f"></div>
+	<div class="g"></div>
+	<div class="h"></div>
+	<h1 class="titulo">&nbsp;</h1>
+	<div class="texto">
+		<fileldset><legend>«$textoSistema»</legend>
+		<table summary="text" class="tabela2">
+			<tr>
+				<td class="campo1">«$textoPaginaInicial»:</td>
+				<td class="campo2">«$paginaInicial»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$textoPaginaErro»:</td>
+				<td class="campo2">«$paginaErro»</td>
+			</tr>
+		</table>
+		</fileldset>
+		<fileldset><legend>«$textoControleAcesso»</legend>
+		<table summary="text" class="tabela2">
+			<tr>
+				<td class="campo1">«$textoLiberadoCA»:</td>
+				<td class="campo2">«$liberadoCA»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$textoClasseCA»:</td>
+				<td class="campo2">«$classeCA»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$textoMetodoCA»:</td>
+				<td class="campo2">«$metodoCA»</td>
+			</tr>
+		</table>
+		<fileldset><legend>«$textoControleMenu»</legend>
+		<table summary="text" class="tabela2">
+			<tr>
+				<td class="campo1">«$textoClasseMenu»:</td>
+				<td class="campo2">«$classeMenu»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$textoMetodoMenuPrincipal»:</td>
+				<td class="campo2">«$metodoMenuPrincipal»</td>
+			</tr>
+			<tr>
+				<td class="campo1">«$textoMetodoMenuSistema»:</td>
+				<td class="campo2">«$metodoMenuSistema»</td>
+			</tr>
+		</table>
+		</fileldset>
+		<fileldset><legend>«$textoBancos»</legend>
+		<table summary="text" class="tabela2">
+			<tr>
+				<th>Referência</td>
+				<th>Apelido</td>
+				<th>Tipo</td>
+				<th>Servidor</td>
+				<th>Porta</td>
+				<th>Nome</td>
+				<th>Usuario</td>
+				<th>Senha</td>
+				<th>Multipla</td>
+			</tr>
+		«foreach from=$conexao key=i item=a »
+			<tr>
+				<td class="campo1">«$i»:</td>
+				<td class="campo2">«$conexao[$i]»</td>
+				<td class="campo2">«$tipo[$i]»</td>
+				<td class="campo2">«$servidor[$i]»</td>
+				<td class="campo2">«$porta[$i]»</td>
+				<td class="campo2">«$nome[$i]»</td>
+				<td class="campo2">«$usuario[$i]»</td>
+				<td class="campo2">«$senha[$i]»</td>
+				<td class="campo2">«$multipla[$i]»</td>
+			</tr>
+		«/foreach»
+		</table>
+		</fileldset>
+		<fileldset><legend>«$textoDiretorios»</legend>
+		<table summary="text" class="tabela2">
+			<tr>
+				<th>Referência</td>
+				<th>Caminho</td>
+				<th>Interno da Entidade</td>
+			</tr>
+		«foreach from=$dirId key=i item=a »
+			<tr>
+				<td class="campo1">«$dirId[$i]»«$dirId[$i]->pegarValue()»:</td>
+				<td class="campo2">«$dirCaminho[$i]»</td>
+				<td class="campo2">«$dirEntidade[$i]»</td>
+			</tr>
+		«/foreach»
+		</table>
+		</fileldset>
+		<fileldset><legend>«$textoArquivos»</legend>
+		<table summary="text" class="tabela2">
+			<tr>
+				<th>Referência</td>
+				<th>Arquivo</td>
+			</tr>
+		«foreach from=$arqId key=i item=a »
+			<tr>
+				<td class="campo1">«$arqId[$i]»«$arqId[$i]->pegarValue()»:</td>
+				<td class="campo2">«$arquivo[$i]»</td>
+			</tr>
+		«/foreach»
+		</table>
+		</fileldset>
+	</div>
+</div>
