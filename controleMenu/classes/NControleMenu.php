@@ -11,7 +11,8 @@ class NControleMenu extends negocio{
 	*/
 	public function menuPrincipal(){
 		try{
-			$menu['Principal'] = '?c=CControleAcesso_verPrincipal';
+			$menu['Sistema']['Principal'] = '?c=CControleAcesso_verPrincipal';
+			$menu['Sistema']['Login'] = '?c=CControleAcesso_verLogin';
 			$menu['Serviços']['Rede'] = '#';
 			$menu['Serviços']['Hardware'] = '#';
 			$menu['Serviços']['Software']['livre'] = '#';
@@ -19,7 +20,6 @@ class NControleMenu extends negocio{
 			$menu['A Empresa'] = '#';
 			$menu['Fale Conosco']['Via Telefone'] = '#';
 			$menu['Fale Conosco']['Via Email'] = '#';
-			$menu['Sistema'] = '?c=CControleAcesso_verLogin';
 			return $menu;
 		}
 		catch(erro $e){
@@ -37,10 +37,10 @@ class NControleMenu extends negocio{
 			$menu['Cadastros']['Atividades'] = '?c=CAtividade_verPesquisa';
 			$menu['Cadastros']['Itens'] = '?c=CItem_verPesquisa';
 			$menu['Movimento']['Tarefas do Usuário'] = '?c=CTarefa_verTarefasDoUsuario';
+			$menu['Relatórios']['Cliente'] = '?c=CTarefa_verTarefasDoDono';
 			$menu['Apoio']['Gerador'] = '?c=CUtilitario_listarEntidade';
 			$menu['Apoio']['Recriador de Base'] = '?c=CUtilitario_atualizadorBase';
 			$menu['Apoio']['Importador'] = '?c=CUtilitario_importadorXML';
-			$menu['Relatórios']['Cliente'] = '?c=CTarefa_verTarefasDoDono';
 			return $menu;
 		}
 		catch(erro $e){
