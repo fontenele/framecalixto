@@ -20,10 +20,15 @@ class gerenteControles extends objeto{
 	*/
 	function __construct($controle){
 		try{
-			$controle = new $controle($this,true);
-			$this->passarControle($controle);
-			if(!empty($this->proximoControle))
-				$this->redirecionar("?c={$this->proximoControle}");
+			if(!$controle) $this->redirecionar();
+			$cControle = new $controle($this,true);
+			if( $cControle instanceof controle ){
+				$this->passarControle($cControle);
+				if(!empty($this->proximoControle))
+					$this->redirecionar("?c={$this->proximoControle}");
+			}else{
+				throw new erroInclusao("Controle [{$controle}] inexistente!");
+			}
 		}
 		catch (erroNegocio $e){
 			sessaoSistema::registrar('comunicacao', $e->getMessage());

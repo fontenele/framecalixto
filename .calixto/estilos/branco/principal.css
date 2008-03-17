@@ -1,5 +1,5 @@
 /*
-	Definições de Layouts por elemento
+	Definiï¿½es de Layouts por elemento
 */
 body{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -8,7 +8,7 @@ body{
 }
 
 input, select, textarea {
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 }
 
 fieldset
@@ -21,12 +21,12 @@ fieldset
 
 fieldset.ativo
 {
-	display: block;	
+	display: block;
 }
 
 fieldset.inativo
 {
-	display: none;	
+	display: none;
 }
 
 h3{
@@ -65,11 +65,11 @@ p{
 	padding: 0px;
 }
 /*
-	Definições de Layouts por ID
+	Definiï¿½es de Layouts por ID
 */
 
 #divscroll{
-	overflow:auto; 
+	overflow:auto;
 	max-height: 300px;
 	height:expression(document.body.clientWidth > 300? "300px": "auto" );
 	width:100%;
@@ -237,7 +237,7 @@ p{
 	padding: 6px;
 	border: 1px solid #73BCE1;
 }
-#popup #listagens #paginacao 
+#popup #listagens #paginacao
 {
 	text-align: center;
 	border: 1px solid #159BE2;
@@ -260,7 +260,7 @@ p{
 }
 
 /*
-	Definições de Layouts por classes
+	Definiï¿½es de Layouts por classes
 */
 
 .associacao
@@ -347,12 +347,12 @@ p{
 	width: 710px;
 }
 .clear{
-	clear: both; 
+	clear: both;
 }
 .help{
-	background: #cce6f4; 
-	border: 1px dotted #005b8c; 
-	padding: 5px;	
+	background: #cce6f4;
+	border: 1px dotted #005b8c;
+	padding: 5px;
 }
 
 .help img{
@@ -360,7 +360,7 @@ p{
 }
 
 .help ul{
-	margin-left: 35px;	
+	margin-left: 35px;
 }
 .left
 {
@@ -374,7 +374,7 @@ p{
 }
 .margin
 {
-	margin: 10px;	
+	margin: 10px;
 }
 .minusculo{
 	text-transform: lowercase;
@@ -450,7 +450,7 @@ p{
 }
 .tab_listagem2 .tab_titulo {
 	color: white;
-	background: #4AA6D7;	
+	background: #4AA6D7;
 }
 .tab_listagem3 {
 	width: 99%;
@@ -459,7 +459,7 @@ p{
 }
 .tab_listagem3 .tab_titulo {
 	color: black;
-	background: #ddd;	
+	background: #ddd;
 }
 .tab_listagem {
 	width: 99%;
@@ -494,3 +494,4 @@ a {
 a:hover {
 	color: #005B8C;
 }
+@import url(banner.css);

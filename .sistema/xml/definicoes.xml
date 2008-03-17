@@ -1,11 +1,10 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <definicoes>
-	<sistema paginaInicial='CControleAcesso_verPrincipal' paginaErro='CControleAcesso_erroAcesso' />
-	<controleDeAcesso liberado='sim' classe='NControleAcesso' metodoLiberacao='validarAcesso' />
+	<sistema paginaInicial='' paginaErro='CControleAcesso_erroAcesso' />
+	<controleDeAcesso liberado='nao' classe='NControleAcesso' metodoLiberacao='validarAcesso' />
 	<controleDeMenu classe='NControleMenu' metodoMenuSite='menuPrincipal' metodoMenuSistema='menuMenuSistema' />
 	<bancos>
 		<banco id='padrao' tipo='postgres' servidor='localhost' porta='5432' nome='calixto_base' usuario='calixto_base' senha='123456' conexaoMultipla='sim' />
-		<banco id='integracao' tipo='oracle' servidor='localhost' porta='1521' nome='calixto_base' usuario='calixto_base' senha='teste' conexaoMultipla='nao' />
 	</bancos>
 	<diretorios>
 		<diretorio id='temporario' dir='.tmp/' entidade='nao' />
@@ -17,7 +16,7 @@
 		<arquivo tipo='internacionalizacao' nome='xml/pt_BR.xml' />
 		<arquivo tipo='internacionalizacao do sistema' nome='.sistema/xml/pt_BR.xml' />
 		<arquivo tipo='html padrao do sistema' nome='.sistema/html/pagina.html' />
-		<arquivo tipo='folha de estilo css' nome='.sistema/css/principal.css' />
+		<arquivo tipo='folha de estilo css' nome='.calixto/estilos/padrao/principal.css' />
 	</arquivos>
 	<classes>
 		<classe dir='.calixto/classes/' />
