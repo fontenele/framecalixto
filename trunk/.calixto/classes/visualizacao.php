@@ -14,13 +14,16 @@ class visualizacao extends Smarty{
 	* Método Contrutor
 	*/
 	function __construct(){
+		$tmp = definicaoPasta::temporaria();
+		if(!is_dir($tmp)) throw new erroEscrita("Pasta [{$tmp}] inexistente!");
+		if(!is_writable($tmp)) throw new erroEscrita("Pasta temporaria [{$tmp}] sem permissão de escrita!");
 		parent::Smarty();
 		$this->compile_check = true;
 		$this->debugging = false;
 		$this->left_delimiter  = '«';
 		$this->right_delimiter = '»';
 		$this->template_dir = '';
-		$this->compile_dir = definicaoPasta::temporaria();
+		$this->compile_dir = $tmp;
 		$this->config_dir = '';
 	}
 	/**

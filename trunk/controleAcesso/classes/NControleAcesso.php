@@ -18,8 +18,10 @@ class NControleAcesso extends negocio{
 	* Método criado para efetuar a validação de acesso a um controle do sistema
 	* @param [string] nome do controle acessado
 	*/
-	public function validarAcesso($controleAcessado){
+	public static function validarAcesso($controleAcessado){
 		try{
+			$definicoes = definicao::pegarDefinicao();
+			if(strval($definicoes->controleDeAcesso['liberado']) == 'sim') return true;
 			switch(true){
 				case(!sessaoSistema::tem('usuario')):
 					throw(new erroAcesso('Acesso não permitido, usuário não registrado !'));
@@ -32,6 +34,7 @@ class NControleAcesso extends negocio{
 					if(!$colecao->contarItens())
 						throw(new erroAcesso('Acesso Não Permitido !'));
 			}
+			return true;
 		}
 		catch(erro $e){
 			throw $e;

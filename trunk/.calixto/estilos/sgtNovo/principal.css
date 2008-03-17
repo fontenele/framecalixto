@@ -1,5 +1,6 @@
 @import url(padrao.css) ;
 @import url(pagina.css) ;
+@import url(banner.css) ;
 @import url(menu1.css) ;
 @import url(menu2.css) ;
 @import url(menu3.css) ;
@@ -31,18 +32,18 @@ a{
 	text-align: center;
 }
 button{
-	PADDING-RIGHT: 5px; 
-	PADDING-LEFT: 5px; 
-	PADDING-BOTTOM: 2px; 
-	MARGIN-LEFT: -2px; 
-	VERTICAL-ALIGN: middle; 
-	CURSOR: default; 
-	MARGIN-RIGHT: 0px; 
-	PADDING-TOP: 3px; 
-	BORDER-BOTTOM: menu 1px solid; 
+	PADDING-RIGHT: 5px;
+	PADDING-LEFT: 5px;
+	PADDING-BOTTOM: 2px;
+	MARGIN-LEFT: -2px;
+	VERTICAL-ALIGN: middle;
+	CURSOR: default;
+	MARGIN-RIGHT: 0px;
+	PADDING-TOP: 3px;
+	BORDER-BOTTOM: menu 1px solid;
 	BACKGROUND-COLOR: menu;
-	
-	
+
+
 	background	: #00A url(../../imagens/temaSGT/im_tdsupcentro.gif);
 	color		: #000;
 	display		: block;
