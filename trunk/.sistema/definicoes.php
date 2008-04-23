@@ -4,7 +4,6 @@
 * @package Infra-estrutura
 * @subpackage Definicão
 */
-include_once('.calixto/classes/definicao.php');
 //Lendo o arquivo XML de definições de diretórios e arquivos
 $definicoes = definicao::pegarDefinicao('.sistema/xml/definicoes.xml');
 //$definicoes = simplexml_load_file('.calixto/definicoes.xml');

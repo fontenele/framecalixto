@@ -43,6 +43,7 @@
  */
 function smarty_function_html_table($params, &$smarty)
 {
+	$loop = null;
     $table_attr = 'border="1"';
     $tr_attr = '';
     $td_attr = '';

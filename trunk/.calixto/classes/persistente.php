@@ -15,11 +15,6 @@ abstract class persistente extends objeto{
 	*/
 	public $conexao;
 	/**
-	* Verificador de criação de conexão com o banco de dados
-	* @var [booleano]
-	*/
-	protected $criouConexao = false;
-	/**
 	* Metodo construtor
 	* @param [conexao] (opcional) conexão com o banco de dados
 	* @param [string] (opcional) nome do arquivo de configuração da persistente

@@ -156,6 +156,7 @@ class conexaoPadraoMultiplaOCI extends conexao{
 	public function pegarRegistro(){
 		try{
 			ob_start();
+			$res = array();
 			ociFetchInto ($this->cursor, $res, OCI_ASSOC+OCI_RETURN_NULLS);
 			$erro = ob_get_clean();
 			if($erro) throw new erroBanco($erro);

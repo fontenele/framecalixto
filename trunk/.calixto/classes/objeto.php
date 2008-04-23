@@ -1,5 +1,4 @@
 <?php
-include_once('.calixto/debug.php');
 /**
 * Classe abstrata inicial
 * Esta classe na hierarquia serve como pai das demais classes

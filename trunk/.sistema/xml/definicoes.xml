@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <definicoes>
 	<sistema paginaInicial='' paginaErro='CControleAcesso_erroAcesso' />
-	<controleDeAcesso liberado='nao' classe='NControleAcesso' metodoLiberacao='validarAcesso' />
+	<controleDeAcesso liberado='sim' classe='NControleAcesso' metodoLiberacao='validarAcesso' />
 	<controleDeMenu classe='NControleMenu' metodoMenuSite='menuPrincipal' metodoMenuSistema='menuMenuSistema' />
 	<bancos>
 		<banco id='padrao' tipo='postgres' servidor='localhost' porta='5432' nome='calixto_base' usuario='calixto_base' senha='123456' conexaoMultipla='sim' />
