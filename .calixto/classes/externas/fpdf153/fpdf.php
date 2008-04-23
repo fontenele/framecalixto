@@ -461,6 +461,7 @@ function Rect($x,$y,$w,$h,$style='')
 
 function AddFont($family,$style='',$file='')
 {
+	$ut = $up = $type = $size2 = $size1 = $originalsize = $enc = $diff = $desc = $cw = null;
 	//Add a TrueType or Type1 font
 	$family=strtolower($family);
 	if($file=='')

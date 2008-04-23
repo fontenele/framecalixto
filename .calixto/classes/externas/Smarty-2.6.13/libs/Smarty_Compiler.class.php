@@ -424,6 +424,7 @@ class Smarty_Compiler extends Smarty {
      */
     function _compile_tag($template_tag)
     {
+    	$output = null;
         /* Matched comment. */
         if (substr($template_tag, 0, 1) == '*' && substr($template_tag, -1) == '*')
             return '';

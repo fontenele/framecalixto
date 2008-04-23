@@ -21,6 +21,7 @@
  */
 function smarty_function_math($params, &$smarty)
 {
+	$smarty_math_result = null;
     // be sure equation parameter is present
     if (empty($params['equation'])) {
         $smarty->trigger_error("math: missing equation parameter");

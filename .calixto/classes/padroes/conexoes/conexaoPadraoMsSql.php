@@ -143,7 +143,7 @@ class conexaoPadraoMsSql extends conexao{
 				$erro->comando = $sql;
 				throw $erro;
 			}
-			return;
+			//return;
 			return mssql_rows_affected(conexaoPadraoMsSql::$cursorEstatico);
 		}
 		catch(erroBanco $e){

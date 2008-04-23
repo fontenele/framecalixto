@@ -13,7 +13,7 @@ class COrcamento_listagem extends controlePadraoListagem{
 		parent::definirListagem();
 // 		$estrutura = $this->mapearControle(definicaoArquivo::pegarXmlEntidade($this->pegarControle(),$arquivoXML));
 		$this->adicionarColuna('Qtd.', 'quantidade', '10%', 'direita', 3);
-		$this->adicionarColunaPersonalizada('Remover', 'remover', '5%', $alinhamento, 10);
+		$this->adicionarColunaPersonalizada('Remover', 'remover', '5%', null, 10);
 	}
 	/**
 	* Método de criação da coleção a ser listada

@@ -134,6 +134,7 @@ function ReadAFM($file,&$map)
 
 function MakeFontDescriptor($fm,$symbolic)
 {
+	$des = null;
 	//Ascent
 	$asc=(isset($fm['Ascender']) ? $fm['Ascender'] : 1000);
 	$fd="array('Ascent'=>".$asc;
@@ -289,9 +290,9 @@ function CheckTTF($file)
 }
 
 /*******************************************************************************
-* $fontfile : chemin du fichier TTF (ou chaîne vide si pas d'incorporation)    *
+* $fontfile : chemin du fichier TTF (ou chane vide si pas d'incorporation)    *
 * $afmfile :  chemin du fichier AFM                                            *
-* $enc :      encodage (ou chaîne vide si la police est symbolique)            *
+* $enc :      encodage (ou chane vide si la police est symbolique)            *
 * $patch :    patch optionnel pour l'encodage                                  *
 * $type :     type de la police si $fontfile est vide                          *
 *******************************************************************************/
