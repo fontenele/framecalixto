@@ -13,19 +13,33 @@ class arquivo extends objeto{
 	*/
 	static function legivel($caminhoArquivo){
 		try{
-			$stArquivo = basename($caminhoArquivo);
 			$stDiretorio = dirname($caminhoArquivo);
 			switch(true){
 				case !(is_dir($stDiretorio)):
 					throw new erroInclusao("Diretório [$stDiretorio] inexistente!");
 				break;
 				case !(is_file($caminhoArquivo)):
-					throw new erroInclusao("Arquivo [$stArquivo] inexistente!");
+					throw new erroInclusao("Arquivo [$caminhoArquivo] inexistente!");
 				break;
 				case !(is_readable($caminhoArquivo)):
-					throw new erroInclusao("Arquivo [$stArquivo] sem permissão de leitura!");
+					throw new erroInclusao("Arquivo [$caminhoArquivo] sem permissão de leitura!");
 				break;
 			}
+			return true;
+		}
+		catch(erro $e){
+			throw $e;
+		}
+	}
+	/**
+	* Método de verificação da escrita do arquivo
+	* @param [string] caminho do arquivo a ser verificado
+	* @return [booleano]
+	*/
+	static function gravavel($caminhoArquivo){
+		try{
+			if(!is_writable($caminhoArquivo)) 
+				throw new erroInclusao("Arquivo [$caminhoArquivo] sem permissão de escrita!");
 			return true;
 		}
 		catch(erro $e){

@@ -8,12 +8,16 @@
 class CUtilitario_definirSistema extends controle{
 
 	protected $debug = false;
+	protected $caminhoDefinicao = ".sistema/xml/definicoes.xml";
 
 	/**
 	* Método inicial do controle
 	*/
 	function inicial(){
 		try{
+			if(!arquivo::gravavel($this->caminhoDefinicao)){
+				$this->registrarComunicacao('Arquivo ');
+			}
 			$this->passarProximoControle($_POST['sistema']['paginaInicial']);
 			$this->montarArquivoDefinicaoXML();
 		}catch(erro $e){
@@ -84,7 +88,7 @@ class CUtilitario_definirSistema extends controle{
 	</classes>
 ";
 		$xml.= "</definicoes>";
-		$this->escreverArquivo(".sistema/xml/definicoes.xml",$xml);
+		$this->escreverArquivo($this->caminhoDefinicao,$xml);
 	}
 }
 ?>

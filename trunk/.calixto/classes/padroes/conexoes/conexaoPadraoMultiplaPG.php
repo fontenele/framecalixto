@@ -132,7 +132,7 @@ class conexaoPadraoMultiplaPG extends conexao{
 				$erro->comando = $sql;
 				throw $erro;
 			}
-			$this->cursor = @ pg_query($this->conexao,stripslashes($sql));
+			$this->cursor = @pg_query($this->conexao,stripslashes($sql));
 			$sterro = pg_last_error($this->conexao);
 			if (!empty($sterro)) {
 				$erro = new erroBanco($sterro);

@@ -121,7 +121,12 @@ class conexaoPadraoPG extends conexao{
 	* @return [int] número de linhas afetadas
 	*/
 	function executarComando($sql){
-		return conexaoPadraoPG::executar($sql);
+		try{
+			return conexaoPadraoPG::executar($sql);
+		}
+		catch(erroBanco $e){
+			throw $e;
+		}
 	}
 	/**
 	* Executa uma query SQL no Banco de Dados
@@ -136,7 +141,7 @@ class conexaoPadraoPG extends conexao{
 				$erro->comando = $sql;
 				throw $erro;
 			}
-			conexaoPadraoPG::$cursorEstatico = @ pg_query(conexaoPadraoPG::$conexaoEstatica,stripslashes($sql));
+			conexaoPadraoPG::$cursorEstatico = @pg_query(conexaoPadraoPG::$conexaoEstatica,stripslashes($sql));
 			$sterro = pg_last_error(conexaoPadraoPG::$conexaoEstatica);
 			if (!empty($sterro)) {
 				$erro = new erroBanco($sterro);
