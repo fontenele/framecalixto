@@ -706,15 +706,17 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Executa o comando de destruição da sequence no banco de dados
+	* @return [booleano] retorno de destruição da sequence
 	*/
 	public function destruirSequence(){
 		try{
 			if($comandoDestruicaoSequence = $this->gerarComandoDestruicaoSequence()){
 				$this->conexao->executarComando($comandoDestruicaoSequence);
 			}
+			return true;
 		}
 		catch(erro $e){
-			throw $e;
+			return true;
 		}
 	}
 	/**
@@ -732,6 +734,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Executa o comando de destruição da tabela no banco de dados
+	* @return [booleano] retorno de destruição da tabela
 	*/
 	public function destruirTabela(){
 		try{
@@ -739,10 +742,10 @@ abstract class persistente extends objeto{
 			if($comandoDestruicaoTabela = $this->gerarComandoDestruicaoTabela()){
 				$this->conexao->executarComando($comandoDestruicaoTabela );
 			}
+			return true;
 		}
 		catch(erro $e){
-			if(strpos(' '.strtolower($e->comando),'select')) return;
-			throw $e;
+			return true;
 		}
 	}
 	/**
@@ -752,16 +755,6 @@ abstract class persistente extends objeto{
 		try{
 			$this->destruirSequence();
 			$this->destruirTabela();
-		}
-		catch(erro $e){
-			$this->destruirTabela();
-			$this->destruirSequence();
-		}
-		catch(erro $e){
-			$this->destruirTabela();
-		}
-		catch(erro $e){
-			$this->destruirSequence();
 		}
 		catch(erro $e){
 			return true;

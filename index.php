@@ -6,6 +6,7 @@ if(phpversion() < $versao = '5.1.2') throw new Exception(sprintf('O Calixto Fram
 error_reporting(E_ALL | E_STRICT);
 set_error_handler('reportarErro');
 function reportarErro($codigo,$mensagem,$arquivo,$linha){
+	if(strpos($arquivo,'conexaoPadrao')) return;
 	switch($codigo){
 		case E_NOTICE:
 		//	if(strpos($arquivo,'.tmp')) return;
