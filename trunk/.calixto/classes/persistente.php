@@ -211,6 +211,14 @@ abstract class persistente extends objeto{
 		}
 	}
 	/**
+	* Retorna o nome da tabela utilizada pela persistente
+	* @return [string] nome da tabela
+	*/
+	public function pegarNomeTabela(){
+		$estrutura = $this->pegarEstrutura();
+		return $estrutura['nomeTabela'];
+	}
+	/**
 	* Gera o comando SQL de leitura de todos os registros
 	* @return [string] comando SQL de leitura de um registro
 	*/

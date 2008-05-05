@@ -17,6 +17,7 @@ class gerenteControles extends objeto{
 	/**
 	* Método contrutor do gerente de controle
 	* @param [string] nome da classe de controle a ser gerenciada
+	* @return [booleano] retorno de sucesso da construção do gerenciador
 	*/
 	function __construct($controle){
 		try{
@@ -29,35 +30,42 @@ class gerenteControles extends objeto{
 			}else{
 				throw new erroInclusao("Controle [{$controle}] inexistente!");
 			}
+			return true;
 		}
 		catch (erroNegocio $e){
 			sessaoSistema::registrar('comunicacao', $e->getMessage());
 			if(!empty($this->proximoControle))
 				$this->redirecionar("?c={$this->proximoControle}");
+			return false;
 		}
 		catch (erroLogin $e){
 			sessaoSistema::registrar('comunicacao', $e->getMessage());
 			if(!empty($this->proximoControle))
 				$this->redirecionar("?c={$this->proximoControle}");
 			$this->redirecionar('?c='.definicaoSistema::pegarControleInicial());
+			return false;
 		}
 		catch (erroAcesso $e){
 			sessaoSistema::registrar('comunicacao', $e->getMessage());
 			if(!empty($this->proximoControle))
 				$this->redirecionar("?c={$this->proximoControle}");
 			$this->redirecionar(sprintf('?c=%s',definicaoSistema::pegarControleErro()));
+			return false;
 		}
 		catch (erroSessao $e){
 			sessaoSistema::registrar('comunicacao', $e->getMessage());
 			if(!empty($this->proximoControle))
 				$this->redirecionar("?c={$this->proximoControle}");
 			$this->redirecionar(sprintf('?c=%s',definicaoSistema::pegarControleErro()));
+			return false;
 		}
 		catch (erro $e){
 			echo $e->__toHtml();
+			return false;
 		}
 		catch (Exception $e){
 			echo $e;
+			return false;
 		}
 	}
 	/**

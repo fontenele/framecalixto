@@ -22,6 +22,7 @@ class CUtilitario_definirSistema extends controle{
 			$this->montarArquivoDefinicaoXML();
 		}catch(erro $e){
 			$this->passarProximoControle('CUtilitario_geradorDefinirSistema');
+			throw $e;
 		}
 	}
 	/**
