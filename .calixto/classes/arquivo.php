@@ -39,7 +39,7 @@ class arquivo extends objeto{
 	static function gravavel($caminhoArquivo){
 		try{
 			if(!is_writable($caminhoArquivo)) 
-				throw new erroInclusao("Arquivo [$caminhoArquivo] sem permissão de escrita!");
+				throw new erroEscrita("Arquivo [$caminhoArquivo] sem permissão de escrita!");
 			return true;
 		}
 		catch(erro $e){
