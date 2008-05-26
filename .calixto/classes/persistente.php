@@ -216,7 +216,7 @@ abstract class persistente extends objeto{
 	*/
 	public function pegarNomeTabela(){
 		$estrutura = $this->pegarEstrutura();
-		return $estrutura['nomeTabela'];
+		return strtolower($estrutura['nomeTabela']);
 	}
 	/**
 	* Gera o comando SQL de leitura de todos os registros
@@ -249,44 +249,59 @@ abstract class persistente extends objeto{
 		}
 	}
 	/**
+	* Gera a cláusula de filtro de leitura
+	* @param [array] $filtro
+	* @param [boolean] $nomeDaClausula
+	* @return [string]
+	*/
+	public function gerarClausulaDeFiltro($filtro, $nomeDaClausula = true){
+		$estrutura = $this->pegarEstrutura();
+		$comando = '';
+		foreach($filtro as $campo => $valor){
+			$valor = $this->converterDado($valor);
+			if(!$valor) continue;
+			switch($estrutura['campo'][$campo]['operador']){
+				case('diferente'):
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " %s <> %s and ";
+					}else{
+						$operacao = " %s <> '%s' and ";
+					}
+				break;
+				case('como'):
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " upper(%s) like upper(%%%s%%) and ";
+					}else{
+						$operacao = " upper(%s) like upper('%%%s%%') and ";
+					}
+				break;
+				case('igual'):
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " %s = %s and ";
+					}else{
+						$operacao = " %s = '%s' and ";
+					}
+				break;
+			}
+			$comando.= sprintf($operacao,$campo,$valor);
+		}
+		if($comando){
+			$comando = substr($comando,0,-4);
+			if($nomeDaClausula) $comando = ' where '.$comando;
+		}
+		return $comando;
+	}
+	/**
 	* Gera o comando SQL de leitura dos registros pesquisados
 	* @return [string] comando SQL de leitura de um registro
 	*/
 	public function gerarComandoPesquisar($filtro){
 		try{
 			$estrutura = $this->pegarEstrutura();
-			$comando = "select * from {$estrutura['nomeTabela']} where ";
+			$comando = "select * from {$estrutura['nomeTabela']} ";
 			$tamanhoComando = strlen($comando);
-			foreach($filtro as $campo => $valor){
-				$valor = $this->converterDado($valor);
-				if(!$valor) continue;
-				switch($estrutura['campo'][$campo]['operador']){
-					case('diferente'):
-						if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-							$operacao = " %s <> %s and ";
-						}else{
-							$operacao = " %s <> '%s' and ";
-						}
-					break;
-					case('como'):
-						if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-							$operacao = " upper(%s) like upper(%%%s%%) and ";
-						}else{
-							$operacao = " upper(%s) like upper('%%%s%%') and ";
-						}
-					break;
-					case('igual'):
-						if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-							$operacao = " %s = %s and ";
-						}else{
-							$operacao = " %s = '%s' and ";
-						}
-					break;
-				}
-				$comando.= sprintf($operacao,$campo,$valor);
-			}
+			$comando .= $this->gerarClausulaDeFiltro($filtro);
 			if($tamanhoComando != strlen($comando)){
-				$comando = substr($comando,0,-4);
 				if(isset($estrutura['ordem'])){
 					$ordem = ' order by '.implode(',',$estrutura['ordem']);
 				}else{
@@ -628,6 +643,24 @@ abstract class persistente extends objeto{
 					add constraint {$estrutura['nomeTabela']}_{$nomeCampo}_fk foreign key ($nomeCampo) references {$referencia['chaveEstrangeira']['tabela']}({$referencia['chaveEstrangeira']['campo']});";
 			}
 			return $comando;
+		}
+		catch(erro $e){
+			throw $e;
+		}
+	}
+	/**
+	* Cria um array contendo as relações da tabela com suas chaves extrangeiras
+	* @return [array] Chaves extrangeiras
+	*/
+	public function gerarRelacoesDeChavesEstrangeiras(){
+		try{
+			$chaves = array();
+			$estrutura = $this->pegarEstrutura();
+			foreach($estrutura['campo'] as $nomeCampo => $referencia){
+				if(isset($referencia['chaveEstrangeira']))
+					$chaves[strtolower($referencia['chaveEstrangeira']['tabela'])] = " {$estrutura['nomeTabela']}.{$nomeCampo} = {$referencia['chaveEstrangeira']['tabela']}.{$referencia['chaveEstrangeira']['campo']} ";
+			}
+			return $chaves;
 		}
 		catch(erro $e){
 			throw $e;

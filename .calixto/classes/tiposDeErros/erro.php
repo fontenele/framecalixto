@@ -39,7 +39,26 @@ class erro extends Exception{
 	* @return [string] 
 	*/
 	public function __toHtml() {
-		return $this->__toString();
+		return "
+		<fieldset class='erroNegro'>
+			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
+			<table summary='text' class='erroNegro'>
+				<tr>
+					<td>Erro:</td>
+					<td><b>{$this->message}</b></td>
+				</tr>
+				<tr>
+					<td>Arquivo:</td>
+					<td>## {$this->file}({$this->line})</td>
+				</tr>
+				<tr>
+					<td>Trilha:</td>
+					<td><pre>{$this->getTraceAsString()}</pre></td>
+				</tr>
+			</table>
+		<fieldset>
+		";
+		//return __CLASS__ . ": [{$this->code}]: {$this->message}: {$this->line}\n";
 	}
 }
 ?>
