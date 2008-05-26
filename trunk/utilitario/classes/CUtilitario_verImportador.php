@@ -1,13 +1,13 @@
 <?php
 /**
 * Classe de controle
-* Ver o Usuï¿½io
+* Ver o Usuário
 * @package Sistema
 * @subpackage Gerador
 */
 class CUtilitario_verImportador extends controlePadrao{
 	/**
-	* Mï¿½odo inicial do controle
+	* Método inicial do controle
 	*/
 	public function inicial(){
 		$this->registrarInternacionalizacao();

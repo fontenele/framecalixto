@@ -43,6 +43,22 @@ class colecao extends objeto{
 		}
 	}
 	/**
+	* Método de captura de valor pelo indice da colecao
+	* @param [string] Indice da coleção
+	* @return [mixed] Item da coleção
+	*/
+	public function pegar($indice){
+		return $this->itens[$indice];
+	}
+	/**
+	* Método de envio de valor pelo indice da colecao
+	* @param [string] Indice da coleção
+	* @param [mixed] Item da coleção
+	*/
+	public function passar($indice,$item){
+		return $this->itens[$indice] = $item;
+	}
+	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
 	* @param [string] metodo chamado
 	* @param [array] parâmetros parassados para o método chamado
