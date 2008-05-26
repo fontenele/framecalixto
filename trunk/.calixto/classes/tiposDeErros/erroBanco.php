@@ -6,22 +6,38 @@
 */
 class erroBanco extends erro{
 	/**
+	* Comando causador do erro executado no banco
+	*/
+	public $comando;
+	/**
 	* Método que faz a representação do objeto personalizada no formato html
 	* @return [string] 
 	*/
 	public function __toHtml() {
-		return  "
+		return "
+		<fieldset class='erroNegro'>
+			<legend>{$this->titulo}</legend>
 			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
-			<div class='erroNegro'>
-				<table summary='text' class='erroNegro'>
-					<tr><th colspan=2 >Erro de Banco</th></tr>
-					<tr><td>Arquivo:</td><td>{$this->getFile()}</td></tr>
-					<tr><td>Linha:</td><td>{$this->getLine()}</td></tr>
-					<tr><td>Causa:</td><td>{$this->getMessage()}</td></tr>
-					<tr><td>Comando:</td><td><pre><b>{$this->comando}</b></pre></td></tr>
-				</table>
-			</div>
-			";
+			<table summary='text' class='erroNegro'>
+				<tr>
+					<td>Mensagem:</td>
+					<td><b>{$this->message}</b></td>
+				</tr>
+				<tr>
+					<td>Arquivo:</td>
+					<td>## {$this->file}({$this->line})</td>
+				</tr>
+				<tr>
+					<td>Trilha:</td>
+					<td><pre>{$this->getTraceAsString()}</pre></td>
+				</tr>
+				<tr>
+					<td>Comando:</td>
+					<td><pre>{$this->comando}</pre></td>
+				</tr>
+			</table>
+		<fieldset>
+		";
 	}
 	/**
 	* Método que faz a representação do objeto personalizada no formato string 
