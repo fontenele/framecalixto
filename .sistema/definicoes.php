@@ -84,6 +84,8 @@ function __autoload($stClasse){
 				include_once $stArquivo;
 			break;
 		}
+	}catch (erroInclusao $e) {
+		echo $e->__toHtml();
 	}catch (Exception $e) {
 			$debug = debug_backtrace();
 			echo "

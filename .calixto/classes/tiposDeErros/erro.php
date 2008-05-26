@@ -6,6 +6,11 @@
 */
 class erro extends Exception{
 	/**
+	* Título html do erro
+	* @var string
+	*/
+	protected $titulo = 'Erro:';
+	/**
 	* Arquivo causador
 	*/
 	public $arquivo;
@@ -13,10 +18,6 @@ class erro extends Exception{
 	* Linha do arquivo causador
 	*/
 	public $linha;
-	/**
-	* Comando causador do erro executado no banco
-	*/
-	public $comando;
 	/**
 	* Redefine a exceção para que a mensagem não seja opcional 
 	* @param [string] mensagem do erro
@@ -41,10 +42,12 @@ class erro extends Exception{
 	public function __toHtml() {
 		return "
 		<fieldset class='erroNegro'>
+			<legend>{$this->titulo}</legend>
 			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
+			<img src='arquivoQuebrado.png' alt='[imagem]'>
 			<table summary='text' class='erroNegro'>
 				<tr>
-					<td>Erro:</td>
+					<td>Mensagem:</td>
 					<td><b>{$this->message}</b></td>
 				</tr>
 				<tr>
@@ -56,9 +59,8 @@ class erro extends Exception{
 					<td><pre>{$this->getTraceAsString()}</pre></td>
 				</tr>
 			</table>
-		<fieldset>
+		</fieldset>
 		";
-		//return __CLASS__ . ": [{$this->code}]: {$this->message}: {$this->line}\n";
 	}
 }
 ?>
