@@ -9,10 +9,35 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha){
 	if(strpos($arquivo,'conexaoPadrao')) return;
 	switch($codigo){
 		case E_NOTICE:
+			$tipoErro = 'Notice';
 		//	if(strpos($arquivo,'.tmp')) return;
 		break;
+		case E_WARNING:
+			$tipoErro = 'Warning';
+		break;
+		case E_PARSE:
+			$tipoErro = 'Parser';
+		break;
+		case E_COMPILE_ERROR:
+			$tipoErro = 'Fatal';
+		break;
 	}
-	echo "<fieldset>[$codigo] <br />Erro: $mensagem <br />Arquivo: $arquivo <br />Linha: $linha</fieldset>";
+	echo "
+		<fieldset class='erroNegro'>
+			<legend>{$tipoErro}</legend>
+			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
+			<img src='arquivoQuebrado.png' alt='[imagem]'>
+			<table summary='text' class='erroNegro'>
+				<tr>
+					<td>Mensagem:</td>
+					<td><b>{$mensagem}</b></td>
+				</tr>
+				<tr>
+					<td>Arquivo:</td>
+					<td>## {$arquivo}({$linha})</td>
+				</tr>
+			</table>
+		</fieldset>";
 }
 header("Content-type:text/html; charset=utf-8");
 date_default_timezone_set('America/Sao_Paulo');

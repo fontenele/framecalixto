@@ -85,14 +85,6 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 			}
 		}
 		catch(erro $e){
-			$debug = debug_backtrace();
-			echo 'Chamada de método inexistente !!!';
-			$arRetorno['No Arquivo'] = $debug[1]['file'];
-			$arRetorno['Na Linha'] = $debug[1]['line'];
-			$arRetorno['Na Chamada'] = $debug[1]['function'];
-			$arRetorno['Da Classe'] = $debug[1]['class'];
-			$arRetorno['Argumentos'] = $debug[1]['args'];
-			x($arRetorno);
 			throw $e;
 		}
     }

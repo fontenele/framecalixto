@@ -15,8 +15,8 @@ class visualizacao extends Smarty{
 	*/
 	function __construct(){
 		$tmp = definicaoPasta::temporaria();
-		if(!is_dir($tmp)) throw new erroEscrita("Pasta [{$tmp}] inexistente!");
-		if(!is_writable($tmp)) throw new erroEscrita("Pasta temporaria [{$tmp}] sem permissão de escrita!");
+		if(!diretorio::legivel($tmp)) throw new erroEscrita("Pasta [{$tmp}] inexistente ou sem permissão de leitura!");
+		if(!diretorio::gravavel($tmp)) throw new erroEscrita("Pasta temporaria [{$tmp}] sem permissão de escrita!");
 		parent::Smarty();
 		$this->compile_check = true;
 		$this->debugging = false;
