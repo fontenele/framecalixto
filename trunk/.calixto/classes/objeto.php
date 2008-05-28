@@ -15,23 +15,21 @@ abstract class objeto{
 			if (preg_match('/(pegar|passar)(.*)/', $metodo, $resultado)) {
 				$var = strtolower($resultado[2]{0}).substr($resultado[2],1,strlen($resultado[2]));
 				if ($resultado[1] == 'passar') {
+					$r = new ReflectionProperty(get_class($this), $var);
+					if(!$r->getName()) throw new erro();
 					$this->$var = $parametros[0];
 					return;
 				} else {
 					return $this->$var;
 				}
 			}
-			throw new erro();
+			throw new erro('Chamada inexistente!');
+		}
+		catch (ReflectionException $e){
+			$propriedade = get_class($this).'::'.$var;
+			throw new erro("Propriedade [{$propriedade}] inexistente!");
 		}
 		catch(erro $e){
-			$debug = debug_backtrace();
-			echo 'Chamada de método inexistente !!!';
-			$arRetorno['No Arquivo'] = $debug[1]['file'];
-			$arRetorno['Na Linha'] = $debug[1]['line'];
-			$arRetorno['Na Chamada'] = $debug[1]['function'];
-			$arRetorno['Da Classe'] = $debug[1]['class'];
-			$arRetorno['Argumentos'] = $debug[1]['args'];
-			x($arRetorno);
 			throw $e;
 		}
     }
