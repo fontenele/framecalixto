@@ -47,6 +47,13 @@ class coletor extends objeto {
 		$this->negocios[get_class($negocio)] = $negocio;
 	}
 	/**
+	* Retorna as coleções do coletor
+	* @param [string] nome do objeto de negócio
+	*/
+	public function pegar($nome){
+		return $this->colecoes->pegar($nome);
+	}
+	/**
 	* Cria a sql para a execução
 	* @param Negocio $negocio
 	*/
@@ -55,6 +62,7 @@ class coletor extends objeto {
 		$sql = "select * from ";
 		$stFiltro = '';
 		$tabelas = array();
+		$joins = array();
 		foreach ($negocios as $classe => $negocio) {
 			$p = $negocio->pegarPersistente();
 			$tabelas[$classe] = $p->pegarNomeTabela();

@@ -10,7 +10,6 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha){
 	switch($codigo){
 		case E_NOTICE:
 			$tipoErro = 'Notice';
-		//	if(strpos($arquivo,'.tmp')) return;
 		break;
 		case E_WARNING:
 			$tipoErro = 'Warning';
