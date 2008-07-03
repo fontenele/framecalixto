@@ -10,10 +10,13 @@ class CUtilitario_verImportador extends controlePadrao{
 	* Método inicial do controle
 	*/
 	public function inicial(){
+//		$colecao->sql();
+		$p = new NPessoa();
+		$p->passarNmPessoas('a');
 		$this->registrarInternacionalizacao();
 		$this->gerarMenus();
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'importadorXML'));
-		$this->visualizacao->xml = VComponente::montar('textArea','xml',$coletor->sql());
+		$this->visualizacao->xml = VComponente::montar('textArea','xml',null);
 		$this->visualizacao->xml->passarRows(20);
 		$this->visualizacao->xml->passarCols(70);
 		parent::inicial();
