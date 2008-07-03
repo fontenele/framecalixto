@@ -7,9 +7,11 @@ error_reporting(E_ALL | E_STRICT);
 set_error_handler('reportarErro');
 function reportarErro($codigo,$mensagem,$arquivo,$linha){
 	if(strpos($arquivo,'conexaoPadrao')) return;
+	$imagemErro = 'erro.png';
 	switch($codigo){
 		case E_NOTICE:
 			$tipoErro = 'Notice';
+			$imagemErro = 'notice.png';
 		break;
 		case E_WARNING:
 			$tipoErro = 'Warning';
@@ -25,7 +27,7 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha){
 		<fieldset class='erroNegro'>
 			<legend>{$tipoErro}</legend>
 			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
-			<img src='arquivoQuebrado.png' alt='[imagem]'>
+			<img src='.calixto/imagens/{$imagemErro}' alt='[imagem]'>
 			<table summary='text' class='erroNegro'>
 				<tr>
 					<td>Mensagem:</td>

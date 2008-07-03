@@ -23,6 +23,8 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$this->visualizacao->adicionar = $adicionar;
 		$this->visualizacao->action = '?c=CUtilitario_geradorGerarFonte';
 		$this->visualizacao->menuPrograma = VComponente::montar('menu de programa',null,null,null, array('definir'=>'javascript:validar();','entidades'=>'?c=CUtilitario_listarEntidade'));
+		$this->visualizacao->dados = null;
+		$this->visualizacao->campos = null;
 		if(isset($_GET['entidade'])) $this->montarEntidade();
 		$this->visualizacao->mostrar();
 	}

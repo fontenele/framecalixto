@@ -11,6 +11,11 @@ class erro extends Exception{
 	*/
 	protected $titulo = 'Erro:';
 	/**
+	* Nome da imagem
+	* @var string
+	*/
+	protected $imagem = 'erro.png';
+	/**
 	* Arquivo causador
 	*/
 	public $arquivo;
@@ -44,7 +49,7 @@ class erro extends Exception{
 		<fieldset class='erroNegro'>
 			<legend>{$this->titulo}</legend>
 			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
-			<img src='arquivoQuebrado.png' alt='[imagem]'>
+			<img src='.calixto/imagens/{$this->imagem}' alt='[imagem]'>
 			<table summary='text' class='erroNegro'>
 				<tr>
 					<td>Mensagem:</td>
