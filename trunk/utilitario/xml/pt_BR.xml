@@ -35,4 +35,7 @@
 
 		</textos>
 	</controles>
+	<mensagens>
+		<mensagem id="importarSucesso">Dados importados com sucesso!</mensagem>
+	</mensagens>
 </internacionalizacao>

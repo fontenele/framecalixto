@@ -33,6 +33,7 @@ class CTarefa_verTarefa extends controlePadrao{
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		$arPessoas = $this->montarVetorDescritivo('NPessoa','lerTodos');
 		$arUsuarios = $this->montarVetorDescritivo('NUsuario','lerTodos');
+		$this->visualizacao->atualizarTarefa = null;
 		$icone = new VEtiquetaHtml('img');
 		switch(true){
 			case $negocio->pegarCsTipoTarefa()== 1:
@@ -74,8 +75,8 @@ class CTarefa_verTarefa extends controlePadrao{
 		}
 		$nUsuario = sessaoSistema::pegar('usuario');
 		switch(true){
-			// Se for o dono da tarefa
-			case($nUsuario->pegarIdUsuario() == $negocio->pegarIdDono()):
+			// Se for o criador da tarefa
+			case($nUsuario->pegarIdUsuario() == $negocio->pegarIdCriador()):
 				$this->montarApresentacaoDono($negocio);
 			break;
 			// Se for o usuário responsável
@@ -118,6 +119,7 @@ class CTarefa_verTarefa extends controlePadrao{
 		parent::montarApresentacaoVisual($negocio);
 		$this->visualizacao->nrPercentual = VComponente::montar('VSelectPercentual','nrPercentual',$negocio->pegarNrPercentual());
 		$this->visualizacao->atualizarTarefa = VComponente::montar('confirmar','atualizarTarefa','Atualizar tarefa');
+		$this->visualizacao->atualizarTarefa = null;
 	}
 	/**
 	* Retorna um array com os itens do menu do programa

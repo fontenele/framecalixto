@@ -10,9 +10,6 @@ class CUtilitario_verImportador extends controlePadrao{
 	* Método inicial do controle
 	*/
 	public function inicial(){
-//		$colecao->sql();
-		$p = new NPessoa();
-		$p->passarNmPessoas('a');
 		$this->registrarInternacionalizacao();
 		$this->gerarMenus();
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'importadorXML'));
