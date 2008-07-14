@@ -266,6 +266,8 @@ function formatarData(Componente, evento, separadorData, stFormato){
 function checarData(Componente,separadorData,stFormato, stDataAtual){
 	try{
 		if(Componente.value == "") return;
+		var re = /^[1-9]$/;
+		if(re.exec(Componente.value)) Componente.value = '0' + Componente.value;
 		var arData  = Componente.value.split(separadorData);
 		var arDataAtual  = stDataAtual.split(separadorData);
 		if(arData.length > 3) throw 1;
@@ -326,7 +328,7 @@ function checarData(Componente,separadorData,stFormato, stDataAtual){
 		var resMes = re.exec(inMes);
 		var re = /^2[0-1]\d{2}$/;
 		var resAno = re.exec(inAno);
-		var re = /^(0[1-9]|[1-2][0-9])\d{2}|(310[13578])|(31(10|12))|(300[2469])|(3011)$/;
+		var re = /^(0[1-9]|[1-2][0-9])\d{2}|(310[13578])|(311(0|2))|(300[^02])|301(0|1|2)$/;
 		var resDia = re.exec(inDia + inMes);
 		if (!resAno) throw 2;
 		if (!resMes) throw 3;
@@ -381,6 +383,8 @@ function formatarHora(Componente, evento){
 function checarHora(Componente){
 	try{
 		if(Componente.value == '') return;
+		var re = /^[1-9]$/;
+		if(re.exec(Componente.value)) Componente.value = '0' + Componente.value;
 		var er = /^(([0-1][0-9]|2[0-3])$|([0-1][0-9]|2[0-3]):[0-5][0-9])$|(([0-1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])$/;
 		var a = er.exec(Componente.value);
 		var arHora = Componente.value.split(':');

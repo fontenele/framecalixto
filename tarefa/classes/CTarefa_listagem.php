@@ -28,7 +28,7 @@ class CTarefa_listagem extends controlePadraoListagem{
 	function apresentarTarefa(NTarefa $negocio){
 		$controle = definicaoEntidade::controle($negocio,'verTarefa');
 		$link = sprintf("?c=%s&amp;chave=%s",$controle,$negocio->valorChave());
-		return $retorno.="\t\t<a href='{$link}' >".$negocio->valorChave()."</a>\n";
+		return "\t\t<a href='{$link}' >".$negocio->valorChave()."</a>\n";
 	}
 	/**
 	* Método de personalização de campo

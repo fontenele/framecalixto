@@ -25,6 +25,7 @@ class CUtilitario_importadorXML extends controlePadrao{
 				}
 			}
 		}
+		$this->registrarComunicacao($this->inter->pegarMensagem('importarSucesso'));
 	}
 }
 ?>
