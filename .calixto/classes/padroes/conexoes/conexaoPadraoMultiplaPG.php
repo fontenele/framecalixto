@@ -4,7 +4,7 @@
 * @package Infra-estrutura
 * @subpackage Banco de Dados
 */
-class conexaoPadraoMultiplaPG extends conexao{
+class conexaoPadraoMultiplaPG extends conexao implements conexaoPadraoMultipla{
 	/**
 	* Metodo construtor
 	* @param [st] Servidor do Banco de dados
@@ -147,7 +147,7 @@ class conexaoPadraoMultiplaPG extends conexao{
 	}
 
 	/**
-	* Retorna um array com o registro retornados corrente da conexão
+	* Retorna um array com o registro retornado corrente da conexão
 	* @return [array]
 	*/
 	function pegarRegistro(){
