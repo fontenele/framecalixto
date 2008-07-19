@@ -4,7 +4,7 @@
 * @package Infra-estrutura
 * @subpackage Banco de Dados
 */
-class conexaoPadraoPG extends conexao{
+class conexaoPadraoPG extends conexao implements conexaoPadraoEstatica{
 	/**
 	* O ponteiro do recurso com o resultado do comando
 	* @var [resource]
