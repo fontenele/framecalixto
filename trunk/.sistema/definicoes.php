@@ -1,7 +1,7 @@
 <?php
 /**
 * Funções criadas para ler o arquivo de definições em xml e configurar o sistema
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Definicão
 */
 //Lendo o arquivo XML de definições de diretórios e arquivos

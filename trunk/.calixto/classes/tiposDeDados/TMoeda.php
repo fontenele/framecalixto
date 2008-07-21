@@ -2,7 +2,7 @@
 /**
 * Classe de reprensação de arquivo
 * Esta classe representa numerico no formato de moeda
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage tipoDeDados
 */
 class TMoeda extends TNumerico{

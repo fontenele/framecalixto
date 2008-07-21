@@ -2,7 +2,7 @@
 /**
 * Classe que faz o gerenciamento dos controles do sistema
 * Esta classe padroniza a forma de chamada dos controles do sistema
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage utilitários
 */
 class gerenteControles extends objeto{

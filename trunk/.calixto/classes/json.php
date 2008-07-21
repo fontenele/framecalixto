@@ -2,7 +2,7 @@
 /**
 * Classe que codifica um objeto para JSON
 * JavaScript Object Notation
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage visualização
 */
 class json {

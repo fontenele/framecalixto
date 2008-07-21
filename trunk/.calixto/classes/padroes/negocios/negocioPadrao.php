@@ -2,7 +2,7 @@
 /**
 * Classe de representação de uma camada de negócio
 * A camada de negócio é a parte que engloba as regras e efetua os comandos de execução de um sistema
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Negocio
 */
 abstract class negocioPadrao extends negocio{

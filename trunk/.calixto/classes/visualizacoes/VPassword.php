@@ -1,7 +1,7 @@
 <?php
 /**
 * Objeto de apresentação de uma etiqueta HTML
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage visualização
 */
 class VPassword extends VInput{

@@ -1,4 +1,9 @@
 <?php
+/**
+* Interface de definição de uma conexão multipla
+* @package FrameCalixto
+* @subpackage Banco de Dados
+*/
 interface conexaoPadraoMultipla extends conexaoPadrao{
 	/**
 	* Metodo construtor

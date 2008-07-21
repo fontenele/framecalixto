@@ -2,7 +2,7 @@
 /**
 * Classe de definição da camada de controle 
 * Formação especialista para mudar de pagina 
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Controle
 */
 class controlePadraoMudarPagina extends controle{

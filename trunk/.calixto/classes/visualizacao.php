@@ -2,7 +2,7 @@
 include_once('externas/Smarty-2.6.13/libs/Smarty.class.php');
 /**
 * Classe responsável por passar a inteligência do controle para uma tela
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage visualização
 */
 class visualizacao extends Smarty{

@@ -2,7 +2,7 @@
 /**
 * Classe de reprensação de arquivo
 * Esta classe representa um numérico
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage tipoDeDados
 */
 class TNumerico extends objeto{

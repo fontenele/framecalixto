@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de definição para o banco de dados
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Definição
 */
 class definicaoBanco{

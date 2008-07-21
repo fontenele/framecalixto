@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de definição para arquivos
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Definição
 */
 class definicaoArquivo{

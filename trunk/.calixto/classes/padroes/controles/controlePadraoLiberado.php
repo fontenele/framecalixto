@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de definição da camada de controle
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Controle
 */
 class controlePadraoLiberado extends controlePadrao{

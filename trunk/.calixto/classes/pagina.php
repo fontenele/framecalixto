@@ -2,7 +2,7 @@
 /**
 * Classe que representa uma página abstrata
 * Esta classe padroniza a forma de definição do tanto de linhas de uma página no sistema
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Utilitários
 */
 class pagina extends objeto{

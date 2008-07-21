@@ -2,7 +2,7 @@
 /**
 * Classe de definição da camada de controle
 * Formação especialista para montar a listagem de uma coleção de objetos de negocio
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Controle
 */
 class controlePadraoListagem extends controlePadrao{

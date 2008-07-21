@@ -2,7 +2,7 @@
 /**
 * Classe de definição da camada de controle 
 * Formação especialista para excluir um objeto de negocio
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Controle
 */
 class controlePadraoExcluir extends controle{

@@ -2,7 +2,7 @@
 include_once('externas/fpdf153/fpdf.php');
 /**
 * Classe responsável por passar a inteligência do controle para um pdf
-* @package Sistema
+* @package FrameCalixto
 * @subpackage visualização
 */
 class pdf extends fpdf{

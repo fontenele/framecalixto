@@ -1,8 +1,8 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
- * @subpackage plugins
+ * @package	   Externas
+ * @subpackage Smarty:plugins
  */
 
 /**

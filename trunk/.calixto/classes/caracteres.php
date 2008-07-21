@@ -2,7 +2,7 @@
 /**
 * Classe de utilitários para caracteres
 * Caracteres
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage utilitários
 */
 class caracteres {

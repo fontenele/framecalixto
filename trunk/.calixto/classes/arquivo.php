@@ -2,7 +2,7 @@
 /**
 * Classe de reprensação de arquivo
 * Esta classe encapsula as formas de acesso a um arquivo
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage utilitários
 */
 class arquivo extends objeto{

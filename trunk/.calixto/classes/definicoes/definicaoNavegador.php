@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de definição para o Navegador
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Definição
 */
 class definicaoNavegador{
