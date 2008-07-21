@@ -2,7 +2,7 @@
 /**
 * Classe abstrata inicial
 * Esta classe na hierarquia serve como pai das demais classes
-* @package Infra-estrutura
+* @package FrameCalixto
 */
 abstract class objeto{
 	/**

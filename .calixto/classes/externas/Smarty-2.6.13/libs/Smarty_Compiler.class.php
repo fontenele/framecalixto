@@ -23,14 +23,16 @@
  * @author Andrei Zmievski <andrei@php.net>
  * @version 2.6.13
  * @copyright 2001-2005 New Digital Group, Inc.
- * @package Smarty
+ * @package	   Externas
+ * @subpackage Smarty
  */
 
 /* $Id: Smarty_Compiler.class.php,v 1.1.1.1 2006/12/12 14:09:08 calixto Exp $ */
 
 /**
  * Template compiling class
- * @package Smarty
+ * @package	   Externas
+ * @subpackage Smarty
  */
 class Smarty_Compiler extends Smarty {
 

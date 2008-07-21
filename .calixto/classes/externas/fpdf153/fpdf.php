@@ -12,7 +12,11 @@
 #if(!class_exists('FPDF'))
 #{
 define('FPDF_VERSION','1.53');
-
+/**
+* Classe de geração de PDF
+* @package Externas
+* @subpackage FPDF
+*/
 class FPDF
 {
 //Private properties

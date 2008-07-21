@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de representação de uma exceção ou um erro.
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Erros
 */
 class erroBanco extends erro{

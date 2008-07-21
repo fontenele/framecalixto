@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de definição para entidade
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Definição
 */
 class definicaoEntidade{

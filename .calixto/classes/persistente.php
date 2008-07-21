@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de representação de uma camada de persistencia com Banco de Dados
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Persistente
 */
 abstract class persistente extends objeto{

@@ -1,7 +1,7 @@
 <?php
 /**
 * Funções criadas para ajudar o desenvolvedor a visualizar e encontrar erros
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Debug
 */
 

@@ -1,7 +1,19 @@
 <?php
+/**
+* Classe de reprentação de arquivo
+* Esta classe encapsula as formas de acesso a um arquivo
+* @package FrameCalixto
+* @subpackage Erros
+*/
 class SoapException extends Exception{
 }
 
+/**
+* Classe de reprentação de um pacote xml
+* Esta classe encapsula as formas de acesso a um arquivo
+* @package FrameCalixto
+* @subpackage utilitários
+*/
 class pacote extends objeto{
 	/**
 	* 
@@ -20,6 +32,13 @@ class pacote extends objeto{
 			</SOAP-ENV:Envelope>';
 	}
 } 
+
+/**
+* Classe de reprentação de uma certificação digital
+* Esta classe encapsula as formas de acesso a um serviço de certifição digital
+* @package FrameCalixto
+* @subpackage utilitários
+*/
 class certificacao extends objeto{
 	/**
 	* Caminho do servidor SOAP

@@ -2,7 +2,7 @@
 /**
 * Classe que faz o gerenciamento da sessão do cliente no servidor
 * Esta classe se responsabiliza pelos dados do cliente no servidor
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage utilitários
 */
 class sessaoSistema extends objeto{

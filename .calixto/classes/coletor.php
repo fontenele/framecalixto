@@ -2,6 +2,8 @@
 /**
 * Representação de um coletor de dados persistentes
 * Esta classe coleta dados persistentes do banco de dados e retorna-os em coleções de dados
+* @package FrameCalixto
+* @subpackage utilitários
 */
 class coletor extends objeto {
 	/**

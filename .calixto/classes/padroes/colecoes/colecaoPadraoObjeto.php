@@ -2,7 +2,7 @@
 /**
 * Classe que representa uma coleção de itens
 * Esta classe padroniza a forma de agrupamento de classes de negócio no sistema
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage utilitários
 */
 class colecaoPadraoObjeto extends colecao{

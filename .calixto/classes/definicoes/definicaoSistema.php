@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de definição para o sistema
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Definição
 */
 class definicaoSistema{

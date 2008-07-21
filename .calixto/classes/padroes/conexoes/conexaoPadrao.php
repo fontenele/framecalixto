@@ -1,6 +1,8 @@
 <?php
 /**
 * Representação de comportamento de uma conexaoPadrao 
+* @package FrameCalixto
+* @subpackage Banco de Dados
 */
 interface conexaoPadrao{
 	/**

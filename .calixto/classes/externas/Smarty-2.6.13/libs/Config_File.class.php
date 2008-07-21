@@ -29,7 +29,8 @@
 
 /**
  * Config file reading class
- * @package Smarty
+ * @package	   Externas
+ * @subpackage Smarty
  */
 class Config_File {
     /**#@+

@@ -1,4 +1,9 @@
 <?php
+/**
+* Interface de definição de uma conexão estática
+* @package FrameCalixto
+* @subpackage Banco de Dados
+*/
 interface conexaoPadraoEstatica extends conexaoPadrao{
 	/**
 	* Metodo de conexão

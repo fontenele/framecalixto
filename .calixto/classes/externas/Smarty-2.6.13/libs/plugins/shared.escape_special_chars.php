@@ -1,9 +1,9 @@
 <?php
 /**
  * Smarty shared plugin
- * @package Smarty
- * @subpackage plugins
- */
+ * @package	   Externas
+ * @subpackage Smarty:plugins
+*/
 
 
 /**

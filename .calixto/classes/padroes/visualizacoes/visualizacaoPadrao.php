@@ -2,7 +2,7 @@
 /**
 * Classe responsável por passar a inteligência do controle para uma tela
 * Formação genérica na montagem da tela de controles padronizados
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage visualização
 */
 class visualizacaoPadrao extends visualizacao{

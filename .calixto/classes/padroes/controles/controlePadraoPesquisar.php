@@ -2,7 +2,7 @@
 /**
 * Classe de definição da camada de controle 
 * Formação especialista para pesquisar um objeto de negocio
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Controle
 */
 class controlePadraoPesquisar extends controlePadrao{

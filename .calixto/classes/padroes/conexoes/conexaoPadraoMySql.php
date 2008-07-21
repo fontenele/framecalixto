@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de representação de uma conexão com Banco de Dados
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage Banco de Dados
 */
 class conexaoPadraoMySql extends conexao{

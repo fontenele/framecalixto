@@ -2,7 +2,7 @@
 /**
 * Classe que representa uma coleção de negócios
 * Esta classe padroniza a forma de agrupamento de classes de negócio no sistema
-* @package Infra-estrutura
+* @package FrameCalixto
 * @subpackage utilitários
 */
 class colecaoPadraoNegocio extends colecaoPadraoObjeto{

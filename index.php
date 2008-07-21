@@ -5,7 +5,7 @@
 if(phpversion() < $versao = '5.1.2') throw new Exception(sprintf('O Calixto Framework não funciona com versão inferior a %s.',$versao));
 error_reporting(E_ALL | E_STRICT);
 set_error_handler('reportarErro');
-function reportarErro($codigo,$mensagem,$arquivo,$linha){
+function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 	if(strpos($arquivo,'conexaoPadrao')) return;
 	$imagemErro = 'erro.png';
 	switch($codigo){
@@ -45,5 +45,6 @@ date_default_timezone_set('America/Sao_Paulo');
 include_once('.calixto/debug.php');
 include_once('.calixto/classes/definicao.php');
 include_once('.sistema/definicoes.php');
+
 new gerenteControles(isset($_GET['c'])?$_GET['c']:definicaoSistema::pegarControleInicial());
 ?>
