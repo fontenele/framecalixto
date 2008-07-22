@@ -5,6 +5,7 @@
 if(phpversion() < $versao = '5.1.2') throw new Exception(sprintf('O Calixto Framework não funciona com versão inferior a %s.',$versao));
 error_reporting(E_ALL | E_STRICT);
 set_error_handler('reportarErro');
+set_time_limit(0);
 function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 	if(strpos($arquivo,'conexaoPadrao')) return;
 	$imagemErro = 'erro.png';
