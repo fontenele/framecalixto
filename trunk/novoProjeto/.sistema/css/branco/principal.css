@@ -1,0 +1,497 @@
+/*
+	Defini�es de Layouts por elemento
+*/
+body{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #003B5A;
+}
+
+input, select, textarea {
+	/* text-transform: uppercase; */
+}
+
+fieldset
+{
+	border: 1px solid #ccc;
+	padding: 10px;
+	background: #fff;
+	margin: 8px 5px;
+}
+
+fieldset.ativo
+{
+	display: block;
+}
+
+fieldset.inativo
+{
+	display: none;
+}
+
+h3{
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding-bottom: 3px;
+	font-weight: bold;
+	font-size:16px;
+}
+
+hr{
+	border: none;
+	color: #ABDDF8;
+	margin: 4px 0;
+}
+
+label
+{
+	margin-top: 8px;
+	display: block;
+}
+
+legend
+{
+	background: #fff;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	font-size: 13px;
+	padding: 0 5px;
+	font-weight: bold;
+}
+
+
+p{
+	margin: 0px;
+	padding: 0px;
+}
+/*
+	Defini�es de Layouts por ID
+*/
+
+#divscroll{
+	overflow:auto;
+	max-height: 300px;
+	height:expression(document.body.clientWidth > 300? "300px": "auto" );
+	width:100%;
+}
+
+#aba li
+{
+	font-size: 10px;
+	display: inline;
+	margin: 0 1px;
+}
+
+#aba li a
+{
+	padding: 6px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#aba li.ativo a
+{
+	background: #D5F1FF;
+	border: 2px solid #ccc;
+	border-bottom: none;
+}
+
+#aba li.disabled a
+{
+	color: #999;
+	background: #ddd;
+	cursor: default;
+}
+
+#aba li.ativo a:hover
+{
+	cursor: default;
+	color: #27429E;
+}
+
+#aba li.inativo a
+{
+	background: #9DDFFF;
+}
+
+#aba li.inativo a:hover
+{
+	background: #D5F1FF;
+	color: #005B8C;
+}
+
+#aba ul
+{
+	padding: 6px 0 0 0 ;
+}
+
+#barra_governo {
+	background-color: #FFCC00;
+	height: 35px;
+}
+
+#conteudo {
+	background: url( .calixto/imagens/bg_conteudo.gif ) repeat-x;
+	padding: 10px;
+	margin-left: 150px;
+	height: 760px; /*@cat menu no IE */
+}
+
+#conteudo #content_texto {
+	float: left;
+	width: 505px;
+	margin-top: 0px;
+	margin-right: 3px;
+	margin-bottom: 0px;
+	margin-left: 3px;
+	background-color: #FFFFFF;
+	padding: 6px;
+	border: 1px solid #73BCE1;
+}
+
+#conteudo #formatacao {
+	background-color: #D2F0FF;
+	padding: 5px;
+}
+
+#conteudo #listagens {
+	padding: 5px;
+	background-color: #FFF;
+}
+
+#conteudo #listagens #paginacao {
+	text-align: center;
+	border: 1px solid #159BE2;
+	background-color: #F3FBFF;
+	margin: 5px 0;
+	padding: 5px;
+	color: #0B87C9;
+	font-size: 10px;
+}
+
+#conteudo #login {
+	width: 300px;
+	background-color: #FFFFFF;
+	margin-right: 6px;
+	margin-left: 6px;
+	margin-left: 3px;
+	background-color: #FFFFFF;
+	border: 1px solid #159BE2;
+	padding: 5px;
+}
+
+/* Fix IE. Hide from IE Mac \*/
+* html #menu ul li { float: left; height: 1%; }
+* html #menu ul li a { height: 1%; }
+/* End */
+
+#menu {
+	float: left;
+	width: 150px;
+	background-color: #43A3D6;
+}
+
+#menu a:hover{
+	background: #0B87C9;
+}
+
+#menu h3{
+	background: #003B5A;
+	color: #FFF;
+	padding: 5px;
+	font-size: 13px;
+	margin: 0;
+}
+
+#menu li a {
+	display: block;
+	text-decoration: none;
+	color: #FFFFFF;
+	padding: 5px;
+}
+
+#menu li.sub h4 {
+	color: black;
+	background: #cce6f4;
+	padding: 5px;
+	margin: 0;
+}
+
+#menu li.sub ul li a {
+	padding-left: 15px;
+}
+
+#menu ul {
+	padding: 0;
+	margin: 0;
+}
+
+#popup #content_texto {
+	float: left;
+	width: 505px;
+	margin-top: 0px;
+	margin-right: 3px;
+	margin-bottom: 0px;
+	margin-left: 3px;
+	background-color: #FFFFFF;
+	padding: 6px;
+	border: 1px solid #73BCE1;
+}
+#popup #listagens #paginacao
+{
+	text-align: center;
+	border: 1px solid #159BE2;
+	background-color: #F3FBFF;
+	margin: 5px 0;
+	padding: 5px;
+	color: #0B87C9;
+	font-size: 10px;
+}
+#popup #formatacao {
+	background-color: #D2F0FF;
+	padding: 5px;
+}
+
+#topo {
+	margin: 0;
+	border: 1px solid #159BE2;
+	height: 60px;
+	background-image: url( ../img/bg_topo.gif );
+}
+
+/*
+	Defini�es de Layouts por classes
+*/
+
+.associacao
+{
+	padding: 5px;
+	margin-bottom: 5px;
+}
+.associacao h5
+{
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+.botao a {
+	background-color: #71BBE1;
+	margin: 3px;
+	padding: 2px;
+	text-decoration: none;
+	color: #005B8C;
+	border: 1px solid #005B8C;
+
+}
+.botaoInput {
+	background-color: #71BBE1;
+	margin: 3px;
+	padding: 2px;
+	text-decoration: none;
+	color: #005B8C;
+	border: 1px solid #005B8C;
+}
+.botaoInput:hover {
+	background-color: #A6D3EC;
+	margin: 3px;
+	padding: 2px;
+	text-decoration: none;
+	color: #005B8C;
+	cursor: pointer;
+	border: 1px solid #005B8C;
+}
+.botaoNovo{
+	margin: 5px;
+	padding: 2px;
+	font-size: 9px;
+	height: 20px;
+	text-decoration: none;
+	border: 1px solid #005B8C;
+	background-color: #71BBE1;
+	color: #005B8C;
+	border: 1px solid #005B8C;
+}
+.botaoNovo:hover {
+	margin: 5px;
+	padding: 2px;
+	font-size: 9px;
+	height: 20px;
+	text-decoration: none;
+	border: 1px solid #005B8C;
+	background-color: #A6D3EC;
+	color: #005B8C;
+	cursor: pointer;
+}
+
+.campform {
+	background-color: #F0FAFF;
+	border: 1px solid #8DCAEB;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #003B5A;
+}
+.campform_bt {
+	background-color: #F0FAFF;
+	height: 18px;
+	border: 1px solid #8DCAEB;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #003B5A;
+}
+
+.campform2 {
+	background-color: #F0FAFF;
+	border: 1px solid #8DCAEB;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #003B5A;
+	width: 710px;
+}
+.clear{
+	clear: both;
+}
+.help{
+	background: #cce6f4;
+	border: 1px dotted #005b8c;
+	padding: 5px;
+}
+
+.help img{
+	float: left;
+}
+
+.help ul{
+	margin-left: 35px;
+}
+.left
+{
+	margin-right: 10px;
+	float: left;
+}
+
+.left label
+{
+	margin: 0;
+}
+.margin
+{
+	margin: 10px;
+}
+.minusculo{
+	text-transform: lowercase;
+}
+
+.money
+{
+	text-align: right;
+	padding-right: 10px;
+}
+.padding
+{
+	padding: 10px;
+}
+.paleta a {
+	background-color: #9DDFFF;
+	margin: 4px;
+	padding: 2px;
+	text-decoration: none;
+	color: #005B8C;
+	border: 1px solid #005B8C;
+}
+.paleta a:hover {
+	background-color: #D5F1FF;
+	margin: 4px;
+	padding: 2px;
+	text-decoration: none;
+	color: #005B8C;
+	border: 1px solid #005B8C;
+}
+.paleta_atual {
+	background-color: #FFFFFF;
+	margin: 4px;
+	padding: 2px;
+	text-decoration: none;
+	color: #005B8C;
+	border: 1px solid #005B8C
+}
+.subline {
+	background-image: url( ../img/subline.gif );
+	background-repeat: repeat-x;
+	background-position: bottom;
+	background-color: #E1F5FF;
+}
+.subtitulos{
+	color: #33A1DB;
+	font-weight: bold;
+	}
+.tab1{
+	background-color: #CCE6F4;
+}
+.tab2{
+	background-color: #E1F5FF;
+}
+.tab5{
+	background-color: #FFFFFF;
+}
+.tab6{
+	background-color: #F2F2F2;
+}
+.tab_listagem4 {
+	width: 99%;
+	border: 1px solid #003B5A;
+}
+.tab_listagem4 .tab_titulo {
+	color: white;
+	background: #003B5A;
+}
+.tab_listagem2 {
+	width: 99%;
+	border: 1px solid #4AA6D7;
+	background: #fff;
+}
+.tab_listagem2 .tab_titulo {
+	color: white;
+	background: #4AA6D7;
+}
+.tab_listagem3 {
+	width: 99%;
+	border: 1px solid #ddd;
+	background: #fff;
+}
+.tab_listagem3 .tab_titulo {
+	color: black;
+	background: #ddd;
+}
+.tab_listagem {
+	width: 99%;
+	border: 1px solid #4AA6D7;
+}
+.tab_titulo {
+	font-weight: bold;
+	background: #4AA6D7;
+	text-align: center;
+}
+.tab_paleta {
+	background-color: #E1F5FF;
+	border: 1px solid #159BE2;
+}
+.titulo {
+	font-size: 14px;
+	color: #0F6999;
+	font-weight: bold;
+	margin-top: 0px;
+	margin-right: 6px;
+	margin-bottom: 6px;
+	margin-left: 6px;
+}
+.voltar{
+	float: right;
+}
+
+a {
+	color: #27429E;
+}
+
+a:hover {
+	color: #005B8C;
+}
+@import url(banner.css);
