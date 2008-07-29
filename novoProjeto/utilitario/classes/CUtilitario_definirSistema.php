@@ -68,24 +68,24 @@ class CUtilitario_definirSistema extends controle{
 		$xml.= "\t</arquivos>\n";
 		$xml.=
 "	<classes>
-		<classe dir='.calixto/classes/' />
-		<classe id='T' dir='.calixto/classes/tiposDeDados/' />
+		<classe dir='../.calixto/classes/' />
+		<classe id='T' dir='../../.calixto/classes/tiposDeDados/' />
 		<classe id='P' dir='classes/' entidade='sim' tipoBanco='sim' />
 		<classe id='N' dir='classes/' entidade='sim' />
 		<classe id='C' dir='classes/' entidade='sim' />
 		<classe id='I' dir='classes/' entidade='sim' />
 		<classe id='E' dir='classes/' entidade='sim' />
 		<classe id='S' dir='.sistema/classes/' />
-		<classe id='V' dir='.calixto/classes/visualizacoes/' />
-		<classe id='erro' dir='.calixto/classes/tiposDeErros/' />
-		<classe id='definicao' dir='.calixto/classes/definicoes/' />
-		<classe id='conexaoPadrao' dir='.calixto/classes/padroes/conexoes/' />
-		<classe id='persistentePadrao' dir='.calixto/classes/padroes/persistentes/' />
-		<classe id='negocioPadrao' dir='.calixto/classes/padroes/negocios/' />
-		<classe id='controlePadrao' dir='.calixto/classes/padroes/controles/' />
-		<classe id='visualizacaoPadrao' dir='.calixto/classes/padroes/visualizacoes/' />
-		<classe id='internacionalizacaoPadrao' dir='.calixto/classes/padroes/internacionalizacoes/' />
-		<classe id='colecaoPadrao' dir='.calixto/classes/padroes/colecoes/' />
+		<classe id='V' dir='../.calixto/classes/visualizacoes/' />
+		<classe id='erro' dir='../.calixto/classes/tiposDeErros/' />
+		<classe id='definicao' dir='../.calixto/classes/definicoes/' />
+		<classe id='conexaoPadrao' dir='../.calixto/classes/padroes/conexoes/' />
+		<classe id='persistentePadrao' dir='../.calixto/classes/padroes/persistentes/' />
+		<classe id='negocioPadrao' dir='../.calixto/classes/padroes/negocios/' />
+		<classe id='controlePadrao' dir='../.calixto/classes/padroes/controles/' />
+		<classe id='visualizacaoPadrao' dir='../.calixto/classes/padroes/visualizacoes/' />
+		<classe id='internacionalizacaoPadrao' dir='../.calixto/classes/padroes/internacionalizacoes/' />
+		<classe id='colecaoPadrao' dir='../.calixto/classes/padroes/colecoes/' />
 	</classes>
 ";
 		$xml.= "</definicoes>";
