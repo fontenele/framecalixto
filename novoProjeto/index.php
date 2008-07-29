@@ -43,8 +43,7 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 }
 header("Content-type:text/html; charset=utf-8");
 date_default_timezone_set('America/Sao_Paulo');
-include_once('.calixto/debug.php');
-include_once('.calixto/classes/definicao.php');
+include_once('.sistema/debug.php');
 include_once('.sistema/definicoes.php');
 
 new gerenteControles(isset($_GET['c'])?$_GET['c']:definicaoSistema::pegarControleInicial());
