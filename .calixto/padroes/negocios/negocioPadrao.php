@@ -415,5 +415,19 @@ abstract class negocioPadrao extends negocio{
 			throw $e;
 		}
 	}
+	/**
+	 * Retorna um array com as propriedades e a classes associativas com os métodos de leitura
+	 *
+	 * @param negocioPadrao $negocio
+	 */
+	public function mapearClassesAssociativas(negocioPadrao $negocio){
+		$retorno = array();
+		foreach ($this->pegarMapeamento() as $campo) {
+			if ($campo['classeAssociativa'] == get_class($negocio)) {
+				$retorno[] = $campo;
+			}
+		}
+		return $retorno;
+	}
 }
 ?>

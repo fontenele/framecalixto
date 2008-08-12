@@ -11,6 +11,16 @@ class VComponente extends VEtiquetaHtml{
 		$this->passarName($nome);
 		if($valor) $this->passarValue($valor);
 	}
+	/**
+	 * Factory de componentes padronizados
+	 *
+	 * @param [string] Tipo do componente
+	 * @param [string] Nome do componente (name)
+	 * @param [string] Valor do componente (value)
+	 * @param [array] Opções de modificação do componente
+	 * @param [array] Valores para componentes multiplos
+	 * @return unknown
+	 */
 	final static function montar($componente,$nome,$valor,$opcoes = null,$valores = null){
 		try{
 			$objeto = null;
@@ -53,6 +63,7 @@ class VComponente extends VEtiquetaHtml{
 				case 'radiolist':
 				case 'radiolista':
 				case 'listaradio':
+				case 'listaradios':
 					if(is_array($valores)) {
 						unset($valores['']);
 						$objeto = new VRadioLista($nome,$valor);
@@ -122,6 +133,22 @@ class VComponente extends VEtiquetaHtml{
 					if(is_array($valores)) {
 						$objeto = new VSelect($nome,$valor);
 						$objeto->passarMultiple(true);
+						$objeto->passarValores($valores);
+					}
+				break;
+				case 'checks':
+				case 'listagem de checks':
+				case 'checklist':
+				case 'checklista':
+				case 'listacheck':
+				case 'listachecks':
+					if(is_array($valores)) {
+						$objeto = new VCheckLista($nome,$valor);
+						if(isset($opcoes['legend'])){
+							$objeto->passarTitulo($opcoes['legend']);
+							unset($opcoes['legend']);
+						}
+						$objeto->tipoListagem();
 						$objeto->passarValores($valores);
 					}
 				break;
