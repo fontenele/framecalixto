@@ -33,17 +33,6 @@ class controlePadraoVerEdicaoUmPraMuitos extends controlePadrao{
 		}
 	}
 	/**
-	* metodo de apresentação do negocio
-	* @param [negocio] objeto para a apresentação
-	* @param [string] tipo de visualização a ser utilizada 'edicao' ou 'visual'
-	*/
-	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
-/*		$arControle = explode('_',get_class($this));
-		preg_match('/(verEdicao)(.*)/', $arControle[1], $resultado);
-		$negocioColecao = (definicaoEntidade::negocio(' '.$resultado[2]));*/
-		parent::montarApresentacao($negocio, $tipo);
-	}
-	/**
 	* Retorna um array com os itens do menu do programa
 	* @return [array] itens do menu do programa
 	*/

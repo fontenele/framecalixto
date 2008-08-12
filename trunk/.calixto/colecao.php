@@ -47,7 +47,11 @@ class colecao extends objeto{
 	* @param [string] Indice da coleção
 	* @return [mixed] Item da coleção
 	*/
-	public function pegar($indice){
+	public function pegar($indice = null){
+		if(!$indice){
+			$ar = array_keys($this->itens);
+			return $this->itens[$ar[0]];
+		}
 		return $this->itens[$indice];
 	}
 	/**

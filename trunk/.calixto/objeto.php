@@ -14,9 +14,9 @@ abstract class objeto{
 		try{
 			if (preg_match('/(pegar|passar)(.*)/', $metodo, $resultado)) {
 				$var = strtolower($resultado[2]{0}).substr($resultado[2],1,strlen($resultado[2]));
+				$r = new ReflectionProperty(get_class($this), $var);
+				if(!$r->getName()) throw new erro();
 				if ($resultado[1] == 'passar') {
-					$r = new ReflectionProperty(get_class($this), $var);
-					if(!$r->getName()) throw new erro();
 					$this->$var = $parametros[0];
 					return;
 				} else {
