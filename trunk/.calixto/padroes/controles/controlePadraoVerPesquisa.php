@@ -34,7 +34,7 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 	}
 	/**
 	* Retorna um array com os itens do menu do programa
-	* @return [array] itens do menu do programa
+	* @return array itens do menu do programa
 	*/
 	function montarMenuPrograma(){
 		$link = "?c=%s";
@@ -46,14 +46,14 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 	}
 	/**
 	* Método de criação do controle de listagem
-	* @return [controle] Um controle especialista em listagem
+	* @return controlePadraoListagem Um controle especialista em listagem
 	*/
 	public function criarControleListagem(){
 		return new controlePadraoListagem();
 	}
 	/**
 	* Método de criação da coleção a ser listada
-	* @return [colecao] coleção a ser listada
+	* @return colecaoPadraoNegocio coleção a ser listada
 	*/
 	public function definirColecao(){
 		if($this->sessao->tem('filtro')){

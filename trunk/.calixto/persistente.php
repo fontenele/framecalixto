@@ -121,7 +121,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Monta o mapeamento de tipo de dados do banco
-	* @return [array] mapeamento
+	* @return array mapeamento
 	*/
 	public abstract function mapeamento();
 
@@ -173,7 +173,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Retorna o registro corrente na conexão com o banco.(necessita de controle de transação)
-	* @return [array] registro corrente
+	* @return array registro corrente
 	*/
 	public function pegarRegistro(){
 		try{
@@ -194,8 +194,8 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Retorna a seleção de registros da conexão com o banco
-	* @param [string] comando SQL para a execução
-	* @return [array] seleção de registros
+	* @param string $comando SQL para a execução
+	* @return array seleção de registros
 	*/
 	public function pegarSelecao($comando = null){
 		try{
@@ -212,7 +212,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Retorna o nome da tabela utilizada pela persistente
-	* @return [string] nome da tabela
+	* @return string Nome da tabela
 	*/
 	public function pegarNomeTabela(){
 		$estrutura = $this->pegarEstrutura();
@@ -238,7 +238,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Executa o comando de leitura de todos os registros
-	* @return [array] seleção de registros
+	* @return array seleção de registros
 	*/
 	public function lerTodos(){
 		try{
@@ -320,7 +320,7 @@ abstract class persistente extends objeto{
 	* Executa o comando de leitura dos registros pesquisados
 	* @param [array] dados do filtro
 	* @param [pagina] pagina referente
-	* @return [array] seleção de registros
+	* @return array seleção de registros
 	*/
 	public function pesquisar($filtro, pagina $pagina){
 		try{
@@ -336,7 +336,7 @@ abstract class persistente extends objeto{
 	/**
 	* Executa o comando de leitura de todos os registros
 	* @param [pagina] pagina referente
-	* @return [array] seleção de registros
+	* @return array seleção de registros
 	*/
 	public function lerTodosPaginado(pagina $pagina){
 		try{
@@ -350,7 +350,7 @@ abstract class persistente extends objeto{
 	* Executa o comando de leitura dos registros com paginação
 	* @param [pagina] pagina referente
 	* @param [string] comando sql para execução
-	* @return [array] seleção de registros
+	* @return array seleção de registros
 	*/
 	public function lerPaginado(pagina $pagina, $sql){
 		try{
@@ -400,7 +400,7 @@ abstract class persistente extends objeto{
 	/**
 	* Executa o comando de leitura de um registro
 	* @param [string] chave única de identificação do registro
-	* @return [array] seleção de registro
+	* @return array seleção de registro
 	*/
 	public function ler($valorChave){
 		try{
@@ -650,7 +650,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Cria um array contendo as relações da tabela com suas chaves extrangeiras
-	* @return [array] Chaves extrangeiras
+	* @return array Chaves extrangeiras
 	*/
 	public function gerarRelacoesDeChavesEstrangeiras(){
 		try{

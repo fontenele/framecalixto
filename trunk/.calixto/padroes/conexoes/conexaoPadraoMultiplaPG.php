@@ -148,7 +148,7 @@ class conexaoPadraoMultiplaPG extends conexao implements conexaoPadraoMultipla{
 
 	/**
 	* Retorna um array com o registro retornado corrente da conexão
-	* @return [array]
+	* @return array
 	*/
 	function pegarRegistro(){
 		try{

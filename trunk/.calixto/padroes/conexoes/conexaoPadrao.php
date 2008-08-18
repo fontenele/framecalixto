@@ -25,7 +25,7 @@ interface conexaoPadrao{
 	function executarComando($sql);
 	/**
 	* Retorna um array com o registro retornado corrente da conexão
-	* @return [array]
+	* @return array
 	*/
 	function pegarRegistro();
 }

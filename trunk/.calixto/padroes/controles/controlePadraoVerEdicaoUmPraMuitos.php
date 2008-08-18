@@ -34,7 +34,7 @@ class controlePadraoVerEdicaoUmPraMuitos extends controlePadrao{
 	}
 	/**
 	* Retorna um array com os itens do menu do programa
-	* @return [array] itens do menu do programa
+	* @return array itens do menu do programa
 	*/
 	function montarMenuPrograma(){
 		$link = "?c=%s";

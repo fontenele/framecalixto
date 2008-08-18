@@ -20,21 +20,21 @@ class controlePadraoLiberado extends controlePadrao{
 	}
 	/**
 	* Preenche os itens da propriedade menuPrincipal
-	* @return [array] itens do menu principal
+	* @return array itens do menu principal
 	*/
 	public function montarMenuPrincipal(){
 		return array();
 	}
 	/**
 	* Preenche os itens da propriedade menuModulo
-	* @return [array] itens do menu do modulo
+	* @return array itens do menu do modulo
 	*/
 	public function montarMenuModulo(){
 		return array();
 	}
 	/**
 	* Preenche os itens da propriedade menuPrograma
-	* @return [array] itens do menu do programa
+	* @return array itens do menu do programa
 	*/
 	public function montarMenuPrograma(){
 		return array();
