@@ -7,7 +7,7 @@
 abstract class persistentePadraoMySql extends persistente{
 	/**
 	* Monta o mapeamento de tipo de dados do banco
-	* @return [array] mapeamento
+	* @return array mapeamento
 	*/
 	public function mapeamento(){
 		$mapeamento['obrigatorio']['sim'] = 'not null';

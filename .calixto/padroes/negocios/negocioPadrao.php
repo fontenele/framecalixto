@@ -60,7 +60,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* retorna um array de mapeamento da internacionalização do negocio
-	* @return [array] mapeamento de internacionalização
+	* @return array mapeamento de internacionalização
 	*/
 	public function internacionalizacao(){
 		$internacionalizacao = definicaoEntidade::internacionalizacao($this);
@@ -68,7 +68,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* retorna um array de mapeamento entre persistente e negócio
-	* @return [array] mapeamento persistente e negocio
+	* @return array mapeamento persistente e negocio
 	*/
 	public function pegarMapeamento($arquivoXML = null){
 		try{
@@ -345,7 +345,7 @@ abstract class negocioPadrao extends negocio{
 	* Retorna uma coleção com os negócios pesquisados
 	* @param [pagina] pagina referente
 	* @param [filtro] dados de pesquisa (nï¿½ obrigatï¿½io)
-	* @return [colecao]
+	* @return colecaoPadraoNegocio
 	*/
 	public function pesquisar(pagina $pagina, $filtro = null){
 		try{
@@ -355,25 +355,7 @@ abstract class negocioPadrao extends negocio{
 			}else{
 				$arResultadoLeitura = $persistente->pesquisar($this->negocioPraVetor(),$pagina);
 			}
-			$itens = array();
-			if(is_array($arResultadoLeitura)){
-				$classe = get_class($this);
-				if($this->nomeChave()){
-					foreach($arResultadoLeitura as $array){
-						$negocio = new $classe();
-						$negocio->vetorPraNegocio($array);
-						$itens[$negocio->valorChave()] = $negocio;
-					}
-				}else{
-					foreach($arResultadoLeitura as $array){
-						$negocio = new $classe();
-						$negocio->vetorPraNegocio($array);
-						$itens[] = $negocio;
-					}
-				}
-			}
-			$colecao = new colecaoPadraoNegocio($itens,$this->pegarConexao());
-			return $colecao;
+			return $this->vetorPraColecao($arResultadoLeitura);
 		}
 		catch(Erro $e){
 			throw $e;
@@ -381,7 +363,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Retorna uma coleção com todos os negócios
-	* @return [colecao]
+	* @return colecaoPadraoNegocio
 	*/
 	public function lerTodos($pagina = null){
 		try{
@@ -391,29 +373,37 @@ abstract class negocioPadrao extends negocio{
 			}else{
 				$arResultadoLeitura = $persistente->lerTodos();
 			}
-			$itens = array();
-			if(is_array($arResultadoLeitura)){
-				$classe = get_class($this);
-				if($this->nomeChave()){
-					foreach($arResultadoLeitura as $array){
-						$negocio = new $classe($this->conexao);
-						$negocio->vetorPraNegocio($array);
-						$itens[$negocio->valorChave()] = $negocio;
-					}
-				}else{
-					foreach($arResultadoLeitura as $array){
-						$negocio = new $classe($this->conexao);
-						$negocio->vetorPraNegocio($array);
-						$itens[] = $negocio;
-					}
-				}
-			}
-			$colecao = new colecaoPadraoNegocio($itens,$this->pegarConexao());
-			return $colecao;
+			return $this->vetorPraColecao($arResultadoLeitura);
 		}
 		catch(Erro $e){
 			throw $e;
 		}
+	}
+	/**
+	 * Converte um array lido da persistente para uma coleção de negócios padronizados
+	 *
+	 * @param array $arResultadoLeitura
+	 * @return colecaoPadraoNegocio
+	 */
+	public function vetorPraColecao($arResultadoLeitura){
+		$itens = array();
+		if(is_array($arResultadoLeitura)){
+			$classe = get_class($this);
+			if($this->nomeChave()){
+				foreach($arResultadoLeitura as $array){
+					$negocio = new $classe($this->conexao);
+					$negocio->vetorPraNegocio($array);
+					$itens[$negocio->valorChave()] = $negocio;
+				}
+			}else{
+				foreach($arResultadoLeitura as $array){
+					$negocio = new $classe($this->conexao);
+					$negocio->vetorPraNegocio($array);
+					$itens[] = $negocio;
+				}
+			}
+		}
+		return new colecaoPadraoNegocio($itens,$this->pegarConexao());
 	}
 	/**
 	 * Retorna um array com as propriedades e a classes associativas com os métodos de leitura

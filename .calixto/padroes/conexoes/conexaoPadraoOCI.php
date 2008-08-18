@@ -142,7 +142,7 @@ class conexaoPadraoOCI extends conexao{
 
 	/**
 	* Retorna um array com o registro retornados corrente da conexão
-	* @return [array]
+	* @return array
 	*/
 	function pegarRegistro(){
 		try{

@@ -158,14 +158,14 @@ class controlePadrao extends controle{
 	}
 	/**
 	* Preenche os itens da propriedade menuPrograma
-	* @return [array] itens do menu do programa
+	* @return array itens do menu do programa
 	*/
 	public function gerarMenuPrograma(){
 		$this->visualizacao->menuPrograma = new VMenu($this->montarMenuPrograma(),'menu3','9997');
 	}
 	/**
 	* Preenche os itens da propriedade menuPrincipal
-	* @return [array] itens do menu principal
+	* @return array itens do menu principal
 	*/
 	public function montarMenuPrincipal(){
 		try{
@@ -186,7 +186,7 @@ class controlePadrao extends controle{
 	}
 	/**
 	* Preenche os itens da propriedade menuModulo
-	* @return [array] itens do menu do modulo
+	* @return array itens do menu do modulo
 	*/
 	public function montarMenuModulo(){
 		try{
@@ -206,7 +206,7 @@ class controlePadrao extends controle{
 	}
 	/**
 	* Preenche os itens da propriedade menuPrograma
-	* @return [array] itens do menu do modulo
+	* @return array itens do menu do modulo
 	*/
 	public function montarMenuPrograma(){
 		try{

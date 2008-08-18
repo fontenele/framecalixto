@@ -26,7 +26,7 @@ class conexaoPadraoMySql extends conexao{
 
 	/**
 	* Cria um conversor para o Banco de Dados atual
-	* @return [conversor]
+	* @return conversor
 	*/
 	function pegarConversor(){
 		return new conversorMySql();
@@ -136,7 +136,7 @@ class conexaoPadraoMySql extends conexao{
 
 	/**
 	* Retorna um array com o registro retornados corrente da conexão
-	* @return [array]
+	* @return array
 	*/
 	function pegarRegistro(){
 		try{

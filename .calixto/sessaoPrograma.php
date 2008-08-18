@@ -73,8 +73,8 @@ class sessaoPrograma extends objeto{
 	}
 	/**
 	* Retorna um booleano da verificação de existencia
-	* @param [st] Nome da váriavel
-	* @return [bo] caso exista a variavel retornará verdadeiro
+	* @param [string] Nome da váriavel
+	* @return [boolean] caso exista a variavel retornará verdadeiro
 	*/
 	function tem($variavel){
 		return isset($_SESSION[definicaoSistema::pegarNome()]['variaveisDePrograma'][$this->programa][$variavel]);
