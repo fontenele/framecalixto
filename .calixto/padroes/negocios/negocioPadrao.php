@@ -150,7 +150,16 @@ abstract class negocioPadrao extends negocio{
 			foreach($mapeador as $valor){
 				if($valor['descritivo']){
 					$metodo = "pegar{$valor['propriedade']}";
-					$descricao[$valor['descritivo']] = is_object($this->$metodo()) ? $this->$metodo()->__toString() : $this->$metodo();
+					if($valor['classeAssociativa']){
+						$classe = new $valor['classeAssociativa']();
+						$colecao = $classe->$valor['metodoLeitura']();
+						$objetoPai = $colecao->pegar($this->valorChave());
+						// ATENÇÃO ESTA CHAMADA RECURSIVA PODE SE TORNAR INIFINITA !!!!
+						// CASO ISTO OCORRA ESPECIALISE O MÉTODO ...
+						$descricao[$valor['descritivo']] = $objetoPai->valorDescricao();
+					}else{
+						$descricao[$valor['descritivo']] = is_object($this->$metodo()) ? $this->$metodo()->__toString() : $this->$metodo();
+					}
 				}
 			}
 			ksort($descricao);
