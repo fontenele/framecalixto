@@ -60,6 +60,7 @@ class VComponente extends VEtiquetaHtml{
 				break;
 				case 'radios':
 				case 'listagem de radios':
+				case 'lista de radios':
 				case 'radiolist':
 				case 'radiolista':
 				case 'listaradio':

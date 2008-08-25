@@ -25,7 +25,7 @@ class VRadioLista extends VEtiquetaHtml{
 					}
 				}
 			}else{
-				$conteudo.='<table summary="text" >';
+				$conteudo = '<table summary="text" >';
 				$i = 0;
 				foreach($this->conteudo as $indice => $texto){
 					if($i == 0) $conteudo.='<tr>';
