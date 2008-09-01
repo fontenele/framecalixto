@@ -17,7 +17,7 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 	* Método inicial do controle
 	*/
 	function inicial(){
-		$this->registrarInternacionalizacao();
+		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
 		$this->pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina'): new pagina();
 		$negocio = definicaoEntidade::negocio($this);

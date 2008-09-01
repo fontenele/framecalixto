@@ -14,7 +14,7 @@ class controlePadraoVerEdicao extends controlePadrao{
 	*/
 	public function inicial(){
 		$this->definirNegocio();
-		$this->registrarInternacionalizacao();
+		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'gravar'));
 		$this->visualizacao->chave = VComponente::montar('oculto',$this->negocio->nomeChave(),$this->negocio->valorChave());

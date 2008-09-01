@@ -48,8 +48,8 @@ class erro extends Exception{
 		return "
 		<fieldset class='erroNegro'>
 			<legend>{$this->titulo}</legend>
-			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
-			<img src='.calixto/imagens/{$this->imagem}' alt='[imagem]'>
+			<link type='text/css' rel='stylesheet' href='.sistema/css/debug.css' />
+			<img src='.sistema/imagens/{$this->imagem}' alt='[imagem]'>
 			<table summary='text' class='erroNegro'>
 				<tr>
 					<td>Mensagem:</td>

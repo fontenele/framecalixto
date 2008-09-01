@@ -153,7 +153,7 @@ abstract class negocioPadrao extends negocio{
 					if($valor['classeAssociativa']){
 						$classe = new $valor['classeAssociativa']();
 						$colecao = $classe->$valor['metodoLeitura']();
-						$objetoPai = $colecao->pegar($this->valorChave());
+						$objetoPai = $colecao->pegar($this->$metodo());
 						// ATENÇÃO ESTA CHAMADA RECURSIVA PODE SE TORNAR INIFINITA !!!!
 						// CASO ISTO OCORRA ESPECIALISE O MÉTODO ...
 						$descricao[$valor['descritivo']] = $objetoPai->valorDescricao();

@@ -5,6 +5,11 @@
 * @subpackage Controle
 */
 class controlePadraoPDF extends controle{
+	/**
+	* Classe PDF de controle do documento
+	* @var Spdf
+	*/
+	public $visualizacao;
 	public $modoDeVisualizar;
 	public function inicial(){}
 	/**

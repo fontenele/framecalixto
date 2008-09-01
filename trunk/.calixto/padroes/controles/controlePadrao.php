@@ -39,55 +39,47 @@ class controlePadrao extends controle{
 		}
 	}
 	/**
-	* Metodo criado para especificar a estrutura da persistente
-	* @param [st] caminho do arquivo
+	* Retorna a estrutura do controle definido em seu xml
+	* @param controle $entidade
+	* @return array
 	*/
-	public function mapearControle($arquivoXML){
+	public static function pegarEstrutura($entidade){
 		try{
-			$entidade = definicaoEntidade::entidade($this);
+			$entidadeInternacionalizacao = definicaoEntidade::internacionalizacao($entidade);
+			$entidade = definicaoEntidade::entidade($entidade);
+			$inter = new $entidadeInternacionalizacao();
+			$arquivoXML = definicaoArquivo::pegarXmlEntidade($inter);
 			if(!isset(controlePadrao::$estrutura[$entidade])){
 				$mapeador = array();
-				switch(true){
-					case !($arquivoXML):
-					break;
-					case !(is_file($arquivoXML)):
-						throw new erroInclusao("Arquivo [$arquivoXML] inexistente!");
-					break;
-					case !(is_readable($arquivoXML)):
-						throw new erroInclusao("Arquivo [$arquivoXML] sem permissão de leitura!");
-					break;
-					default:
-						$xml = simplexml_load_file($arquivoXML);
-						foreach($xml->propriedades->propriedade as $propriedade){
-							$arValores = array();
-							$idPropriedade = strval($propriedade['id']);
-							if(isset($propriedade->dominio->opcao)){
-								$arValores[''] = '&nbsp;';
-								foreach($propriedade->dominio->opcao as $opcao){
-									$arValores[strval($opcao['id'])] = $this->inter->pegarOpcao($idPropriedade,strval($opcao['id']));
-								}
-							}
-							$mapeador[$idPropriedade] = array(
-								'componente'	=> strval($propriedade->apresentacao['componente']	),
-								'tamanho'		=> strval($propriedade['tamanho']	),
-								'tipo'			=> strval($propriedade['tipo']	),
-								'obrigatorio'	=> strval($propriedade['obrigatorio']	),
-								'pesquisa'		=> strval($propriedade->apresentacao['pesquisa']	),
-								'valores'		=> $arValores,
-								'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
-								'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
-							);
-							$mapeador[$idPropriedade]['listagem'] = false;
-							if(isset($propriedade->apresentacao->listagem)){
-								$mapeador[$idPropriedade]['listagem'] = true;
-								$mapeador[$idPropriedade]['titulo']	= $this->inter->pegarPropriedade($idPropriedade,'abreviacao');
-								$mapeador[$idPropriedade]['hyperlink'] = strval($propriedade->apresentacao->listagem['hyperlink']);
-								$mapeador[$idPropriedade]['largura'] = strval($propriedade->apresentacao->listagem['tamanho']);
-								$mapeador[$idPropriedade]['ordem'] = strval($propriedade->apresentacao->listagem['ordem']	);
-								$mapeador[$idPropriedade]['campoPersonalizado'] = strval($propriedade->apresentacao->listagem['campoPersonalizado'] );
-							}
+				$xml = simplexml_load_file($arquivoXML);
+				foreach($xml->propriedades->propriedade as $propriedade){
+					$arValores = array();
+					$idPropriedade = strval($propriedade['id']);
+					if(isset($propriedade->dominio->opcao)){
+						$arValores[''] = '&nbsp;';
+						foreach($propriedade->dominio->opcao as $opcao){
+							$arValores[strval($opcao['id'])] = $inter->pegarOpcao($idPropriedade,strval($opcao['id']));
 						}
-					break;
+					}
+					$mapeador[$idPropriedade] = array(
+						'componente'	=> strval($propriedade->apresentacao['componente']	),
+						'tamanho'		=> strval($propriedade['tamanho']	),
+						'tipo'			=> strval($propriedade['tipo']	),
+						'obrigatorio'	=> strval($propriedade['obrigatorio']	),
+						'pesquisa'		=> strval($propriedade->apresentacao['pesquisa']	),
+						'valores'		=> $arValores,
+						'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
+						'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
+					);
+					$mapeador[$idPropriedade]['listagem'] = false;
+					if(isset($propriedade->apresentacao->listagem)){
+						$mapeador[$idPropriedade]['listagem'] = true;
+						$mapeador[$idPropriedade]['titulo']	= $inter->pegarPropriedade($idPropriedade,'abreviacao');
+						$mapeador[$idPropriedade]['hyperlink'] = strval($propriedade->apresentacao->listagem['hyperlink']);
+						$mapeador[$idPropriedade]['largura'] = strval($propriedade->apresentacao->listagem['tamanho']);
+						$mapeador[$idPropriedade]['ordem'] = strval($propriedade->apresentacao->listagem['ordem']	);
+						$mapeador[$idPropriedade]['campoPersonalizado'] = strval($propriedade->apresentacao->listagem['campoPersonalizado'] );
+					}
 				}
 				controlePadrao::$estrutura[$entidade] = $mapeador;
 			}
@@ -99,41 +91,47 @@ class controlePadrao extends controle{
 	}
 	/**
 	* Método de registro da internacionalização
+	* @param controle $entidade
+	* @param visualizacao $visualizacao
 	*/
-	public function registrarInternacionalizacao(){
-		$this->visualizacao->titulo		= $this->inter->pegarTituloSistema();
-		$this->visualizacao->subtitulo	= $this->inter->pegarSubtituloSistema();
-		$this->visualizacao->tituloEspecifico =
-			sprintf('%s - %s',$this->inter->pegarTitulo(),$this->inter->pegarTexto(definicaoEntidade::funcionalidade($this)));
-		$internacionalizacao = $this->inter->pegarInternacionalizacao();
+	public static function registrarInternacionalizacao($entidade,$visualizacao){
+		$inter = definicaoEntidade::internacionalizacao($entidade);
+		$entidade = definicaoEntidade::entidade($entidade);
+		$inter = new $inter();
+		
+		$visualizacao->titulo		= $inter->pegarTituloSistema();
+		$visualizacao->subtitulo	= $inter->pegarSubtituloSistema();
+		$visualizacao->tituloEspecifico =
+			sprintf('%s - %s',$inter->pegarTitulo(),$inter->pegarTexto(	isset($_GET['c']) ? definicaoEntidade::funcionalidade($_GET['c']):	null));
+		$internacionalizacao = $inter->pegarInternacionalizacao();
 		if(isset($internacionalizacao['propriedade']))
 		foreach($internacionalizacao['propriedade'] as $indice => $propriedade){
 			if(isset($propriedade['nome'])){
 				$var = 'nome'.ucfirst($indice);
-				$this->visualizacao->$var = strval($propriedade['nome']);
+				$visualizacao->$var = strval($propriedade['nome']);
 			}
 			if(isset($propriedade['abreviacao'])){
 				$var = 'abreviacao'.ucfirst($indice);
-				$this->visualizacao->$var = $propriedade['abreviacao'];
+				$visualizacao->$var = $propriedade['abreviacao'];
 			}
 			if(isset($propriedade['descricao'])){
 				$var = 'descricao'.ucfirst($indice);
-				$this->visualizacao->$var = $propriedade['descricao'];
+				$visualizacao->$var = $propriedade['descricao'];
 			}
 			if(isset($propriedade['dominio'])){
 				$var = 'dominio'.ucfirst($indice);
-				$this->visualizacao->$var = $propriedade['dominio'];
+				$visualizacao->$var = $propriedade['dominio'];
 			}
 		}
 		if(isset($internacionalizacao['texto']))
 		foreach($internacionalizacao['texto'] as $indice => $texto){
 			$var = 'texto'.ucfirst($indice);
-			$this->visualizacao->$var = $texto;
+			$visualizacao->$var = $texto;
 		}
 		if(isset($internacionalizacao['mensagem']))
 		foreach($internacionalizacao['mensagem'] as $indice => $mensagem){
 			$var = 'mensagem'.ucfirst($indice);
-			$this->visualizacao->$var = $mensagem;
+			$visualizacao->$var = $mensagem;
 		}
 	}
 	/**
@@ -228,7 +226,7 @@ class controlePadrao extends controle{
 	* Método montador de array descritivo
 	* Monta um array [chave]=>descricao de uma coleção de objetos de negocio
 	*/
-	public function montarVetorDescritivo($classe,$metodo = 'lerTodos'){
+	public static function montarVetorDescritivo($classe,$metodo = 'lerTodos'){
 		if(is_subclass_of($classe,'negocio')){
 			$classe = new $classe();
 			$colecao = $classe->$metodo();
@@ -240,27 +238,28 @@ class controlePadrao extends controle{
 	/**
 	* metodo de apresentação do negocio
 	* @param [negocio] objeto para a apresentação
+	* @param visualizacao template de registro para visualizacao
 	*/
-	public function montarApresentacaoVisual(negocio $negocio = null){
-		$estrutura = $this->mapearControle(definicaoArquivo::pegarXmlEntidade($this));
+	public static function montarApresentacaoVisual(negocio $negocio = null, visualizacao $visualizacao){
+		$estrutura = controlePadrao::pegarEstrutura($negocio);
 		foreach($estrutura as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
 			$valor = $negocio->$pegarPropriedade();
 			if($opcoes['componente']){
 				switch(true){
 					case($opcoes['classeAssociativa'] && $opcoes['metodoLeitura']):
-						$array = $this->montarVetorDescritivo($opcoes['classeAssociativa'],$opcoes['metodoLeitura']);
-						$this->visualizacao->$nome = $array[$valor];
+						$array = controlePadrao::montarVetorDescritivo($opcoes['classeAssociativa'],$opcoes['metodoLeitura']);
+						$visualizacao->$nome = $array[$valor];
 					break;
 					case($opcoes['classeAssociativa']):
-						$array = $this->montarVetorDescritivo($opcoes['classeAssociativa']);
-						$this->visualizacao->$nome = $array[$valor];
+						$array = controlePadrao::montarVetorDescritivo($opcoes['classeAssociativa']);
+						$visualizacao->$nome = $array[$valor];
 					break;
 					default:
 						if(count($opcoes['valores'])){
-							$this->visualizacao->$nome = $opcoes['valores'][$negocio->$pegarPropriedade()];
+							$visualizacao->$nome = $opcoes['valores'][$negocio->$pegarPropriedade()];
 						}else{
-							$this->visualizacao->$nome = $valor;
+							$visualizacao->$nome = $valor;
 						}
 				}
 			}
@@ -268,29 +267,33 @@ class controlePadrao extends controle{
 	}
 	/**
 	* metodo de apresentação do negocio
-	* @param [negocio] objeto para a apresentação
+	* @param negocio objeto para a apresentação
+	* @param visualizacao template de registro para edição
 	*/
-	public function montarApresentacaoEdicao(negocio $negocio){
-		$estrutura = $this->mapearControle(definicaoArquivo::pegarXmlEntidade($this));
+	public static function montarApresentacaoEdicao(negocio $negocio, visualizacao $visualizacao){
+		$estrutura = controlePadrao::pegarEstrutura($negocio);
 		foreach($estrutura as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
 			$valor = $negocio->$pegarPropriedade();
 			if($opcoes['componente']){
 				switch(true){
 					case($opcoes['classeAssociativa'] && $opcoes['metodoLeitura']):
-						$array = $this->montarVetorDescritivo($opcoes['classeAssociativa'],$opcoes['metodoLeitura']);
-						$this->visualizacao->$nome = VComponente::montar($opcoes['componente'],$nome,$valor,null,$array);
+						$array = controlePadrao::montarVetorDescritivo($opcoes['classeAssociativa'],$opcoes['metodoLeitura']);
+						$visualizacao->$nome = VComponente::montar($opcoes['componente'],$nome,$valor,null,$array);
 					break;
 					case($opcoes['classeAssociativa']):
-						$array = $this->montarVetorDescritivo($opcoes['classeAssociativa']);
-						$this->visualizacao->$nome = VComponente::montar($opcoes['componente'],$nome,$valor,null,$array);
+						$array = controlePadrao::montarVetorDescritivo($opcoes['classeAssociativa']);
+						$visualizacao->$nome = VComponente::montar($opcoes['componente'],$nome,$valor,null,$array);
 					break;
 					default:
-						$this->visualizacao->$nome = VComponente::montar($opcoes['componente'],$nome,$valor,null,$opcoes['valores']);
+						$visualizacao->$nome = VComponente::montar($opcoes['componente'],$nome,$valor,null,$opcoes['valores']);
+				}
+				if ($visualizacao->$nome instanceof VInput && $opcoes['tamanho']) {
+					$visualizacao->$nome->passarMaxlength($opcoes['tamanho']);
 				}
 			}
 		}
-		$this->visualizacao->enviar = VComponente::montar('enviar','enviar', $this->inter->pegarTexto('enviar'));
+		$visualizacao->enviar = VComponente::montar('enviar','enviar', $negocio->inter->pegarTexto('enviar'));
 	}
 	/**
 	* metodo de apresentação do negocio
@@ -302,10 +305,10 @@ class controlePadrao extends controle{
 			$this->visualizacao->tituloEspecifico = sprintf('%s - %s',$this->inter->pegarTitulo(),$this->inter->pegarTexto(definicaoEntidade::funcionalidade($this)));
 			switch($tipo){
 				case('edicao'):
-					$this->montarApresentacaoEdicao($negocio);
+					$this->montarApresentacaoEdicao($negocio,$this->visualizacao);
 				break;
 				case('visual'):
-					$this->montarApresentacaoVisual($negocio);
+					$this->montarApresentacaoVisual($negocio,$this->visualizacao);
 				break;
 			}
 		}
@@ -316,16 +319,18 @@ class controlePadrao extends controle{
 	/**
 	* Método de utilização dos dados postados para a montagem do negocio
 	* @param [negocio] objeto para preenchimento
+	* @param array $dados
 	*/
-	public function montarNegocio(negocio $negocio){
+	public static function montarNegocio(negocio $negocio,$dados = null){
 		try{
-			$estrutura = $this->mapearControle(definicaoArquivo::pegarXmlEntidade($this));
+			$dados = $dados ? $dados : $_POST;
+			$estrutura = controlePadrao::pegarEstrutura($negocio);
 			$atributos = array_keys(get_class_vars(get_class($negocio)));
-			foreach($_POST as $campo => $valor){
+			foreach($dados as $campo => $valor){
 				if(in_array($campo,$atributos)){
 					$metodo = 'passar'.ucfirst($campo);
-					$valor = $this->obterValorDoComponenteHtmlPadrao($estrutura[$campo],$valor);
-					$this->passarValorPostadoParaNegocio($negocio, $metodo, $estrutura[$campo], $valor);
+					$valor = self::obterValorDoComponenteHtmlPadrao($estrutura[$campo],$valor);
+					self::passarValorPostadoParaNegocio($negocio, $metodo, $estrutura[$campo], $valor);
 				}
 			}
 		}
@@ -339,7 +344,7 @@ class controlePadrao extends controle{
 	* @param [mixed] valor postado para o atributo de negócio
 	* @return [mixed] valor a ser utilizado pelo atributo de negócio
 	*/
-	public function obterValorDoComponenteHtmlPadrao($campo,$valor){
+	public static function obterValorDoComponenteHtmlPadrao($campo,$valor){
 		switch(strtolower($campo['componente'])){
 			case 'data':
 				$valor = new TData($valor);
@@ -366,7 +371,7 @@ class controlePadrao extends controle{
 	* @param [array] array de definição do atributo de negócio
 	* @param [mixed] valor definido para o atributo de negócio
 	*/
-	public function passarValorPostadoParaNegocio(negocio $negocio, $metodo, $campo, $valor){
+	public static function passarValorPostadoParaNegocio(negocio $negocio, $metodo, $campo, $valor){
 		if(!$valor) return;
 		switch(strtolower($campo['tipo'])){
 			case 'tmoeda':

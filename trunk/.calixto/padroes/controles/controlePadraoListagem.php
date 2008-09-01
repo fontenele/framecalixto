@@ -117,7 +117,7 @@ class controlePadraoListagem extends controlePadrao{
 	* Método de criação da coleção a ser listada
 	*/
 	function definirListagem(){
-		$estrutura = $this->mapearControle(definicaoArquivo::pegarXmlEntidade($this->pegarControle()));
+		$estrutura = controlePadrao::pegarEstrutura($this->pegarControle());
 		foreach($estrutura as $campo => $coluna){
 			if($coluna['listagem']){
 				$titulo = '';
@@ -159,7 +159,7 @@ class controlePadraoListagem extends controlePadrao{
 			$x = 0;
 			if($this->colecao->possuiItens()){
 				$item = $this->colecao->retornarItem();
-				$mapeador = $this->mapearControle(definicaoArquivo::pegarXmlEntidade($item));
+				$mapeador = controlePadrao::pegarEstrutura($item);
 				while($item = $this->colecao->avancar()){
 					$retorno.= $this->abrirLinha($item,++$x);
 					foreach($chaves as $chave){
