@@ -6,23 +6,6 @@
 */
 class erroSessao extends erro{
 	/**
-	* Método que faz a representação do objeto personalizada no formato html
-	* @return [string]
-	*/
-	public function __toHtml() {
-		return  "
-			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
-			<div class='erroNegro'>
-				<table summary='text' class='erroNegro'>
-					<tr><th colspan=2 >Erro de Sessão</th></tr>
-					<tr><td>Arquivo:</td><td>{$this->getFile()}</td></tr>
-					<tr><td>Linha:</td><td>{$this->getLine()}</td></tr>
-					<tr><td>Causa:</td><td>{$this->getMessage()}</td></tr>
-				</table>
-			</div>
-			";
-	}
-	/**
 	* Método que faz a representação do objeto personalizada no formato string
 	*/
 	public function __toString() {

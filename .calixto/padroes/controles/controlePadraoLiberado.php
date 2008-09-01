@@ -10,7 +10,7 @@ class controlePadraoLiberado extends controlePadrao{
 	*/
 	function inicial(){
 		try{
-			$this->registrarInternacionalizacao();
+			$this->registrarInternacionalizacao($this,$this->visualizacao);
 			$this->gerarMenus();
 			$this->visualizacao->mostrar();
 		}

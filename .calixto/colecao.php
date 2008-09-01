@@ -43,6 +43,12 @@ class colecao extends objeto{
 		}
 	}
 	/**
+	* Método que reseta a indexação da coleção
+	*/
+	public function resetar(){
+		reset($this->itens);
+	}
+	/**
 	* Método de captura de valor pelo indice da colecao
 	* @param [string] Indice da coleção
 	* @return [mixed] Item da coleção
@@ -50,9 +56,17 @@ class colecao extends objeto{
 	public function pegar($indice = null){
 		if(!$indice){
 			$ar = array_keys($this->itens);
-			return $this->itens[$ar[0]];
+			if($this->tem($ar[0])){
+				return $this->itens[$ar[0]];
+			}else{
+				throw new Erro("Item {$ar[0]} Inexistente na coleção!");
+			}
 		}
-		return $this->itens[$indice];
+		if($this->tem($indice)){
+			return $this->itens[$indice];
+		}else{
+			throw new Erro("Item {$indice} Inexistente na coleção!");
+		}
 	}
 	/**
 	* Método de envio de valor pelo indice da colecao
@@ -91,6 +105,13 @@ class colecao extends objeto{
 	*/
 	function contarItens(){
 		return count($this->itens);
+	}
+	/**
+	* Retorna se um item está na coleção
+	* @return booleano retorno de dados da coleção
+	*/
+	function tem($item){
+		return isset($this->itens[$item]);
 	}
 }
 ?>

@@ -32,7 +32,7 @@ abstract class conexao extends objeto{
 	* @param [st] Nome do Banco de dados
 	* @param [st] Usuário do Banco de dados
 	* @param [st] Senha do Banco de dados
-	* @return [conexao] conexão com o banco de dados
+	* @return conexaoPadrao conexão com o banco de dados
 	*/
 	public static final function criar($nome = null, $servidor = null, $porta = null, $banco = null, $usuario = null, $senha = null){
 		$id = definicaoBanco::pegarId($nome);

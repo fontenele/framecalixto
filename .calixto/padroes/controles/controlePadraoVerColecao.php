@@ -28,7 +28,7 @@ abstract class controlePadraoVerColecao extends controlePadrao{
 	*/
 	public function inicial(){
 		$this->definirNegocio();
-		$this->registrarInternacionalizacao();
+		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
 		$this->montarApresentacao($this->negocio);
 		parent::inicial();
@@ -59,9 +59,11 @@ abstract class controlePadraoVerColecao extends controlePadrao{
 	}
 	/**
 	* metodo de apresentação do negocio
-	* @param [negocio] objeto para a apresentação
+	* @param negocio objeto para a apresentação
+	* @param visualizacao template de registro para edição
 	*/
-	public function montarApresentacaoEdicao(negocio $negocio){
+	public function montarApresentacao(negocio $negocio,$tipo = 'edicao'){
+		parent::montarApresentacao($negocio,$tipo);
 		$this->definirSubClasse();
 		$this->definirSubColecao($negocio,$this->subClasse);
 		$this->definirColecaoOposta();
@@ -71,7 +73,13 @@ abstract class controlePadraoVerColecao extends controlePadrao{
 				$this->definirAssociacaoOposta($this->colecaoOposta->pegar(),$this->subClasse)
 			)
 		);
-		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'gravarColecao'.ucfirst(definicaoEntidade::entidade($this->subClasse))));
+		$this->visualizacao->action = 
+			sprintf('?c=%s',
+				definicaoEntidade::controle(
+					$this,
+					'gravarColecao'.ucfirst(definicaoEntidade::entidade($this->subClasse))
+					)
+				);
 		$this->visualizacao->chave = VComponente::montar('oculto',$negocio->nomeChave(),$negocio->valorChave());
 		$this->visualizacao->entidade = $this->inter->pegarNome();
 		$this->visualizacao->descricao = $negocio->valorDescricao();
