@@ -34,6 +34,7 @@ class CUtilitario_listarEntidade extends controlePadrao{
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->visualizacao->listagem = $negocios->itens;
 		$this->visualizacao->controles = $controles->itens;
+		$this->visualizacao->action = '';
 		parent::inicial();
 	}
 	/**
