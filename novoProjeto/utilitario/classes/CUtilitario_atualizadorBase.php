@@ -38,11 +38,9 @@ class CUtilitario_atualizadorBase extends controlePadrao{
  		$classes[] = 'PEstado';
  		$classes[] = 'PPessoa';
  		$classes[] = 'PUsuario';
- 		$classes[] = 'PTarefa';
- 		$classes[] = 'PAtividade';
- 		$classes[] = 'PItem';
- 		$classes[] = 'POrcamento';
-		$classes[] = 'PAcessoDoUsuario';
+ 		$classes[] = 'PPerfil';
+ 		$classes[] = 'PAcesso';
+ 		$classes[] = 'PUsuarioPerfil';
 		return $classes;
 	}
 

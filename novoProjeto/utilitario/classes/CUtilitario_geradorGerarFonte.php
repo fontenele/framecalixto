@@ -16,7 +16,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 	* Método inicial do controle
 	*/
 	function inicial(){
-		//$this->debug = true;
 		$this->passarProximoControle(definicaoEntidade::controle($this,'geradorDefinirEntidade'));
 		$this->entidade = $_POST;
 		$this->entidade['ng_nome'] = array_map('caracteres::RetiraAcentos',$this->entidade['ng_nome']);
@@ -38,6 +37,8 @@ class CUtilitario_geradorGerarFonte extends controle{
 		if(!is_dir("{$this->nomeEntidade}/html"))
 			mkdir("{$this->nomeEntidade}/html",0777);
 		umask(0111);
+		$this->visualizacao->entidade = "[{$this->entidade['entidade']}]";
+		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->classe = 'class';
 		$this->montarArquivoDefinicaoXML();
 		$this->montarArquivoInternacionalizacaoXML();
@@ -173,7 +174,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 	*/
 	function montarPersistente(){
 		$persistente = definicaoEntidade::persistente($this->nomeNegocio);
-		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->persistenteNome = $persistente;
 		$this->visualizacao->persistentePai = 'persistentePadraoPG';
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$persistente}.postgres.php",$this->visualizacao->pegar('classesPersistente.html'));
@@ -184,7 +184,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 	* Monta a classe de negocio
 	*/
 	function montarNegocio(){
-		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->nomes = $this->entidade['ng_nome'];
 		$this->visualizacao->chave = $this->entidade['ng_nome'][$this->entidade['ng_chave_pk']];
 		$this->visualizacao->nomesPropriedades = $this->entidade['en_nome'];
@@ -197,7 +196,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 	*/
 	function montarInternacionalizacao(){
 		$internacionalizacao = definicaoEntidade::internacionalizacao($this->nomeNegocio);
-		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->internacionalizacaoNome = $internacionalizacao;
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$internacionalizacao}.php",$this->visualizacao->pegar('classesInternacionalizacao.html'));
 	}
@@ -207,7 +205,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 	function montarControleExcluir(){
 		$controle = definicaoEntidade::controle($this->nomeNegocio);
 		$this->visualizacao->acao = "Executa a exclusão de um objeto : {$this->entidade['entidade']}";
-		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->controleNome = "{$controle}_excluir";
 		$this->visualizacao->controlePai = 'controlePadraoExcluir';
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_excluir.php",$this->visualizacao->pegar('classesControle.html'));
@@ -218,7 +215,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 	function montarControleGravar(){
 		$controle = definicaoEntidade::controle($this->nomeNegocio);
 		$this->visualizacao->acao = "Executa a gravação de um objeto : {$this->entidade['entidade']}";
-		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->controleNome = "{$controle}_gravar";
 		$this->visualizacao->controlePai = 'controlePadraoGravar';
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_gravar.php",$this->visualizacao->pegar('classesControle.html'));
@@ -229,7 +225,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 	function montarControleMudarPagina(){
 		$controle = definicaoEntidade::controle($this->nomeNegocio);
 		$this->visualizacao->acao = "Executa a mudança de pagina da listagem";
-		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->controleNome = "{$controle}_mudarPagina";
 		$this->visualizacao->controlePai = 'controlePadraoMudarPagina';
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_mudarPagina.php",$this->visualizacao->pegar('classesControle.html'));
@@ -240,7 +235,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 	function montarControlePesquisar(){
 		$controle = definicaoEntidade::controle($this->nomeNegocio);
 		$this->visualizacao->acao = "Executa a pesquisa de um objeto : {$this->entidade['entidade']}";
-		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->controleNome = "{$controle}_pesquisar";
 		$this->visualizacao->controlePai = 'controlePadraoPesquisar';
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_pesquisar.php",$this->visualizacao->pegar('classesControle.html'));
@@ -251,7 +245,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 	function montarControleVerEdicao(){
 		$controle = definicaoEntidade::controle($this->nomeNegocio);
 		$this->visualizacao->acao = "Cria a visualização de um objeto : {$this->entidade['entidade']}";
-		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->controleNome = "{$controle}_verEdicao";
 		$this->visualizacao->controlePai = 'controlePadraoVerEdicao';
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_verEdicao.php",$this->visualizacao->pegar('classesControle.html'));
@@ -262,7 +255,6 @@ class CUtilitario_geradorGerarFonte extends controle{
 	function montarControleVerPesquisa(){
 		$controle = definicaoEntidade::controle($this->nomeNegocio);
 		$this->visualizacao->acao = "Cria a visualização da pesquisa de um objeto : {$this->entidade['entidade']}";
-		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->controleNome = "{$controle}_verPesquisa";
 		$this->visualizacao->controlePai = 'controlePadraoVerPesquisa';
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_verPesquisa.php",$this->visualizacao->pegar('classesControle.html'));

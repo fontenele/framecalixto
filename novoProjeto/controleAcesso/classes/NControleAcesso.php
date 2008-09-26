@@ -27,12 +27,12 @@ class NControleAcesso extends negocio{
 					throw(new erroAcesso('Acesso não permitido, usuário não registrado !'));
 				default:
 					$nUsuario = sessaoSistema::pegar('usuario');
-					$nAcesso = new NAcessoDoUsuario();
-					$nAcesso->passarIdUsuario($nUsuario->pegarIdUsuario());
-					$nAcesso->passarControle($controleAcessado);
-					$colecao = $nAcesso->pesquisar(new pagina());
-					if(!$colecao->contarItens())
+					$nUsuario->carregarPerfis();
+					$nAcesso = new NAcesso();
+					$colecao = $nAcesso->lerAcessosPorUsuario($nUsuario,$controleAcessado);
+					if(!$colecao->contarItens()){
 						throw(new erroAcesso('Acesso Não Permitido !'));
+					}
 			}
 			return true;
 		}
@@ -52,10 +52,10 @@ class NControleAcesso extends negocio{
 					throw(new erroLogin('Senha não informada !'));
 				default:
 					$nUsuario = new NUsuario();
-					$nUsuario->passarNmUsuario($this->pegarLogin());
+					$nUsuario->passarLogin($this->pegarLogin());
 					$nUsuario->passarSenha($this->pegarSenha());
 					$colecao = $nUsuario->pesquisar(new pagina());
-					if(!$colecao->possuiItens()) throw(new erroLogin('Usuário não autorizado !'));
+					if(!$colecao->possuiItens()) throw(new erroAcesso('Usuário não autorizado !'));
 					sessaoSistema::registrar('usuario',$colecao->avancar());
 			}
 		}

@@ -10,7 +10,7 @@ class CUtilitario_verImportador extends controlePadrao{
 	* Método inicial do controle
 	*/
 	public function inicial(){
-		$this->registrarInternacionalizacao();
+		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'importadorXML'));
 		$this->visualizacao->xml = VComponente::montar('textArea','xml',null);

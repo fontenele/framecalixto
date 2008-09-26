@@ -153,34 +153,4 @@
 		<email>elvischester@hotmail.com</email>
 		<site>www.basedainformacao.com.br</site>
 	</classe>
-	<classe nome='NItem'>
-		<nmItem>Gerenciamento de Projeto</nmItem>
-		<csItem>3</csItem>
-		<vlItem>45</vlItem>
-	</classe>
-	<classe nome='NItem'>
-		<nmItem>Levantamento de Requisitos</nmItem>
-		<csItem>3</csItem>
-		<vlItem>25</vlItem>
-	</classe>
-	<classe nome='NItem'>
-		<nmItem>Análise de Requisitos</nmItem>
-		<csItem>3</csItem>
-		<vlItem>30</vlItem>
-	</classe>
-	<classe nome='NItem'>
-		<nmItem>Documentação de Software</nmItem>
-		<csItem>3</csItem>
-		<vlItem>15</vlItem>
-	</classe>
-	<classe nome='NItem'>
-		<nmItem>Codificação de Software</nmItem>
-		<csItem>3</csItem>
-		<vlItem>25</vlItem>
-	</classe>
-	<classe nome='NItem'>
-		<nmItem>Implantação de Software</nmItem>
-		<csItem>3</csItem>
-		<vlItem>15</vlItem>
-	</classe>
 </classes>

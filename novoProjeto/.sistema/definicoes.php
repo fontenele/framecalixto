@@ -90,7 +90,7 @@ function __autoload($stClasse){
 	}catch (Exception $e) {
 			$debug = debug_backtrace();
 			echo "
-			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
+			<link rel='stylesheet' href='.sistema/css/debug.css' />
 			<div class='erroNegro'>
 				<table summary='text' class='erroNegro'>
 					<tr><th colspan=2 >Tentativa de instanciar uma classe inexistente!</th></tr>
@@ -103,11 +103,23 @@ function __autoload($stClasse){
 			die();
 	}
 }
-
+if(function_exists('iconv')){
+	define('conversorIconv',true);
+}else{
+	define('conversorIconv',false);
+}
 /**
 * retorna uma string com a codificação correta .
 */
 function caracteres($string,$tipoEntrada = "UTF-8",$tipoSaida = "ISO-8859-1"){
-	return iconv($tipoEntrada,$tipoSaida,$string);
+	if(conversorIconv){
+		return iconv($tipoEntrada,$tipoSaida,$string);
+	}else{
+		if(strtolower($tipoEntrada) == 'utf-8'){
+			return utf8_decode($string);
+		}else{
+			return utf8_encode($string);
+		}
+	}
 }
 ?>

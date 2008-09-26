@@ -6,67 +6,85 @@
 * @subpackage Controle Menu
 */
 class NControleMenu extends negocio{
+	/**
+	* Menu principal do sistema
+	* @var array
+	*/
 	protected $menuPrincipal = array();
+	/**
+	* Menu do sistema
+	* @var array
+	*/
 	protected $menuSistema = array();
+	/**
+	* Array de acessos liberados para o usuário
+	* @var array
+	*/
+	protected $acessosLiberados = array();
+	/**
+	* Flag de liberação dos menus
+	* @var boolean
+	*/
+	protected $menuLiberado = false;
+	/**
+	* Método construtor que lê os acessos liberados para o usuário logado
+	*/
+	public function __construct(){
+		try{
+			$definicoes = definicao::pegarDefinicao();
+			$controleDeAcesso = $definicoes->xpath('//controleDeAcesso');
+			$this->menuLiberado = (isset($controleDeAcesso[0]) && strval($controleDeAcesso[0]['liberado']) == 'sim') ? true : false;
+			if(!$this->menuLiberado){
+				$nUsuario = sessaoSistema::pegar('usuario');
+				$nAcesso = new NAcesso();
+				$this->acessosLiberados = array_flip($nAcesso->lerAcessosPorUsuario($nUsuario)->gerarVetorDeAtributo('nmAcesso'));
+			}
+			return true;
+		}catch (erro $e){
+			return false;
+		}
+	}
+	/**
+	* Método criado para fazer a verificação do menuPrincipal do sistema quanto ao controle de acesso
+	* @param string $propriedadeMenu propriedade que ficara adicionado o item
+	* @param string $caminhoItem caminho do item separado por / (barra)
+	* @param string $valorItem item do menu que será acessado
+	* @param string $destravar destrava a validação do controle de acesso
+	*/
+	protected function adicionarItem($propriedadeMenu,$caminhoItem,$valorItem,$destravar = false){
+		if($destravar || $this->menuLiberado || isset($this->acessosLiberados[$valorItem]))
+		eval("\$this->{$propriedadeMenu}['".str_replace('/',"']['",$caminhoItem)."'] = '?c={$valorItem}';");
+	}
 	/**
 	* Método criado para efetuar a montagem do menu do site
 	*/
 	public function menuPrincipal(){
 		try{
-			$menu['Sistema']['Principal'] = '?c=CControleAcesso_verPrincipal';
-			$menu['Sistema']['Login'] = '?c=CControleAcesso_verLogin';
-			$menu['Serviços']['Rede'] = '#';
-			$menu['Serviços']['Hardware'] = '#';
-			$menu['Serviços']['Software']['livre'] = '#';
-			$menu['Serviços']['Software']['Proprietario'] = '#';
-			$menu['A Empresa'] = '#';
-			$menu['Fale Conosco']['Via Telefone'] = '#';
-			$menu['Fale Conosco']['Via Email'] = '#';
-			return $menu;
+			$this->adicionarItem('menuPrincipal','Sistema/Principal','CControleAcesso_verPrincipal',true);
+			$this->adicionarItem('menuPrincipal','Sistema/Login','CControleAcesso_verLogin',true);
+			$this->adicionarItem('menuPrincipal','Cadastros/Perfil','CPerfil_verPesquisa');
+			$this->adicionarItem('menuPrincipal','Cadastros/Estado','CEstado_verPesquisa');
+			$this->adicionarItem('menuPrincipal','Cadastros/Pessoa','CPessoa_verPesquisa');
+			$this->adicionarItem('menuPrincipal','Cadastros/Usuário','CUsuario_verPesquisa');
+			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade');
+			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase');
+			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador');
+			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema');
+			return $this->menuPrincipal;
 		}
 		catch(erro $e){
+			return array();
 		}
 	}
 	/**
 	* Método criado para efetuar a montagem do menu do sistema
 	*/
 	public function menuMenuSistema(){
-		$this->adicionarItemSistema('Cadastros/Pessoa','CPessoa_verPesquisa');
-		$this->adicionarItemSistema('Cadastros/Tarefas','CTarefa_verPesquisa');
-		$this->adicionarItemSistema('Cadastros/Usuario','CUsuario_verPesquisa');
-		$this->adicionarItemSistema('Cadastros/Atividades','CAtividade_verPesquisa');
-		$this->adicionarItemSistema('Cadastros/Itens','CItem_verPesquisa');
-		$this->adicionarItemSistema('Movimento/Tarefas do Usuário','CTarefa_verTarefasDoUsuario');
-		$this->adicionarItemSistema('Relatórios/Cliente','CTarefa_verTarefasDoDono');
-		$this->adicionarItemSistema('Apoio/Gerador','CUtilitario_listarEntidade');
-		$this->adicionarItemSistema('Apoio/Recriador de Base','CUtilitario_atualizadorBase');
-		$this->adicionarItemSistema('Apoio/Importador','CUtilitario_importadorXML');
-		$this->adicionarItemSistema('Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema');
-		return $this->menuSistema;
-	}
-	/**
-	* Método criado para fazer a verificação do menuPrincipal do sistema quanto ao controle de acesso
-	* @param [texto] caminho do item separado por / (barra)
-	* @param [texto] item do menu que será acessado
-	* @param [booleano] destrava a validação do controle de acesso
-	*/
-	protected function adicionarItemPrincipal($endereco,$item,$travarLink = true){
-		try{
-			if($travarLink) NControleAcesso::validarAcesso($item);
-			eval("\$this->menuPrincipal['".str_replace('/',"']['",$endereco)."'] = '?c={$item}';");
-		}catch(erro $e){}
-	}
-	/**
-	* Método criado para fazer a verificação do m do sistema quanto ao controle de acesso
-	* @param [texto] caminho do item separado por / (barra)
-	* @param [texto] item do menu que será acessado
-	* @param [booleano] destrava a validação do controle de acesso
-	*/
-	protected function adicionarItemSistema($endereco,$item,$travarLink = true){
-		try{
-			if($travarLink) NControleAcesso::validarAcesso($item);
-			eval("\$this->menuSistema['".str_replace('/',"']['",$endereco)."'] = '?c={$item}';");
-		}catch(erro $e){}
+		try {
+			return $this->menuSistema;
+		}catch (erro $e){
+			return array();
+		}
 	}
 }
 ?>

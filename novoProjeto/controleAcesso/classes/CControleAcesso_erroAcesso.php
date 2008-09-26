@@ -5,23 +5,13 @@
 * @package Sistema
 * @subpackage ControleAcesso
 */
-class CControleAcesso_erroAcesso extends controlePadrao{
+class CControleAcesso_erroAcesso extends controlePadraoLiberado{
 	/**
-	* Método inicial do controle
+	* Preenche os itens da propriedade menuPrincipal
+	* @return [array] itens do menu principal
 	*/
-	function inicial(){
-		$this->gerarMenuPrincipal();
-		$this->gerarMenuModulo();
-		$this->registrarInternacionalizacao();
-		$this->visualizacao->mensagemErro = (isset($_GET['mensagemErro'])) ? $_GET['mensagemErro'] : '' ;
-		$this->visualizacao->mostrar();
-	}
-	/**
-	* Método de validação do controle de acesso
-	* @return [booleano] resultado da validação
-	*/
-	public function validarAcessoAoControle(){
-		return true;
+	public function montarMenuPrincipal(){
+		return controlePadrao::montarMenuPrincipal();
 	}
 }
 ?>

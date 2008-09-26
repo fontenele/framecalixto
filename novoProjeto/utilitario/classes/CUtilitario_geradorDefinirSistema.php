@@ -10,6 +10,7 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 	* Método inicial do controle
 	*/
 	public function inicial(){
+		$this->gerarMenuprincipal();
 		$this->gerarMenuPrograma();
 		global $definicoes;
 		$arBooleano		= array('sim'=>$this->inter->pegarTexto('sim'),'nao'=>$this->inter->pegarTexto('nao'));
@@ -26,7 +27,7 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		$metodoMenu2	= ($metodoMenu2 = strval($definicoes->controleDeMenu['metodoMenuSistema'])) ? $metodoMenu2 : 'menuMenuSistema';
 
 		$this->sessao->limpar();
-		$this->registrarInternacionalizacao();
+		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		//Páginas do sistema
 		$this->visualizacao->paginaInicial 	= VComponente::montar('input','sistema[paginaInicial]',$paginaInicial);
 		$this->visualizacao->paginaErro 	= VComponente::montar('input','sistema[paginaErro]',$paginaErro);
@@ -84,6 +85,10 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 
 	public function montarMenuPrograma(){
 		$menu[$this->inter->pegarTexto('botaoGravar')]  = 'javascript:document.formulario.submit();';
+		return $menu;
+	}
+	public function montarMenuPrincipal(){
+		$menu['Sistema']['Principal']  = '?c=CControleAcesso_verPrincipal';
 		return $menu;
 	}
 }

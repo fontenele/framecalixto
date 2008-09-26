@@ -24,11 +24,14 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 			$tipoErro = 'Fatal';
 		break;
 	}
+	ob_start();
+		debug_print_backtrace();
+	$back = ob_get_clean();
 	echo "
+		<link type='text/css' rel='stylesheet' href='.sistema/css/debug.css' />
 		<fieldset class='erroNegro'>
 			<legend>{$tipoErro}</legend>
-			<link rel='stylesheet' href='.calixto/estilos/debug.css' />
-			<img src='.calixto/imagens/{$imagemErro}' alt='[imagem]'>
+			<img src='.sistema/imagens/{$imagemErro}' alt='[imagem]'>
 			<table summary='text' class='erroNegro'>
 				<tr>
 					<td>Mensagem:</td>
@@ -39,6 +42,8 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 					<td>## {$arquivo}({$linha})</td>
 				</tr>
 			</table>
+		<pre>{$back}
+		</pre>
 		</fieldset>";
 }
 header("Content-type:text/html; charset=utf-8");
