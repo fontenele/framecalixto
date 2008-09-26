@@ -1,9 +1,9 @@
 <?php
 /**
 * Classe de controle
-* Executa a gravação de um objeto : Usuario
+* Executa a gravação de um objeto : Usuário
 * @package Sistema
-* @subpackage usuario
+* @subpackage Usuário
 */
 class CUsuario_gravar extends controlePadraoGravar{}
 ?>

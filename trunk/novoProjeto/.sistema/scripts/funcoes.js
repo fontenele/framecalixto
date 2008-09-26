@@ -326,7 +326,7 @@ function checarData(Componente,separadorData,stFormato, stDataAtual){
 		}
 		var re = /^(0[1-9]|1[0-2])$/;
 		var resMes = re.exec(inMes);
-		var re = /^2[0-1]\d{2}$/;
+		var re = /^(2[0-1]|19)\d{2}$/;
 		var resAno = re.exec(inAno);
 		var re = /^(0[1-9]|[1-2][0-9])\d{2}|(310[13578])|(311(0|2))|(300[^02])|301(0|1|2)$/;
 		var resDia = re.exec(inDia + inMes);

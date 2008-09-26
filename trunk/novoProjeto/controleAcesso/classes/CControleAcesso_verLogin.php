@@ -10,8 +10,9 @@ class CControleAcesso_verLogin extends controlePadrao{
 	* Método inicial do controle
 	*/
 	public function inicial(){
+		sessaoSistema::encerrar();
 		$this->gerarMenuPrincipal();
-		$this->registrarInternacionalizacao();
+		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'validar'));
 		$this->visualizacao->login = VComponente::montar('caixa de entrada','login', null);
 		$this->visualizacao->login->passarSize(15);
@@ -19,7 +20,6 @@ class CControleAcesso_verLogin extends controlePadrao{
 		$this->visualizacao->senha->passarSize(15);
 		$this->visualizacao->enviar = VComponente::montar('confirmar','enviar', $this->inter->pegarTexto('enviar'));
 		$this->visualizacao->mostrar();
-		sessaoSistema::encerrar();
 	}
 	/**
 	* Método de validação do controle de acesso

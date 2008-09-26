@@ -5,12 +5,11 @@
 * @package Sistema
 * @subpackage Gerador
 */
-class CUtilitario_listarEntidade extends controlePadraoListagem{
+class CUtilitario_listarEntidade extends controlePadrao{
 	/**
 	* Método inicial do controle
 	*/
 	function inicial(){
-		parent::inicial();
 		$this->visualizacao = new visualizacaoPadrao($this);
 		$this->inter = new IUtilitario();
 		$this->criarVisualizacaoPadrao();
@@ -32,10 +31,10 @@ class CUtilitario_listarEntidade extends controlePadraoListagem{
 		$d->close();
 		asort($negocios->itens);
 		$this->gerarMenus();
-		$this->registrarInternacionalizacao();
+		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->visualizacao->listagem = $negocios->itens;
 		$this->visualizacao->controles = $controles->itens;
-		$this->visualizacao->mostrar();
+		parent::inicial();
 	}
 	/**
 	* Retorna um array com os itens do menu do programa

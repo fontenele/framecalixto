@@ -12,7 +12,7 @@
 */
 function debug1($var){
 	ob_start();
-	echo '<link rel="stylesheet" href=".calixto/estilos/debug.css" />';
+	echo '<link rel="stylesheet" href=".sistema/css/debug.css" />';
 	echo '<div class="debug"><pre>';
 	var_dump($var);
 	echo '</pre></div>';
@@ -26,7 +26,7 @@ function debug1($var){
 * @return [string]
 */
 function debug2($var,$metodos = true, $visualizacao = false){
-	echo '<link rel="stylesheet" href=".calixto/estilos/debug.css" />';
+	echo '<link rel="stylesheet" href=".sistema/css/debug.css" />';
 	switch(true){
 		case is_bool($var):
 			echo ($var ? '<font class="tipoPrimario" >(booleano)</font> = <font class="booleano" >true</font>' : '<font class="tipoPrimario">(booleano)</font> = <font class="booleano">false</font>');
@@ -94,7 +94,7 @@ function debug2($var,$metodos = true, $visualizacao = false){
 * @return [string]
 */
 function debug3(objeto $var){
-		echo '<link rel="stylesheet" href=".calixto/estilos/debug.css" />';
+		echo '<link rel="stylesheet" href=".sistema/css/debug.css" />';
 		echo '<div class="debug"><pre>';
 		ob_start();
 		Reflection::export(new ReflectionClass($var));

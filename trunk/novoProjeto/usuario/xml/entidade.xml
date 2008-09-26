@@ -1,43 +1,27 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade nomeBanco='usuario'>
+<entidade  nomeBanco='usuario' nomeSequencia='sq_usuario'>
 	<propriedades>
-		<propriedade id='idUsuario' tipo='numerico' tamanho='10' obrigatorio='sim' indicePrimario='sim'  >
-			<banco nome='Usua_id_usuario'  />
-			<apresentacao componente='oculto' >
-				<listagem ordem='1' tamanho='10%' hyperlink='sim' />
-			</apresentacao>
-		</propriedade>
-		<propriedade id='idPessoa' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NPessoa' metodoLeitura='lerColaboradores' >
-			<banco nome='Usua_id_pessoa' >
-				<chaveEstrangeira tabela='Pessoa' campo='pess_id_pessoa' />
+		<propriedade id='idPessoa' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NPessoa' metodoLeitura='lerTodos' descritivo='1'  >
+			<banco nome='usua_id_pessoa' >
+				<chaveEstrangeira tabela='pessoa' campo='pess_id_pessoa' />
 			</banco>
 			<apresentacao componente='caixa de combinacao' >
-				<listagem ordem='5' tamanho='45%' />
+				<listagem ordem='1' tamanho='30%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='nmUsuario' tipo='texto' tamanho='30' obrigatorio='sim'  descritivo='1' >
-			<banco nome='Usua_nm_usuario' ordem='1' operador='igual' />
+		<propriedade id='idUsuario' tipo='numerico' tamanho='10' indicePrimario='sim'  >
+			<banco nome='usua_id_usuario'  />
+			<apresentacao componente='oculto'  />
+		</propriedade>
+		<propriedade id='login' tipo='texto' tamanho='25' obrigatorio='sim' descritivo='2'  >
+			<banco nome='usua_login' ordem='1' operador='igual' />
 			<apresentacao componente='caixa de entrada' >
-				<listagem ordem='2' tamanho='40%' />
+				<listagem ordem='2' tamanho='30%' hyperlink='sim' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='senha' tipo='texto' tamanho='30' obrigatorio='sim' >
-			<banco nome='Usua_senha' operador='igual' />
+		<propriedade id='senha' tipo='texto' tamanho='500' obrigatorio='sim'  >
+			<banco nome='usua_senha' operador='igual' />
 			<apresentacao componente='palavra chave'  />
-		</propriedade>
-		<propriedade id='status' tipo='texto' tamanho='1'  >
-			<dominio>
-				<opcao id='A' />
-				<opcao id='I' />
-			</dominio>
-			<banco nome='Usua_status'  />
-			<apresentacao componente='caixa de combinacao' >
-				<listagem ordem='3' tamanho='5%' />
-			</apresentacao>
-		</propriedade>
-		<propriedade id='dtCadastro' tipo='data'  >
-			<banco nome='Usua_dt_cadastro'  />
-			<apresentacao componente='data e hora'  />
 		</propriedade>
 	</propriedades>
 </entidade>

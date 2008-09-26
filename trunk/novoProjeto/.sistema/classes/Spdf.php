@@ -10,8 +10,8 @@ class Spdf extends pdf{
 	*/
 	function cabecalho(){
 		//$this->Image('logo_pb.png',10,8,33);
-		$this->SetFont('Arial','B',15);
-		$this->Cell(0,10,'Title',1,0,'C');
+		$this->SetFont('Arial','B',12);
+		$this->Cell(0,10,'Associação Comunitária do Setor Habitacional Vicente Pires',1,0,'C');
 		$this->Ln(20);
 		$this->SetFont('Times','B',8);
 	}

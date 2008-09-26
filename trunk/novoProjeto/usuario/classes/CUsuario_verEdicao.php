@@ -1,9 +1,9 @@
 <?php
 /**
 * Classe de controle
-* Cria a visualização de um objeto : Usuario
+* Cria a visualização de um objeto : Usuário
 * @package Sistema
-* @subpackage usuario
+* @subpackage Usuário
 */
 class CUsuario_verEdicao extends controlePadraoVerEdicao{}
 ?>

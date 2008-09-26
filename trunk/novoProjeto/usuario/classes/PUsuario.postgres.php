@@ -2,7 +2,7 @@
 /**
 * Classe de persistência
 * @package Sistema
-* @subpackage usuario
+* @subpackage Usuário
 */
 class PUsuario extends persistentePadraoPG{}
 ?>

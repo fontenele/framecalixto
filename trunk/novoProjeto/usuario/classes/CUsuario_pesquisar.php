@@ -1,9 +1,9 @@
 <?php
 /**
 * Classe de controle
-* Executa a pesquisa de um objeto : Usuario
+* Executa a pesquisa de um objeto : Usuário
 * @package Sistema
-* @subpackage usuario
+* @subpackage Usuário
 */
 class CUsuario_pesquisar extends controlePadraoPesquisar{}
 ?>

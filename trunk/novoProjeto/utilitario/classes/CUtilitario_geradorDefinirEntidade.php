@@ -12,7 +12,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 	function inicial(){
 		$this->sessao->limpar();
 		$this->gerarMenus();
-		$this->registrarInternacionalizacao();
+		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->visualizacao->entidade = VComponente::montar('input','entidade',null);
 		$this->visualizacao->entidade->adicionarOnchange('definirArquivosEntidade(true);sugerirNomeTabela();');
 		$this->visualizacao->nomeTabela = VComponente::montar('input','nomeTabela',null);

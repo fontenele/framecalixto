@@ -2,7 +2,7 @@
 /**
 * Classe de internacionalização
 * @package Sistema
-* @subpackage usuario
+* @subpackage Usuário
 */
 class IUsuario extends internacionalizacaoPadrao{}
 ?>

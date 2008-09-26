@@ -1,18 +1,19 @@
 <?php
 /**
 * Classe de controle
-* Cria a visualização de um objeto : Acesso do usuario
+* Cria a visualização de um objeto : Acesso do Usuario
 * @package Sistema
-* @subpackage usuario
+* @subpackage Usuario
 */
 class CUsuario_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 	/**
 	* metodo de apresentação do negocio
 	* @param [negocio] objeto para a apresentação
+	* @param [string] tipo de visualização a ser utilizada 'edicao' ou 'visual'
 	*/
-	public function montarApresentacaoEdicao(negocio $negocio){
+	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		if($negocio->valorChave()) {$negocio->carregarAcessos();}
-		$controlesUsuario = array_flip($negocio->coAcessos->gerarVetorDeAtributo('controle'));
+		$controlesUsuario = array_flip($negocio->coAcessos->gerarVetorDeAtributo('nmAcesso'));
 		$sistema = dir(".");
 		while (false !== ($diretorio = $sistema->read())) {
 			if (preg_match('/^[^\.].*/', $diretorio, $res) && is_dir($diretorio = "{$diretorio}/classes")){
@@ -42,22 +43,24 @@ class CUsuario_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 				$vCheckBox = VComponente::montar('checkbox','controle[]',$controle);
 				$vCheckBox->passarChecked(isset($controlesUsuario[$controle]));
 				$vCheckBox = $vCheckBox->__toString();
-				$listagem .= "\t\t\t<tr><td></td><td>{$vCheckBox}</td><td>{$arControle[1]}</td></tr>\n";
+				$vDtInicio = null;#VComponente::montar('data e hora','dtInicio[]',null);
+				$vDtFim = null;VComponente::montar('data e hora','dtFim[]',null);
+				$listagem .= "\t\t\t<tr><td></td><td>{$vCheckBox}</td><td>{$arControle[1]}</td><!--<td>{$vDtInicio}</td><td>&nbsp;</td><td>{$vDtFim}</td>--></tr>\n";
 			}
 		}
 		if($negocio->pegarIdUsuario()){
 			$nUsuario = new NUsuario();
 			$nUsuario->ler($negocio->pegarIdUsuario());
-			$this->visualizacao->usuario = $nUsuario->pegarNmUsuario();
+			$this->visualizacao->usuario = $nUsuario->pegarLogin();
 		}
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'selecionarAcessos'));
 		$this->visualizacao->idUsuario = VComponente::montar('oculto','idUsuario',$negocio->pegarIdUsuario());
-		$this->visualizacao->nmUsuario = $negocio->pegarNmUsuario();
+		$this->visualizacao->login = $negocio->pegarLogin();
 		$this->visualizacao->listagem = $listagem;
 	}
 	/**
 	* Retorna um array com os itens do menu do programa
-	* @return [array] itens do menu do programa
+	* @return array itens do menu do programa
 	*/
 	function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();

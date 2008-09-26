@@ -3,7 +3,7 @@
 * Classe de controle
 * Cria a visualização de um objeto : Acesso do usuario
 * @package Sistema
-* @subpackage acessoDoUsuario
+* @subpackage Usuario
 */
 class CUsuario_selecionarAcessos extends controlePadrao{
 	/**
@@ -21,9 +21,9 @@ class CUsuario_selecionarAcessos extends controlePadrao{
 			$negocio->coAcessos->excluir();
 			$negocio = new $negocio($conexao);
 			foreach($_POST['controle'] as $index => $controle){
-				$nAcesso = new NAcessoDoUsuario($conexao);
+				$nAcesso = new NAcesso($conexao);
 				$nAcesso->passarIdUsuario($_POST['idUsuario']);
-				$nAcesso->passarControle($controle);
+				$nAcesso->passarNmAcesso($controle);
 				$negocio->coAcessos->$index = $nAcesso;
 			}
 			$negocio->coAcessos->gravar();
