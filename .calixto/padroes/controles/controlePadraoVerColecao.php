@@ -67,12 +67,17 @@ abstract class controlePadraoVerColecao extends controlePadrao{
 		$this->definirSubClasse();
 		$this->definirSubColecao($negocio,$this->subClasse);
 		$this->definirColecaoOposta();
-		$this->definirListagemDados(
-			$this->pegarColecaoOposta()->gerarVetorDescritivo(),
-			$this->pegarSubColecao()->gerarVetorDeAtributo(
-				$this->definirAssociacaoOposta($this->colecaoOposta->pegar(),$this->subClasse)
-			)
-		);
+		if($this->colecaoOposta->possuiItens()){
+			$this->definirListagemDados(
+				$this->pegarColecaoOposta()->gerarVetorDescritivo(),
+				$this->pegarSubColecao()->gerarVetorDeAtributo(
+					$this->definirAssociacaoOposta($this->colecaoOposta->pegar(),$this->subClasse)
+				)
+			);
+		}else{
+			$this->definirListagemDados(
+				$this->pegarColecaoOposta()->gerarVetorDescritivo(), array());
+		}
 		$this->visualizacao->action = 
 			sprintf('?c=%s',
 				definicaoEntidade::controle(
@@ -129,8 +134,14 @@ abstract class controlePadraoVerColecao extends controlePadrao{
 	 * @param array $arDescricaoMarcada valores que estão marcados no banco de dados
 	 */
 	public function definirListagemDados($arDescricaoOposta,$arDescricaoMarcada){
-		$opcoes['legend'] = $this->colecaoOposta->pegar()->inter->pegarNome();
-		$this->visualizacao->listagem = VComponente::montar('checks','subNegocio',$arDescricaoMarcada,$opcoes,$arDescricaoOposta);
+		if($arDescricaoOposta){
+			$opcoes['legend'] = $this->colecaoOposta->pegar()->inter->pegarNome();
+			$this->visualizacao->listagem = VComponente::montar('checks','subNegocio',$arDescricaoMarcada,$opcoes,$arDescricaoOposta);
+		}else {
+			$fieldset = new VEtiquetaHtml('fieldset');
+			$fieldset->passarConteudo('Não existem registros cadastrados.');
+			$this->visualizacao->listagem = $fieldset;
+		}
 	}
 	/**
 	 * Método que define a coleção oposta a ser apresentada na listagem de dados
