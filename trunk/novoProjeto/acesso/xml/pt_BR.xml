@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>Acesso</nome>
+		<propriedades>
+		<propriedade nome='idAcesso'>
+			<nome>Identificador do acesso</nome>
+			<abreviacao>Id</abreviacao>
+			<descricao>Identificador do acesso</descricao>
+		</propriedade>
+		<propriedade nome='idPerfil'>
+			<nome>Identificador do perfil</nome>
+			<abreviacao>Perfil</abreviacao>
+			<descricao>Identificador do Perfil</descricao>
+		</propriedade>
+		<propriedade nome='idUsuario'>
+			<nome>Identificador do usuário</nome>
+			<abreviacao>Usuário</abreviacao>
+			<descricao>Identificador do Usuário</descricao>
+		</propriedade>
+		<propriedade nome='nmAcesso'>
+			<nome>Nome do Acesso</nome>
+			<abreviacao>Acesso</abreviacao>
+			<descricao>Nome do Acesso</descricao>
+		</propriedade>
+		<propriedade nome='dtInicio'>
+			<nome>Data Inicio</nome>
+			<abreviacao>Inicio</abreviacao>
+			<descricao>Data de inicio do Acesso</descricao>
+		</propriedade>
+		<propriedade nome='dtFim'>
+			<nome>Data Fim</nome>
+			<abreviacao>Fim</abreviacao>
+			<descricao>Data de Fim do Acesso</descricao>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de Acesso</titulo>
+	</controles>
+</internacionalizacao>

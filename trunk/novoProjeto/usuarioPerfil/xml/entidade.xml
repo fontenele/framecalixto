@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<entidade  nomeBanco='usuario_perfil' nomeSequencia='sq_usuario_perfil'>
+	<propriedades>
+		<propriedade id='idUsuarioPerfil' tipo='numerico' tamanho='10' indicePrimario='sim'  >
+			<banco nome='usup_id_usuario_perfil'  />
+			<apresentacao componente='oculto'  />
+		</propriedade>
+		<propriedade id='idUsuario' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NUsuario' metodoLeitura='lerTodos' descritivo='1'  >
+			<banco nome='usup_id_usuario' ordem='1' >
+				<chaveEstrangeira tabela='usuario' campo='usua_id_usuario' />
+			</banco>
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='1' tamanho='30%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='idPerfil' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NPerfil' metodoLeitura='lerTodos' descritivo='2'  >
+			<banco nome='usup_id_perfil' >
+				<chaveEstrangeira tabela='perfil' campo='perf_id_perfil' />
+			</banco>
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='2' tamanho='30%' />
+			</apresentacao>
+		</propriedade>
+	</propriedades>
+</entidade>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>Perfil</nome>
+		<propriedades>
+		<propriedade nome='idPerfil'>
+			<nome>Identificador</nome>
+			<abreviacao>id</abreviacao>
+			<descricao>Identificador do Perfil</descricao>
+		</propriedade>
+		<propriedade nome='nmPerfil'>
+			<nome>Nome do Perfil</nome>
+			<abreviacao>Perfil</abreviacao>
+			<descricao>Nome do Perfil</descricao>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de Perfil</titulo>
+	</controles>
+</internacionalizacao>
