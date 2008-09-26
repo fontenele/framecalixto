@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<entidade  nomeBanco='acesso' nomeSequencia='sq_acesso'>
+	<propriedades>
+		<propriedade id='idAcesso' tipo='numerico' tamanho='10' indicePrimario='sim'  >
+			<banco nome='acess_id_acesso_usuario'  />
+			<apresentacao componente='oculto' >
+				<listagem ordem='1' tamanho='5%' hyperlink='sim' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='idPerfil' tipo='numerico' tamanho='10' classeAssociativa='NPerfil' metodoLeitura='lerTodos'  >
+			<banco nome='acess_id_perfil' >
+				<chaveEstrangeira tabela='perfil' campo='perf_id_perfil' />
+			</banco>
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='2' tamanho='20%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='idUsuario' tipo='numerico' tamanho='10' classeAssociativa='NUsuario' metodoLeitura='lerTodos'  >
+			<banco nome='acess_id_usuario' >
+				<chaveEstrangeira tabela='usuario' campo='usua_id_usuario' />
+			</banco>
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='3' tamanho='20%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='nmAcesso' tipo='texto' tamanho='500' obrigatorio='sim' descritivo='1'  >
+			<banco nome='acess_nm_acesso' ordem='1'  />
+			<apresentacao componente='caixa de entrada' >
+				<listagem ordem='4' tamanho='40%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='dtInicio' tipo='data'  >
+			<banco nome='acess_dt_inicio'  />
+			<apresentacao componente='data e hora' >
+				<listagem ordem='5' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='dtFim' tipo='data'  >
+			<banco nome='acess_dt_fim'  />
+			<apresentacao componente='data e hora' >
+				<listagem ordem='6' tamanho='5%' />
+			</apresentacao>
+		</propriedade>
+	</propriedades>
+</entidade>

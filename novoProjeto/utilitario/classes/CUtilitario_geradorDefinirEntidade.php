@@ -44,7 +44,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$mapNegocio['negocio'] = $negocio->pegarMapeamento();
 		$mapNegocio['bd'] = $persistente->pegarEstrutura();
 		$mapNegocio['inter'] = $internacionalizacao->pegarInternacionalizacao();
-		$mapNegocio['controle'] = $this->mapearControle(definicaoArquivo::pegarXmlEntidade(definicaoEntidade::controle($negocio,'verPesquisa')));
+		$mapNegocio['controle'] = self::pegarEstrutura($negocio);
 		foreach($mapNegocio['negocio'] as $i => $map){
 			$mapEntidade[$i]['negocio'] = $map;
 			$mapEntidade[$i]['controle'] = $mapNegocio['controle'][$map['propriedade']];
