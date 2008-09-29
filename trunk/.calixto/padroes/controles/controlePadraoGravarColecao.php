@@ -41,6 +41,7 @@ abstract class controlePadraoGravarColecao extends controlePadrao{
 			$this->definirSubColecao($negocio,$this->subClasse);
 			$this->subColecao->excluir();
 			$colecaoParaInclusao = new colecaoPadraoNegocio($conexao);
+			if(isset($_POST['subNegocio']))
 			foreach($_POST['subNegocio'] as $index => $idSubNegocio){
 				$subNegocio = new $nmSubNegocio($conexao);
 				$this->montarSubNegocioParaInclusao($subNegocio,$idNegocio,$idSubNegocio);

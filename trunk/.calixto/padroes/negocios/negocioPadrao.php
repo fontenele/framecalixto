@@ -17,6 +17,10 @@ abstract class negocioPadrao extends negocio{
 	*/
 	private static $estrutura;
 	/**
+	* @var internacionalizacaoPadrao internacionalização do negócio
+	*/
+	public $inter;
+	/**
 	* Metodo construtor
 	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
@@ -100,6 +104,7 @@ abstract class negocioPadrao extends negocio{
 								'tipo'				=> strval($propriedade['tipo']			),
 								'campo'				=> strtolower(strval($propriedade->banco['nome']	)),
 								'obrigatorio'		=> strval($propriedade['obrigatorio']	),
+								'indiceUnico'		=> strtolower(strval($propriedade['indiceUnico'])) == 'sim',
 								'dominio'			=> $dominio,
 								'descritivo'		=> strval($propriedade['descritivo']		),
 								'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
@@ -153,10 +158,14 @@ abstract class negocioPadrao extends negocio{
 					if($valor['classeAssociativa']){
 						$classe = new $valor['classeAssociativa']();
 						$colecao = $classe->$valor['metodoLeitura']();
-						$objetoPai = $colecao->pegar($this->$metodo());
-						// ATENÇÃO ESTA CHAMADA RECURSIVA PODE SE TORNAR INIFINITA !!!!
-						// CASO ISTO OCORRA ESPECIALISE O MÉTODO ...
-						$descricao[$valor['descritivo']] = $objetoPai->valorDescricao();
+						if($this->$metodo()){
+							$objetoPai = $colecao->pegar($this->$metodo());
+							// ATENÇÃO ESTA CHAMADA RECURSIVA PODE SE TORNAR INIFINITA !!!!
+							// CASO ISTO OCORRA ESPECIALISE O MÉTODO ...
+							$descricao[$valor['descritivo']] = $objetoPai->valorDescricao();
+						}else{
+							$descricao[$valor['descritivo']] = null;
+						}
 					}else{
 						$descricao[$valor['descritivo']] = is_object($this->$metodo()) ? $this->$metodo()->__toString() : $this->$metodo();
 					}
@@ -279,7 +288,36 @@ abstract class negocioPadrao extends negocio{
 	* Executa o comando de importação do objeto
 	*/
 	public function importar(){
+		$classe = get_class($this);
+		$valorChave = null;
+		$indiceUnico = $this->indiceUnico();
+		if($indiceUnico){
+			$negocio = new $classe($this->conexao);
+			foreach ($indiceUnico as $propriedade) {
+				$propriedade = ucfirst($propriedade);
+				$metodoPassar = "passar{$propriedade}";
+				$metodoPegar = "pegar{$propriedade}";
+				$negocio->$metodoPassar($this->$metodoPegar());
+			}
+			$colecao = $negocio->pesquisar(new pagina(0));
+			if($colecao->possuiItens())	$valorChave = $colecao->pegar()->valorChave();
+		}
+		$this->valorChave($valorChave);
 		$this->gravar();
+	}
+	/**
+	* Retorna um array com os campos que formam o índice único de negócio
+	* @return array
+	*/
+	public function indiceUnico(){
+		$mapeador = $this->pegarMapeamento();
+		$arIndiceUnico = array();
+		foreach ($mapeador as $campo) {
+			if($campo['indiceUnico']){
+				$arIndiceUnico[] = $campo['propriedade'];
+			}
+		}
+		return $arIndiceUnico;
 	}
 	/**
 	* Método utilizado para efetuar as verificações antes de executar a inclusão

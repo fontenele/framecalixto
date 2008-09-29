@@ -15,8 +15,9 @@ class controlePadraoPesquisar extends controlePadrao{
 		$negocio = new $negocio();
 		$pagina = new pagina();
 		$pagina->passarPagina();
+		$this->montarNegocio($negocio);
 		$this->sessao->registrar('pagina',$pagina);
-		$this->sessao->registrar('filtro',$this->montarNegocio($negocio));
+		$this->sessao->registrar('filtro',$negocio);
 	}
 }
 ?>
