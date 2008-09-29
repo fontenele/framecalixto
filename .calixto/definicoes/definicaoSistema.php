@@ -5,6 +5,9 @@
 * @subpackage Definição
 */
 class definicaoSistema{
+	const producao = '1';
+	const homologacao = '2';
+	const desenvolvimento = '3';
 	/**
 	* Retorna o nome do sistema
 	*/
@@ -29,6 +32,12 @@ class definicaoSistema{
 	*/
 	static function pegarControleErro(){
 		return strval(definicao::pegarDefinicao()->sistema['paginaErro']);
+	}
+	/**
+	* Retorna o ambiente do sistema
+	*/
+	static function pegarAmbiente(){
+		return strtolower(strval(definicao::pegarDefinicao()->sistema['ambiente']));
 	}
 }
 ?>
