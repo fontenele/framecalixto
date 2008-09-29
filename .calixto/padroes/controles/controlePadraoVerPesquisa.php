@@ -29,6 +29,10 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 		$this->listagem->controle = definicaoEntidade::controle($this,'mudarPagina');
 		$this->visualizacao->listagem = $this->listagem;
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'pesquisar'));
+		$help = new VEtiquetaHtml('div');
+		$help->passarClass('help');
+		$help->passarConteudo($this->inter->pegarTexto('ajudaPesquisa'));
+		$this->visualizacao->descricaoDeAjuda = $help;
 		parent::inicial();
 		if($this->sessao->tem('negocio')) $this->sessao->retirar('negocio');
 	}

@@ -9,6 +9,7 @@ class VComponente extends VEtiquetaHtml{
 		parent::__construct($etiqueta);
 		$this->passarTabindex(1);
 		$this->passarName($nome);
+		$this->passarId($nome);
 		if($valor) $this->passarValue($valor);
 	}
 	/**

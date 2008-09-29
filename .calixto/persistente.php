@@ -70,6 +70,7 @@ abstract class persistente extends objeto{
 							if(isset($campo['indicePrimario']) && strtolower(strval($campo['indicePrimario'])) == 'sim'){
 								$estrutura['chavePrimaria'] = $nomeCampo;
 							}
+							$estrutura['campo'][$nomeCampo]['nome'] = $nomeCampo;
 							$estrutura['campo'][$nomeCampo]['tipo'] = strtolower(strval($campo['tipo']));
 							$estrutura['campo'][$nomeCampo]['tamanho'] = strval($campo['tamanho']);
 							$estrutura['campo'][$nomeCampo]['obrigatorio'] = (strtolower(strval($campo['obrigatorio'])) == 'sim') ? 'sim' : 'nao';
@@ -132,11 +133,12 @@ abstract class persistente extends objeto{
 	//**************************************************************************
 	/**
 	* Método de conversão de tipo de dado
-	* @param [dado] dado a ser convertido
+	* @param mixed dado a ser convertido
+	* @param array campo referente
 	*/
 	public function converterDado($valor,$campo = null){
 		if($campo){
-			switch($campo['tipo']){
+			switch(strtolower($campo['tipo'])){
 				case 'data':
 					return new TData($valor);
 				break;
@@ -605,10 +607,12 @@ abstract class persistente extends objeto{
 	public function gerarComandoCriacaoChavePrimaria(){
 		try{
 			$estrutura = $this->pegarEstrutura();
+			$arNomeTable = explode('.',$estrutura['nomeTabela']);
+			$nomeTabela = $arNomeTable[count($arNomeTable) -1];
 			$comando = "";
 			if($estrutura['chavePrimaria']){
 				$comando .= "alter table only {$estrutura['nomeTabela']} \n
-				add constraint pk_{$estrutura['nomeTabela']} primary key ({$estrutura['chavePrimaria']})";
+				add constraint {$nomeTabela}_pk primary key ({$estrutura['chavePrimaria']})";
 			}
 			return $comando;
 		}
@@ -636,11 +640,14 @@ abstract class persistente extends objeto{
 	public function gerarComandoCriacaoChavesEstrangeiras(){
 		try{
 			$estrutura = $this->pegarEstrutura();
+			$arNomeTable = explode('.',$estrutura['nomeTabela']);
+			$nomeTabela = $arNomeTable[count($arNomeTable) -1];
 			$comando = "";
 			foreach($estrutura['campo'] as $nomeCampo => $referencia){
-				if(isset($referencia['chaveEstrangeira']))
+				if(isset($referencia['chaveEstrangeira'])){
 					$comando .= "alter table only {$estrutura['nomeTabela']} \n
-					add constraint {$estrutura['nomeTabela']}_{$nomeCampo}_fk foreign key ($nomeCampo) references {$referencia['chaveEstrangeira']['tabela']}({$referencia['chaveEstrangeira']['campo']});";
+					add constraint {$nomeTabela}_{$nomeCampo}_fk foreign key ($nomeCampo) references {$referencia['chaveEstrangeira']['tabela']}({$referencia['chaveEstrangeira']['campo']});";
+				}
 			}
 			return $comando;
 		}

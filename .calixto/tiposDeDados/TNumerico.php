@@ -53,21 +53,11 @@ class TNumerico extends objeto{
 	*/
 	public function passarNumero($numero){
 		switch(true){
-			case(is_numeric($numero)):
-				$this->numero = (float) $numero;
+			case(($numero instanceof objeto )):
+				$this->numero = $this->converterParaNumero($numero->toString());
 			break;
 			case(is_string($numero)):
-				$posicaoDecimal = strpos($numero,$this->pegarCharDecimal());
-				if($posicaoDecimal !== false){
-					$inteiro = substr($numero,0,$posicaoDecimal);
-					$decimal = substr($numero,$posicaoDecimal);
-					$this->numero = (float) preg_replace('/[^0-9]/','',$inteiro).'.'.preg_replace('/[^0-9]/','',$decimal);
-				}else{
-					$this->numero = (float) preg_replace('/[^0-9]/','',$numero);
-				}
-			break;
-			case(($numero instanceof TNumerico)):
-				$this->numero = $numero->pegarNumero();
+				$this->numero = $this->converterParaNumero($numero);
 			break;
 			default:
 				$this->numero = $numero;
@@ -82,6 +72,20 @@ class TNumerico extends objeto{
 			return $this->pegarSimbolo().number_format($this->pegarNumero(),$this->pegarNrCasasDecimais(),$this->pegarCharDecimal(),$this->pegarCharMilhar());
 		}else{
 			return number_format($this->pegarNumero(),$this->pegarNrCasasDecimais(),$this->pegarCharDecimal(),$this->pegarCharMilhar()).$this->pegarSimbolo();
+		}
+	}
+	/**
+	* Método que converte uma string para numero
+	* @param string texto que deve ser convertido para um numero
+	*/
+	protected function converterParaNumero($string){
+		$posicaoDecimal = strpos($string,$this->pegarCharDecimal());
+		if($posicaoDecimal !== false){
+			$inteiro = substr($string,0,$posicaoDecimal);
+			$decimal = substr($string,$posicaoDecimal);
+			return (float) preg_replace('/[^0-9]/','',$inteiro).'.'.preg_replace('/[^0-9]/','',$decimal);
+		}else{
+			return (float) preg_replace('/[^0-9]/','',$string);
 		}
 	}
 }
