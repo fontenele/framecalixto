@@ -75,9 +75,9 @@ abstract class persistente extends objeto{
 							$estrutura['campo'][$nomeCampo]['tamanho'] = strval($campo['tamanho']);
 							$estrutura['campo'][$nomeCampo]['obrigatorio'] = (strtolower(strval($campo['obrigatorio'])) == 'sim') ? 'sim' : 'nao';
 							if($estrutura['campo'][$nomeCampo]['tipo'] == 'texto'){
-								$estrutura['campo'][$nomeCampo]['operador'] = isset($campo->banco['operador']) ? strtolower(strval($campo->banco['operador'])): 'como';
+								$estrutura['campo'][$nomeCampo]['operadorDeBusca'] = isset($campo->banco['operadorDeBusca']) ? strtolower(strval($campo->banco['operadorDeBusca'])): 'como';
 							}else{
-								$estrutura['campo'][$nomeCampo]['operador'] = isset($campo->banco['operador']) ? strtolower(strval($campo->banco['operador'])): 'igual';
+								$estrutura['campo'][$nomeCampo]['operadorDeBusca'] = isset($campo->banco['operadorDeBusca']) ? strtolower(strval($campo->banco['operadorDeBusca'])): 'igual';
 							}
 							if(isset($campo->banco->chaveEstrangeira)){
 								$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['tabela'] = strval($campo->banco->chaveEstrangeira['tabela']);
@@ -262,7 +262,7 @@ abstract class persistente extends objeto{
 		foreach($filtro as $campo => $valor){
 			$valor = $this->converterDado($valor);
 			if(!$valor) continue;
-			switch($estrutura['campo'][$campo]['operador']){
+			switch(strtolower($estrutura['campo'][$campo]['operadorDeBusca'])){
 				case('diferente'):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
 						$operacao = " %s <> %s and ";
@@ -275,6 +275,16 @@ abstract class persistente extends objeto{
 						$operacao = " upper(%s) like upper(%%%s%%) and ";
 					}else{
 						$operacao = " upper(%s) like upper('%%%s%%') and ";
+					}
+				break;
+				case('generico'):
+				case('generica'):
+				case('genérico'):
+				case('genérica'):
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " accent_remove(upper(%s)) like accent_remove(upper(%%%s%%)) and ";
+					}else{
+						$operacao = " accent_remove(upper(%s)) like accent_remove(upper('%%%s%%')) and ";
 					}
 				break;
 				case('igual'):
