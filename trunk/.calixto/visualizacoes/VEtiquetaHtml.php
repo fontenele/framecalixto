@@ -48,7 +48,7 @@ class VEtiquetaHtml extends objeto{
 					$this->propriedades[strtolower($resultado[2])][] = (isset($parametros[0])) ? $parametros[0] : null;
 				break;
 				case 'remover':
-					array_pop($this->propriedades[strtolower($resultado[2])]);
+					unset($this->propriedades[strtolower($resultado[2])]);
 				break;
 			}
 		}

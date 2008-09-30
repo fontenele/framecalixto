@@ -6,18 +6,19 @@
 * @subpackage Controle
 */
 class controlePadraoPesquisar extends controlePadrao{
+	protected $negocio;
 	/**
 	* Método inicial do controle
 	*/
 	public function inicial(){
 		$this->passarProximoControle(definicaoEntidade::controle($this,'verPesquisa'));
 		$negocio = definicaoEntidade::negocio($this);
-		$negocio = new $negocio();
+		$this->negocio = new $negocio();
 		$pagina = new pagina();
 		$pagina->passarPagina();
-		$this->montarNegocio($negocio);
+		$this->montarNegocio($this->negocio);
 		$this->sessao->registrar('pagina',$pagina);
-		$this->sessao->registrar('filtro',$negocio);
+		$this->sessao->registrar('filtro',$this->negocio);
 	}
 }
 ?>

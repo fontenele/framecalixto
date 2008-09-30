@@ -306,10 +306,10 @@ class controlePadrao extends controle{
 			$this->visualizacao->tituloEspecifico = sprintf('%s - %s',$this->inter->pegarTitulo(),$this->inter->pegarTexto(definicaoEntidade::funcionalidade($this)));
 			switch($tipo){
 				case('edicao'):
-					$this->montarApresentacaoEdicao($negocio,$this->visualizacao);
+					self::montarApresentacaoEdicao($negocio,$this->visualizacao);
 				break;
 				case('visual'):
-					$this->montarApresentacaoVisual($negocio,$this->visualizacao);
+					self::montarApresentacaoVisual($negocio,$this->visualizacao);
 				break;
 			}
 		}
