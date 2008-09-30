@@ -391,7 +391,7 @@ abstract class negocioPadrao extends negocio{
 	/**
 	* Retorna uma coleção com os negócios pesquisados
 	* @param [pagina] pagina referente
-	* @param [filtro] dados de pesquisa (nï¿½ obrigatï¿½io)
+	* @param [filtro] dados de pesquisa (não obrigatorio)
 	* @return colecaoPadraoNegocio
 	*/
 	public function pesquisar(pagina $pagina, $filtro = null){
@@ -403,6 +403,20 @@ abstract class negocioPadrao extends negocio{
 				$arResultadoLeitura = $persistente->pesquisar($this->negocioPraVetor(),$pagina);
 			}
 			return $this->vetorPraColecao($arResultadoLeitura);
+		}
+		catch(Erro $e){
+			throw $e;
+		}
+	}
+	/**
+	* Retorna a quantidade de objetos que o metodo pesquisar irá retornar
+	* @param filtro dados de pesquisa (não obrigatorio)
+	* @return int
+	*/
+	public function totalDePesquisar($filtro = null){
+		try{
+			$persistente = $this->pegarPersistente();
+			return $persistente->totalDePesquisar($filtro);
 		}
 		catch(Erro $e){
 			throw $e;
