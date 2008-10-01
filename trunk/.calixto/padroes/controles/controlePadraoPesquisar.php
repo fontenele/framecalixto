@@ -7,6 +7,7 @@
 */
 class controlePadraoPesquisar extends controlePadrao{
 	protected $negocio;
+	protected $pagina;
 	/**
 	* Método inicial do controle
 	*/
@@ -14,10 +15,10 @@ class controlePadraoPesquisar extends controlePadrao{
 		$this->passarProximoControle(definicaoEntidade::controle($this,'verPesquisa'));
 		$negocio = definicaoEntidade::negocio($this);
 		$this->negocio = new $negocio();
-		$pagina = new pagina();
-		$pagina->passarPagina();
+		$this->pagina = new pagina();
+		$this->pagina->passarPagina();
 		$this->montarNegocio($this->negocio);
-		$this->sessao->registrar('pagina',$pagina);
+		$this->sessao->registrar('pagina',$this->pagina);
 		$this->sessao->registrar('filtro',$this->negocio);
 	}
 }
