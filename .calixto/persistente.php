@@ -346,28 +346,6 @@ abstract class persistente extends objeto{
 		}
 	}
 	/**
-	* Executa o comando de leitura dos registros pesquisados
-	* @param [array] dados do filtro
-	* @param [pagina] pagina referente
-	* @return array seleção de registros
-	*/
-	public function totalDePesquisar($filtro){
-		try{
-			if(is_subclass_of($filtro, 'filtro')){
-				trigger_error( 'Para se utilizar um "filtro" deve-se especializar o método "pesquisar" da persistente ['.get_class($this).']');
-			}
-			$sql = $this->gerarComandoPesquisar($filtro ? $filtro : array() );
-			$total = $this->pegarSelecao("select count(*) as quantidade from ({$sql}) selecao");
-			if(isset($total[0]['quantidade'])){
-				return ((integer) $total[0]['quantidade']);
-			}
-			return 0;
-		}
-		catch(erro $e){
-			throw $e;
-		}
-	}
-	/**
 	* Executa o comando de leitura de todos os registros
 	* @param [pagina] pagina referente
 	* @return array seleção de registros

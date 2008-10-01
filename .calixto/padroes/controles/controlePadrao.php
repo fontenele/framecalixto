@@ -26,6 +26,7 @@ class controlePadrao extends controle{
 		$this->visualizacao->menuModulo = '';
 		$this->visualizacao->menuPrograma = '';
 		$this->visualizacao->descricaoDeAjuda = '';
+		$this->visualizacao->action = '';
 	}
 	/**
 	* Método que retorna o negócio referente ao controle
