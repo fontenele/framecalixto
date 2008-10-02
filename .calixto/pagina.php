@@ -68,13 +68,16 @@ class pagina extends objeto{
 	* @return int
 	*/
 	function ultima(){
-		return (int) ($this->tamanhoGeral/$this->tamanhoPagina) + 1;
+		if($this->tamanhoGeral%$this->tamanhoPagina){
+			return (int) ($this->tamanhoGeral/$this->tamanhoPagina) + 1;
+		}
+		return (int) ($this->tamanhoGeral/$this->tamanhoPagina);
 	}
 	/**
 	* Incrementa a página atual
 	*/
 	function proxima(){
-		if($this->pegarPagina() <= $this->ultima()){
+		if($this->pegarPagina() < $this->ultima()){
 			$this->pagina++;
 			return true;
 		}else{
