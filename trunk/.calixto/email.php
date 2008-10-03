@@ -1,19 +1,20 @@
 <?php
-include_once('externas/phpmailer/class.phpmailer');
+include_once('externas/phpmailer/class.phpmailer.php');
 class email{
 
-	private $nomeRemetente;
-	private $emailRemetente;
+	public $nomeRemetente;
+	public $emailRemetente;
 
-	private $assunto;
-	private $conteudo;
-	private $mail;
+	public $assunto;
+	public $conteudo;
+	public $mail;
 
 	public function __construct($nomeRemetente, $emailRemetente){
 
 		$this->mail = new PHPMailer();
 		$this->mail->Priority = 1;
 		$this->mail->IsMail(); // mandar via SMTP
+		$this->mail->CharSet = 'utf-8';
 
 		$this->mail->From = $emailRemetente;
 		$this->mail->FromName = $nomeRemetente;
@@ -70,6 +71,24 @@ class email{
 
 		return $this->mail->Send();
 
+	}
+	
+	public function __toString(){
+		$to = '';
+		if (isset($this->mail->to[0])) foreach ($this->mail->to as $email){
+			$to .= "\"$email[1]\" $email[0];";
+		}
+		$bcc = isset($this->mail->bcc[0]) ? implode(';',$this->mail->bcc[0]) : null;
+		$str = "<fieldset><legend>email</legend>
+		<fieldset><b>De:</b> {$this->mail->From}<br/>
+		<b>Para:</b> {$to}<br/>
+		<b>Assunto:</b>{$this->mail->Subject}<br/>
+		</fieldset>
+		<fieldset>
+		{$this->mail->Body}
+		</fieldset>
+		</fieldset>";
+		return $str;
 	}
 
 }
