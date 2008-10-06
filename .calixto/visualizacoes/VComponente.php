@@ -5,6 +5,12 @@
 * @subpackage visualização
 */
 class VComponente extends VEtiquetaHtml{
+	/**
+	* Flag de apresentação do campo obrigatório
+	* @var boolean
+	*/
+	public $obrigatorio = false;
+	
 	function __construct($etiqueta = 'naoInformada',$nome = 'naoInformado',$valor = null){
 		parent::__construct($etiqueta);
 		$this->passarTabindex(1);
@@ -176,6 +182,24 @@ class VComponente extends VEtiquetaHtml{
 			x(func_get_args());
 			throw $e;
 		}
+	}
+	/**
+	* Método de sobrecarga para printar a classe
+	* @return [string] texto de saída da classe
+	*/
+	public function __toString(){
+		if($this->obrigatorio){
+			return parent::__toString().$this->campoObrigatorio();
+		}else{
+			return parent::__toString();
+		}
+	}
+	/**
+	* Método de complemento de campo obrigatório
+	* @return string
+	*/
+	protected function campoObrigatorio(){
+		return '<span id="campoObrigatorio">*</span>';
 	}
 }
 ?>

@@ -8,9 +8,8 @@ class VInputTelefone extends VInput{
 	function __construct($nome = 'naoInformado',TTelefone $valor){
 		parent::__construct($nome, $valor);
 		$this->passarClass('numerico');
-		//$this->adicionarOnFocus('desformatarTelefone(this);');
-		//$this->adicionarOnBlur('formatarTelefone(this);');
-		$this->passarSize('10');
+		$this->adicionarOnBlur('validarTelefone(this);');
+		$this->passarSize('12');
 		$this->passarMaxlength('13');
 		$this->passarValue($valor->__toString());
 	}
