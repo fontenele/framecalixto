@@ -293,6 +293,9 @@ class controlePadrao extends controle{
 				if ($visualizacao->$nome instanceof VInput && $opcoes['tamanho']) {
 					$visualizacao->$nome->passarMaxlength($opcoes['tamanho']);
 				}
+				if($opcoes['obrigatorio']){
+					$visualizacao->$nome->obrigatorio = true;
+				}
 			}
 		}
 		$visualizacao->enviar = VComponente::montar('enviar','enviar', $negocio->inter->pegarTexto('enviar'));

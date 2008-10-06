@@ -9,5 +9,12 @@ class VHidden extends VInput{
 		parent::__construct($nome, $valor);
 		$this->passarType('hidden');
 	}
+	/**
+	* Método de complemento de campo obrigatório
+	* @return string
+	*/
+	protected function campoObrigatorio(){
+		return null;
+	}
 }
 ?>

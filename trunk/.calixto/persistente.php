@@ -295,7 +295,7 @@ abstract class persistente extends objeto{
 					}
 				break;
 			}
-			$comando.= sprintf($operacao,$campo,$valor);
+			$comando.= sprintf($operacao,$campo,str_replace("'","''",$valor));
 		}
 		if($comando){
 			$comando = substr($comando,0,-4);
