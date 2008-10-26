@@ -1,0 +1,60 @@
+@import url(padrao.css) ;
+@import url(pagina.css) ;
+@import url(banner.css) ;
+@import url(menu1.css) ;
+@import url(menu2.css) ;
+@import url(menu3.css) ;
+@import url(abas.css) ;
+@import url(container0.css) ;
+@import url(container1.css) ;
+@import url(container2.css) ;
+@import url(container3.css) ;
+@import url(container4.css) ;
+@import url(container5.css) ;
+@import url(container6.css) ;
+@import url(container7.css) ;
+@import url(container8.css) ;
+@import url(container9.css) ;
+@import url(comunicacao.css) ;
+@import url(rodape.css) ;
+@import url(tabela0.css) ;
+@import url(tabela1.css) ;
+@import url(help.css) ;
+.conteudo{
+	color:#656565;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:11px;
+	background-image:url(../../imagens/temaMec/bg_conteudo.gif);
+	background-repeat:repeat-x;
+	height:252px;
+	padding-left:4px;
+	padding-right:4px;
+	padding-top:10px;
+	width:724px;
+	top: 0px;
+}
+a{
+	color:#526F36;
+}
+.conteudo h5{
+	display:none;
+}
+.conteudo h6{
+	display:none;
+}
+#campoObrigatorio{
+	color:#FF0000;
+	font-size: 16px;
+}
+input, select {
+	border:1px solid #AABF95;
+	color:#7E9D60;
+	font-size:14px;
+	height:18px;
+	margin:2px;
+	padding:1px;
+}
+button {
+	background-color:#A3C97C;
+	color:#FFFFFF;
+}

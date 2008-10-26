@@ -4,30 +4,43 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link type="text/css" rel="stylesheet" href="«$CssGlobal»" media="screen" ></link>
 	<link type="text/css" rel="stylesheet" href="«$CssLocal»" media="screen" ></link>
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/funcoes.js" ></script>
 	<script language='javascript' type="text/javascript" >
 		var JS_ERRO_DATA = '«$mensagemErroData»';
 		var JS_ERRO_DIA  = '«$mensagemErroDia»';
 		var JS_ERRO_MES  = '«$mensagemErroMes»';
 		var JS_ERRO_ANO  = '«$mensagemErroAno»';
 		var JS_ERRO_HORA = '«$mensagemErroHora»';
-		var JS_ERRO_EMAIL= '«$mensagemErroEmail»'
+		var JS_ERRO_EMAIL= '«$mensagemErroEmail»';
+		var JS_DIRETORIO_RAIZ = '.sistema/scripts/';
 	</script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery-1.2.6.min.js" ></script>
+	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/cbrte/html2xhtml.js"></script>
+	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/cbrte/richtext_compressed.js"></script>
+	<script src=".sistema/scripts/Bs_TabSet.class.js"  type="text/javascript" language="javascript"></script>
+	<script src=".sistema/scripts/jquery-1.2.6.min.js"  type="text/javascript" language="javascript"></script>
+	<script src=".sistema/scripts/jquery.maskedinput-1.1.4.js"  type="text/javascript" language="javascript"></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/funcoes.js" ></script>
 	<title>«$titulo»&nbsp;</title>
 </head>
 <body>
-	<div class="banner">&nbsp;</div>
+	<div class="banner">
+		<img src=".sistema/imagens/temaMec/topo.gif" alt="Logotipo">
+	</div>
+	<div class="conteudo">
 	<h5>«$subtitulo»&nbsp;&nbsp;</h5>
 	«$menuPrincipal»
 	<h6>«$tituloEspecifico»&nbsp;</h6>
 	«$comunicacaoSistema»
 	«$menuModulo»
 	«$menuPrograma»
-<form name="formulario" method="post" action="«$action»">
+	«$descricaoDeAjuda»
+<form name="formulario" method="post" action="«$action»" >
 «$pagina»
 </form>
 	<div id='menu_rodape'>
 		«$menuPrograma»
 	</div>
+<div>Os campos marcados com <span id="campoObrigatorio">*</span> são de preenchimento obrigatório</div>
+</div>
 </body>
 </html>
