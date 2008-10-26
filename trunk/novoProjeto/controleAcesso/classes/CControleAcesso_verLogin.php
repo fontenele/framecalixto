@@ -16,8 +16,10 @@ class CControleAcesso_verLogin extends controlePadrao{
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'validar'));
 		$this->visualizacao->login = VComponente::montar('caixa de entrada','login', null);
 		$this->visualizacao->login->passarSize(15);
+		$this->visualizacao->login->obrigatorio = true;
 		$this->visualizacao->senha = VComponente::montar('senha','senha', null);
 		$this->visualizacao->senha->passarSize(15);
+		$this->visualizacao->senha->obrigatorio = true;
 		$this->visualizacao->enviar = VComponente::montar('confirmar','enviar', $this->inter->pegarTexto('enviar'));
 		$this->visualizacao->mostrar();
 	}
