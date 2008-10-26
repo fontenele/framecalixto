@@ -51,9 +51,12 @@ class controlePadrao extends controle{
 			$entidade = definicaoEntidade::entidade($entidade);
 			$inter = new $entidadeInternacionalizacao();
 			$arquivoXML = definicaoArquivo::pegarXmlEntidade($inter);
-			if(!isset(controlePadrao::$estrutura[$entidade])){
+			if(isset(controlePadrao::$estrutura[$entidade])){
+				return controlePadrao::$estrutura[$entidade];
+			}else{
 				$mapeador = array();
 				$xml = simplexml_load_file($arquivoXML);
+				$mapeador['tamanhoPaginaListagem'] = strval($xml['tamanhoPaginaListagem']) ? (int) strval($xml['tamanhoPaginaListagem']) : 10;
 				foreach($xml->propriedades->propriedade as $propriedade){
 					$arValores = array();
 					$idPropriedade = strval($propriedade['id']);
@@ -63,7 +66,7 @@ class controlePadrao extends controle{
 							$arValores[strval($opcao['id'])] = $inter->pegarOpcao($idPropriedade,strval($opcao['id']));
 						}
 					}
-					$mapeador[$idPropriedade] = array(
+					$mapeador['campos'][$idPropriedade] = array(
 						'componente'	=> strval($propriedade->apresentacao['componente']	),
 						'tamanho'		=> strval($propriedade['tamanho']	),
 						'tipo'			=> strval($propriedade['tipo']	),
@@ -73,19 +76,18 @@ class controlePadrao extends controle{
 						'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
 						'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
 					);
-					$mapeador[$idPropriedade]['listagem'] = false;
+					$mapeador['campos'][$idPropriedade]['listagem'] = false;
 					if(isset($propriedade->apresentacao->listagem)){
-						$mapeador[$idPropriedade]['listagem'] = true;
-						$mapeador[$idPropriedade]['titulo']	= $inter->pegarPropriedade($idPropriedade,'abreviacao');
-						$mapeador[$idPropriedade]['hyperlink'] = strval($propriedade->apresentacao->listagem['hyperlink']);
-						$mapeador[$idPropriedade]['largura'] = strval($propriedade->apresentacao->listagem['tamanho']);
-						$mapeador[$idPropriedade]['ordem'] = strval($propriedade->apresentacao->listagem['ordem']	);
-						$mapeador[$idPropriedade]['campoPersonalizado'] = strval($propriedade->apresentacao->listagem['campoPersonalizado'] );
+						$mapeador['campos'][$idPropriedade]['listagem'] = true;
+						$mapeador['campos'][$idPropriedade]['titulo']	= $inter->pegarPropriedade($idPropriedade,'abreviacao');
+						$mapeador['campos'][$idPropriedade]['hyperlink'] = strval($propriedade->apresentacao->listagem['hyperlink']);
+						$mapeador['campos'][$idPropriedade]['largura'] = strval($propriedade->apresentacao->listagem['tamanho']);
+						$mapeador['campos'][$idPropriedade]['ordem'] = strval($propriedade->apresentacao->listagem['ordem']	);
+						$mapeador['campos'][$idPropriedade]['campoPersonalizado'] = strval($propriedade->apresentacao->listagem['campoPersonalizado'] );
 					}
 				}
-				controlePadrao::$estrutura[$entidade] = $mapeador;
+				return controlePadrao::$estrutura[$entidade] = $mapeador;
 			}
-			return controlePadrao::$estrutura[$entidade];
 		}
 		catch(erro $e){
 			throw $e;
@@ -244,7 +246,7 @@ class controlePadrao extends controle{
 	*/
 	public static function montarApresentacaoVisual(negocio $negocio = null, visualizacao $visualizacao){
 		$estrutura = controlePadrao::pegarEstrutura($negocio);
-		foreach($estrutura as $nome => $opcoes){
+		foreach($estrutura['campos'] as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
 			$valor = $negocio->$pegarPropriedade();
 			if($opcoes['componente']){
@@ -274,7 +276,7 @@ class controlePadrao extends controle{
 	*/
 	public static function montarApresentacaoEdicao(negocio $negocio, visualizacao $visualizacao){
 		$estrutura = controlePadrao::pegarEstrutura($negocio);
-		foreach($estrutura as $nome => $opcoes){
+		foreach($estrutura['campos'] as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
 			$valor = $negocio->$pegarPropriedade();
 			if($opcoes['componente']){
@@ -295,6 +297,9 @@ class controlePadrao extends controle{
 				}
 				if($opcoes['obrigatorio']){
 					$visualizacao->$nome->obrigatorio = true;
+				}
+				if($visualizacao->$nome instanceof VInput ){
+					$visualizacao->$nome->passarTitle($negocio->inter->pegarPropriedade($nome,'descricao'));
 				}
 			}
 		}
@@ -334,8 +339,8 @@ class controlePadrao extends controle{
 			foreach($dados as $campo => $valor){
 				if(in_array($campo,$atributos)){
 					$metodo = 'passar'.ucfirst($campo);
-					$valor = self::obterValorDoComponenteHtmlPadrao($estrutura[$campo],$valor);
-					self::passarValorPostadoParaNegocio($negocio, $metodo, $estrutura[$campo], $valor);
+					$valor = self::obterValorDoComponenteHtmlPadrao($estrutura['campos'][$campo],$valor);
+					self::passarValorPostadoParaNegocio($negocio, $metodo, $estrutura['campos'][$campo], $valor);
 				}
 			}
 		}

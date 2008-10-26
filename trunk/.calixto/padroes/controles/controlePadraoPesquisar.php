@@ -6,7 +6,14 @@
 * @subpackage Controle
 */
 class controlePadraoPesquisar extends controlePadrao{
+	/**
+	* Negócio utilizado como filtro para a pesquisa
+	* @var negocioPadrao
+	*/
 	protected $negocio;
+	/**
+	* @var [pagina] pagina a ser listada
+	*/
 	protected $pagina;
 	/**
 	* Método inicial do controle
@@ -15,7 +22,8 @@ class controlePadraoPesquisar extends controlePadrao{
 		$this->passarProximoControle(definicaoEntidade::controle($this,'verPesquisa'));
 		$negocio = definicaoEntidade::negocio($this);
 		$this->negocio = new $negocio();
-		$this->pagina = new pagina();
+		$mapeador = controlePadrao::pegarEstrutura($this);
+		$this->pagina = new pagina($mapeador['tamanhoPaginaListagem']);
 		$this->pagina->passarPagina();
 		$this->montarNegocio($this->negocio);
 		$this->sessao->registrar('pagina',$this->pagina);

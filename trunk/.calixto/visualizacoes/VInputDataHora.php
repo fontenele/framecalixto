@@ -14,18 +14,5 @@ class VInputDataHora extends VInput{
 	public function __toString(){
 		return $this->data->__toString().$this->hora->__toString();
 	}
-	/**
-	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
-	*/
-	public function __call($metodo, $parametros){
-		try{
-			throw new erro();
-		}
-		catch(erro $e){
-			throw $e;
-		}
-	}
 }
 ?>
