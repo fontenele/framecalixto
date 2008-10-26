@@ -118,7 +118,7 @@ class controlePadraoListagem extends controlePadrao{
 	*/
 	function definirListagem(){
 		$estrutura = controlePadrao::pegarEstrutura($this->pegarControle());
-		foreach($estrutura as $campo => $coluna){
+		foreach($estrutura['campos'] as $campo => $coluna){
 			if($coluna['listagem']){
 				$titulo = '';
 				$alinhamento = '';
@@ -159,7 +159,7 @@ class controlePadraoListagem extends controlePadrao{
 			$x = 0;
 			if($this->colecao->possuiItens()){
 				$item = $this->colecao->retornarItem();
-				$mapeador = controlePadrao::pegarEstrutura($item);
+				$mapeador  = controlePadrao::pegarEstrutura($item);
 				while($item = $this->colecao->avancar()){
 					$retorno.= $this->abrirLinha($item,++$x);
 					foreach($chaves as $chave){
@@ -176,13 +176,13 @@ class controlePadraoListagem extends controlePadrao{
 								$link = sprintf("?c=%s&amp;chave=%s",$controle,$item->valorChave());
 								$classeHTML = '';
 								switch(true){
-									case($mapeador[$campo['campoLink']]['classeAssociativa']):
-										$classeAssociativa = new $mapeador[$campo['campoLink']]['classeAssociativa']($conexao);
+									case($mapeador['campos'][$campo['campoLink']]['classeAssociativa']):
+										$classeAssociativa = new $mapeador['campos'][$campo['campoLink']]['classeAssociativa']($conexao);
 										$classeAssociativa->ler($item->$pegar());
 										$valorDoCampo = $classeAssociativa->valorDescricao();
 									break;
-									case($mapeador[$campo['campoLink']]['valores']):
-										$valorDoCampo = $mapeador[$campo['campoLink']]['valores'][$item->$pegar()];
+									case($mapeador['campos'][$campo['campoLink']]['valores']):
+										$valorDoCampo = $mapeador['campos'][$campo['campoLink']]['valores'][$item->$pegar()];
 									break;
 									default:
 										$valorDoCampo = $item->$pegar();
@@ -203,13 +203,13 @@ class controlePadraoListagem extends controlePadrao{
 							default:
 								$pegar = 'pegar'.ucfirst($campo['campo']);
 								switch(true){
-									case($mapeador[$campo['campo']]['classeAssociativa']):
-										$classeAssociativa = new $mapeador[$campo['campo']]['classeAssociativa']($conexao);
+									case($mapeador['campos'][$campo['campo']]['classeAssociativa']):
+										$classeAssociativa = new $mapeador['campos'][$campo['campo']]['classeAssociativa']($conexao);
 										$classeAssociativa->ler($item->$pegar());
 										$valorDoCampo = $classeAssociativa->valorDescricao();
 									break;
-									case($mapeador[$campo['campo']]['valores']):
-										$valorDoCampo = $mapeador[$campo['campo']]['valores'][$item->$pegar()];
+									case($mapeador['campos'][$campo['campo']]['valores']):
+										$valorDoCampo = $mapeador['campos'][$campo['campo']]['valores'][$item->$pegar()];
 									break;
 									default:
 										$valorDoCampo = $item->$pegar();

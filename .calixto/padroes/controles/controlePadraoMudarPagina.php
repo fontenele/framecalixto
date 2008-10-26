@@ -7,17 +7,18 @@
 */
 class controlePadraoMudarPagina extends controle{
 	/**
+	* @var [pagina] pagina a ser listada
+	*/
+	public $pagina;
+	/**
 	* Método inicial do controle
 	*/
 	public function inicial(){
 		$this->passarProximoControle(definicaoEntidade::controle($this,'verPesquisa'));
-		$pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina') : new pagina() ;
-		if(isset($_GET['pagina'])){
-			$pagina->passarPagina($_GET['pagina']);
-		}else{
-			$pagina->passarPagina();
-		}
-		$this->sessao->registrar('pagina',$pagina);
+		$mapeador = controlePadrao::pegarEstrutura($this);
+		$this->pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina'): new pagina($mapeador['tamanhoPaginaListagem']);
+		$this->pagina->passarPagina(isset($_GET['pagina']) ? $_GET['pagina'] : null);
+		$this->sessao->registrar('pagina',$this->pagina);
 	}
 	/**
 	* Método de validação do controle de acesso

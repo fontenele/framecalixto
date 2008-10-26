@@ -10,6 +10,10 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 	*/
 	public $pagina;
 	/**
+	* @var negocioPadrao objeto de negócio que será utilizado para gerar a pesquisa
+	*/
+	public $filtro;
+	/**
 	* @var [controlePadraoListagem] controle especialista em listagem
 	*/
 	public $listagem;
@@ -19,10 +23,10 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 	function inicial(){
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
-		$this->pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina'): new pagina();
-		$negocio = definicaoEntidade::negocio($this);
-		$negocio = ($this->sessao->tem('filtro')) ? $this->sessao->pegar('filtro'): new $negocio();
-		$this->montarApresentacao($negocio);
+		$mapeador = controlePadrao::pegarEstrutura($this);
+		$this->pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina'): new pagina($mapeador['tamanhoPaginaListagem']);
+		$this->definirFiltro();
+		$this->montarApresentacao($this->pegarFiltro());
 		$this->listagem = $this->criarControleListagem();
 		$this->listagem->passarPagina($this->pegarPagina());
 		$this->listagem->colecao = $this->definirColecao();
@@ -42,10 +46,8 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 	*/
 	function montarMenuPrograma(){
 		$link = "?c=%s";
-		$menu[$this->inter->pegarTexto('botaoNovo')] =
-			sprintf($link,definicaoEntidade::controle($this,'verEdicao'));
-		$menu[$this->inter->pegarTexto('botaoPesquisar')] =
-			'javascript:document.formulario.submit();';
+		$menu[$this->inter->pegarTexto('botaoNovo')] = sprintf($link,definicaoEntidade::controle($this,'verEdicao'));
+		$menu[$this->inter->pegarTexto('botaoPesquisar')] = 'javascript:document.formulario.submit();';
 		return $menu;
 	}
 	/**
@@ -56,18 +58,19 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 		return new controlePadraoListagem();
 	}
 	/**
+	* Método que define o objeto de negócio que executará a pesquisa
+	*/
+	public function definirFiltro(){
+		$negocio = definicaoEntidade::negocio($this);
+		$this->filtro = ($this->sessao->tem('filtro')) ? $this->sessao->pegar('filtro'): new $negocio();
+	}
+	/**
 	* Método de criação da coleção a ser listada
 	* @return colecaoPadraoNegocio coleção a ser listada
 	*/
 	public function definirColecao(){
-		if($this->sessao->tem('filtro')){
-			$negocio = $this->sessao->pegar('filtro');
-			return $negocio->pesquisar($this->pegarPagina());
-		}else{
-			$negocio = definicaoEntidade::negocio($this);
-			$negocio = new $negocio();
-			return $negocio->lerTodos($this->pegarPagina());
-		}
+		$metodo = ($this->sessao->tem('filtro')) ? 'pesquisar' : 'lerTodos';
+		return $this->filtro->$metodo($this->pegarPagina());
 	}
 	/**
 	* metodo de apresentação do negocio
