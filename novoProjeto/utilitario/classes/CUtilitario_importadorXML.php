@@ -3,7 +3,7 @@
 * Classe de controle
 * Importa um arquivo XML para o sistema
 * @package Sistema
-* @subpackage Gerador
+* @subpackage Utilitario
 */
 class CUtilitario_importadorXML extends controlePadrao{
 	/**

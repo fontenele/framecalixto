@@ -3,7 +3,7 @@
 * Classe de controle
 * Ver o Usuário
 * @package Sistema
-* @subpackage Gerador
+* @subpackage Utilitario
 */
 class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 	/**
@@ -44,7 +44,8 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$mapNegocio['negocio'] = $negocio->pegarMapeamento();
 		$mapNegocio['bd'] = $persistente->pegarEstrutura();
 		$mapNegocio['inter'] = $internacionalizacao->pegarInternacionalizacao();
-		$mapNegocio['controle'] = self::pegarEstrutura($negocio);
+		$map = self::pegarEstrutura($negocio);
+		$mapNegocio['controle'] = $map['campos'];
 		foreach($mapNegocio['negocio'] as $i => $map){
 			$mapEntidade[$i]['negocio'] = $map;
 			$mapEntidade[$i]['controle'] = $mapNegocio['controle'][$map['propriedade']];

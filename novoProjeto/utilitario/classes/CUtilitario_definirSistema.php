@@ -3,7 +3,7 @@
 * Classe de controle
 * Define o arquivo de configuração do sistema
 * @package Sistema
-* @subpackage Gerador
+* @subpackage Utilitario
 */
 class CUtilitario_definirSistema extends controle{
 

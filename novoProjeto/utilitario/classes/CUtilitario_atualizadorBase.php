@@ -1,9 +1,9 @@
 <?php
 /**
 * Classe de controle
-* Ver o Usuário
+* Atualizador de Base de Dados
 * @package Sistema
-* @subpackage Atualizador de Base de Dados
+* @subpackage Utilitario
 */
 class CUtilitario_atualizadorBase extends controlePadrao{
 	/**
