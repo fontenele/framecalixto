@@ -3,7 +3,7 @@
 * Classe de controle
 * Ver o Usuário
 * @package Sistema
-* @subpackage Gerador
+* @subpackage Utilitario
 */
 class CUtilitario_geradorDefinirSistema extends controlePadrao{
 	/**

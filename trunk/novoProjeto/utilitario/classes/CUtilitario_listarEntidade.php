@@ -3,7 +3,7 @@
 * Classe de controle
 * Listar as entidades do sistema
 * @package Sistema
-* @subpackage Gerador
+* @subpackage Utilitario
 */
 class CUtilitario_listarEntidade extends controlePadrao{
 	/**
