@@ -179,7 +179,7 @@ abstract class persistente extends objeto{
 	*/
 	public function pegarRegistro(){
 		try{
-			if(!is_subclass_of($this->conexao,'conexao')) throw new erro;
+			if(!is_subclass_of($this->conexao,'conexao')) throw new erroPersistente('Utilização incorreta da persistente! Possívelmente você efetuou uma chamada do método '.get_class($this).'::pegarRegistro sem controle de conexão!');
 			$tupla = $this->conexao->pegarRegistro();
 			$estrutura = $this->pegarEstrutura();
 			foreach($estrutura['campo'] as $campo => $atributos){
@@ -190,8 +190,7 @@ abstract class persistente extends objeto{
 			return $tupla;
 		}
 		catch(erro $e){
-			$erro = new erroPersistente('Utilização incorreta da persistente! Possívelmente você efetuou uma chamada do método '.get_class($this).'::pegarRegistro sem controle de conexão!');
-			throw $erro;
+			throw $e;
 		}
 	}
 	/**
