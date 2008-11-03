@@ -67,6 +67,7 @@ class NControleMenu extends negocio{
 			$this->adicionarItem('menuPrincipal','Cadastros/Pessoa','CPessoa_verPesquisa');
 			$this->adicionarItem('menuPrincipal','Cadastros/Usuário','CUsuario_verPesquisa');
 			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade');
+			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas');
 			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase');
 			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador');
 			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema');

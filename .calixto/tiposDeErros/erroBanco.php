@@ -14,6 +14,7 @@ class erroBanco extends erro{
 	* @return [string] 
 	*/
 	public function __toHtml() {
+		if(strtolower(ini_get('display_errors')) != 'on') return '';
 		return "
 		<fieldset class='erroNegro'>
 			<legend>{$this->titulo}</legend>

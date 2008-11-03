@@ -281,9 +281,9 @@ abstract class persistente extends objeto{
 				case('genérico'):
 				case('genérica'):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " accent_remove(upper(%s)) like accent_remove(upper(%%%s%%)) and ";
+						$operacao = " upper(accent_remove(%s)) like upper(accent_remove(%%%s%%)) and ";
 					}else{
-						$operacao = " accent_remove(upper(%s)) like accent_remove(upper('%%%s%%')) and ";
+						$operacao = " upper(accent_remove(%s)) like upper(accent_remove('%%%s%%')) and ";
 					}
 				break;
 				case('igual'):

@@ -21,6 +21,7 @@ class PUtilitario extends persistentePadraoPG {
 				tablename
 		";
 		$this->conexao->executarComando($sql);
+		$retorno = array();
 		while ($registro = $this->conexao->pegarRegistro()){
 			$retorno[] = $registro['tabela'] ;
 		}
@@ -47,27 +48,53 @@ class PUtilitario extends persistentePadraoPG {
 				(SELECT 
 					n.nspname as esquema, 
 					c.relname as tabela, 
-					a.attname as campo, 
-					--format_type(t.oid, null) as tipo,
+					a.attname as campo,
+					format_type(t.oid, null) as tipo,
 					case 
-					when format_type(t.oid, null) = 'character varying' then 'texto' 
-					when format_type(t.oid, null) = 'numeric' then 'numerico' 
-					else 'tdata'
-					end as tipo_de_dado
-				FROM 
-					pg_namespace n, 
-					pg_class c, 
-					pg_attribute a, 
-					pg_type t
+						when format_type(t.oid, null) = 'bigint' then 'numerico'
+						when format_type(t.oid, null) = 'bigserial' then 'numerico'
+						when format_type(t.oid, null) = 'bit' then 'numerico'
+						when format_type(t.oid, null) = 'bit varying' then 'numerico'
+						when format_type(t.oid, null) = 'boolean' then 'numerico'
+						when format_type(t.oid, null) = 'character varying' then 'texto'
+						when format_type(t.oid, null) = 'character' then 'texto'
+						when format_type(t.oid, null) = 'date' then 'data'
+						when format_type(t.oid, null) = 'double precision' then 'numerico'
+						when format_type(t.oid, null) = 'integer' then 'numerico'
+						when format_type(t.oid, null) = 'interval' then 'numerico'
+						when format_type(t.oid, null) = 'money' then 'numerico'
+						when format_type(t.oid, null) = 'numeric' then 'numerico'
+						when format_type(t.oid, null) = 'real' then 'numerico'
+						when format_type(t.oid, null) = 'smallint' then 'numerico'
+						when format_type(t.oid, null) = 'serial' then 'numerico'
+						when format_type(t.oid, null) = 'text' then 'texto'
+						when format_type(t.oid, null) = 'time with time zone' then 'data'
+						when format_type(t.oid, null) = 'timestamp' then 'data'
+						when format_type(t.oid, null) = 'timestamp with time zone' then 'data'
+						when format_type(t.oid, null) = 'timestamp without time zone' then 'data'
+						else coalesce(format_type(t.oid, null), 'tdata')
+					end as tipo_de_dado					
+					, case 
+						when a.attlen >= 0 then a.attlen
+						else a.atttypmod-4
+					  END AS tamanho
+					, cm.description as descricao
+				FROM	pg_attribute a
+					inner join pg_class c
+						on a.attrelid = c.oid
+					inner join pg_namespace n
+						on c.relnamespace = n.oid
+					inner join pg_type t
+						on a.atttypid = t.oid
+					left join pg_description cm
+						on a.attrelid::oid = cm.objoid::oid
+						and attnum = cm.objsubid
 				WHERE 
-					n.oid = c.relnamespace
-					and c.relkind = 'r'     -- no indices
-					and n.nspname not like 'pg\\_%' -- no catalogs
+					c.relkind = 'r'                       -- no indices
+					and n.nspname not like 'pg\\_%'       -- no catalogs
 					and n.nspname != 'information_schema' -- no information_schema
-					and a.attnum > 0        -- no system att's
-					and not a.attisdropped   -- no dropped columns
-					and a.attrelid = c.oid
-					and a.atttypid = t.oid
+					and a.attnum > 0                      -- no system att's
+					and not a.attisdropped                -- no dropped columns
 				) as tabela 
 				left join 
 				(SELECT
@@ -111,9 +138,9 @@ class PUtilitario extends persistentePadraoPG {
 					--pg_get_constraintdef(ct.oid) AS criar_sql
 				FROM 
 					pg_catalog.pg_attribute a
-					JOIN pg_catalog.pg_class cl ON (a.attrelid = cl.oid AND cl.relkind = 'r')
+					JOIN pg_catalog.pg_class cl ON (a.attrelid = cl.oid AND cl.relkind= 'r')
 					JOIN pg_catalog.pg_namespace n ON (n.oid = cl.relnamespace)
-					JOIN pg_catalog.pg_constraint ct ON (a.attrelid = ct.conrelid AND ct.confrelid != 0 AND ct.conkey[1] = a.attnum)
+					JOIN pg_catalog.pg_constraint ct ON (a.attrelid = ct.conrelid AND ct.confrelid != 0 AND ct.conkey[1] = a.attnum) 
 					JOIN pg_catalog.pg_class clf ON (ct.confrelid = clf.oid AND clf.relkind = 'r')
 					JOIN pg_catalog.pg_namespace nf ON (nf.oid = clf.relnamespace)
 					JOIN pg_catalog.pg_attribute af ON (af.attrelid = ct.confrelid AND af.attnum = ct.confkey[1])
@@ -124,7 +151,7 @@ class PUtilitario extends persistentePadraoPG {
 					and tabela.campo = fk.campo
 				)
 			where
-				{$tabela}
+			    {$tabela}
 			order by
 				tabela.esquema, 
 				tabela.tabela,

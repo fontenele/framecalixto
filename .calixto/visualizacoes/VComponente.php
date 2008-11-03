@@ -89,6 +89,7 @@ class VComponente extends VEtiquetaHtml{
 				case 'caixa de entrada':
 					$objeto = new VInput($nome,$valor);
 				break;
+				case 'cpf':
 				case 'nr documento':
 				case 'documento pessoal':
 					$tTipoDado = ($valor instanceof TNumerico) ? $valor : new TDocumentoPessoal(null) ;

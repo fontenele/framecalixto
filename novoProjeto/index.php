@@ -1,11 +1,32 @@
 <?php
 /**
-* Arquivo de indice para o funcionamento do sistema
+* Arquivo de indice para o funcionamento do sistema 
 */
 if(phpversion() < $versao = '5.1.2') throw new Exception(sprintf('O Calixto Framework não funciona com versão inferior a %s.',$versao));
+header("Content-type:text/html; charset=utf-8");
+date_default_timezone_set('America/Sao_Paulo');
+set_time_limit(0);
+//Carrregando as classes de definições e erros
+include_once('../.calixto/definicoes/include.php');
+include_once('../.calixto/tiposDeErros/include.php');
+//Lendo o arquivo XML de definições de diretórios e arquivos
+$definicoes = definicao::pegarDefinicao('.sistema/xml/definicoes.xml');
+switch (definicaoSistema::pegarAmbiente()) {
+	case definicaoSistema::homologacao  :
+		ini_set('display_errors','Off');
+	break;
+	case definicaoSistema::producao :
+		ini_set('display_errors','Off');
+	break;
+	case definicaoSistema::desenvolvimento :
+	default:
+		ini_set('display_errors','On');
+	break;
+}
+
 error_reporting(E_ALL | E_STRICT);
 set_error_handler('reportarErro');
-set_time_limit(0);
+
 function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 	if(strpos($arquivo,'conexaoPadrao')) return;
 	$imagemErro = 'erro.png';
@@ -46,10 +67,12 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 		</pre>
 		</fieldset>";
 }
-header("Content-type:text/html; charset=utf-8");
-date_default_timezone_set('America/Sao_Paulo');
 include_once('.sistema/debug.php');
 include_once('.sistema/definicoes.php');
 
+//Correção do redirecionamento do SSD por não utilizarem $_POST para o envio de dados
+if(isset($_GET['c']) && preg_match('/CControleAcesso_SSDRetorno\?.*/',$_GET['c'],$controleBugadoUrl)){	
+	header('location:'.str_replace('/&','/?',str_replace('?','&',('http://'.$_SERVER['SERVER_NAME'].$_SERVER ['REQUEST_URI']))));
+}
 new gerenteControles(isset($_GET['c'])?$_GET['c']:definicaoSistema::pegarControleInicial());
 ?>
