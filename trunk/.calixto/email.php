@@ -79,7 +79,8 @@ class email{
 			$to .= "\"$email[1]\" $email[0];";
 		}
 		$bcc = isset($this->mail->bcc[0]) ? implode(';',$this->mail->bcc[0]) : null;
-		$str = "<fieldset><legend>email</legend>
+		$str = "
+		<fieldset class='debugEmail'><legend>email</legend>
 		<fieldset><b>De:</b> {$this->mail->From}<br/>
 		<b>Para:</b> {$to}<br/>
 		<b>Assunto:</b>{$this->mail->Subject}<br/>

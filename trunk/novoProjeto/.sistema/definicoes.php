@@ -1,43 +1,5 @@
 <?php
 /**
-* Funções criadas para ler o arquivo de definições em xml e configurar o sistema
-* @package FrameCalixto
-* @subpackage Definicão
-*/
-//Lendo o arquivo XML de definições de diretórios e arquivos
-include_once('../.calixto/definicao.php');
-$definicoes = definicao::pegarDefinicao('.sistema/xml/definicoes.xml');
-//$definicoes = simplexml_load_file('.calixto/definicoes.xml');
-
-//Incluindo as classes de definições
-foreach($definicoes->xpath('//classes/classe') as $index => $classe){
-	if(isset($classe['id']) && strval($classe['id']) == 'definicao'){
-		$dirDefinicao = strval($classe['dir']).'/';
-		break;
-	}
-}
-$dir = dir($dirDefinicao);
-while (false !== ($classe = $dir->read())) {
-	if(preg_match('/(php)(.*)/', $classe, $resultado))
-	include_once("{$dir->path}{$classe}");
-}
-$dir->close();
-
-//Incluindo as classes de tipos de erros
-foreach($definicoes->xpath('//classes/classe') as $index => $classe){
-	if(isset($classe['id']) && strval($classe['id']) == 'erro'){
-		$dirErro = strval($classe['dir']).'/';
-		break;
-	}
-}
-$dir = dir($dirErro);
-while (false !== ($classe = $dir->read())) {
-	if(preg_match('/(php)(.*)/', $classe, $resultado))
-	include_once("{$dir->path}{$classe}");
-}
-$dir->close();
-
-/**
 * Sobrecarga da função __autoload do php
 * Faz o include automaticamente do arquivo da classe
 * Utiliza o arquivo XML de definições de diretórios e arquivos como base
@@ -88,19 +50,21 @@ function __autoload($stClasse){
 	}catch (erroInclusao $e) {
 		echo $e->__toHtml();
 	}catch (Exception $e) {
-			$debug = debug_backtrace();
-			echo "
-			<link rel='stylesheet' href='.sistema/css/debug.css' />
-			<div class='erroNegro'>
-				<table summary='text' class='erroNegro'>
-					<tr><th colspan=2 >Tentativa de instanciar uma classe inexistente!</th></tr>
-					<tr><td>Classe:</td><td><font size='6px'>{$stClasse} ???</font></td></tr>
-					<tr><td>Arquivo:</td><td>{$debug[0]['file']}</td></tr>
-					<tr><td>Linha:</td><td>{$debug[0]['line']}</td></tr>
-				</table>
-			</div>
-			";
-			die();
+			if(strtolower(ini_get('display_errors')) == 'on'){
+				$debug = debug_backtrace();
+				echo "
+				<link rel='stylesheet' href='.sistema/css/debug.css' />
+				<div class='erroNegro'>
+					<table summary='text' class='erroNegro'>
+						<tr><th colspan=2 >Tentativa de instanciar uma classe inexistente!</th></tr>
+						<tr><td>Classe:</td><td><font size='6px'>{$stClasse} ???</font></td></tr>
+						<tr><td>Arquivo:</td><td>{$debug[0]['file']}</td></tr>
+						<tr><td>Linha:</td><td>{$debug[0]['line']}</td></tr>
+					</table>
+				</div>
+				";
+				die();
+			}
 	}
 }
 if(function_exists('iconv')){
