@@ -43,8 +43,9 @@ class CUtilitario_listarEntidade extends controlePadrao{
 	*/
 	function montarMenuPrograma(){
 		$link = "?c=%s";
-		$menu[$this->inter->pegarTexto('botaoNovo')] =
+		$menu['Novo cadastro'] =
 			sprintf($link,definicaoEntidade::controle($this,'geradorDefinirEntidade'));
+		$menu['Tabelas do banco'] = '?c=CUtilitario_listarTabelas';
 		return $menu;
 	}
 }
