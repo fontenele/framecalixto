@@ -10,13 +10,22 @@ class CUtilitario_listarTabelas extends controlePadrao{
 	* Método inicial do controle
 	*/
 	function inicial(){
-		$this->inter = new IUtilitario();
 		$this->criarVisualizacaoPadrao();
+		$this->registrarInternacionalizacao($this,$this->visualizacao);
+		$this->gerarMenus();
 		$conexao = conexao::criar();
 		$persistente = new PUtilitario($conexao);
 		$this->visualizacao->listagem = $persistente->lerTabelas();
 		$this->visualizacao->action = '';
 		parent::inicial();
+	}
+	/**
+	* Retorna um array com os itens do menu do programa
+	* @return [array] itens do menu do programa
+	*/
+	function montarMenuPrograma(){
+		$menu['Gerador'] = '?c=CUtilitario_listarEntidade';
+		return $menu;
 	}
 }
 ?>

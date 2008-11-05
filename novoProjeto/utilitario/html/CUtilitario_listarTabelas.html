@@ -12,7 +12,7 @@
 	<div class="lista">
 			<ul>
 			«foreach from=$listagem item=nome»
-			<li><a href="?c=CUtilitario_listarCamposTabela&tabela=«$nome»" >«$nome»</a></li>
+			<li><a href="?c=CUtilitario_listarCamposTabela&tabela=«$nome»" >Ver</a> <a href="?c=CUtilitario_geradorDefinirEntidade&tabela=«$nome»" >Gerar cadastro</a> «$nome»</li>
 			«/foreach»
 			</ul>
 	</div>

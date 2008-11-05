@@ -1,4 +1,5 @@
 <form name="formulario" method="post" action="«$action»" >
+<h3>Acessado via: «$acesso»</h3>
 <script src=".sistema/scripts/Bs_TabSet.class.js"  type="text/javascript" language="javascript"></script>
 <div class="container0">
 	<div class="a"></div>
@@ -28,10 +29,9 @@
 						<td>Nome da entidade:</td>
 						<td>«$entidade»</td>
 					</tr>
-					<tr>
-						<td><a href='javascript:adicionar();' accesskey='a' title='(Alt + A)'>Adicionar nova propriedade</a></td>
-					</tr>
 				</table>
+				<input type="button" onclick="javascript:adicionar();" value="Adicionar nova propriedade" />
+				<br><br>
 				<div id="tabset">
 					<div id="tabset_tabs"></div>
 					<div class="tabsetContentdiv" id="tabset_content" style="overflow: inherit;">
@@ -211,15 +211,19 @@ function sugerirNomeTabela(){
 	document.formulario.nomeSequence.value = 'sq_' + RetiraAcentos(tabela);
 }
 function sugerirNomePersistente(componente){
+	if(travarSugestaoDeNomesPersistente) return;
+	campo = $('bd_campo' + componente.name.substr(7,componente.name.length));
+	//if(campo.value) return;
 	var arNome = componente.value.toLowerCase().split(' ');
 	var nome = '';
 	for(i in arNome){
 		nome += '_' + arNome[i]
 	}
-	campo = $('bd_campo' + componente.name.substr(7,componente.name.length));
 	campo.value = RetiraAcentos(d.entidade.value.substr(0,4) + '_' + nome.substr(1,nome.length));
 }
 function sugerirNomeNegocio(componente){
+	campo = $('ng_nome' + componente.name.substr(7,componente.name.length));
+	//if(campo.value) return;
 	var arNome = componente.value.toLowerCase().split(' ');
 	var nome = '';
 	for(i in arNome){
@@ -230,7 +234,6 @@ function sugerirNomeNegocio(componente){
 		}
 		nome += ucfirst + arNome[i].substr(1,arNome[i].length);
 	}
-	campo = $('ng_nome' + componente.name.substr(7,componente.name.length));
 	campo.value = RetiraAcentos(nome);
 }
 function alterarFK(componente){
@@ -279,7 +282,9 @@ function adicionar(){
 			linha.appendChild(col);
 			// Descrição
 			col = ini('td');
-			col.appendChild(novoInput('en_descricao[' + indice + ']'));
+			desc = novoInput('en_descricao[' + indice + ']');
+			set(desc,'size','40');
+			col.appendChild(desc);
 			linha.appendChild(col);
 			// Descrição
 			col = ini('td');
@@ -579,6 +584,7 @@ function preecherTela(definicao){
 	}
 }
 criarAbas();
+var travarSugestaoDeNomesPersistente = «$travarSugestaoDeNomesPersistente»;
 var definicao = eval('«$dados»');
 if(definicao){
 	preecherTela(definicao[0]);
@@ -586,3 +592,6 @@ if(definicao){
 }
 </script>
 </form>
+<script type="text/javascript">
+//x(definicao);
+</script>
