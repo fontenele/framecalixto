@@ -1,4 +1,5 @@
 @import url(padrao.css) ;
+@import url(help.css) ;
 @import url(pagina.css) ;
 @import url(banner.css) ;
 @import url(menu1.css) ;
@@ -20,6 +21,9 @@
 @import url(tabela0.css) ;
 @import url(tabela1.css) ;
 @import url(help.css) ;
+.numerico{
+	text-align: right;
+}
 .conteudo{
 	color:#656565;
 	font-family:Verdana,Arial,Helvetica,sans-serif;
@@ -57,4 +61,7 @@ input, select {
 button {
 	background-color:#A3C97C;
 	color:#FFFFFF;
+}
+.debugEmail{
+	width: 513px;
 }
