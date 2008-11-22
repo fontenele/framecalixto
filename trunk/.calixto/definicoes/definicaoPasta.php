@@ -31,5 +31,15 @@ class definicaoPasta{
 			return strval(definicao::pegarDefinicao()->diretorios->diretorio[2]["dir"]).'/';
 		}
 	}
+	/**
+	* Retorna o nome da pasta de js das entidades
+	*/
+	static final function js($entidade = null){
+		if(strtolower(strval(definicao::pegarDefinicao()->diretorios->diretorio[3]["entidade"])) == 'sim'){
+			return definicaoEntidade::entidade($entidade).'/'.strval(definicao::pegarDefinicao()->diretorios->diretorio[3]["dir"]).'/';
+		}else{
+			return strval(definicao::pegarDefinicao()->diretorios->diretorio[3]["dir"]).'/';
+		}
+	}
 }
 ?>
