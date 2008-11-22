@@ -10,6 +10,7 @@
 		<diretorio id='temporario' dir='.tmp/' entidade='nao' />
 		<diretorio id='templates' dir='html/' entidade='sim' />
 		<diretorio id='css' dir='css/' entidade='sim' />
+		<diretorio id='js' dir='scripts/' entidade='sim' />
 	</diretorios>
 	<arquivos>
 		<arquivo tipo='definicao de entidade' nome='xml/entidade.xml' />
