@@ -17,6 +17,10 @@
 			<texto id="verEdicao">Edição</texto>
 			<texto id="tituloListagem">Listagem</texto>
 			<texto id="enviar">Enviar Dados</texto>
+			<texto id="paginas">Páginas</texto>
+			<texto id="ajudaPesquisa">Preencha o filtro e clique em pesquisar ou clique em novo para apresentar a tela de inclusão.</texto>
+			<texto id="ajudaEdicao">Altere os dados e clique em gravar ou apenas clique em excluir.</texto>
+			<texto id="ajudaNovo">Preencha os dados e clique em gravar.</texto>
 		</textos>
 	</controles>
 	<mensagens>

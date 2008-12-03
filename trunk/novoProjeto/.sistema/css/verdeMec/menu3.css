@@ -1,0 +1,30 @@
+#menu_rodape{
+	display:none;
+}
+.menu3{
+	margin-top:5px;
+	margin-bottom:5px;
+	margin-left:5px;
+	margin-right:5px;
+}
+.menu3 ul {
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+	padding:3px;
+}
+.menu3 ul li{
+	display	: block;
+	float: left;
+}
+.menu3 ul li a {
+	background-color:#E9F3E0;
+	border:1px solid #586D43;
+	margin:5px 5px 5px 0px;
+	padding:3px;
+	text-decoration:none;
+}	
+.menu3 ul li a:hover {
+	background-color:#FFFFFF;
+}	
+

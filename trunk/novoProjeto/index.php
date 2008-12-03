@@ -69,7 +69,8 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 }
 include_once('.sistema/debug.php');
 include_once('.sistema/definicoes.php');
-
+$dir = definirDiretorio('Sistema');
+define('diretorioPrioritario',$dir['stDiretorio']);
 //Correção do redirecionamento do SSD por não utilizarem $_POST para o envio de dados
 if(isset($_GET['c']) && preg_match('/CControleAcesso_SSDRetorno\?.*/',$_GET['c'],$controleBugadoUrl)){	
 	header('location:'.str_replace('/&','/?',str_replace('?','&',('http://'.$_SERVER['SERVER_NAME'].$_SERVER ['REQUEST_URI']))));

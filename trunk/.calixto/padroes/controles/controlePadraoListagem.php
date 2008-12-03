@@ -263,6 +263,7 @@ class controlePadraoListagem extends controlePadrao{
 	*/
 	function montarPaginador(){
 		$retorno = '';
+		$paginas = $this->inter->pegarTexto('paginas');
 		if($this->pagina->pegarTamanhoGeral() > $this->pagina->pegarTamanhoPagina()){
 			$retorno.="<div class='container3'>\n";
 			$retorno.="	<div class='a'></div>\n";
@@ -273,7 +274,7 @@ class controlePadraoListagem extends controlePadrao{
 			$retorno.="	<div class='f'></div>\n";
 			$retorno.="	<div class='g'></div>\n";
 			$retorno.="	<div class='h'></div>\n";
-			$retorno.="	<div class='texto'>Paginas:\n";
+			$retorno.="	<div class='texto'>{$paginas}:\n";
 			$retorno.="		<p>&nbsp;\n";
 			$paginas = ($this->pagina->pegarTamanhoGeral()/$this->pagina->pegarTamanhoPagina() +1);
 			$paginas = (($this->pagina->pegarTamanhoGeral()%$this->pagina->pegarTamanhoPagina()) == 0) ? $paginas -1 : $paginas;

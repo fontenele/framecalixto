@@ -3,10 +3,54 @@
 * Sobrecarga da função __autoload do php
 * Faz o include automaticamente do arquivo da classe
 * Utiliza o arquivo XML de definições de diretórios e arquivos como base
-* @param [string] Nome da classe
+* @param string Nome da classe
 */
 function __autoload($stClasse){
 	try{
+		if(defined('diretorioPrioritario') &&  is_file($ar['stArquivo'] = diretorioPrioritario.$stClasse.'.php')){
+			include_once $ar['stArquivo'];
+		}else{
+			$ar = definirDiretorio($stClasse);	
+			switch(true){
+				case !(is_dir($ar['stDiretorio'])):
+					throw new erroInclusao("Diretório [{$ar['stDiretorio']}] inexistente!");
+				break;
+				case !(is_file($ar['stArquivo'])):
+					throw new erroInclusao("Arquivo [{$ar['stArquivo']}] inexistente!");
+				break;
+				case !(is_readable($ar['stArquivo'])):
+					throw new erroInclusao("Arquivo [{$ar['stArquivo']}] sem permissão de leitura!");
+				break;
+				default:
+					include_once $ar['stArquivo'];
+				break;
+			}
+		}
+	}catch (erroInclusao $e) {
+		echo $e->__toHtml();
+	}catch (Exception $e) {
+			if(strtolower(ini_get('display_errors')) == 'on'){
+				$debug = debug_backtrace();
+				echo "
+				<link rel='stylesheet' href='.sistema/css/debug.css' />
+				<div class='erroNegro'>
+					<table summary='text' class='erroNegro'>
+						<tr><th colspan=2 >Tentativa de instanciar uma classe inexistente!</th></tr>
+						<tr><td>Classe:</td><td><font size='6px'>{$stClasse} ???</font></td></tr>
+						<tr><td>Arquivo:</td><td>{$debug[0]['file']}</td></tr>
+						<tr><td>Linha:</td><td>{$debug[0]['line']}</td></tr>
+					</table>
+				</div>
+				";
+				die();
+			}
+	}
+}
+/**
+* Função que define qual diretório se encontra a classe não definida
+* @param string Nome da classe
+*/
+function definirDiretorio($stClasse){
 		$definicoes = definicao::pegarDefinicao();
 		$stEntidade = definicaoEntidade::entidade($stClasse);
 		foreach($definicoes->xpath('//classes/classe') as $index => $classe){
@@ -33,39 +77,7 @@ function __autoload($stClasse){
 		}else{
 			$stArquivo = "$stDiretorio$stClasse.php";
 		}
-		switch(true){
-			case !(is_dir($stDiretorio)):
-				throw new erroInclusao("Diretório [$stDiretorio] inexistente!");
-			break;
-			case !(is_file($stArquivo)):
-				throw new erroInclusao("Arquivo [$stArquivo] inexistente!");
-			break;
-			case !(is_readable($stArquivo)):
-				throw new erroInclusao("Arquivo [$stArquivo] sem permissão de leitura!");
-			break;
-			default:
-				include_once $stArquivo;
-			break;
-		}
-	}catch (erroInclusao $e) {
-		echo $e->__toHtml();
-	}catch (Exception $e) {
-			if(strtolower(ini_get('display_errors')) == 'on'){
-				$debug = debug_backtrace();
-				echo "
-				<link rel='stylesheet' href='.sistema/css/debug.css' />
-				<div class='erroNegro'>
-					<table summary='text' class='erroNegro'>
-						<tr><th colspan=2 >Tentativa de instanciar uma classe inexistente!</th></tr>
-						<tr><td>Classe:</td><td><font size='6px'>{$stClasse} ???</font></td></tr>
-						<tr><td>Arquivo:</td><td>{$debug[0]['file']}</td></tr>
-						<tr><td>Linha:</td><td>{$debug[0]['line']}</td></tr>
-					</table>
-				</div>
-				";
-				die();
-			}
-	}
+		return array('stDiretorio' => $stDiretorio, 'stArquivo' => $stArquivo );
 }
 if(function_exists('iconv')){
 	define('conversorIconv',true);
