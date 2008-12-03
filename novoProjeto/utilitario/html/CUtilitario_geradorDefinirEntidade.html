@@ -104,6 +104,9 @@
 					</div>
 				</div>
 			</div>
+        <div id='menu_corpo'>
+            «$menuPrograma»
+        </div>
 		</div>
 	</div>
 </div>
@@ -199,8 +202,10 @@ function alterarPropriedade(componente, values){
 	colunaNegocio.innerHTML = componente.value;
 	var colunaNegocio = $('indice_vi_' + componente.name);
 	colunaNegocio.innerHTML = componente.value;
-	if(values) sugerirNomePersistente(componente);
-	if(values) sugerirNomeNegocio(componente);
+    if(sugerirNomes){
+        if(values) sugerirNomePersistente(componente);
+        if(values) sugerirNomeNegocio(componente);
+    }
 }
 function sugerirNomeTabela(){
 	var entidade = document.formulario.entidade.value;
@@ -211,7 +216,6 @@ function sugerirNomeTabela(){
 	document.formulario.nomeSequence.value = 'sq_' + RetiraAcentos(tabela);
 }
 function sugerirNomePersistente(componente){
-	if(travarSugestaoDeNomesPersistente) return;
 	campo = $('bd_campo' + componente.name.substr(7,componente.name.length));
 	//if(campo.value) return;
 	var arNome = componente.value.toLowerCase().split(' ');
@@ -584,7 +588,7 @@ function preecherTela(definicao){
 	}
 }
 criarAbas();
-var travarSugestaoDeNomesPersistente = «$travarSugestaoDeNomesPersistente»;
+var sugerirNomes = ('«$acesso»' == 'Nova geração de cadastro') ;
 var definicao = eval('«$dados»');
 if(definicao){
 	preecherTela(definicao[0]);

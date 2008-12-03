@@ -247,7 +247,8 @@ abstract class negocioPadrao extends negocio{
 	public function ler($identificador){
 		try{
 			$persistente = $this->pegarPersistente();
-			if(is_array($array = $persistente->ler($identificador)))
+            $array = $persistente->ler($identificador);
+			if(is_array($array))
 			$this->vetorPraNegocio($array);
 		}
 		catch(erro $e){
@@ -335,7 +336,7 @@ abstract class negocioPadrao extends negocio{
 					}
 				}
 			}
-			return 'calixto';
+			return true;
 		}
 		catch(Erro $e){
 			throw $e;

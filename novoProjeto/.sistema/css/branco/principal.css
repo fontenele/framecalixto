@@ -131,7 +131,7 @@ p{
 }
 
 #conteudo {
-	background: url( .calixto/imagens/bg_conteudo.gif ) repeat-x;
+	background: url( .sistema/imagens/bg_conteudo.gif ) repeat-x;
 	padding: 10px;
 	margin-left: 150px;
 	height: 760px; /*@cat menu no IE */

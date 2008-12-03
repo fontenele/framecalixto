@@ -6,6 +6,24 @@
 */
 class VMenu extends VEtiquetaHtml{
 	/**
+	* Link
+	*/
+	public $link;
+	/**
+	* id
+	*/
+	public $id;
+	/**
+	* nome
+	*/
+	public $nome;
+	/**
+	* imagem
+	*/
+	public $imagem;
+	
+	
+	/**
 	* @var [in] indice de tabulação do menu
 	*/
 	public $tabIndex;
@@ -17,6 +35,10 @@ class VMenu extends VEtiquetaHtml{
 	* @var [array] valores do menu
 	*/
 	public $valores;
+	/**
+	* @var colecao itens do menu
+	*/
+	public $coMenu;
 	/**
 	* Método construtor
 	* @var [array] valores do menu
@@ -45,17 +67,39 @@ class VMenu extends VEtiquetaHtml{
 		return $stLinks.'</ul>';
 	}
 	/**
+	* Método de montagem do menu
+	*/
+	public function montarMenu(VMenu $vMenu){
+		if($vMenu->coMenu->possuiItens()){
+			$menu = "<ul class='{$this->classe}' >\n";
+			while ($vSubMenu = $vMenu->coMenu->avancar()){
+				$menu .= $vSubMenu->montarMenu();
+			}
+			$menu .= "</ul>";
+		}else{
+			$menu = "<li id={$this->id}><a href='{$this->link}' tabindex='{$this->tabIndex}' >{$this->nome}</a></li>\n";
+		}
+	}
+	/**
 	* Método de sobrecarga para printar a classe
 	* @return [string] texto de saída da classe
 	*/
 	function __toString(){
-		if(count($this->valores)){
-			$stSaida = "<div class='{$this->classe}'>";
-			$stSaida .= $this->montarBotoes($this->valores,$this->tabIndex);
-			$stSaida .= "</div>";
-			return $stSaida;
-		}else{
-			return '';
+		switch (true){
+			case $this->coMenu instanceof colecao:
+				$stSaida = "<div class='{$this->classe}'>";
+				$stSaida .= $this->montarMenu($this);
+				$stSaida .= "</div>";
+				return $stSaida;
+			break;
+			case (count($this->valores)):
+				$stSaida = "<div class='{$this->classe}'>";
+				$stSaida .= $this->montarBotoes($this->valores,$this->tabIndex);
+				$stSaida .= "</div>";
+				return $stSaida;
+			break;
+			default:
+				return '';
 		}
 	}
 }
