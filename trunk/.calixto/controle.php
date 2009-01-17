@@ -84,6 +84,7 @@ abstract class controle extends objeto{
 	* @param [string] nome do proximo controle
 	*/
 	public function passarProximoControle($proximoControle){
+		if(!$this->requisicaoAjax())
 		$this->gerente->proximoControle = $proximoControle;
 	}
 	/**
@@ -92,6 +93,12 @@ abstract class controle extends objeto{
 	*/
 	public function registrarComunicacao($comunicacao){
 		sessaoSistema::registrar('comunicacao', $comunicacao);
+	}
+	/**
+	* retorna se a requisição do controle foi feita via ajax
+	*/
+	public static function requisicaoAjax(){
+		return (isset($_GET['ajax']));
 	}
 }
 ?>

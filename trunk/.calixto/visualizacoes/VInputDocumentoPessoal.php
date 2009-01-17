@@ -31,7 +31,8 @@ class VInputDocumentoPessoal extends VInput{
 	public function __toString(){
 		switch(strtolower($this->tipo)){
 			case 'cnpj':
-				return parent::__toString().'<script type="text/javascript">jQuery(function($){$("#'.$this->pegarId().'").mask("999.999.999/9999-99",{completed:function(){validarCnpj($("#'.$this->pegarId().'"));}});});</script>';
+				return parent::__toString().'<script type="text/javascript">jQuery(function($){$("#'.$this->pegarId().'").mask("99.999.999/9999-99",{completed:function(){validarCnpj($("#'.$this->pegarId().'"));}});});</script>';
+//				return parent::__toString();
 			break;
 			default:
 				return parent::__toString().'<script type="text/javascript">jQuery(function($){$("#'.$this->pegarId().'").mask("999.999.999-99",{completed:function(){validarCpf($("#'.$this->pegarId().'"));}});});</script>';

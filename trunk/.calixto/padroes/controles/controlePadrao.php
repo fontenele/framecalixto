@@ -11,7 +11,11 @@ class controlePadrao extends controle{
 	*/
 	public function inicial(){
 		try{
-			$this->visualizacao->mostrar();
+			if($this->requisicaoAjax()){
+				$this->visualizacao->mostrarParaAjax();
+			}else{
+				$this->visualizacao->mostrar();
+			}
 		}
 		catch(erro $e){
 			throw $e;
@@ -22,6 +26,12 @@ class controlePadrao extends controle{
 	*/
 	public function criarVisualizacaoPadrao(){
 		$this->visualizacao = new visualizacaoPadrao($this);
+		if(sessaoSistema::tem('usuario')){
+			$this->visualizacao->nomeLogado = sessaoSistema::pegar('usuario')->valorDescricao();
+		}else{
+			$this->visualizacao->nomeLogado = '';
+		}
+		$this->visualizacao->requisicaoAjax = $this->requisicaoAjax();
 		$this->visualizacao->menuPrincipal = '';
 		$this->visualizacao->menuModulo = '';
 		$this->visualizacao->menuPrograma = '';
@@ -150,20 +160,31 @@ class controlePadrao extends controle{
 	* Utiliza os itens montados para o menu principal e registra na visualização
 	*/
 	public function gerarMenuprincipal(){
-		$this->visualizacao->menuPrincipal = new VMenu($this->montarMenuPrincipal(),'menu1','9999');
+		$arMenu = $this->montarMenuPrincipal();
+		if($arMenu){
+			$this->visualizacao->menuPrincipal = "<div class='menu1' >{$arMenu}</div>";
+		}else{
+			$this->visualizacao->menuPrincipal = '';
+		}
 	}
 	/**
 	* Utiliza os itens montados para o menu do módulo e registra na visualização
 	*/
 	public function gerarMenuModulo(){
-		$this->visualizacao->menuModulo = new VMenu($this->montarMenuModulo(),'menu2','9998');
+		$this->visualizacao->menuModulo = null;//new VMenu($this->montarMenuModulo(),'menu2','9998');
 	}
 	/**
 	* Preenche os itens da propriedade menuPrograma
 	* @return array itens do menu do programa
 	*/
 	public function gerarMenuPrograma(){
-		$this->visualizacao->menuPrograma = new VMenu($this->montarMenuPrograma(),'menu3','9997');
+		$arMenu = $this->montarMenuPrograma();
+		if($arMenu){
+			$menu = new VMenu($arMenu);
+			$this->visualizacao->menuPrograma = "<div class='menu3' >{$menu->_coMenu}</div>";
+		}else{
+			$this->visualizacao->menuPrograma = '';
+		}
 	}
 	/**
 	* Preenche os itens da propriedade menuPrincipal
@@ -208,7 +229,7 @@ class controlePadrao extends controle{
 	}
 	/**
 	* Preenche os itens da propriedade menuPrograma
-	* @return array itens do menu do modulo
+	* @return array itens do menu do programa
 	*/
 	public function montarMenuPrograma(){
 		try{

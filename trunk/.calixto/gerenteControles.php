@@ -25,7 +25,7 @@ class gerenteControles extends objeto{
 			$cControle = new $controle($this,true);
 			if( $cControle instanceof controle ){
 				$this->passarControle($cControle);
-				if(!empty($this->proximoControle))
+				if(!empty($this->proximoControle) && !controle::requisicaoAjax())
 					$this->redirecionar("?c={$this->proximoControle}");
 			}else{
 				throw new erroInclusao("Controle [{$controle}] inexistente!");
@@ -33,38 +33,92 @@ class gerenteControles extends objeto{
 			return true;
 		}
 		catch (erroNegocio $e){
-			sessaoSistema::registrar('comunicacao', $e->getMessage());
-			if(!empty($this->proximoControle))
-				$this->redirecionar("?c={$this->proximoControle}");
+			if(controle::requisicaoAjax()){
+				$json = new json();
+				$ar['tipo'] = get_class($e);
+				$ar['erro'] = $e->getMessage();
+				echo $json->pegarJson($ar);
+			}else{
+				sessaoSistema::registrar('comunicacao', $e->getMessage());
+				if(!empty($this->proximoControle))
+					$this->redirecionar("?c={$this->proximoControle}");
+			}
 			return false;
 		}
 		catch (erroLogin $e){
-			sessaoSistema::registrar('comunicacao', $e->getMessage());
-			if(!empty($this->proximoControle))
-				$this->redirecionar("?c={$this->proximoControle}");
-			$this->redirecionar('?c='.definicaoSistema::pegarControleInicial());
+			if(controle::requisicaoAjax()){
+				$json = new json();
+				$ar['tipo'] = get_class($e);
+				$ar['erro'] = $e->getMessage();
+				echo $json->pegarJson($ar);
+			}else{
+				sessaoSistema::registrar('comunicacao', $e->getMessage());
+				if(!empty($this->proximoControle))
+					$this->redirecionar("?c={$this->proximoControle}");
+				$this->redirecionar('?c='.definicaoSistema::pegarControleInicial());
+			}
 			return false;
 		}
 		catch (erroAcesso $e){
-			sessaoSistema::registrar('comunicacao', $e->getMessage());
-			if(!empty($this->proximoControle))
-				$this->redirecionar("?c={$this->proximoControle}");
-			$this->redirecionar(sprintf('?c=%s',definicaoSistema::pegarControleErro()));
+			if(controle::requisicaoAjax()){
+				$json = new json();
+				$ar['tipo'] = get_class($e);
+				$ar['erro'] = $e->getMessage();
+				echo $json->pegarJson($ar);
+			}else{
+				sessaoSistema::registrar('comunicacao', $e->getMessage());
+				if(!empty($this->proximoControle))
+					$this->redirecionar("?c={$this->proximoControle}");
+				$this->redirecionar(sprintf('?c=%s','CControleAcesso_verPrincipal'));
+			}
 			return false;
 		}
 		catch (erroSessao $e){
-			sessaoSistema::registrar('comunicacao', $e->getMessage());
-			if(!empty($this->proximoControle))
-				$this->redirecionar("?c={$this->proximoControle}");
-			$this->redirecionar(sprintf('?c=%s',definicaoSistema::pegarControleErro()));
+			if(controle::requisicaoAjax()){
+				$json = new json();
+				$ar['tipo'] = get_class($e);
+				$ar['erro'] = $e->getMessage();
+				echo $json->pegarJson($ar);
+			}else{
+				sessaoSistema::registrar('comunicacao', $e->getMessage());
+				if(!empty($this->proximoControle))
+					$this->redirecionar("?c={$this->proximoControle}");
+				$this->redirecionar(sprintf('?c=%s','CControleAcesso_verPrincipal'));
+			}
+			return false;
+		}
+		catch (erroBanco $e){
+			if(controle::requisicaoAjax()){
+				$json = new json();
+				$ar['tipo'] = get_class($e);
+				$ar['erro'] = 'Ocorreu um erro de banco de dados, contacte a DTI (MEC).';
+				//$e->getMessage();
+				echo $json->pegarJson($ar);
+			}else{
+				echo $e->__toHtml();
+			}
 			return false;
 		}
 		catch (erro $e){
-			echo $e->__toHtml();
+			if(controle::requisicaoAjax()){
+				$json = new json();
+				$ar['tipo'] = get_class($e);
+				$ar['erro'] = $e->getMessage();
+				echo $json->pegarJson($ar);
+			}else{
+				echo $e->__toHtml();
+			}
 			return false;
 		}
 		catch (Exception $e){
-			echo $e;
+			if(controle::requisicaoAjax()){
+				$json = new json();
+				$ar['tipo'] = get_class($e);
+				$ar['erro'] = $e->getMessage();
+				echo $json->pegarJson($ar);
+			}else{
+				echo $e;
+			}
 			return false;
 		}
 	}

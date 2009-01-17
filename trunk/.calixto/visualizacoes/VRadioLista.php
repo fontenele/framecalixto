@@ -4,7 +4,7 @@
 * @package FrameCalixto
 * @subpackage visualização
 */
-class VRadioLista extends VEtiquetaHtml{
+class VRadioLista extends VComponente {
 	public $valor;
 	public $colunas;
 	public $nome;
@@ -14,14 +14,34 @@ class VRadioLista extends VEtiquetaHtml{
 		$this->nome = $nome;
 		$this->valor = $valor;
 	}
+	/**
+	* Método de passagem do conteúdo
+	* @param [string] conteudo do compoenente
+	*/
+	public function passarConteudo($conteudo){
+		if(is_array($conteudo)){
+			$this->conteudo = array();
+			foreach ($conteudo as $index => $valor) {
+				$this->conteudo[$index]['radio'] = new VRadio($this->nome,$index);
+				$this->conteudo[$index]['radio']->passarId("id_{$this->nome}_{$index}");
+				$this->conteudo[$index]['label'] = new VEtiquetaHtml('label');
+				$this->conteudo[$index]['label']->passarConteudo($valor);
+				$this->conteudo[$index]['label']->passarId("id_{$this->nome}_{$index}");
+			}
+		}else{
+			$this->conteudo = $conteudo;
+		}
+	}
 	function configurar(){
 		if(is_array($this->conteudo)){
 			if(!$this->colunas){
+				$conteudo = '';
 				foreach($this->conteudo as $indice => $texto){
 					if($indice == $this->valor){
-						$conteudo .= "<input type='radio' name='{$this->nome}' value='{$indice}' id='id_{$this->nome}_{$indice}' checked='true' /><label for='id_{$this->nome}_{$indice}' >{$texto}</label>";
+						$this->conteudo[$indice]['radio']->passarChecked(true);
+						$conteudo .= "{$this->conteudo[$indice]['radio']}{$this->conteudo[$indice]['label']}";
 					}else{
-						$conteudo .= "<input type='radio' name='{$this->nome}' value='{$indice}' id='id_{$this->nome}_{$indice}' /><label for='id_{$this->nome}_{$indice}' >{$texto}</label>";
+						$conteudo .= "{$this->conteudo[$indice]['radio']}{$this->conteudo[$indice]['label']}";
 					}
 				}
 			}else{
@@ -30,9 +50,10 @@ class VRadioLista extends VEtiquetaHtml{
 				foreach($this->conteudo as $indice => $texto){
 					if($i == 0) $conteudo.='<tr>';
 					if($indice == $this->valor){
-						$conteudo .= "<td><input type='radio' name='{$this->nome}' value='{$indice}' id='id_{$this->nome}_{$indice}' checked='true' /><label for='id_{$this->nome}_{$indice}' >{$texto}</label></td>";
+						$this->conteudo[$indice]['radio']->passarChecked(true);
+						$conteudo .= "<td>{$this->conteudo[$indice]['radio']}{$this->conteudo[$indice]['label']}</td>";
 					}else{
-						$conteudo .= "<td><input type='radio' name='{$this->nome}' value='{$indice}' id='id_{$this->nome}_{$indice}' /><label for='id_{$this->nome}_{$indice}' >{$texto}</label></td>";
+						$conteudo .= "<td>{$this->conteudo[$indice]['radio']}{$this->conteudo[$indice]['label']}</td>";
 					}
 					if(++$i >= $this->colunas){
 						$conteudo.='</tr>';
@@ -45,7 +66,7 @@ class VRadioLista extends VEtiquetaHtml{
 		}
 	}
 	function passarValores($valores){
-		$this->conteudo = $valores;
+		$this->passarConteudo($valores);
 	}
 	function passarColunas($colunas){
 		$this->colunas = $colunas;

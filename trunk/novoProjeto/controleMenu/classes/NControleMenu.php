@@ -51,15 +51,20 @@ class NControleMenu extends negocio{
 	* @param string $valorItem item do menu que será acessado
 	* @param string $destravar destrava a validação do controle de acesso
 	*/
-	protected function adicionarItem($propriedadeMenu,$caminhoItem,$valorItem,$destravar = false){
-		if($destravar || $this->menuLiberado || isset($this->acessosLiberados[$valorItem]))
-		eval("\$this->{$propriedadeMenu}['".str_replace('/',"']['",$caminhoItem)."'] = '?c={$valorItem}';");
+	protected function adicionarItem($propriedadeMenu,$caminhoItem,$valorItem, $imagem = null ,$destravar = false, $prefixo = '?c='){
+		if($destravar || $this->menuLiberado || isset($this->acessosLiberados[$valorItem])){
+			$arCaminho = explode('/',$caminhoItem);
+			$item = $arCaminho[count($arCaminho)-1];
+			$imagem = $imagem ? ",'{$imagem}'":null;
+			eval("\$this->{$propriedadeMenu}->{'".str_replace('/',"'}->{'",$caminhoItem)."'} = new VMenu('{$item}','{$prefixo}{$valorItem}'{$imagem});");
+		}
 	}
 	/**
 	* Método criado para efetuar a montagem do menu do site
 	*/
 	public function menuPrincipal(){
 		try{
+			$this->menuPrincipal = new colecaoPadraoMenu();
 			$this->adicionarItem('menuPrincipal','Sistema/Principal','CControleAcesso_verPrincipal',true);
 			$this->adicionarItem('menuPrincipal','Sistema/Login','CControleAcesso_verLogin',true);
 			$this->adicionarItem('menuPrincipal','Cadastros/Perfil','CPerfil_verPesquisa');

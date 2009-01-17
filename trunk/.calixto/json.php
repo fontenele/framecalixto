@@ -12,6 +12,7 @@ class json {
 	* @return [string] json preparado para um eval em javascript
 	*/
 	function pegarJson( $var ){
+		return json_encode($var);
 		switch( gettype( $var )){
 			case 'boolean': return $var ? 'true' : 'false';
 			case 'NULL': return 'null';
@@ -19,7 +20,8 @@ class json {
 			case 'double': return (double) $var;
 			case 'float': return (float) $var;
 			case 'string':
-				$var = $var;
+				$var = str_replace("\n",'\n',$var);
+				$var = str_replace("^",'\^',$var);
 				return (string) '"'.$var.'"';
 			case 'array':
 				return $this->codificarArray($var);
