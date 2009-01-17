@@ -16,9 +16,17 @@ class controlePadraoVerEdicao extends controlePadrao{
 		$this->definirNegocio();
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
+		$this->montarApresentacao($this->negocio);
+		parent::inicial();
+	}
+	/**
+	* metodo de apresentação do negocio
+	* @param [negocio] objeto para a apresentação
+	* @param [string] tipo de visualização a ser utilizada 'edicao' ou 'visual'
+	*/
+	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'gravar'));
 		$this->visualizacao->chave = VComponente::montar('oculto',$this->negocio->nomeChave(),$this->negocio->valorChave());
-		$this->montarApresentacao($this->negocio);
 		$help = new VEtiquetaHtml('div');
 		$help->passarClass('help');
 		$help->passarConteudo($this->inter->pegarTexto('ajudaNovo'));
@@ -29,7 +37,7 @@ class controlePadraoVerEdicao extends controlePadrao{
 			break;
 		}
 		$this->visualizacao->descricaoDeAjuda = $help;
-		parent::inicial();
+		parent::montarApresentacao($negocio, $tipo);
 	}
 	/**
 	* Método criado para definir o objeto de negócio a ser apresentado

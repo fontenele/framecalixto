@@ -73,6 +73,10 @@ class email{
 
 	}
 	
+	public function anexar( $caminho , $nome , $codificacao , $tipo ){
+		return $this->mail->AddAttachment();
+	}
+	
 	public function __toString(){
 		$to = '';
 		if (isset($this->mail->to[0])) foreach ($this->mail->to as $email){

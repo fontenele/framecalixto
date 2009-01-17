@@ -4,103 +4,106 @@
 * @package FrameCalixto
 * @subpackage visualização
 */
-class VMenu extends VEtiquetaHtml{
+class VMenu extends objeto{
 	/**
 	* Link
 	*/
-	public $link;
+	public $_link;
 	/**
 	* id
 	*/
-	public $id;
+	public $_id;
 	/**
 	* nome
 	*/
-	public $nome;
+	public $_nome;
 	/**
 	* imagem
 	*/
-	public $imagem;
-	
-	
+	public $_imagem;
 	/**
 	* @var [in] indice de tabulação do menu
 	*/
-	public $tabIndex;
+	public $_tabIndex;
 	/**
 	* @var [string] classe de CSS do menu
 	*/
-	public $classe;
-	/**
-	* @var [array] valores do menu
-	*/
-	public $valores;
+	public $_classe;
 	/**
 	* @var colecao itens do menu
 	*/
-	public $coMenu;
+	public $_coMenu;
 	/**
 	* Método construtor
 	* @var [array] valores do menu
 	* @var [string] classe de CSS do menu
 	* @var [in] indice de tabulação do menu
 	*/
-	function __construct($valores, $classe = 'menu', $tabIndex = '9999'){
-		$this->valores = $valores;
-		$this->classe = $classe;
-		$this->tabIndex = $tabIndex;
-	}
-	/**
-	* Metodo de montagem dos botoes do menu
-	*/
-	function montarBotoes($valores){
-		$stLinks = "<ul>\n";
-		foreach($valores as $texto => $url){
-			if(is_array($url)){
-				$stLinks .= "<li><a class=\"menuComSubItem\" href=\"#\"><strong>{$texto}</strong>\n<!--[if IE 7]><!--></a><!--<![endif]-->\n";
-				$stLinks .= "<table summary='text' ><tr><td>".$this->montarBotoes($url)."</td></tr></table>";
-				$stLinks .= "\n<!--[if lte IE 6]></a><![endif]-->\n</li>\n";
-			}else{
-				$stLinks .= "<li><a href='{$url}' tabindex='{$this->tabIndex}'>{$texto}</a></li>\n";
-			}
-		}
-		return $stLinks.'</ul>';
-	}
-	/**
-	* Método de montagem do menu
-	*/
-	public function montarMenu(VMenu $vMenu){
-		if($vMenu->coMenu->possuiItens()){
-			$menu = "<ul class='{$this->classe}' >\n";
-			while ($vSubMenu = $vMenu->coMenu->avancar()){
-				$menu .= $vSubMenu->montarMenu();
-			}
-			$menu .= "</ul>";
+	function __construct($nome,$link = null,$imagem = null){
+		$this->_coMenu = new colecaoPadraoMenu();
+		if(is_array($nome)){
+			$this->montarSubMenus($nome);
 		}else{
-			$menu = "<li id={$this->id}><a href='{$this->link}' tabindex='{$this->tabIndex}' >{$this->nome}</a></li>\n";
+			$this->_nome = $nome;
+			$this->_imagem = $imagem;
+			$this->_link = $link;
 		}
 	}
 	/**
-	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
-	*/
-	function __toString(){
-		switch (true){
-			case $this->coMenu instanceof colecao:
-				$stSaida = "<div class='{$this->classe}'>";
-				$stSaida .= $this->montarMenu($this);
-				$stSaida .= "</div>";
-				return $stSaida;
-			break;
-			case (count($this->valores)):
-				$stSaida = "<div class='{$this->classe}'>";
-				$stSaida .= $this->montarBotoes($this->valores,$this->tabIndex);
-				$stSaida .= "</div>";
-				return $stSaida;
-			break;
-			default:
-				return '';
+	 * Metodo de parseamento do array para estrutura de menus
+	 * @param array $array
+	 */
+	protected function montarSubMenus($array){
+		foreach ($array as $chave => $valor) {
+			if(is_array($valor)){
+				$menu = new VMenu($valor);
+				$menu->_nome = $chave;
+				$this->subMenu($menu);
+			}else{
+				$menu = new VMenu($chave,$valor);
+				$this->subMenu($menu);
+			}
 		}
 	}
+	/**
+	 * Método de inclusão de um subMenu no Menu
+	 * @param VMenu $menu
+	 */
+	public function subMenu(VMenu $menu){
+		$this->_coMenu->subMenu($menu);
+	}
+	/**
+	* Método de apresentação da classe como string
+	*/
+	public function __toString(){
+		$this->_nome = $this->_nome ? $this->_nome : 'não informado';
+		$this->_tabIndex = $this->_tabIndex ? $this->_tabIndex : 9999;
+		$imagem = !$this->_imagem ? null : "<img src='{$this->_imagem}' style='border:0px; vertical-align:bottom;' />";
+		if($this->_coMenu->possuiItens()){
+			$menu  = "<li><a href=\"#\">{$imagem}<strong>{$this->_nome}...</strong>\n<!--[if IE 7]><!--></a><!--<![endif]-->\n";
+			$menu .= "<table summary='text' ><tr><td>".$this->_coMenu."</td></tr></table>";
+			$menu .= "\n<!--[if lte IE 6]></a><![endif]-->\n</li>\n";
+		}else{
+			if(!$this->_link)	return '';
+			$menu =  "<li id='{$this->_id}'><a href='{$this->_link}' tabindex='{$this->_tabIndex}' >{$imagem} {$this->_nome}</a></li>\n";
+		}
+		return $menu;
+	}
+	/**
+	* Método de sobrecarga para evitar a criação de métodos repetitivos
+	* @param [string] metodo chamado
+	* @param [array] parâmetros parassados para o método chamado
+	*/
+	function __set($variavel, $parametros){
+		$this->_coMenu->$variavel = $parametros;
+    }
+	/**
+	* Método de sobrecarga para evitar a criação de métodos repetitivos
+	* @param [string] metodo chamado
+	* @param [array] parâmetros parassados para o método chamado
+	*/
+	function __get($variavel){
+		return $this->_coMenu->$variavel;
+    }
 }
 ?>
