@@ -52,9 +52,11 @@ abstract class controlePadraoVerColecao extends controlePadrao{
 	* @return array itens do menu do programa
 	*/
 	function montarMenuPrograma(){
-		$link = "?c=%s";
-		$menu[$this->inter->pegarTexto('botaoGravar')]  = 'javascript:document.formulario.submit();';
-		$menu[$this->inter->pegarTexto('botaoListagem')]= sprintf($link,definicaoEntidade::controle($this,'verPesquisa'));
+		$menu = parent::montarMenuPrograma();
+		$gravar = $this->inter->pegarTexto('botaoGravar');
+		$listagem = $this->inter->pegarTexto('botaoListagem');
+		$menu->$gravar = new VMenu($gravar,'javascript:document.formulario.submit();');
+		$menu->$listagem = new VMenu($listagem,sprintf("?c=%s",definicaoEntidade::controle($this,'verPesquisa')));
 		return $menu;
 	}
 	/**

@@ -58,19 +58,14 @@ class controlePadraoVerEdicao extends controlePadrao{
 	* @return array itens do menu do programa
 	*/
 	function montarMenuPrograma(){
-		$link = "?c=%s";
-		$menu[$this->inter->pegarTexto('botaoGravar')]  = 'javascript:document.formulario.submit();';
-		switch(true){
-			case(isset($_GET['chave'])):
-				$linkExcluir = "?c=%s&amp;chave=%s";
-				$menu[$this->inter->pegarTexto('botaoExcluir')] = sprintf($linkExcluir,definicaoEntidade::controle($this,'excluir'),$_GET['chave']);
-			break;
-			case($this->negocio->valorChave()):
-				$linkExcluir = "?c=%s&amp;chave=%s";
-				$menu[$this->inter->pegarTexto('botaoExcluir')] = sprintf($linkExcluir,definicaoEntidade::controle($this,'excluir'),$this->negocio->valorChave());
-			break;
-		}
-		$menu[$this->inter->pegarTexto('botaoListagem')]= sprintf($link,definicaoEntidade::controle($this,'verPesquisa'));
+		$menu = parent::montarMenuPrograma();
+		$gravar = $this->inter->pegarTexto('botaoGravar');
+		$excluir = $this->inter->pegarTexto('botaoExcluir');
+		$listagem = $this->inter->pegarTexto('botaoListagem');
+		$chave = isset($_GET['chave']) ? $_GET['chave'] : ($this->negocio->valorChave()) ? $this->negocio->valorChave() : null;
+		$menu->$gravar = new VMenu($gravar,'javascript:document.formulario.submit();','.sistema/imagens/botao_gravar.png');
+		if($chave) $menu->$excluir = new VMenu($excluir,sprintf("?c=%s&amp;chave=%s",definicaoEntidade::controle($this,'excluir'),$chave),'.sistema/imagens/botao_excluir.png');
+		$menu->$listagem = new VMenu($listagem,sprintf("?c=%s",definicaoEntidade::controle($this,'verPesquisa')),'.sistema/imagens/botao_listagem.png');
 		return $menu;
 	}
 }
