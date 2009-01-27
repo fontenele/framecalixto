@@ -84,11 +84,14 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 	}
 
 	public function montarMenuPrograma(){
-		$menu[$this->inter->pegarTexto('botaoGravar')]  = 'javascript:document.formulario.submit();';
+		$gravar = $this->inter->pegarTexto('botaoGravar');
+		$menu = new colecaoPadraoMenu();
+		$menu->$gravar = new VMenu($gravar,'javascript:document.formulario.submit();');
 		return $menu;
 	}
 	public function montarMenuPrincipal(){
-		$menu['Sistema']['Principal']  = '?c=CControleAcesso_verPrincipal';
+		$menu = new colecaoPadraoMenu();
+		$menu->Sistema->Principal = new VMenu('Principal','?c=CControleAcesso_verPrincipal');
 		return $menu;
 	}
 }

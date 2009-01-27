@@ -41,13 +41,15 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 		if($this->sessao->tem('negocio')) $this->sessao->retirar('negocio');
 	}
 	/**
-	* Retorna um array com os itens do menu do programa
-	* @return array itens do menu do programa
+	* Preenche os itens da propriedade menuPrograma
+	* @return colecaoPadraoMenu do menu do programa
 	*/
 	function montarMenuPrograma(){
-		$link = "?c=%s";
-		$menu[$this->inter->pegarTexto('botaoNovo')] = sprintf($link,definicaoEntidade::controle($this,'verEdicao'));
-		$menu[$this->inter->pegarTexto('botaoPesquisar')] = 'javascript:document.formulario.submit();';
+		$menu = parent::montarMenuPrograma();
+		$novo = $this->inter->pegarTexto('botaoNovo');
+		$pesquisar = $this->inter->pegarTexto('botaoPesquisar');
+		$menu->$novo = new VMenu($novo,sprintf("?c=%s",definicaoEntidade::controle($this,'verEdicao')),'.sistema/imagens/botao_novo.png');
+		$menu->$pesquisar = new VMenu($pesquisar,'javascript:document.formulario.submit();','.sistema/imagens/botao_pesquisar.png');
 		return $menu;
 	}
 	/**

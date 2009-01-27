@@ -174,21 +174,25 @@ class controlePadrao extends controle{
 		$this->visualizacao->menuModulo = null;//new VMenu($this->montarMenuModulo(),'menu2','9998');
 	}
 	/**
-	* Preenche os itens da propriedade menuPrograma
-	* @return array itens do menu do programa
+	* Utiliza os itens montados para o menu do programa e registra na visualização
 	*/
 	public function gerarMenuPrograma(){
-		$arMenu = $this->montarMenuPrograma();
-		if($arMenu){
-			$menu = new VMenu($arMenu);
-			$this->visualizacao->menuPrograma = "<div class='menu3' >{$menu->_coMenu}</div>";
-		}else{
-			$this->visualizacao->menuPrograma = '';
+		$menu = $this->montarMenuPrograma();
+		switch(true){
+			case is_array($menu):
+				$menu = new VMenu($menu);
+				$this->visualizacao->menuPrograma = "<div class='menu3' >{$menu->_coMenu}</div>";
+			break;
+			case $menu instanceof colecaoPadraoMenu:
+				$this->visualizacao->menuPrograma = "<div class='menu3' >{$menu}</div>";
+			break;
+			default:
+				$this->visualizacao->menuPrograma = '';
 		}
 	}
 	/**
 	* Preenche os itens da propriedade menuPrincipal
-	* @return array itens do menu principal
+	* @return colecaoPadraoMenu do menu principal
 	*/
 	public function montarMenuPrincipal(){
 		try{
@@ -201,7 +205,7 @@ class controlePadrao extends controle{
 				$return = $classe->$metodo(get_class($this));
 				return $return ;
 			}
-			return array();
+			return new colecaoPadraoMenu();
 		}
 		catch(erro $e){
 			throw $e;
@@ -209,7 +213,7 @@ class controlePadrao extends controle{
 	}
 	/**
 	* Preenche os itens da propriedade menuModulo
-	* @return array itens do menu do modulo
+	* @return colecaoPadraoMenu do menu do modulo
 	*/
 	public function montarMenuModulo(){
 		try{
@@ -221,7 +225,7 @@ class controlePadrao extends controle{
 				$classe = new $classe();
 				return $classe->$metodo(get_class($this));
 			}
-			return array();
+			return new colecaoPadraoMenu();
 		}
 		catch(erro $e){
 			throw $e;
@@ -229,7 +233,7 @@ class controlePadrao extends controle{
 	}
 	/**
 	* Preenche os itens da propriedade menuPrograma
-	* @return array itens do menu do programa
+	* @return colecaoPadraoMenu do menu do programa
 	*/
 	public function montarMenuPrograma(){
 		try{
@@ -241,7 +245,7 @@ class controlePadrao extends controle{
 				$classe = new $classe();
 				return $classe->$metodo(get_class($this));
 			}
-			return array();
+			return new colecaoPadraoMenu();
 		}
 		catch(erro $e){
 			throw $e;

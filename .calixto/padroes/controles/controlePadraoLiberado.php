@@ -23,21 +23,21 @@ class controlePadraoLiberado extends controlePadrao{
 	* @return array itens do menu principal
 	*/
 	public function montarMenuPrincipal(){
-		return array();
+		return new colecaoPadraoMenu();
 	}
 	/**
 	* Preenche os itens da propriedade menuModulo
 	* @return array itens do menu do modulo
 	*/
 	public function montarMenuModulo(){
-		return array();
+		return new colecaoPadraoMenu();
 	}
 	/**
 	* Preenche os itens da propriedade menuPrograma
 	* @return array itens do menu do programa
 	*/
 	public function montarMenuPrograma(){
-		return array();
+		return new colecaoPadraoMenu();
 	}
 	/**
 	* Método de validação do controle de acesso
