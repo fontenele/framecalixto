@@ -49,6 +49,14 @@ class colecao extends objeto{
 		reset($this->itens);
 	}
 	/**
+	 * Método que remove um item da coleção
+	 */
+	public function removerItem($item){
+		if($this->tem($item)){
+			unset($this->itens[$item]);
+		}
+	}
+	/**
 	* Método de captura de valor pelo indice da colecao
 	* @param [string] Indice da coleção
 	* @return [mixed] Item da coleção

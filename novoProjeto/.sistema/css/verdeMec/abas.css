@@ -1,9 +1,7 @@
 .bsTabset {
 	BORDER-RIGHT: 2px outset;
 	BORDER-TOP: white 1px solid; 
-	FONT-SIZE: 12px; 
 	BORDER-LEFT: white 1px solid; 
-	FONT-FAMILY: arial,helvetica,sans-serif;
 }
 .bsTabsetActive {
 	PADDING-RIGHT: 5px; 
@@ -18,7 +16,7 @@
 	BACKGROUND-COLOR: menu;
 	
 	
-	background	: #EEE url(../../imagens/temaSGT/im_tdsupcentro.gifS);
+	background	: #00A url(../../imagens/temaMec/im_tdsupcentro.gif);
 	color		: #000;
 	display		: block;
 	text-decoration: none;
@@ -36,7 +34,7 @@
 	PADDING-TOP: 1px; 
 	BORDER-BOTTOM: white 1px solid;
 
-	background	: #CCC url(../../imagens/temaSGT/im_tdsupcentro.gifS);
+	background	: #00C url(../../imagens/temaMec/im_tdsupcentro.gif);
 	color		: #000;
 	display		: block;
 	text-decoration: none;

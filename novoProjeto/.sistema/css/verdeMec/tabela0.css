@@ -1,14 +1,21 @@
-.tabela0{
-	width:513px;
+.tabela0 {
+	width: 100%;
 }
-.tabela0 th{
-	background-color:#A3C97C;
-	color:#FFFFFF;
-	font-weight:bold;
+.tabela0 th {
+    color:#006699;
+    font-weight:bold;
+    height:22px;
+    font-size:11px;
+    font-family: verdana, arial;
+    border-bottom:1px #d7e0cc solid;
+    background-color:#ffffff;
+}
+.tabela0 a{
+	color:#066ea4;
 }
 .linhaListagem1{
-	background-color:#F4F9F0;
+    background-color: #f9faf7;
 }
 .linhaListagem2{
-	background-color:#E9F3E0;
+    background-color: #f1f4ee;
 }

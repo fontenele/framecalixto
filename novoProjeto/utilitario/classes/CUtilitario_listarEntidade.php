@@ -42,10 +42,9 @@ class CUtilitario_listarEntidade extends controlePadrao{
 	* @return [array] itens do menu do programa
 	*/
 	function montarMenuPrograma(){
-		$link = "?c=%s";
-		$menu['Novo cadastro'] =
-			sprintf($link,definicaoEntidade::controle($this,'geradorDefinirEntidade'));
-		$menu['Tabelas do banco'] = '?c=CUtilitario_listarTabelas';
+		$menu = parent::montarMenuPrograma();
+		$menu->{'Novo Cadastro'} = new VMenu('Novo Cadastro','?c=CUtilitario_geradorDefinirEntidade','utilitario/imagens/nova_pasta.png');
+		$menu->{'Tabelas do Banco'} = new VMenu('Tabelas do Banco','?c=CUtilitario_listarTabelas','utilitario/imagens/tabelas.png');
 		return $menu;
 	}
 }

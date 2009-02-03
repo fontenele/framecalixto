@@ -13,6 +13,13 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$this->sessao->limpar();
 		$this->gerarMenus();
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
+		$this->visualizacao->JsPagina = '
+			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery-ui.js" ></script>
+			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery.flydom-3.1.1.js" ></script>
+			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/cbrte/html2xhtml.js"></script>
+			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/cbrte/richtext_compressed.js"></script>
+		';
+
 		$this->visualizacao->entidade = VComponente::montar('input','entidade',null);
 		$this->visualizacao->entidade->adicionarOnchange('definirArquivosEntidade(true);sugerirNomeTabela();');
 		$this->visualizacao->nomeTabela = VComponente::montar('input','nomeTabela',null);
@@ -31,13 +38,17 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$this->visualizacao->mostrar();
 	}
 	/**
-	* Preenche os itens da propriedade menuPrograma
-	* @return array itens do menu do modulo
+	* Monta a coleção de menu do programa
+	* @return colecaoPadraoMenu menu do programa
 	*/
 	public function montarMenuPrograma(){
-		$menu['Definir']='javascript:validar();';
-		$menu['Entidades']='?c=CUtilitario_listarEntidade';
-		$menu['Tabelas']='?c=CUtilitario_listarTabelas';
+		$menu = parent::montarMenuPrograma();
+		$menu->{'Gravar entidade'}->passar_link('javascript:validar();');
+		$menu->{'Gravar entidade'}->passar_imagem('utilitario/imagens/gravar_arquivos.png');
+		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_listarEntidade');
+		$menu->{'Entidades do sistema'}->passar_imagem('utilitario/imagens/entidades.png');
+		$menu->{'Tabelas do banco'}->passar_link('?c=CUtilitario_listarTabelas');
+		$menu->{'Tabelas do banco'}->passar_imagem('utilitario/imagens/tabelas.png');
 		return $menu;
 	}
 

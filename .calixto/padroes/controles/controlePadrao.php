@@ -37,6 +37,7 @@ class controlePadrao extends controle{
 		$this->visualizacao->menuPrograma = '';
 		$this->visualizacao->descricaoDeAjuda = '';
 		$this->visualizacao->action = '';
+		$this->visualizacao->JsExtra = '';
 	}
 	/**
 	* Método que retorna o negócio referente ao controle
@@ -269,7 +270,7 @@ class controlePadrao extends controle{
 	* @param [negocio] objeto para a apresentação
 	* @param visualizacao template de registro para visualizacao
 	*/
-	public static function montarApresentacaoVisual(negocio $negocio = null, visualizacao $visualizacao){
+	public static function montarApresentacaoVisual(negocio $negocio, visualizacao $visualizacao){
 		$estrutura = controlePadrao::pegarEstrutura($negocio);
 		foreach($estrutura['campos'] as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);

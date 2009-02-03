@@ -1,30 +1,29 @@
+#menu_topo{
+	display:none;
+}
 #menu_rodape{
 	display:none;
 }
-.menu3{
-	margin-top:5px;
-	margin-bottom:5px;
-	margin-left:5px;
-	margin-right:5px;
+div.menu3 {
+	height: 35px;
+	font-weight: bold;
 }
-.menu3 ul {
-	list-style-type:none;
-	margin:0px;
-	padding:0px;
-	padding:3px;
+div.menu3 ul {
+	clear: both;
+	list-style-type: none;
 }
-.menu3 ul li{
-	display	: block;
+div.menu3 ul li {
 	float: left;
+	padding: 0px 0px;
+	z-index:     998;
 }
-.menu3 ul li a {
-	background-color:#E9F3E0;
-	border:1px solid #586D43;
-	margin:5px 5px 5px 0px;
-	padding:3px;
-	text-decoration:none;
-}	
-.menu3 ul li a:hover {
-	background-color:#FFFFFF;
-}	
-
+div.menu3 ul li a {
+	background	: url('../../imagens/temaMec/im_menufundogradiente.gif');
+	border		: 1px #7ca054 solid;
+	color		: #6c953f;
+	display		: block;
+	float		: left;
+	margin		: 3px 10px;
+	padding		: 1px 5px;
+	text-decoration: none;
+}

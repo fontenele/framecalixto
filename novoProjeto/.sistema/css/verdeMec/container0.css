@@ -1,15 +1,40 @@
-.container0 {
-	background-color:#FFFFFF;
-	border:1px solid #A3C97C;
-	color:#48662B;
-	font-size:10px;
-	margin:0px;
-	margin-top:5px;
-	padding:0px;
-	float:right;
-	width:532px;
+div.container0 {
+	margin: 12px;
+	background	: #d9e6c6;
+	border		: 1px solid #80ab48;
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+	z-index: 100;
+}
+div.container0 h1 {
+	background	:  url(../../imagens/temaMec/im_tdsupcentro.gif);
+	border-bottom: 1px solid #069;
+	color		: #588240;
+	font-weight	: bold;
+	margin		: 0px;
+	padding		: 3px 0px 3px 30px;
+	position: relative;
+	top: 0px;
+}
+div.container0 div.a {
+	width: 20px;
+	height: 20px;
+	/* background: url(../../imagens/temaMec/im_tdlupapesquisa.gif); */
+	position: relative;
+	top: 0px;
+	left: 5px;
+	float: left;
+	z-index: 100;
 }
 
-.container0 h1{
-	display:none;
+div.container0 td.campo1 {
+	width: 200px;
+	text-align: right;
+	font-weight: bold;
+}
+div.container0 td.campo2 {
+	padding-left: 5px;
+}
+
+.titulo{
 }
