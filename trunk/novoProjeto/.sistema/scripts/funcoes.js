@@ -21,69 +21,6 @@ function var_dump(obj,tab) {
 	return "(" + typeof(obj) + ") '" + obj + "'\n";
 }//end function var_dump
 
-function $(id){	return document.getElementById(id);}
-function Ajax(){
-	var xmlhttp, completo = false;
-
-	try { xmlhttp = new ActiveXObject("Msxml2.XMLHTTP"); }
-	catch (e) { try { xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); }
-	catch (e) { try { xmlhttp = new XMLHttpRequest(); }
-	catch (e) { xmlhttp = false; }}}
-	if (!xmlhttp) return null;
-	/* Método que executa a conexão
-	* param url: url a ser acessada;
-	* param metodo: método de envio (GET ou POST);
-	* vars: variáveis a serem enviadas;
-	* funcao: função javascript que será chamada quando o resultado da requisição estiver preenchido.
-	*/
-	this.executaRequisicao = function(url, metodo, funcao, mostraAmpulheta){
-		if( mostraAmpulheta == true ){
-			mostraAmpulhetaAjax();
-		}
-		if (!xmlhttp) return false;
-		completo = false;
-		metodo = metodo.toUpperCase();
-		try {
-			if (metodo == "GET"){
-				xmlhttp.open(metodo, url, true);
-			}
-			else{
-				xmlhttp.open(metodo, url, true);
-				xmlhttp.setRequestHeader("Method", "POST "+url+" HTTP/1.1");
-				xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-			}
-			xmlhttp.onreadystatechange = function(){
-				if (xmlhttp.readyState == 4 && !completo){
-					if( mostraAmpulheta == true ){
-						escondeAmpulhetaAjax();
-					}
-					if(funcao != null){
-						texto = xmlhttp.responseText;
-						padrao = /on line/;
-						padrao2 = /\<html\>/;
-						if( texto.search( padrao ) != -1 || texto.search( padrao2 ) != -1 ){
-							alert( texto );
-							return;
-						}
-						if( texto != '' ){
-							eval(texto);
-						}
-						else{
-							retorno = '';
-						}
-						funcao(retorno);
-					}
-					completo = true;
-				}
-			};
-			xmlhttp.send(null);
-		}
-		catch(z) { return false; }
-		return true;
-	};
-	return this;
-}
-
 /**
 * Esta função captura uma tecla digitada
 * Parametros necessarios :

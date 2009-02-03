@@ -11,7 +11,7 @@ class CUtilitario_atualizadorBase extends controlePadrao{
 	*/
 	function inicial(){
 		$this->passarProximoControle(definicaoEntidade::controle('CControleAcesso','verPrincipal'));
-		$imprimir = false;
+		$imprimir = true;
 		$c = conexao::criar();
 		$persistentes = $this->classes();
 		if($imprimir){
@@ -29,6 +29,7 @@ class CUtilitario_atualizadorBase extends controlePadrao{
 				$persistente->recriar();
 			}
 		}
+		if($imprimir) die;
 		$this->registrarComunicacao("Base de dados recriada.");
 	}
 	/**

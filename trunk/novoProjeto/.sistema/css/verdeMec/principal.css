@@ -19,45 +19,56 @@
 @import url(rodape.css) ;
 @import url(tabela0.css) ;
 @import url(tabela1.css) ;
-@import url(help.css) ;
-.conteudo{
-	color:#656565;
-	font-family:Verdana,Arial,Helvetica,sans-serif;
-	font-size:11px;
-	background-image:url(../../imagens/temaMec/bg_conteudo.gif);
-	background-repeat:repeat-x;
-	height:252px;
-	padding-left:4px;
-	padding-right:4px;
-	padding-top:10px;
-	width:724px;
-	top: 0px;
+.banner{
+	display:none;
 }
 a{
-	color:#526F36;
+	color:#066ea4;
 }
-.conteudo h5{
-	display:none;
+.numerico{
+	text-align: right;
 }
-.conteudo h6{
-	display:none;
+.data{
+	text-align: center;
+}
+.hora{
+	text-align: center;
+}
+button{
+	PADDING-RIGHT: 5px;
+	PADDING-LEFT: 5px;
+	PADDING-BOTTOM: 2px;
+	MARGIN-LEFT: -2px;
+	VERTICAL-ALIGN: middle;
+	CURSOR: default;
+	MARGIN-RIGHT: 0px;
+	PADDING-TOP: 3px;
+	BORDER-BOTTOM: menu 1px solid;
+	BACKGROUND-COLOR: menu;
+
+
+	background	: #00A url(../../imagens/temaMec/im_tdsupcentro.gif);
+	color		: #000;
+	display		: block;
+	text-decoration: none;
+}
+.lista ul{
+	list-style-type: square;
+	padding-left: 30px;
 }
 #campoObrigatorio{
-	color:#FF0000;
+	color: #990000;
 	font-size: 16px;
 }
-input, select {
-	border:1px solid #AABF95;
-	color:#7E9D60;
-	font-size:14px;
-	height:18px;
-	margin:2px;
-	padding:1px;
+h5.h5_hmg {
+	background-image:url(../../imagens/bg_topo_hmg.jpg);
 }
-button {
-	background-color:#A3C97C;
-	color:#FFFFFF;
+
+h5.h5_dev {
+	background-image:url(../../imagens/bg_topo_dev.jpg);
 }
-.debugEmail{
-	width: 513px;
+.opcoesSistema{
+	float:right;
+	position:relative;
+	top:90px;
 }

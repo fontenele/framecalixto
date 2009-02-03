@@ -16,13 +16,33 @@
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery-1.2.6.min.js" ></script>
 	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/cbrte/html2xhtml.js"></script>
 	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/cbrte/richtext_compressed.js"></script>
-	<script src=".sistema/scripts/Bs_TabSet.class.js"  type="text/javascript" language="javascript"></script>
-	<script src=".sistema/scripts/jquery-1.2.6.min.js"  type="text/javascript" language="javascript"></script>
-	<script src=".sistema/scripts/jquery.maskedinput-1.1.4.js"  type="text/javascript" language="javascript"></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/Bs_TabSet.class.js" ></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery.maskedinput-1.1.4.js"></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/funcoes.js" ></script>
 	<script language="javascript" type="text/javascript" src="«$JsLocal»principal.js" ></script>
+	«$JsExtra»
 	<title>«$titulo»&nbsp;</title>
 </head>
+	<div class="opcoesSistema">
+		<a href="?c=CControleAcesso_verPrincipal" title="Página Inicial"><img src=".sistema/imagens/folder_home.png" alt="Inicial" border="0"></a>
+		<a href="#" title="Adicionar a favoritos"><img id="favoritos" src=".sistema/imagens/favoritos.gif" alt="Favoritos" border="0"></a>
+		<a href="?c=CControleAcesso_verLogin" title="Sair do sistema"><img src=".sistema/imagens/sair.gif" alt="Sair" border="0"></a>
+	</div>
+	<script language="javascript">
+		$('#favoritos').click(function(){
+			if (window.sidebar){
+				window.sidebar.addPanel(document.title,document.location,"");
+			}else if(window.opera && window.print){
+	        	var mbm = document.createElement('a');
+	        	mbm.setAttribute('rel','sidebar');
+	        	mbm.setAttribute('href',url);
+	        	mbm.setAttribute('title',title);
+	        	mbm.click();
+			}else if(document.all){
+				window.external.AddFavorite(document.location,document.title);
+			}
+    	});
+	</script>
 <body>
 	<div class="banner">
 		<img src=".sistema/imagens/temaMec/topo.gif" alt="Logotipo">
@@ -33,7 +53,9 @@
 	<h6>«$tituloEspecifico»&nbsp;</h6>
 	«$comunicacaoSistema»
 	«$menuModulo»
+	<div id="menu_topo">
 	«$menuPrograma»
+	</div>
     <div class="descricaoDeAjuda">
     	«$descricaoDeAjuda»
     </div>

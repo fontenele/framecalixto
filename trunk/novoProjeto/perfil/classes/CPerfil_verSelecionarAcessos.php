@@ -62,7 +62,7 @@ class CPerfil_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 	*/
 	function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
-		unset($menu[$this->inter->pegarTexto('botaoExcluir')]);
+		$menu->removerItem($this->inter->pegarTexto('botaoExcluir'));
 		return $menu;
 	}
 

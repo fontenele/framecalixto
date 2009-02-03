@@ -20,12 +20,13 @@ class CUtilitario_listarCamposTabela extends controlePadrao{
 		parent::inicial();
 	}
 	/**
-	* Retorna um array com os itens do menu do programa
-	* @return array itens do menu do programa
+	* Monta a coleção de menu do programa
+	* @return colecaoPadraoMenu menu do programa
 	*/
-	function montarMenuPrograma(){
-		$menu['Listagem']  = '?c=CUtilitario_listarTabelas';
-		$menu['Carregar para o gerador']  = "?c=CUtilitario_geradorDefinirEntidade&tabela={$_GET['tabela']}";
+	public function montarMenuPrograma(){
+		$menu = parent::montarMenuPrograma();
+		$menu->{'Listagem'}->passar_link('?c=CUtilitario_listarTabelas');
+		$menu->{'Carregar para o gerador'}->passar_link("?c=CUtilitario_geradorDefinirEntidade&tabela={$_GET['tabela']}");
 		return $menu;
 	}
 }

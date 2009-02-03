@@ -82,16 +82,25 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		$this->visualizacao->action = '?c=CUtilitario_definirSistema';
 		$this->visualizacao->mostrar();
 	}
-
+	/**
+	* Monta a coleção de menu do programa
+	* @return colecaoPadraoMenu menu do programa
+	*/
 	public function montarMenuPrograma(){
-		$gravar = $this->inter->pegarTexto('botaoGravar');
-		$menu = new colecaoPadraoMenu();
-		$menu->$gravar = new VMenu($gravar,'javascript:document.formulario.submit();');
+		$menu = parent::montarMenuPrograma();
+		$item = $this->inter->pegarTexto('botaoGravar');
+		$menu->$item->passar_link('javascript:document.formulario.submit();');
+		$menu->$item->passar_imagem('.sistema/imagens/botao_gravar.png');
 		return $menu;
 	}
+	/**
+	* Monta a coleção de menu principal
+	* @return colecaoPadraoMenu menu principal
+	*/
 	public function montarMenuPrincipal(){
+//		$menu = parent::montarMenuPrincipal();
 		$menu = new colecaoPadraoMenu();
-		$menu->Sistema->Principal = new VMenu('Principal','?c=CControleAcesso_verPrincipal');
+		$menu->Sistema->Principal->passar_link('?c=CControleAcesso_verPrincipal');
 		return $menu;
 	}
 }

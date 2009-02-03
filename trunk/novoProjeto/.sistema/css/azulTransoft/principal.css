@@ -58,3 +58,9 @@ button{
 	color		: #FF0000;
 	font-size	: 16px;
 }
+.opcoesSistema{
+	float:right;
+	position:relative;
+	top:0px;
+	height:5px;
+}

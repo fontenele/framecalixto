@@ -65,17 +65,21 @@ class NControleMenu extends negocio{
 	public function menuPrincipal(){
 		try{
 			$this->menuPrincipal = new colecaoPadraoMenu();
-			$this->adicionarItem('menuPrincipal','Sistema/Principal','CControleAcesso_verPrincipal',true);
-			$this->adicionarItem('menuPrincipal','Sistema/Login','CControleAcesso_verLogin',true);
-			$this->adicionarItem('menuPrincipal','Cadastros/Perfil','CPerfil_verPesquisa');
-			$this->adicionarItem('menuPrincipal','Cadastros/Estado','CEstado_verPesquisa');
-			$this->adicionarItem('menuPrincipal','Cadastros/Pessoa','CPessoa_verPesquisa');
-			$this->adicionarItem('menuPrincipal','Cadastros/Usuário','CUsuario_verPesquisa');
-			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade');
-			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas');
-			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase');
-			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador');
-			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema');
+			$this->adicionarItem('menuPrincipal','Sistema/Principal','CControleAcesso_verPrincipal','controleMenu/imagens/folder_home.png',true);
+			$this->adicionarItem('menuPrincipal','Sistema/Login','CControleAcesso_verLogin','controleMenu/imagens/decrypted.png',true);
+			$this->adicionarItem('menuPrincipal','Cadastros/Estado','CEstado_verPesquisa','controleMenu/imagens/show_offliners.png');
+			$this->adicionarItem('menuPrincipal','Cadastros/Pessoa','CPessoa_verPesquisa','controleMenu/imagens/show_offliners.png');
+			$this->adicionarItem('menuPrincipal','Cadastros/Perfil','CPerfil_verPesquisa','controleMenu/imagens/show_offliners.png');
+			$this->adicionarItem('menuPrincipal','Cadastros/Usuário','CUsuario_verPesquisa','controleMenu/imagens/edit_user.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','controleMenu/imagens/exec.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas','controleMenu/imagens/view_text.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase','controleMenu/imagens/connect_creating.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','controleMenu/imagens/folder_inbox.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','controleMenu/imagens/locale16.png');
+
+			$this->menuPrincipal->Apoio->passar_imagem('controleMenu/imagens/principal.gif');
+			$this->menuPrincipal->Cadastros->passar_imagem('controleMenu/imagens/editors_section.gif');
+			$this->menuPrincipal->Sistema->passar_imagem('controleMenu/imagens/relatorios.gif');
 			return $this->menuPrincipal;
 		}
 		catch(erro $e){
