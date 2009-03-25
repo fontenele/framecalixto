@@ -95,6 +95,11 @@ class VComponente extends VEtiquetaHtml{
 					$tTipoDado = ($valor instanceof TNumerico) ? $valor : new TDocumentoPessoal(null) ;
 					$objeto = new VInputDocumentoPessoal($nome,$tTipoDado);
 				break;
+				case 'cnpj':
+					$tTipoDado = ($valor instanceof TNumerico) ? $valor : new TCnpj(null) ;
+					$tTipoDado->passarTipo('cnpj');
+					$objeto = new VInputDocumentoPessoal($nome,$tTipoDado);
+				break;
 				case 'cep':
 					$tTipoDado = ($valor instanceof TCep) ? $valor : new TCep(null) ;
 					$objeto = new VInputCep($nome,$tTipoDado);
@@ -200,7 +205,7 @@ class VComponente extends VEtiquetaHtml{
 	* @return string
 	*/
 	protected function campoObrigatorio(){
-		return '<span id="campoObrigatorio">*</span>';
+		return '<span class="campoObrigatorio">*</span>';
 	}
 }
 ?>

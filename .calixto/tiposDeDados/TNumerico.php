@@ -53,8 +53,11 @@ class TNumerico extends objeto{
 	*/
 	public function passarNumero($numero){
 		switch(true){
+			case(($numero instanceof TNumerico )):
+				$this->numero = $numero->pegarNumero();
+			break;
 			case(($numero instanceof objeto )):
-				$this->numero = $this->converterParaNumero($numero->toString());
+				$this->numero = $this->converterParaNumero($numero->__toString());
 			break;
 			case(is_string($numero)):
 				$this->numero = $this->converterParaNumero($numero);

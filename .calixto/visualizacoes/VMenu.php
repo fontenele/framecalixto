@@ -80,12 +80,12 @@ class VMenu extends objeto{
 		$this->_tabIndex = $this->_tabIndex ? $this->_tabIndex : 9999;
 		$imagem = !$this->_imagem ? null : "<img src='{$this->_imagem}' style='border:0px; vertical-align:bottom;' />";
 		if($this->_coMenu->possuiItens()){
-			$menu  = "<li><a href=\"#\">{$imagem}<strong>{$this->_nome}...</strong>\n<!--[if IE 7]><!--></a><!--<![endif]-->\n";
+			$menu  = "<li class='{$this->_classe}' ><a href=\"#\">{$imagem}<strong>{$this->_nome}...</strong>\n<!--[if IE 7]><!--></a><!--<![endif]-->\n";
 			$menu .= "<table summary='text' ><tr><td>".$this->_coMenu."</td></tr></table>";
 			$menu .= "\n<!--[if lte IE 6]></a><![endif]-->\n</li>\n";
 		}else{
 			if(!$this->_link)	return '';
-			$menu =  "<li id='{$this->_id}'><a href='{$this->_link}' tabindex='{$this->_tabIndex}' >{$imagem} {$this->_nome}</a></li>\n";
+			$menu =  "<li class='{$this->_classe}' id='{$this->_id}'><a href='{$this->_link}' tabindex='{$this->_tabIndex}' >{$imagem} {$this->_nome}</a></li>\n";
 		}
 		return $menu;
 	}

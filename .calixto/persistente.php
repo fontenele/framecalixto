@@ -143,10 +143,10 @@ abstract class persistente extends objeto{
 					return new TData($valor);
 				break;
 				case 'tnumerico':
-					return new TNumerico($valor);
+					return new TNumerico((float) $valor);
 				break;
 				case 'tmoeda':
-					return new TMoeda($valor);
+					return new TMoeda((float) $valor);
 				break;
 				case 'ttelefone':
 					return new TTelefone($valor);

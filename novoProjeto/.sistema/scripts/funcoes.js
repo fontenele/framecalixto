@@ -673,3 +673,10 @@ function formatarDocumentoPessoal(componente, tipo ){
 	}
 	componente.value = STRfinal;
 }
+$(document).ready( function() {
+    $('.cnpj').mask("99.999.999/9999-99",{completed:function(){aposDigitarCnpj($('#' + $(this).attr('id')));}});
+    $('.cpf').mask("999.999.999-99",{completed:function(){aposDigitarCpf($('#' + $(this).attr('id')));}});
+    $("input:checkbox[readonly]").click( function(){ return false; } );
+});
+function aposDigitarCnpj(){}
+function aposDigitarCpf(){}
