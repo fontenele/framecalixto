@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link type="text/css" rel="stylesheet" href="«$CssGlobal»" media="screen" ></link>
-	<link type="text/css" rel="stylesheet" href="«$CssLocal»principal.css" media="screen" ></link>
+	<link type="text/css" rel="stylesheet" href="«$CssLocal»" media="screen" ></link>
 	<script language='javascript' type="text/javascript" >
 		var JS_ERRO_DATA = '«$mensagemErroData»';
 		var JS_ERRO_DIA  = '«$mensagemErroDia»';
@@ -13,20 +13,20 @@
 		var JS_ERRO_EMAIL= '«$mensagemErroEmail»';
 		var JS_DIRETORIO_RAIZ = '.sistema/scripts/';
 	</script>
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery-1.2.6.min.js" ></script>
+	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery-1.3.1.min.js" ></script>
+	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery.maskedinput-1.1.4.js" ></script>
+	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery.flydom-3.1.1.js" ></script>
 	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/cbrte/html2xhtml.js"></script>
 	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/cbrte/richtext_compressed.js"></script>
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/Bs_TabSet.class.js" ></script>
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery.maskedinput-1.1.4.js"></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/funcoes.js" ></script>
-	<script language="javascript" type="text/javascript" src="«$JsLocal»principal.js" ></script>
+	<script language="javascript" type="text/javascript" src="«$JsLocal»" ></script>
 	«$JsExtra»
 	<title>«$titulo»&nbsp;</title>
 </head>
 	<div class="opcoesSistema">
 		<a href="?c=CControleAcesso_verPrincipal" title="Página Inicial"><img src=".sistema/imagens/folder_home.png" alt="Inicial" border="0"></a>
 		<a href="#" title="Adicionar a favoritos"><img id="favoritos" src=".sistema/imagens/favoritos.gif" alt="Favoritos" border="0"></a>
-		<a href="?c=CControleAcesso_verLogin" title="Sair do sistema"><img src=".sistema/imagens/sair.gif" alt="Sair" border="0"></a>
+		<a href="?c=CSsd_VerLogin" title="Sair do sistema"><img src=".sistema/imagens/sair.gif" alt="Sair" border="0"></a>
 	</div>
 	<script language="javascript">
 		$('#favoritos').click(function(){
@@ -63,7 +63,7 @@
 	<div id='menu_rodape'>
 		«$menuPrograma»
 	</div>
-<div id='msgObrigatorio'>Os campos marcados com <span id="campoObrigatorio">*</span> são de preenchimento obrigatório</div>
+<div id='msgObrigatorio'>Os campos marcados com <span class="campoObrigatorio">*</span> são de preenchimento obrigatório</div>
 </div>
 </body>
 </html>

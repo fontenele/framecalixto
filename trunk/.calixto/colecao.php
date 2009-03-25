@@ -64,6 +64,7 @@ class colecao extends objeto{
 	public function pegar($indice = null){
 		if(!$indice){
 			$ar = array_keys($this->itens);
+			if(!$ar) throw new Erro("Coleção vazia!");
 			if($this->tem($ar[0])){
 				return $this->itens[$ar[0]];
 			}else{

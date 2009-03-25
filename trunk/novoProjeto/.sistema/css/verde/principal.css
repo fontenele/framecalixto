@@ -46,7 +46,7 @@ a{
 .conteudo h6{
 	display:none;
 }
-#campoObrigatorio{
+.campoObrigatorio{
 	color:#FF0000;
 	font-size: 16px;
 }

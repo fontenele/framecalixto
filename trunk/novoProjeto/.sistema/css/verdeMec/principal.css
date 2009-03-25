@@ -19,6 +19,7 @@
 @import url(rodape.css) ;
 @import url(tabela0.css) ;
 @import url(tabela1.css) ;
+@import url(theme/ui.all.css) ;
 .banner{
 	display:none;
 }
@@ -56,7 +57,7 @@ button{
 	list-style-type: square;
 	padding-left: 30px;
 }
-#campoObrigatorio{
+.campoObrigatorio{
 	color: #990000;
 	font-size: 16px;
 }

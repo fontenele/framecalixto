@@ -6,6 +6,8 @@
 * @subpackage utilitários
 */
 class colecaoPadraoMenu extends colecaoPadraoObjeto {
+	public $_classe;
+	public $_id;
 	/**
 	* Método de inclusão de um subMenu no Menu
 	* @param VMenu $menu
@@ -15,7 +17,7 @@ class colecaoPadraoMenu extends colecaoPadraoObjeto {
 	}
 	public function __toString(){
 		if($this->possuiItens()){
-			$stMenu = "<ul>\n";
+			$stMenu = "<ul id='{$this->_id}' class='{$this->_classe}' >\n";
 			foreach ($this->itens as $subMenu){
 				$stMenu.= $subMenu;
 			}

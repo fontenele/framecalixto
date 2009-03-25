@@ -37,26 +37,10 @@ class visualizacaoPadrao extends visualizacao{
 		}
 		$this->pagina = $pagina;
 		$this->CssGlobal = definicaoArquivo::pegarCss();
-		$this->CssLocal = definicaoPasta::css($this->controle);
-		$this->JsLocal = definicaoPasta::js($this->controle);
+		$this->CssLocal = definicaoPasta::css($this->controle).'principal.css';
+		$this->JsLocal = definicaoPasta::js($this->controle).'principal.js';
 		$this->template_dir = '.';
 		echo $this->pegar(definicaoArquivo::pegarHtmlPadrao());
-	}
-	/**
-	* Executa o processamento e mostra a página
-	* @param [texto] Nome do arquivo de formatação da visualização
-	*/
-	function mostrarParaAjax($pagina = null){
-		if(isset($this->_tpl_vars['action'])){
-			if (preg_match('/^\?c=C(.*)/', $this->action, $resultado)){
-				$this->action .= '&ajax=1';
-			}
-		}
-		if($pagina) {
-			echo $this->pegar($pagina);
-		}else{
-			echo $this->pegar($this->controle.'.html');
-		}
 	}
 }
 ?>
