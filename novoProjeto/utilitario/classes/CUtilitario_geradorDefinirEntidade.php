@@ -111,6 +111,9 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$conexao = conexao::criar();
 		$persistente = new PUtilitario($conexao);
 		$desc = $persistente->lerTabela($_GET['tabela']);
+		$sequences = $persistente->lerSequenciasDoBanco($_GET['tabela']);
+		$sequences = array_merge(array(''=>'&nbsp;'),$sequences);
+		if($sequences) $this->visualizacao->nomeSequence = VComponente::montar('caixa de combinação','nomeSequence',null,null,$sequences);
 		$mapNegocio['bd']['nomeTabela'] = $_GET['tabela'];
 		$mapNegocio['bd']['nomeSequencia'] = '«Nome da sequência???»';
 		$mapNegocio['bd']['chavePrimaria'] = '';
@@ -141,7 +144,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 				break;
 				case $campo['campo_fk']:
 					$componente = 'caixa de combinacao';
-					$chaveEstrangeira = array('tabela'=>$campo['tabela_fk'],'campo'=>$campo['campo_fk']);
+					$chaveEstrangeira = array('tabela'=>$campo['esquema_fk'].'.'.$campo['tabela_fk'],'campo'=>$campo['campo_fk']);
 				break;
 				default:
 					$tipoDeDado = ($campo['tipo_de_dado'] == 'numerico') ? 'tnumerico' : $campo['tipo_de_dado'];
