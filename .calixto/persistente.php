@@ -249,6 +249,11 @@ abstract class persistente extends objeto{
 			throw $e;
 		}
 	}
+    /**
+    * Método de verificação da existência de uma tabela no banco de dados
+    * @param string $tabela
+    * @return boolean
+    */
     public function existeTabela($tabela = false){
         try {
             if($tabela){
@@ -262,7 +267,6 @@ abstract class persistente extends objeto{
         } catch (Exception $e) {
             return false;
         }
-
     }
 	/**
 	* Gera a cláusula de filtro de leitura
