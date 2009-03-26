@@ -249,6 +249,21 @@ abstract class persistente extends objeto{
 			throw $e;
 		}
 	}
+    public function existeTabela($tabela = false){
+        try {
+            if($tabela){
+                $sql = "select count(*) from {$tabela}";
+            }else{
+                $estrutura = $this->pegarEstrutura();
+                $sql = "select count(*) from {$estrutura['nomeTabela']}";
+            }
+            $this->executarComando($sql);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+
+    }
 	/**
 	* Gera a cláusula de filtro de leitura
 	* @param [array] $filtro
@@ -822,10 +837,7 @@ abstract class persistente extends objeto{
 	*/
 	public function recriar(){
 		try{
-			$this->destruir();
-			$this->criar();
-		}
-		catch(erro $e){
+            if($this->existeTabela()) $this->destruir();
 			$this->criar();
 		}
 		catch(erro $e){
