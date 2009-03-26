@@ -167,7 +167,8 @@ class PUtilitario extends persistentePadraoPG {
 	
 	public function lerSequenciasDoBanco(){
 		$sql = "
-			SELECT 
+			SELECT
+				n.nspname as esquema,
 				c.relname AS sequencia, 
 				u.usename AS usuario
 			FROM 
@@ -182,7 +183,7 @@ class PUtilitario extends persistentePadraoPG {
 		";
 		$this->conexao->executarComando($sql);
 		while ($registro = $this->conexao->pegarRegistro()){
-			$retorno[] = $registro['sequencia'] ;
+			$retorno[$registro['esquema'].'.'.$registro['sequencia']] = $registro['esquema'].'.'.$registro['sequencia'] ;
 		}
 		return $retorno;
 	}
