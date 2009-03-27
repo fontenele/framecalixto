@@ -149,9 +149,15 @@ function validarEmail(valor){
 	try{
 		re = /^[\w!#$%&'*+\/=?^`{|}~-]+(\.[\w!#$%&'*+\/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/;
 		a = re.exec(valor);
-		if(!a) alert(JS_ERRO_EMAIL);
+		if(!a) {
+            alert(JS_ERRO_EMAIL);
+            valor.value = '';
+        }
 	}
-	catch(e){alert(e);}
+	catch(e){
+        alert(e);
+        valor.value = '';
+    }
 }
 //====================================================================================
 //                      FORMATACAO DE DATA E HORA
@@ -640,6 +646,57 @@ function formatarCep(componente){
 	componente.value = STRfinal;
 }
 //====================================================================================
+//                      FORMATAÇÃO E VALIDAÇÃO DE NOME COMPLETO
+//====================================================================================
+/**
+* funcao de formatacao de data
+* @var [ob] objeto html a ser formatado
+* @var [ob] evento para a captura
+* @var [txt] separador de data
+* @var [txt] formato da data : DDMMYYYY , MMDDYYYY , YYYYMMDD
+*/
+function validarNome(Componente, evento){
+	try{
+		var Enter= 13;
+		var BackSpace= 8;
+		var Caracter;
+		var CodigoTecla;
+		CodigoTecla = CapturaTecla(evento);
+		Caracter = String.fromCharCode(CodigoTecla);
+		if (CodigoTecla== Enter)    return false;
+		if (CodigoTecla== BackSpace)return true;
+		if (!CodigoTecla) return true;
+		re = /([aA-zZ]|[\ ])/;
+		if(re.exec(Caracter)){
+			if(Caracter == '\\') return false;
+			if(Caracter == '_') return false;
+			return true;
+		}else{
+			if(Caracter == 'Ç') return true;
+			if(Caracter == 'ç') return true;
+			return false;
+		}
+	}
+	catch(e){alert(e);}
+}
+/**
+* função de validação de nome completo
+* @var [ob] objeto html a ser formatado
+*/
+function validarNomeCompleto(componente){
+	try{
+		if(!componente.value) return;
+		re = /^(a{3,}|b{3,}|c{3,}|d{3,}|e{3,}|f{3,}|g{3,}|h{3,}|i{3,}|j{3,}|k{3,}|l{3,}|m{3,}|n{3,}|o{3,}|p{3,}|q{3,}|r{3,}|s{3,}|t{3,}|u{3,}|v{3,}|x{3,}|z{3,}|w{3,}|y{3,}|k{3,})$/i;
+		if(re.exec(componente.value)){ throw 1; }
+		re = /^[aA-zZ]+\ [aA-zZ]+/;
+		if(!re.exec(componente.value)){ throw 1; }
+	}
+	catch(e){
+		alert('Nome inválido ou incompleto!');
+		componente.value = '';
+	}
+}
+////====================================================================================
 //                      FORMATAÇÃO E VALIDAÇÃO DE CPF/CNPJ
 //====================================================================================
 function desformatarDocumentoPessoal(componente){
@@ -673,6 +730,12 @@ function formatarDocumentoPessoal(componente, tipo ){
 	}
 	componente.value = STRfinal;
 }
+////====================================================================================
+//                      FORMATAÇÃO E VALIDAÇÃO DE CPF/CNPJ
+//====================================================================================
+function validarTelefone(){}
+////====================================================================================
+//====================================================================================
 $(document).ready( function() {
     $('.cnpj').mask("99.999.999/9999-99",{completed:function(){aposDigitarCnpj($('#' + $(this).attr('id')));}});
     $('.cpf').mask("999.999.999-99",{completed:function(){aposDigitarCpf($('#' + $(this).attr('id')));}});

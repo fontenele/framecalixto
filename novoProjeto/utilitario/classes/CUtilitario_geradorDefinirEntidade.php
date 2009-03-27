@@ -33,10 +33,52 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$this->visualizacao->campos = null;
 		$this->visualizacao->acesso = 'Nova geração de cadastro';
 		$this->visualizacao->travarSugestaoDeNomesPersistente = 'false';
+
+
+		$d = dir(".");
+        $negocios = array();
+        $tabelas = array();
+		while (false !== ($arquivo = $d->read())) {
+			if( is_dir($arquivo) && ($arquivo{0} !== '.') ){
+				if(is_file($arquivo.'/classes/N'.ucfirst($arquivo).'.php')){
+					$negocio = 'N'.ucfirst($arquivo);
+                    $negocios[] = $negocio;
+                    $tabelas[] = $this->pegarTabela(new $negocio());
+				}
+			}
+		}
+		$d->close();
+        foreach($tabelas as $index => $tabela){
+            if(!$tabela) unset( $tabelas[$index] );
+        }
+        array_merge(array(''=>'&nbsp;'),$tabelas);
+        array_merge(array(''=>'&nbsp;'),$negocios);
+
+        $json = new json();
+        $this->visualizacao->negocios = $json->pegarJson($negocios);
+        $this->visualizacao->tabelas = $json->pegarJson(array($tabelas));
+
 		if(isset($_GET['tabela'])) $this->montarTabela();
 		if(isset($_GET['entidade'])) $this->montarEntidade();
 		$this->visualizacao->mostrar();
 	}
+    /**
+     * Método que retorna o nome da tabela de um objeto de negócio
+     * @param negocio $negocio
+     * @return string
+     */
+    protected function pegarTabela(negocio $negocio){
+        try {
+            $persistente = $negocio->pegarPersistente();
+            if($negocio instanceof negocioPadrao){
+                $arPersistente = $persistente->pegarEstrutura();
+                return $arPersistente['nomeTabela'];
+            }
+            return '';
+        } catch (Exception $e) {
+            return '';
+        }
+    }
 	/**
 	* Monta a coleção de menu do programa
 	* @return colecaoPadraoMenu menu do programa

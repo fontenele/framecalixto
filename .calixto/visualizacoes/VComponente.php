@@ -173,6 +173,13 @@ class VComponente extends VEtiquetaHtml{
 					$objeto->passarCols(50);
 					$objeto->passarRows(2);
 				break;
+                case 'nome':
+                case 'nome completo':
+                    $objeto = new VInputNome($nome,$valor);
+                break;
+                case 'email':
+                    $objeto = new VInputEmail($nome,$valor);
+                break;
 				default:
 					$objeto = new $componente($nome,$valor);
 				break;
