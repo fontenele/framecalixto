@@ -15,13 +15,44 @@ class controlePadraoGravar extends controlePadrao{
 	* Método inicial do controle
 	*/
 	public function inicial(){
-		$this->definirProximoControle();
-		$this->definirNegocio();
-		$this->montarNegocio($this->negocio);
-		$this->registrarNegocioNaSessao();
-		$this->gravar();
-		$this->aposGravar();
-		$this->retornarMensagem();
+		try {
+			$this->definirProximoControle();
+			$this->definirNegocio();
+			$this->iniciarTransacao();
+			$this->montarNegocio($this->negocio);
+			$this->registrarNegocioNaSessao();
+			$this->gravar();
+			$this->aposGravar();
+			$this->retornarMensagem();
+			$this->validarTransacao();
+		} catch (Exception $e) {
+			$this->desfazerTransacao();
+			throw $e;
+		}
+	}
+	/**
+	 * Método de início da transação
+	 */
+	public function iniciarTransacao(){
+		if($this->negocio instanceof negocioPadrao){
+			$this->negocio->pegarConexao()->iniciarTransacao();
+		}
+	}
+	/**
+	 * Método de validação da transação
+	 */
+	public function validarTransacao(){
+		if($this->negocio instanceof negocioPadrao){
+			$this->negocio->pegarConexao()->validarTransacao();
+		}
+	}
+	/**
+	 * Método de desfazer a transação
+	 */
+	public function desfazerTransacao(){
+		if($this->negocio instanceof negocioPadrao){
+			$this->negocio->pegarConexao()->desfazerTransacao();
+		}
 	}
 	/**
 	 * Define o proximo controle após a finalização da operação

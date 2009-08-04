@@ -39,9 +39,9 @@ class VRadioLista extends VComponente {
 				foreach($this->conteudo as $indice => $texto){
 					if($indice == $this->valor){
 						$this->conteudo[$indice]['radio']->passarChecked(true);
-						$conteudo .= "{$this->conteudo[$indice]['radio']}{$this->conteudo[$indice]['label']}";
+						$conteudo .= "{$this->conteudo[$indice]['radio']} {$this->conteudo[$indice]['label']} ";
 					}else{
-						$conteudo .= "{$this->conteudo[$indice]['radio']}{$this->conteudo[$indice]['label']}";
+						$conteudo .= "{$this->conteudo[$indice]['radio']} {$this->conteudo[$indice]['label']} ";
 					}
 				}
 			}else{
@@ -51,9 +51,9 @@ class VRadioLista extends VComponente {
 					if($i == 0) $conteudo.='<tr>';
 					if($indice == $this->valor){
 						$this->conteudo[$indice]['radio']->passarChecked(true);
-						$conteudo .= "<td>{$this->conteudo[$indice]['radio']}{$this->conteudo[$indice]['label']}</td>";
+						$conteudo .= "<td>{$this->conteudo[$indice]['radio']} {$this->conteudo[$indice]['label']} </td>";
 					}else{
-						$conteudo .= "<td>{$this->conteudo[$indice]['radio']}{$this->conteudo[$indice]['label']}</td>";
+						$conteudo .= "<td>{$this->conteudo[$indice]['radio']} {$this->conteudo[$indice]['label']} </td>";
 					}
 					if(++$i >= $this->colunas){
 						$conteudo.='</tr>';

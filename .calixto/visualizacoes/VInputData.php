@@ -5,20 +5,26 @@
 * @subpackage visualização
 */
 class VInputData extends VInput{
-	function __construct($nome = 'naoInformado',TData $valor){
+    /**
+     * Método construtor
+     * @param string $nome
+     * @param TData $valor
+     */
+	function __construct($nome = 'naoInformado',TData $valor = null){
 		parent::__construct($nome, $valor);
 		// $this->passarOnkeypress('formatarData(this, event, "/", "DDMMYYYY");');
 		$this->passarOnBlur(sprintf('checarData(this, "/", "%s","%s");','DDMMYYYY',date('d/m/Y')));
 		$this->passarSize('10');
 		$this->passarMaxlength('10');
 		$this->passarClass('data');
-		$this->passarValue($valor->pegarData());
+		$this->passarValue($valor ? $valor->pegarData() : '');
 	}
+    /**
+     * Método sobrescrito para manter o tamanho da data estático
+     * @param string $valor
+     */
 	public function passarMaxlength($valor){
 		$this->propriedades['maxlength'] = '10';
-	}
-	public function __toString(){
-		return parent::__toString().'<script type="text/javascript">jQuery(function($){$("#'.$this->pegarId().'").mask("99/99/9999",{completed:function(){checarData($("#'.$this->pegarId().'"),"/","DDMMYYYY",'.date("d/m/Y").');}});});</script>';
 	}
 }
 ?>

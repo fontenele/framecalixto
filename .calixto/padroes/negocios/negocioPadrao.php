@@ -324,60 +324,79 @@ abstract class negocioPadrao extends negocio{
 	* Método utilizado para efetuar as verificações antes de executar a inclusão
 	*/
 	public function verificarAntesInserir(){
-		try{
-			$mapeador = $this->pegarMapeamento();
-			$variaveisClasse = array_keys(get_class_vars(get_class($this)));
-			foreach($mapeador as $valor){
-				// Testa campos obrigatórios
-				if(($valor['propriedade'] != $this->nomeChave()) && ($valor['obrigatorio'] == 'sim') && in_array($valor['propriedade'], $variaveisClasse)){
-					$metodo = "pegar{$valor['propriedade']}";
-					if($this->$metodo() == null){
-						throw new erroNegocio(sprintf($this->inter->pegarMensagem('obrigatorio'),$this->inter->pegarPropriedade($valor['propriedade'])));
-					}
+		$mapeador = $this->pegarMapeamento();
+		$variaveisClasse = array_keys(get_class_vars(get_class($this)));
+		$indicesUnicos = array();
+		foreach($mapeador as $valor){
+			// Testa campos obrigatórios
+			if(($valor['propriedade'] != $this->nomeChave()) && ($valor['obrigatorio'] == 'sim') && in_array($valor['propriedade'], $variaveisClasse)){
+				$metodo = "pegar{$valor['propriedade']}";
+				$conteudo = $this->$metodo();
+				$conteudo = trim("{$conteudo}");
+				if(empty($conteudo)){
+					throw new erroNegocio(sprintf($this->inter->pegarMensagem('obrigatorio'),$this->inter->pegarPropriedade($valor['propriedade'])));
 				}
 			}
-			return true;
+			if($valor['indiceUnico']) $indicesUnicos[] = $valor['propriedade'];
 		}
-		catch(Erro $e){
-			throw $e;
+		if($indicesUnicos){
+			$classe = get_class($this);
+			$negocio = new $classe($this->pegarConexao());
+			foreach($indicesUnicos as $propriedade){
+				$negocio->{"passar{$propriedade}"}(operador::igual($this->{"pegar{$propriedade}"}()));
+			}
+			$colecao = $negocio->pesquisar();//'Registro já cadastrado!'
+			if($colecao->contarItens()) throw new erroNegocio($this->inter->pegarMensagem('repetido'));
 		}
+		return true;
 	}
 	/**
 	* Método utilizado para efetuar as verificações antes de executar a alteração
 	* @param [negocio] objeto antes da alteração .
 	*/
 	public function verificarAntesAlterar($negocio){
-		try{
-			$mapeador = $this->pegarMapeamento();
-			$variaveisClasse = array_keys(get_class_vars(get_class($this)));
-			foreach($mapeador as $valor){
-				$campo = $valor['campo'];
-				if(($valor['obrigatorio'] == 'sim') && in_array($valor['propriedade'], $variaveisClasse)){
-					$metodo = "pegar{$valor['propriedade']}";
-					if($this->$metodo() == null){
-						throw new erroNegocio(sprintf($this->inter->pegarMensagem('obrigatorio'),$this->inter->pegarPropriedade($valor['propriedade'])));
-					}
+		$mapeador = $this->pegarMapeamento();
+		$variaveisClasse = array_keys(get_class_vars(get_class($this)));
+		$indicesUnicos = array();
+		foreach($mapeador as $valor){
+			$campo = $valor['campo'];
+			if(($valor['obrigatorio'] == 'sim') && in_array($valor['propriedade'], $variaveisClasse)){
+				$metodo = "pegar{$valor['propriedade']}";
+				$conteudo = $this->$metodo();
+				$conteudo = trim("{$conteudo}");
+				if(empty($conteudo)){
+					throw new erroNegocio(sprintf($this->inter->pegarMensagem('obrigatorio'),$this->inter->pegarPropriedade($valor['propriedade'])));
 				}
 			}
+			if($valor['indiceUnico']) $indicesUnicos[] = $valor['propriedade'];
 		}
-		catch(Erro $e){
-			throw $e;
-		}
-	}
-	/**
-	* Executa o comando de exclusão do objeto
-	*/
-	public function excluir(){
-		try{
-			$this->ler($this->valorChave());
-			$this->verificarAntesExcluir();
-			$persistente = $this->pegarPersistente();
-			$persistente->excluir($this->valorChave());
-		}
-		catch(Erro $e){
-			throw $e;
+		if($indicesUnicos){
+			$classe = get_class($this);
+			$negocio = new $classe($this->pegarConexao());
+			foreach($indicesUnicos as $propriedade){
+				$negocio->{"passar{$propriedade}"}(operador::igual($this->{"pegar{$propriedade}"}()));
+			}
+			$colecao = $negocio->pesquisar();//'Registro já cadastrado!'
+			$colecao->removerItem($this->valorChave());
+			if($colecao->contarItens()) throw new erroNegocio($this->inter->pegarMensagem('repetido'));
 		}
 	}
+    /**
+    * Executa o comando de exclusão do objeto
+    */
+    public function excluir(){
+        try{
+            $this->ler($this->valorChave());
+            $this->verificarAntesExcluir();
+            $persistente = $this->pegarPersistente();
+            $persistente->excluir($this->valorChave());
+        }
+        catch(Erro $e){
+            if($persistente->possuiDependentes($this->valorChave()))
+                throw new erroNegocio(sprintf($this->inter->pegarMensagem('dependente'),$this->valorDescricao()));
+            throw $e;
+        }
+    }
 	/**
 	* Método utilizado para efetuar as verificações antes de executar a exclusão
 	*/
@@ -395,8 +414,9 @@ abstract class negocioPadrao extends negocio{
 	* @param [filtro] dados de pesquisa (não obrigatorio)
 	* @return colecaoPadraoNegocio
 	*/
-	public function pesquisar(pagina $pagina, $filtro = null){
+	public function pesquisar(pagina $pagina = null, $filtro = null){
 		try{
+			if(!$pagina) $pagina = new pagina(0);
 			$persistente = $this->pegarPersistente();
 			if(is_subclass_of($filtro, 'filtro')){
 				$arResultadoLeitura = $persistente->pesquisar($filtro,$pagina);

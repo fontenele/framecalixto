@@ -1,20 +1,22 @@
 <?xml version='1.0' encoding="utf-8" ?>
 <internacionalizacao>
 	<sistema>
-		<titulo>TESTE</titulo>
-		<subtitulo>Título detalhado do sistema de teste</subtitulo>
+		<titulo>FMEPT</titulo>
+		<subtitulo>Fórum Mundial de Educação Profissional e Tecnológica</subtitulo>
 	</sistema>
 	<controles>
 		<textos>
 			<texto id="sim">Sim</texto>
 			<texto id="nao">Não</texto>
 			<texto id="botaoNovo">Novo</texto>
-			<texto id="botaoGravar">Gravar</texto>
+			<texto id="botaoGravar">Salvar</texto>
 			<texto id="botaoExcluir">Excluir</texto>
 			<texto id="botaoListagem">Listagem</texto>
 			<texto id="botaoPesquisar">Pesquisar</texto>
+			<texto id="botaoLimpar">Limpar</texto>
 			<texto id="verPesquisa">Pesquisa</texto>
 			<texto id="verEdicao">Edição</texto>
+			<texto id="verInclusao">Inclusão</texto>
 			<texto id="tituloListagem">Listagem</texto>
 			<texto id="enviar">Enviar Dados</texto>
 			<texto id="paginas">Páginas</texto>
@@ -28,6 +30,8 @@
 		<mensagem id="excluirSucesso">Registro excluído com sucesso!</mensagem>
 		<mensagem id="registrosNaoEncontrados">Não foram encontrados registros</mensagem>
 		<mensagem id="obrigatorio">O campo [%s] é obrigatório!</mensagem>
+		<mensagem id="repetido">Este registro já está cadastrado!</mensagem>
+		<mensagem id="dependente">Registro [%s] não excluído por possuir registros dependentes!</mensagem>
 		<mensagem id="erroData">Formato de data inválida</mensagem>
 		<mensagem id="erroDia">O Dia [%s] é inválido!</mensagem>
 		<mensagem id="erroMes">O Mês [%s] é inválido!</mensagem>

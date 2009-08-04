@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade nomeBanco='pessoa'>
+<entidade nomeBanco='public.pessoa' nomeSequencia='public.sq_pessoa' >
 	<propriedades>
 		<propriedade id='idPessoa' tipo='numerico' tamanho='10' obrigatorio='sim' indicePrimario='sim'  >
 			<banco nome='Pess_id_pessoa'  />
@@ -23,7 +23,7 @@
 				<listagem ordem='3' tamanho='45%' hyperlink='sim' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='documento' tipo='tdocumentopessoal' tamanho='25' indiceUnico='sim' >
+		<propriedade id='documento' tipo='tdocumentopessoal' tamanho='25' >
 			<banco nome='Pess_documento' />
 			<apresentacao componente='documento pessoal' >
 				<listagem ordem='2' tamanho='12%' />

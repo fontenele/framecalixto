@@ -5,7 +5,7 @@
 * @package Sistema
 * @subpackage pessoa
 */
-class CPessoa_verPesquisa extends controlePadraoVerPesquisa{
+class CPessoa_verPesquisa extends controlePadraoPesquisa{
 	/**
 	* Método de criação do controle de listagem
 	* @return [controle] Um controle especialista em listagem

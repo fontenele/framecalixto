@@ -10,7 +10,7 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 	* objeto de conexão com o banco de dados
 	* @var [conexao]
 	*/
-	public $conexao;
+	protected $conexao;
 	/**
 	* Metodo construtor
 	* @param [vetor] (opcional) dados da colecao

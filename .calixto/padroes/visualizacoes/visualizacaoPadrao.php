@@ -10,6 +10,12 @@ class visualizacaoPadrao extends visualizacao{
 	* @var [texto] Nome da classe de controle
 	*/
 	protected $controle;
+    protected $template;
+
+    public function passarTemplate($template){
+       
+        $this->template = $template;
+    }
 	/**
 	* Método contrutor
 	* @param [controle] objeto de controle padronizado
@@ -30,17 +36,33 @@ class visualizacaoPadrao extends visualizacao{
 	* @param [texto] Nome do arquivo de formatação da visualização
 	*/
 	function mostrar($pagina = null){
-		if($pagina) {
-			$pagina = $this->pegar($pagina);
-		}else{
-			$pagina = $this->pegar($this->controle.'.html');
-		}
+        switch(true){
+            case $this->template:
+                $pagina = $this->pegar($this->template.'.html');
+            break;
+            case $pagina:
+                $pagina = $this->pegar($pagina);
+            break;
+            default:
+    			$pagina = $this->pegar($this->controle.'.html');
+        }
+        if(controle::requisicaoAjax()) {
+            echo $pagina;
+            return;
+        }
 		$this->pagina = $pagina;
 		$this->CssGlobal = definicaoArquivo::pegarCss();
 		$this->CssLocal = definicaoPasta::css($this->controle).'principal.css';
 		$this->JsLocal = definicaoPasta::js($this->controle).'principal.js';
 		$this->template_dir = '.';
 		echo $this->pegar(definicaoArquivo::pegarHtmlPadrao());
+	}
+	/**
+	* Executa o processamento e mostra a página
+	* @param [texto] Nome do arquivo de formatação da visualização
+	*/
+	function mostrarParaAjax($pagina = null){
+        $this->mostrar($pagina);
 	}
 }
 ?>

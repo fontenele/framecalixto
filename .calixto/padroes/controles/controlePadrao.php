@@ -37,7 +37,23 @@ class controlePadrao extends controle{
 		$this->visualizacao->menuPrograma = '';
 		$this->visualizacao->descricaoDeAjuda = '';
 		$this->visualizacao->action = '';
+		$this->visualizacao->CssGlobal = '';
+		$this->visualizacao->CssLocal = '';
+		$this->visualizacao->CssExtra = '';
+		$this->visualizacao->mensagemErroData = '';
+		$this->visualizacao->mensagemErroDia = '';
+		$this->visualizacao->mensagemErroMes = '';
+		$this->visualizacao->mensagemErroAno = '';
+		$this->visualizacao->mensagemErroHora = '';
+		$this->visualizacao->mensagemErroEmail = '';
+		$this->visualizacao->JsLocal = '';
 		$this->visualizacao->JsExtra = '';
+		$this->visualizacao->menuModulo = '';
+		$this->visualizacao->menuPrincipal = '';
+		$this->visualizacao->menuPrograma = '';
+		$this->visualizacao->tituloEspecifico = '';
+		//$this->visualizacao->comunicacaoSistema = '';
+		$this->visualizacao->descricaoDeAjuda = '';
 	}
 	/**
 	* Método que retorna o negócio referente ao controle
@@ -116,8 +132,16 @@ class controlePadrao extends controle{
 		
 		$visualizacao->titulo		= $inter->pegarTituloSistema();
 		$visualizacao->subtitulo	= $inter->pegarSubtituloSistema();
+        if($inter->pegarTitulo()){
 		$visualizacao->tituloEspecifico =
-			sprintf('%s - %s',$inter->pegarTitulo(),$inter->pegarTexto(	isset($_GET['c']) ? definicaoEntidade::funcionalidade($_GET['c']):	null));
+			sprintf(
+                '%s - %s',
+                $inter->pegarTitulo(),
+                $inter->pegarTexto(	isset($_GET['c']) ? definicaoEntidade::funcionalidade($_GET['c']):	null)
+            );
+        }else{
+    		$visualizacao->tituloEspecifico = $inter->pegarTexto(	isset($_GET['c']) ? definicaoEntidade::funcionalidade($_GET['c']):	null);
+        }
 		$internacionalizacao = $inter->pegarInternacionalizacao();
 		if(isset($internacionalizacao['propriedade']))
 		foreach($internacionalizacao['propriedade'] as $indice => $propriedade){
@@ -172,7 +196,13 @@ class controlePadrao extends controle{
 	* Utiliza os itens montados para o menu do módulo e registra na visualização
 	*/
 	public function gerarMenuModulo(){
-		$this->visualizacao->menuModulo = null;//new VMenu($this->montarMenuModulo(),'menu2','9998');
+		// $this->visualizacao->menuModulo = null;//new VMenu($this->montarMenuModulo(),'menu2','9998');
+        $arMenu = $this->montarMenuModulo();
+		if($arMenu){
+			$this->visualizacao->menuModulo = "<div class='menu2' >{$arMenu}</div>";
+		}else{
+			$this->visualizacao->menuModulo = '';
+		}
 	}
 	/**
 	* Utiliza os itens montados para o menu do programa e registra na visualização
@@ -321,11 +351,13 @@ class controlePadrao extends controle{
 				if ($visualizacao->$nome instanceof VInput && $opcoes['tamanho']) {
 					$visualizacao->$nome->passarMaxlength($opcoes['tamanho']);
 				}
-				if($opcoes['obrigatorio']){
-					$visualizacao->$nome->obrigatorio = true;
-				}
 				if($visualizacao->$nome instanceof VInput ){
 					$visualizacao->$nome->passarTitle($negocio->inter->pegarPropriedade($nome,'descricao'));
+					if(($opcoes['tamanho'] + 2) > 80){
+						$visualizacao->$nome->passarSize(80);
+					}else{
+						$visualizacao->$nome->passarSize(($opcoes['tamanho'] + 2));
+					}
 				}
 			}
 		}
@@ -338,7 +370,7 @@ class controlePadrao extends controle{
 	*/
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		try{
-			$this->visualizacao->tituloEspecifico = sprintf('%s - %s',$this->inter->pegarTitulo(),$this->inter->pegarTexto(definicaoEntidade::funcionalidade($this)));
+			//$this->visualizacao->tituloEspecifico = sprintf('%s - %s',$this->inter->pegarTitulo(),$this->inter->pegarTexto(definicaoEntidade::funcionalidade($this)));
 			switch($tipo){
 				case('edicao'):
 					$this->montarApresentacaoEdicao($negocio,$this->visualizacao);
@@ -363,7 +395,7 @@ class controlePadrao extends controle{
 			$estrutura = controlePadrao::pegarEstrutura($negocio);
 			$atributos = array_keys(get_class_vars(get_class($negocio)));
 			foreach($dados as $campo => $valor){
-				if(in_array($campo,$atributos)){
+				if(in_array($campo,$atributos) && isset($estrutura['campos'][$campo])){
 					$metodo = 'passar'.ucfirst($campo);
 					$valor = self::obterValorDoComponenteHtmlPadrao($estrutura['campos'][$campo],$valor);
 					self::passarValorPostadoParaNegocio($negocio, $metodo, $estrutura['campos'][$campo], $valor);
@@ -390,9 +422,9 @@ class controlePadrao extends controle{
 			break;
 			case 'data e hora':
 				switch(true){
-					case($valor['data'] && $valor['hora']) : $valor = new TData(implode(' ',$valor)); break;
-					case($valor['data']) : $valor = new TData($valor['data']); break;
-					case($valor['hora']) : $valor = new TData(TData::hoje($valor['hora'])); break;
+					case($valor['data'] && $valor['hora']) : $valor = new TDataHora(implode(' ',$valor)); break;
+					case($valor['data']) : $valor = new TDataHora($valor['data']); break;
+					case($valor['hora']) : $valor = new TDataHora(TData::hoje($valor['hora'])); break;
 					default:
 						$valor = null;
 				}

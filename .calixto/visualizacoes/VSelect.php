@@ -15,7 +15,7 @@ class VSelect extends VComponente{
 		if(is_array($this->conteudo)){
 			foreach($this->conteudo as $indice => $texto){
 				if($indice == $this->valor){
-					$conteudo .= "<option value='{$indice}' selected>{$texto}</option>";
+					$conteudo .= "<option value='{$indice}' selected='selected'>{$texto}</option>";
 				}else{
 					$conteudo .= "<option value='{$indice}'>{$texto}</option>";
 				}
