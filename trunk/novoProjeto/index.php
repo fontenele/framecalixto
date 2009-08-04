@@ -9,7 +9,13 @@ date_default_timezone_set('America/Sao_Paulo');
 set_time_limit(0);
 //Carrregando as classes de definições e erros
 include_once('../.calixto/definicoes/include.php');
-include_once('../.calixto/tiposDeErros/include.php');
+include_once('../.calixto/definicoes/definicao.php');
+include_once('../.calixto/definicoes/definicaoArquivo.php');
+include_once('../.calixto/definicoes/definicaoBanco.php');
+include_once('../.calixto/definicoes/definicaoEntidade.php');
+include_once('../.calixto/definicoes/definicaoNavegador.php');
+include_once('../.calixto/definicoes/definicaoPasta.php');
+include_once('../.calixto/definicoes/definicaoSistema.php');
 //Lendo o arquivo XML de definições de diretórios e arquivos
 $definicoes = definicao::pegarDefinicao('.sistema/xml/definicoes.xml');
 switch (definicaoSistema::pegarAmbiente()) {

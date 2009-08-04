@@ -33,95 +33,99 @@ class gerenteControles extends objeto{
 			return true;
 		}
 		catch (erroNegocio $e){
-			if(controle::requisicaoAjax()){
-				$json = new json();
-				$ar['tipo'] = get_class($e);
-				$ar['erro'] = $e->getMessage();
-				echo $json->pegarJson($ar);
-			}else{
-				sessaoSistema::registrar('comunicacao', $e->getMessage());
-				if(!empty($this->proximoControle))
-					$this->redirecionar("?c={$this->proximoControle}");
-			}
+            if(controle::tipoResposta()){
+                $this->exibirErro($e);
+            }else{
+                sessaoSistema::registrar('comunicacao', $e->getMessage());
+                if(!empty($this->proximoControle))
+                    $this->redirecionar("?c={$this->proximoControle}");
+            }
 			return false;
 		}
 		catch (erroLogin $e){
-			if(controle::requisicaoAjax()){
-				$json = new json();
-				$ar['tipo'] = get_class($e);
-				$ar['erro'] = $e->getMessage();
-				echo $json->pegarJson($ar);
-			}else{
-				sessaoSistema::registrar('comunicacao', $e->getMessage());
-				if(!empty($this->proximoControle))
-					$this->redirecionar("?c={$this->proximoControle}");
-				$this->redirecionar('?c='.definicaoSistema::pegarControleInicial());
+            if(controle::tipoResposta()){
+                $this->exibirErro($e);
+            }else{
+                sessaoSistema::registrar('comunicacao', $e->getMessage());
+                if(!empty($this->proximoControle))
+                    $this->redirecionar("?c={$this->proximoControle}");
+                $this->redirecionar('?c='.definicaoSistema::pegarControleInicial());
 			}
 			return false;
 		}
 		catch (erroAcesso $e){
-			if(controle::requisicaoAjax()){
-				$json = new json();
-				$ar['tipo'] = get_class($e);
-				$ar['erro'] = $e->getMessage();
-				echo $json->pegarJson($ar);
-			}else{
-				sessaoSistema::registrar('comunicacao', $e->getMessage());
-				if(!empty($this->proximoControle))
-					$this->redirecionar("?c={$this->proximoControle}");
-				$this->redirecionar(sprintf('?c=%s','CControleAcesso_verPrincipal'));
+            if(controle::tipoResposta()){
+                $this->exibirErro($e);
+            }else{
+                sessaoSistema::registrar('comunicacao', $e->getMessage());
+                if(!empty($this->proximoControle))
+                    $this->redirecionar("?c={$this->proximoControle}");
+                $this->redirecionar(sprintf('?c=%s','CControleAcesso_verPrincipal'));
 			}
 			return false;
 		}
 		catch (erroSessao $e){
-			if(controle::requisicaoAjax()){
-				$json = new json();
-				$ar['tipo'] = get_class($e);
-				$ar['erro'] = $e->getMessage();
-				echo $json->pegarJson($ar);
-			}else{
-				sessaoSistema::registrar('comunicacao', $e->getMessage());
-				if(!empty($this->proximoControle))
-					$this->redirecionar("?c={$this->proximoControle}");
-				$this->redirecionar(sprintf('?c=%s','CControleAcesso_verPrincipal'));
+            if(controle::tipoResposta()){
+                $this->exibirErro($e);
+            }else{
+                sessaoSistema::registrar('comunicacao', $e->getMessage());
+                if(!empty($this->proximoControle))
+                    $this->redirecionar("?c={$this->proximoControle}");
+                $this->redirecionar(sprintf('?c=%s','CControleAcesso_verPrincipal'));
 			}
 			return false;
 		}
 		catch (erroBanco $e){
-			if(controle::requisicaoAjax()){
-				$json = new json();
-				$ar['tipo'] = get_class($e);
-				$ar['erro'] = 'Ocorreu um erro de banco de dados, contacte a DTI (MEC).';
-				//$e->getMessage();
-				echo $json->pegarJson($ar);
-			}else{
-				echo $e->__toHtml();
+            if(controle::tipoResposta()){
+                $this->exibirErro($e,'Ocorreu um erro de banco de dados, contacte a DTI (MEC).');
+            }else{
+                echo $e->__toHtml();
 			}
 			return false;
 		}
 		catch (erro $e){
-			if(controle::requisicaoAjax()){
-				$json = new json();
-				$ar['tipo'] = get_class($e);
-				$ar['erro'] = $e->getMessage();
-				echo $json->pegarJson($ar);
-			}else{
+            if(controle::tipoResposta()){
+                $this->exibirErro($e);
+            }else{
 				echo $e->__toHtml();
 			}
 			return false;
 		}
 		catch (Exception $e){
-			if(controle::requisicaoAjax()){
-				$json = new json();
-				$ar['tipo'] = get_class($e);
-				$ar['erro'] = $e->getMessage();
-				echo $json->pegarJson($ar);
-			}else{
+            if(controle::tipoResposta()){
+                $this->exibirErro($e);
+            }else{
 				echo $e;
 			}
 			return false;
 		}
 	}
+    /**
+    * Exibe o erro ocorrido no processo executado pelo controle
+    * @param Exception $e
+    * @param string $mensagemForcada
+    */
+    public function exibirErro(Exception $e, $mensagemForcada = null){
+        $ar['tipo'] = get_class($e);
+        $ar['erro'] = $e->getMessage();
+        switch(controle::tipoResposta()){
+            case controle::ajax:
+            case controle::json:
+                header("Content-type:application/jsonrequest; charset=utf-8");
+                $json = new json();
+                echo $json->pegarJson($ar);
+            break;
+            case controle::xml:
+                echo "<erro>
+                        <tipo>{$ar['tipo']}</tipo>
+                        <erro>{$ar['erro']}</erro>
+                    </erro>";
+            break;
+            case controle::texto:
+                echo $e;
+            break;
+        }
+    }
 	/**
 	* Método que executa o redirecionamento para um outro controle
 	* @param [string] link para a chamada do próximo controle

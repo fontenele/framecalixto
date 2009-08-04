@@ -151,11 +151,11 @@ class definicaoArquivo{
 		}else{
 			foreach(definicao::pegarDefinicao()->arquivos->arquivo as $arquivo){
 				if(strval($arquivo['tipo']) == "html padrao do sistema") {
-					definicaoArquivo::$css = strval($arquivo['nome']);
+					definicaoArquivo::$html = strval($arquivo['nome']);
 					break;
 				}
 			}
-			return definicaoArquivo::$css;
+			return definicaoArquivo::$html;
 		}
 	}
 }

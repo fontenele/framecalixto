@@ -5,6 +5,10 @@
 * @subpackage Controle
 */
 abstract class controle extends objeto{
+    const ajax = 'ajax';
+    const xml = 'xml';
+    const json = 'json';
+    const texto = 'texto';
 	/**
 	* @var [string] define o próximo controle para ser redirecionado
 	*/
@@ -98,7 +102,17 @@ abstract class controle extends objeto{
 	* retorna se a requisição do controle foi feita via ajax
 	*/
 	public static function requisicaoAjax(){
+        if(controle::tipoResposta() == controle::ajax) return true;
 		return (isset($_GET['ajax']));
 	}
+    /**
+    * Retorna o tipo de requisicao feita
+    */
+    public static function tipoResposta(){
+        if (isset($_GET['tipoResposta'])){
+            return strtolower($_GET['tipoResposta']);
+        }
+        return false;
+    }
 }
 ?>

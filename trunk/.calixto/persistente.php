@@ -6,6 +6,10 @@
 */
 abstract class persistente extends objeto{
 	/**
+	 * @var boolean variável de debugger
+	 */
+	protected $imprimirComandos = false;
+	/**
 	* @var [array] array com a estrutura dos objetos persistentes
 	* criado para a execução de cache
 	*/
@@ -26,6 +30,12 @@ abstract class persistente extends objeto{
 		catch(erro $e){
 			throw $e;
 		}
+	}
+	public function imprimirComandos($valor){
+		$ar = debug_backtrace();
+		$classe = get_class($this);
+		echo "<div class='debug'>{$classe} configurando impressão por :{$ar[0]['file']} na linha:{$ar[0]['line']}</div>";
+		$this->imprimirComandos = $valor;
 	}
 	/**
 	* Método de sobrecarga para printar a classe
@@ -114,6 +124,7 @@ abstract class persistente extends objeto{
 	*/
 	public function executarComando($comando = null){
 		try{
+			if($this->imprimirComandos) debug2($comando);
 			return $this->conexao->executarComando($comando);
 		}
 		catch(erro $e){
@@ -139,6 +150,9 @@ abstract class persistente extends objeto{
 	public function converterDado($valor,$campo = null){
 		if($campo){
 			switch(strtolower($campo['tipo'])){
+				case 'datahora':
+					return new TDataHora($valor);
+				break;
 				case 'data':
 					return new TData($valor);
 				break;
@@ -200,7 +214,7 @@ abstract class persistente extends objeto{
 	*/
 	public function pegarSelecao($comando = null){
 		try{
-			$this->conexao->executarComando($comando);
+			$this->executarComando($comando);
 			while ($arTupla = $this->pegarRegistro()) {
 				$recordSet[] = $arTupla;
 			}
@@ -278,17 +292,46 @@ abstract class persistente extends objeto{
 		$estrutura = $this->pegarEstrutura();
 		$comando = '';
 		foreach($filtro as $campo => $valor){
+            $operador = $estrutura['campo'][$campo]['operadorDeBusca'];
+            if( $valor instanceof operador ){
+                if($valor->pegarOperador() == operador::eNulo){
+        			$comando.= "{$campo} is null and ";
+                    continue ;
+                }
+                if($valor->pegarOperador() == operador::naoENulo){
+        			$comando.= "{$campo} is not null and ";
+                    continue ;
+                }
+                $operador = $valor->pegarOperador();
+                $valor = $valor->pegarValor();
+            }
 			$valor = $this->converterDado($valor);
 			if(!$valor) continue;
-			switch(strtolower($estrutura['campo'][$campo]['operadorDeBusca'])){
+			switch(strtolower($operador)){
 				case('diferente'):
+				case(operador::diferente):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
 						$operacao = " %s <> %s and ";
 					}else{
 						$operacao = " %s <> '%s' and ";
 					}
 				break;
+                case(operador::iniciandoComo):
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " upper(%s) like upper(%%%s) and ";
+					}else{
+						$operacao = " upper(%s) like upper('%%%s') and ";
+					}
+                break;
+                case(operador::finalizandoComo):
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " upper(%s) like upper(%s%%) and ";
+					}else{
+						$operacao = " upper(%s) like upper('%s%%') and ";
+					}
+                break;
 				case('como'):
+                case(operador::como):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
 						$operacao = " upper(%s) like upper(%%%s%%) and ";
 					}else{
@@ -306,10 +349,39 @@ abstract class persistente extends objeto{
 					}
 				break;
 				case('igual'):
+				case(operador::igual):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
 						$operacao = " %s = %s and ";
 					}else{
 						$operacao = " %s = '%s' and ";
+					}
+				break;
+				case(operador::maiorOuIgual):
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " %s >= %s and ";
+					}else{
+						$operacao = " %s >= '%s' and ";
+					}
+				break;
+				case(operador::maiorQue):
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " %s > %s and ";
+					}else{
+						$operacao = " %s > '%s' and ";
+					}
+				break;
+				case(operador::menorQue):
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " %s < %s and ";
+					}else{
+						$operacao = " %s < '%s' and ";
+					}
+				break;
+				case(operador::menorOuIgual):
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " %s <= %s and ";
+					}else{
+						$operacao = " %s <= '%s' and ";
 					}
 				break;
 			}
@@ -346,6 +418,20 @@ abstract class persistente extends objeto{
 			throw $e;
 		}
 	}
+    /**
+	* Retorna a quantidade de objetos que o metodo pesquisar irá retornar
+	* @param filtro dados de pesquisa (não obrigatorio)
+	* @return int
+	*/
+	public function totalDePesquisar($filtro = null){
+        $total = $this->pegarSelecao("select count(*) as quantidade from ({$this->gerarComandoPesquisar($filtro)}) selecao");
+        if(isset($total[0]['quantidade'])){
+            return (integer) $total[0]['quantidade'];
+        }else{
+            return false;
+        }
+    }
+
 	/**
 	* Executa o comando de leitura dos registros pesquisados
 	* @param [array] dados do filtro
@@ -481,7 +567,7 @@ abstract class persistente extends objeto{
 	*/
 	public function inserir($array){
 		try{
-			$this->conexao->executarComando($this->gerarComandoInserir($array));
+			$this->executarComando($this->gerarComandoInserir($array));
 		}
 		catch(erro $e){
 			throw $e;
@@ -502,12 +588,19 @@ abstract class persistente extends objeto{
 		}
 	}
 	/**
+	 * Método que verifica se um registro possui dependentes no banco
+	 * @return boolean
+	 */
+	public function possuiDependentes($chave){
+		return false;
+	}
+	/**
 	* Exclui um registro no banco
 	* @param [string] chave primária do registro
 	*/
 	public function excluir($valorChave){
 		try{
-			$this->conexao->executarComando($this->gerarComandoExcluir($valorChave));
+			$this->executarComando($this->gerarComandoExcluir($valorChave));
 		}
 		catch(erro $e){
 			throw $e;
@@ -551,7 +644,7 @@ abstract class persistente extends objeto{
 	*/
 	public function alterar($array, $valorChave){
 		try{
-			$this->conexao->executarComando($this->gerarComandoAlterar($array,$valorChave));
+			$this->executarComando($this->gerarComandoAlterar($array,$valorChave));
 		}
 		catch(erro $e){
 			throw $e;
@@ -582,11 +675,11 @@ abstract class persistente extends objeto{
 		try{
 			$estrutura = $this->pegarEstrutura();
 			if($comandoCriacaoSequence = $this->gerarComandoCriacaoSequence()){
-				$this->conexao->executarComando($comandoCriacaoSequence);
+				$this->executarComando($comandoCriacaoSequence);
 			}
 		}
 		catch(erro $e){
-			$this->conexao->executarComando("alter sequence {$estrutura['nomeSequencia']} restart 1;");
+			$this->executarComando("alter sequence {$estrutura['nomeSequencia']} restart 1;");
 		}
 		catch(erro $e){
 			throw $e;
@@ -621,7 +714,7 @@ abstract class persistente extends objeto{
 	public function criarTabela(){
 		try{
 			if($comandoCriacaoTabela = $this->gerarComandoCriacaoTabela()){
-				$this->conexao->executarComando($comandoCriacaoTabela);
+				$this->executarComando($comandoCriacaoTabela);
 			}
 		}
 		catch(erro $e){
@@ -654,7 +747,7 @@ abstract class persistente extends objeto{
 	public function criarChavePrimaria(){
 		try{
 			if($comandoCriacaoChavePrimaria = $this->gerarComandoCriacaoChavePrimaria()){
-				$this->conexao->executarComando($comandoCriacaoChavePrimaria);
+				$this->executarComando($comandoCriacaoChavePrimaria);
 			}
 		}
 		catch(erro $e){
@@ -707,7 +800,7 @@ abstract class persistente extends objeto{
 	public function criarChavesEstrangeiras(){
 		try{
 			if($comandoCriacaoChavesEstrangeiras = $this->gerarComandoCriacaoChavesEstrangeiras()){
-				$this->conexao->executarComando($comandoCriacaoChavesEstrangeiras);
+				$this->executarComando($comandoCriacaoChavesEstrangeiras);
 			}
 		}
 		catch(erro $e){
@@ -745,7 +838,7 @@ abstract class persistente extends objeto{
 	public function criarRestricoes(){
 		try{
 			if($comandoRestricao = $this->gerarComandoRestricao()){
-				$this->conexao->executarComando($comandoRestricao);
+				$this->executarComando($comandoRestricao);
 			}
 		}
 		catch(erro $e){
@@ -787,7 +880,7 @@ abstract class persistente extends objeto{
 	public function destruirSequence(){
 		try{
 			if($comandoDestruicaoSequence = $this->gerarComandoDestruicaoSequence()){
-				$this->conexao->executarComando($comandoDestruicaoSequence);
+				$this->executarComando($comandoDestruicaoSequence);
 			}
 			return true;
 		}
@@ -816,7 +909,7 @@ abstract class persistente extends objeto{
 		try{
 			$this->ler(null);
 			if($comandoDestruicaoTabela = $this->gerarComandoDestruicaoTabela()){
-				$this->conexao->executarComando($comandoDestruicaoTabela );
+				$this->executarComando($comandoDestruicaoTabela );
 			}
 			return true;
 		}

@@ -49,6 +49,33 @@ abstract class objeto{
 		$json = new json();
 		return $json->pegarJson($this);
 	}
+    /**
+    * Método de codificação para XML
+    * @return string XML
+    */
+    public function xml(){
+        $variaveis = get_object_vars($this);
+        if(isset($variaveis['conexao'])) unset($variaveis['conexao']);
+        $classe = get_class($this);
+        $xml = "<{$classe}>\n";
+        foreach($variaveis as $var => $val){
+            if($val instanceof objeto) $val = $val->xml();
+            if(is_array($val)) $val = $this->arrayXml($val);
+            $xml.="<{$var}>{$val}</{$var}>\n";
+        }
+        $xml.= "</{$classe}>\n\n";
+		return $xml;
+    }
+    protected function arrayXml($array){
+        $xml = "\n";
+        foreach($array as $var => $val){
+            if($val instanceof objeto) $val = $val->xml();
+            if(is_array($val)) $val = $this->arrayXml($val);
+            $xml.="<{$var}>{$val}</{$var}>\n";
+        }
+        $xml.= "\n\n";
+        return $xml;
+    }
 	/**
 	* Método de sobrecarga para serializar a classe
 	*/

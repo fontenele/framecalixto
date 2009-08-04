@@ -13,7 +13,7 @@
 			<banco nome='usua_id_usuario'  />
 			<apresentacao componente='oculto'  />
 		</propriedade>
-		<propriedade id='login' tipo='texto' tamanho='25' obrigatorio='sim' descritivo='2'  >
+		<propriedade id='login' tipo='texto' tamanho='25' obrigatorio='sim' descritivo='2' indiceUnico='sim' >
 			<banco nome='usua_login' ordem='1' operador='igual' />
 			<apresentacao componente='caixa de entrada' >
 				<listagem ordem='2' tamanho='30%' hyperlink='sim' />

@@ -167,15 +167,20 @@ class TData extends objeto{
 		return null;
 	}
 	/**
+	* metodo de retorno da string de hora
+	* @return [string] hora formatada
+	*/
+	public function pegarDataCompleta(){
+        return $this->pegarData() . ' ' . $this->pegarHora();
+	}
+	/**
 	* metodo de retorno da string de data
 	* @param [string] formato da data
 	* @return [string] data formatada
 	*/
 	public function __toString(){
-		$data = $this->pegarData();
-		$hora = $this->pegarHora();
-		if($data === null && $data === null) return '';
-		return sprintf('%s %s',$data,$hora);
+        $data = $this->pegarData();
+		return $data ? $data : '';
 	}
 }
 ?>

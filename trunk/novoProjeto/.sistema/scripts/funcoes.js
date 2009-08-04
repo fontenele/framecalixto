@@ -148,7 +148,7 @@ function str_replace(strAntiga, strNova, strOriginal){
 function validarEmail(valor){
 	try{
 		re = /^[\w!#$%&'*+\/=?^`{|}~-]+(\.[\w!#$%&'*+\/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/;
-		a = re.exec(valor);
+		a = re.exec(valor.value);
 		if(!a) {
             alert(JS_ERRO_EMAIL);
             valor.value = '';
@@ -736,10 +736,100 @@ function formatarDocumentoPessoal(componente, tipo ){
 function validarTelefone(){}
 ////====================================================================================
 //====================================================================================
+$(function(){
+
+	$("ul.dropdown li").hover(function(){
+
+		$(this).addClass("hover");
+		$('ul:first',this).css('visibility', 'visible');
+
+	}, function(){
+
+		$(this).removeClass("hover");
+		$('ul:first',this).css('visibility', 'hidden');
+
+	});
+
+	$("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
+
+});
+
 $(document).ready( function() {
     $('.cnpj').mask("99.999.999/9999-99",{completed:function(){aposDigitarCnpj($('#' + $(this).attr('id')));}});
     $('.cpf').mask("999.999.999-99",{completed:function(){aposDigitarCpf($('#' + $(this).attr('id')));}});
     $("input:checkbox[readonly]").click( function(){ return false; } );
+    
+    $("#seletorDePagina").change( function( ) {
+    		var c = $.getURLParam("c").split('_');
+    		//alert(c[0]);
+            window.location = "?c="+c[0]+"_mudarPagina&pagina=" + $(this).val();
+    });
+    /*$.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+	$(".data").datepicker({ dateFormat: 'dd/mm/yy', showOn: 'both', buttonImage: '.sistema/imagens/calendar.gif', buttonImageOnly: true , yearRange: '-100:+20'}
+	)/*.attr("readonly" , "readonly")*/;
+
+	$.fn.htmlDialog = function( valor )
+	{
+		
+		try{
+			eval( "valor = (" + valor + ")" );
+			if( valor.tipo )
+			{
+				alert( valor.erro );
+			}
+			return( false );
+		}
+		catch( e )
+		{
+			$(this).html( valor );
+			return( true );
+		}
+	};
+
 });
 function aposDigitarCnpj(){}
 function aposDigitarCpf(){}
+
+/* Copyright (c) 2006 Mathias Bank (http://www.mathias-bank.de)
+ * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) 
+ * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+ * 
+ * Thanks to Hinnerk Ruemenapf - http://hinnerk.ruemenapf.de/ for bug reporting and fixing.
+ */
+jQuery.extend({
+/**
+* Returns get parameters.
+*
+* If the desired param does not exist, null will be returned
+*
+* @example value = $.getURLParam("paramName");
+*/
+ getURLParam: function(strParamName){
+	  var strReturn = "";
+	  var strHref = window.location.href;
+	  var bFound=false;
+	  
+	  var cmpstring = strParamName + "=";
+	  var cmplen = cmpstring.length;
+
+	  if ( strHref.indexOf("?") > -1 ){
+	    var strQueryString = strHref.substr(strHref.indexOf("?")+1);
+	    var aQueryString = strQueryString.split("&");
+	    for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
+	      if (aQueryString[iParam].substr(0,cmplen)==cmpstring){
+	        var aParam = aQueryString[iParam].split("=");
+	        strReturn = aParam[1];
+	        bFound=true;
+	        break;
+	      }
+	      
+	    }
+	  }
+	  if (bFound==false) return null;
+	  return strReturn;
+	}
+});
+/*metodo que coloca focus no campo quando clicar na figura de relogio ao lado do campo hora
+$(".time").livequery('click', function(){
+    $(this).prev().focus();
+});*/
