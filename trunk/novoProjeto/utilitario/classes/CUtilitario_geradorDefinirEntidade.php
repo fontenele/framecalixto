@@ -21,13 +21,10 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		';
 
 		$this->visualizacao->entidade = VComponente::montar('input','entidade',null);
-		$this->visualizacao->entidade->adicionarOnchange('definirArquivosEntidade(true);sugerirNomeTabela();');
 		$this->visualizacao->nomeTabela = VComponente::montar('input','nomeTabela',null);
 		$this->visualizacao->nomeSequence = VComponente::montar('input','nomeSequence',null);
 		$this->visualizacao->recriarBase = VComponente::montar('checkbox','recriarBase',null);
-		$adicionar = VComponente::montar('botao','adicionar', $this->inter->pegarTexto('adicionar'));
-		$adicionar->adicionarOnClick('teste(document.formulario.novaPropriedade);');
-		$this->visualizacao->adicionar = $adicionar;
+		$this->visualizacao->adicionar = VComponente::montar('botao','adicionar', $this->inter->pegarTexto('adicionar'));
 		$this->visualizacao->action = '?c=CUtilitario_geradorGerarFonte';
 		$this->visualizacao->dados = null;
 		$this->visualizacao->campos = null;

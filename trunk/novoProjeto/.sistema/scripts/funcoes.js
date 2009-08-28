@@ -2,6 +2,35 @@
 //
 //====================================================================================
 /**
+ * função para fazer lowerCamelCase();
+ */
+function upperCamelCase(nome){
+	nome = nome.toLowerCase();
+	arNome = nome.split(' ');
+	nomeFim = '';
+	for(i in arNome){
+		ucfirst = arNome[i].charAt(0).toUpperCase();
+		nomeFim += ucfirst + arNome[i].substr(1,arNome[i].length);
+	}
+	return RetiraAcentos(nomeFim);
+}
+/**
+ * função para fazer lowerCamelCase();
+ */
+function lowerCamelCase(nome){
+	nome = nome.toLowerCase();
+	arNome = nome.split(' ');
+	nomeFim = '';
+	for(i in arNome){
+		ucfirst = arNome[i].charAt(0);
+		if(i > 0){
+			ucfirst = arNome[i].charAt(0).toUpperCase();
+		}
+		nomeFim += ucfirst + arNome[i].substr(1,arNome[i].length);
+	}
+	return RetiraAcentos(nomeFim);
+}
+/**
 * Debug para javascript
 */
 function x(obj){
