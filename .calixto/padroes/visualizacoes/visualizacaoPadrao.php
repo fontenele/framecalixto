@@ -51,9 +51,6 @@ class visualizacaoPadrao extends visualizacao{
             return;
         }
 		$this->pagina = $pagina;
-		$this->CssGlobal = definicaoArquivo::pegarCss();
-		$this->CssLocal = definicaoPasta::css($this->controle).'principal.css';
-		$this->JsLocal = definicaoPasta::js($this->controle).'principal.js';
 		$this->template_dir = '.';
 		echo $this->pegar(definicaoArquivo::pegarHtmlPadrao());
 	}

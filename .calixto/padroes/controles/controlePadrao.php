@@ -37,23 +37,25 @@ class controlePadrao extends controle{
 		$this->visualizacao->menuPrograma = '';
 		$this->visualizacao->descricaoDeAjuda = '';
 		$this->visualizacao->action = '';
-		$this->visualizacao->CssGlobal = '';
-		$this->visualizacao->CssLocal = '';
-		$this->visualizacao->CssExtra = '';
 		$this->visualizacao->mensagemErroData = '';
 		$this->visualizacao->mensagemErroDia = '';
 		$this->visualizacao->mensagemErroMes = '';
 		$this->visualizacao->mensagemErroAno = '';
 		$this->visualizacao->mensagemErroHora = '';
 		$this->visualizacao->mensagemErroEmail = '';
-		$this->visualizacao->JsLocal = '';
-		$this->visualizacao->JsExtra = '';
 		$this->visualizacao->menuModulo = '';
 		$this->visualizacao->menuPrincipal = '';
 		$this->visualizacao->menuPrograma = '';
 		$this->visualizacao->tituloEspecifico = '';
 		//$this->visualizacao->comunicacaoSistema = '';
 		$this->visualizacao->descricaoDeAjuda = '';
+		$this->visualizacao->CssGlobal = definicaoArquivo::pegarCss();
+		$this->visualizacao->CssEntidade = definicaoPasta::css($this).'principal.css';
+		$this->visualizacao->CssLocal  = definicaoPasta::css($this).get_class($this).'.css';
+		$this->visualizacao->CssExtra = '';
+		$this->visualizacao->JsEntidade = definicaoPasta::js($this).'principal.js';
+		$this->visualizacao->JsLocal = definicaoPasta::js($this).get_class($this).'.js';
+		$this->visualizacao->JsExtra = '';
 	}
 	/**
 	* Método que retorna o negócio referente ao controle
