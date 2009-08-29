@@ -12,7 +12,7 @@ dados = {
 		['tmoeda',				'TMoeda']
 	],
 	componentes:[
-		['caixa de entrada',	'De Entrada (input)'					],
+		['caixa de entrada',	'Entrada (input)'					],
 		['oculto',				'Oculto (hidden)'						],
 		['caixa de combinacao',	'Caixa de Combinação (select)'			],
 		['caixa de selecao',	'Caixa de Seleção (select multiple)'	],
@@ -31,7 +31,43 @@ dados = {
 		['documento pessoal',	'CNPJ: 99.999.999/9999-99'				],
 		['numerico',			'Número: 99.999.999,99'					],
 		['moeda',				'Moeda: R$ 99.999.999,99'				]
-	]
+	],
+	sugerirComponente: function(obj){
+		linha = pegarLinha(obj);
+		if($('input[name="ng_chave_pk"]:checked').val() == linha) return 'oculto';
+		if($('.ln_'+linha+' .dominio').val()) return 'caixa de combinacao';
+		if($('.ln_'+linha+' .fk').val()) return 'caixa de combinacao';
+		switch(obj.val()){
+			case('texto'):
+				valor = 'caixa de entrada';
+			break;
+			case('numerico'):
+				valor = 'caixa de entrada';
+			break;
+			case('data'):
+				valor = 'data';
+			break;
+			case('tdocumentopessoal'):
+				valor = 'documento pessoal';
+			break;
+			case('tcnpj'):
+				valor = 'documento pessoal';
+			break;
+			case('tcep'):
+				valor = 'cep';
+			break;
+			case('ttelefone'):
+				valor = 'telefone';
+			break;
+			case('tnumerico'):
+				valor = 'numerico';
+			break;
+			case('tmoeda'):
+				valor = 'moeda';
+			break;
+		}
+		return valor;
+	}
 }
 function entidade(){
 	this.adicionar = function (nome,abreviado,descricao){
@@ -77,13 +113,13 @@ function negocio(){
 				'<td><input tabindex="1" type="text"		name="ng_nome['+dados.linha+']"		value="'+this.propriedade+'"	class="propriedade" /></td>' +
 				'<td><input tabindex="1" type="text"		name="ng_tamanho['+dados.linha+']"	value="'+this.tamanho+'"		class="tamanho" size="4" /></td>' +
 				'<td><select tabindex="1" 				name="ng_tipo['+dados.linha+']"	id="ng_tipo_'+dados.linha+'"		class="tipo">' + options + '</select></td>' +
-				'<td><input tabindex="1" type="radio"	name="ng_chave_pk"						value="'+this.pk+'"			class="pk" /></td>' +
-				'<td><input tabindex="1" type="checkbox" name="ng_nn['+dados.linha+']"			value="'+this.nn+'"			class="nn" /></td>' +
-				'<td><input tabindex="1" type="checkbox" name="ng_uk['+dados.linha+']"			value="'+this.uk+'"			class="uk" /></td>' +
-				'<td><input tabindex="1" type="checkbox" name="ng_fk['+dados.linha+']"			value="'+this.fk+'"			class="fk" /></td>' +
+				'<td><input tabindex="1" type="radio"	name="ng_chave_pk"						value="'+dados.linha+'"			class="pk" '+ (this.pk ? 'checked="checked"' : '')  +' /></td>' +
+				'<td><input tabindex="1" type="checkbox" name="ng_nn['+dados.linha+']"			value="'+this.nn+'"			class="nn" '+ (this.nn ? 'checked="checked"' : '')  +' /></td>' +
+				'<td><input tabindex="1" type="checkbox" name="ng_uk['+dados.linha+']"			value="'+this.uk+'"			class="uk" '+ (this.uk ? 'checked="checked"' : '')  +' /></td>' +
+				'<td><input tabindex="1" type="checkbox" name="ng_fk['+dados.linha+']"			value="'+this.fk+'"			class="fk" '+ (this.fk ? 'checked="checked"' : '')  +' /></td>' +
 				'<td><input tabindex="1" type="text"		name="ng_dominio['+dados.linha+']"		value="'+this.dominio+'"	class="dominio" /></td>' +
-				'<td><input tabindex="1" type="hidden"	name="ng_associativa['+dados.linha+']"	value="'+this.classe+'"		class="associativa" id="ng_associativa_'+dados.linha+'" /></td>' +
-				'<td><input tabindex="1" type="hidden"	name="ng_metodo['+dados.linha+']"		value="'+this.metodo+'"		class="metodo" id="ng_metodo_'+dados.linha+'" /></td>' +
+				'<td><input tabindex="1" type="'+ (this.fk ? 'text' : 'hidden')  +'"	name="ng_associativa['+dados.linha+']"	value="'+this.classe+'"		class="associativa" id="ng_associativa_'+dados.linha+'" /></td>' +
+				'<td><input tabindex="1" type="'+ (this.fk ? 'text' : 'hidden')  +'"	name="ng_metodo['+dados.linha+']"		value="'+this.metodo+'"		class="metodo" id="ng_metodo_'+dados.linha+'" /></td>' +
 			'</tr>';
 		$('#neg tr:last').after(template);
 	}
@@ -123,7 +159,7 @@ function visualizacao(){
 		template =
 			'<tr class="ln_'+ dados.linha +'" >' +
 				'<td  class="propriedade" ></td>' +
-				'<td><select tabindex="1" name="vi_componente['+ dados.linha +']" id="vi_componente_'+ dados.linha +'" >' + options + '</select></td>' +
+				'<td><select tabindex="1" name="vi_componente['+ dados.linha +']" id="vi_componente_'+ dados.linha +'" class="viComponente">' + options + '</select></td>' +
 				'<td><input tabindex="1" name="vi_ordem['+ dados.linha +']"	value="'+this.ordem+'" size="4" /></td>' +
 				'<td><input tabindex="1" name="vi_ordemDescritivo['+ dados.linha +']"	value="'+this.ordemDescritivo+'" size="4" /></td>' +
 				'<td><input tabindex="1" name="vi_largura['+ dados.linha +']"	value="'+this.largura+'" size="4" /></td>' +
@@ -134,138 +170,54 @@ function visualizacao(){
 function remover(linha){
 	$.entidade.remover(linha);
 }
-$.entidade = new entidade;
-$.negocio = new negocio;
-$.persistente = new persistente;
-$.visualizacao = new visualizacao;
-$(document).ready( function() {
-	$('#adicionar').click(function(){
-		$.entidade.adicionar();
-		$.negocio.adicionar();
-		$.persistente.adicionar();
-		$.visualizacao.adicionar();
-	});
-	$('#entidade').change(function(){
-		$('.arquivo').remove();
-		if($(this).val()){
-			nome = lowerCamelCase($('#entidade').val());
-			nomeClasse = upperCamelCase($('#entidade').val());
-			arquivos = new Array(
-				 nome + '/classes/C' + nomeClasse + '_excluir.php',
-				 nome + '/classes/C' + nomeClasse + '_gravar.php',
-				 nome + '/classes/C' + nomeClasse + '_mudarPagina.php',
-				 nome + '/classes/C' + nomeClasse + '_pesquisar.php',
-				 nome + '/classes/C' + nomeClasse + '_verEdicao.php',
-				 nome + '/classes/C' + nomeClasse + '_verPesquisa.php',
-				 nome + '/classes/I' + nomeClasse + '.php',
-				 nome + '/classes/N' + nomeClasse + '.php',
-				 nome + '/classes/P' + nomeClasse + '.mysql.php',
-				 nome + '/classes/P' + nomeClasse + '.postgres.php',
-				 nome + '/xml/entidade.xml',
-				 nome + '/xml/pt_BR.xml',
-				 nome + '/html/C' + nomeClasse + '_verEdicao.html',
-				 nome + '/html/C' + nomeClasse + '_verPesquisa.html'
-			);
-			for(i in arquivos){
-				arquivo = arquivos[i];
-				template =
-					'<tr class="arquivo" >' +
-						'<td><input tabindex="1" type="checkbox" value="'+arquivo+'"/></td>' +
-						'<td>'+ arquivo +'"</td>' +
-					'</tr>';
-				$('#arq tr:last').after(template);
-			}
-		}
-	});
-	$('#sugerirNomeTabela').click(function(){
-		if($('#entidade').val()) $('#nomeTabela').val(RetiraAcentos(str_replace(' ','_',$('#entidade').val().toLowerCase())));
-	});
-	$('#sugerirNomeSequence').click(function(){
-		if($('#entidade').val()) $('#nomeSequence').val(RetiraAcentos(str_replace(' ','_','sq_' + $('#entidade').val().toLowerCase())));
-	});
-	$('#sugerirNomesCampos').click(function(){
-		$('.nome').each(function(){
-			if($(this).val()) $('.ln_'+$(this).parent().parent().attr('class').split('_')[1]+' .campo').val(RetiraAcentos(str_replace(' ','_',$(this).val().toLowerCase())));
-		});
-	});
-	$('#sugerirNomesPropriedades').click(function(){
-		$('.nome').each(function(){
-			if($(this).val()) $('.ln_'+$(this).parent().parent().attr('class').split('_')[1]+' .propriedade').val(lowerCamelCase($(this).val()));
-		});
-	});
-	$('.nome').live('change',function(){
-		linha = $(this).parent().parent().attr('class').split('_')[1];
-		passarNome(linha,$(this).val());
-		if(!$('.ln_' + linha + ' .abreviado').val()) $('.ln_' + linha + ' .abreviado').val($(this).val());
-	});
-	$('.pk').live('click',function(){
-		$('.ln_' + $(this).parent().parent().attr('class').split('_')[1] + ' .tipo').val('numerico');
-	});
-	$('.tipo').live('change',function(){
-		linha = $(this).parent().parent().attr('class').split('_')[1];
-		componente = $('#vi_componente_'+linha);
-		negocio = $('#ng_tipo_' + linha);
-		valor = null;
-		switch(negocio.val()){
-			case('texto'):
-				valor = 'caixa de entrada';
-			break;
-			case('numerico'):
-				valor = 'caixa de entrada';
-			break;
-			case('data'):
-				valor = 'data';
-			break;
-			case('tdocumentopessoal'):
-				valor = 'documento pessoal';
-			break;
-			case('tcnpj'):
-				valor = 'documento pessoal';
-			break;
-			case('tcep'):
-				valor = 'cep';
-			break;
-			case('ttelefone'):
-				valor = 'telefone';
-			break;
-			case('tnumerico'):
-				valor = 'numerico';
-			break;
-			case('tmoeda'):
-				valor = 'moeda';
-			break;
-		}
-		componente.val(valor);
-	});
-	$('.fk').live('click',function(){
-		try{
-			linha = $(this).parent().parent().attr('class').split('_')[1];
-			if($(this).attr('checked')){
-				document.getElementById('ng_associativa_' + linha).type = 'text';
-				document.getElementById('ng_metodo_' + linha).type = 'text';
-				document.getElementById('bd_referencia_tabela_' + linha).type = 'text';
-				document.getElementById('bd_referencia_campo_' + linha).type = 'text';
-			}else{
-				document.getElementById('ng_associativa_' + linha).type = 'hidden';
-				document.getElementById('ng_metodo_' + linha).type = 'hidden';
-				document.getElementById('bd_referencia_tabela_' + linha).type = 'hidden';
-				document.getElementById('bd_referencia_campo_' + linha).type = 'hidden';
-			}
-		}catch(e){console.log(e)}
-	});
-	if(definicao) preencherTela(definicao[0]);
-});
-$(function() {
-	$("#tabs").tabs();
-});
+function pegarLinha(obj){return obj.parent().parent().attr('class').split('_')[1];}
+function sugerirComponente(obj){
+	linha = pegarLinha(obj);
+	if($('input[name="ng_chave_pk"]:checked').val() == linha) return 'oculto';
+	if($('.ln_'+linha+' .dominio').val()) return 'caixa de combinacao';
+	if($('.ln_'+linha+' .fk').val()) return 'caixa de combinacao';
+	switch(obj.val()){
+		case('texto'):
+			valor = 'caixa de entrada';
+		break;
+		case('numerico'):
+			valor = 'caixa de entrada';
+		break;
+		case('data'):
+			valor = 'data';
+		break;
+		case('tdocumentopessoal'):
+			valor = 'documento pessoal';
+		break;
+		case('tcnpj'):
+			valor = 'documento pessoal';
+		break;
+		case('tcep'):
+			valor = 'cep';
+		break;
+		case('ttelefone'):
+			valor = 'telefone';
+		break;
+		case('tnumerico'):
+			valor = 'numerico';
+		break;
+		case('tmoeda'):
+			valor = 'moeda';
+		break;
+	}
+	return valor;
+}
+
 function passarNome(linha,valor){
 	$('.ln_' + linha + ' .propriedade').html(valor);
 }
 function preencherTela(definicao){
 	try{
+		console.log(definicao);
 		$('#entidade').val(definicao.inter.nome);
 		$('#nomeTabela').val(definicao.bd.nomeTabela);
 		$('#nomeSequence').val(definicao.bd.nomeSequencia);
+		$('#entidade').trigger('change',false);
 		for(i in definicao.entidade){
 			valores = definicao.entidade[i];
 			fk = false;
@@ -299,6 +251,7 @@ function preencherTela(definicao){
 				valores.persistente.tipo,
 				(valores.negocio.campo == definicao.bd.chavePrimaria),
 				(valores.negocio.obrigatorio ? true : false),
+				(valores.negocio.indiceUnico ? true : false),
 				fk,
 				valores.inter.dominio,
 				classe,
@@ -324,3 +277,99 @@ function preencherTela(definicao){
 		alert(e);
 	}
 }
+$.entidade = new entidade;
+$.negocio = new negocio;
+$.persistente = new persistente;
+$.visualizacao = new visualizacao;
+$(document).ready( function() {
+	$('#adicionar').click(function(){
+		$.entidade.adicionar();
+		$.negocio.adicionar();
+		$.persistente.adicionar();
+		$.visualizacao.adicionar();
+	});
+	$('#entidade').change(function(marcar){
+		$('.arquivo').remove();
+		if($('#entidade').val()){
+			nome = lowerCamelCase($('#entidade').val());
+			nomeClasse = upperCamelCase($('#entidade').val());
+			arquivos = new Array(
+				 nome + '/classes/C' + nomeClasse + '_excluir.php',
+				 nome + '/classes/C' + nomeClasse + '_gravar.php',
+				 nome + '/classes/C' + nomeClasse + '_mudarPagina.php',
+				 nome + '/classes/C' + nomeClasse + '_pesquisar.php',
+				 nome + '/classes/C' + nomeClasse + '_verEdicao.php',
+				 nome + '/classes/C' + nomeClasse + '_verPesquisa.php',
+				 nome + '/classes/I' + nomeClasse + '.php',
+				 nome + '/classes/N' + nomeClasse + '.php',
+				 nome + '/classes/P' + nomeClasse + '.mysql.php',
+				 nome + '/classes/P' + nomeClasse + '.postgres.php',
+				 nome + '/xml/entidade.xml',
+				 nome + '/xml/pt_BR.xml',
+				 nome + '/html/C' + nomeClasse + '_verEdicao.html',
+				 nome + '/html/C' + nomeClasse + '_verPesquisa.html'
+			);
+			for(i in arquivos){
+				arquivo = arquivos[i];
+				template =
+					'<tr class="arquivo" >' +
+						'<td><input tabindex="1" type="checkbox" value="'+arquivo+'" '+(marcar ? 'checked="checked"' : '')+'/></td>' +
+						'<td>'+ arquivo +'"</td>' +
+					'</tr>';
+				$('#arq tr:last').after(template);
+			}
+		}
+	});
+	$('#sugerirNomeTabela').click(function(){
+		if($('#entidade').val()) $('#nomeTabela').val(RetiraAcentos(str_replace(' ','_',$('#entidade').val().toLowerCase())));
+	});
+	$('#sugerirNomeSequence').click(function(){
+		if($('#entidade').val()) $('#nomeSequence').val(RetiraAcentos(str_replace(' ','_','sq_' + $('#entidade').val().toLowerCase())));
+	});
+	$('#sugerirNomesCampos').click(function(){
+		$('.nome').each(function(){
+			if($(this).val()) $('.ln_'+pegarLinha($(this))+' .campo').val(RetiraAcentos(str_replace(' ','_',$(this).val().toLowerCase())));
+		});
+	});
+	$('#sugerirNomesPropriedades').click(function(){
+		$('.nome').each(function(){
+			if($(this).val()) $('.ln_'+pegarLinha($(this))+' .propriedade').val(lowerCamelCase($(this).val()));
+		});
+	});
+	$('#sugerirComponentes').click(function(){
+		$('.tipo').each(function(){
+			if($(this).val()) $('.ln_'+pegarLinha($(this))+' .viComponente').val(dados.sugerirComponente($(this)));
+		});
+	});
+	$('.nome').live('change',function(){
+		linha = $(this).parent().parent().attr('class').split('_')[1];
+		passarNome(linha,$(this).val());
+		if(!$('.ln_' + linha + ' .abreviado').val()) $('.ln_' + linha + ' .abreviado').val($(this).val());
+	});
+	$('.pk').live('click',function(){
+		$('.ln_' + $(this).parent().parent().attr('class').split('_')[1] + ' .tipo').val('numerico');
+	});
+	$('.fk').live('click',function(){
+		try{
+			linha = $(this).parent().parent().attr('class').split('_')[1];
+			if($(this).attr('checked')){
+				document.getElementById('ng_associativa_' + linha).type = 'text';
+				document.getElementById('ng_metodo_' + linha).type = 'text';
+				document.getElementById('bd_referencia_tabela_' + linha).type = 'text';
+				document.getElementById('bd_referencia_campo_' + linha).type = 'text';
+			}else{
+				document.getElementById('ng_associativa_' + linha).type = 'hidden';
+				document.getElementById('ng_metodo_' + linha).type = 'hidden';
+				document.getElementById('bd_referencia_tabela_' + linha).type = 'hidden';
+				document.getElementById('bd_referencia_campo_' + linha).type = 'hidden';
+			}
+		}catch(e){console.log(e)}
+	});
+	$('#affForm').submit(function(){
+		return confirm("Are you sure?");
+	});
+	if(definicao) preencherTela(definicao[0]);
+});
+$(function() {
+	$("#tabs").tabs();
+});
