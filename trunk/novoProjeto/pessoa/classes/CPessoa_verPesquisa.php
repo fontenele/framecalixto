@@ -7,11 +7,49 @@
 */
 class CPessoa_verPesquisa extends controlePadraoPesquisa{
 	/**
-	* Método de criação do controle de listagem
-	* @return [controle] Um controle especialista em listagem
+	* metodo de apresentação da listagem
 	*/
-	public function criarControleListagem(){
-		return new CPessoa_listagem();
+	public function montarListagem(){
+		parent::montarListagem();
+		$this->visualizacao->listagem->adicionarColunaPersonalizada('Tipo', 'CPessoa_verPesquisa::tipoPessoa', '5%', null, -1);
+		//$this->visualizacao->listagem->adicionarColunaPersonalizada('Tarefa', 'CPessoa_verPesquisa::novaTarefa', '5%', null, 10000000);
+	}
+	/**
+	* Retorno da apresentação do tipo de pessoa .
+	*/
+	public static function tipoPessoa($nPessoa){
+		$imagem = new VEtiquetaHtml('img');
+		switch($nPessoa->pegarCsPessoa()){
+			case 'FI':
+			case 'FE':
+				$imagem->passarAlt('Física');
+				$imagem->passarSrc('pessoa/imagens/fisica.png')	;
+			break;
+			case 'JI':
+			case 'JE':
+				$imagem->passarAlt('Jurídica');
+				$imagem->passarSrc('pessoa/imagens/empresa.png')	;
+			break;
+		}
+		$center = new VEtiquetaHtml('center');
+		$center->passarConteudo($imagem->__toString());
+		return $center->__toString();
+	}
+	/**
+	* Retorno da apresentação do tipo de pessoa .
+	*/
+	public static function novaTarefa($nPessoa){
+		$imagem = new VEtiquetaHtml('img');
+		$imagem->passarAlt('Nova');
+		$imagem->passarSrc('pessoa/imagens/novaTarefa.png')	;
+		$imagem->passarBorder(0);
+		$link = new VEtiquetaHtml('a');
+		$link->passarHref(sprintf('?c=%s&amp;pessoa=%s','CTarefa_verCriarNova',$nPessoa->pegarIdPessoa()));
+		$link->passarConteudo($imagem->__toString());
+		$link->passarTitle('Nova tarefa para: '.$nPessoa->pegarNmPessoa());
+		$center = new VEtiquetaHtml('center');
+		$center->passarConteudo($link->__toString());
+		return $center->__toString();
 	}
 }
 ?>

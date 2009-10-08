@@ -10,7 +10,7 @@ abstract class negocioPadrao extends negocio{
 	* objeto de conexão com o banco de dados
 	* @var [conexao]
 	*/
-	public $conexao;
+	protected $conexao;
 	/**
 	* @var [array] array com a estrutura do mapeamento  entre persistente e negócio
 	* criado para a execução de cache
@@ -19,7 +19,7 @@ abstract class negocioPadrao extends negocio{
 	/**
 	* @var internacionalizacaoPadrao internacionalização do negócio
 	*/
-	public $inter;
+	protected $inter;
 	/**
 	* Metodo construtor
 	* @param [conexao] (opcional) conexão com o banco de dados

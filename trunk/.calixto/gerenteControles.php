@@ -111,15 +111,15 @@ class gerenteControles extends objeto{
         switch(controle::tipoResposta()){
             case controle::ajax:
             case controle::json:
-                header("Content-type:application/jsonrequest; charset=utf-8");
                 $json = new json();
-                echo $json->pegarJson($ar);
+				controle::responderJson($json->pegarJson($ar));
             break;
             case controle::xml:
-                echo "<erro>
+                $xml = "<erro>
                         <tipo>{$ar['tipo']}</tipo>
                         <erro>{$ar['erro']}</erro>
                     </erro>";
+				controle::responderXml($xml);
             break;
             case controle::texto:
                 echo $e;

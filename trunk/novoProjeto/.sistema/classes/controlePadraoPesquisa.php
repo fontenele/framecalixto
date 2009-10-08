@@ -14,17 +14,15 @@ class controlePadraoPesquisa extends controlePadrao{
 	*/
 	public $filtro;
 	/**
-	* @var [controlePadraoListagem] controle especialista em listagem
-	*/
-	public $listagem;
-	/**
 	* Método inicial do controle
 	*/
 	public function inicial(){
-		$this->registrarInternacionalizacao($this,$this->visualizacao);
-		$this->gerarMenus();
 		$this->definirPagina();
 		$this->definirFiltro();
+		if(controle::tipoResposta() == controle::xml) controle::responderXml($this->definirColecao()->xml());
+		if(controle::tipoResposta() == controle::json) controle::responderJson($this->definirColecao()->json());
+		$this->registrarInternacionalizacao($this,$this->visualizacao);
+		$this->gerarMenus();
 		$this->montarApresentacao($this->filtro);
 		$this->montarListagem();
 		parent::inicial();
@@ -46,19 +44,13 @@ class controlePadraoPesquisa extends controlePadrao{
 		return $menu;
 	}
 	/**
-	* Método de criação do controle de listagem
-	* @return controlePadraoListagem Um controle especialista em listagem
-	*/
-	public function criarControleListagem(){
-		return new controlePadraoListagem();
-	}
-	/**
 	* Método que define a página que será exibida na pesquisa
 	*/
 	public function definirPagina(){
 		$mapeador = controlePadrao::pegarEstrutura($this);
 		$this->pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina'): new pagina($mapeador['tamanhoPaginaListagem']);
-		$this->pagina->passarPagina(isset($_GET['pagina']) ? $_GET['pagina'] : null);
+		if(isset($_GET['pagina'])) $this->pagina->passarPagina($_GET['pagina']);
+		if(isset($_GET['tamanhoPagina'])) $this->pagina->passarTamanhoPagina($_GET['tamanhoPagina']);
 		$this->sessao->registrar('pagina',$this->pagina);
 	}
 	/**
@@ -98,10 +90,7 @@ class controlePadraoPesquisa extends controlePadrao{
 	* metodo de apresentação da listagem
 	*/
 	public function montarListagem(){
-		$this->visualizacao->listagem = $this->criarControleListagem();
-		$this->visualizacao->listagem->passarPagina($this->pegarPagina());
-		$this->visualizacao->listagem->colecao = $this->definirColecao();
-		$this->visualizacao->listagem->controle = definicaoEntidade::controle($this,'verPesquisa');
+		$this->visualizacao->listagem = new VListaPaginada($this->definirColecao(),$this->pegarPagina());
 	}
 }
 ?>

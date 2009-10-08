@@ -5,5 +5,5 @@
 * @package Sistema
 * @subpackage Acesso
 */
-class CAcesso_verPesquisa extends controlePadraoVerPesquisa{}
+class CAcesso_verPesquisa extends controlePadraoPesquisa{}
 ?>

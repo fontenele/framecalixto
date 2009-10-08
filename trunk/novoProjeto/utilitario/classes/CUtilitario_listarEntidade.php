@@ -21,8 +21,8 @@ class CUtilitario_listarEntidade extends controlePadrao{
 				if(is_file($arquivo.'/classes/N'.ucfirst($arquivo).'.php')){
 					$negocio = 'N'.ucfirst($arquivo);
 					$obNegocio = new $negocio();
-					if( isset($obNegocio->inter) ) {
-						$negocios->$arquivo = $obNegocio->inter->pegarNome();
+					if( $obNegocio instanceof negocioPadrao ) {
+						$negocios->$arquivo = $obNegocio->pegarInter()->pegarNome();
 						$controles->$arquivo = 'C'.ucfirst($arquivo).'_verPesquisa';
 					}
 				}

@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding="utf-8" ?>
 <internacionalizacao>
 	<sistema>
-		<titulo>FMEPT</titulo>
-		<subtitulo>Fórum Mundial de Educação Profissional e Tecnológica</subtitulo>
+		<titulo>TITULO DO SISTEMA</titulo>
+		<subtitulo>Subtítulo do Sistema</subtitulo>
 	</sistema>
 	<controles>
 		<textos>
