@@ -5,13 +5,34 @@
 * @package Sistema
 * @subpackage Perfil
 */
-class CPerfil_verPesquisa extends controlePadraoVerPesquisa{
+class CPerfil_verPesquisa extends controlePadraoPesquisa{
 	/**
-	* Método de criação do controle de listagem
-	* @return controlePadraoListagem Um controle especialista em listagem
+	* metodo de apresentação da listagem
 	*/
-	public function criarControleListagem(){
-		return new CPerfil_listagem();
+	public function montarListagem(){
+		parent::montarListagem();
+		$this->visualizacao->listagem->adicionarColunaPersonalizada('Usuarios', 'CPerfil_verPesquisa::apresentarUsuario', '5%', 'D', 3);
+		$this->visualizacao->listagem->adicionarColunaPersonalizada('Acessos', 'CPerfil_verPesquisa::apresentarAcesso', '5%', 'D', 4);
+	}
+	/**
+	* Metodo especialista
+	*/
+	public static function apresentarUsuario(NPerfil $negocio){
+		$negocio->carregarUsuarios();
+		$numeroAcessos = $negocio->coUsuarios->contarItens();
+		$controle = definicaoEntidade::controle($negocio,'verColecaoUsuarioPerfil');
+		$link = sprintf("?c=%s&amp;chave=%s",$controle,$negocio->valorChave());
+		return "\t\t<a href='{$link}' >".$numeroAcessos."</a>\n";
+	}
+	/**
+	* Metodo especialista
+	*/
+	public static function apresentarAcesso(NPerfil $negocio){
+		$negocio->carregarAcessos();
+		$numeroAcessos = $negocio->coAcessos->contarItens();
+		$controle = definicaoEntidade::controle($negocio,'verSelecionarAcessos');
+		$link = sprintf("?c=%s&amp;chave=%s",$controle,$negocio->valorChave());
+		return "\t\t<a href='{$link}' >".$numeroAcessos."</a>\n";
 	}
 }
 ?>

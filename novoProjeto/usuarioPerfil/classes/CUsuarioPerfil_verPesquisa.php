@@ -5,5 +5,5 @@
 * @package Sistema
 * @subpackage Usuário Perfil
 */
-class CUsuarioPerfil_verPesquisa extends controlePadraoVerPesquisa{}
+class CUsuarioPerfil_verPesquisa extends controlePadraoPesquisa{}
 ?>

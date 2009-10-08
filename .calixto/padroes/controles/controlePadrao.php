@@ -70,6 +70,13 @@ class controlePadrao extends controle{
 		}
 	}
 	/**
+	* Método que retorna o nome do controle atual
+	* @return string
+	*/
+	public static function pegarNomeControle(){
+		return isset($_GET['c']) ? $_GET['c'] : null;
+	}
+	/**
 	* Retorna a estrutura do controle definido em seu xml
 	* @param controle $entidade
 	* @return array
@@ -334,6 +341,7 @@ class controlePadrao extends controle{
 	*/
 	public static function montarApresentacaoEdicao(negocio $negocio, visualizacao $visualizacao){
 		$estrutura = controlePadrao::pegarEstrutura($negocio);
+		$visualizacao->_tpl_vars['componentes padroes'] = array();
 		foreach($estrutura['campos'] as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
 			$valor = $negocio->$pegarPropriedade();
@@ -354,16 +362,17 @@ class controlePadrao extends controle{
 					$visualizacao->$nome->passarMaxlength($opcoes['tamanho']);
 				}
 				if($visualizacao->$nome instanceof VInput ){
-					$visualizacao->$nome->passarTitle($negocio->inter->pegarPropriedade($nome,'descricao'));
+					$visualizacao->$nome->passarTitle($negocio->pegarInter()->pegarPropriedade($nome,'descricao'));
 					if(($opcoes['tamanho'] + 2) > 80){
 						$visualizacao->$nome->passarSize(80);
 					}else{
 						$visualizacao->$nome->passarSize(($opcoes['tamanho'] + 2));
 					}
 				}
+				$visualizacao->_tpl_vars['componentes padroes'][] = $visualizacao->$nome;
 			}
 		}
-		$visualizacao->enviar = VComponente::montar('enviar','enviar', $negocio->inter->pegarTexto('enviar'));
+		$visualizacao->enviar = VComponente::montar('enviar','enviar', $negocio->pegarInter()->pegarTexto('enviar'));
 	}
 	/**
 	* metodo de apresentação do negocio

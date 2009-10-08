@@ -24,7 +24,7 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
 		$mapeador = controlePadrao::pegarEstrutura($this);
-		$this->pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina'): new pagina($mapeador['tamanhoPaginaListagem']);
+		$this->definirPaginaAtual();
 		$this->definirFiltro();
 		$this->montarApresentacao($this->pegarFiltro());
 		$this->listagem = $this->criarControleListagem();
@@ -39,6 +39,19 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 		$this->visualizacao->descricaoDeAjuda = $help;
 		parent::inicial();
 		if($this->sessao->tem('negocio')) $this->sessao->retirar('negocio');
+	}
+	/**
+	* Método que define a página atual a ser exibida
+	*/
+	protected function definirPaginaAtual(){
+		$mapeador = controlePadrao::pegarEstrutura($this);
+		if(isset($_GET['pagina'])){
+			$this->pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina'): new pagina($mapeador['tamanhoPaginaListagem']);
+			$this->pagina->passarPagina($_GET['pagina']);
+			$this->sessao->registrar('pagina',$this->pagina);
+		}else{
+			$this->pagina = ($this->sessao->tem('pagina')) ? $this->sessao->pegar('pagina'): new pagina($mapeador['tamanhoPaginaListagem']);
+		}
 	}
 	/**
 	* Preenche os itens da propriedade menuPrograma

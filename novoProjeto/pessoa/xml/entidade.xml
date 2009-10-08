@@ -36,19 +36,19 @@
 		<propriedade id='telefone' tipo='ttelefone' tamanho='10' >
 			<banco nome='Pess_telefone' />
 			<apresentacao componente='telefone' >
-				<listagem tamanho='10%' />
+				<listagem ordem='5' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='telefone2' tipo='ttelefone' tamanho='10' >
 			<banco nome='Pess_telefone2' />
 			<apresentacao componente='telefone' >
-				<listagem tamanho='10%' />
+				<listagem ordem='6' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='telefone3' tipo='ttelefone' tamanho='10' >
 			<banco nome='Pess_telefone3' />
 			<apresentacao componente='telefone' >
-				<listagem tamanho='10%' />
+				<listagem ordem='7' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='estado' tipo='numerico' tamanho='2'  classeAssociativa='NEstado'  >

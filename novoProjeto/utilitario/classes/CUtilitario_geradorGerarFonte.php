@@ -47,8 +47,8 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->montarInternacionalizacao();
 		$this->montarControleExcluir();
 		$this->montarControleGravar();
-		$this->montarControleMudarPagina();
-		$this->montarControlePesquisar();
+		//$this->montarControleMudarPagina();
+		//$this->montarControlePesquisar();
 		$this->montarControleVerEdicao();
 		$this->montarControleVerPesquisa();
 		$this->montarTemplateVerEdicao();
@@ -256,7 +256,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$controle = definicaoEntidade::controle($this->nomeNegocio);
 		$this->visualizacao->acao = "Cria a visualização da pesquisa de um objeto : {$this->entidade['entidade']}";
 		$this->visualizacao->controleNome = "{$controle}_verPesquisa";
-		$this->visualizacao->controlePai = 'controlePadraoVerPesquisa';
+		$this->visualizacao->controlePai = 'controlePadraoPesquisa';
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$controle}_verPesquisa.php",$this->visualizacao->pegar('classesControle.html'));
 	}
 	/**

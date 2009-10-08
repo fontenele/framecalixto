@@ -1,4 +1,4 @@
-dados = {
+gerador = {
 	linha:0,
 	tipos:[
 		['texto',				'texto'],
@@ -32,263 +32,180 @@ dados = {
 		['numerico',			'Número: 99.999.999,99'					],
 		['moeda',				'Moeda: R$ 99.999.999,99'				]
 	],
+	pegarLinha: function(obj){
+		return obj.parent().parent().attr('class').split('_')[1];
+	},
 	sugerirComponente: function(obj){
-		linha = pegarLinha(obj);
+		linha = this.pegarLinha(obj);
 		if($('input[name="ng_chave_pk"]:checked').val() == linha) return 'oculto';
 		if($('.ln_'+linha+' .dominio').val()) return 'caixa de combinacao';
 		if($('.ln_'+linha+' .fk').val()) return 'caixa de combinacao';
 		switch(obj.val()){
-			case('texto'):
-				valor = 'caixa de entrada';
-			break;
-			case('numerico'):
-				valor = 'caixa de entrada';
-			break;
-			case('data'):
-				valor = 'data';
-			break;
-			case('tdocumentopessoal'):
-				valor = 'documento pessoal';
-			break;
-			case('tcnpj'):
-				valor = 'documento pessoal';
-			break;
-			case('tcep'):
-				valor = 'cep';
-			break;
-			case('ttelefone'):
-				valor = 'telefone';
-			break;
-			case('tnumerico'):
-				valor = 'numerico';
-			break;
-			case('tmoeda'):
-				valor = 'moeda';
-			break;
+			case('texto'):				return 'caixa de entrada';
+			case('numerico'):			return 'caixa de entrada';
+			case('data'):				return 'data';
+			case('tdocumentopessoal'):	return 'documento pessoal';
+			case('tcnpj'):				return 'documento pessoal';
+			case('tcep'):				return 'cep';
+			case('ttelefone'):			return 'telefone';
+			case('tnumerico'):			return 'numerico';
+			case('tmoeda'):				return 'moeda';
 		}
-		return valor;
-	}
-}
-function entidade(){
-	this.adicionar = function (nome,abreviado,descricao){
-		dados.linha++;
-		this.nome = nome || '';
-		this.abreviado = abreviado || '';
-		this.descricao = descricao || '';
-		template =
-			'<tr class="ln_'+ dados.linha +'" >' +
-				'<td><input tabindex="1" type="text" name="en_nome['+ dados.linha +']"		id="en_nome_'+ dados.linha +'"			value="'+this.nome+'"		class="nome" /></td>' +
-				'<td><input tabindex="1" type="text" name="en_abreviacao['+ dados.linha +']"	id="en_abreviacao_'+ dados.linha +'"		value="'+this.abreviado+'"	class="abreviado" /></td>' +
-				'<td><input tabindex="1" type="text" name="en_descricao['+ dados.linha +']"	id="en_descicao_'+ dados.linha +'"		value="'+this.descricao+'"	class="descricao" /></td>' +
-				'<td><a tabindex="1" href="javascript:remover('+ dados.linha +');">remover</a></td>' +
-			'</tr>';
-		$('#ent tr:last').after(template);
-	}
-	this.remover = function (linha){
-		$('.ln_' + linha).remove();
-	}
-}
-function negocio(){
-	this.adicionar = function (propriedade,tamanho,tipo,pk,nn,uk,fk,dominio,classe,metodo){
-		this.propriedade = propriedade || '';
-		this.tamanho = tamanho || '';
-		this.tipo = tipo || '';
-		this.pk = pk || '';
-		this.nn = nn || '';
-		this.uk = uk || '';
-		this.fk = fk || '';
-		this.dominio = dominio || '';
-		this.classe = classe || '';
-		this.metodo = metodo || '';
-		options = '';
-		for(i in dados.tipos){
-			selected = (tipo == dados.tipos[i][0]) ? 'selected="selected"' : '';
-			options +='<option value="' + dados.tipos[i][0] + '" ' + selected + '>' + dados.tipos[i][1] + '</option>';
-		}
-
-		linha = '#linhaNeg' + dados.linha;
-		template =
-			'<tr class="ln_'+ dados.linha +'" >' +
-				'<td  class="propriedade" ></td>' +
-				'<td><input tabindex="1" type="text"		name="ng_nome['+dados.linha+']"		value="'+this.propriedade+'"	class="propriedade" /></td>' +
-				'<td><input tabindex="1" type="text"		name="ng_tamanho['+dados.linha+']"	value="'+this.tamanho+'"		class="tamanho" size="4" /></td>' +
-				'<td><select tabindex="1" 				name="ng_tipo['+dados.linha+']"	id="ng_tipo_'+dados.linha+'"		class="tipo">' + options + '</select></td>' +
-				'<td><input tabindex="1" type="radio"	name="ng_chave_pk"						value="'+dados.linha+'"			class="pk" '+ (this.pk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td><input tabindex="1" type="checkbox" name="ng_nn['+dados.linha+']"			value="'+this.nn+'"			class="nn" '+ (this.nn ? 'checked="checked"' : '')  +' /></td>' +
-				'<td><input tabindex="1" type="checkbox" name="ng_uk['+dados.linha+']"			value="'+this.uk+'"			class="uk" '+ (this.uk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td><input tabindex="1" type="checkbox" name="ng_fk['+dados.linha+']"			value="'+this.fk+'"			class="fk" '+ (this.fk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td><input tabindex="1" type="text"		name="ng_dominio['+dados.linha+']"		value="'+this.dominio+'"	class="dominio" /></td>' +
-				'<td><input tabindex="1" type="'+ (this.fk ? 'text' : 'hidden')  +'"	name="ng_associativa['+dados.linha+']"	value="'+this.classe+'"		class="associativa" id="ng_associativa_'+dados.linha+'" /></td>' +
-				'<td><input tabindex="1" type="'+ (this.fk ? 'text' : 'hidden')  +'"	name="ng_metodo['+dados.linha+']"		value="'+this.metodo+'"		class="metodo" id="ng_metodo_'+dados.linha+'" /></td>' +
-			'</tr>';
-		$('#neg tr:last').after(template);
-	}
-}
-function persistente(){
-	this.adicionar = function (campo,ordem,tipoOrdem,tabelaReferencia,campoReferencia){
-		this.campo = campo || '';
-		this.ordem = ordem || '';
-		this.tipoOrdem = tipoOrdem || '';
-		this.tabelaReferencia = tabelaReferencia || '';
-		this.campoReferencia = campoReferencia || '';
-		linha = '#linhaPer' + dados.linha;
-		template =
-			'<tr class="ln_'+ dados.linha +'" >' +
-				'<td  class="propriedade" ></td>' +
-				'<td><input tabindex="1" type="text"		name="bd_campo['+dados.linha+']"				value="'+this.campo+'"				class="campo" /></td>' +
-				'<td><input tabindex="1" type="text"		name="bd_ordem['+dados.linha+']"				value="'+this.ordem+'"				class=ordem"" size="4"/></td>' +
-				'<td><input tabindex="1" type="checkbox" name="bd_tipo_ordem['+dados.linha+']"		value="'+this.tipoOrdem+'"			class="tipoOrdem" /></td>' +
-				'<td><input tabindex="1" type="hidden"	name="bd_referencia_tabela['+dados.linha+']"	value="'+this.tabelaReferencia+'"	class="tabelaReferencia" id="bd_referencia_tabela_'+dados.linha+'" /></td>' +
-				'<td><input tabindex="1" type="hidden"	name="bd_referencia_campo['+dados.linha+']"	value="'+this.campoReferencia+'"	class="campoReferencia" id="bd_referencia_campo_'+dados.linha+'" /></td>' +
-			'</tr>';
-		$('#per tr:last').after(template);
-	}
-}
-function visualizacao(){
-	this.adicionar = function (componente,ordem,ordemDescritivo,largura){
-		this.componente = componente || '';
-		this.ordem = ordem || '';
-		this.ordemDescritivo = ordemDescritivo || '';
-		this.largura = largura || '';
-		options = '';
-		for(i in dados.componentes){
-			selected = (componente == dados.componentes[i][0]) ? 'selected="selected"' : '';
-			options +='<option value="' + dados.componentes[i][0] + '" ' + selected + '>' + dados.componentes[i][1] + '</option>';
-		}
-		linha = '#linhaVis' + dados.linha;
-		template =
-			'<tr class="ln_'+ dados.linha +'" >' +
-				'<td  class="propriedade" ></td>' +
-				'<td><select tabindex="1" name="vi_componente['+ dados.linha +']" id="vi_componente_'+ dados.linha +'" class="viComponente">' + options + '</select></td>' +
-				'<td><input tabindex="1" name="vi_ordem['+ dados.linha +']"	value="'+this.ordem+'" size="4" /></td>' +
-				'<td><input tabindex="1" name="vi_ordemDescritivo['+ dados.linha +']"	value="'+this.ordemDescritivo+'" size="4" /></td>' +
-				'<td><input tabindex="1" name="vi_largura['+ dados.linha +']"	value="'+this.largura+'" size="4" /></td>' +
-			'</tr>';
-		$('#vis tr:last').after(template);
-	}
-}
-function remover(linha){
-	$.entidade.remover(linha);
-}
-function pegarLinha(obj){return obj.parent().parent().attr('class').split('_')[1];}
-function sugerirComponente(obj){
-	linha = pegarLinha(obj);
-	if($('input[name="ng_chave_pk"]:checked').val() == linha) return 'oculto';
-	if($('.ln_'+linha+' .dominio').val()) return 'caixa de combinacao';
-	if($('.ln_'+linha+' .fk').val()) return 'caixa de combinacao';
-	switch(obj.val()){
-		case('texto'):
-			valor = 'caixa de entrada';
-		break;
-		case('numerico'):
-			valor = 'caixa de entrada';
-		break;
-		case('data'):
-			valor = 'data';
-		break;
-		case('tdocumentopessoal'):
-			valor = 'documento pessoal';
-		break;
-		case('tcnpj'):
-			valor = 'documento pessoal';
-		break;
-		case('tcep'):
-			valor = 'cep';
-		break;
-		case('ttelefone'):
-			valor = 'telefone';
-		break;
-		case('tnumerico'):
-			valor = 'numerico';
-		break;
-		case('tmoeda'):
-			valor = 'moeda';
-		break;
-	}
-	return valor;
-}
-
-function passarNome(linha,valor){
-	$('.ln_' + linha + ' .propriedade').html(valor);
-}
-function preencherTela(definicao){
-	try{
-		console.log(definicao);
-		$('#entidade').val(definicao.inter.nome);
-		$('#nomeTabela').val(definicao.bd.nomeTabela);
-		$('#nomeSequence').val(definicao.bd.nomeSequencia);
-		$('#entidade').trigger('change',false);
-		for(i in definicao.entidade){
-			valores = definicao.entidade[i];
-			fk = false;
-			classe = '';
-			metodo = '';
-			if(valores.negocio.classeAssociativa){
-				fk = true;
-				classe = valores.negocio.classeAssociativa;
-				metodo = valores.negocio.metodoLeitura;
-			}
-			tabela = '';
-			campo = '';
-			if(valores.persistente.chaveEstrangeira){
-				tabela = valores.persistente.chaveEstrangeira.tabela;
-				campo = valores.persistente.chaveEstrangeira.campo;
-			}
-			ordem = '';
-			largura = '';
-			if(valores.controle.listagem){
-				ordem = valores.controle.ordem;
-				largura = LimpaNumero(valores.controle.largura);
-			}
-			$.entidade.adicionar(
+	},
+	adicionarLinha:function(valores,chave){
+		valores = valores || '';
+		chave = chave || '';
+		this.linha++;
+		if(valores){
+			this.adicionarEntidade(
 				valores.inter.nome,
 				valores.inter.abreviacao,
 				valores.inter.descricao
 			);
-			$.negocio.adicionar(
+			this.adicionarNegocio(
 				valores.negocio.propriedade,
 				valores.persistente.tamanho,
 				valores.persistente.tipo,
-				(valores.negocio.campo == definicao.bd.chavePrimaria),
+				(valores.negocio.campo == chave),
 				(valores.negocio.obrigatorio ? true : false),
 				(valores.negocio.indiceUnico ? true : false),
-				fk,
+				(valores.negocio.classeAssociativa ? true : false),
 				valores.inter.dominio,
-				classe,
-				metodo
+				(valores.negocio.classeAssociativa ? valores.negocio.classeAssociativa : ''),
+				(valores.negocio.classeAssociativa ? valores.negocio.metodoLeitura : '')
 			);
-			$.persistente.adicionar(
+			this.adicionarPersistente(
 				valores.negocio.campo,
 				valores.persistente.ordem,
 				valores.persistente.tipoOrdem,
-				tabela,
-				campo
+				(valores.persistente.chaveEstrangeira ? valores.persistente.chaveEstrangeira.tabela : ''),
+				(valores.persistente.chaveEstrangeira ? valores.persistente.chaveEstrangeira.campo : '')
 			);
-			$.visualizacao.adicionar(
+			this.adicionarVisualizacao(
 				valores.controle.componente,
-				ordem,
+				(valores.controle.listagem ? valores.controle.ordem : '' ),
 				valores.negocio.descritivo,
-				largura
+				(valores.controle.listagem ? LimpaNumero(valores.controle.largura) : '' )
 			);
-			passarNome(dados.linha, valores.inter.nome);
+		}else{
+			this.adicionarEntidade();
+			this.adicionarNegocio();
+			this.adicionarPersistente();
+			this.adicionarVisualizacao();
+		}
+	},
+	passarNome:function (obj){
+		$('.ln_' + this.pegarLinha(obj) + ' .propriedade').html(obj.val());
+	},
+	remover:function(linha){
+		$('.ln_' + linha).remove();
+	},
+	adicionarEntidade:function(nome,abreviado,descricao){
+		nome = nome || '';
+		abreviado = abreviado || '';
+		descricao = descricao || '';
+		template =
+			'<tr class="ln_'+ this.linha +'" >' +
+				'<td><input tabindex="1" type="text" name="en_nome['+ this.linha +']"		id="en_nome_'+ this.linha +'"			value="'+nome+'"		class="nome" /></td>' +
+				'<td><input tabindex="1" type="text" name="en_abreviacao['+ this.linha +']"	id="en_abreviacao_'+ this.linha +'"		value="'+abreviado+'"	class="abreviado" /></td>' +
+				'<td><input tabindex="1" type="text" name="en_descricao['+ this.linha +']"	id="en_descicao_'+ this.linha +'"		value="'+descricao+'"	class="descricao" /></td>' +
+				'<td><a tabindex="1" href="javascript:remover('+ this.linha +');">remover</a></td>' +
+			'</tr>';
+		$('#ent tr:last').after(template);
+	},
+	adicionarNegocio:function (propriedade,tamanho,tipo,pk,nn,uk,fk,dominio,classe,metodo){
+		propriedade = propriedade || '';
+		tamanho = tamanho || '';
+		tipo = tipo || '';
+		pk = pk || '';
+		nn = nn || '';
+		uk = uk || '';
+		fk = fk || '';
+		dominio = dominio || '';
+		classe = classe || '';
+		metodo = metodo || '';
+		options = '';
+		for(i in this.tipos){
+			selected = (tipo == this.tipos[i][0]) ? 'selected="selected"' : '';
+			options +='<option value="' + this.tipos[i][0] + '" ' + selected + '>' + this.tipos[i][1] + '</option>';
+		}
+		type = (fk ? 'text' : 'hidden');
+		template =
+			'<tr class="ln_'+ this.linha +'" >' +
+				'<td  class="propriedade" ></td>' +
+				'<td><input tabindex="1" type="text"		name="ng_nome['+this.linha+']"			value="'+propriedade+'"	class="propriedade" /></td>' +
+				'<td><input tabindex="1" type="text"		name="ng_tamanho['+this.linha+']"		value="'+tamanho+'"		class="tamanho" size="4" /></td>' +
+				'<td><select tabindex="1"					name="ng_tipo['+this.linha+']"	id="ng_tipo_'+this.linha+'"		class="tipo">' + options + '</select></td>' +
+				'<td><input tabindex="1" type="radio"		name="ng_chave_pk"						value="'+this.linha+'"	class="pk" '+ (pk ? 'checked="checked"' : '')  +' /></td>' +
+				'<td><input tabindex="1" type="checkbox"	name="ng_nn['+this.linha+']"			value="'+nn+'"			class="nn" '+ (nn ? 'checked="checked"' : '')  +' /></td>' +
+				'<td><input tabindex="1" type="checkbox"	name="ng_uk['+this.linha+']"			value="'+uk+'"			class="uk" '+ (uk ? 'checked="checked"' : '')  +' /></td>' +
+				'<td><input tabindex="1" type="checkbox"	name="ng_fk['+this.linha+']"			value="'+fk+'"			class="fk" '+ (fk ? 'checked="checked"' : '')  +' /></td>' +
+				'<td><input tabindex="1" type="text"		name="ng_dominio['+this.linha+']"		value="'+dominio+'"		class="dominio" /></td>' +
+				'<td><input tabindex="1" type="'+ type  +'"	name="ng_associativa['+this.linha+']"	value="'+classe+'"		class="associativa" id="ng_associativa_'+this.linha+'" /></td>' +
+				'<td><input tabindex="1" type="'+ type  +'"	name="ng_metodo['+this.linha+']"		value="'+metodo+'"		class="metodo" id="ng_metodo_'+this.linha+'" /></td>' +
+			'</tr>';
+		$('#neg tr:last').after(template);
+	},
+	adicionarPersistente:function (campo,ordem,tipoOrdem,tabelaReferencia,campoReferencia){
+		campo = campo || '';
+		ordem = ordem || '';
+		tipoOrdem = tipoOrdem || '';
+		tabelaReferencia = tabelaReferencia || '';
+		campoReferencia = campoReferencia || '';
+		type = (tabelaReferencia ? 'text' : 'hidden');
+		template =
+			'<tr class="ln_'+ this.linha +'" >' +
+				'<td  class="propriedade" ></td>' +
+				'<td><input tabindex="1" type="text"		name="bd_campo['+this.linha+']"				value="'+campo+'"				class="campo" /></td>' +
+				'<td><input tabindex="1" type="text"		name="bd_ordem['+this.linha+']"				value="'+ordem+'"				class=ordem"" size="4"/></td>' +
+				'<td><input tabindex="1" type="checkbox"	name="bd_tipo_ordem['+this.linha+']"		value="'+tipoOrdem+'"			class="tipoOrdem" /></td>' +
+				'<td><input tabindex="1" type="'+ type  +'"	name="bd_referencia_tabela['+this.linha+']"	value="'+tabelaReferencia+'"	class="tabelaReferencia" id="bd_referencia_tabela_'+this.linha+'" /></td>' +
+				'<td><input tabindex="1" type="'+ type  +'"	name="bd_referencia_campo['+this.linha+']"	value="'+campoReferencia+'"		class="campoReferencia" id="bd_referencia_campo_'+this.linha+'" /></td>' +
+			'</tr>';
+		$('#per tr:last').after(template);
+	},
+	adicionarVisualizacao:function (componente,ordem,ordemDescritivo,largura){
+		componente = componente || '';
+		ordem = ordem || '';
+		ordemDescritivo = ordemDescritivo || '';
+		largura = largura || '';
+		options = '';
+		for(i in this.componentes){
+			selected = (componente == this.componentes[i][0]) ? 'selected="selected"' : '';
+			options +='<option value="' + this.componentes[i][0] + '" ' + selected + '>' + this.componentes[i][1] + '</option>';
+		}
+		template =
+			'<tr class="ln_'+ this.linha +'" >' +
+				'<td  class="propriedade" ></td>' +
+				'<td><select tabindex="1" name="vi_componente['+ this.linha +']" id="vi_componente_'+ this.linha +'" class="viComponente">' + options + '</select></td>' +
+				'<td><input tabindex="1" name="vi_ordem['+ this.linha +']"	value="'+ordem+'" size="4" /></td>' +
+				'<td><input tabindex="1" name="vi_ordemDescritivo['+ this.linha +']"	value="'+ordemDescritivo+'" size="4" /></td>' +
+				'<td><input tabindex="1" name="vi_largura['+ this.linha +']"	value="'+largura+'" size="4" /></td>' +
+			'</tr>';
+		$('#vis tr:last').after(template);
+	},
+	preencherTela:function(definicao){
+		try{
+			$('#entidade').val(definicao.inter.nome);
+			$('#nomeTabela').val(definicao.bd.nomeTabela);
+			$('#nomeSequence').val(definicao.bd.nomeSequencia);
+			$('#entidade').trigger('change',false);
+			for(i in definicao.entidade){
+				valores = definicao.entidade[i];
+				this.adicionarLinha(valores,definicao.bd.chavePrimaria);
+				this.passarNome($('#en_nome_'+this.linha), valores.inter.nome);
+			}
+		}
+		catch(e){
+			alert(e.message);
 		}
 	}
-	catch(e){
-		alert(e);
-	}
-}
-$.entidade = new entidade;
-$.negocio = new negocio;
-$.persistente = new persistente;
-$.visualizacao = new visualizacao;
+};
 $(document).ready( function() {
 	$('#adicionar').click(function(){
-		$.entidade.adicionar();
-		$.negocio.adicionar();
-		$.persistente.adicionar();
-		$.visualizacao.adicionar();
+		gerador.adicionarLinha();
 	});
-	$('#entidade').change(function(marcar){
+	$('#entidade').change(function(){
 		$('.arquivo').remove();
 		if($('#entidade').val()){
 			nome = lowerCamelCase($('#entidade').val());
@@ -313,7 +230,7 @@ $(document).ready( function() {
 				arquivo = arquivos[i];
 				template =
 					'<tr class="arquivo" >' +
-						'<td><input tabindex="1" type="checkbox" value="'+arquivo+'" '+(marcar ? 'checked="checked"' : '')+'/></td>' +
+						'<td><input tabindex="1" type="checkbox" value="'+arquivo+'" /></td>' +
 						'<td>'+ arquivo +'"</td>' +
 					'</tr>';
 				$('#arq tr:last').after(template);
@@ -328,22 +245,25 @@ $(document).ready( function() {
 	});
 	$('#sugerirNomesCampos').click(function(){
 		$('.nome').each(function(){
-			if($(this).val()) $('.ln_'+pegarLinha($(this))+' .campo').val(RetiraAcentos(str_replace(' ','_',$(this).val().toLowerCase())));
+			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .campo').val(RetiraAcentos(str_replace(' ','_',$(this).val().toLowerCase())));
 		});
 	});
 	$('#sugerirNomesPropriedades').click(function(){
 		$('.nome').each(function(){
-			if($(this).val()) $('.ln_'+pegarLinha($(this))+' .propriedade').val(lowerCamelCase($(this).val()));
+			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .propriedade').val(lowerCamelCase($(this).val()));
 		});
+	});
+	$('#gerarArquivos').click(function(){
+		$('.arquivo input[type="checkbox"]').attr('checked','checked');
 	});
 	$('#sugerirComponentes').click(function(){
 		$('.tipo').each(function(){
-			if($(this).val()) $('.ln_'+pegarLinha($(this))+' .viComponente').val(dados.sugerirComponente($(this)));
+			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .viComponente').val(gerador.sugerirComponente($(this)));
 		});
 	});
 	$('.nome').live('change',function(){
-		linha = $(this).parent().parent().attr('class').split('_')[1];
-		passarNome(linha,$(this).val());
+		gerador.passarNome($(this));
+		linha = gerador.pegarLinha($(this));
 		if(!$('.ln_' + linha + ' .abreviado').val()) $('.ln_' + linha + ' .abreviado').val($(this).val());
 	});
 	$('.pk').live('click',function(){
@@ -351,7 +271,7 @@ $(document).ready( function() {
 	});
 	$('.fk').live('click',function(){
 		try{
-			linha = $(this).parent().parent().attr('class').split('_')[1];
+			linha = gerador.pegarLinha($(this));
 			if($(this).attr('checked')){
 				document.getElementById('ng_associativa_' + linha).type = 'text';
 				document.getElementById('ng_metodo_' + linha).type = 'text';
@@ -363,12 +283,12 @@ $(document).ready( function() {
 				document.getElementById('bd_referencia_tabela_' + linha).type = 'hidden';
 				document.getElementById('bd_referencia_campo_' + linha).type = 'hidden';
 			}
-		}catch(e){console.log(e)}
+		}catch(e){alert(e.message)}
 	});
 	$('#affForm').submit(function(){
 		return confirm("Are you sure?");
 	});
-	if(definicao) preencherTela(definicao[0]);
+	if(definicao) gerador.preencherTela(definicao[0]);
 });
 $(function() {
 	$("#tabs").tabs();

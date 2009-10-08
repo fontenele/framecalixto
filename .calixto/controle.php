@@ -114,5 +114,15 @@ abstract class controle extends objeto{
         }
         return false;
     }
+	public static function responderJson($json){
+		header("Content-type:application/jsonrequest; charset=utf-8");
+		echo $json;
+		die;
+	}
+	public static function responderXml($xml){
+		header("Content-type:application/xml; charset=utf-8");
+		echo $xml;
+		die;
+	}
 }
 ?>

@@ -137,7 +137,7 @@ abstract class controlePadraoVerColecao extends controlePadrao{
 	 */
 	public function definirListagemDados($arDescricaoOposta,$arDescricaoMarcada){
 		if($arDescricaoOposta){
-			$opcoes['legend'] = $this->colecaoOposta->pegar()->inter->pegarNome();
+			$opcoes['legend'] = $this->colecaoOposta->pegar()->pegarInter()->pegarNome();
 			$this->visualizacao->listagem = VComponente::montar('checks','subNegocio',$arDescricaoMarcada,$opcoes,$arDescricaoOposta);
 		}else {
 			$fieldset = new VEtiquetaHtml('fieldset');

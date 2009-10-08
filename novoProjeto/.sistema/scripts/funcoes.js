@@ -766,21 +766,14 @@ function validarTelefone(){}
 ////====================================================================================
 //====================================================================================
 $(function(){
-
 	$("ul.dropdown li").hover(function(){
-
 		$(this).addClass("hover");
 		$('ul:first',this).css('visibility', 'visible');
-
 	}, function(){
-
 		$(this).removeClass("hover");
 		$('ul:first',this).css('visibility', 'hidden');
-
 	});
-
 	$("ul.dropdown li ul li:has(ul)").find("a:first").append(" &raquo; ");
-
 });
 
 $(document).ready( function() {
@@ -793,23 +786,38 @@ $(document).ready( function() {
     		//alert(c[0]);
             window.location = "?c="+c[0]+"_mudarPagina&pagina=" + $(this).val();
     });
+    $("#seletorPagina").change( function( ) {
+            window.location = "?c="+$.getURLParam("c")+"&pagina=" + $(this).val();
+    });
     /*$.datepicker.setDefaults($.datepicker.regional['pt-BR']);
 	$(".data").datepicker({ dateFormat: 'dd/mm/yy', showOn: 'both', buttonImage: '.sistema/imagens/calendar.gif', buttonImageOnly: true , yearRange: '-100:+20'}
 	)/*.attr("readonly" , "readonly")*/;
-
-	$.fn.htmlDialog = function( valor )
-	{
-		
+	$('textarea').blur(function(){
+		if(!$(this).attr('id')) return;
+		$(this).val($(this).val().substring(0,parseInt($(this).attr('limite'))));
+		$('#textarea_'+$(this).attr('id')).remove();
+	});
+	$('textarea').focus(function(){
+		if(!$(this).attr('id')) return;
+		if(!$(this).attr('limite')) $(this).attr('limite',3000);
+		$(this).after('<div id="textarea_'+$(this).attr('id')+'">Limite de caracteres <span>'+ $(this).val().length +'/'+$(this).attr('limite')+'</span></div>');
+	 });
+	$("textarea").live('keypress', function(event){
+		if(!$(this).attr('id')) return true;
+		if(event.keyCode == 9 || event.keyCode == 8){
+			$('#textarea_'+$(this).attr('id')+' span').html(($(this).val().length +1) +'/'+$(this).attr('limite'));
+			return true;
+		}
+		if($(this).val().length > parseInt($(this).attr('limite'))-1) return false;
+		$('#textarea_'+$(this).attr('id')+' span').html(($(this).val().length +1) +'/'+$(this).attr('limite'));
+		return true;
+	});
+	$.fn.htmlDialog = function( valor ){
 		try{
 			eval( "valor = (" + valor + ")" );
-			if( valor.tipo )
-			{
-				alert( valor.erro );
-			}
+			if( valor.tipo ) alert( valor.erro );
 			return( false );
-		}
-		catch( e )
-		{
+		}catch(e){
 			$(this).html( valor );
 			return( true );
 		}
@@ -858,7 +866,3 @@ jQuery.extend({
 	  return strReturn;
 	}
 });
-/*metodo que coloca focus no campo quando clicar na figura de relogio ao lado do campo hora
-$(".time").livequery('click', function(){
-    $(this).prev().focus();
-});*/

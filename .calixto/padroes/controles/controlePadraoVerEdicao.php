@@ -14,6 +14,8 @@ class controlePadraoVerEdicao extends controlePadrao{
 	*/
 	public function inicial(){
 		$this->definirNegocio();
+		if(controle::tipoResposta() == controle::xml) controle::responderXml($this->negocio->xml());
+		if(controle::tipoResposta() == controle::json) controle::responderJson($this->negocio->json());
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
 		$this->montarApresentacao($this->negocio);
