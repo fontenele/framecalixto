@@ -46,7 +46,7 @@ class definicaoArquivo{
 	* @param [objeto|string]
 	* @param [string] caminho forçado do xml
 	*/
-	static static final function pegarXmlEntidade($classe = null,$arquivoXML = null){
+	public static final function pegarXmlEntidade($classe = null,$arquivoXML = null){
 		try{
 			if($arquivoXML === null){
 				$arquivoXML = definicaoEntidade::entidade($classe).'/'.definicaoArquivo::pegarNomeXmlEntidade();
@@ -79,7 +79,7 @@ class definicaoArquivo{
 	* @param [objeto|string]
 	* @param [string] caminho forçado do xml
 	*/
-	static static final function pegarXmlInternacionalizacao($classe = null,$arquivoXML = null){
+	public static final function pegarXmlInternacionalizacao($classe = null,$arquivoXML = null){
 		try{
 			if($arquivoXML === null){
 				$arquivoXML = definicaoEntidade::entidade($classe).'/'.definicaoArquivo::pegarNomeXmlInternacionalizacao();
@@ -112,7 +112,7 @@ class definicaoArquivo{
 	* @param [objeto|string]
 	* @param [string] caminho forçado do xml
 	*/
-	static static final function pegarXmlInternacionalizacaoDoSistema($arquivoXML = null){
+	public static final function pegarXmlInternacionalizacaoDoSistema($arquivoXML = null){
 		try{
 			if($arquivoXML === null){
 				arquivo::legivel(definicaoArquivo::pegarNomeXmlInternacionalizacaoDoSistema());
@@ -128,7 +128,7 @@ class definicaoArquivo{
 	* Retorna o caminho arquivo de tema CSS
 	* @return [string] caminho do arquivo CSS
 	*/
-	static static final function pegarCss(){
+	public static final function pegarCss(){
 		if(definicaoArquivo::$css){
 			return definicaoArquivo::$css;
 		}else{
@@ -145,7 +145,7 @@ class definicaoArquivo{
 	* Retorna o caminho arquivo de template do sistema
 	* @return [string] caminho do arquivo de template do sistema
 	*/
-	static static final function pegarHtmlPadrao(){
+	public static final function pegarHtmlPadrao(){
 		if(definicaoArquivo::$html){
 			return definicaoArquivo::$html;
 		}else{

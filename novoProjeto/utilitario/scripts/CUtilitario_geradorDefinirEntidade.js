@@ -230,7 +230,7 @@ $(document).ready( function() {
 				arquivo = arquivos[i];
 				template =
 					'<tr class="arquivo" >' +
-						'<td><input tabindex="1" type="checkbox" value="'+arquivo+'" /></td>' +
+						'<td><input tabindex="1" type="checkbox" value="'+arquivo+'" name="arquivo['+arquivo+']"/></td>' +
 						'<td>'+ arquivo +'"</td>' +
 					'</tr>';
 				$('#arq tr:last').after(template);
