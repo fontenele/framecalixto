@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <entidade nomeBanco='public.pessoa' nomeSequencia='public.sq_pessoa' >
 	<propriedades>
-		<propriedade id='idPessoa' tipo='numerico' tamanho='10' obrigatorio='sim' indicePrimario='sim'  >
+		<propriedade id='idPessoa' tipo='numerico' tamanho='10'  indicePrimario='sim'  >
 			<banco nome='Pess_id_pessoa'  />
 			<apresentacao componente='oculto' />
 		</propriedade>
@@ -20,7 +20,7 @@
 		<propriedade id='nmPessoa' tipo='texto' tamanho='100' obrigatorio='sim' indiceUnico='sim' descritivo='1' >
 			<banco nome='Pess_nm_pessoa' ordem='1'  />
 			<apresentacao componente='caixa de entrada' >
-				<listagem ordem='3' tamanho='45%' hyperlink='sim' />
+				<listagem ordem='3' tamanho='45%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='documento' tipo='tdocumentopessoal' tamanho='25' >
@@ -29,29 +29,29 @@
 				<listagem ordem='2' tamanho='12%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='cep' tipo='tcep' tamanho='8' >
+		<propriedade id='cep' tipo='tcep' tamanho='8'  >
 			<banco nome='Pess_cep' />
 			<apresentacao componente='cep' />
 		</propriedade>
-		<propriedade id='telefone' tipo='ttelefone' tamanho='10' >
+		<propriedade id='telefone' tipo='ttelefone' tamanho='21'  >
 			<banco nome='Pess_telefone' />
 			<apresentacao componente='telefone' >
 				<listagem ordem='5' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='telefone2' tipo='ttelefone' tamanho='10' >
+		<propriedade id='telefone2' tipo='ttelefone' tamanho='21'  >
 			<banco nome='Pess_telefone2' />
 			<apresentacao componente='telefone' >
 				<listagem ordem='6' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='telefone3' tipo='ttelefone' tamanho='10' >
+		<propriedade id='telefone3' tipo='ttelefone' tamanho='21'  >
 			<banco nome='Pess_telefone3' />
 			<apresentacao componente='telefone' >
 				<listagem ordem='7' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='estado' tipo='numerico' tamanho='2'  classeAssociativa='NEstado'  >
+		<propriedade id='estado' tipo='numerico' tamanho='2'  classeAssociativa='NEstado'   >
 			<banco nome='Pess_estado' >
 				<chaveEstrangeira tabela='Estado' campo='esta_id' />
 			</banco>

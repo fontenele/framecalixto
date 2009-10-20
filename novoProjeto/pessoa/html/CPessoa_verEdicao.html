@@ -71,19 +71,3 @@
 	</div>
 </div>
 </form>
-<script type='text/javascript' language='javascript'>
-var tipo = 'cpf';
-function ajustarDocumento(){
-	var f = document.formulario;
-	desformatarDocumentoPessoal(f.documento);
-	if(f.csPessoa.value.charAt(0) != 'J'){
-		tipo = 'cpf';
-	}else{
-		tipo = 'cnpj';
-	}
-	formatarDocumento();
-}
-function formatarDocumento(){
-	formatarDocumentoPessoal(document.formulario.documento,tipo);
-}
-</script>

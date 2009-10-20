@@ -26,36 +26,32 @@ class controlePadrao extends controle{
 	*/
 	public function criarVisualizacaoPadrao(){
 		$this->visualizacao = new visualizacaoPadrao($this);
-		if(sessaoSistema::tem('usuario')){
-			$this->visualizacao->nomeLogado = sessaoSistema::pegar('usuario')->valorDescricao();
-		}else{
-			$this->visualizacao->nomeLogado = '';
-		}
-		$this->visualizacao->requisicaoAjax = $this->requisicaoAjax();
-		$this->visualizacao->menuPrincipal = '';
-		$this->visualizacao->menuModulo = '';
-		$this->visualizacao->menuPrograma = '';
-		$this->visualizacao->descricaoDeAjuda = '';
-		$this->visualizacao->action = '';
-		$this->visualizacao->mensagemErroData = '';
-		$this->visualizacao->mensagemErroDia = '';
-		$this->visualizacao->mensagemErroMes = '';
-		$this->visualizacao->mensagemErroAno = '';
-		$this->visualizacao->mensagemErroHora = '';
-		$this->visualizacao->mensagemErroEmail = '';
-		$this->visualizacao->menuModulo = '';
-		$this->visualizacao->menuPrincipal = '';
-		$this->visualizacao->menuPrograma = '';
-		$this->visualizacao->tituloEspecifico = '';
-		//$this->visualizacao->comunicacaoSistema = '';
-		$this->visualizacao->descricaoDeAjuda = '';
-		$this->visualizacao->CssGlobal = definicaoArquivo::pegarCss();
-		$this->visualizacao->CssEntidade = definicaoPasta::css($this).'principal.css';
-		$this->visualizacao->CssLocal  = definicaoPasta::css($this).get_class($this).'.css';
-		$this->visualizacao->CssExtra = '';
-		$this->visualizacao->JsEntidade = definicaoPasta::js($this).'principal.js';
-		$this->visualizacao->JsLocal = definicaoPasta::js($this).get_class($this).'.js';
-		$this->visualizacao->JsExtra = '';
+		$this->visualizacao->nomeLogado			= sessaoSistema::tem('usuario') ? sessaoSistema::pegar('usuario')->valorDescricao() : '';
+		$this->visualizacao->comunicacaoSistema = sessaoSistema::tem('comunicacao') ? new VComunicacao(sessaoSistema::retirar('comunicacao')) : '';
+		$this->visualizacao->requisicaoAjax		= controle::requisicaoAjax();
+		$this->visualizacao->menuPrincipal		= '';
+		$this->visualizacao->menuModulo			= '';
+		$this->visualizacao->menuPrograma		= '';
+		$this->visualizacao->descricaoDeAjuda	= '';
+		$this->visualizacao->action				= '';
+		$this->visualizacao->mensagemErroData	= '';
+		$this->visualizacao->mensagemErroDia	= '';
+		$this->visualizacao->mensagemErroMes	= '';
+		$this->visualizacao->mensagemErroAno	= '';
+		$this->visualizacao->mensagemErroHora	= '';
+		$this->visualizacao->mensagemErroEmail	= '';
+		$this->visualizacao->menuModulo			= '';
+		$this->visualizacao->menuPrincipal		= '';
+		$this->visualizacao->menuPrograma		= '';
+		$this->visualizacao->tituloEspecifico	= '';
+		$this->visualizacao->descricaoDeAjuda	= '';
+		$this->visualizacao->cssExtra			= '';
+		$this->visualizacao->jsExtra			= '';
+		$this->visualizacao->cssGlobal			= definicaoArquivo::pegarCss();
+		$this->visualizacao->cssEntidade		= definicaoPasta::css($this).'principal.css';
+		$this->visualizacao->cssLocal			= definicaoPasta::css($this).get_class($this).'.css';
+		$this->visualizacao->jsEntidade			= definicaoPasta::js($this).'principal.js';
+		$this->visualizacao->jsLocal			= definicaoPasta::js($this).get_class($this).'.js';
 	}
 	/**
 	* Método que retorna o negócio referente ao controle
@@ -361,10 +357,10 @@ class controlePadrao extends controle{
 				if ($visualizacao->$nome instanceof VInput && $opcoes['tamanho']) {
 					$visualizacao->$nome->passarMaxlength($opcoes['tamanho']);
 				}
+				$visualizacao->$nome->passarTitle($negocio->pegarInter()->pegarPropriedade($nome,'descricao'));
 				if($visualizacao->$nome instanceof VInput ){
-					$visualizacao->$nome->passarTitle($negocio->pegarInter()->pegarPropriedade($nome,'descricao'));
-					if(($opcoes['tamanho'] + 2) > 80){
-						$visualizacao->$nome->passarSize(80);
+					if(($opcoes['tamanho'] + 2) > 60){
+						$visualizacao->$nome->passarSize(60);
 					}else{
 						$visualizacao->$nome->passarSize(($opcoes['tamanho'] + 2));
 					}

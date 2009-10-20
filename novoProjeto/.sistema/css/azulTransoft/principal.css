@@ -9,12 +9,6 @@
 @import url(container1.css) ;
 @import url(container2.css) ;
 @import url(container3.css) ;
-@import url(container4.css) ;
-@import url(container5.css) ;
-@import url(container6.css) ;
-@import url(container7.css) ;
-@import url(container8.css) ;
-@import url(container9.css) ;
 @import url(comunicacao.css) ;
 @import url(rodape.css) ;
 @import url(tabela0.css) ;
@@ -25,6 +19,18 @@ a{
 	color:#066ea4;
 }
 .numerico{
+	text-align: right;
+}
+.telefone{
+	text-align: right;
+}
+.cep{
+	text-align: right;
+}
+.cpf{
+	text-align: right;
+}
+.cnpj{
 	text-align: right;
 }
 .data{

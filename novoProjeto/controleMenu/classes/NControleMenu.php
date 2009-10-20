@@ -67,10 +67,10 @@ class NControleMenu extends negocio{
 			$this->menuPrincipal = new colecaoPadraoMenu();
 			$this->adicionarItem('menuPrincipal','Sistema/Principal','CControleAcesso_verPrincipal','controleMenu/imagens/folder_home.png',true);
 			$this->adicionarItem('menuPrincipal','Sistema/Login','CControleAcesso_verLogin','controleMenu/imagens/decrypted.png',true);
-			$this->adicionarItem('menuPrincipal','Cadastros/Estado','CEstado_verPesquisa','controleMenu/imagens/show_offliners.png');
-			$this->adicionarItem('menuPrincipal','Cadastros/Pessoa','CPessoa_verPesquisa','controleMenu/imagens/show_offliners.png');
-			$this->adicionarItem('menuPrincipal','Cadastros/Perfil','CPerfil_verPesquisa','controleMenu/imagens/show_offliners.png');
-			$this->adicionarItem('menuPrincipal','Cadastros/Usuário','CUsuario_verPesquisa','controleMenu/imagens/edit_user.png');
+			$this->adicionarItem('menuPrincipal','Cadastros/Estado','CEstado_verEdicao','controleMenu/imagens/show_offliners.png');
+			$this->adicionarItem('menuPrincipal','Cadastros/Pessoa','CPessoa_verEdicao','controleMenu/imagens/show_offliners.png');
+			$this->adicionarItem('menuPrincipal','Cadastros/Perfil','CPerfil_verEdicao','controleMenu/imagens/show_offliners.png');
+			$this->adicionarItem('menuPrincipal','Cadastros/Usuário','CUsuario_verEdicao','controleMenu/imagens/edit_user.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','controleMenu/imagens/exec.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas','controleMenu/imagens/view_text.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase','controleMenu/imagens/connect_creating.png');

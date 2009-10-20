@@ -7,11 +7,14 @@
 */
 class CPessoa_verPesquisa extends controlePadraoPesquisa{
 	/**
-	* metodo de apresentação da listagem
-	*/
-	public function montarListagem(){
-		parent::montarListagem();
-		$this->visualizacao->listagem->adicionarColunaPersonalizada('Tipo', 'CPessoa_verPesquisa::tipoPessoa', '5%', null, -1);
+	 * Método de apresentação da listagem
+	 * @param visualizacao $visualizacao
+	 * @param colecao $colecao
+	 * @param pagina $pagina
+	 */
+	public static function montarListagem(visualizacao $visualizacao,colecao $colecao,pagina $pagina){
+		parent::montarListagem($visualizacao,$colecao,$pagina);
+		$visualizacao->listagem->adicionarColunaPersonalizada('Tipo', 'CPessoa_verPesquisa::tipoPessoa', '5%', null, -1);
 		//$this->visualizacao->listagem->adicionarColunaPersonalizada('Tarefa', 'CPessoa_verPesquisa::novaTarefa', '5%', null, 10000000);
 	}
 	/**

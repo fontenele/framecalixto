@@ -1,0 +1,24 @@
+<form name="formulario" method="post" action="«$action»" >
+	«$filtro»
+«php»if($this->_tpl_vars['listagens']) foreach($this->_tpl_vars['listagens'] as $listagem):«/php»
+<div class="container0">
+	<div class="a"></div>
+	<div class="b"></div>
+	<div class="c"></div>
+	<div class="d"></div>
+	<div class="e"></div>
+	<div class="f"></div>
+	<div class="g"></div>
+	<div class="h"></div>
+	<h1 class="titulo">«php»echo $listagem['nome'];«/php» <b>(«php»echo $listagem['ocorrencias'];«/php»)</b></h1>
+	<div class="texto">
+			«php»echo $listagem['listagem'];«/php»
+	</div>
+</div>
+«php»endforeach«/php»
+<div id='menu_corpo'>
+	«$menuPrograma»
+</div>
+<script type="text/javascript" language="javascript">
+</script>
+</form>

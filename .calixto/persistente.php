@@ -15,6 +15,10 @@ abstract class persistente extends objeto{
 	*/
 	private static $estrutura;
 	/**
+	 * @var string operador de restrição
+	 */
+	protected $operadorDeRestricao = 'and';
+	/**
 	* @var [conexao] objeto de conexão com o banco de dados
 	*/
 	public $conexao;
@@ -289,17 +293,18 @@ abstract class persistente extends objeto{
 	* @return [string]
 	*/
 	public function gerarClausulaDeFiltro($filtro, $nomeDaClausula = true){
+		$restricao = strtolower($this->operadorDeRestricao) == 'or' ? 'or' : 'and';
 		$estrutura = $this->pegarEstrutura();
 		$comando = '';
 		foreach($filtro as $campo => $valor){
             $operador = $estrutura['campo'][$campo]['operadorDeBusca'];
             if( $valor instanceof operador ){
                 if($valor->pegarOperador() == operador::eNulo){
-        			$comando.= "{$campo} is null and ";
+        			$comando.= "{$campo} is null {$restricao} ";
                     continue ;
                 }
                 if($valor->pegarOperador() == operador::naoENulo){
-        			$comando.= "{$campo} is not null and ";
+        			$comando.= "{$campo} is not null {$restricao} ";
                     continue ;
                 }
                 $operador = $valor->pegarOperador();
@@ -311,31 +316,31 @@ abstract class persistente extends objeto{
 				case('diferente'):
 				case(operador::diferente):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s <> %s and ";
+						$operacao = " %s <> %s {$restricao} ";
 					}else{
-						$operacao = " %s <> '%s' and ";
+						$operacao = " %s <> '%s' {$restricao} ";
 					}
 				break;
                 case(operador::iniciandoComo):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " upper(%s) like upper(%%%s) and ";
+						$operacao = " upper(%s) like upper(%%%s) {$restricao} ";
 					}else{
-						$operacao = " upper(%s) like upper('%%%s') and ";
+						$operacao = " upper(%s) like upper('%%%s') {$restricao} ";
 					}
                 break;
                 case(operador::finalizandoComo):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " upper(%s) like upper(%s%%) and ";
+						$operacao = " upper(%s) like upper(%s%%) {$restricao} ";
 					}else{
-						$operacao = " upper(%s) like upper('%s%%') and ";
+						$operacao = " upper(%s) like upper('%s%%') {$restricao} ";
 					}
                 break;
 				case('como'):
                 case(operador::como):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " upper(%s) like upper(%%%s%%) and ";
+						$operacao = " upper(%s) like upper(%%%s%%) {$restricao} ";
 					}else{
-						$operacao = " upper(%s) like upper('%%%s%%') and ";
+						$operacao = " upper(%s) like upper('%%%s%%') {$restricao} ";
 					}
 				break;
 				case('generico'):
@@ -343,45 +348,45 @@ abstract class persistente extends objeto{
 				case('genérico'):
 				case('genérica'):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " upper(accent_remove(%s)) like upper(accent_remove(%%%s%%)) and ";
+						$operacao = " upper(accent_remove(%s)) like upper(accent_remove(%%%s%%)) {$restricao} ";
 					}else{
-						$operacao = " upper(accent_remove(%s)) like upper(accent_remove('%%%s%%')) and ";
+						$operacao = " upper(accent_remove(%s)) like upper(accent_remove('%%%s%%')) {$restricao} ";
 					}
 				break;
 				case('igual'):
 				case(operador::igual):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s = %s and ";
+						$operacao = " %s = %s {$restricao} ";
 					}else{
-						$operacao = " %s = '%s' and ";
+						$operacao = " %s = '%s' {$restricao} ";
 					}
 				break;
 				case(operador::maiorOuIgual):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s >= %s and ";
+						$operacao = " %s >= %s {$restricao} ";
 					}else{
-						$operacao = " %s >= '%s' and ";
+						$operacao = " %s >= '%s' {$restricao} ";
 					}
 				break;
 				case(operador::maiorQue):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s > %s and ";
+						$operacao = " %s > %s {$restricao} ";
 					}else{
-						$operacao = " %s > '%s' and ";
+						$operacao = " %s > '%s' {$restricao} ";
 					}
 				break;
 				case(operador::menorQue):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s < %s and ";
+						$operacao = " %s < %s {$restricao} ";
 					}else{
-						$operacao = " %s < '%s' and ";
+						$operacao = " %s < '%s' {$restricao} ";
 					}
 				break;
 				case(operador::menorOuIgual):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s <= %s and ";
+						$operacao = " %s <= %s {$restricao} ";
 					}else{
-						$operacao = " %s <= '%s' and ";
+						$operacao = " %s <= '%s' {$restricao} ";
 					}
 				break;
 			}

@@ -9,7 +9,7 @@
 			<texto id="sim">Sim</texto>
 			<texto id="nao">Não</texto>
 			<texto id="botaoNovo">Novo</texto>
-			<texto id="botaoGravar">Salvar</texto>
+			<texto id="botaoGravar">Gravar</texto>
 			<texto id="botaoExcluir">Excluir</texto>
 			<texto id="botaoListagem">Listagem</texto>
 			<texto id="botaoPesquisar">Pesquisar</texto>

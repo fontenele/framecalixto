@@ -85,7 +85,7 @@ gerador = {
 				valores.controle.componente,
 				(valores.controle.listagem ? valores.controle.ordem : '' ),
 				valores.negocio.descritivo,
-				(valores.controle.listagem ? LimpaNumero(valores.controle.largura) : '' )
+				(valores.controle.listagem ? valores.controle.largura.strReplace('%','') : '' )
 			);
 		}else{
 			this.adicionarEntidade();
@@ -109,7 +109,7 @@ gerador = {
 				'<td><input tabindex="1" type="text" name="en_nome['+ this.linha +']"		id="en_nome_'+ this.linha +'"			value="'+nome+'"		class="nome" /></td>' +
 				'<td><input tabindex="1" type="text" name="en_abreviacao['+ this.linha +']"	id="en_abreviacao_'+ this.linha +'"		value="'+abreviado+'"	class="abreviado" /></td>' +
 				'<td><input tabindex="1" type="text" name="en_descricao['+ this.linha +']"	id="en_descicao_'+ this.linha +'"		value="'+descricao+'"	class="descricao" /></td>' +
-				'<td><a tabindex="1" href="javascript:remover('+ this.linha +');">remover</a></td>' +
+				'<td><a tabindex="1" href="javascript:gerador.remover('+ this.linha +');">remover</a></td>' +
 			'</tr>';
 		$('#ent tr:last').after(template);
 	},
@@ -208,8 +208,8 @@ $(document).ready( function() {
 	$('#entidade').change(function(){
 		$('.arquivo').remove();
 		if($('#entidade').val()){
-			nome = lowerCamelCase($('#entidade').val());
-			nomeClasse = upperCamelCase($('#entidade').val());
+			nome = $('#entidade').val().lowerCamelCase();
+			nomeClasse = $('#entidade').val().upperCamelCase();
 			arquivos = new Array(
 				 nome + '/classes/C' + nomeClasse + '_excluir.php',
 				 nome + '/classes/C' + nomeClasse + '_gravar.php',
@@ -238,19 +238,19 @@ $(document).ready( function() {
 		}
 	});
 	$('#sugerirNomeTabela').click(function(){
-		if($('#entidade').val()) $('#nomeTabela').val(RetiraAcentos(str_replace(' ','_',$('#entidade').val().toLowerCase())));
+		if($('#entidade').val()) $('#nomeTabela').val($('#entidade').val().toLowerCase().strReplace(' ','_').retiraAcentos());
 	});
 	$('#sugerirNomeSequence').click(function(){
-		if($('#entidade').val()) $('#nomeSequence').val(RetiraAcentos(str_replace(' ','_','sq_' + $('#entidade').val().toLowerCase())));
+		if($('#entidade').val()) $('#nomeSequence').val('sq_' + $('#entidade').val().toLowerCase().strReplace(' ','_').retiraAcentos());
 	});
 	$('#sugerirNomesCampos').click(function(){
 		$('.nome').each(function(){
-			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .campo').val(RetiraAcentos(str_replace(' ','_',$(this).val().toLowerCase())));
+			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .campo').val($(this).val().toLowerCase().strReplace(' ','_').retiraAcentos());
 		});
 	});
 	$('#sugerirNomesPropriedades').click(function(){
 		$('.nome').each(function(){
-			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .propriedade').val(lowerCamelCase($(this).val()));
+			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .propriedade').val($(this).val().lowerCamelCase());
 		});
 	});
 	$('#gerarArquivos').click(function(){

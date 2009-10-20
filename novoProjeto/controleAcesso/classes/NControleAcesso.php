@@ -52,8 +52,8 @@ class NControleAcesso extends negocio{
 					throw(new erroLogin('Senha não informada !'));
 				default:
 					$nUsuario = new NUsuario();
-					$nUsuario->passarLogin($this->pegarLogin());
-					$nUsuario->passarSenha($this->pegarSenha());
+					$nUsuario->passarLogin(operador::igual($this->pegarLogin()));
+					$nUsuario->passarSenha(operador::igual($this->pegarSenha()));
 					$colecao = $nUsuario->pesquisar(new pagina());
 					if(!$colecao->possuiItens()) throw(new erroAcesso('Usuário não autorizado !'));
 					sessaoSistema::registrar('usuario',$colecao->avancar());

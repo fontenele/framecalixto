@@ -17,14 +17,6 @@ class TTelefone extends TNumerico{
 	* Método de validação do telefone
 	*/
 	public function validar(){
-		$tamanho = strlen($this->numero);
-		switch($tamanho){
-			case 8:
-			case 10:
-			break;
-			default:
-				throw("Telefone inválido!");
-		}
 	}
 	/**
 	* Método de sobrecarga para printar a classe
@@ -42,7 +34,8 @@ class TTelefone extends TNumerico{
 			if($j == 4){ $res = '-'.$res; }
 		}
 		if($tamanho > 8){
-			$res = '('.substr($this->numero,0,($tamanho -8)).')'.$res;
+			$ramal = substr($this->numero,10,4) ? ' r:'.substr($this->numero,10,4):null;
+			$res = '('.substr($this->numero,0,2).') '.substr($this->numero,2,4).'-'.substr($this->numero,6,4).$ramal;
 		}
 		return $res;
 	}

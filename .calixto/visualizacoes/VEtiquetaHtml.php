@@ -39,7 +39,7 @@ class VEtiquetaHtml extends objeto{
 			$var = strtolower($resultado[2]{0}).substr($resultado[2],1,strlen($resultado[2]));
 			switch($resultado[1]){
 				case 'pegar':
-					return $this->propriedades[strtolower($resultado[2])];
+					return isset($this->propriedades[strtolower($resultado[2])]) ? $this->propriedades[strtolower($resultado[2])] : null;
 				break;
 				case 'passar':
 					$this->propriedades[strtolower($resultado[2])] = (isset($parametros[0])) ? $parametros[0] : null;
@@ -71,6 +71,24 @@ class VEtiquetaHtml extends objeto{
 	* Método de configuração antes da impressão da etiqueta
 	*/
 	public function configurar(){}
+	/**
+	 * Método de adição de classe na etiqueta
+	 * @param string $classe 
+	 */
+	public function adicionarClass($classe){
+		$this->passarClass(trim($this->pegarClass().' '.$classe));
+	}
+	/**
+	 * Método de remoção de classe na etiqueta
+	 * @param string $classe
+	 */
+	public function removerClass($classe){
+		if($this->pegarClass() == $classe){
+			unset($this->propriedades['class']);
+			return;
+		}
+		$this->passarClass(preg_replace(array("/\s+({$classe})\s+/","/^({$classe})\s+/","/\s+({$classe})$/"),' ',$this->pegarClass()));
+	}
 	/**
 	* Método de sobrecarga para printar a classe
 	* @return [string] texto de saída da classe

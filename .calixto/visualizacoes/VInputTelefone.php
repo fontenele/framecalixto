@@ -7,17 +7,14 @@
 class VInputTelefone extends VInput{
 	function __construct($nome = 'naoInformado',TTelefone $valor){
 		parent::__construct($nome, $valor);
-		$this->passarClass('numerico');
-		$this->adicionarOnBlur('validarTelefone(this);');
-		$this->passarSize('12');
-		$this->passarMaxlength('13');
+		$this->passarClass('telefone');
 		$this->passarValue($valor->__toString());
 	}
 	public function passarMaxlength($valor){
-		$this->propriedades['maxlength'] = '13';
+		$this->propriedades['maxlength'] = '21';
 	}
-	public function __toString(){
-		return parent::__toString().'<script type="text/javascript">jQuery(function($){$("#'.$this->pegarId().'").mask("(99)9999-9999");});</script>';
+	public function passarSize($valor){
+		$this->propriedades['size'] = '20';
 	}
 }
 ?>

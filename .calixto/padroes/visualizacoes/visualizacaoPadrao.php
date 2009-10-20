@@ -24,12 +24,6 @@ class visualizacaoPadrao extends visualizacao{
 		parent::__construct();
 		$this->controle = get_class($controle);
 		$this->template_dir = definicaoPasta::templates($this->controle);
-		if(sessaoSistema::tem('comunicacao')){
-			$sessao = new sessaoSistema();
-			$this->comunicacaoSistema = new VComunicacao($sessao->retirar('comunicacao'));
-		}else{
-			$this->comunicacaoSistema = false;
-		}
 	}
 	/**
 	* Executa o processamento e mostra a página
