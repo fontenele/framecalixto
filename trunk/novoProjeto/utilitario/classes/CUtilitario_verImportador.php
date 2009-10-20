@@ -16,6 +16,8 @@ class CUtilitario_verImportador extends controlePadrao{
 		$this->visualizacao->xml = VComponente::montar('textArea','xml',null);
 		$this->visualizacao->xml->passarRows(20);
 		$this->visualizacao->xml->passarCols(70);
+		$this->visualizacao->xml->passarTitle('Preencher o campo de texto com xml para a importação');
+		$this->visualizacao->xml->obrigatorio(true);
 		parent::inicial();
 	}
 	/**
@@ -24,7 +26,7 @@ class CUtilitario_verImportador extends controlePadrao{
 	*/
 	function montarMenuPrograma(){
 		$link = "?c=%s";
-		$menu[$this->inter->pegarTexto('botaoGravar')]  = 'javascript:document.formulario.submit();';
+		$menu[$this->inter->pegarTexto('botaoGravar')]  = 'javascript:$.submeter();';
 		return $menu;
 	}
 }

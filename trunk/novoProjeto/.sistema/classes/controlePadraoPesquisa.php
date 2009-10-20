@@ -24,7 +24,7 @@ class controlePadraoPesquisa extends controlePadrao{
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
 		$this->montarApresentacao($this->filtro);
-		$this->montarListagem();
+		$this->montarListagem($this->visualizacao,$this->definirColecao(),$this->pegarPagina());
 		parent::inicial();
 		$this->finalizar();
 	}
@@ -87,10 +87,13 @@ class controlePadraoPesquisa extends controlePadrao{
 		$this->visualizacao->tituloListagem = $this->inter->pegarTexto('tituloListagem');
 	}
 	/**
-	* metodo de apresentação da listagem
-	*/
-	public function montarListagem(){
-		$this->visualizacao->listagem = new VListaPaginada($this->definirColecao(),$this->pegarPagina());
+	 * Método de apresentação da listagem
+	 * @param visualizacao $visualizacao
+	 * @param colecao $colecao
+	 * @param pagina $pagina
+	 */
+	public static function montarListagem(visualizacao $visualizacao,colecao $colecao,pagina $pagina){
+		$visualizacao->listagem = new VListaPaginada($colecao,$pagina);
 	}
 }
 ?>

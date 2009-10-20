@@ -13,11 +13,9 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$this->sessao->limpar();
 		$this->gerarMenus();
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
-		$this->visualizacao->JsPagina = '
-			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery-ui.js" ></script>
-			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery.flydom-3.1.1.js" ></script>
-			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/cbrte/html2xhtml.js"></script>
-			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/cbrte/richtext_compressed.js"></script>
+		$this->visualizacao->jsExtra = '
+			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery-ui-1.7.2.custom.min.js"></script>
+			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/calixto.string.js"></script>
 		';
 
 		$this->visualizacao->entidade = VComponente::montar('input','entidade',null);

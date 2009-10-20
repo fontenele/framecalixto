@@ -42,6 +42,19 @@ class controlePadraoVerEdicao extends controlePadrao{
 		parent::montarApresentacao($negocio, $tipo);
 	}
 	/**
+	* metodo de apresentação do negocio
+	* @param negocio objeto para a apresentação
+	* @param visualizacao template de registro para edição
+	*/
+	public static function montarApresentacaoEdicao(negocio $negocio, visualizacao $visualizacao){
+		parent::montarApresentacaoEdicao($negocio, $visualizacao);
+		$estrutura = controlePadrao::pegarEstrutura($negocio);
+		foreach($estrutura['campos'] as $nome => $opcoes){
+			if(!($visualizacao->$nome instanceof VHidden))
+			$visualizacao->$nome->obrigatorio($opcoes['obrigatorio'] == 'sim');
+		}
+	}
+	/**
 	* Método criado para definir o objeto de negócio a ser apresentado
 	*/
 	public function definirNegocio(){
@@ -65,7 +78,7 @@ class controlePadraoVerEdicao extends controlePadrao{
 		$excluir = $this->inter->pegarTexto('botaoExcluir');
 		$listagem = $this->inter->pegarTexto('botaoListagem');
 		$chave = isset($_GET['chave']) ? $_GET['chave'] : ($this->negocio->valorChave()) ? $this->negocio->valorChave() : null;
-		$menu->$gravar = new VMenu($gravar,'javascript:document.formulario.submit();','.sistema/imagens/botao_gravar.png');
+		$menu->$gravar = new VMenu($gravar,'javascript:$.submeter();','.sistema/imagens/botao_gravar.png');
 		if($chave) $menu->$excluir = new VMenu($excluir,sprintf("?c=%s&amp;chave=%s",definicaoEntidade::controle($this,'excluir'),$chave),'.sistema/imagens/botao_excluir.png');
 		$menu->$listagem = new VMenu($listagem,sprintf("?c=%s",definicaoEntidade::controle($this,'verPesquisa')),'.sistema/imagens/botao_listagem.png');
 		return $menu;

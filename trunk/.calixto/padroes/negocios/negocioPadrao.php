@@ -229,6 +229,30 @@ abstract class negocioPadrao extends negocio{
 		}
 	}
 	/**
+	 * Metodo que preenche todos os atributos de negocio com um valor
+	 * @param string $valorDePreenchimento
+	 */
+	public function pesquisaGeral($valorDePreenchimento,pagina $pagina = null){
+		$mapeador = $this->pegarMapeamento();
+		foreach($mapeador as $valor){
+			$valorPassado = null;
+			switch(true){
+				case($valor['tipo'] == 'texto'):
+					$valorPassado = operador::como($valorDePreenchimento);
+				break;
+				default:
+					if(is_numeric($valorDePreenchimento)) $valorPassado = operador::igual($valorDePreenchimento);
+				break;
+			}
+			$this->{"passar{$valor['propriedade']}"}($valorPassado);
+		}
+		if(!$pagina) $pagina = new pagina(0);
+		$persistente = $this->pegarPersistente();
+		$persistente->passarOperadorDeRestricao('or');
+		$arResultadoLeitura = $persistente->pesquisar($this->negocioPraVetor(),$pagina);
+		return $this->vetorPraColecao($arResultadoLeitura);
+	}
+	/**
 	* Método que retorna a persistente referente ao negócio
 	*/
 	public function pegarPersistente(){

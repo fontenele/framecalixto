@@ -7,12 +7,15 @@
 */
 class CUsuario_verPesquisa extends controlePadraoPesquisa{
 	/**
-	* metodo de apresentação da listagem
-	*/
-	public function montarListagem(){
-		$this->visualizacao->listagem = new VListaPaginada($this->definirColecao(),$this->pegarPagina());
-		$this->visualizacao->listagem->adicionarColunaPersonalizada('Perfis', 'CUsuario_verPesquisa::apresentarPerfil', '5%', 'D', 3);
-		$this->visualizacao->listagem->adicionarColunaPersonalizada('Acessos', 'CUsuario_verPesquisa::apresentarAcesso', '5%', 'D', 4);
+	 * Método de apresentação da listagem
+	 * @param visualizacao $visualizacao
+	 * @param colecao $colecao
+	 * @param pagina $pagina
+	 */
+	public static function montarListagem(visualizacao $visualizacao,colecao $colecao,pagina $pagina){
+		parent::montarListagem($visualizacao,$colecao,$pagina);
+		$visualizacao->listagem->adicionarColunaPersonalizada('Perfis', 'CUsuario_verPesquisa::apresentarPerfil', '5%', 'D', 3);
+		$visualizacao->listagem->adicionarColunaPersonalizada('Acessos', 'CUsuario_verPesquisa::apresentarAcesso', '5%', 'D', 4);
 	}
 	/**
 	* Metodo especialista

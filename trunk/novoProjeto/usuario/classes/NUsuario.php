@@ -21,7 +21,7 @@ class NUsuario extends negocioPadrao{
 	/**
 	* @var [texto] Senha
 	*/
-	public $senha;
+	protected $senha;
 	public $coPerfis;
 	/**
 	* Metodo construtor

@@ -202,17 +202,28 @@ class VComponente extends VEtiquetaHtml{
 	*/
 	public function __toString(){
 		if($this->obrigatorio){
+			$this->adicionarClass('obrigatorio');
 			return parent::__toString().$this->campoObrigatorio();
 		}else{
 			return parent::__toString();
 		}
 	}
 	/**
+	 * Configura o componente para ser obrigatório.
+	 * @param boolean $obrigatoriedade
+	 */
+	public function obrigatorio($obrigatoriedade = true){
+		$this->obrigatorio = $obrigatoriedade;
+	}
+	/**
 	* Método de complemento de campo obrigatório
+	* @param string referencia ao texto
 	* @return string
 	*/
 	protected function campoObrigatorio(){
-		return '<span class="campoObrigatorio">*</span>';
+		$id = $this->pegarId();
+		$id = $id ? "id='{$id}_obrigatoriedade'" : null;
+		return '<span '.$id.' class="campoObrigatorio">*</span>';
 	}
 }
 ?>

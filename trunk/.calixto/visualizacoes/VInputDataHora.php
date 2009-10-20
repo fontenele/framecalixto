@@ -36,7 +36,6 @@ class VInputDataHora extends VInput{
         }else{
             return $this->data->__toString().'&nbsp'.$this->hora->__toString();
         }
-		//return $this->data->__toString().'&nbsp'.$this->hora->__toString()."<img src='.sistema/imagens/mecNovo/time.png' class='time' alt='inserir horar' />";
 	}
 }
 ?>
