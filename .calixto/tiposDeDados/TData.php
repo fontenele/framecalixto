@@ -136,6 +136,13 @@ class TData extends objeto{
 				date('d',$this->tempoMarcado),			date('y',$this->tempoMarcado) + $anos
 		);
 	}
+	public function validar(){
+		return checkdate(
+			date('m',$this->tempoMarcado),
+			date('d',$this->tempoMarcado),
+			date('Y',$this->tempoMarcado)
+		);
+	}
 	/**
 	* retorna um TData com o tempo atual
 	*/

@@ -81,6 +81,13 @@ $(document).ready( function() {
     $("#seletorPagina").change( function( ) {window.location = "?c="+$.getURLParam("c")+"&pagina=" + $(this).val();});
 });
 function x(obj){if(window.console) console.log(obj);}
+jQuery.validar = {
+	cpf:function (valor){},
+	cnpj:function (valor){},
+	data:function (valor){},
+	hora:function (valor){},
+	email:function (valor){}
+};
 jQuery.fn.campoObrigatorio = function(){if(!jQuery(this).val()) jQuery('#'+jQuery(this).attr('id')+'_obrigatoriedade').html('* Campo obrigatório');}
 jQuery.msg = function(titulo,msg){alert(titulo+"\n\n"+msg);}
 jQuery.erro = function(titulo,msg){alert(titulo+"\n\n"+msg);}

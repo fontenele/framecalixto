@@ -71,6 +71,7 @@ class NControleMenu extends negocio{
 			$this->adicionarItem('menuPrincipal','Cadastros/Pessoa','CPessoa_verEdicao','controleMenu/imagens/show_offliners.png');
 			$this->adicionarItem('menuPrincipal','Cadastros/Perfil','CPerfil_verEdicao','controleMenu/imagens/show_offliners.png');
 			$this->adicionarItem('menuPrincipal','Cadastros/Usuário','CUsuario_verEdicao','controleMenu/imagens/edit_user.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Pesquisar','CUtilitario_pesquisaGeral','.sistema/imagens/botao_pesquisar16x16.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','controleMenu/imagens/exec.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas','controleMenu/imagens/view_text.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase','controleMenu/imagens/connect_creating.png');

@@ -240,6 +240,10 @@ abstract class negocioPadrao extends negocio{
 				case($valor['tipo'] == 'texto'):
 					$valorPassado = operador::como($valorDePreenchimento);
 				break;
+				case($valor['tipo'] == 'data'):
+					$data = new TData($valorDePreenchimento);
+					if($data->validar()) $valorPassado = operador::igual($data);
+				break;
 				default:
 					if(is_numeric($valorDePreenchimento)) $valorPassado = operador::igual($valorDePreenchimento);
 				break;
