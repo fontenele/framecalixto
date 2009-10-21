@@ -49,6 +49,7 @@ class CUtilitario_pesquisaGeral extends controlePadraoPesquisa{
 	function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
 		$menu->removerItem($this->inter->pegarTexto('botaoNovo'));
+		$menu->removerItem($this->inter->pegarTexto('botaoPesquisar'));
 		return $menu;
 	}
 	protected function exibirListagem($controle){
