@@ -1,5 +1,5 @@
 $(document).ready( function() {
-	$('form').submit(function(){
+/*	$('form').submit(function(){
 		var erros = '';
 		$.each($(this).find('.obrigatorio'),function(i,campoObrigatorio){
 			if(!$(campoObrigatorio).val()){
@@ -14,7 +14,7 @@ $(document).ready( function() {
 		}
 		return true;
 	});
-	$('.obrigatorio')
+*/	$('.obrigatorio')
 		.focus(function(){$(this).campoObrigatorio();})
 		.keypress(function(){$(this).campoObrigatorio();})
 		.blur(function(){$('#'+$(this).attr('id')+'_obrigatoriedade').html('*');});

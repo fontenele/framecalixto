@@ -22,6 +22,10 @@ class NUsuario extends negocioPadrao{
 	* @var [texto] Senha
 	*/
 	protected $senha;
+	/**
+	 * Coleção de perfis do usuário
+	 * @var colecaoPadraoNegocio
+	 */
 	public $coPerfis;
 	/**
 	* Metodo construtor
@@ -52,6 +56,36 @@ class NUsuario extends negocioPadrao{
 		$nAcesso = new NAcesso($this->conexao);
 		$nAcesso->passarIdUsuario($this->pegarIdUsuario());
 		$this->coAcessos = $nAcesso->pesquisar(new pagina(0));
+	}
+	/**
+	* Executa o comando de gravação do objeto
+	* @param [boleano] caso verdadeiro irá incluir com a chave de negócio passada caso falso irá verificar, se foi passada a chave irá alterar senão irá incluir
+	*/
+	public function gravar($gravarComChavePassada = false){
+		try{
+			$persistente = $this->pegarPersistente();
+			switch(true){
+				case $gravarComChavePassada:
+					$this->verificarAntesInserir();
+					$persistente->inserir($this->negocioPraVetor(), $gravarComChavePassada);
+				break;
+				case $this->valorChave():
+					$negocio = get_class($this);
+					$negocio = new $negocio();
+					$negocio->ler($this->valorChave());
+					$this->verificarAntesAlterar($negocio);
+					$persistente->alterar($this->negocioPraVetor(),$this->valorChave());
+				break;
+				default:
+					$this->valorChave($persistente->gerarSequencia());
+					$this->verificarAntesInserir();
+					$persistente->inserir($this->negocioPraVetor());
+				break;
+			}
+		}
+		catch(Erro $e){
+			throw $e;
+		}
 	}
 }
 ?>

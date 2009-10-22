@@ -16,16 +16,25 @@ class operador extends objeto{
     const finalizandoComo = '%texto';
     const dominio = '1 ou 2 ou 3...';
     const entre = 'valores entre {valor1} e {valor2}';
+    const generico = '%aáãàä%';
 
     /**
      * Método de configuração de um operador
      * @param mixed $valor
      * @return operador
      */
+    public static function generico($valor){
+        $operador = new operador();
+        $operador->passarOperador(operador::generico);
+        $operador->passarValor($valor);
+        return $operador;
+    }
+    /**
+     * Método de configuração de um operador
+     * @param mixed $valor
+     * @return operador
+     */
     public static function entre($valor1,$valor2){
-		if(!is_array($valor)) {
-			throw new Exception('Não foi passado um array para o operador de domínio');
-		}
         $operador = new operador();
         $operador->passarOperador(operador::entre);
         $operador->passarValor(array('valor1'=>$valor1,'valor2'=>$valor2));
