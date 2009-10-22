@@ -10,9 +10,11 @@
 	<div class="f"></div>
 	<div class="g"></div>
 	<div class="h"></div>
-	<h1 class="titulo">«php»echo $listagem['nome'];«/php» <b>(«php»echo $listagem['ocorrencias'];«/php»)</b></h1>
+	<h1 class="titulo">
+		<span>«php»echo $listagem['nome'];«/php» <b>(«php»echo $listagem['ocorrencias'];«/php»)</b></span>
+	</h1>
 	<div class="texto">
-			Pesquisa avançada de «php»echo $listagem['nome'];«/php»
+			<a href="?c=«php»echo $listagem['controlePesquisa'];«/php»">Pesquisa avançada de «php»echo $listagem['nome'];«/php»</a>
 			«php»echo $listagem['listagem'];«/php»
 	</div>
 </div>

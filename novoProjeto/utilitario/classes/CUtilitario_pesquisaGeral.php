@@ -94,6 +94,7 @@ class CUtilitario_pesquisaGeral extends controlePadraoPesquisa{
 					$listagens[$idx]['listagem'] = $this->visualizacao->listagem;
 					$listagens[$idx]['ocorrencias'] = $colecao->contarItens();
 					$listagens[$idx]['nome'] = $arquivo['nome'];
+					$listagens[$idx]['controlePesquisa'] = $nome['controle'];
 				}
 			}
 		}
