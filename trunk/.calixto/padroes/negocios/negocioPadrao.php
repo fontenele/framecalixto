@@ -63,6 +63,14 @@ abstract class negocioPadrao extends negocio{
 		}
 	}
 	/**
+	 * @return array Retorna os atributos do objeto
+	 */
+	public function __atributos() {
+		$vars = parent::__atributos();
+		unset($vars['conexao']);
+		return $vars;
+	}
+	/**
 	* retorna um array de mapeamento da internacionalização do negocio
 	* @return array mapeamento de internacionalização
 	*/
@@ -214,7 +222,7 @@ abstract class negocioPadrao extends negocio{
 		try{
 			$vetor = array();
 			$mapeador = $this->pegarMapeamento();
-			$variaveisClasse = array_keys(get_class_vars(get_class($this)));
+			$variaveisClasse = $this->__atributos();
 			foreach($mapeador as $valor){
 				$campo = $valor['campo'];
 				if(in_array($valor['propriedade'], $variaveisClasse)){
@@ -249,7 +257,7 @@ abstract class negocioPadrao extends negocio{
 			}else{
 				switch(true){
 					case($valor['tipo'] == 'texto'):
-						$valorPassado = operador::como($valorDePreenchimento);
+						$valorPassado = operador::generico($valorDePreenchimento);
 					break;
 					case($valor['tipo'] == 'data'):
 						$data = new TData($valorDePreenchimento);

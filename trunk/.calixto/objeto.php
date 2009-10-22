@@ -6,6 +6,17 @@
 */
 abstract class objeto{
 	/**
+	 * @return array Retorna os atributos do objeto
+	 */
+	public function __atributos() {
+		$reflect = new ReflectionObject($this);
+		$vars = array();
+		foreach ($reflect->getProperties(ReflectionProperty::IS_PUBLIC + ReflectionProperty::IS_PROTECTED) as $prop) {
+			$vars[$prop->getName()] = $prop->getName() ;
+		}
+		return $vars;
+	}
+	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
 	* @param [string] metodo chamado
 	* @param [array] parâmetros parassados para o método chamado
@@ -20,6 +31,7 @@ abstract class objeto{
 					$this->$var = $parametros[0];
 					return;
 				} else {
+					if($r->isStatic()) throw new erro('Atributo statico protegido.');
 					return $this->$var;
 				}
 			}

@@ -400,7 +400,7 @@ class controlePadrao extends controle{
 		try{
 			$dados = $dados ? $dados : $_POST;
 			$estrutura = controlePadrao::pegarEstrutura($negocio);
-			$atributos = array_keys(get_class_vars(get_class($negocio)));
+			$atributos = $negocio->__atributos();
 			foreach($dados as $campo => $valor){
 				if(in_array($campo,$atributos) && isset($estrutura['campos'][$campo])){
 					$metodo = 'passar'.ucfirst($campo);

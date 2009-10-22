@@ -69,9 +69,16 @@ function debug2($var,$metodos = true, $visualizacao = false){
 				case (($var instanceof visualizacao) && !$visualizacao):
 				break;
 				default:
-					foreach(get_object_vars($var) as $propriedade => $valor){
-						echo '<tr><td><font class="keyword">var </font><font class="variavel">$'.$propriedade.'</font></td><td>';
-						echo debug2($valor,$metodos);
+					$reflect = new ReflectionObject($var);
+						foreach ($reflect->getProperties(ReflectionProperty::IS_PUBLIC + ReflectionProperty::IS_PROTECTED + ReflectionProperty::IS_PRIVATE) as $prop) {
+						$acesso = null;
+						if($prop->isPublic()) $acesso = 'public';
+						if($prop->isPrivate()) $acesso = 'private';
+						if($prop->isProtected()) $acesso = 'protected';
+
+						if($prop->isStatic()) $acesso .= ' static';
+						echo '<tr><td><font class="keyword">'.$acesso.' </font><font class="variavel">$'.$prop->getName().'</font></td><td>';
+						echo debug2(___pegarValorAtributo($var,$prop),$metodos);
 						echo '</td></tr>';
 					}
 			}
@@ -101,6 +108,26 @@ function debug3(objeto $var){
 		$out = ob_get_clean();
 		$out = highlight_string("<?php\n".$out."?>");
 		echo '</div></pre>';
+}
+function ___pegarValorAtributo($valor,$atributo){
+	try{
+		if($atributo->isProtected() || $atributo->isPrivate()) {
+			if($valor instanceof objeto) {
+				if($atributo->isStatic()) throw new Exception();
+				return $valor->{'pegar'.ucfirst($atributo->getName())}();
+			}
+			throw new Exception('');
+		}
+		if($atributo->isStatic()){
+			$class = get_class($valor);
+			eval("return {$class}::{$atributo->getName()}");
+		}
+		return $valor->{$atributo->getName()};
+	}catch (erro $e){
+		return '«««AcessoNegadoStatico»»»';
+	}catch (Exception $e){
+		return '«««AcessoNegado»»»';
+	}
 }
 /**
 * Função para debugar

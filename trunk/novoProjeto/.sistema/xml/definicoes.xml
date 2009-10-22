@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <definicoes>
-	<sistema paginaInicial='' paginaErro='CControleAcesso_erroAcesso' />
+	<sistema paginaInicial='CControleAcesso_verPrincipal' paginaErro='CControleAcesso_erroAcesso' />
 	<controleDeAcesso liberado='sim' classe='NControleAcesso' metodoLiberacao='validarAcesso' />
 	<controleDeMenu classe='NControleMenu' metodoMenuSite='menuPrincipal' metodoMenuSistema='menuMenuSistema' />
 	<bancos>

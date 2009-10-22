@@ -348,6 +348,7 @@ abstract class persistente extends objeto{
 				case('generica'):
 				case('genérico'):
 				case('genérica'):
+				case(operador::generico):
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
 						$operacao = " upper(accent_remove(%s)) like upper(accent_remove(%%%s%%)) {$restricao} ";
 					}else{
