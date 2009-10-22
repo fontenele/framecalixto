@@ -312,6 +312,7 @@ abstract class persistente extends objeto{
             }
 			$valor = $this->converterDado($valor);
 			if(!$valor) continue;
+			$dominio = null;
 			switch(strtolower($operador)){
 				case('diferente'):
 				case(operador::diferente):
@@ -389,8 +390,28 @@ abstract class persistente extends objeto{
 						$operacao = " %s <= '%s' {$restricao} ";
 					}
 				break;
+				case(operador::dominio):
+					foreach($valor as $i => $parte){ $valor[$i] =str_replace("'","''",$parte); }
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$operacao = " %s in( %s ) {$restricao} ";
+						$dominio = "'".implode("','",$valor)."'";
+					}else{
+						$operacao = " %s in( '%s' ) {$restricao} ";
+						$dominio = implode("','",$valor);
+					}
+				break;
+				case(operador::entre):
+					$valor['valor1'] = str_replace("'","''",$valor['valor1']);
+					$valor['valor2'] = str_replace("'","''",$valor['valor2']);
+					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
+						$valor = " {$valor['valor1']} and {$valor['valor2']} ";
+					}else{
+						$valor = " '{$valor['valor1']}' and '{$valor['valor2']}' ";
+					}
+					$operacao = " (%s between %s) {$restricao} ";
+				break;
 			}
-			$comando.= sprintf($operacao,$campo,str_replace("'","''",$valor));
+			$comando.= sprintf($operacao,$campo,$dominio ? $dominio : str_replace("'","''",$valor));
 		}
 		if($comando){
 			$comando = substr($comando,0,-4);
@@ -414,10 +435,11 @@ abstract class persistente extends objeto{
 				}else{
 					$ordem = '';
 				}
-				return $comando.$ordem;
+				$comando = $comando.$ordem;
 			}else{
-				return $this->gerarComandoLerTodos();
+				$comando = $this->gerarComandoLerTodos();
 			}
+			return $comando;
 		}
 		catch(erro $e){
 			throw $e;

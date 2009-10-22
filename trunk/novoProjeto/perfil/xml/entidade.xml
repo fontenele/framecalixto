@@ -3,9 +3,7 @@
 	<propriedades>
 		<propriedade id='idPerfil' tipo='numerico' tamanho='10' indicePrimario='sim'  >
 			<banco nome='perf_id_perfil'  />
-			<apresentacao componente='oculto' >
-				<listagem ordem='1' tamanho='10%' hyperlink='sim' />
-			</apresentacao>
+			<apresentacao componente='oculto' />
 		</propriedade>
 		<propriedade id='nmPerfil' tipo='texto' tamanho='60' obrigatorio='sim' descritivo='1'  >
 			<banco nome='perf_nm_perfil' ordem='1'  />

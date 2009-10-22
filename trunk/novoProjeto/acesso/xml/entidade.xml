@@ -3,9 +3,7 @@
 	<propriedades>
 		<propriedade id='idAcesso' tipo='numerico' tamanho='10' indicePrimario='sim'  >
 			<banco nome='acess_id_acesso_usuario'  />
-			<apresentacao componente='oculto' >
-				<listagem ordem='1' tamanho='5%' hyperlink='sim' />
-			</apresentacao>
+			<apresentacao componente='oculto' />
 		</propriedade>
 		<propriedade id='idPerfil' tipo='numerico' tamanho='10' classeAssociativa='NPerfil' metodoLeitura='lerTodos'  >
 			<banco nome='acess_id_perfil' >
