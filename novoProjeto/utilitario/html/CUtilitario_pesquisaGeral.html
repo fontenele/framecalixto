@@ -1,5 +1,5 @@
 <form name="formulario" method="post" action="«$action»" >
-	<center>Pesquisa Geral<br/>«$filtro»</center>
+	<center>Pesquisa Geral <br/>«$filtro» «php»if($this->_tpl_vars['listagens']) echo $this->_tpl_vars['nivel'];«/php»«$pesquisar»</center>
 «php»if($this->_tpl_vars['listagens']) foreach($this->_tpl_vars['listagens'] as $listagem):«/php»
 <div class="container0">
 	<div class="a"></div>
@@ -12,6 +12,7 @@
 	<div class="h"></div>
 	<h1 class="titulo">«php»echo $listagem['nome'];«/php» <b>(«php»echo $listagem['ocorrencias'];«/php»)</b></h1>
 	<div class="texto">
+			Pesquisa avançada de «php»echo $listagem['nome'];«/php»
 			«php»echo $listagem['listagem'];«/php»
 	</div>
 </div>

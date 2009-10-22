@@ -56,7 +56,10 @@ class CUtilitario_pesquisaGeral extends controlePadraoPesquisa{
 		return is_file($controle['caminho']);
 	}
 	protected function entidades(){
-		$this->visualizacao->filtro = VComponente::montar('caixa de entrada', 'filtro', isset($_POST['filtro']) ? $_POST['filtro'] : null);
+		for($i=1; $i < 6;$i++) $niveis[$i] = "nivel de busca {$i}";
+		$this->visualizacao->nivel = VComponente::montar(VComponente::caixaCombinacao, 'nivel', isset($_POST['nivel']) ? $_POST['nivel'] : 1 ,null,$niveis);
+		$this->visualizacao->filtro = VComponente::montar(VComponente::caixaEntrada, 'filtro', isset($_POST['filtro']) ? $_POST['filtro'] : null);
+		$this->visualizacao->pesquisar = VComponente::montar(VComponente::confirmar, 'Pesquisar','Pesquisar');
 		if(!$this->pegarFiltro()) return $this->visualizacao->listagens = array();
 		$d = dir(".");
 		$negocios = new colecao();
@@ -78,15 +81,13 @@ class CUtilitario_pesquisaGeral extends controlePadraoPesquisa{
 		}
 		$d->close();
 		asort($ordem);
-		unset($ordem['acessoDoUsuario']);
-		unset($ordem['usuarioPerfil']);
 		$this->visualizacao->ordem = $ordem;
 		$listagens = array();
 		foreach($ordem as $idx => $arquivo){
 			$obNegocio = $negocios->pegar($idx);
 			$nome['controle'] = definicaoEntidade::controle($obNegocio, 'verPesquisa');
 			if($this->exibirListagem($arquivo)){
-				$colecao = $obNegocio->pesquisaGeral($this->pegarFiltro(),$this->pegarPagina());
+				$colecao = $obNegocio->pesquisaGeral($this->pegarFiltro(),$this->pegarPagina(),isset($_POST['nivel']) ? $_POST['nivel'] : 1);
 				call_user_func_array("{$nome['controle']}::montarListagem", array($this->visualizacao,$colecao,$this->pegarPagina()));
 				$this->visualizacao->listagem->passarControle($nome['controle']);
 				if($colecao->contarItens()){

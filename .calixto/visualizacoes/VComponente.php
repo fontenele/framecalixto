@@ -5,6 +5,32 @@
 * @subpackage visualização
 */
 class VComponente extends VEtiquetaHtml{
+	const confirmar = 'confirmar';
+	const botao = 'botao';
+	const senha = 'senha';
+	const menuSistema = 'menu de sistema';
+	const menuModulo = 'menu de modulo';
+	const menuPrograma = 'menu de programa';
+	const radio = 'radio';
+	const radioLista = 'radiolista';
+	const marcador = 'marcador';
+	const caixaEntrada = 'caixa de entrada';
+	const documentoPessoal = 'documento pessoal';
+	const cnpj = 'cnpj';
+	const cep = 'cep';
+	const telefone = 'telefone';
+	const dataHora = 'dataHora';
+	const data = 'data';
+	const hora = 'hora';
+	const numero = 'numero';
+	const moeda = 'moeda';
+	const oculto = 'oculto';
+	const caixaCombinacao = 'caixa de combinacao';
+	const caixaSelecao = 'caixa de selecao';
+	const checkLista = 'checklista';
+	const texto = 'texto';
+	const nome = 'nome';
+	const email = 'email';
 	/**
 	* Flag de apresentação do campo obrigatório
 	* @var boolean

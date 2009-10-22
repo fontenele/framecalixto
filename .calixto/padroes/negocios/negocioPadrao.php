@@ -231,25 +231,39 @@ abstract class negocioPadrao extends negocio{
 	/**
 	 * Metodo que preenche todos os atributos de negocio com um valor
 	 * @param string $valorDePreenchimento
+	 * @return colecaoPadraoNegocio
 	 */
-	public function pesquisaGeral($valorDePreenchimento,pagina $pagina = null){
+	public function pesquisaGeral($valorDePreenchimento,pagina $pagina = null,$recursividade = 1){
+		$recursividade--;
 		$mapeador = $this->pegarMapeamento();
+		$filtrou = false;
 		foreach($mapeador as $valor){
 			$valorPassado = null;
-			switch(true){
-				case($valor['tipo'] == 'texto'):
-					$valorPassado = operador::como($valorDePreenchimento);
-				break;
-				case($valor['tipo'] == 'data'):
-					$data = new TData($valorDePreenchimento);
-					if($data->validar()) $valorPassado = operador::igual($data);
-				break;
-				default:
-					if(is_numeric($valorDePreenchimento)) $valorPassado = operador::igual($valorDePreenchimento);
-				break;
+			if($valor['propriedade'] == $this->nomeChave()) continue ;
+			if(!empty($valor['classeAssociativa']) && ($valor['classeAssociativa'] != get_class($this))){
+				if(!$recursividade) continue ;
+				$associativa = new $valor['classeAssociativa']();
+				$colecaoAssociativa = $associativa->pesquisaGeral($valorDePreenchimento,new pagina(0), $recursividade);
+				$chaves = $colecaoAssociativa->gerarVetorDeAtributo($associativa->nomeChave());
+				if($chaves) $valorPassado = operador::dominio($chaves);
+			}else{
+				switch(true){
+					case($valor['tipo'] == 'texto'):
+						$valorPassado = operador::como($valorDePreenchimento);
+					break;
+					case($valor['tipo'] == 'data'):
+						$data = new TData($valorDePreenchimento);
+						if($data->validar()) $valorPassado = operador::igual($data);
+					break;
+					default:
+						if(is_numeric($valorDePreenchimento)) $valorPassado = operador::igual($valorDePreenchimento);
+					break;
+				}
 			}
+			if($valorPassado) $filtrou = true;
 			$this->{"passar{$valor['propriedade']}"}($valorPassado);
 		}
+		if(!$filtrou) return new colecaoPadraoNegocio();
 		if(!$pagina) $pagina = new pagina(0);
 		$persistente = $this->pegarPersistente();
 		$persistente->passarOperadorDeRestricao('or');

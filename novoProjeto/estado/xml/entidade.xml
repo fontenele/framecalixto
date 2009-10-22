@@ -3,9 +3,7 @@
 	<propriedades>
 		<propriedade id='id' tipo='numerico' tamanho='2' obrigatorio='sim' indicePrimario='sim'  >
 			<banco nome='Esta_id'  />
-			<apresentacao componente='oculto' >
-				<listagem ordem='1' tamanho='10%' hyperlink='sim' />
-			</apresentacao>
+			<apresentacao componente='oculto' />
 		</propriedade>
 		<propriedade id='sigla' tipo='texto' tamanho='2' obrigatorio='sim' indiceUnico='sim' >
 			<banco nome='Esta_sigla'  />
