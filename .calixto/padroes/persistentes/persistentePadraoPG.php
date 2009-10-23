@@ -67,5 +67,87 @@ class persistentePadraoPG extends persistente{
 		}
 		return false;
 	}
+	/**
+	 * Método de criação da função de banco accent_remove
+	 */
+	public function plAccentRemove(){
+		$comando = "
+			--
+			-- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: postgres
+			--
+			CREATE PROCEDURAL LANGUAGE plpgsql;
+			SET search_path = public, pg_catalog;
+			--
+			-- Name: accent_remove(character varying); Type: FUNCTION; Schema: public; Owner: postgres
+			--
+			CREATE FUNCTION accent_remove(text_input character varying) RETURNS character varying
+				AS $$
+			DECLARE 
+				text_output varchar;
+			BEGIN	
+				text_output = text_input;
+
+				text_output = replace(text_output,'Á','A');
+				text_output = replace(text_output,'á','a');
+				text_output = replace(text_output,'à','a');
+				text_output = replace(text_output,'À','A');
+				text_output = replace(text_output,'â','a');
+				text_output = replace(text_output,'Â','A');
+				text_output = replace(text_output,'ä','a');
+				text_output = replace(text_output,'Ä','A');
+				text_output = replace(text_output,'ã','a');
+				text_output = replace(text_output,'Ã','A');
+				text_output = replace(text_output,'å','a');
+				text_output = replace(text_output,'Å','A');
+				text_output = replace(text_output,'ð','o');
+				text_output = replace(text_output,'é','e');
+				text_output = replace(text_output,'É','E');
+				text_output = replace(text_output,'È','E');
+				text_output = replace(text_output,'è','e');
+				text_output = replace(text_output,'Ê','E');
+				text_output = replace(text_output,'ê','e');
+				text_output = replace(text_output,'Ë','E');
+				text_output = replace(text_output,'ë','e');
+				text_output = replace(text_output,'í','i');
+				text_output = replace(text_output,'Í','I');
+				text_output = replace(text_output,'ì','i');
+				text_output = replace(text_output,'Ì','I');
+				text_output = replace(text_output,'î','i');
+				text_output = replace(text_output,'Î','I');
+				text_output = replace(text_output,'ï','i');
+				text_output = replace(text_output,'Ï','I');
+				text_output = replace(text_output,'ñ','n');
+				text_output = replace(text_output,'Ñ','N');
+				text_output = replace(text_output,'ó','o');
+				text_output = replace(text_output,'Ó','O');
+				text_output = replace(text_output,'Ò','O');
+				text_output = replace(text_output,'ò','o');
+				text_output = replace(text_output,'Ô','O');
+				text_output = replace(text_output,'ô','o');
+				text_output = replace(text_output,'Ö','O');
+				text_output = replace(text_output,'ö','o');
+				text_output = replace(text_output,'õ','o');
+				text_output = replace(text_output,'Õ','O');
+				text_output = replace(text_output,'Ú','U');
+				text_output = replace(text_output,'ú','u');
+				text_output = replace(text_output,'ù','u');
+				text_output = replace(text_output,'Ù','U');
+				text_output = replace(text_output,'û','u');
+				text_output = replace(text_output,'Û','U');
+				text_output = replace(text_output,'ü','u');
+				text_output = replace(text_output,'Ü','U');
+				text_output = replace(text_output,'ý','y');
+				text_output = replace(text_output,'Ý','Y');
+				text_output = replace(text_output,'ÿ','y');
+				text_output = replace(text_output,'Ç','C');
+				text_output = replace(text_output,'ç','c');
+				return text_output;
+			end; $$
+				LANGUAGE plpgsql STRICT;
+			ALTER FUNCTION public.accent_remove(text_input character varying) OWNER TO postgres;
+		";
+		$this->executarComando($comando);
+	}
+
 }
 ?>
