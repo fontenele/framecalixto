@@ -21,7 +21,7 @@ abstract class objeto{
 	* @param [string] metodo chamado
 	* @param [array] parâmetros parassados para o método chamado
 	*/
-	protected function __call($metodo, $parametros){
+	public function __call($metodo, $parametros){
 		try{
 			if (preg_match('/(pegar|passar)(.*)/', $metodo, $resultado)) {
 				$var = strtolower($resultado[2]{0}).substr($resultado[2],1,strlen($resultado[2]));
