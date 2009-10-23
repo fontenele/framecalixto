@@ -49,7 +49,7 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 	* @param [string] metodo chamado
 	* @param [array] parâmetros parassados para o método chamado
 	*/
-	protected function __call($metodo, $parametros){
+	public function __call($metodo, $parametros){
 		try{
 			switch(true){
 				case (preg_match('/(pegar|passar)(.*)/', $metodo, $resultado)) :
