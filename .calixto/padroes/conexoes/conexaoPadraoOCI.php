@@ -4,94 +4,85 @@
 * @package FrameCalixto
 * @subpackage Banco de Dados
 */
-class conexaoPadraoOCI extends conexao{
+class conexaoPadraoOCI extends conexao implements conexaoPadraoEstatica{
+	/**
+	* O ponteiro do recurso com o resultado do comando
+	* @var [resource]
+	*/
+	protected static $cursorEstatico;
+	/**
+	* Conexao statica para singleton
+	*/
+	protected static $conexaoEstatica;
+	/**
+	* Verificador de transação
+	*/
+	protected static $autoCommitEstatico;
 	/**
 	* Metodo construtor
+	*/
+	final public function __construct(){}
+	/**
+	* Desconecta do banco de dados
+	*/
+	public function desconectar(){
+		try{
+			if(is_resource(conexaoPadraoOCI::$conexaoEstatica)){
+				oci_close(conexaoPadraoOCI::$conexaoEstatica);
+			}else{
+				throw new erroBanco( 'Não existe recurso para o fechamento da conexão.' );
+			}
+		}
+		catch(erroBanco $e){
+			throw $e;
+		}
+	}
+	/**
+	* Metodo de conexão
 	* @param [st] Servidor do Banco de dados
 	* @param [st] Porta do servidor do Banco de dados
 	* @param [st] Nome do Banco de dados
 	* @param [st] Usuário do Banco de dados
 	* @param [st] Senha do Banco de dados
 	*/
-	public function __construct($servidor, $porta, $banco, $usuario, $senha){
-		try{
-			$this->strConn = "host=$servidor port=$porta dbname=$banco user=$usuario password=$senha";
-			$this->conectar();
-		}
-		catch(erroBanco $e){
-			throw $e;
-		}
-	}
-	/**
-	* Fecha a Conexão com o Banco de Dados
-	*/
-	public function __destruct(){
-		try{
-			$this->desconectar();
-		}
-		catch(erroBanco $e){
-			// O retorno de erro pelo comando destruct impede o redirecionamento de paginas
-		}
-	}
-	protected function desconectar(){
-		try{
-			if(is_resource($this->conexao)){
-				pg_close ($this->conexao);
+	public static function conectar($servidor, $porta, $banco, $usuario, $senha){
+		if(!is_resource(conexaoPadraoOCI::$conexaoEstatica)){
+			if($servidor && $porta){
+				conexaoPadraoOCI::$conexaoEstatica = oci_connect($usuario,$senha,
+				"(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST ={$servidor})(PORT = {$porta}))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {$banco})))");
 			}else{
-				throw new erroBanco( 'erro na conexão com banco de dados' );
+				conexaoPadraoOCI::$conexaoEstatica = oci_connect($usuario,$senha,$banco);
 			}
-		}
-		catch(erroBanco $e){
-			throw $e;
-		}
-	}
-	protected function conectar(){
-		try{
-			if(!$this->strConn) debug_print_backtrace();
-			$this->conexao = pg_pconnect($this->strConn);
-			if( !is_resource($this->conexao) ){
-			throw new erroBanco( 'erro na conexão com banco de dados' );
+			if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ){
+				throw new erroBanco( 'Erro ao estabelecer conexão com banco de dados' );
 			}
-			$this->executarComando("SET DATESTYLE TO German;");
-			$this->executarComando("SET CLIENT_ENCODING TO UTF8;");
+			conexaoPadraoOCI::executar( 'alter session set NLS_LANGUAGE="BRAZILIAN PORTUGUESE"' );
+			conexaoPadraoOCI::executar( 'alter session set NLS_NUMERIC_CHARACTERS =",."' );
+			conexaoPadraoOCI::executar( 'alter session set NLS_DATE_FORMAT = "dd/mm/yyyy HH24:MI:SS"' );
+			conexaoPadraoOCI::executar( 'alter session set NLS_NCHAR_CHARACTERSET=UTF8' );
+			conexaoPadraoOCI::executar( 'alter session set NLS_SORT="BINARY"' );
+			conexaoPadraoOCI::executar( 'alter session set skip_unusable_indexes=true' );
 		}
-		catch(erroBanco $e){
-			throw $e;
-		}
+		return new conexaoPadraoOCI();
 	}
 	/**
 	* Inicia uma Transação no Banco de Dados
 	*/
 	function iniciarTransacao(){
-		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para iniciar uma transação!' );
-			$this->autoCommit = false;
-			pg_query($this->conexao, 'begin');
-			$sterro = pg_last_error($this->conexao);
-			if (!empty($sterro)) {
-				throw new erroBanco($sterro);
-			}
-		}
-		catch(erroBanco $e){
-			throw $e;
-		}
+		if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para iniciar uma transação!' );
+		conexaoPadraoOCI::$autoCommitEstatico = false;
 	}
 
 	/**
 	* Confirma uma Transação no Banco de Dados
 	*/
 	function validarTransacao(){
-		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para validar uma transação!' );
-			$this->autoCommit = false;
-			pg_query($this->conexao, 'commit');
-			$sterro = pg_last_error($this->conexao);
-			if (!empty($sterro)) {
-				throw new erroBanco($sterro);
-			}
-		}
-		catch(erroBanco $e){
-			throw $e;
+		if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para validar uma transação!' );
+		conexaoPadraoOCI::$autoCommitEstatico = true;
+		oci_commit(conexaoPadraoOCI::$conexaoEstatica);
+		$sterro = oci_error(conexaoPadraoOCI::$conexaoEstatica);
+		if (!empty($sterro)) {
+			throw new erroBanco($sterro);
 		}
 	}
 
@@ -99,17 +90,12 @@ class conexaoPadraoOCI extends conexao{
 	* Desfaz uma Transação aberta no Banco de Dados
 	*/
 	function desfazerTransacao(){
-		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para desfazer uma transação!' );
-			$this->autoCommit = false;
-			pg_query($this->conexao, 'rollback');
-			$sterro = pg_last_error($this->conexao);
-			if (!empty($sterro)) {
-				throw new erroBanco($sterro);
-			}
-		}
-		catch(erroBanco $e){
-			throw $e;
+		if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para desfazer uma transação!' );
+		conexaoPadraoOCI::$autoCommitEstatico = true;
+		oci_rollback(conexaoPadraoOCI::$conexaoEstatica);
+		$sterro = oci_error(conexaoPadraoOCI::$conexaoEstatica);
+		if (!empty($sterro)) {
+			throw new erroBanco($sterro);
 		}
 	}
 
@@ -119,25 +105,29 @@ class conexaoPadraoOCI extends conexao{
 	* @return [int] número de linhas afetadas
 	*/
 	function executarComando($sql){
-		try{
-			if( !is_resource($this->conexao) ) {
-				debug_print_backtrace();
-				$erro = new erroBanco( 'Conexão fechada para executar um comando!' );
-				$erro->comando = $sql;
-				throw $erro;
-			}
-			$this->cursor = @ pg_query($this->conexao,stripslashes($sql));
-			$sterro = pg_last_error($this->conexao);
-			if (!empty($sterro)) {
-				$erro = new erroBanco($sterro);
-				$erro->comando = $sql;
-				throw $erro;
-			}
-			return pg_affected_rows($this->cursor);
+		return conexaoPadraoOCI::executar($sql);
+	}
+	/**
+	* Executa uma query SQL no Banco de Dados
+	* @param [st] Comando SQL a ser executado
+	* @return [int] número de linhas afetadas
+	*/
+	protected static function executar($sql){
+		if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ) {
+			debug_print_backtrace();
+			$erro = new erroBanco( 'Conexão fechada para executar um comando!' );
+			$erro->comando = $sql;
+			throw $erro;
 		}
-		catch(erroBanco $e){
-			throw $e;
+		conexaoPadraoOCI::$cursorEstatico = oci_parse(conexaoPadraoOCI::$conexaoEstatica,stripslashes($sql));
+		$sterro = oci_error(conexaoPadraoOCI::$conexaoEstatica);
+		if (!empty($sterro)) {
+			$erro = new erroBanco($sterro);
+			$erro->comando = $sql;
+			throw $erro;
 		}
+		conexaoPadraoOCI::$cursorEstatico = oci_execute(conexaoPadraoOCI::$cursorEstatico,(conexaoPadraoOCI::$autoCommitEstatico ? OCI_COMMIT_ON_SUCCESS : OCI_DEFAULT));
+		return oci_num_rows(conexaoPadraoOCI::$cursorEstatico);
 	}
 
 	/**
@@ -146,13 +136,8 @@ class conexaoPadraoOCI extends conexao{
 	*/
 	function pegarRegistro(){
 		try{
-			if( !is_resource($this->conexao) ) throw new erroBanco( 'Conexão fechada para pegar um registro!' );
-			if ($arRes = pg_fetch_array ($this->cursor,NULL,PGSQL_ASSOC)) {
-				foreach($arRes as $stNomeCampo => $stConteudoCampo) {
-					$arTupla[strtolower($stNomeCampo)] = $stConteudoCampo;
-				}
-				return $arTupla;
-			}
+			if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para pegar um registro!' );
+			return array_change_key_case(oci_fetch_array (conexaoPadraoOCI::$cursorEstatico),CASE_LOWER);
 		}
 		catch(erroBanco $e){
 			throw $e;
