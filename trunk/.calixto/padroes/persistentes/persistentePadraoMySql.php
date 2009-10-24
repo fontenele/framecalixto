@@ -6,6 +6,16 @@
 */
 abstract class persistentePadraoMySql extends persistente{
 	/**
+	* Metodo criado para especificar a estrutura da persistente
+	* @param [st] caminho do arquivo
+	*/
+	public function pegarEstrutura($arquivoXML = null){
+		$estrutura = parent::pegarEstrutura($arquivoXML);
+		$ar = explode('.',$estrutura['nomeTabela']);
+		if(isset($ar[1])) $estrutura['nomeTabela'] = $ar[1];
+		return $estrutura;
+	}
+	/**
 	* Monta o mapeamento de tipo de dados do banco
 	* @return array mapeamento
 	*/
@@ -85,7 +95,7 @@ abstract class persistentePadraoMySql extends persistente{
 				}
 			}
 		}
-		$comando = substr($comando,0,-2)."\n) type InnoDB";
+		$comando = substr($comando,0,-2)."\n) ENGINE=InnoDB";
 		return $comando;
 	}
 	/**
@@ -97,10 +107,22 @@ abstract class persistentePadraoMySql extends persistente{
 		$comando = "";
 		foreach($estrutura['campo'] as $nomeCampo => $referencia){
 			if(isset($referencia['chaveEstrangeira']))
-				$comando .= "alter table {$estrutura['nomeTabela']} \n
-				add constraint {$estrutura['nomeTabela']}_{$nomeCampo}_fk foreign key ($nomeCampo) references {$referencia['chaveEstrangeira']['tabela']}({$referencia['chaveEstrangeira']['campo']});";
+				$comando .= "SET FOREIGN_KEY_CHECKS = 0; alter table {$estrutura['nomeTabela']} \nadd foreign key {$estrutura['nomeTabela']}_{$nomeCampo}_fk ($nomeCampo) references {$referencia['chaveEstrangeira']['tabela']}({$referencia['chaveEstrangeira']['campo']});";
 		}
 		return $comando;
+	}
+	/**
+	* Gera o comando de destruição no banco de dados
+	* @return [string] comando de destruição
+	*/
+	public function gerarComandoDestruicaoTabela(){
+		try{
+			$estrutura = $this->pegarEstrutura();
+			return $comando = "drop table if exists {$estrutura['nomeTabela']} cascade";
+		}
+		catch(erro $e){
+			throw $e;
+		}
 	}
 	/**
 	* Monta o comando de criação da chave primaria da tabela
@@ -121,6 +143,17 @@ abstract class persistentePadraoMySql extends persistente{
 	*/
 	public function gerarSequencia(){
 		return 'null';
+	}
+	/**
+	* Executa um comando SQL no banco de dados.(necessita de controle de transação)
+	* @param [string] comando SQL para a execução
+	* @return [int] número de linhas afetadas
+	*/
+	public function executarComando($comando = null){
+		$arComandos = explode(';',$comando);
+		foreach($arComandos as $comando){
+			if(trim($comando)) parent::executarComando($comando);
+		}
 	}
 }
 ?>

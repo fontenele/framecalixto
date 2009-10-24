@@ -976,11 +976,11 @@ abstract class persistente extends objeto{
 		try{
 			$comando = '';
 			if($comandoDestruicaoSequence = $this->gerarComandoDestruicaoSequence()){
-				$comando = "-- Comando de destruição da sequence\n";
+				//$comando = "-- Comando de destruição da sequence\n";
 				$comando.= 	"{$comandoDestruicaoSequence};\n";
 			}
 			if($comandoDestruicaoTabela = $this->gerarComandoDestruicaoTabela()){
-				$comando.= "-- Comando de destruição da tabela\n";
+				//$comando.= "-- Comando de destruição da tabela\n";
 				$comando.= 	"{$comandoDestruicaoTabela};\n";
 			}
 			return $comando;
@@ -996,23 +996,23 @@ abstract class persistente extends objeto{
 		try{
 			$comando = '';
 			if($comandoCriacaoSequence = $this->gerarComandoCriacaoSequence()){
-				$comando = "-- Comando de criação da sequence\n";
+				//$comando = "-- Comando de criação da sequence\n";
 				$comando.= 	"{$comandoCriacaoSequence};\n";
 			}
 			if($comandoCriacaoTabela = $this->gerarComandoCriacaoTabela()){
-				$comando.= "-- Comando de criação da tabela\n";
+				//$comando.= "-- Comando de criação da tabela\n";
 				$comando.= 	"{$comandoCriacaoTabela};\n";
 			}
 			if($comandoCriacaoChavePrimaria = $this->gerarComandoCriacaoChavePrimaria()){
-				$comando.= "\n-- Comando de criação da chave primária\n";
+				//$comando.= "\n-- Comando de criação da chave primária\n";
 				$comando.= "{$comandoCriacaoChavePrimaria};\n";
 			}
 			if($comandoCriacaoChavesEstrangeiras = $this->gerarComandoCriacaoChavesEstrangeiras()){
-				$comando.= "\n-- Comando de criação das chaves estrangeiras\n";
+				//$comando.= "\n-- Comando de criação das chaves estrangeiras\n";
 				$comando.= 	"{$comandoCriacaoChavesEstrangeiras};\n";
 			}
 			if($comandoRestricao = $this->gerarComandoRestricao()){
-				$comando.= "\n-- Comando de criação das restrições\n";
+				//$comando.= "\n-- Comando de criação das restrições\n";
 				$comando.= 	"{$comandoRestricao};\n";
 			}
 			return $comando;
