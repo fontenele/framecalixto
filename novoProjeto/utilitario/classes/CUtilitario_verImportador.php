@@ -17,6 +17,7 @@ class CUtilitario_verImportador extends controlePadrao{
 		$this->visualizacao->xml->passarRows(20);
 		$this->visualizacao->xml->passarCols(70);
 		$this->visualizacao->xml->passarTitle('Preencher o campo de texto com xml para a importação');
+		$this->visualizacao->xml->passarLimite(1000000);
 		$this->visualizacao->xml->obrigatorio(true);
 		parent::inicial();
 	}
