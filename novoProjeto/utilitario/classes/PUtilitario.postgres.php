@@ -49,6 +49,11 @@ class PUtilitario extends persistentePadraoPG {
 					n.nspname as esquema, 
 					c.relname as tabela, 
 					a.attname as campo,
+					
+					case 
+						when a.attnotnull = 't' then 'not null'
+						when a.attnotnull = 'f' then ''
+					end as obrigatorio,
 					format_type(t.oid, null) as tipo,
 					case 
 						when format_type(t.oid, null) = 'bigint' then 'numerico'
