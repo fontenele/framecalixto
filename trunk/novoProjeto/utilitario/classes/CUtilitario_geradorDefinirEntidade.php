@@ -150,7 +150,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$desc = $persistente->lerTabela($_GET['tabela']);
 		$sequences = $persistente->lerSequenciasDoBanco($_GET['tabela']);
 		$sequences = array_merge(array(''=>'&nbsp;'),$sequences);
-		if($sequences) $this->visualizacao->nomeSequence = VComponente::montar('caixa de combinação','nomeSequence',null,null,$sequences);
+		if($sequences) $this->visualizacao->nomeSequence = VComponente::montar('select','nomeSequence',null,null,$sequences);
 		$mapNegocio['bd']['nomeTabela'] = $_GET['tabela'];
 		$mapNegocio['bd']['nomeSequencia'] = '«Nome da sequência???»';
 		$mapNegocio['bd']['chavePrimaria'] = '';
@@ -191,7 +191,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 			$mapNegocio['entidade'][$indice]['negocio']['propriedade']{0} = strtolower($mapNegocio['entidade'][$indice]['negocio']['propriedade']{0});
 			$mapNegocio['entidade'][$indice]['negocio']['tipo'] = $tipoDeDado;
 			$mapNegocio['entidade'][$indice]['negocio']['campo'] = $campo['campo'];
-			$mapNegocio['entidade'][$indice]['negocio']['obrigatorio'] = '';
+			$mapNegocio['entidade'][$indice]['negocio']['obrigatorio'] = $campo['obrigatorio'] ? 'sim':'';
 			$mapNegocio['entidade'][$indice]['negocio']['indiceUnico'] = '';
 			$mapNegocio['entidade'][$indice]['negocio']['dominio'] = '';
 			$mapNegocio['entidade'][$indice]['negocio']['descritivo'] = '';
@@ -201,7 +201,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 			$mapNegocio['entidade'][$indice]['controle']['componente'] = $componente;
 			$mapNegocio['entidade'][$indice]['controle']['tamanho'] = '';
 			$mapNegocio['entidade'][$indice]['controle']['tipo'] = $campo['tipo_de_dado'];
-			$mapNegocio['entidade'][$indice]['controle']['obrigatorio'] = '';
+			$mapNegocio['entidade'][$indice]['controle']['obrigatorio'] = $campo['obrigatorio'] ? 'sim':'';
 			$mapNegocio['entidade'][$indice]['controle']['pesquisa'] = '';
 			$mapNegocio['entidade'][$indice]['controle']['valores'] = array();
 			$mapNegocio['entidade'][$indice]['controle']['classeAssociativa'] = $chaveEstrangeira ? 'Classe de Negocio ???':'';
