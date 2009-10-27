@@ -12,13 +12,17 @@
 	<div class="lista">
 		<center>«$tabela»</center>
 		<table summary="text" class="tabela0">
-			<th>Campo</th>
-			<th>Tipo</th>
-			<th>Tamanho</th>
-			<th>PK</th>
-			<th>Esquema FK</th>
-			<th>Tabela FK</th>
-			<th>Campo FK</th>
+			<thead>
+				<tr>
+					<th>Campo</th>
+					<th>Tipo</th>
+					<th>Tamanho</th>
+					<th>PK</th>
+					<th>Esquema FK</th>
+					<th>Tabela FK</th>
+					<th>Campo FK</th>
+				</tr>
+			</thead>
 			«foreach from=$listagem item=nome»
 			<tr title="«php»echo $this->nome['descricao']«/php»">
 				<td class="campo1">«php»echo $this->nome['campo'] «/php»</td>
