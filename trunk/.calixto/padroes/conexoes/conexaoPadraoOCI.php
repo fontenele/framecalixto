@@ -26,16 +26,10 @@ class conexaoPadraoOCI extends conexao implements conexaoPadraoEstatica{
 	* Desconecta do banco de dados
 	*/
 	public function desconectar(){
-		try{
-			if(is_resource(conexaoPadraoOCI::$conexaoEstatica)){
-				oci_close(conexaoPadraoOCI::$conexaoEstatica);
-			}else{
-				throw new erroBanco( 'Não existe recurso para o fechamento da conexão.' );
-			}
-		}
-		catch(erroBanco $e){
-			throw $e;
-		}
+		if(!is_resource(conexaoPadraoOCI::$conexaoEstatica)) throw new erroBanco( 'Não existe recurso para o fechamento da conexão.' );
+		ob_start();
+		oci_close(conexaoPadraoOCI::$conexaoEstatica);
+		if(($res = ob_get_clean()))	throw new erroBanco($res);
 	}
 	/**
 	* Metodo de conexão
@@ -47,19 +41,20 @@ class conexaoPadraoOCI extends conexao implements conexaoPadraoEstatica{
 	*/
 	public static function conectar($servidor, $porta, $banco, $usuario, $senha){
 		if(!is_resource(conexaoPadraoOCI::$conexaoEstatica)){
+			ob_start();
 			if($servidor && $porta){
 				conexaoPadraoOCI::$conexaoEstatica = oci_connect($usuario,$senha,
-				"(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST ={$servidor})(PORT = {$porta}))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {$banco})))");
+				"(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST ={$servidor})(PORT = {$porta}))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {$banco})))",'UTF8');
 			}else{
-				conexaoPadraoOCI::$conexaoEstatica = oci_connect($usuario,$senha,$banco);
+				conexaoPadraoOCI::$conexaoEstatica = oci_connect($usuario,$senha,$banco,'UTF8');
 			}
+			if(($res = ob_get_clean()))	throw new erroBanco($res);
 			if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ){
 				throw new erroBanco( 'Erro ao estabelecer conexão com banco de dados' );
 			}
 			conexaoPadraoOCI::executar( 'alter session set NLS_LANGUAGE="BRAZILIAN PORTUGUESE"' );
 			conexaoPadraoOCI::executar( 'alter session set NLS_NUMERIC_CHARACTERS =",."' );
 			conexaoPadraoOCI::executar( 'alter session set NLS_DATE_FORMAT = "dd/mm/yyyy HH24:MI:SS"' );
-			conexaoPadraoOCI::executar( 'alter session set NLS_NCHAR_CHARACTERSET=UTF8' );
 			conexaoPadraoOCI::executar( 'alter session set NLS_SORT="BINARY"' );
 			conexaoPadraoOCI::executar( 'alter session set skip_unusable_indexes=true' );
 		}
@@ -68,7 +63,7 @@ class conexaoPadraoOCI extends conexao implements conexaoPadraoEstatica{
 	/**
 	* Inicia uma Transação no Banco de Dados
 	*/
-	function iniciarTransacao(){
+	public function iniciarTransacao(){
 		if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para iniciar uma transação!' );
 		conexaoPadraoOCI::$autoCommitEstatico = false;
 	}
@@ -76,27 +71,21 @@ class conexaoPadraoOCI extends conexao implements conexaoPadraoEstatica{
 	/**
 	* Confirma uma Transação no Banco de Dados
 	*/
-	function validarTransacao(){
+	public function validarTransacao(){
 		if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para validar uma transação!' );
 		conexaoPadraoOCI::$autoCommitEstatico = true;
 		oci_commit(conexaoPadraoOCI::$conexaoEstatica);
-		$sterro = oci_error(conexaoPadraoOCI::$conexaoEstatica);
-		if (!empty($sterro)) {
-			throw new erroBanco($sterro);
-		}
+		if (($sterro = oci_error(conexaoPadraoOCI::$conexaoEstatica))) throw new erroBanco($sterro);
 	}
 
 	/**
 	* Desfaz uma Transação aberta no Banco de Dados
 	*/
-	function desfazerTransacao(){
+	public function desfazerTransacao(){
 		if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para desfazer uma transação!' );
 		conexaoPadraoOCI::$autoCommitEstatico = true;
 		oci_rollback(conexaoPadraoOCI::$conexaoEstatica);
-		$sterro = oci_error(conexaoPadraoOCI::$conexaoEstatica);
-		if (!empty($sterro)) {
-			throw new erroBanco($sterro);
-		}
+		if (($sterro = oci_error(conexaoPadraoOCI::$conexaoEstatica))) throw new erroBanco($sterro);
 	}
 
 	/**
@@ -104,7 +93,7 @@ class conexaoPadraoOCI extends conexao implements conexaoPadraoEstatica{
 	* @param [st] Comando SQL a ser executado
 	* @return [int] número de linhas afetadas
 	*/
-	function executarComando($sql){
+	public function executarComando($sql){
 		return conexaoPadraoOCI::executar($sql);
 	}
 	/**
@@ -119,29 +108,36 @@ class conexaoPadraoOCI extends conexao implements conexaoPadraoEstatica{
 			$erro->comando = $sql;
 			throw $erro;
 		}
+		ob_start();
 		conexaoPadraoOCI::$cursorEstatico = oci_parse(conexaoPadraoOCI::$conexaoEstatica,stripslashes($sql));
-		$sterro = oci_error(conexaoPadraoOCI::$conexaoEstatica);
-		if (!empty($sterro)) {
+		if(($res = ob_get_clean()))	throw new erroBanco($res);
+		if (($sterro = oci_error(conexaoPadraoOCI::$conexaoEstatica))) {
 			$erro = new erroBanco($sterro);
 			$erro->comando = $sql;
 			throw $erro;
 		}
-		conexaoPadraoOCI::$cursorEstatico = oci_execute(conexaoPadraoOCI::$cursorEstatico,(conexaoPadraoOCI::$autoCommitEstatico ? OCI_COMMIT_ON_SUCCESS : OCI_DEFAULT));
-		return oci_num_rows(conexaoPadraoOCI::$cursorEstatico);
+		ob_start();
+		$res = oci_execute(conexaoPadraoOCI::$cursorEstatico,(conexaoPadraoOCI::$autoCommitEstatico ? OCI_COMMIT_ON_SUCCESS : OCI_DEFAULT));
+		if(($res = ob_get_clean()))	throw new erroBanco($res);
+		if (($sterro = oci_error(conexaoPadraoOCI::$cursorEstatico))) {
+			$erro = new erroBanco($sterro['message']);
+			$erro->comando = $sql;
+			throw $erro;
+		}
+		ob_start();
+		$linhas = oci_num_rows(conexaoPadraoOCI::$cursorEstatico);
+		if(($res = ob_get_clean()))	throw new erroBanco($res);
+		return $linhas;
 	}
 
 	/**
 	* Retorna um array com o registro retornados corrente da conexão
 	* @return array
 	*/
-	function pegarRegistro(){
-		try{
-			if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para pegar um registro!' );
-			return array_change_key_case(oci_fetch_array (conexaoPadraoOCI::$cursorEstatico),CASE_LOWER);
-		}
-		catch(erroBanco $e){
-			throw $e;
-		}
+	public function pegarRegistro(){
+		if( !is_resource(conexaoPadraoOCI::$conexaoEstatica) ) throw new erroBanco( 'Conexão fechada para pegar um registro!' );
+		if(!($tupla = oci_fetch_assoc (conexaoPadraoOCI::$cursorEstatico))) return false;
+		return array_change_key_case($tupla,CASE_LOWER);
 	}
 }
 ?>
