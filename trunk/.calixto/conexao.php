@@ -5,6 +5,9 @@
 * @subpackage Banco de Dados
 */
 abstract class conexao extends objeto{
+	const oracle = 'oracle';
+	const postgres = 'postgres';
+	const mysql = 'mysql';
 	/**
 	* O recurso de conexão com Banco de Dados
 	* @var [resource]
@@ -34,16 +37,17 @@ abstract class conexao extends objeto{
 	* @param [st] Senha do Banco de dados
 	* @return conexaoPadrao conexão com o banco de dados
 	*/
-	public static final function criar($nome = null, $servidor = null, $porta = null, $banco = null, $usuario = null, $senha = null){
+	public static final function criar($nome = null, $servidor = null, $porta = null, $banco = null, $usuario = null, $senha = null,$tipoBanco = null){
 		$id = definicaoBanco::pegarId($nome);
 		$servidor	= $servidor	?	$servidor	:	definicaoBanco::pegarServidor($id);
 		$porta		= $porta	?	$porta		:	definicaoBanco::pegarPorta($id);
 		$banco		= $banco	?	$banco		:	definicaoBanco::pegarNome($id);
 		$usuario	= $usuario	?	$usuario	:	definicaoBanco::pegarUsuario($id);
 		$senha		= $senha	?	$senha		:	definicaoBanco::pegarSenha($id);
+		$tipoBanco		= $tipoBanco		?	$tipoBanco		:	definicaoBanco::pegarTipo($id);
  		$multipla	= definicaoBanco::conexaoMultipla($id);
 		if($multipla){
-			switch(definicaoBanco::pegarTipo($id)){
+			switch($tipoBanco){
 				case 'postgres':
 					$conexao = new conexaoPadraoMultiplaPG($servidor, $porta, $banco, $usuario, $senha);
 				break;
@@ -57,7 +61,7 @@ abstract class conexao extends objeto{
 					$conexao = false;
 			}
 		}else{
-			switch(definicaoBanco::pegarTipo($id)){
+			switch($tipoBanco){
 				case 'postgres':
 					$conexao = conexaoPadraoPG::conectar($servidor, $porta, $banco, $usuario, $senha);
 				break;
