@@ -179,6 +179,8 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$persistente}.postgres.php",$this->visualizacao->pegar('classesPersistente.html'));
 		$this->visualizacao->persistentePai = 'persistentePadraoMySql';
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$persistente}.mysql.php",$this->visualizacao->pegar('classesPersistente.html'));
+		$this->visualizacao->persistentePai = 'persistentePadraoOCI';
+		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$persistente}.oracle.php",$this->visualizacao->pegar('classesPersistente.html'));
 	}
 	/**
 	* Monta a classe de negocio

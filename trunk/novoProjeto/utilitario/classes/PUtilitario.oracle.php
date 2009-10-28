@@ -78,7 +78,7 @@ class PUtilitario extends persistentePadraoPG {
 						user_col_comments
 				) cmt on (tb.table_name = cmt.table_name and tb.column_name = cmt.column_name)
 			where
-				tb.table_name=upper('CO_RESULTADO_CONTAS')
+				tb.table_name=upper('{$tabela}')
 				and tb.owner = 'SGT'
 			order by
 				tb.column_id

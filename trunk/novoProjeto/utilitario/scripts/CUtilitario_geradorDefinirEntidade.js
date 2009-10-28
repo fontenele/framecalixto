@@ -202,6 +202,15 @@ gerador = {
 	}
 };
 $(document).ready( function() {
+	$('input').live('keyup',function(event){
+    		if(event.originalEvent.ctrlKey)	switch(event.originalEvent.keyCode){
+    			case(38): $(this).parent().parent().prev().find('.'+$(this).attr('class')).focus().select();break; //Acima
+    			case(40): $(this).parent().parent().next().find('.'+$(this).attr('class')).focus().select();break; //Abaixo
+    			case(39): if($(this).parent().next().children()[0]) $(this).parent().next().children()[0].focus().select();break; //Direita
+    			case(37): if($(this).parent().prev().children()[0]) $(this).parent().prev().children()[0].focus().select();break; //Esquerda
+    		}
+   			return true;
+    	});
 	$('#adicionar').click(function(){
 		gerador.adicionarLinha();
 	});
@@ -221,6 +230,7 @@ $(document).ready( function() {
 				 nome + '/classes/N' + nomeClasse + '.php',
 				 nome + '/classes/P' + nomeClasse + '.mysql.php',
 				 nome + '/classes/P' + nomeClasse + '.postgres.php',
+				 nome + '/classes/P' + nomeClasse + '.oracle.php',
 				 nome + '/xml/entidade.xml',
 				 nome + '/xml/pt_BR.xml',
 				 nome + '/html/C' + nomeClasse + '_verEdicao.html',
