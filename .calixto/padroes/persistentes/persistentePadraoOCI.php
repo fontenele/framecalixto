@@ -45,5 +45,23 @@ class persistentePadraoOCI extends persistente{
 			throw $e;
 		}
 	}
+	/**
+	* Gera o comando de leitura paginada
+	* @param [pagina] pagina referente
+	* @param [string] comando sql para execução
+	* @return [string] comando SQL de leitura
+	*/
+	public function gerarComandoLerPaginado(pagina $pagina, $sql){
+		try{
+			if($pagina->pegarTamanhoPagina() == 0){
+				return $sql;
+			}else{
+				return "select * from ({$sql}) selecao where rownum >= ".($pagina->pegarLinhaInicial())." and rownum <= ".($pagina->pegarLinhaInicial() + $pagina->pegarTamanhoPagina());
+			}
+		}
+		catch(erro $e){
+			throw $e;
+		}
+	}
 }
 ?>
