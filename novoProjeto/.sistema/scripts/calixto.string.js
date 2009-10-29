@@ -7,8 +7,8 @@ String.prototype.ucFirst = function(){return this.charAt(0).toUpperCase()+this.s
  * função para fazer lowerCamelCase();
  */
 String.prototype.upperCamelCase = function (){
-	this.toLowerCase();
-	arPalavra = this.split(' ');
+	palavra = this.toLowerCase();
+	arPalavra = palavra.split(' ');
 	palavraFim = '';
 	for(i in arPalavra){
 		palavraFim += arPalavra[i].ucFirst();
