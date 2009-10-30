@@ -17,7 +17,7 @@ class conexaoPadraoOCI extends conexao implements conexaoPadraoEstatica{
 	/**
 	* Verificador de transação
 	*/
-	protected static $autoCommitEstatico;
+	protected static $autoCommitEstatico = true;
 	/**
 	* Metodo construtor
 	*/
