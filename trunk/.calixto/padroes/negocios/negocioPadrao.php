@@ -257,14 +257,14 @@ abstract class negocioPadrao extends negocio{
 			}else{
 				switch(true){
 					case($valor['tipo'] == 'texto'):
-						$valorPassado = operador::generico($valorDePreenchimento);
+						$valorPassado = operador::generico($valorDePreenchimento,operador::restricaoOU);
 					break;
 					case($valor['tipo'] == 'data'):
 						$data = new TData($valorDePreenchimento);
-						if($data->validar()) $valorPassado = operador::igual($data);
+						if($data->validar()) $valorPassado = operador::igual($data,operador::restricaoOU);
 					break;
 					default:
-						if(is_numeric($valorDePreenchimento)) $valorPassado = operador::igual($valorDePreenchimento);
+						if(is_numeric($valorDePreenchimento)) $valorPassado = operador::igual($valorDePreenchimento,operador::restricaoOU);
 					break;
 				}
 			}
