@@ -18,7 +18,16 @@ class PUtilitario extends persistentePadraoPG {
 		}
 		return $retorno;
 	}
-	
+	public function lerCampos($tabela){
+		$sql = "
+			select column_name from all_tab_columns where table_name = upper('{$tabela}') and owner = 'SGT'
+		";
+		$this->conexao->executarComando($sql);
+		while ($registro = $this->conexao->pegarRegistro()){
+			$retorno[] = $registro;
+		}
+		return $retorno;
+	}
 	public function lerTabela($tabela){
 	    $sql = "
 			-- Describe da tabela
