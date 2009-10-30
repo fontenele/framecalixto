@@ -1,4 +1,12 @@
 <form name="formulario" method="post" action="«$action»" >
+	<script type="javascript">
+		$(document).ready(function(){
+			$('.nomeTabela').hide();
+			$('.nomeEntidade').click(function(){
+				$('.nomeTabela').toggle();
+			});
+		})
+	</script>
 <div class="container0">
 	<div class="a"></div>
 	<div class="b"></div>
@@ -8,13 +16,38 @@
 	<div class="f"></div>
 	<div class="g"></div>
 	<div class="h"></div>
-	<h1 class="titulo">&nbsp;</h1>
+	<h1 class="titulo">Entidades do sitema</h1>
 	<div class="lista">
-			<ul>
+		<table class="tabela1">
+				<thead>
+					<tr>
+						<th>Testar</th>
+						<th>Editar</th>
+						<th class="nomeEntidade">Nome da Entidade</th>
+						<th class="nomeNegocio">Classe de negócio</th>
+						<th class="nomeTabela">Tabela</th>
+						<th class="nomeSequence">Sequence</th>
+						<th class="existente">Campos Existentes</th>
+						<th class="definido">Campos Definidos</th>
+						<th class="definido"></th>
+					</tr>
+				</thead>
+				<tbody>
 			«foreach from=$listagem key=negocio item=nome»
-			<li><a href="?c=«$controles[$negocio]»" >testar</a>  <a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" >editar</a> «$nome» </li>
+			<tr>
+				<td align="center"><a href="?c=«$controles[$negocio]»" ><img border="0" src="utilitario/imagens/testar_programa.png"/></a></td>
+				<td align="center"><a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" ><img border="0" src=".sistema/imagens/icon-edit.png"/></a></td>
+				<td align="left" class="nomeEntidade">«$nome» </td>
+				<td align="left" class="nomeNegocio">«$negocios[$negocio]»</td>
+				<td align="left" class="nomeTabela"><a title="Definição da tabela '«$tabelas[$negocio]»' no banco de dados" href="?c=CUtilitario_listarCamposTabela&tabela=«$tabelas[$negocio]»">«$tabelas[$negocio]» </a></td>
+				<td align="left" class="nomeSequence">«$sequencias[$negocio]» </td>
+				<td align="left" class="numerico">«$camposExistentes[$negocio]»</td>
+				<td align="left" class="numerico">«$camposDefinidos[$negocio]»</td>
+				<td align="left" >«$diferencas[$negocio]»</td>
+			</tr>
 			«/foreach»
-			</ul>
+				</tbody>
+			</table>
         <div id='menu_corpo'>
             «$menuPrograma»
         </div>

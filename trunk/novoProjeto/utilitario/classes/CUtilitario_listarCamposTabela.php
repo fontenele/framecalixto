@@ -24,8 +24,14 @@ class CUtilitario_listarCamposTabela extends controlePadrao{
 	* @return colecaoPadraoMenu menu do programa
 	*/
 	public function montarMenuPrograma(){
+	//	$menu = parent::montarMenuPrograma();
+	//	$menu->{'Novo Cadastro'} = new VMenu('Novo Cadastro','?c=CUtilitario_geradorDefinirEntidade','utilitario/imagens/nova_pasta.png');
+	//	return $menu;
 		$menu = parent::montarMenuPrograma();
-		$menu->{'Listagem'}->passar_link('?c=CUtilitario_listarTabelas');
+		$menu->{'Tabelas do Banco'}->passar_link('?c=CUtilitario_listarTabelas');
+		$menu->{'Tabelas do Banco'}->passar_imagem('utilitario/imagens/tabelas.png');
+		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_listarEntidade');
+		$menu->{'Entidades do sistema'}->passar_imagem('utilitario/imagens/entidades.png');
 		$menu->{'Carregar para o gerador'}->passar_link("?c=CUtilitario_geradorDefinirEntidade&tabela={$_GET['tabela']}");
 		return $menu;
 	}
