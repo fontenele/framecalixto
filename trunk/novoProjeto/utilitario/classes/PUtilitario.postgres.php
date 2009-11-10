@@ -27,7 +27,36 @@ class PUtilitario extends persistentePadraoPG {
 		}
 		return $retorno;
 	}
-	
+	public function lerCampos($tabela){
+		if (strpos($tabela,'.') === false){
+			$tabela = "c.relname = '{$tabela}'";
+		}else{
+			$tabela = explode('.',$tabela);
+			if(count($tabela) > 1){
+				$tabela = "n.nspname = '{$tabela[0]}' and c.relname = '{$tabela[1]}'";
+			}
+		}
+		$sql = "
+			select a.* from pg_attribute a
+					inner join pg_class c
+						on a.attrelid = c.oid
+					inner join pg_namespace n
+						on c.relnamespace = n.oid
+			where
+					c.relkind = 'r'                       -- no indices
+					and n.nspname not like 'pg\\_%'       -- no catalogs
+					and n.nspname != 'information_schema' -- no information_schema
+					and a.attnum > 0                      -- no system att's
+					and not a.attisdropped                -- no dropped columns
+					and {$tabela}
+		";
+		$this->conexao->executarComando($sql);
+		while ($registro = $this->conexao->pegarRegistro()){
+			$retorno[] = $registro;
+		}
+		return $retorno;
+	}
+
 	public function lerTabela($tabela){
 		if (strpos($tabela,'.') === false){
 			$tabela = "tabela = '{$tabela}'";

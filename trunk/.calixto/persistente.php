@@ -15,10 +15,6 @@ abstract class persistente extends objeto{
 	*/
 	private static $estrutura;
 	/**
-	 * @var string operador de restrição
-	 */
-	protected $operadorDeRestricao = 'and';
-	/**
 	* @var [conexao] objeto de conexão com o banco de dados
 	*/
 	public $conexao;
@@ -317,6 +313,7 @@ abstract class persistente extends objeto{
             }else{
 				$operador = new operador();
 				$operador->passarOperador($estrutura['campo'][$campo]['operadorDeBusca']);
+				$operador->passarRestricao(operador::restricaoE);
 				$operador->passarValor($valor);
 			}
 			$operador->passarValor($this->converterDado($operador->pegarValor()));
@@ -387,24 +384,26 @@ abstract class persistente extends objeto{
 					}
 				break;
 				case(operador::dominio):
-					$valor = $valor->pegarValor();
-					foreach($valor as $i => $parte){ $valor[$i] =str_replace("'","''",$parte); }
+					$val = array();
+					foreach($operador->pegarValor() as $i => $parte){ $val[$i] =str_replace("'","''",$parte); }
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
 						$operacao = " %s in( %s ) %s ";
-						$dominio = "'".implode("','",$valor)."'";
+						$dominio = "'".implode("','",$val)."'";
 					}else{
 						$operacao = " %s in( '%s' ) %s ";
-						$dominio = implode("','",$valor);
+						$dominio = implode("','",$val);
 					}
 				break;
 				case(operador::entre):
-					$valor['valor1'] = str_replace("'","''",$valor['valor1']);
-					$valor['valor2'] = str_replace("'","''",$valor['valor2']);
+					$val = $operador->pegarValor();
+					$val['valor1'] = str_replace("'","''",$val['valor1']);
+					$val['valor2'] = str_replace("'","''",$val['valor2']);
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$valor = " {$valor['valor1']} and {$valor['valor2']} ";
+						$val = " {$val['valor1']} and {$val['valor2']} ";
 					}else{
-						$valor = " '{$valor['valor1']}' and '{$valor['valor2']}' ";
+						$val = " '{$val['valor1']}' and '{$val['valor2']}' ";
 					}
+					$operador->passarValor($val);
 					$operacao = " (%s between %s) %s ";
 				break;
                 case(operador::como):
@@ -453,7 +452,6 @@ abstract class persistente extends objeto{
 			}else{
 				$comando = $this->gerarComandoLerTodos();
 			}
-			//x('<pre>'.$comando.'</pre>');
 			return $comando;
 		}
 		catch(erro $e){
@@ -716,7 +714,7 @@ abstract class persistente extends objeto{
 	public function criarSequence(){
 		try{
 			$estrutura = $this->pegarEstrutura();
-			if($comandoCriacaoSequence = $this->gerarComandoCriacaoSequence()){
+			if(($comandoCriacaoSequence = $this->gerarComandoCriacaoSequence())){
 				$this->executarComando($comandoCriacaoSequence);
 			}
 		}
@@ -755,7 +753,7 @@ abstract class persistente extends objeto{
 	*/
 	public function criarTabela(){
 		try{
-			if($comandoCriacaoTabela = $this->gerarComandoCriacaoTabela()){
+			if(($comandoCriacaoTabela = $this->gerarComandoCriacaoTabela())){
 				$this->executarComando($comandoCriacaoTabela);
 			}
 		}
@@ -788,7 +786,7 @@ abstract class persistente extends objeto{
 	*/
 	public function criarChavePrimaria(){
 		try{
-			if($comandoCriacaoChavePrimaria = $this->gerarComandoCriacaoChavePrimaria()){
+			if(($comandoCriacaoChavePrimaria = $this->gerarComandoCriacaoChavePrimaria())){
 				$this->executarComando($comandoCriacaoChavePrimaria);
 			}
 		}
@@ -841,7 +839,7 @@ abstract class persistente extends objeto{
 	*/
 	public function criarChavesEstrangeiras(){
 		try{
-			if($comandoCriacaoChavesEstrangeiras = $this->gerarComandoCriacaoChavesEstrangeiras()){
+			if(($comandoCriacaoChavesEstrangeiras = $this->gerarComandoCriacaoChavesEstrangeiras())){
 				$this->executarComando($comandoCriacaoChavesEstrangeiras);
 			}
 		}
@@ -879,7 +877,7 @@ abstract class persistente extends objeto{
 	*/
 	public function criarRestricoes(){
 		try{
-			if($comandoRestricao = $this->gerarComandoRestricao()){
+			if(($comandoRestricao = $this->gerarComandoRestricao())){
 				$this->executarComando($comandoRestricao);
 			}
 		}
@@ -921,7 +919,7 @@ abstract class persistente extends objeto{
 	*/
 	public function destruirSequence(){
 		try{
-			if($comandoDestruicaoSequence = $this->gerarComandoDestruicaoSequence()){
+			if(($comandoDestruicaoSequence = $this->gerarComandoDestruicaoSequence())){
 				$this->executarComando($comandoDestruicaoSequence);
 			}
 			return true;
@@ -950,7 +948,7 @@ abstract class persistente extends objeto{
 	public function destruirTabela(){
 		try{
 			$this->ler(null);
-			if($comandoDestruicaoTabela = $this->gerarComandoDestruicaoTabela()){
+			if(($comandoDestruicaoTabela = $this->gerarComandoDestruicaoTabela())){
 				$this->executarComando($comandoDestruicaoTabela );
 			}
 			return true;
@@ -989,11 +987,11 @@ abstract class persistente extends objeto{
 	public function comandoDestruicaoCompleto(){
 		try{
 			$comando = '';
-			if($comandoDestruicaoSequence = $this->gerarComandoDestruicaoSequence()){
+			if(($comandoDestruicaoSequence = $this->gerarComandoDestruicaoSequence())){
 				//$comando = "-- Comando de destruição da sequence\n";
 				$comando.= 	"{$comandoDestruicaoSequence};\n";
 			}
-			if($comandoDestruicaoTabela = $this->gerarComandoDestruicaoTabela()){
+			if(($comandoDestruicaoTabela = $this->gerarComandoDestruicaoTabela())){
 				//$comando.= "-- Comando de destruição da tabela\n";
 				$comando.= 	"{$comandoDestruicaoTabela};\n";
 			}
@@ -1009,23 +1007,23 @@ abstract class persistente extends objeto{
 	public function comandoCriacaoCompleto(){
 		try{
 			$comando = '';
-			if($comandoCriacaoSequence = $this->gerarComandoCriacaoSequence()){
+			if(($comandoCriacaoSequence = $this->gerarComandoCriacaoSequence())){
 				//$comando = "-- Comando de criação da sequence\n";
 				$comando.= 	"{$comandoCriacaoSequence};\n";
 			}
-			if($comandoCriacaoTabela = $this->gerarComandoCriacaoTabela()){
+			if(($comandoCriacaoTabela = $this->gerarComandoCriacaoTabela())){
 				//$comando.= "-- Comando de criação da tabela\n";
 				$comando.= 	"{$comandoCriacaoTabela};\n";
 			}
-			if($comandoCriacaoChavePrimaria = $this->gerarComandoCriacaoChavePrimaria()){
+			if(($comandoCriacaoChavePrimaria = $this->gerarComandoCriacaoChavePrimaria())){
 				//$comando.= "\n-- Comando de criação da chave primária\n";
 				$comando.= "{$comandoCriacaoChavePrimaria};\n";
 			}
-			if($comandoCriacaoChavesEstrangeiras = $this->gerarComandoCriacaoChavesEstrangeiras()){
+			if(($comandoCriacaoChavesEstrangeiras = $this->gerarComandoCriacaoChavesEstrangeiras())){
 				//$comando.= "\n-- Comando de criação das chaves estrangeiras\n";
 				$comando.= 	"{$comandoCriacaoChavesEstrangeiras};\n";
 			}
-			if($comandoRestricao = $this->gerarComandoRestricao()){
+			if(($comandoRestricao = $this->gerarComandoRestricao())){
 				//$comando.= "\n-- Comando de criação das restrições\n";
 				$comando.= 	"{$comandoRestricao};\n";
 			}

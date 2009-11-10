@@ -7,6 +7,11 @@
 */
 abstract class negocioPadrao extends negocio{
 	/**
+	 * Cache de objetos encontrados para a pesquisa geral
+	 * @var array 
+	 */
+	private static $cachePesquisaGeral;
+	/**
 	* objeto de conexão com o banco de dados
 	* @var [conexao]
 	*/
@@ -242,6 +247,7 @@ abstract class negocioPadrao extends negocio{
 	 * @return colecaoPadraoNegocio
 	 */
 	public function pesquisaGeral($valorDePreenchimento,pagina $pagina = null,$recursividade = 1){
+		//if(isset(negocioPadrao::$cachePesquisaGeral[get_class($this)])) return negocioPadrao::$cachePesquisaGeral[get_class($this)];
 		$recursividade--;
 		$mapeador = $this->pegarMapeamento();
 		$filtrou = false;
@@ -274,8 +280,9 @@ abstract class negocioPadrao extends negocio{
 		if(!$filtrou) return new colecaoPadraoNegocio();
 		if(!$pagina) $pagina = new pagina(0);
 		$persistente = $this->pegarPersistente();
-		$persistente->passarOperadorDeRestricao('or');
 		$arResultadoLeitura = $persistente->pesquisar($this->negocioPraVetor(),$pagina);
+		//negocioPadrao::$cachePesquisaGeral[get_class($this)] = $this->vetorPraColecao($arResultadoLeitura);
+		//return negocioPadrao::$cachePesquisaGeral[get_class($this)];
 		return $this->vetorPraColecao($arResultadoLeitura);
 	}
 	/**
