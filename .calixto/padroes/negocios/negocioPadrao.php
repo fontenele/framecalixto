@@ -253,7 +253,7 @@ abstract class negocioPadrao extends negocio{
 				$associativa = new $valor['classeAssociativa']();
 				$colecaoAssociativa = $associativa->pesquisaGeral($valorDePreenchimento,new pagina(0), $recursividade);
 				$chaves = $colecaoAssociativa->gerarVetorDeAtributo($associativa->nomeChave());
-				if($chaves) $valorPassado = operador::dominio($chaves);
+				if($chaves) $valorPassado = operador::dominio($chaves,operador::restricaoOU);
 			}else{
 				switch(true){
 					case($valor['tipo'] == 'texto'):

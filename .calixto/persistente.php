@@ -387,6 +387,7 @@ abstract class persistente extends objeto{
 					}
 				break;
 				case(operador::dominio):
+					$valor = $valor->pegarValor();
 					foreach($valor as $i => $parte){ $valor[$i] =str_replace("'","''",$parte); }
 					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
 						$operacao = " %s in( %s ) %s ";
@@ -452,7 +453,7 @@ abstract class persistente extends objeto{
 			}else{
 				$comando = $this->gerarComandoLerTodos();
 			}
-			x($comando);
+			//x('<pre>'.$comando.'</pre>');
 			return $comando;
 		}
 		catch(erro $e){
