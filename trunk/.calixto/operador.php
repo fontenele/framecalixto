@@ -29,7 +29,7 @@ class operador extends objeto{
     public static function generico($valor,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::generico);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
@@ -42,7 +42,7 @@ class operador extends objeto{
     public static function entre($valor1,$valor2,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::entre);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor(array('valor1'=>$valor1,'valor2'=>$valor2));
         return $operador;
     }
@@ -58,7 +58,7 @@ class operador extends objeto{
 		}
         $operador = new operador();
         $operador->passarOperador(operador::dominio);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
@@ -71,7 +71,7 @@ class operador extends objeto{
     public static function finalizandoComo($valor,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::finalizandoComo);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
@@ -84,7 +84,7 @@ class operador extends objeto{
     public static function iniciandoComo($valor,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::iniciandoComo);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
@@ -97,7 +97,7 @@ class operador extends objeto{
     public static function como($valor,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::como);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
@@ -110,7 +110,7 @@ class operador extends objeto{
     public static function diferente($valor,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::diferente);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
@@ -123,7 +123,7 @@ class operador extends objeto{
     public static function igual($valor,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::igual);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
@@ -135,7 +135,7 @@ class operador extends objeto{
     public static function naoENulo($restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::naoENulo);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         return $operador;
     }
     /**
@@ -146,7 +146,7 @@ class operador extends objeto{
     public static function eNulo($restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::eNulo);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         return $operador;
     }
     /**
@@ -158,7 +158,7 @@ class operador extends objeto{
     public static function menorOuIgual($valor,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::menorOuIgual);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
@@ -171,7 +171,7 @@ class operador extends objeto{
     public static function menorQue($valor,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::menorQue);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
@@ -184,7 +184,7 @@ class operador extends objeto{
     public static function maiorOuIgual($valor,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::maiorOuIgual);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
@@ -197,7 +197,7 @@ class operador extends objeto{
     public static function maiorQue($valor,$restricao = null){
         $operador = new operador();
         $operador->passarOperador(operador::maiorQue);
-		$operador->passarRestricao($restricao);
+		if($restricao) $operador->passarRestricao($restricao);
         $operador->passarValor($valor);
         return $operador;
     }
