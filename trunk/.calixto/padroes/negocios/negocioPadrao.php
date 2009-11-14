@@ -30,6 +30,7 @@ abstract class negocioPadrao extends negocio{
 	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
 	public function __construct(conexao $conexao = null){
+		$this->{'filtro de pesquisa geral'} = new colecaoPadraoFiltro();
 		try{
 			if($conexao){
 				$this->conexao = $conexao;
@@ -99,7 +100,7 @@ abstract class negocioPadrao extends negocio{
 						throw new erroInclusao("Arquivo [$arquivoXML] inexistente!");
 					break;
 					case !(is_readable($arquivoXML)):
-						throw new erroInclusao("Arquivo [$arquivoXML] sem permissï¿½ de leitura!");
+						throw new erroInclusao("Arquivo [$arquivoXML] sem permissão de leitura!");
 					break;
 					default:
 						$xml = simplexml_load_file($arquivoXML);
@@ -241,6 +242,12 @@ abstract class negocioPadrao extends negocio{
 			throw $e;
 		}
 	}
+	public function limparFiltro(){
+		$this->{'filtro de pesquisa geral'} = new colecaoPadraoFiltro();
+	}
+	public function adicionarFiltro($campo, operador $operador){
+		$this->{'filtro de pesquisa geral'}->$campo = $operador;
+	}
 	/**
 	 * Metodo que preenche todos os atributos de negocio com um valor
 	 * @param string $valorDePreenchimento
@@ -274,16 +281,16 @@ abstract class negocioPadrao extends negocio{
 					break;
 				}
 			}
-			if($valorPassado) $filtrou = true;
-			$this->{"passar{$valor['propriedade']}"}($valorPassado);
+			if($valorPassado){
+				$filtrou = true;
+				$this->adicionarFiltro($valor['propriedade'],$valorPassado);
+			}
 		}
 		if(!$filtrou) return new colecaoPadraoNegocio();
 		if(!$pagina) $pagina = new pagina(0);
-		$persistente = $this->pegarPersistente();
-		$arResultadoLeitura = $persistente->pesquisar($this->negocioPraVetor(),$pagina);
 		//negocioPadrao::$cachePesquisaGeral[get_class($this)] = $this->vetorPraColecao($arResultadoLeitura);
 		//return negocioPadrao::$cachePesquisaGeral[get_class($this)];
-		return $this->vetorPraColecao($arResultadoLeitura);
+		return $this->pesquisar($pagina);
 	}
 	/**
 	* Método que retorna a persistente referente ao negócio
@@ -475,7 +482,17 @@ abstract class negocioPadrao extends negocio{
 		try{
 			if(!$pagina) $pagina = new pagina(0);
 			$persistente = $this->pegarPersistente();
-			if(is_subclass_of($filtro, 'filtro')){
+			if($this->{'filtro de pesquisa geral'}->possuiItens()){
+				$arMapeamento = $this->pegarMapeamento();
+				$arMap = array();
+				foreach($arMapeamento as $campo){
+					$arMap[$campo['propriedade']] = $campo['campo'];
+				}
+				$filtro = new colecaoPadraoFiltro();
+				foreach($this->{'filtro de pesquisa geral'}->itens as $campo => $item ){
+					list($campo,$operador) = each($item);
+					$filtro->$arMap[$campo] = $operador;
+				}
 				$arResultadoLeitura = $persistente->pesquisar($filtro,$pagina);
 			}else{
 				$arResultadoLeitura = $persistente->pesquisar($this->negocioPraVetor(),$pagina);

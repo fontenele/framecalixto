@@ -1,7 +1,7 @@
 <?php
 class operador extends objeto{
-    const restricaoE = 'and';
-    const restricaoOU = 'or ';
+    const restricaoE  = ' and ';
+    const restricaoOU = '  or ';
     const maiorQue = '>';
     const maiorOuIgual = '>=';
     const menorQue = '<';
