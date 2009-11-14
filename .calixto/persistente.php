@@ -290,6 +290,46 @@ abstract class persistente extends objeto{
             return false;
         }
     }
+	public function tratarInjection($valor){
+		return str_replace("'","''",$valor);
+	}
+	public function gerarItemDeFiltro(operador $operador,$campo,$tipo){
+		if((!$operador->pegarValor()) && ($operador->pegarOperador() != operador::eNulo) && ($operador->pegarOperador() != operador::naoENulo)) return null;
+		switch($operador->pegarOperador()){
+			case(operador::eNulo)			: return	"{$campo} is null {$operador->pegarRestricao()} ";
+			case(operador::naoENulo)		: return	"{$campo} is not null {$operador->pegarRestricao()} ";
+			case(operador::entre):
+				$val = $operador->pegarValor();
+				foreach($operador->pegarValor() as $i => $parte){ $val[$i] =$this->tratarInjection($parte); }
+				if($tipo == 'numero'){
+					return "  ({$campo} between {$val['valor1']} and {$val['valor2']} ) {$operador->pegarRestricao()} ";
+				}else{
+					return "  ({$campo} between '{$val['valor1']}' and '{$val['valor2']}' ) {$operador->pegarRestricao()} ";
+				}
+			break;
+			case(operador::dominio):
+				$val = array();
+				foreach($operador->pegarValor() as $i => $parte){ $val[$i] =$this->tratarInjection($parte); }
+				if($tipo == 'numero'){
+					return " {$campo} in( '".implode("','",$val)."' ) {$operador->pegarRestricao()} ";
+				}else{
+					return " {$campo} in( ".implode(",",$val)." ) {$operador->pegarRestricao()} ";
+				}
+			break;
+			case(operador::diferente)		: $comando= " %s <> '%s' %s "; break;
+			case(operador::iniciandoComo)	: $comando= " upper(%s) like upper('%%%s') %s "; break;
+			case(operador::finalizandoComo)	: $comando= " upper(%s) like upper('%s%%') %s "; break;
+			case(operador::como)			: $comando= " upper(%s) like upper('%%%s%%') %s "; break;
+			case(operador::generico)		: $comando= " upper(accent_remove(%s)) like upper(accent_remove('%%%s%%')) %s "; break;
+			case(operador::igual)			: $comando= " %s = '%s' %s "; break;
+			case(operador::maiorOuIgual)	: $comando= " %s >= '%s' %s "; break;
+			case(operador::maiorQue)		: $comando= " %s > '%s' %s "; break;
+			case(operador::menorQue)		: $comando= " %s < '%s' %s "; break;
+			case(operador::menorOuIgual)	: $comando= " %s <= '%s' %s "; break;
+		}
+		if($tipo == 'numero') str_replace("'",'', $comando);
+		return sprintf($comando,$campo,$this->tratarInjection($operador->pegarValor()),$operador->pegarRestricao());
+	}
 	/**
 	* Gera a cláusula de filtro de leitura
 	* @param [array] $filtro
@@ -299,126 +339,28 @@ abstract class persistente extends objeto{
 	public function gerarClausulaDeFiltro($filtro, $nomeDaClausula = true){
 		$comando = '';
 		$estrutura = $this->pegarEstrutura();
-		foreach($filtro as $campo => $valor){
-            if( $valor instanceof operador ){
-                if($valor->pegarOperador() == operador::eNulo){
-        			$comando.= "{$campo} is null {$valor->pegarRestricao()} ";
-                    continue ;
-                }
-                if($valor->pegarOperador() == operador::naoENulo){
-        			$comando.= "{$campo} is not null {$valor->pegarRestricao()} ";
-                    continue ;
-                }
-				$operador = clone $valor;
-            }else{
-				$operador = new operador();
-				$operador->passarOperador($estrutura['campo'][$campo]['operadorDeBusca']);
-				$operador->passarRestricao(operador::restricaoE);
-				$operador->passarValor($valor);
+		if(is_array($filtro)){
+			$arItens = array();
+			foreach($filtro as $campo => $valor){
+				if($valor instanceof operador){
+					$arItens[][$campo] = $valor;
+				}else{
+					$operador = new operador();
+					$operador->passarOperador($estrutura['campo'][$campo]['operadorDeBusca']);
+					$operador->passarRestricao(operador::restricaoE);
+					$operador->passarValor($valor);
+					$arItens[][$campo] = $operador;
+				}
 			}
+			$filtro = new colecaoPadraoFiltro($arItens);
+		}
+		foreach ($filtro->itens as $item){
+			list($campo,$operador) = each($item);
 			$operador->passarValor($this->converterDado($operador->pegarValor()));
-			if(!$operador->pegarValor()) continue;
-			$dominio = null;
-			switch($operador->pegarOperador()){
-				case(operador::diferente):
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s <> %s %s ";
-					}else{
-						$operacao = " %s <> '%s' %s ";
-					}
-				break;
-                case(operador::iniciandoComo):
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " upper(%s) like upper(%%%s) %s ";
-					}else{
-						$operacao = " upper(%s) like upper('%%%s') %s ";
-					}
-                break;
-                case(operador::finalizandoComo):
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " upper(%s) like upper(%s%%) %s ";
-					}else{
-						$operacao = " upper(%s) like upper('%s%%') %s ";
-					}
-                break;
-				case(operador::generico):
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " upper(accent_remove(%s)) like upper(accent_remove(%%%s%%)) %s ";
-					}else{
-						$operacao = " upper(accent_remove(%s)) like upper(accent_remove('%%%s%%')) %s ";
-					}
-				break;
-				case(operador::igual):
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s = %s %s ";
-					}else{
-						$operacao = " %s = '%s' %s ";
-					}
-				break;
-				case(operador::maiorOuIgual):
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s >= %s %s ";
-					}else{
-						$operacao = " %s >= '%s' %s ";
-					}
-				break;
-				case(operador::maiorQue):
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s > %s %s ";
-					}else{
-						$operacao = " %s > '%s' %s ";
-					}
-				break;
-				case(operador::menorQue):
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s < %s %s ";
-					}else{
-						$operacao = " %s < '%s' %s ";
-					}
-				break;
-				case(operador::menorOuIgual):
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s <= %s %s ";
-					}else{
-						$operacao = " %s <= '%s' %s ";
-					}
-				break;
-				case(operador::dominio):
-					$val = array();
-					foreach($operador->pegarValor() as $i => $parte){ $val[$i] =str_replace("'","''",$parte); }
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " %s in( %s ) %s ";
-						$dominio = "'".implode("','",$val)."'";
-					}else{
-						$operacao = " %s in( '%s' ) %s ";
-						$dominio = implode("','",$val);
-					}
-				break;
-				case(operador::entre):
-					$val = $operador->pegarValor();
-					$val['valor1'] = str_replace("'","''",$val['valor1']);
-					$val['valor2'] = str_replace("'","''",$val['valor2']);
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$val = " {$val['valor1']} and {$val['valor2']} ";
-					}else{
-						$val = " '{$val['valor1']}' and '{$val['valor2']}' ";
-					}
-					$operador->passarValor($val);
-					$operacao = " (%s between %s) %s ";
-				break;
-                case(operador::como):
-					if($estrutura['campo'][$campo]['tipo'] == 'numero'){
-						$operacao = " upper(%s) like upper(%%%s%%) %s ";
-					}else{
-						$operacao = " upper(%s) like upper('%%%s%%') %s ";
-					}
-				break;
-			}
-			$this->manipularItemDeFiltro($operacao, $campo, $operador, $valor, $dominio);
-			$comando.= sprintf("\n".$operacao,$campo,$dominio ? $dominio : str_replace("'","''",$valor),$operador->pegarRestricao());
+			$comando.=$this->gerarItemDeFiltro($operador,$campo,$estrutura['campo'][$campo]['tipo']);
 		}
 		if($comando){
-			$comando = substr($comando,0,-4);
+			$comando = substr($comando,0,-5);
 			if($nomeDaClausula) $comando = ' where '.$comando;
 		}
 		return $comando;
