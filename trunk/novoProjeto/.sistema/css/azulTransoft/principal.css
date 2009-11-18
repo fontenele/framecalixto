@@ -15,6 +15,7 @@
 @import url(tabela1.css) ;
 @import url(help.css) ;
 @import url(theme/ui.all.css) ;
+@import url(jquery.autocomplete.css);
 a{
 	color:#066ea4;
 }
@@ -70,4 +71,11 @@ button{
 	position:relative;
 	top:0px;
 	height:5px;
+}
+.seletorDePrograma{
+	float:right;
+	position:relative;
+	top:-14px;
+	height:0px;
+	left:-30px;
 }

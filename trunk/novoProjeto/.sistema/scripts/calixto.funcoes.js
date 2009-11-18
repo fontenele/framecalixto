@@ -42,6 +42,52 @@ $(document).ready( function() {
 			yearRange: '-100:+20'
 		});
 	}
+	$("#suggest13").autocomplete("?c=CUtilitario_mapaSistema", {
+		minChars: 0,
+		width: 310,
+		matchContains: "word",
+		autoFill: false,
+		formatItem: function(row, i, max) {
+			return row[1];
+			//return i + "/" + max + ": \"" + row[0] + "\" [" + row[1] + "]";
+		},
+		formatMatch: function(row, i, max) {
+			return row.name + " " + row.to;
+		},
+		formatResult: function(row) {
+			return row.to;
+		},
+		select: function(data){
+			console.log(data);
+		}
+	});
+	$('#suggest13').result(function(objeto,dados,valor){
+		window.location ='?c='+valor;
+	});
+
+/*	$.autocomplete($('#seletorPrograma'),{
+		delay:10,
+		minChars:2,
+		matchSubset:1,
+		matchContains:1,
+		cacheLength:10,
+		onItemSelect:  function (li) {
+			findValue(li);
+		},
+		onFindValue:  function Value(li) {
+			// if coming from an AJAX call, let's use the CityId as the value
+			if( !!li.extra ) var sValue = li.extra[0];
+			// otherwise, let's just display the value in the text box
+			else var sValue = li.selectValue;
+			//alert(&quot;The value you selected was: &quot; + sValue);
+		},
+		formatItem:function formatItem(row) {
+			return row[0] + ' (id: ' + row[1] + ')';
+		},
+		autoFill:true
+	});
+*/
+
     $("input:checkbox[readonly]").click( function(){ return false; } );
 	$('textarea')
 		.blur(function(){
