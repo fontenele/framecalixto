@@ -6,6 +6,8 @@
 	<controles>
 		<titulo>Ferramentas e Utilitários</titulo>
 		<textos>
+			<!-- Textos para a pesquisa geral -->
+			<texto id="pesquisaGeral">Pesquisa geral</texto>
 			<!-- Textos para o gerador de cadastros -->
 			<texto id="geradorDefinirEntidade">Gerador de Cadastros</texto>
 			<texto id="listarEntidade">Entidades do Sistema</texto>

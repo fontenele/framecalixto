@@ -7,7 +7,11 @@ class CUtilitario_mapaSistema extends controle{
 	 * Método inicial
 	 */
 	public function inicial(){
-		$this->mapear();
+		if(!isset($_GET['q'])) return;
+		$this->responder($this->mapear(),$_GET['q']);
+	}
+	public static function mapearMenu(){
+		
 	}
 	public static function mapear(){
 		$d = dir(".");
@@ -26,12 +30,12 @@ class CUtilitario_mapaSistema extends controle{
 						if(isset($arAcao[1])){
 							$nomeAcao = $inter->pegarTexto($arAcao[1]);
 							if($nomeAcao){
-								$res[] = "{$inter->pegarNome()},{$nomeAcao}";
+								$res[$classe] = "{$inter->pegarNome()},{$nomeAcao}";
 							}else{
-								$res[] = "{$inter->pegarNome()},{$arAcao[1]}";
+								$res[$classe] = "{$inter->pegarNome()},{$arAcao[1]}";
 							}
 						}else{
-							$res[] = "{$inter->pegarNome()},???????????????";
+							$res[$classe] = "{$inter->pegarNome()},???????????????";
 						}
 					}
 				}
@@ -39,7 +43,16 @@ class CUtilitario_mapaSistema extends controle{
 			}
 		}
 		$d->close();
-		echo json_encode($res);
+		return $res;
+	}
+	protected function responder($items,$q){
+		if(!$q) return;
+		$q = caracteres::RetiraAcentos($q);
+		foreach ($items as $key=>$value) {
+			if (($value) && strpos(caracteres::RetiraAcentos(strtolower($value)), $q) !== false) {
+				echo "$key|$value\n";
+			}
+		}
 	}
 }
 ?>
