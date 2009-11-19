@@ -4,9 +4,11 @@
 Veja como realizar a instalação do framecalixto.
 
 
-= Detalhes =
+== Detalhes ==
 
- * Faça o download do arquivo compactado na página principal do projeto.
+ * Faça o download do arquivo compactado na página principal do projeto, ou baixe via svn.
+  # Linux  svn checkout https://framecalixto.googlecode.com/svn/trunk/ framecalixto
+  # Windows utilize o [http://code.google.com/p/framecalixto/wiki/Tortoise Tortoise SVN]
  * Descompacte em uma pasta do apache que execute PHP.
  * Para a primeira execução determine as configurações iniciais do sistema e do banco de  dados.
  * Execute a recriação do banco de dados.
