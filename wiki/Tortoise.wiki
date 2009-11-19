@@ -4,7 +4,7 @@
 
    * Baixe e instale a versão mais atual do [http://sourceforge.net/project/showfiles.php?group_id=138498&package_id=151948 Tortoise SVN]. 
 
-Se você já possui o Tortoise SVN instalado?
+*Se você já possui o Tortoise SVN instalado?*
 
    * Abra o Windows Explorer, crie uma pasta ou vá até o diretório onde o framecalixto deverá ser baixado.
    * Clique com o botão direito do mouse, e escolha a opção SVN Checkout. O tortoise abrirá uma janela
@@ -14,11 +14,12 @@ Se você já possui o Tortoise SVN instalado?
    * Clique em Ok. Caso o diretório escolhido no campo Checkout directory não exista, o Tortoise pergutará se você deseja criá-lo. Basta clicar em Yes. 
 
 Neste momento o Tortoise SVN irá agora baixar a versão mais recente do framecalixto.
-Como mantenho o framecalixto atualizado?
+
+*Como mantenho o framecalixto atualizado?*
 
    * Basta clicar com o botão direito do mouse no diretório em que está o framecalixto, e escolher a opção SVN Update. 
 
-Existe alguma forma do tortoise ficar em Portugues-Brasil?
+*Existe alguma forma do tortoise ficar em Portugues-Brasil?*
 
 Sim
 
