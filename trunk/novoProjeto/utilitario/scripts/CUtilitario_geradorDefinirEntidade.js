@@ -202,6 +202,7 @@ gerador = {
 	}
 };
 $(document).ready( function() {
+	$("#tabs").tabs();
 	$('input').live('keyup',function(event){
     		if(event.originalEvent.ctrlKey)	switch(event.originalEvent.keyCode){
     			case(38): $(this).parent().parent().prev().find('.'+$(this).attr('class')).focus().select();break; //Acima
@@ -295,11 +296,17 @@ $(document).ready( function() {
 			}
 		}catch(e){alert(e.message)}
 	});
-	$('#affForm').submit(function(){
-		return confirm("Are you sure?");
+	$('form').submit(function(){
+		var marcado = false;
+		$.each($('#arq input'),function(i,check){
+			if($(check).attr('checked')) marcado = true;
+		});
+		if(!marcado) {
+			$.erro('Sem arquivo', 'Selecione os arquivos para serem gerados na guia de configurações.');
+			$('#guia_5').trigger('click');
+			return false;
+		}
+		return confirm("Confirma a geração?");
 	});
 	if(definicao) gerador.preencherTela(definicao[0]);
-});
-$(function() {
-	$("#tabs").tabs();
 });
