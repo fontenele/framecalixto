@@ -30,7 +30,7 @@ abstract class negocioPadrao extends negocio{
 	* @param [conexao] (opcional) conexão com o banco de dados
 	*/
 	public function __construct(conexao $conexao = null){
-		$this->{'filtro de pesquisa geral'} = new colecaoPadraoFiltro();
+		$this->{'filtro de pesquisa'} = new colecaoPadraoFiltro();
 		try{
 			if($conexao){
 				$this->conexao = $conexao;
@@ -68,6 +68,41 @@ abstract class negocioPadrao extends negocio{
 			throw $e;
 		}
 	}
+	/**
+	* Método de sobrecarga para evitar a criação de métodos repetitivos
+	* @param [string] metodo chamado
+	* @param [array] parâmetros parassados para o método chamado
+	*/
+	public function __call($metodo, $parametros){
+		try{
+			if (preg_match('/(pegar|passar|filtrar)(.*)/', $metodo, $resultado)) {
+				$var = strtolower($resultado[2]{0}).substr($resultado[2],1,strlen($resultado[2]));
+				$r = new ReflectionProperty(get_class($this), $var);
+				if(!$r->getName()) throw new erro();
+				switch($resultado[1]){
+					case 'filtrar':
+						$this->adicionarFiltro($var, $parametros[0]);
+						return;
+					break;
+					case 'passar':
+						$this->$var = $parametros[0];
+						return;
+					break;
+					default;
+						if($r->isStatic()) throw new erro('Atributo statico protegido.');
+						return $this->$var;
+				}
+			}
+			throw new erro('Chamada inexistente!');
+		}
+		catch (ReflectionException $e){
+			$propriedade = get_class($this).'::'.$var;
+			throw new erro("Propriedade [{$propriedade}] inexistente!");
+		}
+		catch(erro $e){
+			throw $e;
+		}
+    }
 	/**
 	 * @return array Retorna os atributos do objeto
 	 */
@@ -243,10 +278,10 @@ abstract class negocioPadrao extends negocio{
 		}
 	}
 	public function limparFiltro(){
-		$this->{'filtro de pesquisa geral'} = new colecaoPadraoFiltro();
+		$this->{'filtro de pesquisa'} = new colecaoPadraoFiltro();
 	}
-	public function adicionarFiltro($campo, operador $operador){
-		$this->{'filtro de pesquisa geral'}->$campo = $operador;
+	protected function adicionarFiltro($campo, operador $operador){
+		$this->{'filtro de pesquisa'}->$campo = $operador;
 	}
 	/**
 	 * Metodo que preenche todos os atributos de negocio com um valor
@@ -482,14 +517,14 @@ abstract class negocioPadrao extends negocio{
 		try{
 			if(!$pagina) $pagina = new pagina(0);
 			$persistente = $this->pegarPersistente();
-			if($this->{'filtro de pesquisa geral'}->possuiItens()){
+			if($this->{'filtro de pesquisa'}->possuiItens()){
 				$arMapeamento = $this->pegarMapeamento();
 				$arMap = array();
 				foreach($arMapeamento as $campo){
 					$arMap[$campo['propriedade']] = $campo['campo'];
 				}
 				$filtro = new colecaoPadraoFiltro();
-				foreach($this->{'filtro de pesquisa geral'}->itens as $campo => $item ){
+				foreach($this->{'filtro de pesquisa'}->itens as $campo => $item ){
 					list($campo,$operador) = each($item);
 					$filtro->$arMap[$campo] = $operador;
 				}
