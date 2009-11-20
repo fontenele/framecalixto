@@ -137,7 +137,10 @@ jQuery.validar = {
 jQuery.fn.campoObrigatorio = function(){if(!jQuery(this).val()) jQuery('#'+jQuery(this).attr('id')+'_obrigatoriedade').html('* Campo obrigatório');}
 jQuery.msg = function(titulo,msg){alert(titulo+"\n\n"+msg);}
 jQuery.erro = function(titulo,msg){alert(titulo+"\n\n"+msg);}
-jQuery.submeter = function(){jQuery(document.formulario).trigger('submit');}
+jQuery.submeter = function(formulario){
+	formulario = formulario || document.formulario;
+	jQuery(formulario).trigger('submit');
+}
 jQuery.getURLParam = function(strParamName){
 	var strReturn = "";
 	var strHref = window.location.href;

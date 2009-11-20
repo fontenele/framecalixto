@@ -80,7 +80,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 	*/
 	public function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
-		$menu->{'Gravar entidade'}->passar_link('javascript:document.formulario.submit();');
+		$menu->{'Gravar entidade'}->passar_link('javascript:$.submeter();');
 		$menu->{'Gravar entidade'}->passar_imagem('utilitario/imagens/gravar_arquivos.png');
 		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_listarEntidade');
 		$menu->{'Entidades do sistema'}->passar_imagem('utilitario/imagens/entidades.png');
