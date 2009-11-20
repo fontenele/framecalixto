@@ -51,6 +51,7 @@ class PUtilitario extends persistentePadraoPG {
 					and {$tabela}
 		";
 		$this->conexao->executarComando($sql);
+		$retorno = array();
 		while ($registro = $this->conexao->pegarRegistro()){
 			$retorno[] = $registro;
 		}
@@ -193,6 +194,7 @@ class PUtilitario extends persistentePadraoPG {
 				fk.campo_fk
 		";
 		$this->conexao->executarComando($sql);
+		$retorno = array();
 		while ($registro = $this->conexao->pegarRegistro()){
 			$retorno[] = $registro;
 		}
@@ -216,6 +218,7 @@ class PUtilitario extends persistentePadraoPG {
 				sequencia
 		";
 		$this->conexao->executarComando($sql);
+		$retorno = array();
 		while ($registro = $this->conexao->pegarRegistro()){
 			$retorno[$registro['esquema'].'.'.$registro['sequencia']] = $registro['esquema'].'.'.$registro['sequencia'] ;
 		}
