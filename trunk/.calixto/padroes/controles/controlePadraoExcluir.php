@@ -37,7 +37,7 @@ class controlePadraoExcluir extends controlePadrao{
 	}
 	/**
 	* Método de utilização dos dados postados para a montagem do negocio
-	* @param [negocio] objeto para preenchimento
+	* @param negocio objeto para preenchimento
 	* @param array $dados
 	*/
 	public static function montarNegocio(negocio $negocio,$dados = null){

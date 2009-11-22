@@ -8,22 +8,22 @@
 class coletor extends objeto {
 	/**
 	* objeto de conexão com o banco de dados
-	* @var [conexao]
+	* @var conexao
 	*/
 	protected $conexao;
 	/**
 	* Negócios existentes no coletor
-	* @var [vetor] com os negócios existentes
+	* @var array com os negócios existentes
 	*/
 	protected $negocios = array();
 	/**
 	* Negócios existentes no coletor
-	* @var [vetor] com os negócios existentes
+	* @var array com os negócios existentes
 	*/
 	public $colecoes;
 	/**
 	* Metodo construtor
-	* @param [conexao] (opcional) conexão com o banco de dados
+	* @param conexao (opcional) conexão com o banco de dados
 	*/
 	public function __construct(conexao $conexao = null){
 		try{
@@ -40,8 +40,8 @@ class coletor extends objeto {
 	}
 	/**
 	* Unifica aos objetos selecionados
-	* @param Negocio $negocio1
-	* @param Negocio $negocio2
+	* @param negocio $negocio1
+	* @param negocio $negocio2
 	*/
 	public function coletar(Negocio $negocio){
 		//TODO verificar como criar a clausula "on" do join
@@ -50,14 +50,14 @@ class coletor extends objeto {
 	}
 	/**
 	* Retorna as coleções do coletor
-	* @param [string] nome do objeto de negócio
+	* @param string nome do objeto de negócio
 	*/
 	public function pegar($nome){
 		return $this->colecoes->pegar($nome);
 	}
 	/**
 	* Cria a sql para a execução
-	* @param Negocio $negocio
+	* @param negocio $negocio
 	*/
 	public function sql(){
 		$negocios = $this->negocios;
@@ -87,7 +87,7 @@ class coletor extends objeto {
 	}
 	/**
 	* Executa um comando SQL no banco de dados.(necessita de controle de transação)
-	* @return [int] número de linhas afetadas
+	* @return integer número de linhas afetadas
 	*/
 	public function executar(){
 		try{

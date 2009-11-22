@@ -7,7 +7,7 @@
 */
 class TCnpj extends TDocumentoPessoal{
 	/**
-	* @var [string] tipo do documento
+	* @var string tipo do documento
 	*/
 	protected $tipo = 'cnpj';
 }

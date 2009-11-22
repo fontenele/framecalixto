@@ -8,7 +8,7 @@
 class TTelefone extends TNumerico{
 	/**
 	* metodo construtor do telefone
-	* @param [string] numero formatado
+	* @param string numero formatado
 	*/
 	public function __construct($numero = ''){
 		$this->numero = preg_replace('/[^0-9]/','',$numero);
@@ -20,7 +20,7 @@ class TTelefone extends TNumerico{
 	}
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	public function __toString(){
 		$tamanho = strlen($this->numero);

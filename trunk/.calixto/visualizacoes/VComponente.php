@@ -47,11 +47,11 @@ class VComponente extends VEtiquetaHtml{
 	/**
 	 * Factory de componentes padronizados
 	 *
-	 * @param [string] Tipo do componente
-	 * @param [string] Nome do componente (name)
-	 * @param [string] Valor do componente (value)
-	 * @param [array] Opções de modificação do componente
-	 * @param [array] Valores para componentes multiplos
+	 * @param string Tipo do componente
+	 * @param string Nome do componente (name)
+	 * @param string Valor do componente (value)
+	 * @param array Opções de modificação do componente
+	 * @param array Valores para componentes multiplos
 	 * @return unknown
 	 */
 	final static function montar($componente,$nome,$valor,$opcoes = null,$valores = null){
@@ -224,7 +224,7 @@ class VComponente extends VEtiquetaHtml{
 	}
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	public function __toString(){
 		if($this->obrigatorio){

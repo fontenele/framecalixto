@@ -6,13 +6,13 @@
 */
 class internacionalizacao extends objeto{
 	/**
-	* @var [array] array com a estrutura de internacionalização
+	* @var array array com a estrutura de internacionalização
 	* criado para a execução de cache
 	*/
 	private static $estrutura;
 	/**
 	* Metodo criado para especificar a estrutura da internacionalizacao
-	* @param [st] caminho do arquivo
+	* @param string caminho do arquivo
 	*/
 	public function mapearInternacionalizacaoGeral(&$estrutura){
 		$xml = simplexml_load_file(definicaoArquivo::pegarXmlInternacionalizacaoDoSistema());
@@ -31,7 +31,7 @@ class internacionalizacao extends objeto{
 	}
 	/**
 	* Metodo criado para especificar a estrutura da internacionalizacao
-	* @param [st] caminho do arquivo
+	* @param string caminho do arquivo
 	*/
 	public function pegarInternacionalizacao($arquivoXML = null){
 		try{
@@ -86,7 +86,7 @@ class internacionalizacao extends objeto{
 	}
 	/**
 	* Método que retorna o nome da entidade
-	* @return [string] nome da entidade internacionalizada
+	* @return string nome da entidade internacionalizada
 	*/
 	public function pegarNome(){
 		$estrutura = $this->pegarInternacionalizacao();
@@ -95,7 +95,7 @@ class internacionalizacao extends objeto{
 	}
 	/**
 	* Método que retorna o título de apresentação da entidade
-	* @return [string] título de apresentação da entidade internacionalizada
+	* @return string título de apresentação da entidade internacionalizada
 	*/
 	public function pegarTituloSistema(){
 		$estrutura = $this->pegarInternacionalizacao();
@@ -104,7 +104,7 @@ class internacionalizacao extends objeto{
 	}
 	/**
 	* Método que retorna o título de apresentação da entidade
-	* @return [string] título de apresentação da entidade internacionalizada
+	* @return string título de apresentação da entidade internacionalizada
 	*/
 	public function pegarSubtituloSistema(){
 		$estrutura = $this->pegarInternacionalizacao();
@@ -113,7 +113,7 @@ class internacionalizacao extends objeto{
 	}
 	/**
 	* Método que retorna o título de apresentação da entidade
-	* @return [string] título de apresentação da entidade internacionalizada
+	* @return string título de apresentação da entidade internacionalizada
 	*/
 	public function pegarTitulo(){
 		$estrutura = $this->pegarInternacionalizacao();
@@ -122,9 +122,9 @@ class internacionalizacao extends objeto{
 	}
 	/**
 	* Método que retorna o valor de uma propriedade
-	* @param [string] Nome da propriedade a ser buscada
-	* @param [string] Tipo do retorno da propriedade a ser buscada
-	* @return [string] texto internacionalizado da propriedade
+	* @param string Nome da propriedade a ser buscada
+	* @param string Tipo do retorno da propriedade a ser buscada
+	* @return string texto internacionalizado da propriedade
 	*/
 	public function pegarPropriedade($propriedade,$tipo = 'nome'){
 		$estrutura = $this->pegarInternacionalizacao();
@@ -133,9 +133,9 @@ class internacionalizacao extends objeto{
 	}
 	/**
 	* Método que retorna o valor de uma propriedade
-	* @param [string] Nome da propriedade a ser buscada
-	* @param [string] Indice da opcao a ser buscada
-	* @return [string] texto internacionalizado da propriedade
+	* @param string Nome da propriedade a ser buscada
+	* @param string Indice da opcao a ser buscada
+	* @return string texto internacionalizado da propriedade
 	*/
 	public function pegarOpcao($propriedade,$indice){
 		$estrutura = $this->pegarInternacionalizacao();
@@ -144,8 +144,8 @@ class internacionalizacao extends objeto{
 	}
 	/**
 	* Método que retorna o valor de um texto
-	* @param [string] Identificador do texto
-	* @return [string] texto internacionalizado
+	* @param string Identificador do texto
+	* @return string texto internacionalizado
 	*/
 	public function pegarTexto($identificador){
 		$estrutura = $this->pegarInternacionalizacao();
@@ -154,8 +154,8 @@ class internacionalizacao extends objeto{
 	}
 	/**
 	* Método que retorna o valor de uma mensagem
-	* @param [string] Identificador da mensagem
-	* @return [string] mensagem internacionalizada
+	* @param string Identificador da mensagem
+	* @return string mensagem internacionalizada
 	*/
 	public function pegarMensagem($identificador){
 		$estrutura = $this->pegarInternacionalizacao();

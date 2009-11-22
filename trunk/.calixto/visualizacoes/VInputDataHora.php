@@ -28,8 +28,8 @@ class VInputDataHora extends VInput{
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	public function __call($metodo, $parametros){
 		$this->data->__call($metodo,$parametros);

@@ -6,12 +6,12 @@
 */
 class definicao{
 	/**
-	* @var [simpleXML] definicoes do sistema
+	* @var SimpleXMLElement definicoes do sistema
 	*/
 	static private $definicao = null;
 	/**
 	* retorna a definição do sistema
-	* @param [string] caminho do arquivo de definição
+	* @param string caminho do arquivo de definição
 	*/
 	final static function pegarDefinicao($arquivoDefinicao = null){
 		if(!definicao::$definicao){

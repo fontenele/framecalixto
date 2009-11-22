@@ -26,8 +26,8 @@ class sessaoSistema extends objeto{
 	}
 	/**
 	* Registra valor por sistema
-	* @param [st] Nome da váriavel
-	* @param [st] Valor da váriavel
+	* @param string Nome da váriavel
+	* @param string Valor da váriavel
 	*/
 	static function registrar($variavel, $valor){
 		if(!is_object($valor)){
@@ -39,7 +39,7 @@ class sessaoSistema extends objeto{
 	}
 	/**
 	* Retira o valor por sistema
-	* @param [st] Nome da váriavel
+	* @param string Nome da váriavel
 	*/
 	static function retirar($variavel){
 		if (sessaoSistema::tem($variavel)){
@@ -55,7 +55,7 @@ class sessaoSistema extends objeto{
 	}
 	/**
 	* Retorna o valor por sistema
-	* @param [st] Nome da váriavel
+	* @param string Nome da váriavel
 	*/
 	static function pegar($variavel){
 		if (sessaoSistema::tem($variavel)){
@@ -72,14 +72,14 @@ class sessaoSistema extends objeto{
 	}
 	/**
 	* Retorna um booleano da verificação de existencia
-	* @param [st] Nome da váriavel
+	* @param string Nome da váriavel
 	*/
 	static function tem($variavel){
 		return isset($_SESSION[definicaoSistema::pegarNome()]['variaveisDeSistema'][$variavel]);
 	}
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	public function __toString(){
 		debug2($_SESSION);

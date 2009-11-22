@@ -8,8 +8,8 @@
 class json {
 	/**
 	* Retorna um json preparado para um eval em javascript
-	* @param [mixed] parametro para codificar
-	* @return [string] json preparado para um eval em javascript
+	* @param mixed parametro para codificar
+	* @return string json preparado para um eval em javascript
 	*/
 	function pegarJson( $var ){
 		return json_encode($var);
@@ -31,8 +31,8 @@ class json {
 	}
 	/**
 	* Faz a codificação de array
-	* @param [array] array para a codificação .
-	* @return [string] json do array
+	* @param array array para a codificação .
+	* @return string json do array
 	*/
 	function codificarArray($var){
 		if(is_array($var) && (array_keys($var) !== range(0, sizeof($var) - 1)))
@@ -42,9 +42,9 @@ class json {
 	}
 	/**
 	* Faz a codificação de uma chave do json
-	* @param [st] nome da chave .
-	* @param [mixed] valor da chave
-	* @return [string] json
+	* @param string nome da chave .
+	* @param mixed valor da chave
+	* @return string json
 	*/
 	function montaChave($name, $value){
 		return (sprintf("%s:%s", $this->codificarArray(strval($name)), $this->codificarArray($value)));

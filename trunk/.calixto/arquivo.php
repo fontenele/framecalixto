@@ -8,8 +8,8 @@
 class arquivo extends objeto{
 	/**
 	* Método de verificação da legibilidade do arquivo
-	* @param [string] caminho do arquivo a ser verificado
-	* @return [booleano]
+	* @param string caminho do arquivo a ser verificado
+	* @return boolean
 	*/
 	static function legivel($caminhoArquivo){
 		try{
@@ -33,8 +33,8 @@ class arquivo extends objeto{
 	}
 	/**
 	* Método de verificação da escrita do arquivo
-	* @param [string] caminho do arquivo a ser verificado
-	* @return [booleano]
+	* @param string caminho do arquivo a ser verificado
+	* @return boolean
 	*/
 	static function gravavel($caminhoArquivo){
 		try{

@@ -7,7 +7,7 @@
 class persistentePadraoPG extends persistente{
 	/**
 	* Monta o mapeamento de tipo de dados do banco
-	* @return [array] mapeamento
+	* @return array mapeamento
 	*/
 	public function mapeamento(){
 		$mapeamento['obrigatorio']['sim'] = 'not null';
@@ -24,7 +24,7 @@ class persistentePadraoPG extends persistente{
 	}
 	/**
 	* Gera a sequencia numérica da persistente correspondente
-	* @return [in] numero sequencial
+	* @return integer numero sequencial
 	*/
 	public function gerarSequencia(){
 		try{

@@ -7,12 +7,12 @@
 */
 class colecao extends objeto{
 	/**
-	* @var [vetor] itens da colecao
+	* @var array itens da colecao
 	*/
 	public $itens;
 	/**
 	* Metodo construtor
-	* @param [vetor] (opcional) dados da colecao
+	* @param array (opcional) dados da colecao
 	*/
 	public function __construct($array = null){
 		if(is_array($array)){
@@ -23,7 +23,7 @@ class colecao extends objeto{
 	}
 	/**
 	* Método retorno de um item na ordem da coleção
-	* @return [mixed] Item da coleção
+	* @return mixed Item da coleção
 	*/
 	public function retornarItem($item = 0){
 		$chaves = array_keys($this->itens);
@@ -31,7 +31,7 @@ class colecao extends objeto{
 	}
 	/**
 	* Método de avanço da coleção 
-	* @return [mixed] Item da coleção
+	* @return mixed Item da coleção
 	*/
 	public function avancar(){
 		$ar = each($this->itens);
@@ -50,6 +50,7 @@ class colecao extends objeto{
 	}
 	/**
 	 * Método que remove um item da coleção
+	 * @param string indice do item
 	 */
 	public function removerItem($item){
 		if($this->tem($item)){
@@ -58,8 +59,8 @@ class colecao extends objeto{
 	}
 	/**
 	* Método de captura de valor pelo indice da colecao
-	* @param [string] Indice da coleção
-	* @return [mixed] Item da coleção
+	* @param string Indice da coleção
+	* @return mixed Item da coleção
 	*/
 	public function pegar($indice = null){
 		if(!$indice){
@@ -79,38 +80,38 @@ class colecao extends objeto{
 	}
 	/**
 	* Método de envio de valor pelo indice da colecao
-	* @param [string] Indice da coleção
-	* @param [mixed] Item da coleção
+	* @param string Indice da coleção
+	* @param mixed Item da coleção
 	*/
 	public function passar($indice,$item){
 		return $this->itens[$indice] = $item;
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	function __set($variavel, $parametros){
 		$this->itens[$variavel] = $parametros;
     }
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	function __get($variavel){
 		return $this->itens[$variavel];
     }
 	/**
 	* Retorna verdadeiro se a coleção possui dados
-	* @return [booleano] retorno de dados da coleção
+	* @return boolean retorno de dados da coleção
 	*/
 	function possuiItens(){
 		return (boolean) count($this->itens);
 	}
 	/**
 	* Retorna a quantidade de itens da coleção
-	* @return [booleano] retorno de dados da coleção
+	* @return boolean retorno de dados da coleção
 	*/
 	function contarItens(){
 		return count($this->itens);

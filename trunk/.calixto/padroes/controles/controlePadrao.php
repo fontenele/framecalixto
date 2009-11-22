@@ -302,7 +302,7 @@ class controlePadrao extends controle{
 	}
 	/**
 	* metodo de apresentação do negocio
-	* @param [negocio] objeto para a apresentação
+	* @param negocio objeto para a apresentação
 	* @param visualizacao template de registro para visualizacao
 	*/
 	public static function montarApresentacaoVisual(negocio $negocio, visualizacao $visualizacao){
@@ -372,8 +372,8 @@ class controlePadrao extends controle{
 	}
 	/**
 	* metodo de apresentação do negocio
-	* @param [negocio] objeto para a apresentação
-	* @param [string] tipo de visualização a ser utilizada 'edicao' ou 'visual'
+	* @param negocio objeto para a apresentação
+	* @param string tipo de visualização a ser utilizada 'edicao' ou 'visual'
 	*/
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		try{
@@ -393,7 +393,7 @@ class controlePadrao extends controle{
 	}
 	/**
 	* Método de utilização dos dados postados para a montagem do negocio
-	* @param [negocio] objeto para preenchimento
+	* @param negocio objeto para preenchimento
 	* @param array $dados
 	*/
 	public static function montarNegocio(negocio $negocio,$dados = null){
@@ -415,9 +415,9 @@ class controlePadrao extends controle{
 	}
 	/**
 	* Método que obtém o valor do componente que possui o mesmo nome do atributo de negócio
-	* @param [array] array de definição do atributo de negócio
-	* @param [mixed] valor postado para o atributo de negócio
-	* @return [mixed] valor a ser utilizado pelo atributo de negócio
+	* @param array array de definição do atributo de negócio
+	* @param mixed valor postado para o atributo de negócio
+	* @return mixed valor a ser utilizado pelo atributo de negócio
 	*/
 	public static function obterValorDoComponenteHtmlPadrao($campo,$valor){
 		switch(strtolower($campo['componente'])){
@@ -441,10 +441,10 @@ class controlePadrao extends controle{
 	}
 	/**
 	* Método que passa o valor postado para o atributo da classe de negócio
-	* @param [negocio] classe de negocio a ser montada
-	* @param [string] nome do método para passar o valor do campo
-	* @param [array] array de definição do atributo de negócio
-	* @param [mixed] valor definido para o atributo de negócio
+	* @param negocio classe de negocio a ser montada
+	* @param string nome do método para passar o valor do campo
+	* @param array array de definição do atributo de negócio
+	* @param mixed valor definido para o atributo de negócio
 	*/
 	public static function passarValorPostadoParaNegocio(negocio $negocio, $metodo, $campo, $valor){
 		if(!$valor) return;

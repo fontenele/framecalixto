@@ -7,26 +7,26 @@
 */
 class TTempo extends objeto{
 	/**
-	* @var [inteiro] numero de segundos
+	* @var integer numero de segundos
 	*/
 	protected $tempo;
 	/**
 	* Método construtor
-	* @param [inteiro] tempo em segundos 
+	* @param integer tempo em segundos
 	*/
 	public function __construct($nrSegundos){
 		$this->tempo = $nrSegundos;
 	}
 	/**
 	* Método de soma de tempo
-	* @param [TTempo] tempo para a soma
+	* @param TTempo tempo para a soma
 	*/
 	public function somar(TTempo $tempo){
 		$this->tempo	+= $tempo->pegarTempo();
 	}
 	/**
 	* Método de subtração de tempo
-	* @param [TTempo] tempo para a subtração
+	* @param TTempo tempo para a subtração
 	*/
 	public function subtrair(TTempo $tempo){
 		$this->tempo	-= $tempo->pegarTempo();
@@ -34,49 +34,49 @@ class TTempo extends objeto{
 	}
 	/**
 	* Metodo de retorno em segundos do tempo
-	* @param [inteiro] numero de segundos
+	* @param integer numero de segundos
 	*/
 	public function pegarEmSegundos(){
 		return (integer) $this->tempo;
 	}
 	/**
 	* Metodo de retorno em minutos do tempo
-	* @param [inteiro] numero de minutos
+	* @param integer numero de minutos
 	*/
 	public function pegarEmMinutos(){
 		return (integer) round($this->tempo / 60);
 	}
 	/**
 	* Metodo de retorno em horas do tempo
-	* @param [inteiro] numero de horas
+	* @param integer numero de horas
 	*/
 	public function pegarEmHoras(){
 		return (integer) round($this->tempo / (3600));
 	}
 	/**
 	* Metodo de retorno em dias do tempo
-	* @param [inteiro] numero de dias
+	* @param integer numero de dias
 	*/
 	public function pegarEmDias(){
 		return (integer) round($this->tempo / (86400));
 	}
 	/**
 	* Metodo de retorno em meses do tempo
-	* @param [inteiro] numero de meses
+	* @param integer numero de meses
 	*/
 	public function pegarEmMeses(){
 		return (integer) round($this->tempo / (2592000));
 	}
 	/**
 	* Metodo de retorno em anos do tempo
-	* @param [inteiro] numero de anos
+	* @param integer numero de anos
 	*/
 	public function pegarEmAnos(){
 		return (integer) round($this->tempo / (31104000));
 	}
 	/**
 	* Metodo de retorno em segundos do tempo
-	* @param [inteiro] numero de segundos
+	* @param integer numero de segundos
 	*/
 	public function pegarSegundos(){
 		$anosDecorridosEmSegundos = (integer)($this->pegarAnos() * (31104000));
@@ -88,7 +88,7 @@ class TTempo extends objeto{
 	}
 	/**
 	* Metodo de retorno em minutos do tempo
-	* @param [inteiro] numero de minutos
+	* @param integer numero de minutos
 	*/
 	public function pegarMinutos(){
 		$anosDecorridosEmSegundos = (integer)($this->pegarAnos() * (31104000));
@@ -99,7 +99,7 @@ class TTempo extends objeto{
 	}
 	/**
 	* Metodo de retorno em horas do tempo
-	* @param [inteiro] numero de horas
+	* @param integer numero de horas
 	*/
 	public function pegarHoras(){
 		$anosDecorridosEmSegundos = (integer)($this->pegarAnos() * (31104000));
@@ -109,7 +109,7 @@ class TTempo extends objeto{
 	}
 	/**
 	* Metodo de retorno em dias do tempo
-	* @param [inteiro] numero de dias
+	* @param integer numero de dias
 	*/
 	public function pegarDias(){
 		$anosDecorridosEmSegundos = (integer)($this->pegarAnos() * (31104000));
@@ -118,7 +118,7 @@ class TTempo extends objeto{
 	}
 	/**
 	* Metodo de retorno em meses do tempo
-	* @param [inteiro] numero de meses
+	* @param integer numero de meses
 	*/
 	public function pegarMeses(){
 		$anosDecorridosEmSegundos = (integer)($this->pegarAnos() * (31104000));
@@ -126,7 +126,7 @@ class TTempo extends objeto{
 	}
 	/**
 	* Metodo de retorno em anos do tempo
-	* @param [inteiro] numero de anos
+	* @param integer numero de anos
 	*/
 	public function pegarAnos(){
 		return (integer) round($this->tempo / (31104000));

@@ -7,8 +7,8 @@
 
 /**
 * Função para debugar com exibição tipo var_dump
-* @param [mixed]
-* @return [string]
+* @param mixed
+* @return string
 */
 function debug1($var){
 	ob_start();
@@ -20,10 +20,10 @@ function debug1($var){
 }
 /**
 * Função para debugar com exibição lógica estrutural em tabelas
-* @param [mixed]
-* @param [metodos]
-* @param [visualizacao]
-* @return [string]
+* @param mixed
+* @param boolean
+* @param boolean
+* @return string
 */
 function debug2($var,$metodos = true, $visualizacao = false){
 	echo '<link rel="stylesheet" href=".calixto/estilos/debug.css" />';
@@ -90,8 +90,8 @@ function debug2($var,$metodos = true, $visualizacao = false){
 }
 /**
 * Função para debugar com exibição da classe
-* @param [mixed]
-* @return [string]
+* @param mixed
+* @return string
 */
 function debug3(objeto $var){
 		echo '<link rel="stylesheet" href=".calixto/estilos/debug.css" />';
@@ -104,8 +104,8 @@ function debug3(objeto $var){
 }
 /**
 * Função para debugar
-* @param [mixed]
-* @return [string]
+* @param mixed
+* @return string
 */
 function x(){
 	$args = func_get_args();
@@ -115,16 +115,31 @@ function x(){
 		echo debug2($x,false,false);
 	}
 }
+/**
+* Função para debugar
+* @param mixed
+* @return string
+*/
 function x1($x){
 	$ar = debug_backtrace();
 	echo "<div class='debug'>Chamada da função x1 no arquivo:{$ar[0]['file']} na linha:{$ar[0]['line']}</div>";
 	echo debug1($x);
 }
+/**
+* Função para debugar
+* @param mixed
+* @return string
+*/
 function x2($x,$metodos = false, $visualizacao = false){
 	$ar = debug_backtrace();
 	echo "<div class='debug'>Chamada da função x2 no arquivo:{$ar[0]['file']} na linha:{$ar[0]['line']}</div>";
 	echo debug2($x,$metodos, $visualizacao);
 }
+/**
+* Função para debugar
+* @param mixed
+* @return string
+*/
 function x3($x){
 	$ar = debug_backtrace();
 	echo "<div class='debug'>Chamada da função x3 no arquivo:{$ar[0]['file']} na linha:{$ar[0]['line']}</div>";

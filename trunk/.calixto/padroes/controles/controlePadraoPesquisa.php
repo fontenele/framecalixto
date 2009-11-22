@@ -6,7 +6,7 @@
 */
 class controlePadraoPesquisa extends controlePadrao{
 	/**
-	* @var [pagina] pagina a ser listada
+	* @var pagina pagina a ser listada
 	*/
 	public $pagina;
 	/**
@@ -76,7 +76,7 @@ class controlePadraoPesquisa extends controlePadrao{
 	}
 	/**
 	* metodo de apresentação do negocio
-	* @param [negocio] objeto para a apresentação
+	* @param negocio objeto para a apresentação
 	*/
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		parent::montarApresentacao($negocio);

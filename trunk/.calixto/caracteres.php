@@ -9,8 +9,8 @@ class caracteres {
 	/**
 	* Retira os caracteres acentuados de uma string
 	*
-	* @param [string] $stTexto
-	* @return [string]
+	* @param string $stTexto
+	* @return string
 	*/
 	static function RetiraAcentos($stTexto){
 		$stTexto = str_replace('ç','c', $stTexto);

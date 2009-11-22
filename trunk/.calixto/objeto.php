@@ -18,8 +18,8 @@ abstract class objeto{
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	public function __call($metodo, $parametros){
 		try{
@@ -47,7 +47,7 @@ abstract class objeto{
     }
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	public function __toString(){
 		debug2($this);
@@ -55,7 +55,7 @@ abstract class objeto{
 	}
 	/**
 	* Método de codificação para JSON
-	* @return [string] JSON
+	* @return string JSON
 	*/
 	public function json(){
 		$json = new json();

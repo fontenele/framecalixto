@@ -7,17 +7,17 @@
 */
 class gerenteControles extends objeto{
 	/**
-	* @var [controle] controle que está sendo utilizado pelo gerente
+	* @var controle controle que está sendo utilizado pelo gerente
 	*/
 	public $controle;
 	/**
-	* @var [string] nome do próximo controle que será redirecionado
+	* @var string nome do próximo controle que será redirecionado
 	*/
 	public $proximoControle;
 	/**
 	* Método contrutor do gerente de controle
-	* @param [string] nome da classe de controle a ser gerenciada
-	* @return [booleano] retorno de sucesso da construção do gerenciador
+	* @param string nome da classe de controle a ser gerenciada
+	* @return boolean retorno de sucesso da construção do gerenciador
 	*/
 	function __construct($controle){
 		try{
@@ -128,7 +128,7 @@ class gerenteControles extends objeto{
     }
 	/**
 	* Método que executa o redirecionamento para um outro controle
-	* @param [string] link para a chamada do próximo controle
+	* @param string link para a chamada do próximo controle
 	*/
 	function redirecionar($url){
 		try{

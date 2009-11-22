@@ -7,15 +7,17 @@
 class conexaoPadraoMsSql extends conexao{
 	/**
 	* O ponteiro do recurso com o resultado do comando
-	* @var [resource]
+	* @var resource
 	*/
 	protected static $cursorEstatico;
 	/**
 	* Conexao statica para singleton
+	* @var resource
 	*/
 	protected static $conexaoEstatica;
 	/**
 	* Verificador de transação
+	* @var boolean
 	*/
 	protected static $autoCommitEstatico;
 	/**
@@ -39,10 +41,10 @@ class conexaoPadraoMsSql extends conexao{
 	}
 	/**
 	* Metodo de conexão
-	* @param [st] Servidor do Banco de dados
-	* @param [st] Nome do Banco de dados
-	* @param [st] Usuário do Banco de dados
-	* @param [st] Senha do Banco de dados
+	* @param string Servidor do Banco de dados
+	* @param string Nome do Banco de dados
+	* @param string Usuário do Banco de dados
+	* @param string Senha do Banco de dados
 	*/
 	public static function conectar($servidor, $banco, $usuario, $senha){
 		try{
@@ -117,16 +119,16 @@ class conexaoPadraoMsSql extends conexao{
 
 	/**
 	* Executa uma query SQL no Banco de Dados
-	* @param [st] Comando SQL a ser executado
-	* @return [int] número de linhas afetadas
+	* @param string Comando SQL a ser executado
+	* @return integer número de linhas afetadas
 	*/
 	function executarComando($sql){
 		return conexaoPadraoMsSql::executar($sql);
 	}
 	/**
 	* Executa uma query SQL no Banco de Dados
-	* @param [st] Comando SQL a ser executado
-	* @return [int] número de linhas afetadas
+	* @param string Comando SQL a ser executado
+	* @return integer número de linhas afetadas
 	*/
 	protected static function executar($sql){
 		try{

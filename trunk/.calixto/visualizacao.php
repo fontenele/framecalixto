@@ -28,31 +28,31 @@ class visualizacao extends Smarty{
 	}
 	/**
 	* Retorna o texto da pagina
-	* @param [texto] caminho da pagina
-	* @return [texto]
+	* @param string caminho da pagina
+	* @return string
 	*/
 	function pegar($pagina){
 		return $this->fetch($pagina);
 	}
 	/**
 	* Mostra o conteudo da pagina
-	* @param [texto] caminho da pagina
+	* @param string caminho da pagina
 	*/
 	function mostrar($pagina = null){
 		if( $pagina ) $this->display($pagina);
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	function __set($variavel, $parametros){
 		$this->assign($variavel,$parametros);
     }
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	function __get($variavel){
 		if(isset($this->_tpl_vars[$variavel])){

@@ -6,33 +6,33 @@
 */
 class VEtiquetaHtml extends objeto{
 	/**
-	* @var [string] Nome que abre e fecha uma etiqueta
+	* @var string Nome que abre e fecha uma etiqueta
 	*/
 	public $etiqueta;
 	/**
-	* @var [string] Identifica se a etiqueta precisa ser fechada
+	* @var string Identifica se a etiqueta precisa ser fechada
 	*/
 	public $fechada = true;
 	/**
-	* @var [string] Armazena as propriedades da etiqueta
+	* @var string Armazena as propriedades da etiqueta
 	*/
 	public $propriedades;
 	/**
-	* @var [string] Armazena o conteúdo da etiqueta
+	* @var string Armazena o conteúdo da etiqueta
 	*/
 	public $conteudo;
 	/**
 	* Método contrutor
-	* @param [string] nome da etiqueta html
-	* @param [booleano] fechamento da etiqueta
+	* @param string nome da etiqueta html
+	* @param boolean fechamento da etiqueta
 	*/
 	public function __construct($etiqueta){
 		$this->etiqueta = $etiqueta;
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	public function __call($metodo, $parametros){
 		if (preg_match('/(pegar|passar|adicionar|remover)(.*)/', $metodo, $resultado)) {
@@ -55,14 +55,14 @@ class VEtiquetaHtml extends objeto{
     }
 	/**
 	* Método de passagem do conteúdo
-	* @param [string] conteudo do compoenente
+	* @param string conteudo do compoenente
 	*/
 	public function passarConteudo($conteudo){
 		$this->conteudo = $conteudo;
 	}
 	/**
 	* Método de retorno do conteúdo
-	* @return [string] conteudo do componente
+	* @return string conteudo do componente
 	*/
 	public function pegarConteudo(){
 		return $this->conteudo;
@@ -91,7 +91,7 @@ class VEtiquetaHtml extends objeto{
 	}
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	public function __toString(){
 		$this->configurar();
