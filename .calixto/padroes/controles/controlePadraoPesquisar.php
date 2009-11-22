@@ -12,7 +12,7 @@ class controlePadraoPesquisar extends controlePadrao{
 	*/
 	protected $negocio;
 	/**
-	* @var [pagina] pagina a ser listada
+	* @var pagina pagina a ser listada
 	*/
 	protected $pagina;
 	/**

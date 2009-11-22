@@ -10,17 +10,17 @@ abstract class conexao extends objeto{
 	const mysql = 'mysql';
 	/**
 	* O recurso de conexão com Banco de Dados
-	* @var [resource]
+	* @var resource
 	*/
 	public $conexao;
 	/**
 	* O ponteiro do recurso com o resultado do comando
-	* @var [resource]
+	* @var resource
 	*/
 	public $cursor;
 	/**
 	* String de conexao
-	* @var [string]
+	* @var string
 	*/
 	protected $strConn;
 	/**
@@ -30,11 +30,11 @@ abstract class conexao extends objeto{
 	abstract function __construct();
 	/**
 	* Cria uma Conexao com Banco de Dados
-	* @param [st] Servidor do Banco de dados
-	* @param [st] Porta do servidor do Banco de dados
-	* @param [st] Nome do Banco de dados
-	* @param [st] Usuário do Banco de dados
-	* @param [st] Senha do Banco de dados
+	* @param string Servidor do Banco de dados
+	* @param string Porta do servidor do Banco de dados
+	* @param string Nome do Banco de dados
+	* @param string Usuário do Banco de dados
+	* @param string Senha do Banco de dados
 	* @return conexaoPadrao conexão com o banco de dados
 	*/
 	public static final function criar($nome = null, $servidor = null, $porta = null, $banco = null, $usuario = null, $senha = null,$tipoBanco = null){

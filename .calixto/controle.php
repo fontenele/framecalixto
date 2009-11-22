@@ -10,15 +10,15 @@ abstract class controle extends objeto{
     const json = 'json';
     const texto = 'texto';
 	/**
-	* @var [string] define o próximo controle para ser redirecionado
+	* @var string define o próximo controle para ser redirecionado
 	*/
 	public $gerente;
 	/**
-	* @var [gerenteSessao]
+	* @var gerenteSessao
 	*/
 	public $sessao;
 	/**
-	* @var [string] classe de visualização padrão do controle
+	* @var visualizacao classe de visualização padrão do controle
 	*/
 	public $visualizacao;
 	/**
@@ -41,7 +41,7 @@ abstract class controle extends objeto{
 	}
 	/**
 	* Método de validação do controle de acesso
-	* @return [booleano] resultado da validação
+	* @return boolean resultado da validação
 	*/
 	public function validarAcessoAoControle(){
 		try{
@@ -85,7 +85,7 @@ abstract class controle extends objeto{
 	public abstract function inicial();
 	/**
 	* Método de passagem do próximo controle para redirecionamento
-	* @param [string] nome do proximo controle
+	* @param string nome do proximo controle
 	*/
 	public function passarProximoControle($proximoControle){
 		if(!$this->requisicaoAjax())
@@ -93,7 +93,7 @@ abstract class controle extends objeto{
 	}
 	/**
 	* executa na sessão do sistema o registro da comunicacao
-	* @param [string] mensagem de comunicacao
+	* @param string mensagem de comunicacao
 	*/
 	public function registrarComunicacao($comunicacao){
 		sessaoSistema::registrar('comunicacao', $comunicacao);

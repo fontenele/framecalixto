@@ -6,27 +6,27 @@
 */
 class definicaoArquivo{
 	/**
-	* @var [string] nome do xml configurador das entidades
+	* @var string nome do xml configurador das entidades
 	*/
 	private static $xmlEntidade;
 	/**
-	* @var [string] nome do xml configurador da internacionalização
+	* @var string nome do xml configurador da internacionalização
 	*/
 	private static $xmlInternacionalizacao;
 	/**
-	* @var [string] nome do xml configurador da internacionalização do sistema
+	* @var string nome do xml configurador da internacionalização do sistema
 	*/
 	private static $xmlInternacionalizacaoDoSistema;
 	/**
-	* @var [string] caminho do arquivo html padrao do sistema
+	* @var string caminho do arquivo html padrao do sistema
 	*/
 	private static $html;
 	/**
-	* @var [string] caminho do arquivo CSS principal
+	* @var string caminho do arquivo CSS principal
 	*/
 	private static $css;
 	/**
-	* @var [texto] Nome arquivo de definção da classe persistente
+	* @var string Nome arquivo de definção da classe persistente
 	*/
 	private static final function pegarNomeXmlEntidade(){
 		if(definicaoArquivo::$xmlEntidade){
@@ -43,8 +43,8 @@ class definicaoArquivo{
 	}
 	/**
 	* Retorna o caminho do xml configurador da entidade
-	* @param [objeto|string]
-	* @param [string] caminho forçado do xml
+	* @param mixed
+	* @param string caminho forçado do xml
 	*/
 	public static final function pegarXmlEntidade($classe = null,$arquivoXML = null){
 		try{
@@ -59,7 +59,7 @@ class definicaoArquivo{
 		}
 	}
 	/**
-	* @var [texto] Nome arquivo de definção da internacionalização
+	* @var string Nome arquivo de definção da internacionalização
 	*/
 	private static final function pegarNomeXmlInternacionalizacao(){
 		if(definicaoArquivo::$xmlInternacionalizacao){
@@ -76,8 +76,8 @@ class definicaoArquivo{
 	}
 	/**
 	* Retorna o caminho do xml configurador da internacionalização
-	* @param [objeto|string]
-	* @param [string] caminho forçado do xml
+	* @param mixed
+	* @param string caminho forçado do xml
 	*/
 	public static final function pegarXmlInternacionalizacao($classe = null,$arquivoXML = null){
 		try{
@@ -92,7 +92,7 @@ class definicaoArquivo{
 		}
 	}
 	/**
-	* @var [texto] Nome arquivo de definção da internacionalização do sistema
+	* @var string Nome arquivo de definção da internacionalização do sistema
 	*/
 	private static final function pegarNomeXmlInternacionalizacaoDoSistema(){
 		if(definicaoArquivo::$xmlInternacionalizacaoDoSistema){
@@ -109,8 +109,8 @@ class definicaoArquivo{
 	}
 	/**
 	* Retorna o caminho do xml configurador da internacionalização do sistema
-	* @param [objeto|string]
-	* @param [string] caminho forçado do xml
+	* @param mixed
+	* @param string caminho forçado do xml
 	*/
 	public static final function pegarXmlInternacionalizacaoDoSistema($arquivoXML = null){
 		try{
@@ -126,7 +126,7 @@ class definicaoArquivo{
 	}
 	/**
 	* Retorna o caminho arquivo de tema CSS
-	* @return [string] caminho do arquivo CSS
+	* @return string caminho do arquivo CSS
 	*/
 	public static final function pegarCss(){
 		if(definicaoArquivo::$css){
@@ -143,7 +143,7 @@ class definicaoArquivo{
 	}
 	/**
 	* Retorna o caminho arquivo de template do sistema
-	* @return [string] caminho do arquivo de template do sistema
+	* @return string caminho do arquivo de template do sistema
 	*/
 	public static final function pegarHtmlPadrao(){
 		if(definicaoArquivo::$html){

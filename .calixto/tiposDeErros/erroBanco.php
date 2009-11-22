@@ -11,7 +11,7 @@ class erroBanco extends erro{
 	public $comando;
 	/**
 	* Método que faz a representação do objeto personalizada no formato html
-	* @return [string] 
+	* @return string 
 	*/
 	public function __toHtml() {
 		if(strtolower(ini_get('display_errors')) != 'on') return '';

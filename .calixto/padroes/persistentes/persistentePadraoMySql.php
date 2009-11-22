@@ -7,7 +7,7 @@
 abstract class persistentePadraoMySql extends persistente{
 	/**
 	* Metodo criado para especificar a estrutura da persistente
-	* @param [st] caminho do arquivo
+	* @param string caminho do arquivo
 	*/
 	public function pegarEstrutura($arquivoXML = null){
 		$estrutura = parent::pegarEstrutura($arquivoXML);
@@ -39,8 +39,8 @@ abstract class persistentePadraoMySql extends persistente{
 	//**************************************************************************
 	/**
 	* Gera o comando de inserção de um registro no banco de dados
-	* @param [array] correlativa entre campos e valores do registro
-	* @return [string] comando de inserção
+	* @param array correlativa entre campos e valores do registro
+	* @return string comando de inserção
 	*/
 	public function gerarComandoInserir($array){
 		$estrutura = $this->pegarEstrutura();
@@ -67,14 +67,14 @@ abstract class persistentePadraoMySql extends persistente{
 	//**************************************************************************
 	/**
 	* Monta o comando de criação da sequence no banco de dados
-	* @return [string] comando de criação
+	* @return string comando de criação
 	*/
 	public function gerarComandoCriacaoSequence(){
 		return false;
 	}
 	/**
 	* Gera o comando de criacao no banco de dados
-	* @return [string] comando de criação
+	* @return string comando de criação
 	*/
 	public function gerarComandoCriacaoTabela(){
 		$estrutura = $this->pegarEstrutura();
@@ -100,7 +100,7 @@ abstract class persistentePadraoMySql extends persistente{
 	}
 	/**
 	* Monta o comando de criação das chaves estrangeiras no banco de dados
-	* @return [string] comando de criação
+	* @return string comando de criação
 	*/
 	public function gerarComandoCriacaoChavesEstrangeiras(){
 		$estrutura = $this->pegarEstrutura();
@@ -113,7 +113,7 @@ abstract class persistentePadraoMySql extends persistente{
 	}
 	/**
 	* Gera o comando de destruição no banco de dados
-	* @return [string] comando de destruição
+	* @return string comando de destruição
 	*/
 	public function gerarComandoDestruicaoTabela(){
 		try{
@@ -126,14 +126,14 @@ abstract class persistentePadraoMySql extends persistente{
 	}
 	/**
 	* Monta o comando de criação da chave primaria da tabela
-	* @return [string] comando de criação
+	* @return string comando de criação
 	*/
 	public function gerarComandoCriacaoChavePrimaria(){
 		return false;
 	}
 	/**
 	* Gera o comando de destruição no banco de dados
-	* @return [string] comando de destruição
+	* @return string comando de destruição
 	*/
 	public function gerarComandoDestruicaoSequence(){
 		return false;
@@ -146,8 +146,8 @@ abstract class persistentePadraoMySql extends persistente{
 	}
 	/**
 	* Executa um comando SQL no banco de dados.(necessita de controle de transação)
-	* @param [string] comando SQL para a execução
-	* @return [int] número de linhas afetadas
+	* @param string comando SQL para a execução
+	* @return integer número de linhas afetadas
 	*/
 	public function executarComando($comando = null){
 		$arComandos = explode(';',$comando);

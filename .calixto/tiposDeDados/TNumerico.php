@@ -7,37 +7,37 @@
 */
 class TNumerico extends objeto{
 	/**
-	* @var [nr] numero
+	* @var float numero
 	*/
 	protected $numero = 0;
 	/**
-	* @var [string] caracter separador de decimal
+	* @var string caracter separador de decimal
 	*/
 	protected $charDecimal;
 	/**
-	* @var [string] caracter separador de milhar
+	* @var string caracter separador de milhar
 	*/
 	protected $charMilhar;
 	/**
-	* @var [nr] numero de casas decimais
+	* @var integer numero de casas decimais
 	*/
 	protected $nrCasasDecimais;
 	/**
-	* @var [string] simbolo do número (Unidade de Medida)
+	* @var string simbolo do número (Unidade de Medida)
 	*/
 	protected $simbolo;
 	/**
-	* @var [string] identificador da posição do simbolo 'E' para esquerda, 'D' para direita
+	* @var string identificador da posição do simbolo 'E' para esquerda, 'D' para direita
 	*/
 	protected $posicao;
 	/**
 	* metodo construtor do numerico
-	* @param [string] numero formatado
-	* @param [string] character separador de decimal
-	* @param [string] character separador de milhar
-	* @param [nr] número de casas decimais
-	* @param [string] simbolo do número (Unidade de Medida)
-	* @param [string] identificador da posição do simbolo 'E' para esquerda, 'D' para direita
+	* @param string numero formatado
+	* @param string character separador de decimal
+	* @param string character separador de milhar
+	* @param integer número de casas decimais
+	* @param string simbolo do número (Unidade de Medida)
+	* @param string identificador da posição do simbolo 'E' para esquerda, 'D' para direita
 	*/
 	public function __construct($numero = 0, $decimal = ',', $milhar = '.', $nrCasas = 0, $simbolo = null, $posicao = 'E'){
 		$this->passarCharDecimal($decimal);
@@ -49,7 +49,7 @@ class TNumerico extends objeto{
 	}
 	/**
 	* Método de passagem de um número para o objeto
-	* @param [mixed] numero
+	* @param mixed numero
 	*/
 	public function passarNumero($numero){
 		switch(true){

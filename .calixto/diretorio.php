@@ -113,8 +113,8 @@ class diretorio extends Directory {
    }
 	/**
 	* Método de verificação da legibilidade do arquivo
-	* @param [string] caminho do arquivo a ser verificado
-	* @return [booleano]
+	* @param string caminho do arquivo a ser verificado
+	* @return boolean
 	*/
 	static function legivel($caminhoDiretorio){
 		try{
@@ -134,8 +134,8 @@ class diretorio extends Directory {
 	}
 	/**
 	* Método de verificação da escrita do diretório
-	* @param [string] caminho do arquivo a ser verificado
-	* @return [booleano]
+	* @param string caminho do arquivo a ser verificado
+	* @return boolean
 	*/
 	static function gravavel($caminhoDiretorio){
 		try{

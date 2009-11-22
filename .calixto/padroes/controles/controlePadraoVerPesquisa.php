@@ -6,7 +6,7 @@
 */
 abstract class controlePadraoVerPesquisa extends controlePadrao{
 	/**
-	* @var [pagina] pagina a ser listada
+	* @var pagina pagina a ser listada
 	*/
 	public $pagina;
 	/**
@@ -14,7 +14,7 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 	*/
 	public $filtro;
 	/**
-	* @var [controlePadraoListagem] controle especialista em listagem
+	* @var controlePadraoListagem controle especialista em listagem
 	*/
 	public $listagem;
 	/**
@@ -89,7 +89,7 @@ abstract class controlePadraoVerPesquisa extends controlePadrao{
 	}
 	/**
 	* metodo de apresentação do negocio
-	* @param [negocio] objeto para a apresentação
+	* @param negocio objeto para a apresentação
 	*/
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		parent::montarApresentacao($negocio);

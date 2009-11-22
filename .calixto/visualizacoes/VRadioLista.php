@@ -16,7 +16,7 @@ class VRadioLista extends VComponente {
 	}
 	/**
 	* Método de passagem do conteúdo
-	* @param [string] conteudo do compoenente
+	* @param string conteudo do compoenente
 	*/
 	public function passarConteudo($conteudo){
 		if(is_array($conteudo)){
@@ -32,6 +32,9 @@ class VRadioLista extends VComponente {
 			$this->conteudo = $conteudo;
 		}
 	}
+	/**
+	 * Método de configuração do componente
+	 */
 	function configurar(){
 		if(is_array($this->conteudo)){
 			if(!$this->colunas){

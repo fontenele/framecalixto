@@ -10,18 +10,18 @@ abstract class persistente extends objeto{
 	 */
 	protected $imprimirComandos = false;
 	/**
-	* @var [array] array com a estrutura dos objetos persistentes
+	* @var array array com a estrutura dos objetos persistentes
 	* criado para a execução de cache
 	*/
 	private static $estrutura;
 	/**
-	* @var [conexao] objeto de conexão com o banco de dados
+	* @var conexao objeto de conexão com o banco de dados
 	*/
 	public $conexao;
 	/**
 	* Metodo construtor
-	* @param [conexao] (opcional) conexão com o banco de dados
-	* @param [string] (opcional) nome do arquivo de configuração da persistente
+	* @param conexao (opcional) conexão com o banco de dados
+	* @param string (opcional) nome do arquivo de configuração da persistente
 	*/
 	public function __construct(conexao $conexao,$arquivoXML = null){
 		try{
@@ -39,7 +39,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	public function __toString(){
 		try{
@@ -56,7 +56,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Metodo criado para especificar a estrutura da persistente
-	* @param [st] caminho do arquivo
+	* @param string caminho do arquivo
 	*/
 	public function pegarEstrutura($arquivoXML = null){
 		try{
@@ -119,8 +119,8 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Executa um comando SQL no banco de dados.(necessita de controle de transação)
-	* @param [string] comando SQL para a execução
-	* @return [int] número de linhas afetadas
+	* @param string comando SQL para a execução
+	* @return integer número de linhas afetadas
 	*/
 	public function executarComando($comando = null){
 		try{
@@ -243,7 +243,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Gera o comando SQL de leitura de todos os registros
-	* @return [string] comando SQL de leitura de um registro
+	* @return string comando SQL de leitura de um registro
 	*/
 	public function gerarComandoLerTodos(){
 		try{
@@ -290,9 +290,21 @@ abstract class persistente extends objeto{
             return false;
         }
     }
+	/**
+	 *
+	 * @param string $valor valor sem tratamento de sql injection
+	 * @return string tratada
+	 */
 	public function tratarInjection($valor){
 		return str_replace("'","''",$valor);
 	}
+	/**
+	 * Método que cria um item de filtragem na cláusula where
+	 * @param operador $operador operador do item de filtro
+	 * @param string $campo campo  do item de filtro
+	 * @param string $tipo tipo  do item de filtro
+	 * @return string
+	 */
 	public function gerarItemDeFiltro(operador $operador,$campo,$tipo){
 		if((!$operador->pegarValor()) && ($operador->pegarOperador() != operador::eNulo) && ($operador->pegarOperador() != operador::naoENulo)) return null;
 		switch($operador->pegarOperador()){
@@ -332,9 +344,9 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Gera a cláusula de filtro de leitura
-	* @param [array] $filtro
-	* @param [boolean] $nomeDaClausula
-	* @return [string]
+	* @param array $filtro
+	* @param boolean $nomeDaClausula
+	* @return string
 	*/
 	public function gerarClausulaDeFiltro($filtro, $nomeDaClausula = true){
 		$comando = '';
@@ -376,7 +388,7 @@ abstract class persistente extends objeto{
 	public function manipularItemDeFiltro(&$operacao,$campo,operador $operador,$valor,$dominio){}
 	/**
 	* Gera o comando SQL de leitura dos registros pesquisados
-	* @return [string] comando SQL de leitura de um registro
+	* @return string comando SQL de leitura de um registro
 	*/
 	public function gerarComandoPesquisar($filtro){
 		try{
@@ -416,8 +428,8 @@ abstract class persistente extends objeto{
 
 	/**
 	* Executa o comando de leitura dos registros pesquisados
-	* @param [array] dados do filtro
-	* @param [pagina] pagina referente
+	* @param array dados do filtro
+	* @param pagina pagina referente
 	* @return array seleção de registros
 	*/
 	public function pesquisar($filtro, pagina $pagina){
@@ -433,7 +445,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Executa o comando de leitura de todos os registros
-	* @param [pagina] pagina referente
+	* @param pagina pagina referente
 	* @return array seleção de registros
 	*/
 	public function lerTodosPaginado(pagina $pagina){
@@ -446,8 +458,8 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Executa o comando de leitura dos registros com paginação
-	* @param [pagina] pagina referente
-	* @param [string] comando sql para execução
+	* @param pagina pagina referente
+	* @param string comando sql para execução
 	* @return array seleção de registros
 	*/
 	public function lerPaginado(pagina $pagina, $sql){
@@ -464,9 +476,9 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Gera o comando de leitura paginada
-	* @param [pagina] pagina referente
-	* @param [string] comando sql para execução
-	* @return [string] comando SQL de leitura
+	* @param pagina pagina referente
+	* @param string comando sql para execução
+	* @return string comando SQL de leitura
 	*/
 	public function gerarComandoLerPaginado(pagina $pagina, $sql){
 		try{
@@ -482,8 +494,8 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Gera o comando SQL de leitura de um registro
-	* @param [string] chave única de identificação do registro
-	* @return [string] comando SQL de leitura de um registro
+	* @param string chave única de identificação do registro
+	* @return string comando SQL de leitura de um registro
 	*/
 	public function gerarComandoLer($chave){
 		try{
@@ -497,7 +509,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Executa o comando de leitura de um registro
-	* @param [string] chave única de identificação do registro
+	* @param string chave única de identificação do registro
 	* @return array seleção de registro
 	*/
 	public function ler($valorChave){
@@ -512,8 +524,8 @@ abstract class persistente extends objeto{
 	abstract function gerarSequencia();
 	/**
 	* Gera o comando de inserção de um registro no banco de dados
-	* @param [array] correlativa entre campos e valores do registro
-	* @return [string] comando de inserção
+	* @param array correlativa entre campos e valores do registro
+	* @return string comando de inserção
 	*/
 	public function gerarComandoInserir($array){
 		try{
@@ -545,7 +557,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Insere um registro no banco
-	* @param [array] correlativa entre campos e valores do registro
+	* @param array correlativa entre campos e valores do registro
 	*/
 	public function inserir($array){
 		try{
@@ -557,8 +569,8 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Gera o comando de exclusão de um registro no banco de dados
-	* @param [string] chave primária do registro
-	* @return [string] o comando de exclusão de um registro no banco de dados
+	* @param string chave primária do registro
+	* @return string o comando de exclusão de um registro no banco de dados
 	*/
 	public function gerarComandoExcluir($valorChave){
 		try{
@@ -578,7 +590,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Exclui um registro no banco
-	* @param [string] chave primária do registro
+	* @param string chave primária do registro
 	*/
 	public function excluir($valorChave){
 		try{
@@ -590,9 +602,9 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Gera o comando de alteração de um registro no banco de dados
-	* @param [array] correlativa entre campos e valores do registro
-	* @param [string] chave primária do registro
-	* @return [string] comando de alteração
+	* @param array correlativa entre campos e valores do registro
+	* @param string chave primária do registro
+	* @return string comando de alteração
 	*/
 	public function gerarComandoAlterar($array,$valorChave){
 		try{
@@ -621,8 +633,8 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Altera um registro no banco
-	* @param [array] array de campos e valores
-	* @param [string] chave primária do registro
+	* @param array array de campos e valores
+	* @param string chave primária do registro
 	*/
 	public function alterar($array, $valorChave){
 		try{
@@ -639,7 +651,7 @@ abstract class persistente extends objeto{
 	//**************************************************************************
 	/**
 	* Monta o comando de criação da sequence no banco de dados
-	* @return [string] comando de criação
+	* @return string comando de criação
 	*/
 	public function gerarComandoCriacaoSequence(){
 		try{
@@ -669,7 +681,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Gera o comando de criacao no banco de dados
-	* @return [string] comando de criação
+	* @return string comando de criação
 	*/
 	public function gerarComandoCriacaoTabela(){
 		try{
@@ -705,7 +717,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Monta o comando de criação da chave primaria da tabela
-	* @return [string] comando de criação
+	* @return string comando de criação
 	*/
 	public function gerarComandoCriacaoChavePrimaria(){
 		try{
@@ -738,7 +750,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Monta o comando de criação das chaves estrangeiras no banco de dados
-	* @return [string] comando de criação
+	* @return string comando de criação
 	*/
 	public function gerarComandoCriacaoChavesEstrangeiras(){
 		try{
@@ -790,13 +802,13 @@ abstract class persistente extends objeto{
 		}
 	}
 	/**
-	* @return [string] comando de criação de restrição de domínios no banco de dados
+	* @return string comando de criação de restrição de domínios no banco de dados
 	*/
 	public function gerarComandoRestricao(){
 		try{
 			$estrutura = $this->pegarEstrutura();
 			$comando = "";
-			// Criação de CHECKS
+			// Criação de CHECK CONSTRAINT
 			foreach($estrutura['campo'] as $nomeCampo => $campo){
 				if(isset($campo['valores'])){
 					$valores = null;
@@ -844,7 +856,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Gera o comando de destruição no banco de dados
-	* @return [string] comando de destruição
+	* @return string comando de destruição
 	*/
 	public function gerarComandoDestruicaoSequence(){
 		try{
@@ -857,7 +869,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Executa o comando de destruição da sequence no banco de dados
-	* @return [booleano] retorno de destruição da sequence
+	* @return boolean retorno de destruição da sequence
 	*/
 	public function destruirSequence(){
 		try{
@@ -872,7 +884,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Gera o comando de destruição no banco de dados
-	* @return [string] comando de destruição
+	* @return string comando de destruição
 	*/
 	public function gerarComandoDestruicaoTabela(){
 		try{
@@ -885,7 +897,7 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Executa o comando de destruição da tabela no banco de dados
-	* @return [booleano] retorno de destruição da tabela
+	* @return boolean retorno de destruição da tabela
 	*/
 	public function destruirTabela(){
 		try{

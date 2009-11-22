@@ -19,8 +19,8 @@ interface conexaoPadrao{
 	function desfazerTransacao();
 	/**
 	* Executa uma query SQL no Banco de Dados
-	* @param [st] Comando SQL a ser executado
-	* @return [int] número de linhas afetadas
+	* @param string Comando SQL a ser executado
+	* @return integer número de linhas afetadas
 	*/
 	function executarComando($sql);
 	/**

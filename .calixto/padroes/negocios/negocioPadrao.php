@@ -13,11 +13,11 @@ abstract class negocioPadrao extends negocio{
 	private static $cachePesquisaGeral;
 	/**
 	* objeto de conexão com o banco de dados
-	* @var [conexao]
+	* @var conexao
 	*/
 	protected $conexao;
 	/**
-	* @var [array] array com a estrutura do mapeamento  entre persistente e negócio
+	* @var array array com a estrutura do mapeamento  entre persistente e negócio
 	* criado para a execução de cache
 	*/
 	private static $estrutura;
@@ -27,7 +27,7 @@ abstract class negocioPadrao extends negocio{
 	protected $inter;
 	/**
 	* Metodo construtor
-	* @param [conexao] (opcional) conexão com o banco de dados
+	* @param conexao (opcional) conexão com o banco de dados
 	*/
 	public function __construct(conexao $conexao = null){
 		$this->{'filtro de pesquisa'} = new colecaoPadraoFiltro();
@@ -45,7 +45,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Metodo construtor
-	* @param [conexao] (opcional) conexão com o banco de dados
+	* @param conexao (opcional) conexão com o banco de dados
 	*/
 	public final function conectar(conexao $conexao = null){
 		try{
@@ -70,8 +70,8 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	public function __call($metodo, $parametros){
 		try{
@@ -172,12 +172,12 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string]
+	* @return string
 	*/
 	abstract function nomeChave();
 	/**
 	* Retorna o valor da propriedade chave de negócio
-	* @param [string] nome da chave de negocio
+	* @param string nome da chave de negocio
 	*/
 	public function valorChave($chave = null){
 		try{
@@ -195,7 +195,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Método de apresentação simplificada do objeto de negócio
-	* @return [string] descrição do objeto
+	* @return string descrição do objeto
 	*/
 	public function valorDescricao(){
 		try{
@@ -229,7 +229,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Método que instrui ao negócio como se estruturar através de um vetor
-	* @param [SimpleXMLElement] objeto xml para a estruturação
+	* @param SimpleXMLElement objeto xml para a estruturação
 	*/
 	public function xmlPraNegocio(SimpleXMLElement $xml){
 		foreach($xml as $index => $propriedade){
@@ -239,7 +239,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Método que instrui ao negócio como se estruturar através de um vetor
-	* @param [array] correlativa entre campo e valor
+	* @param array correlativa entre campo e valor
 	*/
 	public function vetorPraNegocio(array $vetor){
 		try{
@@ -341,7 +341,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Executa o comando de leitura do objeto
-	* @param [string] chave nica de identificação do registro
+	* @param string chave nica de identificação do registro
 	*/
 	public function ler($identificador){
 		try{
@@ -356,7 +356,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Executa o comando de gravação do objeto
-	* @param [boleano] caso verdadeiro irá incluir com a chave de negócio passada caso falso irá verificar, se foi passada a chave irá alterar senão irá incluir
+	* @param bolean caso verdadeiro irá incluir com a chave de negócio passada caso falso irá verificar, se foi passada a chave irá alterar senão irá incluir
 	*/
 	public function gravar($gravarComChavePassada = false){
 		try{
@@ -451,7 +451,7 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Método utilizado para efetuar as verificações antes de executar a alteração
-	* @param [negocio] objeto antes da alteração .
+	* @param negocio objeto antes da alteração .
 	*/
 	public function verificarAntesAlterar($negocio){
 		$mapeador = $this->pegarMapeamento();
@@ -509,8 +509,8 @@ abstract class negocioPadrao extends negocio{
 	}
 	/**
 	* Retorna uma coleção com os negócios pesquisados
-	* @param [pagina] pagina referente
-	* @param [filtro] dados de pesquisa (não obrigatorio)
+	* @param pagina pagina referente
+	* @param filtro dados de pesquisa (não obrigatorio)
 	* @return colecaoPadraoNegocio
 	*/
 	public function pesquisar(pagina $pagina = null, $filtro = null){
@@ -541,7 +541,7 @@ abstract class negocioPadrao extends negocio{
 	/**
 	* Retorna a quantidade de objetos que o metodo pesquisar irá retornar
 	* @param filtro dados de pesquisa (não obrigatorio)
-	* @return int
+	* @return integer
 	*/
 	public function totalDePesquisar($filtro = null){
 		try{

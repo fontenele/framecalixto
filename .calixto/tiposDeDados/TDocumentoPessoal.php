@@ -7,7 +7,7 @@
 */
 class TDocumentoPessoal extends TTelefone{
 	/**
-	* @var [string] tipo do documento
+	* @var string tipo do documento
 	*/
 	protected $tipo = 'cpf';
 	/**
@@ -31,7 +31,7 @@ class TDocumentoPessoal extends TTelefone{
 	}
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	public function __toString(){
 		$tamanho = strlen($this->numero);

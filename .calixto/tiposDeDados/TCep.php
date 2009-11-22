@@ -15,7 +15,7 @@ class TCep extends TTelefone{
 	}
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	public function __toString(){
 		$tamanho = strlen($this->numero);

@@ -6,7 +6,7 @@
 */
 class controlePadraoVerEdicao extends controlePadrao{
 	/**
-	* @var [negocio] objeto de negócio a ser editado
+	* @var negocio objeto de negócio a ser editado
 	*/
 	public $negocio;
 	/**
@@ -23,8 +23,8 @@ class controlePadraoVerEdicao extends controlePadrao{
 	}
 	/**
 	* metodo de apresentação do negocio
-	* @param [negocio] objeto para a apresentação
-	* @param [string] tipo de visualização a ser utilizada 'edicao' ou 'visual'
+	* @param negocio objeto para a apresentação
+	* @param string tipo de visualização a ser utilizada 'edicao' ou 'visual'
 	*/
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'gravar'));

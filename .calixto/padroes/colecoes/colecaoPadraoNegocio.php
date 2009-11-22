@@ -8,13 +8,13 @@
 class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 	/**
 	* objeto de conexão com o banco de dados
-	* @var [conexao]
+	* @var conexao
 	*/
 	protected $conexao;
 	/**
 	* Metodo construtor
-	* @param [vetor] (opcional) dados da colecao
-	* @param [conexao] (opcional) conexão com o banco de dados
+	* @param array (opcional) dados da colecao
+	* @param conexao (opcional) conexão com o banco de dados
 	*/
 	public function __construct($array = null,conexao $conexao = null){
 		parent::__construct($array);
@@ -26,8 +26,8 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 	}
 	/**
 	* Método de envio de valor pelo indice da colecao
-	* @param [string] Indice da coleção
-	* @param [mixed] Item da coleção
+	* @param string Indice da coleção
+	* @param mixed Item da coleção
 	*/
 	public function passar($indice,$item){
 		if (!($item instanceof negocio))
@@ -36,8 +36,8 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	function __set($variavel, $parametros){
 		if (!($parametros instanceof negocio))
@@ -46,8 +46,8 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
     }
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	public function __call($metodo, $parametros){
 		try{
@@ -82,7 +82,7 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
     }
 	/**
 	* Metodo construtor
-	* @param [conexao] (opcional) conexão com o banco de dados
+	* @param conexao (opcional) conexão com o banco de dados
 	*/
 	public final function conectar(conexao $conexao = null){
 		try{
@@ -120,8 +120,8 @@ class colecaoPadraoNegocio extends colecaoPadraoObjeto{
     }
     /**
     * Método de geração de um vetor de um atributo do negócio
-    * @param [string] primeiro item
-    * @return [vetor] vetor com os valores do atributo dos negócios
+    * @param string primeiro item
+    * @return array vetor com os valores do atributo dos negócios
     */
     function gerarVetorDescritivo($vazio = false){
 		$arRetorno = array();

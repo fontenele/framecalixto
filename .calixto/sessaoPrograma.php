@@ -12,7 +12,7 @@ class sessaoPrograma extends objeto{
 	private $programa;
 	/**
 	* Método construtor
-	* @param [st] nome do programa
+	* @param string nome do programa
 	*/
 	function __construct($programa = 'programaIndefinido'){
 		$this->programa = $programa;
@@ -25,8 +25,8 @@ class sessaoPrograma extends objeto{
 	}
 	/**
 	* Registra valor por programa
-	* @param [st] Nome da váriavel
-	* @param [st] Valor da váriavel
+	* @param string Nome da váriavel
+	* @param string Valor da váriavel
 	*/
 	function registrar($variavel, $valor){
 		if(!is_object($valor)){
@@ -38,8 +38,8 @@ class sessaoPrograma extends objeto{
 	}
 	/**
 	* Retira o valor por programa
-	* @param [st] Nome da váriavel
-	* @return [mixed] valor
+	* @param string Nome da váriavel
+	* @return mixed valor
 	*/
 	function retirar($variavel){
 		if ($this->tem($variavel)){
@@ -55,8 +55,8 @@ class sessaoPrograma extends objeto{
 	}
 	/**
 	* Retorna valor por programa
-	* @param [st] Nome da váriavel
-	* @return [mixed] valor
+	* @param string Nome da váriavel
+	* @return mixed valor
 	*/
 	function pegar($variavel){
 		if ($this->tem($variavel)){
@@ -73,15 +73,15 @@ class sessaoPrograma extends objeto{
 	}
 	/**
 	* Retorna um booleano da verificação de existencia
-	* @param [string] Nome da váriavel
-	* @return [boolean] caso exista a variavel retornará verdadeiro
+	* @param string Nome da váriavel
+	* @return boolean caso exista a variavel retornará verdadeiro
 	*/
 	function tem($variavel){
 		return isset($_SESSION[definicaoSistema::pegarNome()]['variaveisDePrograma'][$this->programa][$variavel]);
 	}
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	public function __toString(){
 		debug2($_SESSION);

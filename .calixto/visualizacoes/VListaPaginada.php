@@ -33,11 +33,11 @@ class VListaPaginada extends objeto{
 	}
 	/**
 	* Método de adição de um campo a listagem
-	* @param [string] título do campo
-	* @param [string] nome da propriedade da classe de negócio a ser listada na coluna
-	* @param [string] tamanho ou largura da coluna
-	* @param [string] alinhamento da coluna
-	* @param [numerico] posição ou ordem de apresentação da coluna
+	* @param string título do campo
+	* @param string nome da propriedade da classe de negócio a ser listada na coluna
+	* @param string tamanho ou largura da coluna
+	* @param string alinhamento da coluna
+	* @param integer posição ou ordem de apresentação da coluna
 	*/
 	function adicionarColuna($titulo, $campo, $tamanho = null, $alinhamento = null,$posicao = null){
 		switch(strtolower($alinhamento)){
@@ -60,11 +60,11 @@ class VListaPaginada extends objeto{
 	}
 	/**
 	* Método de adição de um campo a listagem
-	* @param [string] título do campo
-	* @param [string] nome da propriedade da classe de negócio a ser listada na coluna
-	* @param [string] tamanho ou largura da coluna
-	* @param [string] alinhamento da coluna
-	* @param [numerico] posição ou ordem de apresentação da coluna
+	* @param string título do campo
+	* @param string nome da propriedade da classe de negócio a ser listada na coluna
+	* @param string tamanho ou largura da coluna
+	* @param string alinhamento da coluna
+	* @param integer posição ou ordem de apresentação da coluna
 	*/
 	function adicionarColunaLink($titulo, $campo, $tamanho = null, $alinhamento = null,$posicao = null){
 		switch(strtolower($alinhamento)){
@@ -80,11 +80,11 @@ class VListaPaginada extends objeto{
 	}
 	/**
 	* Método de adição de um campo personalizado a listagem
-	* @param [string] título do campo
-	* @param [string] nome do metodo da classe de listagem que será executado para ser listado na coluna
-	* @param [string] tamanho ou largura da coluna
-	* @param [string] alinhamento da coluna
-	* @param [numerico] posição ou ordem de apresentação da coluna
+	* @param string título do campo
+	* @param string nome do metodo da classe de listagem que será executado para ser listado na coluna
+	* @param string tamanho ou largura da coluna
+	* @param string alinhamento da coluna
+	* @param integer posição ou ordem de apresentação da coluna
 	*/
 	function adicionarColunaPersonalizada($titulo, $campo, $tamanho = null, $alinhamento = null,$posicao = null){
 		switch(strtolower($alinhamento)){
@@ -128,7 +128,7 @@ class VListaPaginada extends objeto{
 	}
 	/**
 	* Montar listagem
-	* @return [string] retorno da listagem
+	* @return string retorno da listagem
 	*/
 	function montarListagem(){
 		if(!$this->colecao->possuiItens()){
@@ -239,8 +239,8 @@ class VListaPaginada extends objeto{
 	}
 	/**
 	* Método de abertura da linha da listagem
-	* @param [mixed] item a ser apresentado na listagem
-	* @param [numerico] número da linha a ser apresentada
+	* @param mixed item a ser apresentado na listagem
+	* @param integer número da linha a ser apresentada
 	*/
 	public function abrirLinha($item,$nrLinha){
 		if($nrLinha%2){
@@ -251,7 +251,7 @@ class VListaPaginada extends objeto{
 	}
 	/**
 	* Monta o paginador da listagem
-	* @return [string] paginador da listagem
+	* @return string paginador da listagem
 	*/
 	public function montarPaginador(){
 		if(!$this->pagina->pegarTamanhoPagina()) return '';
@@ -307,7 +307,7 @@ class VListaPaginada extends objeto{
 	}
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	function __toString(){
 		try{
@@ -322,15 +322,24 @@ class VListaPaginada extends objeto{
 			return $e->getMessage();
 		}
 	}
-
-	public static function colunaExcluir( $negocio )
+	/**
+	 * Método que adiciona a coluna de exclusão na listagem
+	 * @param negocio $negocio
+	 * @return string
+	 */
+	public static function colunaExcluir( negocio $negocio )
 	{
 		$controle = definicaoEntidade::controle($negocio,'excluir');
 		$link = sprintf("?c=%s&amp;chave=%s",$controle,$negocio->valorChave());
 		return "<a href='javascript:if(confirm(\"Deseja mesmo excluir este item?\")){window.location=\"{$link}\";}' title='Excluir registro.' ><img src='.sistema/imagens/icon-delete.png' border='0' /></a>";
 	}
 
-	public static function colunaEditar( $negocio )
+	/**
+	 * Método que adiciona a coluna de edição na listagem
+	 * @param negocio $negocio
+	 * @return string
+	 */
+	public static function colunaEditar( negocio $negocio )
 	{
 		$controle = definicaoEntidade::controle($negocio,'verEdicao');
 		$link = sprintf("?c=%s&amp;chave=%s",$controle,$negocio->valorChave());

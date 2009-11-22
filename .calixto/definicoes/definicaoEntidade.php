@@ -7,7 +7,7 @@
 class definicaoEntidade{
 	/**
 	* função que define o nome da entidade utilizado por classes de persistência, controle, negocio e visualização
-	* @param [string|objeto] para a definição da entidade da classe
+	* @param mixed para a definição da entidade da classe
 	*/
 	static function entidade($classe){
 		try{
@@ -21,8 +21,8 @@ class definicaoEntidade{
 	}
 	/**
 	* função que define o nome da persistente de uma entidade
-	* @param [string|objeto] para a definição da entidade da classe
-	* @return [string] nome da classe
+	* @param mixed para a definição da entidade da classe
+	* @return string nome da classe
 	*/
 	static function persistente($classe){
 		try{
@@ -37,8 +37,8 @@ class definicaoEntidade{
 	}
 	/**
 	* função que define o nome do negocio de uma entidade
-	* @param [string|objeto] para a definição da entidade da classe
-	* @return [string] nome da classe
+	* @param mixed para a definição da entidade da classe
+	* @return string nome da classe
 	*/
 	static function negocio($classe){
 		try{
@@ -53,8 +53,8 @@ class definicaoEntidade{
 	}
 	/**
 	* função que define o nome da internacionalizacao de uma entidade
-	* @param [string|objeto] para a definição da entidade da classe
-	* @return [string] nome da classe
+	* @param mixed para a definição da entidade da classe
+	* @return string nome da classe
 	*/
 	static function internacionalizacao($classe){
 		try{
@@ -69,9 +69,9 @@ class definicaoEntidade{
 	}
 	/**
 	* função que define o nome do controle de uma entidade
-	* @param [string|objeto] para a definição da entidade da classe
-	* @param [string] sufixo (funcionalidade) do controle
-	* @return [string] nome da classe
+	* @param mixed para a definição da entidade da classe
+	* @param string sufixo (funcionalidade) do controle
+	* @return string nome da classe
 	*/
 	static function controle($classe, $sufixo = null){
 		try{
@@ -90,8 +90,8 @@ class definicaoEntidade{
 	}
 	/**
 	* função que define a funcionalidade do controle de uma entidade
-	* @param [string|objeto] para a definição da funcionalidade do controle
-	* @return [string] nome da classe
+	* @param mixed para a definição da funcionalidade do controle
+	* @return string nome da classe
 	*/
 	static function funcionalidade($classe){
 		try{

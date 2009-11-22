@@ -7,7 +7,7 @@
 */
 class visualizacaoPadrao extends visualizacao{
 	/**
-	* @var [texto] Nome da classe de controle
+	* @var string Nome da classe de controle
 	*/
 	protected $controle;
     protected $template;
@@ -18,7 +18,7 @@ class visualizacaoPadrao extends visualizacao{
     }
 	/**
 	* Método contrutor
-	* @param [controle] objeto de controle padronizado
+	* @param controle objeto de controle padronizado
 	*/
 	function __construct(controle $controle){
 		parent::__construct();
@@ -27,7 +27,7 @@ class visualizacaoPadrao extends visualizacao{
 	}
 	/**
 	* Executa o processamento e mostra a página
-	* @param [texto] Nome do arquivo de formatação da visualização
+	* @param string Nome do arquivo de formatação da visualização
 	*/
 	function mostrar($pagina = null){
         switch(true){
@@ -50,7 +50,7 @@ class visualizacaoPadrao extends visualizacao{
 	}
 	/**
 	* Executa o processamento e mostra a página
-	* @param [texto] Nome do arquivo de formatação da visualização
+	* @param string Nome do arquivo de formatação da visualização
 	*/
 	function mostrarParaAjax($pagina = null){
         $this->mostrar($pagina);

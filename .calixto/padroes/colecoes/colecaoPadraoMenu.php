@@ -6,8 +6,20 @@
 * @subpackage utilitários
 */
 class colecaoPadraoMenu extends colecaoPadraoObjeto {
+	/**
+	 * classe css do menu
+	 * @var string
+	 */
 	public $_classe;
+	/**
+	 * Identificador html do menu
+	 * @var string
+	 */
 	public $_id;
+	/**
+	 * Indice de tabulação do menu
+	 * @var string
+	 */
 	public $_tabIndex;
 	/**
 	* Método de inclusão de um subMenu no Menu
@@ -32,8 +44,8 @@ class colecaoPadraoMenu extends colecaoPadraoObjeto {
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	function __get($variavel){
 		if(!$this->tem($variavel)){
@@ -44,8 +56,8 @@ class colecaoPadraoMenu extends colecaoPadraoObjeto {
     }
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	function __set($variavel, $parametros){
 		if (!($parametros instanceof VMenu))

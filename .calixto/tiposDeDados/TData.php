@@ -8,12 +8,13 @@
 class TData extends objeto{
 	/**
 	* valor numerico da data
+	* @var integer
 	*/
 	protected $tempoMarcado;
 	/**
 	* metodo construtor da data
-	* @param [string] data como string
-	* @param [string] formato da string de data
+	* @param string data como string
+	* @param string formato da string de data
 	*/
 	public function __construct($data, $formato = 'D/M/Y'){
 		try{
@@ -72,7 +73,7 @@ class TData extends objeto{
 	}
 	/**
 	* metodo de somatorio de horas
-	* @param [numerico] número de horas a ser somado a data
+	* @param integer número de horas a ser somado a data
 	*/
 	public function somarHora($horas = 1){
 		$this->tempoMarcado = mktime(
@@ -83,7 +84,7 @@ class TData extends objeto{
 	}
 	/**
 	* metodo de somatorio de minutos
-	* @param [numerico] número de minutos a ser somado a data
+	* @param integer número de minutos a ser somado a data
 	*/
 	public function somarMinuto($minutos = 1){
 		$this->tempoMarcado = mktime(
@@ -94,7 +95,7 @@ class TData extends objeto{
 	}
 	/**
 	* metodo de somatorio de segundos
-	* @param [numerico] número de segundos a ser somado a data
+	* @param integer número de segundos a ser somado a data
 	*/
 	public function somarSegundo($seg = 1){
 		$this->tempoMarcado = mktime(
@@ -105,7 +106,7 @@ class TData extends objeto{
 	}
 	/**
 	* metodo de somatorio de dias
-	* @param [numerico] número de dias a ser somado a data
+	* @param integer número de dias a ser somado a data
 	*/
 	public function somarDia($dias = 1){
 		$this->tempoMarcado = mktime(
@@ -116,7 +117,7 @@ class TData extends objeto{
 	}
 	/**
 	* metodo de somatorio de meses
-	* @param [numerico] número de meses a ser somado a data
+	* @param integer número de meses a ser somado a data
 	*/
 	public function somarMes($meses = 1){
 		$this->tempoMarcado = mktime(
@@ -127,7 +128,7 @@ class TData extends objeto{
 	}
 	/**
 	* metodo de somatorio de anos
-	* @param [numerico] número de anos a ser somado a data
+	* @param integer número de anos a ser somado a data
 	*/
 	public function somarAno($anos = 1){
 		$this->tempoMarcado = mktime(
@@ -157,7 +158,7 @@ class TData extends objeto{
 	}
 	/**
 	* metodo de retorno da string de data
-	* @return [string] data formatada
+	* @return string data formatada
 	*/
 	public function pegarData(){
 		if($this->tempoMarcado)
@@ -166,7 +167,7 @@ class TData extends objeto{
 	}
 	/**
 	* metodo de retorno da string de hora
-	* @return [string] hora formatada
+	* @return string hora formatada
 	*/
 	public function pegarHora(){
 		if($this->tempoMarcado)
@@ -175,15 +176,15 @@ class TData extends objeto{
 	}
 	/**
 	* metodo de retorno da string de hora
-	* @return [string] hora formatada
+	* @return string hora formatada
 	*/
 	public function pegarDataCompleta(){
         return $this->pegarData() . ' ' . $this->pegarHora();
 	}
 	/**
 	* metodo de retorno da string de data
-	* @param [string] formato da data
-	* @return [string] data formatada
+	* @param string formato da data
+	* @return string data formatada
 	*/
 	public function __toString(){
         $data = $this->pegarData();

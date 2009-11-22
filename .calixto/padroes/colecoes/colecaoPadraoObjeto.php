@@ -8,8 +8,8 @@
 class colecaoPadraoObjeto extends colecao{
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	function __set($variavel, $parametros){
 		if (!($parametros instanceof objeto))
@@ -18,8 +18,8 @@ class colecaoPadraoObjeto extends colecao{
     }
     /**
     * Método de geração de um vetor de um atributo do negócio
-    * @param [string] da variavel do objeto
-    * @return [vetor] vetor com os valores do atributo dos negócios 
+    * @param string da variavel do objeto
+    * @return array vetor com os valores do atributo dos negócios
     */
     function gerarVetorDeAtributo($atributo){
 		if(is_array($atributo)){

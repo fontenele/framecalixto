@@ -7,7 +7,7 @@
 */
 class controlePadraoMudarPagina extends controle{
 	/**
-	* @var [pagina] pagina a ser listada
+	* @var pagina pagina a ser listada
 	*/
 	public $pagina;
 	/**
@@ -22,7 +22,7 @@ class controlePadraoMudarPagina extends controle{
 	}
 	/**
 	* Método de validação do controle de acesso
-	* @return [booleano] resultado da validação
+	* @return boolean resultado da validação
 	*/
 	public function validarAcessoAoControle(){ 
 		return true;

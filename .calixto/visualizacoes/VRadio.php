@@ -11,7 +11,7 @@ class VRadio extends VInput{
 	}
 	/**
 	* Método de checagem do componente
-	* @param [booleano]
+	* @param boolean
 	*/
 	function passarChecked($valor = false){
 		if($valor)	$this->propriedades['checked'] = 'checked';

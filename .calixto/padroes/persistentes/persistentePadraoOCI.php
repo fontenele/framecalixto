@@ -12,7 +12,7 @@
 class persistentePadraoOCI extends persistente{
 	/**
 	* Monta o mapeamento de tipo de dados do banco
-	* @return [array] mapeamento
+	* @return array mapeamento
 	*/
 	public function mapeamento(){
 		$mapeamento['obrigatorio']['sim'] = 'not null';
@@ -29,7 +29,7 @@ class persistentePadraoOCI extends persistente{
 	}
 	/**
 	* Gera a sequencia numérica da persistente correspondente
-	* @return [in] numero sequencial
+	* @return integer numero sequencial
 	*/
 	public function gerarSequencia(){
 		try{
@@ -43,9 +43,9 @@ class persistentePadraoOCI extends persistente{
 	}
 	/**
 	* Gera o comando de leitura paginada
-	* @param [pagina] pagina referente
-	* @param [string] comando sql para execução
-	* @return [string] comando SQL de leitura
+	* @param pagina pagina referente
+	* @param string comando sql para execução
+	* @return string comando SQL de leitura
 	*/
 	public function gerarComandoLerPaginado(pagina $pagina, $sql){
 		try{
