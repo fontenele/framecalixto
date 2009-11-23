@@ -16,6 +16,9 @@
 @import url(help.css) ;
 @import url(theme/ui.all.css) ;
 @import url(jquery.autocomplete.css);
+html{
+	font-size:.7em;
+}
 a{
 	color:#066ea4;
 }

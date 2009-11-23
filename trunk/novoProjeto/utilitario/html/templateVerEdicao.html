@@ -13,10 +13,10 @@
 		«ldelim»$«$chaveNegocio»«rdelim»
 		<table summary="text" class="tabela2">
 «foreach from=$nomes key=indice item=propriedade »
-			<tr>
-				<td class="campo1">«ldelim»$«$indice»«rdelim»:</td>
-				<td class="campo2">«ldelim»$«$propriedade»«rdelim»</td>
-			</tr>
+			<div class="campo">
+				<label for="«$propriedade»">«ldelim»$«$indice»«rdelim»:</label>
+				<span>«ldelim»$«$propriedade»«rdelim»</span>
+			</div>
 «/foreach»
 		</table>
         <div id='menu_corpo'>
