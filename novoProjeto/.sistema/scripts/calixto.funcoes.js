@@ -1,4 +1,13 @@
 $(document).ready( function() {
+	if(allUIMenus){
+		$('.menu1')
+			.before('<a id="flyout" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" href="menuContent.html" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"/><img style="border: 0px none ; vertical-align: bottom;" src=".sistema/imagens/folder_home_22.png"/>Menu Principal</a>');
+		$('.menu1').hide();
+		$('#flyout').menu({
+			content:$('.menu1').html(),
+			flyOut:true
+		});
+	}
 	$('form').submit(function(){
 		var erros = '';
 		$.each($(this).find('.obrigatorio'),function(i,campoObrigatorio){
