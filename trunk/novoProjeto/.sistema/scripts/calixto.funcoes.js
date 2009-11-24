@@ -1,11 +1,14 @@
 $(document).ready( function() {
 	if(allUIMenus){
 		$('.menu1')
-			.before('<a id="flyout" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" href="menuContent.html" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"/><img style="border: 0px none ; vertical-align: bottom;" src=".sistema/imagens/folder_home_22.png"/>Menu Principal</a>');
-		$('.menu1').hide();
-		$('#flyout').menu({
-			content:$('.menu1').html(),
-			flyOut:true
+			.before('<a href="menuContent.html" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="botaoMenuPrincipal" accesskey="m" ><span class="ui-icon ui-icon-triangle-1-s"></span>Menu Principal</a>');
+		menu1 = $('.menu1').html();
+		$('.menu1').html('&nbsp;');
+		$('#botaoMenuPrincipal').menu({
+			content: menu1,
+			flyOut: true, // flyout ou ipod menu
+			backLink: true,
+			trigger: "click"
 		});
 	}
 	$('form').submit(function(){

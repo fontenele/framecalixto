@@ -1,9 +1,6 @@
 @import url(padrao.css) ;
 @import url(pagina.css) ;
 @import url(banner.css) ;
-@import url(menu1.css) ;
-@import url(menu2.css) ;
-@import url(menu3.css) ;
 @import url(abas.css) ;
 @import url(container0.css) ;
 @import url(container1.css) ;
@@ -16,9 +13,10 @@
 @import url(help.css) ;
 @import url(theme/ui.all.css) ;
 @import url(jquery.autocomplete.css);
-html{
-	font-size:.7em;
-}
+@import url(fg.menu.css);
+@import url(menu1.css) ;
+@import url(menu2.css) ;
+@import url(menu3.css) ;
 a{
 	color:#066ea4;
 }
@@ -81,4 +79,7 @@ button{
 	top:-14px;
 	height:0px;
 	left:-30px;
+}
+html{
+	font-size:1em;
 }
