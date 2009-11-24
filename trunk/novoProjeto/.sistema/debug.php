@@ -26,7 +26,7 @@ function debug1($var){
 * @return [string]
 */
 function debug2($var,$metodos = true, $visualizacao = false){
-	echo '<link rel="stylesheet" href=".sistema/css/debug.css" />';
+	echo '<link rel="stylesheet" href=".sistema/debug.css" />';
 	switch(true){
 		case is_bool($var):
 			echo ($var ? '<font class="tipoPrimario" >(booleano)</font> = <font class="booleano" >true</font>' : '<font class="tipoPrimario">(booleano)</font> = <font class="booleano">false</font>');
