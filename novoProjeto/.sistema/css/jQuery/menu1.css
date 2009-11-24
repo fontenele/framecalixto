@@ -11,3 +11,10 @@ button.fg-button { width:auto; overflow:visible; } /* removes extra button width
 .fg-button-icon-solo { display:block; width:8px; text-indent: -9999px; }	 /* solo icon buttons must have block properties for the text-indent to work */
 
 .fg-button.ui-state-loading .ui-icon { background: url(spinner_bar.gif) no-repeat 0 0; }
+.menu1{
+	position:relative;
+	top:-20px;
+}
+#menuPrincipal li{
+	text-align:left;
+}

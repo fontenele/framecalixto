@@ -5,7 +5,8 @@
 	-moz-border-radius: 6px; -webkit-border-radius: 6px;
 	border: 1px solid #444444;
 	padding:3px 1px 3px 1px;
-	background: #222222 url(container2.png) 50% 50% repeat;
+	background: #101010 50% 50% repeat;
+	/* background: #222222 url(container2.png) 50% 50% repeat;*/
 }
 .container0 h1{
 	position:relative;

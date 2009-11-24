@@ -78,6 +78,7 @@ class NControleMenu extends negocio{
 			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','controleMenu/imagens/folder_inbox.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','controleMenu/imagens/locale16.png');
 
+			$this->menuPrincipal->passar_id('menuPrincipal');
 			$this->menuPrincipal->Apoio->passar_imagem('controleMenu/imagens/principal.gif');
 			$this->menuPrincipal->Cadastros->passar_imagem('controleMenu/imagens/editors_section.gif');
 			$this->menuPrincipal->Sistema->passar_imagem('controleMenu/imagens/relatorios.gif');

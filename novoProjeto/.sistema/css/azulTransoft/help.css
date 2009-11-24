@@ -4,11 +4,10 @@ div.help {
 	border		: 1px solid #069;
 	margin-bottom: 10px;
 	padding-bottom: 20px;
-	z-index: 100;
 
 	border-bottom: 1px solid #069;
 	color		: #069;
-	font-size	: 14px;
+	font-size	: 1em;
 	font-weight	: bold;
 	margin		: 60px;
 	margin-top	: 0px;
