@@ -1,0 +1,14 @@
+.rodape{
+	position:absolute;
+	height: 20px;
+	width: 800px;
+	top: 580px;
+	left: 0px;
+	text-align:center;
+	color: #505050;
+	font-family: times;
+	font-variant: normal;
+	font-weight: normal;
+	font-size: 14px;
+	font-style: normal;
+}

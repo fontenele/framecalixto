@@ -47,9 +47,10 @@ class controlePadrao extends controle{
 		$this->visualizacao->descricaoDeAjuda	= '';
 		$this->visualizacao->cssExtra			= '';
 		$this->visualizacao->jsExtra			= '';
-		$this->visualizacao->cssGlobal			= definicaoArquivo::pegarCss();
+		$this->visualizacao->cssGlobal			= definicaoPasta::tema().'/principal.css';
 		$this->visualizacao->cssEntidade		= definicaoPasta::css($this).'principal.css';
 		$this->visualizacao->cssLocal			= definicaoPasta::css($this).get_class($this).'.css';
+		$this->visualizacao->jsTema				= definicaoPasta::tema().'/configurador.js';
 		$this->visualizacao->jsEntidade			= definicaoPasta::js($this).'principal.js';
 		$this->visualizacao->jsLocal			= definicaoPasta::js($this).get_class($this).'.js';
 	}
