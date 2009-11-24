@@ -26,7 +26,7 @@ class controlePadrao extends controle{
 	*/
 	public function criarVisualizacaoPadrao(){
 		$this->visualizacao = new visualizacaoPadrao($this);
-		$this->visualizacao->nomeLogado			= sessaoSistema::tem('usuario') ? sessaoSistema::pegar('usuario')->valorDescricao() : '';
+		$this->visualizacao->nomeLogado			= sessaoSistema::tem('usuario') ? sessaoSistema::pegar('usuario')->valorDescricao() : 'Visitante';
 		$this->visualizacao->comunicacaoSistema = sessaoSistema::tem('comunicacao') ? new VComunicacao(sessaoSistema::retirar('comunicacao')) : '';
 		$this->visualizacao->requisicaoAjax		= controle::requisicaoAjax();
 		$this->visualizacao->menuPrincipal		= '';
