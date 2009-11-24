@@ -46,7 +46,11 @@ class visualizacaoPadrao extends visualizacao{
         }
 		$this->pagina = $pagina;
 		$this->template_dir = '.';
-		echo $this->pegar(definicaoArquivo::pegarHtmlPadrao());
+		if(definicaoArquivo::pegarHtmlPadrao()) {
+			echo $this->pegar(definicaoArquivo::pegarHtmlPadrao());
+		}else{
+			echo $this->pegar(definicaoPasta::tema().'/pagina.html');
+		}
 	}
 	/**
 	* Executa o processamento e mostra a página
