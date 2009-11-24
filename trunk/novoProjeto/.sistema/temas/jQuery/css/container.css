@@ -1,0 +1,25 @@
+.container0{
+	position:relative;
+	margin:0 auto;
+	width:95%;
+	-moz-border-radius: 6px; -webkit-border-radius: 6px;
+	border: 1px solid #444444;
+	padding:3px 1px 3px 1px;
+	background: #101010 50% 50% repeat;
+	/* background: #222222 url(container2.png) 50% 50% repeat;*/
+}
+.container0 h1{
+	position:relative;
+	top:-18px;
+	padding:0px;
+	text-decoration:none;
+	-moz-border-radius: 6px; -webkit-border-radius: 6px;
+	border: 1px solid #444444;
+	background: #222222 url(theme/images/ui-bg_highlight-soft_35_222222_1x100.png) 50% 50% repeat-x;
+	font-weight: normal;
+	color: #eeeeee;
+	outline: none;
+}
+.container2 h1{
+	top:0px;
+}

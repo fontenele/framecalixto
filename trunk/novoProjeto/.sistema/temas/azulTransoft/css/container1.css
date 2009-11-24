@@ -1,0 +1,41 @@
+div.container1 {
+	margin: 15px;
+	background	: #E7F3FB;
+	border		: 1px solid #069;
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+	z-index: 100;
+}
+div.container1 h1 {
+	background	: #00A url(../imagens/im_tdsupcentro.gif);
+	border-bottom: 1px solid #069;
+	color		: #069;
+	font-size	: 12px;
+	font-weight	: bold;
+	margin		: 0px;
+	padding		: 3px 0px 3px 30px;
+	position: relative;
+	top: 0px;
+}
+div.container1 div.a {
+	width: 20px;
+	height: 20px;
+	/* background: url(../imagens/im_tdlupapesquisa.gif); */
+	position: relative;
+	top: 0px;
+	left: 5px;
+	float: left;
+	z-index: 100;
+}
+
+div.container1 td.campo1 {
+	width: 200px;
+	text-align: right;
+	font-weight: bold;
+}
+div.container1 td.campo2 {
+	padding-left: 5px;
+}
+div.container1 #campoObrigatorio{
+	display:none;
+}

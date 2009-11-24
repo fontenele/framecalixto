@@ -1,0 +1,56 @@
+.bsTabset {
+	BORDER-RIGHT: 2px outset;
+	BORDER-TOP: white 1px solid; 
+	BORDER-LEFT: white 1px solid; 
+}
+.bsTabsetActive {
+	PADDING-RIGHT: 5px; 
+	PADDING-LEFT: 5px; 
+	PADDING-BOTTOM: 2px; 
+	MARGIN-LEFT: -2px; 
+	VERTICAL-ALIGN: middle; 
+	CURSOR: default; 
+	MARGIN-RIGHT: 0px; 
+	PADDING-TOP: 3px; 
+	BORDER-BOTTOM: menu 1px solid; 
+	BACKGROUND-COLOR: menu;
+	
+	
+	background	: #00A url(../../imagens/temaMec/im_tdsupcentro.gif);
+	color		: #000;
+	display		: block;
+	text-decoration: none;
+	
+	
+}
+.bsTabsetInactive {
+	PADDING-RIGHT: 3px; 
+	PADDING-LEFT: 3px; 
+	PADDING-BOTTOM: 0px; 
+	MARGIN-LEFT: 0px; 
+	VERTICAL-ALIGN: bottom; 
+	CURSOR: pointer; 
+	MARGIN-RIGHT: 0px; 
+	PADDING-TOP: 1px; 
+	BORDER-BOTTOM: white 1px solid;
+
+	background	: #00C url(../../imagens/temaMec/im_tdsupcentro.gif);
+	color		: #000;
+	display		: block;
+	text-decoration: none;
+
+
+}
+.tabsetContentDiv {
+	BORDER-RIGHT: 2px outset; 
+	PADDING-RIGHT: 2px; 
+	PADDING-LEFT: 2px; 
+	PADDING-BOTTOM: 2px; 
+	BORDER-LEFT: white 1px solid; 
+	PADDING-TOP: 2px; 
+	BORDER-BOTTOM: 2px outset;
+}
+.tabsetTabsDiv {
+	BORDER-BOTTOM: white 1px solid; 
+	BACKGROUND-COLOR: transparent
+}

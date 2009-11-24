@@ -1,0 +1,31 @@
+.menu3{
+	position:relative;
+	margin:0 auto;
+	width:95%;
+	text-align:right;
+}
+.menu3 ul{
+	margin:10px 0 0 0;
+	padding-bottom:5px;
+	list-style:none;
+}
+.menu3 ul li{
+	display:inline;
+}
+.menu3 ul li a{
+	padding:5px;
+	text-decoration:none;
+	-moz-border-radius: 6px; -webkit-border-radius: 6px;
+	border: 1px solid #444444;
+	background: #222222 url(theme/images/ui-bg_highlight-soft_35_222222_1x100.png) 50% 50% repeat-x;
+	font-weight: normal;
+	color: #eeeeee;
+	outline: none;
+}
+.menu3 ul li a:hover{
+	border: 1px solid #30505f;
+	background: #000000 url(theme/images/ui-bg_glass_33_000000_1x400.png) 50% 50% repeat-x;
+	font-weight: normal;
+	color: #ffffff;
+	outline: none;
+}

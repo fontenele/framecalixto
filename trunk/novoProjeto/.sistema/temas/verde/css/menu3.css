@@ -1,0 +1,33 @@
+#menu_rodape{
+	display:none;
+}
+.menu3 {
+	border:none;
+	margin: 0;
+	font: 9px Arial, sans-serif;
+}
+.menu3 li {
+	list-style: none; 
+	margin: 0;
+	display: inline;
+}
+.menu3 li a {
+	height:1px;
+	padding: 3px 1px; 
+	margin:0;
+	border: 1px solid #586D43; 
+	background: #F4F9F0;
+	text-decoration: none;
+	color: #48662B;
+	font-weight: bold;
+	font-size: 11px;
+}
+.menu3 li a:link {
+}
+.menu3 li a:visited {
+}
+.menu3 li a:hover {
+	background: #E9F3E0;
+	border-color: #48662B;
+	font-weight: bold;
+}

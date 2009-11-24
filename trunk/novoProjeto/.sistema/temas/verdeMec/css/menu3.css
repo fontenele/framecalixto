@@ -1,0 +1,29 @@
+#menu_topo{
+	display:none;
+}
+#menu_rodape{
+	display:none;
+}
+div.menu3 {
+	height: 35px;
+	font-weight: bold;
+}
+div.menu3 ul {
+	clear: both;
+	list-style-type: none;
+}
+div.menu3 ul li {
+	float: left;
+	padding: 0px 0px;
+	z-index:     998;
+}
+div.menu3 ul li a {
+	background	: url('../../imagens/temaMec/im_menufundogradiente.gif');
+	border		: 1px #7ca054 solid;
+	color		: #6c953f;
+	display		: block;
+	float		: left;
+	margin		: 3px 10px;
+	padding		: 1px 5px;
+	text-decoration: none;
+}
