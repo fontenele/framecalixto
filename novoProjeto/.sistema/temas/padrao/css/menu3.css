@@ -1,0 +1,20 @@
+div.menu3 {
+	height: 20px;
+	font-family: Lucida, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	z-index: 0;
+	background-color:#111111;
+}
+div.menu3 ul {
+	list-style-type: none;
+}
+div.menu3 ul li {
+	float: left;
+	padding: 2px 10px;
+}
+div.menu3 ul li a {
+	text-decoration: none;
+	color: #999;
+}
+

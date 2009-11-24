@@ -1,0 +1,13 @@
+.comunicacao {
+	margin: 0px;
+	background	: #FFFFFF;
+	/*border		: 1px solid #069; */
+	font-size : 12px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	text-align: center;
+	color: #AA0000;
+    font-family: Geneva,Arial,Helvetica,sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+}

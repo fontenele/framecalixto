@@ -1,0 +1,37 @@
+div.container0 {
+	margin: 15px;
+	background	: #FFFFFF;
+	border		: 1px solid #C0C0C0;
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+	z-index: 100;
+}
+div.container0 h1 {
+	background	: #FFFFFF url(../../imagens/temaSGT/im_tdsupcentro.gifS);
+	border-bottom: 1px solid #C0C0C0;
+	color		: #555;
+	font-size	: 12px;
+	font-weight	: bold;
+	margin		: 0px;
+	padding		: 3px 0px 3px 30px;
+	position: relative;
+	top: 0px;
+}
+div.container0 div.a {
+	width: 20px;
+	height: 20px;
+	position: relative;
+	top: 0px;
+	left: 5px;
+	float: left;
+	z-index: 100;
+}
+
+div.container0 td.campo1 {
+	width: 200px;
+	text-align: right;
+	font-weight: bold;
+}
+div.container0 td.campo2 {
+	padding-left: 5px;
+}
