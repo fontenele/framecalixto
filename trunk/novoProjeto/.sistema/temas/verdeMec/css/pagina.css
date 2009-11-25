@@ -8,14 +8,14 @@ body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	background-color:#fafff3;
-	background-image: url(../../imagens/temaMec/bg_site.jpg);
+	background-image: url(../imagens/temaMec/bg_site.jpg);
 	background-repeat: no-repeat;
 	background-position: left top;
 }
 
 
 h5 {
-	background-image: url(../../imagens/temaMec/bg_topo.jpg);
+	background-image: url(../imagens/temaMec/bg_topo.jpg);
 	background-repeat: repeat-x;
 	background-position: left top;
 	height: 50px;
@@ -38,5 +38,5 @@ _padding-top: 6px;
 	text-transform:uppercase;
 	color:#006600;
 	background-color: #fff;
-	background-image: url(../../imagens/temaMec/im_menufundogradiente.gif);
+	background-image: url(../imagens/temaMec/im_menufundogradiente.gif);
 }

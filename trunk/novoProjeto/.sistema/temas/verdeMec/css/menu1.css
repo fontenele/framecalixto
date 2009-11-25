@@ -1,6 +1,6 @@
 /*
 div.menu1 {
-	background: #ccc url(../../imagens/temaMec/im_fundoMenuNavegacao.png);
+	background: #ccc url(../imagens/temaMec/im_fundoMenuNavegacao.png);
 	border-bottom: 20px solid #F5F5F5;
 	height: 20px;
 	font-family: Lucida, Verdana;
@@ -24,7 +24,7 @@ RAUL
 
 div.menu1
 {
-	background:url('../../imagens/temaMec/im_fundoMenuNavegacao.png') repeat-x top left;
+	background:url('../imagens/temaMec/im_fundoMenuNavegacao.png') repeat-x top left;
 	border-top:1px solid #82a060;
 	border-bottom:1px solid #82a060;
 	background-color:#00CC00;

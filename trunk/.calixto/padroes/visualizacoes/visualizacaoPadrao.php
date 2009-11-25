@@ -38,7 +38,18 @@ class visualizacaoPadrao extends visualizacao{
                 $pagina = $this->pegar($pagina);
             break;
             default:
-    			$pagina = $this->pegar($this->controle.'.html');
+				if(is_file($this->template_dir.$this->controle.'.html')){
+	    			$pagina = $this->pegar($this->controle.'.html');
+				}else{
+					if (preg_match('/(.*)(_verEdicao|_verPesquisa)$/', $this->controle, $resultado)) {
+						$this->template_dir = definicaoPasta::tema();
+						if($resultado[2] == '_verEdicao'){
+							$pagina = $this->pegar('controlePadrao_verEdicao.html');
+						}else{
+							$pagina = $this->pegar('controlePadrao_verPesquisa.html');
+						}
+					}
+				}
         }
         if(controle::requisicaoAjax()) {
             echo $pagina;

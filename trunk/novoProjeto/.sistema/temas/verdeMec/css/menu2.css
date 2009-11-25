@@ -1,6 +1,6 @@
 div.menu2
 {
-	background:    url('../../imagens/temaMec/im_fundoMenuNavegacao.png') repeat-x top left;
+	background:    url('../imagens/temaMec/im_fundoMenuNavegacao.png') repeat-x top left;
 	border-top:    1px solid #d7e0cc;
 	border-bottom: 1px solid #d7e0cc;
 	float:         left;
@@ -82,7 +82,7 @@ div.menu2 ul li:hover ul.endstop { left:-92px; }
 div.menu2 ul li:hover ul li ul { display: none; }
 div.menu2 ul li:hover ul li a{
 	background:    #69C;
-	background: #fff url('../../imagens/temaMec/im_fundomenunavegacao1a.gif');
+	background: #fff url('../imagens/temaMec/im_fundomenunavegacao1a.gif');
 	border:        1px solid #fff;
 	border-bottom: 1px solid #eee;
 	color:         #000;
@@ -131,7 +131,7 @@ div.menu2 ul li a:hover ul li a:hover ul.left {
 }
 
 div.menu2 {
-	background: #fff url('../../imagens/temaMec/im_fundomenunavegacao1.gif');
+	background: #fff url('../imagens/temaMec/im_fundomenunavegacao1.gif');
 	height: 23px;
 	font-family: Lucida, Verdana;
 	font-size: 12px;
@@ -147,7 +147,7 @@ div.menu2 ul li {
 }
 
 div.menu2 ul li a {
-	background: #fff url('../../imagens/temaMec/im_fundomenunavegacao1.gif');
+	background: #fff url('../imagens/temaMec/im_fundomenunavegacao1.gif');
 	border		: 1px #69C solid;
 	color		: #000;
 	display		: block;

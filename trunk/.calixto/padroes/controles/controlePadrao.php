@@ -338,7 +338,6 @@ class controlePadrao extends controle{
 	*/
 	public static function montarApresentacaoEdicao(negocio $negocio, visualizacao $visualizacao){
 		$estrutura = controlePadrao::pegarEstrutura($negocio);
-		$visualizacao->_tpl_vars['componentes padroes'] = array();
 		foreach($estrutura['campos'] as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
 			$valor = $negocio->$pegarPropriedade();
@@ -366,7 +365,7 @@ class controlePadrao extends controle{
 						$visualizacao->$nome->passarSize(($opcoes['tamanho'] + 2));
 					}
 				}
-				$visualizacao->_tpl_vars['componentes padroes'][] = $visualizacao->$nome;
+				if($nome != $negocio->nomeChave()) $visualizacao->_tpl_vars['componentes padroes'][] = $visualizacao->$nome;
 			}
 		}
 		$visualizacao->enviar = VComponente::montar('enviar','enviar', $negocio->pegarInter()->pegarTexto('enviar'));

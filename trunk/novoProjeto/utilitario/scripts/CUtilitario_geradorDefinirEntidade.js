@@ -220,7 +220,7 @@ $(document).ready( function() {
 		if($('#entidade').val()){
 			nome = $('#entidade').val().lowerCamelCase();
 			nomeClasse = $('#entidade').val().upperCamelCase();
-			arquivos = new Array(
+			classes = new Array(
 				 nome + '/classes/C' + nomeClasse + '_excluir.php',
 				 nome + '/classes/C' + nomeClasse + '_gravar.php',
 				 nome + '/classes/C' + nomeClasse + '_mudarPagina.php',
@@ -231,21 +231,30 @@ $(document).ready( function() {
 				 nome + '/classes/N' + nomeClasse + '.php',
 				 nome + '/classes/P' + nomeClasse + '.mysql.php',
 				 nome + '/classes/P' + nomeClasse + '.postgres.php',
-				 nome + '/classes/P' + nomeClasse + '.oracle.php',
-				 nome + '/xml/entidade.xml',
-				 nome + '/xml/pt_BR.xml',
+				 nome + '/classes/P' + nomeClasse + '.oracle.php'
+			);
+			templates = new Array(
 				 nome + '/html/C' + nomeClasse + '_verEdicao.html',
 				 nome + '/html/C' + nomeClasse + '_verPesquisa.html'
 			);
-			for(i in arquivos){
-				arquivo = arquivos[i];
-				template =
-					'<tr class="arquivo" >' +
-						'<td><input tabindex="1" type="checkbox" value="'+arquivo+'" name="arquivo['+arquivo+']"/></td>' +
-						'<td>'+ arquivo +'"</td>' +
-					'</tr>';
-				$('#arq tr:last').after(template);
+			xml = new Array(
+				 nome + '/xml/entidade.xml',
+				 nome + '/xml/pt_BR.xml'
+			);
+			montarArquivos = function(arArquivos,classe){
+				for(i in arArquivos){
+					arquivo = arArquivos[i];
+					template =
+						'<tr class="arquivo '+classe+'" >' +
+							'<td><input tabindex="1" type="checkbox" value="'+arquivo+'" name="arquivo['+arquivo+']"/></td>' +
+							'<td>'+ arquivo +'"</td>' +
+						'</tr>';
+					$('#arq tr:last').after(template);
+				}
 			}
+			montarArquivos(classes,'classes');
+			montarArquivos(templates,'templates');
+			montarArquivos(xml,'xml');
 		}
 	});
 	$('#sugerirNomeTabela').click(function(){
@@ -268,6 +277,21 @@ $(document).ready( function() {
 		$('.arquivo input[type="checkbox"]').attr('checked','checked');
 	},function(){
 		$('.arquivo input[type="checkbox"]').attr('checked','');
+	});
+	$('#gerarClasses').toggle(function(){
+		$('.classes input[type="checkbox"]').attr('checked','checked');
+	},function(){
+		$('.classes input[type="checkbox"]').attr('checked','');
+	});
+	$('#gerarTemplates').toggle(function(){
+		$('.templates input[type="checkbox"]').attr('checked','checked');
+	},function(){
+		$('.templates input[type="checkbox"]').attr('checked','');
+	});
+	$('#gerarXml').toggle(function(){
+		$('.xml input[type="checkbox"]').attr('checked','checked');
+	},function(){
+		$('.xml input[type="checkbox"]').attr('checked','');
 	});
 	$('#sugerirComponentes').click(function(){
 		$('.tipo').each(function(){

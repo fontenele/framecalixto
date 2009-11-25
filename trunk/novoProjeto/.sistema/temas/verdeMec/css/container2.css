@@ -6,7 +6,7 @@ div.container2 {
 	padding-bottom: 20px;
 }
 div.container2 h1 {
-	background	: #00A url(../../imagens/temaMec/im_tdsupcentro.gif);
+	background	: #00A url(../imagens/temaMec/im_tdsupcentro.gif);
 	border-bottom: 1px solid #588240;
 	font-size:18px;
 	color:#588240;
@@ -17,7 +17,7 @@ div.container2 h1 {
 	top: 0px;
 }
 div.container2 div.a {
-	/*background: url(../../imagens/temaMec/im_tdlupapesquisa.gif);*/
+	/*background: url(../imagens/temaMec/im_tdlupapesquisa.gif);*/
 	position: relative;
 	top: 0px;
 	left: 5px;
