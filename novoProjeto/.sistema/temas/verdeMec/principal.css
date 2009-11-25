@@ -48,7 +48,7 @@ button{
 	BACKGROUND-COLOR: menu;
 
 
-	background	: #00A url(../../imagens/temaMec/im_tdsupcentro.gif);
+	background	: #00A url(imagens/temaMec/im_tdsupcentro.gif);
 	color		: #000;
 	display		: block;
 	text-decoration: none;
@@ -62,14 +62,23 @@ button{
 	font-size: 16px;
 }
 h5.h5_hmg {
-	background-image:url(../../imagens/bg_topo_hmg.jpg);
+	background-image:url(imagens/bg_topo_hmg.jpg);
 }
 
 h5.h5_dev {
-	background-image:url(../../imagens/bg_topo_dev.jpg);
+	background-image:url(imagens/bg_topo_dev.jpg);
 }
 .opcoesSistema{
 	float:right;
 	position:relative;
 	top:90px;
+}
+body{
+	padding:0;
+}
+label{
+	float:left;
+	width:100px;
+	padding:0 1em;
+	text-align:right;
 }

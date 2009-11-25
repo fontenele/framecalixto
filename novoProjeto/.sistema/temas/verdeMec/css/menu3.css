@@ -18,7 +18,7 @@ div.menu3 ul li {
 	z-index:     998;
 }
 div.menu3 ul li a {
-	background	: url('../../imagens/temaMec/im_menufundogradiente.gif');
+	background	: url('../imagens/temaMec/im_menufundogradiente.gif');
 	border		: 1px #7ca054 solid;
 	color		: #6c953f;
 	display		: block;

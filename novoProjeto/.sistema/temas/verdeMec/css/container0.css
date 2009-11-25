@@ -7,7 +7,7 @@ div.container0 {
 	z-index: 100;
 }
 div.container0 h1 {
-	background	:  url(../../imagens/temaMec/im_tdsupcentro.gif);
+	background	:  url(../imagens/temaMec/im_tdsupcentro.gif);
 	border-bottom: 1px solid #069;
 	color		: #588240;
 	font-weight	: bold;
@@ -19,7 +19,7 @@ div.container0 h1 {
 div.container0 div.a {
 	width: 20px;
 	height: 20px;
-	/* background: url(../../imagens/temaMec/im_tdlupapesquisa.gif); */
+	/* background: url(../imagens/temaMec/im_tdlupapesquisa.gif); */
 	position: relative;
 	top: 0px;
 	left: 5px;
