@@ -11,14 +11,14 @@
 	<h1 class="titulo">&nbsp;</h1>
 	<div class="texto">
 		«ldelim»$«$chaveNegocio»«rdelim»
-		<table summary="text" class="tabela2">
+		<div class="tabela2">
 «foreach from=$nomes key=indice item=propriedade »
 			<div class="campo">
 				<label for="«$propriedade»">«ldelim»$«$indice»«rdelim»:</label>
 				<span>«ldelim»$«$propriedade»«rdelim»</span>
 			</div>
 «/foreach»
-		</table>
+		</div>
         <div id='menu_corpo'>
             «ldelim»$menuPrograma«rdelim»
         </div>

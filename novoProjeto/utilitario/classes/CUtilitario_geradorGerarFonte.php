@@ -37,7 +37,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		if(!is_dir("{$this->nomeEntidade}/html"))
 			mkdir("{$this->nomeEntidade}/html",0777);
 		umask(0111);
-		$this->visualizacao->entidade = "[{$this->entidade['entidade']}]";
+		$this->visualizacao->entidade = "{$this->entidade['entidade']}";
 		$this->visualizacao->pacote = "{$this->entidade['entidade']}";
 		$this->visualizacao->classe = 'class';
 		$this->montarArquivoDefinicaoXML();
@@ -64,8 +64,8 @@ class CUtilitario_geradorGerarFonte extends controle{
 	}
 	/**
 	* Escreve o arquivo com o conteudo passado
-	* @param [string] caminho do arquivo a ser escrito
-	* @param [string] conteudo do arquivo a ser escrito
+	* @param string caminho do arquivo a ser escrito
+	* @param string conteudo do arquivo a ser escrito
 	*/
 	protected function escreverArquivo($caminho,$conteudo){
 		$caminho = caracteres::RetiraAcentos($caminho);
@@ -186,10 +186,27 @@ class CUtilitario_geradorGerarFonte extends controle{
 	* Monta a classe de negocio
 	*/
 	function montarNegocio(){
+		$arTipos['texto'] = 'string';
+		$arTipos['numerico'] = 'integer';
+		$arTipos['data'] = 'TData';
+		$arTipos['tdocumentopessoal'] = 'TDocumentoPessoal';
+		$arTipos['tcnpj'] = 'TCnpj';
+		$arTipos['tcep'] = 'TCep';
+		$arTipos['ttelefone'] = 'TTelefone';
+		$arTipos['tnumerico'] = 'TNumerico';
+		$arTipos['tmoeda'] = 'TMoeda';
+		$arTiposEntidade = array();
+		foreach($this->entidade['ng_tipo'] as $indice => $tipo){
+			if(isset($arTipos[$tipo])) {
+				$arTiposEntidade[$indice] = $arTipos[$tipo];
+			}else{
+				$arTiposEntidade[$indice] = $tipo;
+			}
+		}
 		$this->visualizacao->nomes = $this->entidade['ng_nome'];
 		$this->visualizacao->chave = $this->entidade['ng_nome'][$this->entidade['ng_chave_pk']];
 		$this->visualizacao->nomesPropriedades = $this->entidade['en_nome'];
-		$this->visualizacao->tipos = $this->entidade['ng_tipo'];
+		$this->visualizacao->tipos = $arTiposEntidade;
 		$this->visualizacao->negocioNome = $this->nomeNegocio;
 		$this->escreverArquivo("{$this->nomeEntidade}/classes/{$this->nomeNegocio}.php",$this->visualizacao->pegar('classesNegocio.html'));
 	}

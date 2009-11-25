@@ -7,64 +7,64 @@
 */
 class NPessoa extends negocioPadrao{
 	/**
-	* @var [numerico] Id Pessoa
+	* @var integer Id Pessoa
 	*/
 	public $idPessoa;
 	/**
-	* @var [texto] Cs Pessoa
+	* @var string Cs Pessoa
 	*/
 	public $csPessoa;
 	/**
-	* @var [texto] Nm Pessoa
+	* @var string Nm Pessoa
 	*/
 	public $nmPessoa;
 	/**
-	* @var [texto] Documento
+	* @var string Documento
 	*/
 	public $documento;
 	/**
-	* @var [texto] Código de endeçamento postal
+	* @var string Código de endeçamento postal
 	*/
 	public $cep;
 	/**
-	* @var [texto] Telefone
+	* @var string Telefone
 	*/
 	public $telefone;
 	/**
-	* @var [texto] Telefone
+	* @var string Telefone
 	*/
 	public $telefone2;
 	/**
-	* @var [texto] Telefone
+	* @var string Telefone
 	*/
 	public $telefone3;
 	/**
-	* @var [numerico] Estado
+	* @var integer Estado
 	*/
 	public $estado;
 	/**
-	* @var [texto] Município
+	* @var string Município
 	*/
 	public $municipio;
 	/**
-	* @var [texto] Bairro
+	* @var string Bairro
 	*/
 	public $bairro;
 	/**
-	* @var [texto] Endereço
+	* @var string Endereço
 	*/
 	public $endereco;
 	/**
-	* @var [texto] Email
+	* @var string Email
 	*/
 	public $email;
 	/**
-	* @var [texto] Site
+	* @var string Site
 	*/
 	public $site;
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string]
+	* @return string
 	*/
 	function nomeChave(){ return 'idPessoa'; }
 	/**
@@ -79,7 +79,7 @@ class NPessoa extends negocioPadrao{
 	}
 	/**
 	* Método que retorna o número do documento da pessoa
-	* @return [TDocumentoPessoal]
+	* @return TDocumentoPessoal
 	*/
 	public function pegarDocumento(){
 		if($this->documento instanceof TDocumentoPessoal){
@@ -89,7 +89,7 @@ class NPessoa extends negocioPadrao{
 	}
 	/**
 	* Retorna uma coleção com os colaboradores do sistema
-	* @return [colecao]
+	* @return colecaoPadraoNegocio
 	*/
 	function lerColaboradores(){
 		$nPessoa = new NPessoa();
@@ -98,7 +98,7 @@ class NPessoa extends negocioPadrao{
 	}
 	/**
 	* Retorna uma coleção com os colaboradores do sistema
-	* @return [colecao]
+	* @return colecaoPadraoNegocio
 	*/
 	function lerEmpresasInternas(){
 		$nPessoa = new NPessoa();

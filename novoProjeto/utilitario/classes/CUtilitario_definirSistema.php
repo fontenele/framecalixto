@@ -27,8 +27,8 @@ class CUtilitario_definirSistema extends controle{
 	}
 	/**
 	* Escreve o arquivo com o conteudo passado
-	* @param [string] caminho do arquivo a ser escrito
-	* @param [string] conteudo do arquivo a ser escrito
+	* @param string caminho do arquivo a ser escrito
+	* @param string conteudo do arquivo a ser escrito
 	*/
 	protected function escreverArquivo($caminho,$conteudo){
 		$caminho = caracteres::RetiraAcentos($caminho);

@@ -27,7 +27,7 @@ class CControleAcesso_verLogin extends controlePadrao{
 	}
 	/**
 	* Método de validação do controle de acesso
-	* @return [booleano] resultado da validação
+	* @return boolean resultado da validação
 	*/
 	public function validarAcessoAoControle(){
 		return true;

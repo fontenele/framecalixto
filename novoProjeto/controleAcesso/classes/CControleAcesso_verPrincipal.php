@@ -8,14 +8,14 @@
 class CControleAcesso_verPrincipal extends controlePadraoLiberado {
 	/**
 	* Preenche os itens da propriedade menuPrincipal
-	* @return [array] itens do menu principal
+	* @return array itens do menu principal
 	*/
 	public function montarMenuPrincipal(){
 		return controlePadrao::montarMenuPrincipal();
 	}
 	/**
 	* Preenche os itens da propriedade menuModulo
-	* @return [array] itens do menu do modulo
+	* @return array itens do menu do modulo
 	*/
 	public function montarMenuModulo(){
 		return controlePadrao::montarMenuModulo();

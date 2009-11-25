@@ -8,8 +8,8 @@
 class CPerfil_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 	/**
 	* metodo de apresentação do negocio
-	* @param [negocio] objeto para a apresentação
-	* @param [string] tipo de visualização a ser utilizada 'edicao' ou 'visual'
+	* @param negocio objeto para a apresentação
+	* @param string tipo de visualização a ser utilizada 'edicao' ou 'visual'
 	*/
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		if($negocio->valorChave()) {$negocio->carregarAcessos();}

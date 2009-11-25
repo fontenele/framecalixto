@@ -7,20 +7,20 @@
 */
 class NUsuarioPerfil extends negocioPadrao{
 	/**
-	* @var [numerico] Identificador
+	* @var integer Identificador
 	*/
 	public $idUsuarioPerfil;
 	/**
-	* @var [numerico] Usuário
+	* @var integer Usuário
 	*/
 	public $idUsuario;
 	/**
-	* @var [numerico] Perfil
+	* @var integer Perfil
 	*/
 	public $idPerfil;
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string]
+	* @return string
 	*/
 	function nomeChave(){ return 'idUsuarioPerfil'; }
 }
