@@ -7,19 +7,19 @@
 */
 class controlePadraoListagem extends controlePadrao{
 	/**
-	* @var [controle] Utilizado para linkar os endereços e paginaçoes
+	* @var controle Utilizado para linkar os endereços e paginaçoes
 	*/
 	public $controle;
 	/**
-	* @var [pagina] Utilizada para listagem dos dados
+	* @var pagina Utilizada para listagem dos dados
 	*/
 	public $pagina;
 	/**
-	* @var [colecao] Utilizada para listagem dos dados
+	* @var colecao Utilizada para listagem dos dados
 	*/
 	public $colecao;
 	/**
-	* @var [vetor] Utilizado para definição dos campos da listagem
+	* @var array Utilizado para definição dos campos da listagem
 	*/
 	public $campos;
 	/**
@@ -41,18 +41,18 @@ class controlePadraoListagem extends controlePadrao{
 	public function criarInternacionalizacaoPadrao(){}
 	/**
 	* Método de validação do controle de acesso
-	* @return [booleano] resultado da validação
+	* @return boolean resultado da validação
 	*/
 	public function validarAcessoAoControle(){
 		return true;
 	}
 	/**
 	* Método de adição de um campo a listagem
-	* @param [string] título do campo
-	* @param [string] nome da propriedade da classe de negócio a ser listada na coluna
-	* @param [string] tamanho ou largura da coluna
-	* @param [string] alinhamento da coluna
-	* @param [numerico] posição ou ordem de apresentação da coluna
+	* @param string título do campo
+	* @param string nome da propriedade da classe de negócio a ser listada na coluna
+	* @param string tamanho ou largura da coluna
+	* @param string alinhamento da coluna
+	* @param integer posição ou ordem de apresentação da coluna
 	*/
 	function adicionarColuna($titulo, $campo, $tamanho = null, $alinhamento = null,$posicao = null){
 		switch(strtolower($alinhamento)){
@@ -75,11 +75,11 @@ class controlePadraoListagem extends controlePadrao{
 	}
 	/**
 	* Método de adição de um campo a listagem
-	* @param [string] título do campo
-	* @param [string] nome da propriedade da classe de negócio a ser listada na coluna
-	* @param [string] tamanho ou largura da coluna
-	* @param [string] alinhamento da coluna
-	* @param [numerico] posição ou ordem de apresentação da coluna
+	* @param string título do campo
+	* @param string nome da propriedade da classe de negócio a ser listada na coluna
+	* @param string tamanho ou largura da coluna
+	* @param string alinhamento da coluna
+	* @param integer posição ou ordem de apresentação da coluna
 	*/
 	function adicionarColunaLink($titulo, $campo, $tamanho = null, $alinhamento = null,$posicao = null){
 		switch(strtolower($alinhamento)){
@@ -95,11 +95,11 @@ class controlePadraoListagem extends controlePadrao{
 	}
 	/**
 	* Método de adição de um campo personalizado a listagem
-	* @param [string] título do campo
-	* @param [string] nome do metodo da classe de listagem que será executado para ser listado na coluna
-	* @param [string] tamanho ou largura da coluna
-	* @param [string] alinhamento da coluna
-	* @param [numerico] posição ou ordem de apresentação da coluna
+	* @param string título do campo
+	* @param string nome do metodo da classe de listagem que será executado para ser listado na coluna
+	* @param string tamanho ou largura da coluna
+	* @param string alinhamento da coluna
+	* @param integer posição ou ordem de apresentação da coluna
 	*/
 	function adicionarColunaPersonalizada($titulo, $campo, $tamanho = null, $alinhamento = null,$posicao = null){
 		switch(strtolower($alinhamento)){
@@ -143,7 +143,7 @@ class controlePadraoListagem extends controlePadrao{
 	}
 	/**
 	* Montar listagem
-	* @return [string] retorno da listagem
+	* @return string retorno da listagem
 	*/
 	function montarListagem(){
 		if(!$this->colecao->possuiItens()){
@@ -254,8 +254,8 @@ class controlePadraoListagem extends controlePadrao{
 	}
 	/**
 	* Método de abertura da linha da listagem
-	* @param [mixed] item a ser apresentado na listagem
-	* @param [numerico] número da linha a ser apresentada
+	* @param mixed item a ser apresentado na listagem
+	* @param integer número da linha a ser apresentada
 	*/
 	public function abrirLinha($item,$nrLinha){
 		if($nrLinha%2){
@@ -266,7 +266,7 @@ class controlePadraoListagem extends controlePadrao{
 	}
 	/**
 	* Monta o paginador da listagem
-	* @return [string] paginador da listagem
+	* @return string paginador da listagem
 	*/
 	public function montarPaginador(){
 		$retorno = '';
@@ -321,7 +321,7 @@ class controlePadraoListagem extends controlePadrao{
 	}
 	/**
 	* Método de sobrecarga para printar a classe
-	* @return [string] texto de saída da classe
+	* @return string texto de saída da classe
 	*/
 	function __toString(){
 		try{

@@ -22,11 +22,11 @@ class VMenu extends objeto{
 	*/
 	public $_imagem;
 	/**
-	* @var [in] indice de tabulação do menu
+	* @var integer indice de tabulação do menu
 	*/
 	public $_tabIndex;
 	/**
-	* @var [string] classe de CSS do menu
+	* @var string classe de CSS do menu
 	*/
 	public $_classe;
 	/**
@@ -35,9 +35,9 @@ class VMenu extends objeto{
 	public $_coMenu;
 	/**
 	* Método construtor
-	* @var [array] valores do menu
-	* @var [string] classe de CSS do menu
-	* @var [in] indice de tabulação do menu
+	* @var array valores do menu
+	* @var string classe de CSS do menu
+	* @var integer indice de tabulação do menu
 	*/
 	function __construct($nome,$link = null,$imagem = null){
 		$this->_coMenu = new colecaoPadraoMenu();
@@ -94,16 +94,16 @@ class VMenu extends objeto{
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	function __set($variavel, $parametros){
 		$this->_coMenu->$variavel = $parametros;
     }
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos
-	* @param [string] metodo chamado
-	* @param [array] parâmetros parassados para o método chamado
+	* @param string metodo chamado
+	* @param array parâmetros parassados para o método chamado
 	*/
 	function __get($variavel){
 		return $this->_coMenu->$variavel;
