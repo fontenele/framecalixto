@@ -30,24 +30,16 @@ class VMenu extends objeto{
 	*/
 	public $_classe;
 	/**
-	* @var string titulo do menu
-	*/
-	public $_title;
-	/**
 	* @var colecao itens do menu
 	*/
 	public $_coMenu;
-	/**
-	* @var target do link
-	*/
-	public $_target;
 	/**
 	* Método construtor
 	* @var array valores do menu
 	* @var string classe de CSS do menu
 	* @var integer indice de tabulação do menu
 	*/
-	function __construct($nome,$link = null,$imagem = null,$target = null){
+	function __construct($nome,$link = null,$imagem = null){
 		$this->_coMenu = new colecaoPadraoMenu();
 		if(is_array($nome)){
 			$this->montarSubMenus($nome);
@@ -55,7 +47,6 @@ class VMenu extends objeto{
 			$this->_nome = $nome;
 			$this->_imagem = $imagem;
 			$this->_link = $link;
-			$this->_target = $target;
 		}
 	}
 	/**
@@ -84,36 +75,21 @@ class VMenu extends objeto{
 	/**
 	* Método de apresentação da classe como string
 	*/
-	public function __toString( )
-	{
+	public function __toString(){
 		$this->_nome = $this->_nome ? $this->_nome : 'não informado';
 		$this->_tabIndex = $this->_tabIndex ? $this->_tabIndex : 9999;
-		$imagem = !$this->_imagem ? null : "<img src='{$this->_imagem}' style='border:0px; vertical-align:bottom;' />";
-		
-		if( $this->_coMenu->possuiItens( ) )
-		{
-			$menu = "<li class='menuItem'><span class='menuTitulo'>{$this->_nome}</span>";
-			$menu.= "\n\n<ul><li>{$this->_coMenu}</li></ul>";
-			$menu.= "</li>";
-		}else{
-			if( !$this->_link ){ return ''; }
-			$target = $this->_target ? "target='{$this->_target}' " : "";
-            $id = $this->_id ? "id='{$this->_id}' " : '';
-			$title = $this->_title ? "title='{$this->_title}' " : '';
-			$class = $this->_classe ? "class='{$this->_classe}' " : '';
-			$menu =  "<li {$id}{$class}{$title} ><a href='{$this->_link}' tabindex='{$this->_tabIndex}' {$target}>{$imagem} {$this->_nome}</a></li>\n";
-		}
-		
-		/*if($this->_coMenu->possuiItens()){
-			$menu  = "<li><a href=\"#\">{$imagem}<strong>{$this->_nome}...</strong>\n<!--[if IE 7]><!--></a><!--<![endif]-->\n";
-			$menu .= "<table summary='text' ><tr><td>".$this->_coMenu."</td></tr></table>";
-			$menu .= "\n<!--[if lte IE 6]></a><![endif]-->\n</li>\n";
+		$imagem = !$this->_imagem ? null : "<img src='{$this->_imagem}' style='border:0px; vertical-align:bottom;' /> ";
+		if($this->_coMenu->possuiItens()){
+			$menu  = "<li class='{$this->_classe}' ><a href=\"#\">{$imagem}{$this->_nome}</a>\n";
+			$menu .= $this->_coMenu;
+			$menu .= "\n</li>\n";
 		}else{
 			if(!$this->_link)	return '';
-			$target = $this->_target ? "target='{$this->_target}'" : "";
-			$menu =  "<li id='{$this->_id}'><a href='{$this->_link}' tabindex='{$this->_tabIndex}' {$target}>{$imagem} {$this->_nome}</a></li>\n";
-		}*/
-		
+			$classe = $this->_classe ? " class='{$this->_classe}'" : null;
+			$id = $this->_id ? " id='{$this->_id}'" : null;
+			$tabindex = $this->_tabIndex ? " tabindex='{$this->_tabIndex}'" : null;
+			$menu =  "<li{$classe}><a href='{$this->_link}'>{$imagem}{$this->_nome}</a></li>\n";
+		}
 		return $menu;
 	}
 	/**

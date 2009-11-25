@@ -31,11 +31,11 @@ class visualizacaoPadrao extends visualizacao{
 	*/
 	function mostrar($pagina = null){
         switch(true){
-            case $this->template:
-                $pagina = $this->pegar($this->template.'.html');
-            break;
             case $pagina:
                 $pagina = $this->pegar($pagina);
+            break;
+            case $this->template:
+                $pagina = $this->pegar($this->template.'.html');
             break;
             default:
 				if(is_file($this->template_dir.$this->controle.'.html')){
@@ -44,10 +44,15 @@ class visualizacaoPadrao extends visualizacao{
 					if (preg_match('/(.*)(_verEdicao|_verPesquisa)$/', $this->controle, $resultado)) {
 						$this->template_dir = definicaoPasta::tema();
 						if($resultado[2] == '_verEdicao'){
-							$pagina = $this->pegar('controlePadrao_verEdicao.html');
+							if(is_file($this->template_dir.'controlePadrao_verEdicao.html'))
+								$pagina = $this->pegar('controlePadrao_verEdicao.html');
 						}else{
-							$pagina = $this->pegar('controlePadrao_verPesquisa.html');
+							if(is_file($this->template_dir.'controlePadrao_verPesquisa.html'))
+								$pagina = $this->pegar('controlePadrao_verPesquisa.html');
 						}
+					}
+					if(!$pagina){
+						throw new erroInclusao("Template não encontrado! ./{$this->template_dir}{$this->controle}.html");
 					}
 				}
         }
