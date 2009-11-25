@@ -7,16 +7,16 @@
 */
 class NControleAcesso extends negocio{
 	/**
-	* @var [string] login de acesso ao sistema
+	* @var string login de acesso ao sistema
 	*/
 	public $login;
 	/**
-	* @var [string] senha de acesso ao sistema
+	* @var string senha de acesso ao sistema
 	*/
 	public $senha;
 	/**
 	* Método criado para efetuar a validação de acesso a um controle do sistema
-	* @param [string] nome do controle acessado
+	* @param string nome do controle acessado
 	*/
 	public static function validarAcesso($controleAcessado){
 		try{

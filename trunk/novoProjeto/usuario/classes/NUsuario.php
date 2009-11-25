@@ -7,19 +7,19 @@
 */
 class NUsuario extends negocioPadrao{
 	/**
-	* @var [numerico] Pessoa
+	* @var integer Pessoa
 	*/
 	public $idPessoa;
 	/**
-	* @var [numerico] Identificador
+	* @var integer Identificador
 	*/
 	public $idUsuario;
 	/**
-	* @var [texto] Login
+	* @var string Login
 	*/
 	public $login;
 	/**
-	* @var [texto] Senha
+	* @var string Senha
 	*/
 	protected $senha;
 	/**
@@ -29,7 +29,7 @@ class NUsuario extends negocioPadrao{
 	public $coPerfis;
 	/**
 	* Metodo construtor
-	* @param [conexao] (opcional) conexão com o banco de dados
+	* @param conexao (opcional) conexão com o banco de dados
 	*/
 	public function __construct($conexao = null){
 		parent::__construct($conexao);
@@ -38,7 +38,7 @@ class NUsuario extends negocioPadrao{
 	}
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string]
+	* @return string
 	*/
 	function nomeChave(){ return 'idUsuario'; }
 	/**
@@ -59,7 +59,7 @@ class NUsuario extends negocioPadrao{
 	}
 	/**
 	* Executa o comando de gravação do objeto
-	* @param [boleano] caso verdadeiro irá incluir com a chave de negócio passada caso falso irá verificar, se foi passada a chave irá alterar senão irá incluir
+	* @param boolean caso verdadeiro irá incluir com a chave de negócio passada caso falso irá verificar, se foi passada a chave irá alterar senão irá incluir
 	*/
 	public function gravar($gravarComChavePassada = false){
 		try{

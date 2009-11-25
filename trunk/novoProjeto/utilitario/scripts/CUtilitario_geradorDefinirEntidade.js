@@ -264,8 +264,10 @@ $(document).ready( function() {
 			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .propriedade').val($(this).val().lowerCamelCase());
 		});
 	});
-	$('#gerarArquivos').click(function(){
+	$('#gerarArquivos').toggle(function(){
 		$('.arquivo input[type="checkbox"]').attr('checked','checked');
+	},function(){
+		$('.arquivo input[type="checkbox"]').attr('checked','');
 	});
 	$('#sugerirComponentes').click(function(){
 		$('.tipo').each(function(){

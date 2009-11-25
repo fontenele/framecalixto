@@ -7,32 +7,32 @@
 */
 class NAcesso extends negocioPadrao{
 	/**
-	* @var [numerico] Identificador do acesso
+	* @var integer Identificador do acesso
 	*/
 	public $idAcesso;
 	/**
-	* @var [numerico] Identificador do perfil
+	* @var integer Identificador do perfil
 	*/
 	public $idPerfil;
 	/**
-	* @var [numerico] Identificador do usuário
+	* @var integer Identificador do usuário
 	*/
 	public $idUsuario;
 	/**
-	* @var [texto] Nome do Acesso
+	* @var string Nome do Acesso
 	*/
 	public $nmAcesso;
 	/**
-	* @var [data] Data Inicio
+	* @var TData Data Inicio
 	*/
 	public $dtInicio;
 	/**
-	* @var [data] Data Fim
+	* @var TData Data Fim
 	*/
 	public $dtFim;
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string]
+	* @return string
 	*/
 	function nomeChave(){ return 'idAcesso'; }
 	/**

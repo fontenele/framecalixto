@@ -8,13 +8,13 @@
 «$classe» «$negocioNome» extends negocioPadrao{
 	«foreach from=$nomes key=indice item=propriedade »
 /**
-	* @var [«$tipos[$indice]»] «$nomesPropriedades[$indice]»
+	* @var «$tipos[$indice]» «$nomesPropriedades[$indice]»
 	*/
 	public $«$propriedade»;
 	«/foreach»
 /**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string]
+	* @return string
 	*/
 	function nomeChave(){ return '«$chave»'; }
 }

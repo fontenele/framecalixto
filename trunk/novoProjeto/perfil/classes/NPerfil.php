@@ -1,30 +1,30 @@
 <?php
 /**
-* Classe de representação de uma camada de negócio da entidade [Perfil]
+* Classe de representação de uma camada de negócio da entidade Perfil
 * A camada de negócio é a parte que engloba as regras e efetua os comandos de execução de um sistema
 * @package Sistema
 * @subpackage Perfil
 */
 class NPerfil extends negocioPadrao{
 	/**
-	* @var [numerico] Identificador
+	* @var integer Identificador
 	*/
 	public $idPerfil;
 	/**
-	* @var [texto] Nome do Perfil
+	* @var string Nome do Perfil
 	*/
 	public $nmPerfil;
 	/**
-	* @var [colecao] Acessos do Perfil
+	* @var colecao Acessos do Perfil
 	*/
 	public $coAcessos;
 	/**
-	* @var [colecao] Usuários do Perfil
+	* @var colecao Usuários do Perfil
 	*/
 	public $coUsuarios;
 	/**
 	* Metodo construtor
-	* @param [conexao] (opcional) conexão com o banco de dados
+	* @param conexao (opcional) conexão com o banco de dados
 	*/
 	public function __construct($conexao = null){
 		parent::__construct($conexao);
@@ -33,7 +33,7 @@ class NPerfil extends negocioPadrao{
 	}
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return [string]
+	* @return string
 	*/
 	function nomeChave(){ return 'idPerfil'; }
 	/**
