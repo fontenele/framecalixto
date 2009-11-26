@@ -27,3 +27,13 @@ Existem três formas de se carregar o gerador de cadastros:
   * Carregando a partir de uma entidade do sistema.
        * Clique no link de editar na linha da entidade.
        * Neste caso irá ser carregado um programa que já está gerado no sistema, então você poderá gerar somente *os arquivos necessários na guia de configurações.*
+
+Após a tela do gerador ter sido carregada, observe que existem as guias:
+*<font color="#008800">Entidade</font>
+    * Nesta guia você define os nomes da entidade e suas propriedades ou atributos.(Ps: nestes campos podem-se adicionar caracteres acentuados e cedilha)
+        * _*Nome da entidade*_: Serve para definir o nome da entidade a ser gerada no seu sistema, a partir deste nome o programa irá definir o diretório do sistema que conterá os arquivos da entidade. 
+        * _*Nome da propriedade*_: Serve para definir o nome da propriedade que descreve a entidade, como por exemplo uma "Pessoa" é descrita pela "Altura", "Cor da Pele", "Cor dos olhos" entre outros.
+    *<font color="#008800">Negócio</font>
+    *<font color="#008800">Persistente</font>
+    *<font color="#008800">Visualização</font>
+    *<font color="#008800">Configurações</font>
