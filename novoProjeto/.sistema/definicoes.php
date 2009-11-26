@@ -40,7 +40,7 @@ function __autoload($stClasse){
 			if(strtolower(ini_get('display_errors')) == 'on'){
 				$debug = debug_backtrace();
 				echo "
-				<link rel='stylesheet' href='.sistema/css/debug.css' />
+				<link rel='stylesheet' href='.sistema/debug.css' />
 				<div class='erroNegro'>
 					<table summary='text' class='erroNegro'>
 						<tr><th colspan=2 >Tentativa de instanciar uma classe inexistente!</th></tr>
