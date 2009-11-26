@@ -26,4 +26,4 @@ Existem três formas de se carregar o gerador de cadastros:
        * Neste caso *não é necessário a criação da tabela, mas você poderá* executar a recriação caso acredite ser necessário, para criar uma tabela clique na opção de configurações *Recriar a tabela no banco de dados*
   * Carregando a partir de uma entidade do sistema.
        * Clique no link de editar na linha da entidade.
-       * Neste caso irá ser carregado um programa que já está gerado no sistema, então você poderá gerar somente os arquivos que achar necessário *na guia de configurações.*
+       * Neste caso irá ser carregado um programa que já está gerado no sistema, então você poderá gerar somente *os arquivos necessários na guia de configurações.*
