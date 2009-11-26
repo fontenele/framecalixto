@@ -8,12 +8,14 @@
 «$classe» «$negocioNome» extends negocioPadrao{
 	«foreach from=$nomes key=indice item=propriedade »
 /**
+	* @gerador variavelPadrao
 	* @var «$tipos[$indice]» «$nomesPropriedades[$indice]»
 	*/
 	public $«$propriedade»;
 	«/foreach»
 /**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
+	* @gerador metodoPadrao
 	* @return string
 	*/
 	function nomeChave(){ return '«$chave»'; }
