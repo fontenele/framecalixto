@@ -4,16 +4,16 @@
 
 O Gerador de cadastros é um programa que gera os arquivos para uma entidade do sistema, estes arquivos são responsaveis pelas operações básicas de "CRUD" (Create,Retrieve,Update and Delete).
 *O programa gerado terá as duas telas básicas de Edição e Pesquisa.
-    *Na [Tela de Pesquisa] existirão os campos de filtro da pesquisa com as opções:
-        * [Novo] para um novo registro;
-        * [Pesquisar] para executar a pesquisa do filtro que está sendo exibido.
-        * [Listagem] simplemente para a exibição dos registros que foram pesquisados, e com o link para as opções:
-            * [Edição] exibe o registro para a edição.
-            * [Excluir] executa a exclusão do registro.
-    *Na [Tela de Edição] existirão os campos de edição do registro com as opções:
-        * [Gravar] para executar a gravação do registro apresentado ou de um novo registro.
-        * [Excluir] para executar a exclusão do registro apresentado.
-        * [Listagem] para exibir a listagem de pesquisa dos registros da entidade.
+    *Na *Tela de Pesquisa* existirão os campos de filtro da pesquisa com as opções:
+        * *Novo* para um novo registro;
+        * *Pesquisar* para executar a pesquisa do filtro que está sendo exibido.
+        * *Listagem* simplemente para a exibição dos registros que foram pesquisados, e com o link para as opções:
+            * *Edição* exibe o registro para a edição.
+            * *Excluir* executa a exclusão do registro.
+    *Na *Tela de Edição* existirão os campos de edição do registro com as opções:
+        * *Gravar* para executar a gravação do registro apresentado ou de um novo registro.
+        * *Excluir* para executar a exclusão do registro apresentado.
+        * *Listagem* para exibir a listagem de pesquisa dos registros da entidade.
 
 
 = Details =
