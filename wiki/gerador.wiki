@@ -1,4 +1,4 @@
-#Descrição do gerador de cadastros.
+#O que é o gerador de cadastros.
 
 = Gerador de Cadastros =
 
