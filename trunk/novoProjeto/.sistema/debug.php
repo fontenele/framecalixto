@@ -12,7 +12,7 @@
 */
 function debug1($var){
 	ob_start();
-	echo '<link rel="stylesheet" href=".sistema/css/debug.css" />';
+	echo '<link rel="stylesheet" href=".sistema/debug.css" />';
 	echo '<div class="debug"><pre>';
 	var_dump($var);
 	echo '</pre></div>';
@@ -101,7 +101,7 @@ function debug2($var,$metodos = true, $visualizacao = false){
 * @return [string]
 */
 function debug3(objeto $var){
-		echo '<link rel="stylesheet" href=".sistema/css/debug.css" />';
+		echo '<link rel="stylesheet" href=".sistema/debug.css" />';
 		echo '<div class="debug"><pre>';
 		ob_start();
 		Reflection::export(new ReflectionClass($var));

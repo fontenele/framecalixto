@@ -56,7 +56,7 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 		debug_print_backtrace();
 	$back = ob_get_clean();
 	echo "
-		<link type='text/css' rel='stylesheet' href='.sistema/css/debug.css' />
+		<link type='text/css' rel='stylesheet' href='.sistema/debug.css' />
 		<fieldset class='erroNegro'>
 			<legend>{$tipoErro}</legend>
 			<img src='.sistema/imagens/{$imagemErro}' alt='[imagem]'>

@@ -49,7 +49,7 @@ class erro extends Exception{
 		return "
 		<fieldset class='erroNegro'>
 			<legend>{$this->titulo}</legend>
-			<link type='text/css' rel='stylesheet' href='.sistema/css/debug.css' />
+			<link type='text/css' rel='stylesheet' href='.sistema/debug.css' />
 			<img src='.sistema/imagens/{$this->imagem}' alt='[imagem]'>
 			<table summary='text' class='erroNegro'>
 				<tr>

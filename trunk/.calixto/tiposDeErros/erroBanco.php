@@ -18,7 +18,7 @@ class erroBanco extends erro{
 		return "
 		<fieldset class='erroNegro'>
 			<legend>{$this->titulo}</legend>
-			<link type='text/css' rel='stylesheet' href='.sistema/css/debug.css' />
+			<link type='text/css' rel='stylesheet' href='.sistema/debug.css' />
 			<table summary='text' class='erroNegro'>
 				<tr>
 					<td>Mensagem:</td>
