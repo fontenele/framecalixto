@@ -7,10 +7,15 @@
 */
 abstract class negocioPadrao extends negocio{
 	/**
+	 * fila de filtro de pesquisa
+	 * @var array
+	 */
+	protected $__filtroDePesquisa = array();
+	/**
 	 * Cache de objetos encontrados para a pesquisa geral
 	 * @var array 
 	 */
-	private static $cachePesquisaGeral;
+	//private static $cachePesquisaGeral;
 	/**
 	* objeto de conexão com o banco de dados
 	* @var conexao
@@ -30,7 +35,7 @@ abstract class negocioPadrao extends negocio{
 	* @param conexao (opcional) conexão com o banco de dados
 	*/
 	public function __construct(conexao $conexao = null){
-		$this->{'filtro de pesquisa'} = new colecaoPadraoFiltro();
+		$this->__filtroDePesquisa = new colecaoPadraoFiltro();
 		try{
 			if($conexao){
 				$this->conexao = $conexao;
@@ -278,10 +283,10 @@ abstract class negocioPadrao extends negocio{
 		}
 	}
 	public function limparFiltro(){
-		$this->{'filtro de pesquisa'} = new colecaoPadraoFiltro();
+		$this->__filtroDePesquisa = new colecaoPadraoFiltro();
 	}
 	protected function adicionarFiltro($campo, operador $operador){
-		$this->{'filtro de pesquisa'}->$campo = $operador;
+		$this->__filtroDePesquisa->$campo = $operador;
 	}
 	/**
 	 * Metodo que preenche todos os atributos de negocio com um valor
@@ -517,14 +522,14 @@ abstract class negocioPadrao extends negocio{
 		try{
 			if(!$pagina) $pagina = new pagina(0);
 			$persistente = $this->pegarPersistente();
-			if($this->{'filtro de pesquisa'}->possuiItens()){
+			if($this->__filtroDePesquisa->possuiItens()){
 				$arMapeamento = $this->pegarMapeamento();
 				$arMap = array();
 				foreach($arMapeamento as $campo){
 					$arMap[$campo['propriedade']] = $campo['campo'];
 				}
 				$filtro = new colecaoPadraoFiltro();
-				foreach($this->{'filtro de pesquisa'}->itens as $campo => $item ){
+				foreach($this->__filtroDePesquisa->itens as $campo => $item ){
 					list($campo,$operador) = each($item);
 					$filtro->$arMap[$campo] = $operador;
 				}
