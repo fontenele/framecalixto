@@ -23,6 +23,7 @@ class PUtilitario extends persistentePadraoPG {
 			select column_name from all_tab_columns where table_name = upper('{$tabela}') and owner = 'SGT'
 		";
 		$this->conexao->executarComando($sql);
+		$retorno = array();
 		while ($registro = $this->conexao->pegarRegistro()){
 			$retorno[] = $registro;
 		}
@@ -94,6 +95,7 @@ class PUtilitario extends persistentePadraoPG {
 			";
 
 		$this->conexao->executarComando($sql);
+		$retorno = array();
 		while ($registro = $this->conexao->pegarRegistro()){
 			$retorno[] = $registro;
 		}
@@ -113,6 +115,7 @@ class PUtilitario extends persistentePadraoPG {
 				sequence_name
 		";
 		$this->conexao->executarComando($sql);
+		$retorno = array();
 		while ($registro = $this->conexao->pegarRegistro()){
 			$retorno[$registro['esquema'].'.'.$registro['sequencia']] = $registro['esquema'].'.'.$registro['sequencia'] ;
 		}
