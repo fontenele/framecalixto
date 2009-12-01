@@ -16,27 +16,25 @@ class colecaoPadraoObjeto extends colecao{
 			throw new InvalidArgumentException('Não foi passado um objeto para '.get_class($this).'!');
 		parent::__set($variavel, $parametros);
     }
-    /**
-    * Método de geração de um vetor de um atributo do negócio
-    * @param string da variavel do objeto
-    * @return array vetor com os valores do atributo dos negócios
-    */
-    function gerarVetorDeAtributo($atributo){
-		if(is_array($atributo)){
-			$atributo = implode('->',$atributo);
-			$arRetorno = array();
+	/**
+	* Método de geração de um vetor de um atributo do negócio
+	* @param string da variavel do objeto
+	* @return array vetor com os valores do atributo dos negócios
+	*/
+	function gerarVetorDeAtributo($atributo,$indexado = true){
+		$arRetorno = array();
+		$atributo = is_array($atributo) ? implode('->',$atributo) : 'pegar'.ucfirst($atributo);
+		if($indexado){
 			foreach($this->itens as $indice => $objeto){
-				$arRetorno[] = $objeto->$atributo();
+				$arRetorno[$indice] = $objeto->$atributo();
 			}
 		}else{
-			$atributo = 'pegar'.ucfirst($atributo);
-			$arRetorno = array();
 			foreach($this->itens as $indice => $objeto){
 				$arRetorno[] = $objeto->$atributo();
 			}
 		}
 		return $arRetorno;
-    }
+	}
     /**
     * Método de indexação de itens por um atributo do objeto (Caso existam valores repetidos será mantido o ultimo objeto)
     */
