@@ -2,6 +2,7 @@
 class CUtilitario_gerarTodosCadastros extends controle{
 	protected $tabelas;
 	public function inicial(){
+		$this->passarProximoControle(definicaoEntidade::controle($this,'listarEntidade'));
 		$conexao = conexao::criar();
 		$persistente = new PUtilitario($conexao);
 		$this->tabelas = $persistente->lerTabelas();
