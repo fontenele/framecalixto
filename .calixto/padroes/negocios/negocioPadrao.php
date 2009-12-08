@@ -345,6 +345,14 @@ abstract class negocioPadrao extends negocio{
 		}
 	}
 	/**
+	* Verifica a existência de do objeto no banco de dados pela chave
+	* @param string $identificador 
+	*/
+	public function existe($identificador){
+		$clone = clone $this;
+		return (boolean) $clone->ler($identificador)->valorChave();
+	}
+	/**
 	* Executa o comando de leitura do objeto
 	* @param string chave nica de identificação do registro
 	*/
@@ -354,6 +362,7 @@ abstract class negocioPadrao extends negocio{
             $array = $persistente->ler($identificador);
 			if(is_array($array))
 			$this->vetorPraNegocio($array);
+			return $this;
 		}
 		catch(erro $e){
 			throw $e;
