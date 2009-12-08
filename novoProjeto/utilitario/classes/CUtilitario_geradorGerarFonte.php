@@ -11,13 +11,12 @@ class CUtilitario_geradorGerarFonte extends controle{
 	public static $nomeTabela;
 	public static $nomeSequence;
 	public static $entidade;
-	protected static $debug = false;
+	protected static $debug = true;
 	
 	/**
 	* Método inicial do controle
 	*/
 	public function inicial(){
-		x($_POST);die;
 		$this->passarProximoControle(definicaoEntidade::controle($this,'geradorDefinirEntidade'));
 		CUtilitario_geradorGerarFonte::gerarFonte($this->visualizacao,$_POST);
 	}
@@ -299,7 +298,11 @@ class CUtilitario_geradorGerarFonte extends controle{
 		}
 		$visualizacao->nomes = $camposControle;
 		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/html/{$controle}_verEdicao.html",$visualizacao->pegar('templateVerEdicao.html'));
+		$arNomeTema = explode('/',definicaoPasta::tema());
+		if(!($nomeTema = array_pop($arNomeTema))){$nomeTema = array_pop($arNomeTema);};
+		$nomeTema = $nomeTema ? $nomeTema.'_' : null;
+		if(!is_file($visualizacao->template_dir."{$nomeTema}templateVerEdicao.html")) $nomeTema = null;
+		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/html/{$nomeTema}{$controle}_verEdicao.html",$visualizacao->pegar("{$nomeTema}templateVerEdicao.html"));
 	}
 	/**
 	* Monta o template de verPesquisa
@@ -311,7 +314,11 @@ class CUtilitario_geradorGerarFonte extends controle{
 		}
 		$visualizacao->nomes = $camposControle;
 		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/html/{$controle}_verPesquisa.html",$visualizacao->pegar('templateVerPesquisa.html'));
+		$arNomeTema = explode('/',definicaoPasta::tema());
+		if(!($nomeTema = array_pop($arNomeTema))){$nomeTema = array_pop($arNomeTema);};
+		$nomeTema = $nomeTema ? $nomeTema.'_' : null;
+		if(!is_file($visualizacao->template_dir."{$nomeTema}templateVerPesquisa.html")) $nomeTema = null;
+		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/html/{$nomeTema}{$controle}_verPesquisa.html",$visualizacao->pegar("{$nomeTema}templateVerPesquisa.html"));
 	}
 }
 ?>
