@@ -98,6 +98,20 @@ abstract class negocioPadrao extends negocio{
 						return $this->$var;
 				}
 			}
+			$persistente = $this->pegarPersistente();
+			$r = new ReflectionClass(definicaoEntidade::persistente($this));
+			$a = null;
+			foreach($r->getMethods(ReflectionMethod::IS_PUBLIC) as $obMetodo){
+				if($obMetodo->class == definicaoEntidade::persistente($this) && $metodo == $obMetodo->name){
+					$chamada = "\$persistente->{$metodo}( ";
+					foreach($parametros as $index =>$parametro){
+						$chamada .="\$parametros[{$index}],";
+					}
+					$chamada = substr($chamada,0,-1).')';
+					eval("\$a = {$chamada};");
+					return $a;
+				}
+			}
 			throw new erro('Chamada inexistente!');
 		}
 		catch (ReflectionException $e){
