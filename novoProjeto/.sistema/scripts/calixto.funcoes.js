@@ -41,6 +41,19 @@ $(document).ready( function() {
 			buttonImageOnly: true ,
 			yearRange: '-100:+20'
 		});
+		$.each($('.hora'),function(i,hora){
+			$(hora).after('<div id="'+$(hora).attr('id')+'_img" class="img_relogio" ></div>');
+		});
+		if($.timepicker){
+			$('.hora')
+				.timepicker({
+					clockIcon:'.sistema/imagens/relogio.png',
+					hourLabel:'h',
+					minLabel:'m',
+					secLabel:'s'
+				});
+			$('.sliderTime').hide();
+		}
 	}
 	$("#suggest13").autocomplete("?c=CUtilitario_mapaSistema", {
 		minChars: 0,

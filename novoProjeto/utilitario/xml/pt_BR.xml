@@ -20,6 +20,10 @@
 			<texto id="sistema">Configurações de Sistema</texto>
 			<texto id="paginaInicial">Página inicial do sistema</texto>
 			<texto id="paginaErro">Página de erro do sistema</texto>
+			<texto id="ambiente">Ambiente do sistema</texto>
+			<texto id="ambiente3">Desenvolvimento</texto>
+			<texto id="ambiente2">Homologação</texto>
+			<texto id="ambiente1">Produção</texto>
 			<!-- Controle de Acesso -->
 			<texto id="controleAcesso">Configurações de Controle de Acesso</texto>
 			<texto id="liberadoCA">Controle de acesso liberado</texto>
