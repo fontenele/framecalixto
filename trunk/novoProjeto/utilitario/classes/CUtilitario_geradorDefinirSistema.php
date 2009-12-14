@@ -13,6 +13,11 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		$this->gerarMenuprincipal();
 		$this->gerarMenuPrograma();
 		global $definicoes;
+		$arAmbiente		= array(
+			'3'=>$this->inter->pegarTexto('ambiente3'),
+			'2'=>$this->inter->pegarTexto('ambiente2'),
+			'1'=>$this->inter->pegarTexto('ambiente1')
+		);
 		$arBooleano		= array('sim'=>$this->inter->pegarTexto('sim'),'nao'=>$this->inter->pegarTexto('nao'));
 
 		$paginaInicial	= ($paginaInicial = strval($definicoes->sistema['paginaInicial'])) ? $paginaInicial : 'CControleAcesso_verPrincipal';
@@ -31,6 +36,7 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		//Páginas do sistema
 		$this->visualizacao->paginaInicial 	= VComponente::montar('input','sistema[paginaInicial]',$paginaInicial);
 		$this->visualizacao->paginaErro 	= VComponente::montar('input','sistema[paginaErro]',$paginaErro);
+		$this->visualizacao->ambiente 	= VComponente::montar('select','sistema[ambiente]',$paginaErro,null,$arAmbiente);
 		//Controle de acesso do sistema
 		$this->visualizacao->liberadoCA = VComponente::montar('combobox','controleDeAcesso[liberado]',$liberadoCA,null,$arBooleano);
 		$this->visualizacao->classeCA = VComponente::montar('input','controleDeAcesso[classe]',$classeCA);

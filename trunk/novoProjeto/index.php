@@ -52,9 +52,14 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 			$tipoErro = 'Fatal';
 		break;
 	}
-	ob_start();
-		debug_print_backtrace();
-	$back = ob_get_clean();
+	if(preg_match('/(.*)\.html\.php(.*)/', $arquivo, $resultado)){
+		$mensagem = str_replace('Undefined index:','Variável não registrada no controle para apresentação no template: ',$mensagem);
+		$back = null;
+	}else{
+		ob_start();
+			debug_print_backtrace();
+		$back = ob_get_clean();
+	}
 	echo "
 		<link type='text/css' rel='stylesheet' href='.sistema/debug.css' />
 		<fieldset class='erroNegro'>
@@ -74,6 +79,7 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 		</pre>
 		</fieldset>";
 }
+
 include_once('.sistema/debug.php');
 include_once('.sistema/definicoes.php');
 $dir = definirDiretorio('Sistema');
