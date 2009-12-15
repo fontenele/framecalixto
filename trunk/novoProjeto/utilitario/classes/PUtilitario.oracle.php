@@ -97,7 +97,17 @@ class PUtilitario extends persistentePadraoPG {
 		$this->conexao->executarComando($sql);
 		$retorno = array();
 		while ($registro = $this->conexao->pegarRegistro()){
-			$retorno[] = $registro;
+			if(!$registro['campo_fk']){
+				$retorno[$registro['campo']] = $registro;
+			}else{
+				if(!isset($retorno[$registro['campo']])){
+					$retorno[$registro['campo']] = $registro;
+				}else{
+					if($retorno[$registro['campo']]['campo'] == $registro['campo_fk']){
+						$retorno[$registro['campo']] = $registro;
+					}
+				}
+			}
 		}
 		return $retorno;
 	}
