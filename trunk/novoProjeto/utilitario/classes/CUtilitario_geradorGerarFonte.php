@@ -11,7 +11,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 	public static $nomeTabela;
 	public static $nomeSequence;
 	public static $entidade;
-	protected static $debug = true;
+	protected static $debug = false;
 	
 	/**
 	* Método inicial do controle
@@ -62,13 +62,13 @@ class CUtilitario_geradorGerarFonte extends controle{
 		CUtilitario_geradorGerarFonte::montarTemplateVerEdicao($visualizacao);
 		CUtilitario_geradorGerarFonte::montarTemplateVerPesquisa($visualizacao);
 		exec("chmod -R 777 ".CUtilitario_geradorGerarFonte::$nomeEntidade);
+		if(CUtilitario_geradorGerarFonte::$debug){die;}
 		if(isset(CUtilitario_geradorGerarFonte::$entidade['recriarBase'])){
 			$persistente = definicaoEntidade::persistente(CUtilitario_geradorGerarFonte::$nomeNegocio);
 			$conexao = conexao::criar();
 			$obPersistente = new $persistente($conexao);
 			$obPersistente->recriar();
 		}
-		if(CUtilitario_geradorGerarFonte::$debug){die;}
 	}
 	/**
 	* Escreve o arquivo com o conteudo passado
