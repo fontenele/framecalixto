@@ -5,6 +5,8 @@
 * @subpackage visualização
 */
 class VListaPaginada extends objeto{
+	const colunaEditar = 999998;
+	const colunaExcluir = 999999;
 	/**
 	* @var pagina Utilizada para listagem dos dados
 	*/
@@ -30,6 +32,9 @@ class VListaPaginada extends objeto{
 		$this->colecao->resetar();
 		$this->pagina = $pagina;
 		$this->controle = controlePadrao::pegarNomeControle();
+		$classe = definicaoEntidade::internacionalizacao($this->controle);
+		$this->inter = new $classe();
+		$this->definirListagem();
 	}
 	/**
 	* Método de adição de um campo a listagem
@@ -122,9 +127,8 @@ class VListaPaginada extends objeto{
 				}
 			}
 		}
-
-		$this->adicionarColunaPersonalizada(' ', 'VListaPaginada::colunaExcluir', '2%', 'D', 999999);
-		$this->adicionarColunaPersonalizada(' ', 'VListaPaginada::colunaEditar', '2%', 'D', 999998);
+		$this->adicionarColunaPersonalizada(' ', 'VListaPaginada::colunaExcluir', '2%', 'D', VListaPaginada::colunaExcluir);
+		$this->adicionarColunaPersonalizada(' ', 'VListaPaginada::colunaEditar', '2%', 'D', VListaPaginada::colunaEditar);
 	}
 	/**
 	* Montar listagem
@@ -311,9 +315,6 @@ class VListaPaginada extends objeto{
 	*/
 	function __toString(){
 		try{
-			$classe = definicaoEntidade::internacionalizacao($this->controle);
-			$this->inter = new $classe();
-			$this->definirListagem();
 			$retorno = $this->montarListagem();
 			$retorno.= $this->montarPaginador();
 			return $retorno;
