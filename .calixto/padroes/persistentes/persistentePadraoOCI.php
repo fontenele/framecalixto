@@ -66,19 +66,51 @@ class persistentePadraoOCI extends persistente{
 		$estrutura = $this->pegarEstrutura();
 		$comando = "
 			select
-				'select count(*) as dep from '||ac.owner||'.'||ac.table_name||' where '||acc.column_name||' = ''%s''' as sql
+                'select count(*) as dependentes from ' || lower(tb.owner) || '.' || lower(tb.table_name) || ' where ' || lower(tb.column_name) || ' = ''%s'' ' as sql
 			from
-				all_cons_columns acc2,
-				all_constraints ac2,
-				all_constraints ac,
-				all_cons_columns acc
+				all_tab_columns tb
+				left join (-- Recupera a Primary Key
+					select
+						ac.owner as esquema_pk,
+						acc.table_name as tabela_pk,
+						acc.column_name as campo_pk
+					from
+						all_constraints ac, all_cons_columns acc
+					where
+						ac.owner = 'SGT' and
+						acc.constraint_name = ac.constraint_name and
+						ac.constraint_type = 'P'
+					) pk on (pk.esquema_pk = tb.owner and pk.tabela_pk = tb.table_name and tb.column_name = pk.campo_pk)
+				left join (-- Recupera Dados da Foreign Key
+					select
+						ac.owner as esquema,
+						ac.table_name as tabela,
+						acc.column_name as campo,
+						ac2.owner as esquema_fk,
+						ac2.table_name as tabela_fk,
+						acc2.column_name as campo_fk
+					from all_cons_columns acc2, all_constraints ac2, all_constraints ac, all_cons_columns acc
+					where
+						ac.owner = 'SGT' and
+						acc.constraint_name = ac.constraint_name and
+						ac.constraint_type = 'R' and
+						ac.r_constraint_name = ac2.constraint_name and
+						ac2.constraint_name = acc2.constraint_name
+					) fk on (fk.esquema = tb.owner and fk.tabela = tb.table_name and tb.column_name = fk.campo)
+				left join (-- Recupera comentários dos campos
+					SELECT
+						table_name,
+						column_name,
+						comments
+					FROM
+						user_col_comments
+				) cmt on (tb.table_name = cmt.table_name and tb.column_name = cmt.column_name)
 			where
-				ac.owner = 'SGT' and
-				acc.constraint_name = ac.constraint_name and
-				ac.constraint_type = 'R' and
-				ac.r_constraint_name = ac2.constraint_name and
-				ac2.constraint_name = acc2.constraint_name and
-				ac2.table_name = upper('{$estrutura['nomeTabela']}')
+                fk.tabela_fk =  UPPER('{$estrutura['nomeTabela']}') 
+			and tb.owner = 'SGT'
+			order by
+                tb.table_name,
+		tb.column_id
 		";
 		$res = $this->pegarSelecao($comando);
 		if($res) foreach($res as $comando){
