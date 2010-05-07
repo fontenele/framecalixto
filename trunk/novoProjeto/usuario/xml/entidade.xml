@@ -1,27 +1,27 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade  nomeBanco='usuario' nomeSequencia='sq_usuario'>
+<entidade  nomeBanco='public.usuario' nomeSequencia='public.sq_usuario'>
 	<propriedades>
-		<propriedade id='idPessoa' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NPessoa' metodoLeitura='lerTodos' descritivo='1'  >
-			<banco nome='usua_id_pessoa' >
-				<chaveEstrangeira tabela='pessoa' campo='pess_id_pessoa' />
+		<propriedade id='idUsuario' tipo='numerico' tamanho='10' indicePrimario='sim'>
+			<banco nome='usua_id_usuario' />
+			<apresentacao componente='oculto' />
+		</propriedade>
+		<propriedade id='idPessoa' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NPessoa' metodoLeitura='lerTodos' descritivo='1'>
+			<banco nome='usua_id_pessoa'>
+				<chaveEstrangeira tabela='public.pessoa' campo='pess_id_pessoa' />
 			</banco>
-			<apresentacao componente='caixa de combinacao' >
-				<listagem ordem='1' tamanho='30%' />
+			<apresentacao componente='caixa de combinacao'>
+				<listagem ordem='1' tamanho='60%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='idUsuario' tipo='numerico' tamanho='10' indicePrimario='sim'  >
-			<banco nome='usua_id_usuario'  />
-			<apresentacao componente='oculto'  />
-		</propriedade>
-		<propriedade id='login' tipo='texto' tamanho='25' obrigatorio='sim' descritivo='2' indiceUnico='sim' >
-			<banco nome='usua_login' ordem='1' operador='igual' />
-			<apresentacao componente='caixa de entrada' >
-				<listagem ordem='2' tamanho='30%' hyperlink='sim' />
+		<propriedade id='nmLogin' tipo='texto' tamanho='25' obrigatorio='sim' descritivo='2' indiceUnico='sim'>
+			<banco nome='usua_nm_login' ordem='1' operador='igual' />
+			<apresentacao componente='caixa de entrada'>
+				<listagem ordem='2' tamanho='40%' hyperlink='sim' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='senha' tipo='texto' tamanho='500' obrigatorio='sim'  >
-			<banco nome='usua_senha' operador='igual' />
-			<apresentacao componente='palavra chave'  />
+		<propriedade id='nmSenha' tipo='texto' tamanho='32' obrigatorio='sim'>
+			<banco nome='usua_nm_senha' operador='igual' />
+			<apresentacao componente='palavra chave' />
 		</propriedade>
 	</propriedades>
 </entidade>

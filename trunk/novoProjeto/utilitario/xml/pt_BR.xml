@@ -28,12 +28,12 @@
 			<texto id="controleAcesso">Configurações de Controle de Acesso</texto>
 			<texto id="liberadoCA">Controle de acesso liberado</texto>
 			<texto id="classeCA">Classe de Controle de Acesso</texto>
-			<texto id="metodoCA">Método da classe de Controle de Acesso</texto>
+			<texto id="metodoCA">Método de Controle de Acesso</texto>
 			<!-- Controle de Menu -->
 			<texto id="controleMenu">Configurações do Controle de Menu</texto>
 			<texto id="classeMenu">Classe de menu</texto>
-			<texto id="metodoMenuPrincipal">Nome do método de menu principal da classe de menu</texto>
-			<texto id="metodoMenuSistema">Nome do método de menu do sistema da classe de menu</texto>
+			<texto id="metodoMenuPrincipal">Método de menu principal</texto>
+			<texto id="metodoMenuSistema">Método de menu do sistema</texto>
 			<!-- Bancos -->
 			<texto id="bancos">Configurações de Bancos</texto>
 			<!-- Diretórios -->

@@ -21,6 +21,6 @@
 		</propriedades>
 	</entidade>
 	<controles>
-		<titulo>Cadastro de Usuário Perfil</titulo>
+		<titulo>Relacionamento entre Usuário e Perfil</titulo>
 	</controles>
 </internacionalizacao>

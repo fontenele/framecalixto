@@ -21,60 +21,60 @@ class NPessoa extends negocioPadrao{
 	/**
 	* @var string Documento
 	*/
-	public $documento;
+	public $nrDocumento;
 	/**
 	* @var string Código de endeçamento postal
 	*/
-	public $cep;
+	public $nrCep;
 	/**
 	* @var string Telefone
 	*/
-	public $telefone;
+	public $nrTelefone;
 	/**
 	* @var string Telefone
 	*/
-	public $telefone2;
+	public $nrTelefone2;
 	/**
 	* @var string Telefone
 	*/
-	public $telefone3;
+	public $nrTelefone3;
 	/**
 	* @var integer Estado
 	*/
-	public $estado;
+	public $idEstado;
 	/**
 	* @var string Município
 	*/
-	public $municipio;
+	public $nmMunicipio;
 	/**
 	* @var string Bairro
 	*/
-	public $bairro;
+	public $nmBairro;
 	/**
 	* @var string Endereço
 	*/
-	public $endereco;
+	public $txEndereco;
 	/**
 	* @var string Email
 	*/
-	public $email;
+	public $nmEmail;
 	/**
 	* @var string Site
 	*/
-	public $site;
+	public $nmSite;
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
 	* @return string
 	*/
-	function nomeChave(){ return 'idPessoa'; }
+	public function nomeChave(){ return 'idPessoa'; }
 	/**
 	* Executa o comando de importação do objeto
 	*/
 	public function importar(){
-		$estado = new NEstado($this->conexao);
-		$estado->passarSigla($this->pegarEstado());
-		$resultado = $estado->pesquisar(new pagina());
-		$this->passarEstado((!$resultado) ? null : $resultado->avancar()->pegarId());
+		$nEstado = new NEstado($this->conexao);
+		$nEstado->passarSgSigla($this->pegarIdEstado());
+		$resultado = $nEstado->pesquisar(new pagina());
+		$this->passarIdEstado((!$resultado) ? null : $resultado->avancar()->valorChave());
 		parent::importar();
 	}
 	/**
@@ -82,10 +82,10 @@ class NPessoa extends negocioPadrao{
 	* @return TDocumentoPessoal
 	*/
 	public function pegarDocumento(){
-		if($this->documento instanceof TDocumentoPessoal){
-			$this->documento->passarTipo(($this->csPessoa{0} == 'F') ? 'cpf' : 'cnpj');
+		if($this->nrDocumento instanceof TDocumentoPessoal){
+			$this->nrDocumento->passarTipo(($this->csPessoa{0} == 'F') ? 'cpf' : 'cnpj');
 		}
-		return $this->documento;
+		return $this->nrDocumento;
 	}
 	/**
 	* Retorna uma coleção com os colaboradores do sistema

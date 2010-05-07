@@ -3,24 +3,24 @@
 	<entidade>
 		<nome>Estado</nome>
 		<propriedades>
-		<propriedade nome='id'>
+		<propriedade nome='idEstado'>
 			<nome>id</nome>
-			<abreviacao>id</abreviacao>
+			<abreviacao>Identificador</abreviacao>
 			<descricao>Identificador</descricao>
 		</propriedade>
-		<propriedade nome='sigla'>
+		<propriedade nome='sgSigla'>
 			<nome>Sigla</nome>
-			<abreviacao>SG</abreviacao>
+			<abreviacao>Sigla</abreviacao>
 			<descricao>Sigla do Estado</descricao>
 		</propriedade>
-		<propriedade nome='estado'>
+		<propriedade nome='nmEstado'>
 			<nome>Estado</nome>
-			<abreviacao>NM</abreviacao>
+			<abreviacao>Estado</abreviacao>
 			<descricao>Nome do Estado</descricao>
 		</propriedade>
 		</propriedades>
 	</entidade>
 	<controles>
-		<titulo>Cadastro de Estado</titulo>
+		<titulo>Estados</titulo>
 	</controles>
 </internacionalizacao>

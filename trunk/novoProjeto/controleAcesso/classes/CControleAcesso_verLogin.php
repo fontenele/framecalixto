@@ -14,15 +14,18 @@ class CControleAcesso_verLogin extends controlePadrao{
 		$this->gerarMenuPrincipal();
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'validar'));
-		$this->visualizacao->login = VComponente::montar('caixa de entrada','login', null);
-		$this->visualizacao->login->passarSize(15);
-		$this->visualizacao->login->obrigatorio(true);
-		$this->visualizacao->login->passarTitle('Digite o login do usuário');
-		$this->visualizacao->senha = VComponente::montar('senha','senha', null);
-		$this->visualizacao->senha->passarSize(15);
-		$this->visualizacao->senha->obrigatorio(true);
-		$this->visualizacao->senha->passarTitle('Digite a senha de acesso');
-		$this->visualizacao->enviar = VComponente::montar('confirmar','enviar', $this->inter->pegarTexto('enviar'));
+		
+		$this->visualizacao->nmLogin = VComponente::montar('caixa de entrada','nmLogin', null);
+		$this->visualizacao->nmLogin->passarSize(15);
+		$this->visualizacao->nmLogin->obrigatorio(true);
+		$this->visualizacao->nmLogin->passarTitle('Digite o login do usuário');
+		
+		$this->visualizacao->nmSenha = VComponente::montar('senha','nmSenha', null);
+		$this->visualizacao->nmSenha->passarSize(15);
+		$this->visualizacao->nmSenha->obrigatorio(true);
+		$this->visualizacao->nmSenha->passarTitle('Digite a senha de acesso');
+		
+		$this->visualizacao->btEnviar = VComponente::montar('confirmar','btEnviar', $this->inter->pegarTexto('enviar'));
 		$this->visualizacao->mostrar();
 	}
 	/**

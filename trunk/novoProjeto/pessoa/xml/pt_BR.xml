@@ -24,57 +24,57 @@
 			<abreviacao>Nome</abreviacao>
 			<descricao>Nome da pessoa</descricao>
 		</propriedade>
-		<propriedade nome='documento'>
+		<propriedade nome='nrDocumento'>
 			<nome>CPF/CNPJ</nome>
 			<abreviacao>CPF/CNPJ</abreviacao>
 			<descricao>CPF/CNPJ</descricao>
 		</propriedade>
-		<propriedade nome='cep'>
+		<propriedade nome='nrCep'>
 			<nome>CEP</nome>
 			<abreviacao>CEP</abreviacao>
 			<descricao>Código de Endereçamento Postal</descricao>
 		</propriedade>
-		<propriedade nome='telefone'>
+		<propriedade nome='nrTelefone'>
 			<nome>Telefone</nome>
 			<abreviacao>Tel.</abreviacao>
 			<descricao>Telefone da pessoa</descricao>
 		</propriedade>
-		<propriedade nome='telefone2'>
+		<propriedade nome='nrTelefone2'>
 			<nome>Celular</nome>
 			<abreviacao>Cel.</abreviacao>
 			<descricao>Celular da pessoa</descricao>
 		</propriedade>
-		<propriedade nome='telefone3'>
+		<propriedade nome='nrTelefone3'>
 			<nome>Tel. Aux.</nome>
 			<abreviacao>Tel.</abreviacao>
 			<descricao>Telefone da pessoa</descricao>
 		</propriedade>
-		<propriedade nome='bairro'>
+		<propriedade nome='nmBairro'>
 			<nome>Bairro</nome>
 			<abreviacao>Bairro</abreviacao>
 			<descricao>Bairro</descricao>
 		</propriedade>
-		<propriedade nome='municipio'>
+		<propriedade nome='nmMunicipio'>
 			<nome>Município</nome>
 			<abreviacao>Mun.</abreviacao>
 			<descricao>Município</descricao>
 		</propriedade>
-		<propriedade nome='estado'>
+		<propriedade nome='idEstado'>
 			<nome>Estado</nome>
 			<abreviacao>UF</abreviacao>
 			<descricao>Estado</descricao>
 		</propriedade>
-		<propriedade nome='endereco'>
+		<propriedade nome='txEndereco'>
 			<nome>Endereço</nome>
 			<abreviacao>End.</abreviacao>
 			<descricao>Endereço da pessoa</descricao>
 		</propriedade>
-		<propriedade nome='email'>
+		<propriedade nome='nmEmail'>
 			<nome>Email</nome>
 			<abreviacao>Email</abreviacao>
 			<descricao>Email</descricao>
 		</propriedade>
-		<propriedade nome='site'>
+		<propriedade nome='nmSite'>
 			<nome>Site</nome>
 			<abreviacao>url</abreviacao>
 			<descricao>Site</descricao>
@@ -82,7 +82,7 @@
 		</propriedades>
 	</entidade>
 	<controles>
-		<titulo>Cadastro de Pessoa</titulo>
+		<titulo>Pessoas</titulo>
 		<textos>
 			<texto id='novaTarefa'>Nova Tarefa</texto>
 		</textos>

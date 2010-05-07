@@ -7,26 +7,31 @@
 */
 class NUsuario extends negocioPadrao{
 	/**
-	* @var integer Pessoa
-	*/
-	public $idPessoa;
-	/**
 	* @var integer Identificador
 	*/
 	public $idUsuario;
 	/**
+	* @var integer Pessoa
+	*/
+	public $idPessoa;
+	/**
 	* @var string Login
 	*/
-	public $login;
+	public $nmLogin;
 	/**
 	* @var string Senha
 	*/
-	protected $senha;
+	protected $nmSenha;
 	/**
 	 * Coleção de perfis do usuário
 	 * @var colecaoPadraoNegocio
 	 */
 	public $coPerfis;
+	/**
+	* Retorna o nome da propriedade que contém o valor chave de negócio
+	* @return string
+	*/
+	public function nomeChave(){ return 'idUsuario'; }
 	/**
 	* Metodo construtor
 	* @param conexao (opcional) conexão com o banco de dados
@@ -36,11 +41,6 @@ class NUsuario extends negocioPadrao{
 		$this->coAcessos = new colecaoPadraoNegocio(null,$conexao);
 		$this->coPerfis = new colecaoPadraoNegocio(null,$conexao);
 	}
-	/**
-	* Retorna o nome da propriedade que contém o valor chave de negócio
-	* @return string
-	*/
-	function nomeChave(){ return 'idUsuario'; }
 	/**
 	* Carrega a coleção de perfis
 	*/
@@ -56,36 +56,6 @@ class NUsuario extends negocioPadrao{
 		$nAcesso = new NAcesso($this->conexao);
 		$nAcesso->passarIdUsuario($this->pegarIdUsuario());
 		$this->coAcessos = $nAcesso->pesquisar(new pagina(0));
-	}
-	/**
-	* Executa o comando de gravação do objeto
-	* @param boolean caso verdadeiro irá incluir com a chave de negócio passada caso falso irá verificar, se foi passada a chave irá alterar senão irá incluir
-	*/
-	public function gravar($gravarComChavePassada = false){
-		try{
-			$persistente = $this->pegarPersistente();
-			switch(true){
-				case $gravarComChavePassada:
-					$this->verificarAntesInserir();
-					$persistente->inserir($this->negocioPraVetor(), $gravarComChavePassada);
-				break;
-				case $this->valorChave():
-					$negocio = get_class($this);
-					$negocio = new $negocio();
-					$negocio->ler($this->valorChave());
-					$this->verificarAntesAlterar($negocio);
-					$persistente->alterar($this->negocioPraVetor(),$this->valorChave());
-				break;
-				default:
-					$this->valorChave($persistente->gerarSequencia());
-					$this->verificarAntesInserir();
-					$persistente->inserir($this->negocioPraVetor());
-				break;
-			}
-		}
-		catch(Erro $e){
-			throw $e;
-		}
 	}
 }
 ?>

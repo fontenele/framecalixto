@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding="utf-8" ?>
 <internacionalizacao>
 	<entidade>
-		<nome>login</nome>
+		<nome>Login</nome>
 		<propriedades>
-			<propriedade nome="login">
+			<propriedade nome="nmLogin">
 				<nome>User</nome>
 				<abreviacao>User</abreviacao>
 				<descricao>User login</descricao>
 			</propriedade>
-			<propriedade nome="senha">
+			<propriedade nome="nmSenha">
 				<nome>Password</nome>
 				<abreviacao>Passwd</abreviacao>
 				<descricao>Password</descricao>
