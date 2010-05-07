@@ -1,41 +1,41 @@
-<form name="formulario" method="post" action="«$action»" >
-<div class="container0">
-	<div class="a"></div>
-	<div class="b"></div>
-	<div class="c"></div>
-	<div class="d"></div>
-	<div class="e"></div>
-	<div class="f"></div>
-	<div class="g"></div>
-	<div class="h"></div>
-	<h1 class="titulo">&nbsp;</h1>
-	<div class="texto">
-		«$idAcesso»
-		<table summary="text" class="tabela2">
-			<tr>
-				<td class="campo1">«$nomeIdPerfil»:</td>
-				<td class="campo2">«$idPerfil»</td>
-			</tr>
-			<tr>
-				<td class="campo1">«$nomeIdUsuario»:</td>
-				<td class="campo2">«$idUsuario»</td>
-			</tr>
-			<tr>
-				<td class="campo1">«$nomeNmAcesso»:</td>
-				<td class="campo2">«$nmAcesso»</td>
-			</tr>
-			<tr>
-				<td class="campo1">«$nomeDtInicio»:</td>
-				<td class="campo2">«$dtInicio»</td>
-			</tr>
-			<tr>
-				<td class="campo1">«$nomeDtFim»:</td>
-				<td class="campo2">«$dtFim»</td>
-			</tr>
-		</table>
-        <div id='menu_corpo'>
-            «$menuPrograma»
-        </div>
+<form name="formulario" method="post" action="«$action»">
+	<div class="container0 ui-widget-content ui-corner-all">
+		<div class="a"></div>
+		<div class="b"></div>
+		<div class="c"></div>
+		<div class="d"></div>
+		<div class="e"></div>
+		<div class="f"></div>
+		<div class="g"></div>
+		<div class="h"></div>
+		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
+		<div class="texto">
+			«$idAcesso»
+			<div class="tabela2">
+				<div class='campo'>
+					<label for='«$idPerfil->pegarId()»'>«$nomeIdPerfil»:</label>
+					<span>«$idPerfil»</span>
+				</div>
+				<div class='campo'>
+					<label for='«$idUsuario->pegarId()»'>«$nomeIdUsuario»:</label>
+					<span>«$idUsuario»</span>
+				</div>
+				<div class='campo'>
+					<label for='«$nmAcesso->pegarId()»'>«$nomeNmAcesso»:</label>
+					<span>«$nmAcesso»</span>
+				</div>
+				<div class='campo'>
+					<label for='«$dtInicio->pegarId()»'>«$nomeDtInicio»:</label>
+					<span>«$dtInicio»</span>
+				</div>
+				<div class='campo'>
+					<label for='«$dtFim->pegarId()»'>«$nomeDtFim»:</label>
+					<span>«$dtFim»</span>
+				</div>
+			</div>
+	        <div id='menu_corpo'>
+	            «$menuPrograma»
+	        </div>
+		</div>
 	</div>
-</div>
 </form>

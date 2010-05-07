@@ -24,6 +24,17 @@ $(document).ready( function() {
 	$('.telefone').mask("(99) 9999-9999? r:9999",{completed:function(){}});
 	$('.hora').mask("99:99:99",{completed:function(){}});
 	$('.data').mask("99/99/9999");
+	//$('.numerico').mask("999999999999");
+	$('.moeda').blur(function() {
+		if($(this).val() == 'R$ 0,00') {
+			$(this).val('');
+		}
+	});
+	$(".moeda").priceFormat({
+		prefix: 'R$ ',
+		centsSeparator: ',',
+		thousandsSeparator: '.'
+	});
 	$('.email')
 		.live('blur',function(){
 			re = /^[\w!#$%&'*+\/=?^`{|}~-]+(\.[\w!#$%&'*+\/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/;
@@ -37,7 +48,7 @@ $(document).ready( function() {
 		$('.data').datepicker({
 			dateFormat: 'dd/mm/yy',
 			showOn: 'both',
-			buttonImage: '.sistema/imagens/calendar-icon.png',
+			buttonImage: '.sistema/temas/frameCalixto/icones/date.png',
 			buttonImageOnly: true ,
 			yearRange: '-100:+20'
 		});

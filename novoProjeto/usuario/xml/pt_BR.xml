@@ -13,12 +13,12 @@
 			<abreviacao>Id</abreviacao>
 			<descricao>Identificador do Usuário</descricao>
 		</propriedade>
-		<propriedade nome='login'>
+		<propriedade nome='nmLogin'>
 			<nome>Login</nome>
 			<abreviacao>Login</abreviacao>
 			<descricao>Nome do Usuário</descricao>
 		</propriedade>
-		<propriedade nome='senha'>
+		<propriedade nome='nmSenha'>
 			<nome>Senha</nome>
 			<abreviacao>Senha</abreviacao>
 			<descricao>Palavra Chave do Usuário</descricao>
@@ -26,6 +26,6 @@
 		</propriedades>
 	</entidade>
 	<controles>
-		<titulo>Cadastro de Usuário</titulo>
+		<titulo>Usuários</titulo>
 	</controles>
 </internacionalizacao>

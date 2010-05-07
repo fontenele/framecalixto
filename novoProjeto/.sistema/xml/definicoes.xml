@@ -4,11 +4,11 @@
 	<controleDeAcesso liberado='sim' classe='NControleAcesso' metodoLiberacao='validarAcesso' />
 	<controleDeMenu classe='NControleMenu' metodoMenuSite='menuPrincipal' metodoMenuSistema='menuMenuSistema' />
 	<bancos>
-		<banco id='padrao' tipo='postgres' servidor='localhost' porta='5432' nome='calixto_base' usuario='calixto_base' senha='123456' conexaoMultipla='nao' />
+		<banco id='padrao' tipo='postgres' servidor='localhost' porta='5432' nome='framecalixto' usuario='postgres' senha='postgres' conexaoMultipla='nao' />
 	</bancos>
 	<diretorios>
 		<diretorio id='temporario' dir='.tmp/' entidade='nao' />
-		<diretorio id='tema' dir='.sistema/temas/azulTransoft/' entidade='nao' />
+		<diretorio id='tema' dir='.sistema/temas/frameCalixto/' entidade='nao' />
 		<diretorio id='templates' dir='html/' entidade='sim' />
 		<diretorio id='css' dir='css/' entidade='sim' />
 		<diretorio id='js' dir='scripts/' entidade='sim' />

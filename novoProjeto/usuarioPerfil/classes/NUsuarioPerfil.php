@@ -22,6 +22,6 @@ class NUsuarioPerfil extends negocioPadrao{
 	* Retorna o nome da propriedade que contém o valor chave de negócio
 	* @return string
 	*/
-	function nomeChave(){ return 'idUsuarioPerfil'; }
+	public function nomeChave(){ return 'idUsuarioPerfil'; }
 }
 ?>

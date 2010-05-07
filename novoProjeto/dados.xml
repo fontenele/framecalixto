@@ -1,156 +1,156 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <classes>
 	<classe nome='NEstado'>
-		<sigla>AM</sigla>
-		<estado>Amazônia</estado>
+		<sgSigla>AM</sgSigla>
+		<nmEstado>Amazônia</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>PA</sigla>
-		<estado>Pará</estado>
+		<sgSigla>PA</sgSigla>
+		<nmEstado>Pará</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>MT</sigla>
-		<estado>Mato Grosso</estado>
+		<sgSigla>MT</sgSigla>
+		<nmEstado>Mato Grosso</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>MG</sigla>
-		<estado>Minas Gerais</estado>
+		<sgSigla>MG</sgSigla>
+		<nmEstado>Minas Gerais</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>BA</sigla>
-		<estado>Bahia</estado>
+		<sgSigla>BA</sgSigla>
+		<nmEstado>Bahia</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>MS</sigla>
-		<estado>Mato Grosso do Sul</estado>
+		<sgSigla>MS</sgSigla>
+		<nmEstado>Mato Grosso do Sul</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>GO</sigla>
-		<estado>Goiás</estado>
+		<sgSigla>GO</sgSigla>
+		<nmEstado>Goiás</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>MA</sigla>
-		<estado>Maranhão</estado>
+		<sgSigla>MA</sgSigla>
+		<nmEstado>Maranhão</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>RS</sigla>
-		<estado>Rio Grande do Sul</estado>
+		<sgSigla>RS</sgSigla>
+		<nmEstado>Rio Grande do Sul</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>TO</sigla>
-		<estado>Tocantins</estado>
+		<sgSigla>TO</sgSigla>
+		<nmEstado>Tocantins</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>PI</sigla>
-		<estado>Piauí</estado>
+		<sgSigla>PI</sgSigla>
+		<nmEstado>Piauí</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>SP</sigla>
-		<estado>São Paulo</estado>
+		<sgSigla>SP</sgSigla>
+		<nmEstado>São Paulo</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>RO</sigla>
-		<estado>Roraima</estado>
+		<sgSigla>RO</sgSigla>
+		<nmEstado>Roraima</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>RR</sigla>
-		<estado>Rondônia</estado>
+		<sgSigla>RR</sgSigla>
+		<nmEstado>Rondônia</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>PR</sigla>
-		<estado>Paraná</estado>
+		<sgSigla>PR</sgSigla>
+		<nmEstado>Paraná</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>AC</sigla>
-		<estado>Acre</estado>
+		<sgSigla>AC</sgSigla>
+		<nmEstado>Acre</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>CE</sigla>
-		<estado>Ceará</estado>
+		<sgSigla>CE</sgSigla>
+		<nmEstado>Ceará</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>AP</sigla>
-		<estado>Amapá</estado>
+		<sgSigla>AP</sgSigla>
+		<nmEstado>Amapá</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>PE</sigla>
-		<estado>Pernambuco</estado>
+		<sgSigla>PE</sgSigla>
+		<nmEstado>Pernambuco</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>SC</sigla>
-		<estado>Santa Catarina</estado>
+		<sgSigla>SC</sgSigla>
+		<nmEstado>Santa Catarina</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>PB</sigla>
-		<estado>Paraíba</estado>
+		<sgSigla>PB</sgSigla>
+		<nmEstado>Paraíba</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>RN</sigla>
-		<estado>Rio Grande do Norte</estado>
+		<sgSigla>RN</sgSigla>
+		<nmEstado>Rio Grande do Norte</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>ES</sigla>
-		<estado>Espírito Santo</estado>
+		<sgSigla>ES</sgSigla>
+		<nmEstado>Espírito Santo</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>RJ</sigla>
-		<estado>Rio de Janeiro</estado>
+		<sgSigla>RJ</sgSigla>
+		<nmEstado>Rio de Janeiro</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>AL</sigla>
-		<estado>Alagoas</estado>
+		<sgSigla>AL</sgSigla>
+		<nmEstado>Alagoas</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>SE</sigla>
-		<estado>Sergipe</estado>
+		<sgSigla>SE</sgSigla>
+		<nmEstado>Sergipe</nmEstado>
 	</classe>
 	<classe nome='NEstado'>
-		<sigla>DF</sigla>
-		<estado>Distrito Federal</estado>
+		<sgSigla>DF</sgSigla>
+		<nmEstado>Distrito Federal</nmEstado>
 	</classe>
 	<classe nome='NPessoa'>
 		<csPessoa>FI</csPessoa>
 		<nmPessoa>Calixto Jorge</nmPessoa>
-		<documento>97158171900</documento>
-		<cep>72015015</cep>
-		<telefone>69359037</telefone>
-		<telefone2>81423181</telefone2>
-		<telefone3>21049952</telefone3>
-		<estado>DF</estado>
-		<municipio>Taguatinga</municipio>
-		<bairro>Taguatinga Sul</bairro>
-		<endereco>CSA 03 LOTE 14/15 APTO 206</endereco>
-		<email>calixto.jorge@gmail.com</email>
-		<site>www.basedainformacao.com.br</site>
+		<nrDocumento>97158171900</nrDocumento>
+		<nrCep>72015015</nrCep>
+		<nrTelefone>69359037</nrTelefone>
+		<nrTelefone2>81423181</nrTelefone2>
+		<nrTelefone3>21049952</nrTelefone3>
+		<idEstado>DF</idEstado>
+		<nmMunicipio>Taguatinga</nmMunicipio>
+		<nmBairro>Taguatinga Sul</nmBairro>
+		<txEndereco>CSA 03 LOTE 14/15 APTO 206</txEndereco>
+		<nmEmail>calixto.jorge@gmail.com</nmEmail>
+		<nmSite>www.basedainformacao.com.br</nmSite>
 	</classe>
 	<classe nome='NPessoa'>
 		<csPessoa>FI</csPessoa>
-		<nmPessoa>Gleiverton Ramalho Lima</nmPessoa>
-		<documento></documento>
-		<cep>72015025</cep>
-		<telefone>33251256</telefone>
-		<telefone2>7855123</telefone2>
-		<telefone3></telefone3>
-		<estado>DF</estado>
-		<municipio>Taguatinga</municipio>
-		<bairro>Taguatinga Sul</bairro>
-		<endereco>CSA 02</endereco>
-		<email>piqueno@gmail.com</email>
-		<site>www.basedainformacao.com.br</site>
+		<nmPessoa>Guilherme de Oliveira Fontenele</nmPessoa>
+		<nrDocumento>00356297110</nrDocumento>
+		<nrCep>70670000</nrCep>
+		<nrTelefone>6133441234</nrTelefone>
+		<nrTelefone2>6196212011</nrTelefone2>
+		<nrTelefone3></nrTelefone3>
+		<idEstado>DF</idEstado>
+		<nmMunicipio>Brasília</nmMunicipio>
+		<nmBairro>Sudoeste</nmBairro>
+		<txEndereco>SQSW 103</txEndereco>
+		<nmEmail>guilherme@sybtaxbr.com</nmEmail>
+		<nmSite>www.syntaxbr.com</nmSite>
 	</classe>
 	<classe nome='NPessoa'>
 		<csPessoa>FI</csPessoa>
 		<nmPessoa>Elvis Chester</nmPessoa>
-		<documento></documento>
-		<cep>72015025</cep>
-		<telefone></telefone>
-		<telefone2>78455123</telefone2>
-		<telefone3></telefone3>
-		<estado>DF</estado>
-		<municipio>Taguatinga</municipio>
-		<bairro>Taguatinga Sul</bairro>
-		<endereco>CSA 02</endereco>
-		<email>mulek@hotmail.com</email>
-		<site>www.basedainformacao.com.br</site>
+		<nrDocumento></nrDocumento>
+		<nrCep>72015025</nrCep>
+		<nrTelefone></nrTelefone>
+		<nrTelefone2>78455123</nrTelefone2>
+		<nrTelefone3></nrTelefone3>
+		<idEstado>DF</idEstado>
+		<nmMunicipio>Taguatinga</nmMunicipio>
+		<nmBairro>Taguatinga Sul</nmBairro>
+		<txEndereco>CSA 02</txEndereco>
+		<nmEmail>mulek@hotmail.com</nmEmail>
+		<nmSite>www.basedainformacao.com.br</nmSite>
 	</classe>
 </classes>

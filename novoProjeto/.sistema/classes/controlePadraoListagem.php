@@ -148,21 +148,21 @@ class controlePadraoListagem extends controlePadrao{
 	function montarListagem(){
 		if(!$this->colecao->possuiItens()){
 			$mensagem = $this->inter->pegarMensagem('registrosNaoEncontrados');
-			return "<center>$mensagem</center>";
+			return "<center>{$mensagem}</center>";
 		}
 		if(is_array($this->campos)){
 			$conexao = conexao::criar();
 			$chaves = array_keys($this->campos);
 			sort($chaves);
 			$retorno = "\n<table summary='text' class=\"tabela0\">\n";
-			$retorno.= "<tr>\n";
+			$retorno.= "<thead><tr>\n";
 			foreach($chaves as $chave){
 				$campo = $this->campos[$chave];
 				$tamanho = ($campo['tamanho']) ? "width='{$campo['tamanho']}'" : '' ;
 				$alinhamento = ($campo['alinhamento']) ? "align='{$campo['alinhamento']}'" : '' ;
 				$retorno.="<th {$tamanho} {$alinhamento} >{$campo['titulo']}</th>\n";
 			}
-			$retorno.= "</tr>\n";
+			$retorno.= "</tr></thead><tbody>\n";
 			$x = 0;
 			if($this->colecao->possuiItens()){
 				$item = $this->colecao->retornarItem();
@@ -238,7 +238,7 @@ class controlePadraoListagem extends controlePadrao{
 					}
 					$retorno.= "\t</tr>\n";
 				}
-				$retorno.="</table>\n";
+				$retorno.="</tbody></table>\n";
 				return $retorno;
 			}else{
 				$largura = count($this->campos);
@@ -282,7 +282,7 @@ class controlePadraoListagem extends controlePadrao{
 			$retorno.="	<div class='g'></div>\n";
 			$retorno.="	<div class='h'></div>\n";
 			$retorno.="	<div class='texto'>\n";
-			$retorno.="		<p>&nbsp;\n";
+			$retorno.="	<p>&nbsp;\n";
 			$paginas = ($this->pagina->pegarTamanhoGeral()/$this->pagina->pegarTamanhoPagina() +1);
 			$paginas = (($this->pagina->pegarTamanhoGeral()%$this->pagina->pegarTamanhoPagina()) == 0) ? $paginas -1 : $paginas;
 
@@ -291,9 +291,9 @@ class controlePadraoListagem extends controlePadrao{
 			$linkProximo = sprintf('?c=%s&amp;pagina=%s',$this->controle, $this->pagina->pegarPagina() + 1);
 			$linkUltimo = sprintf('?c=%s&amp;pagina=%s',$this->controle, (int)$paginas);
 
-
-			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span>Primeiro</span>" : "<a href='{$linkPrimeiro}'>Primeiro</a>";
-			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span>Anterior</span>" : "<a href='{$linkAnterior}'>Anterior</a>";
+			$classe = "class='ui-state-default ui-corner-all'";
+			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classe}>>Primeiro</span>" : "<a {$classe}> href='{$linkPrimeiro}'>Primeiro</a>";
+			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classe}>>Anterior</span>" : "<a {$classe}> href='{$linkAnterior}'>Anterior</a>";
 
 
 			$retorno.= '<select id="seletorDePagina">';
@@ -310,8 +310,8 @@ class controlePadraoListagem extends controlePadrao{
 			
 			$retorno.="</select>";
 
-			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span>Próximo</span>" : "<a href='{$linkProximo}'>Próximo</a>";
-			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span>Último</span>" : "<a href='{$linkUltimo}'>Último</a>";
+			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classe}>>Próximo</span>" : "<a {$classe}> href='{$linkProximo}'>Próximo</a>";
+			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classe}>>Último</span>" : "<a {$classe}> href='{$linkUltimo}'>Último</a>";
 
 			$retorno.="		</p>\n	</div>\n";
 			$retorno.="</div>\n";
@@ -348,7 +348,7 @@ class controlePadraoListagem extends controlePadrao{
 	{
 		$controle = definicaoEntidade::controle($negocio,'verEdicao');
 		$link = sprintf("?c=%s&amp;chave=%s",$controle,$negocio->valorChave());		
-		return "<a href='{$link}' title='Alterar registro.' ><img src='.sistema/imagens/icon-edit.png' border='0' /></a>";
+		return "<a href='{$link}' title='Alterar registro.' ><img src='.sistema/temas/frameCalixto/imagens/copy.png' border='0' /></a>";
 	}
 }
 ?>

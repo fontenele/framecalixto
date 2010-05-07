@@ -1,32 +1,32 @@
-<form name="formulario" method="post" action="«$action»" >
-<div class="container0">
-	<div class="a"></div>
-	<div class="b"></div>
-	<div class="c"></div>
-	<div class="d"></div>
-	<div class="e"></div>
-	<div class="f"></div>
-	<div class="g"></div>
-	<div class="h"></div>
-	<h1 class="titulo">«$tituloEspecifico»&nbsp;</h1>
-	<div class="texto">
-		<table summary="text">
-			<tr>
-				<td class="campo1">«$nomeLogin»:</td>
-				<td class="campo2">«$login»</td>
-			</tr>
-			<tr>
-				<td class="campo1">«$nomeSenha»:</td>
-				<td class="campo2">«$senha»</td>
-			</tr>
-			<tr>
-				<td class="campo1"></td>
-				<td class="campo2">«$enviar»</td>
-			</tr>
-		</table>
-        <div id='menu_corpo'>
-            «$menuPrograma»
-        </div>
+<form name="formulario" method="post" action="«$action»">
+	<div class="container0 ui-widget-content ui-corner-all">
+		<div class="a"></div>
+		<div class="b"></div>
+		<div class="c"></div>
+		<div class="d"></div>
+		<div class="e"></div>
+		<div class="f"></div>
+		<div class="g"></div>
+		<div class="h"></div>
+		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
+		<div class="texto">
+			<div class="tabela2">
+				<div class='campo'>
+					<label for='«$nmLogin->pegarId()»'>«$nomeNmLogin»:</label>
+					<span>«$nmLogin»</span>
+				</div>
+				<div class='campo'>
+					<label for='«$nmSenha->pegarId()»'>«$nomeNmSenha»:</label>
+					<span>«$nmSenha»</span>
+				</div>
+				<div class='campo'>
+					<label></label>
+					<span>«$btEnviar»</span>
+				</div>
+			</div>
+	        <div id='menu_corpo'>
+	            «$menuPrograma»
+	        </div>
+		</div>
 	</div>
-</div>
 </form>

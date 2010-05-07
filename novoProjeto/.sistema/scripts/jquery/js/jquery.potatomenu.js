@@ -1,9 +1,9 @@
 /*
  * jquery.ui.potato.menu
- *
+ * 
  * Copyright (c) 2009 makoto_kw (makoto.kw@gmail.com)
  * Dual licensed under the new BSD licenses.
- *
+ * 
  * Version: 1.0
  */
 (function($) {
@@ -15,15 +15,15 @@
 				menuGroupSelector: 'ul',
 				firstClass:'potato-menu',
 				menuItemClass:'potato-menu-item',
-				menuGroupClass:'potato-menu-group',
+				menuGroupClass:'potato-menu-group ui-widget-content ui-corner-all',
 				verticalClass:'potato-menu-vertical',
-				holizontalClass:'potato-menu-holizontal',
+				holizontalClass:'potato-menu-holizontal ui-state-default ui-state-hover',
 				hasVerticalClass:'potato-menu-has-vertical',
 				hasHolizontalClass:'potato-menu-has-holizontal',
 				showDuration: 350,
 				hideDuration: 100
 			}
-
+			
 			var option = (typeof(arg)!='string') ? $.extend(defaltOption,arg) : $.extend(defaltOption,{});
 			var $menu = $(this).addClass(option.firstClass).addClass((option.vertical) ? option.verticalClass : option.holizontalClass);
 			var $menuItems = $menu.find(option.menuItemSelector).addClass(option.menuItemClass);

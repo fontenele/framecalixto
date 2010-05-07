@@ -12,14 +12,14 @@ class PAcesso extends persistentePadraoPG{
 	 * @return array
 	 */
 	public function lerAcessosPorUsuario($idUsuario,$nmAcesso = null){
-		$nmAcesso = $nmAcesso ? " and acess_nm_acesso = '{$nmAcesso}' " : null;
+		$nmAcesso = $nmAcesso ? " and aces_nm_acesso = '{$nmAcesso}' " : null;
 		$sql = "
 			select
 				acesso.*
 			from
 				usuario_perfil
 				inner join perfil on (usup_id_perfil = perf_id_perfil)
-				inner join acesso on (perf_id_perfil = acess_id_perfil)
+				inner join acesso on (perf_id_perfil = aces_id_perfil)
 			where
 				usup_id_usuario = '{$idUsuario}' {$nmAcesso}
 			union
@@ -28,7 +28,7 @@ class PAcesso extends persistentePadraoPG{
 			from
 				acesso
 			where
-				acess_id_usuario = '{$idUsuario}' {$nmAcesso}
+				aces_id_usuario = '{$idUsuario}' {$nmAcesso}
 		";
 		return $this->pegarSelecao($sql);
 	}

@@ -9,19 +9,19 @@ class NEstado extends negocioPadrao{
 	/**
 	* @var integer id
 	*/
-	public $id;
+	public $idEstado;
 	/**
 	* @var string Sigla
 	*/
-	public $sigla;
+	public $sgSigla;
 	/**
 	* @var string Estado
 	*/
-	public $estado;
+	public $nmEstado;
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
 	* @return string
 	*/
-	function nomeChave(){ return 'id'; }
+	public function nomeChave(){ return 'idEstado'; }
 }
 ?>

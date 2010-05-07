@@ -34,7 +34,7 @@ class NAcesso extends negocioPadrao{
 	* Retorna o nome da propriedade que contém o valor chave de negócio
 	* @return string
 	*/
-	function nomeChave(){ return 'idAcesso'; }
+	public function nomeChave(){ return 'idAcesso'; }
 	/**
 	* Método utilizado para efetuar as verificações antes de executar a inclusão
 	*/

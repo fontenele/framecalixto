@@ -9,11 +9,11 @@ class NControleAcesso extends negocio{
 	/**
 	* @var string login de acesso ao sistema
 	*/
-	public $login;
+	public $nmLogin;
 	/**
 	* @var string senha de acesso ao sistema
 	*/
-	public $senha;
+	public $nmSenha;
 	/**
 	* Método criado para efetuar a validação de acesso a um controle do sistema
 	* @param string nome do controle acessado
@@ -24,14 +24,14 @@ class NControleAcesso extends negocio{
 			if(strval($definicoes->controleDeAcesso['liberado']) == 'sim') return true;
 			switch(true){
 				case(!sessaoSistema::tem('usuario')):
-					throw(new erroAcesso('Acesso não permitido, usuário não registrado !'));
+					throw(new erroAcesso('Acesso não permitido, usuário não registrado!'));
 				default:
 					$nUsuario = sessaoSistema::pegar('usuario');
 					$nUsuario->carregarPerfis();
 					$nAcesso = new NAcesso();
 					$colecao = $nAcesso->lerAcessosPorUsuario($nUsuario,$controleAcessado);
 					if(!$colecao->contarItens()){
-						throw(new erroAcesso('Acesso Não Permitido !'));
+						throw(new erroAcesso('Acesso Não Permitido!'));
 					}
 			}
 			return true;
@@ -46,16 +46,16 @@ class NControleAcesso extends negocio{
 	public function validarLogin(){
 		try{
 			switch(true){
-				case(!$this->pegarLogin()):
-					throw(new erroLogin('Login não informado !'));
-				case(!$this->pegarSenha()):
-					throw(new erroLogin('Senha não informada !'));
+				case(!$this->pegarNmLogin()):
+					throw(new erroLogin('Login não informado!'));
+				case(!$this->pegarNmSenha()):
+					throw(new erroLogin('Senha não informada!'));
 				default:
 					$nUsuario = new NUsuario();
-					$nUsuario->passarLogin(operador::igual($this->pegarLogin()));
-					$nUsuario->passarSenha(operador::igual($this->pegarSenha()));
+					$nUsuario->passarNmLogin(operador::igual($this->pegarNmLogin()));
+					$nUsuario->passarNmSenha(operador::igual($this->pegarNmSenha()));
 					$colecao = $nUsuario->pesquisar(new pagina());
-					if(!$colecao->possuiItens()) throw(new erroAcesso('Usuário não autorizado !'));
+					if(!$colecao->possuiItens()) throw(new erroAcesso('Usuário não autorizado!'));
 					sessaoSistema::registrar('usuario',$colecao->avancar());
 			}
 		}

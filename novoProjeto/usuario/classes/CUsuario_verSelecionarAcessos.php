@@ -51,11 +51,11 @@ class CUsuario_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 		if($negocio->pegarIdUsuario()){
 			$nUsuario = new NUsuario();
 			$nUsuario->ler($negocio->pegarIdUsuario());
-			$this->visualizacao->usuario = $nUsuario->pegarLogin();
+			$this->visualizacao->usuario = $nUsuario->pegarNmLogin();
 		}
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'selecionarAcessos'));
 		$this->visualizacao->idUsuario = VComponente::montar('oculto','idUsuario',$negocio->pegarIdUsuario());
-		$this->visualizacao->login = $negocio->pegarLogin();
+		$this->visualizacao->login = $negocio->pegarNmLogin();
 		$this->visualizacao->listagem = $listagem;
 	}
 	/**

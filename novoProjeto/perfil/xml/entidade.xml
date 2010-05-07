@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade  nomeBanco='perfil' nomeSequencia='sq_perfil'>
+<entidade  nomeBanco='public.perfil' nomeSequencia='public.sq_perfil'>
 	<propriedades>
-		<propriedade id='idPerfil' tipo='numerico' tamanho='10' indicePrimario='sim'  >
-			<banco nome='perf_id_perfil'  />
+		<propriedade id='idPerfil' tipo='numerico' tamanho='10' indicePrimario='sim'>
+			<banco nome='perf_id_perfil' />
 			<apresentacao componente='oculto' />
 		</propriedade>
-		<propriedade id='nmPerfil' tipo='texto' tamanho='60' obrigatorio='sim' descritivo='1'  >
-			<banco nome='perf_nm_perfil' ordem='1'  />
-			<apresentacao componente='caixa de entrada' >
-				<listagem ordem='2' tamanho='90%' />
+		<propriedade id='nmPerfil' tipo='texto' tamanho='60' obrigatorio='sim' descritivo='1'>
+			<banco nome='perf_nm_perfil' ordem='1' />
+			<apresentacao componente='caixa de entrada'>
+				<listagem ordem='1' tamanho='100%' />
 			</apresentacao>
 		</propriedade>
 	</propriedades>

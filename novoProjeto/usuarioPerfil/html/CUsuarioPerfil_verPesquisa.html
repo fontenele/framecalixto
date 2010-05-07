@@ -1,42 +1,42 @@
 <form name="formulario" method="post" action="«$action»" >
-<div class="container0">
-	<div class="a"></div>
-	<div class="b"></div>
-	<div class="c"></div>
-	<div class="d"></div>
-	<div class="e"></div>
-	<div class="f"></div>
-	<div class="g"></div>
-	<div class="h"></div>
-	<h1>&nbsp;</h1>
-	<div class="texto">
-		<table summary="text" class="tabela2">
-			<tr>
-				<td class="campo1">«$nomeIdUsuario»:</td>
-				<td class="campo2">«$idUsuario»</td>
-			</tr>
-			<tr>
-				<td class="campo1">«$nomeIdPerfil»:</td>
-				<td class="campo2">«$idPerfil»</td>
-			</tr>
-		</table>
-        <div id='menu_corpo'>
-            «$menuPrograma»
-        </div>
-		<div class="container2">
-			<div class="a"></div>
-			<div class="b"></div>
-			<div class="c"></div>
-			<div class="d"></div>
-			<div class="e"></div>
-			<div class="f"></div>
-			<div class="g"></div>
-			<div class="h"></div>
-			<h1>Listagem</h1>
-			<div class="texto">
-				«$listagem»
+	<div class="container0 ui-widget-content ui-corner-all">
+		<div class="a"></div>
+		<div class="b"></div>
+		<div class="c"></div>
+		<div class="d"></div>
+		<div class="e"></div>
+		<div class="f"></div>
+		<div class="g"></div>
+		<div class="h"></div>
+		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
+		<div class="texto">
+			<div class="tabela2">
+					<div class='campo'>
+						<label for='«$v->pegarId()»'>«$nomeIdUsuario»:</label>
+						<span>«$idUsuario»</span>
+					</div>
+					<div class='campo'>
+						<label for='«$idPerfil->pegarId()»'>«$nomeIdPerfil»:</label>
+						<span>«$idPerfil»</span>
+					</div>
+				</div>
+	        <div id='menu_corpo'>
+	            «$menuPrograma»
+	        </div>
+			<div class="container2">
+				<div class="a"></div>
+				<div class="b"></div>
+				<div class="c"></div>
+				<div class="d"></div>
+				<div class="e"></div>
+				<div class="f"></div>
+				<div class="g"></div>
+				<div class="h"></div>
+				<h1 class="ui-state-default ui-corner-all"><img src=".sistema/temas/frameCalixto/imagens/pro.png" /> Listagem</h1>
+				<div class="texto">
+					«$listagem»
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </form>

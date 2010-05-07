@@ -13,12 +13,12 @@
 			<abreviacao>Nome</abreviacao>
 			<descricao>Nome da pessoa</descricao>
 		</propriedade>
-		<propriedade nome='endereco'>
+		<propriedade nome='txEndereco'>
 			<nome>Endereço</nome>
 			<abreviacao>End.</abreviacao>
 			<descricao>Endereço da pessoa</descricao>
 		</propriedade>
-		<propriedade nome='telefone'>
+		<propriedade nome='nrTelefone'>
 			<nome>Telefone</nome>
 			<abreviacao>Tel.</abreviacao>
 			<descricao>Telefone da pessoa</descricao>
@@ -37,7 +37,7 @@
 		</propriedades>
 	</entidade>
 	<controles>
-		<titulo>Cadastro de Pessoa</titulo>
+		<titulo>Pessoas</titulo>
 		<textos>
 			<texto id='FI'>Internal Fisical</texto>
 			<texto id='FE'>External Fisical</texto>

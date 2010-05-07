@@ -132,17 +132,17 @@ gerador = {
 		type = (fk ? 'text' : 'hidden');
 		template =
 			'<tr class="ln_'+ this.linha +'" >' +
-				'<td  class="propriedade" ></td>' +
-				'<td><input tabindex="1" type="text"		name="ng_nome['+this.linha+']"			value="'+propriedade+'"	class="propriedade" /></td>' +
-				'<td><input tabindex="1" type="text"		name="ng_tamanho['+this.linha+']"		value="'+tamanho+'"		class="tamanho" size="4" /></td>' +
-				'<td><select tabindex="1"					name="ng_tipo['+this.linha+']"	id="ng_tipo_'+this.linha+'"		class="tipo">' + options + '</select></td>' +
-				'<td><input tabindex="1" type="radio"		name="ng_chave_pk"						value="'+this.linha+'"	class="pk" '+ (pk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td><input tabindex="1" type="checkbox"	name="ng_nn['+this.linha+']"			value="'+nn+'"			class="nn" '+ (nn ? 'checked="checked"' : '')  +' /></td>' +
-				'<td><input tabindex="1" type="checkbox"	name="ng_uk['+this.linha+']"			value="'+uk+'"			class="uk" '+ (uk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td><input tabindex="1" type="checkbox"	name="ng_fk['+this.linha+']"			value="'+fk+'"			class="fk" '+ (fk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td><input tabindex="1" type="text"		name="ng_dominio['+this.linha+']"		value="'+dominio+'"		class="dominio" /></td>' +
-				'<td><input tabindex="1" type="'+ type  +'"	name="ng_associativa['+this.linha+']"	value="'+classe+'"		class="associativa" id="ng_associativa_'+this.linha+'" /></td>' +
-				'<td><input tabindex="1" type="'+ type  +'"	name="ng_metodo['+this.linha+']"		value="'+metodo+'"		class="metodo" id="ng_metodo_'+this.linha+'" /></td>' +
+				'<td class="propriedade centro" ></td>' +
+				'<td class="centro"><input tabindex="1" type="text"		name="ng_nome['+this.linha+']"			value="'+propriedade+'"	class="propriedade" /></td>' +
+				'<td class="centro"><input tabindex="1" type="text"		name="ng_tamanho['+this.linha+']"		value="'+tamanho+'"		class="tamanho" size="4" /></td>' +
+				'<td class="centro"><select tabindex="1"					name="ng_tipo['+this.linha+']"	id="ng_tipo_'+this.linha+'"		class="tipo">' + options + '</select></td>' +
+				'<td class="centro"><input tabindex="1" type="radio"		name="ng_chave_pk"						value="'+this.linha+'"	class="pk" '+ (pk ? 'checked="checked"' : '')  +' /></td>' +
+				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_nn['+this.linha+']"			value="'+nn+'"			class="nn" '+ (nn ? 'checked="checked"' : '')  +' /></td>' +
+				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_uk['+this.linha+']"			value="'+uk+'"			class="uk" '+ (uk ? 'checked="checked"' : '')  +' /></td>' +
+				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_fk['+this.linha+']"			value="'+fk+'"			class="fk" '+ (fk ? 'checked="checked"' : '')  +' /></td>' +
+				'<td class="centro"><input tabindex="1" type="text"		name="ng_dominio['+this.linha+']"		value="'+dominio+'"		class="dominio" /></td>' +
+				'<td class="centro"><input tabindex="1" type="'+ type  +'"	name="ng_associativa['+this.linha+']"	value="'+classe+'"		class="associativa" id="ng_associativa_'+this.linha+'" /></td>' +
+				'<td class="centro"><input tabindex="1" type="'+ type  +'"	name="ng_metodo['+this.linha+']"		value="'+metodo+'"		class="metodo" id="ng_metodo_'+this.linha+'" /></td>' +
 			'</tr>';
 		$('#neg tr:last').after(template);
 	},
@@ -155,12 +155,12 @@ gerador = {
 		type = (tabelaReferencia ? 'text' : 'hidden');
 		template =
 			'<tr class="ln_'+ this.linha +'" >' +
-				'<td  class="propriedade" ></td>' +
-				'<td><input tabindex="1" type="text"		name="bd_campo['+this.linha+']"				value="'+campo+'"				class="campo" /></td>' +
-				'<td><input tabindex="1" type="text"		name="bd_ordem['+this.linha+']"				value="'+ordem+'"				class=ordem"" size="4"/></td>' +
-				'<td><input tabindex="1" type="checkbox"	name="bd_tipo_ordem['+this.linha+']"		value="'+tipoOrdem+'"			class="tipoOrdem" /></td>' +
-				'<td><input tabindex="1" type="'+ type  +'"	name="bd_referencia_tabela['+this.linha+']"	value="'+tabelaReferencia+'"	class="tabelaReferencia" id="bd_referencia_tabela_'+this.linha+'" /></td>' +
-				'<td><input tabindex="1" type="'+ type  +'"	name="bd_referencia_campo['+this.linha+']"	value="'+campoReferencia+'"		class="campoReferencia" id="bd_referencia_campo_'+this.linha+'" /></td>' +
+				'<td class="propriedade centro" ></td>' +
+				'<td class="centro"><input tabindex="1" type="text"		name="bd_campo['+this.linha+']"				value="'+campo+'"				class="campo" /></td>' +
+				'<td class="centro"><input tabindex="1" type="text"		name="bd_ordem['+this.linha+']"				value="'+ordem+'"				class=ordem"" size="4"/></td>' +
+				'<td class="centro"><input tabindex="1" type="checkbox"	name="bd_tipo_ordem['+this.linha+']"		value="'+tipoOrdem+'"			class="tipoOrdem" /></td>' +
+				'<td class="centro"><input tabindex="1" type="'+ type  +'"	name="bd_referencia_tabela['+this.linha+']"	value="'+tabelaReferencia+'"	class="tabelaReferencia" id="bd_referencia_tabela_'+this.linha+'" /></td>' +
+				'<td class="centro"><input tabindex="1" type="'+ type  +'"	name="bd_referencia_campo['+this.linha+']"	value="'+campoReferencia+'"		class="campoReferencia" id="bd_referencia_campo_'+this.linha+'" /></td>' +
 			'</tr>';
 		$('#per tr:last').after(template);
 	},
@@ -176,11 +176,11 @@ gerador = {
 		}
 		template =
 			'<tr class="ln_'+ this.linha +'" >' +
-				'<td  class="propriedade" ></td>' +
-				'<td><select tabindex="1" name="vi_componente['+ this.linha +']" id="vi_componente_'+ this.linha +'" class="viComponente">' + options + '</select></td>' +
-				'<td><input tabindex="1" name="vi_ordem['+ this.linha +']"	value="'+ordem+'" size="4" /></td>' +
-				'<td><input tabindex="1" name="vi_ordemDescritivo['+ this.linha +']"	value="'+ordemDescritivo+'" size="4" /></td>' +
-				'<td><input tabindex="1" name="vi_largura['+ this.linha +']"	value="'+largura+'" size="4" /></td>' +
+				'<td class="propriedade centro" ></td>' +
+				'<td class="centro"><select tabindex="1" name="vi_componente['+ this.linha +']" id="vi_componente_'+ this.linha +'" class="viComponente">' + options + '</select></td>' +
+				'<td class="centro"><input tabindex="1" name="vi_ordem['+ this.linha +']"	value="'+ordem+'" size="4" /></td>' +
+				'<td class="centro"><input tabindex="1" name="vi_ordemDescritivo['+ this.linha +']"	value="'+ordemDescritivo+'" size="4" /></td>' +
+				'<td class="centro"><input tabindex="1" name="vi_largura['+ this.linha +']"	value="'+largura+'" size="4" /></td>' +
 			'</tr>';
 		$('#vis tr:last').after(template);
 	},

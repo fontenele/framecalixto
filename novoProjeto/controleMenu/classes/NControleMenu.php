@@ -65,23 +65,25 @@ class NControleMenu extends negocio{
 	public function menuPrincipal(){
 		try{
 			$this->menuPrincipal = new colecaoPadraoMenu();
-			$this->adicionarItem('menuPrincipal','Sistema/Principal','CControleAcesso_verPrincipal','controleMenu/imagens/folder_home.png',true);
-			$this->adicionarItem('menuPrincipal','Sistema/Login','CControleAcesso_verLogin','controleMenu/imagens/decrypted.png',true);
-			$this->adicionarItem('menuPrincipal','Cadastros/Estado','CEstado_verEdicao','controleMenu/imagens/show_offliners.png');
-			$this->adicionarItem('menuPrincipal','Cadastros/Pessoa','CPessoa_verEdicao','controleMenu/imagens/show_offliners.png');
-			$this->adicionarItem('menuPrincipal','Cadastros/Perfil','CPerfil_verEdicao','controleMenu/imagens/show_offliners.png');
-			$this->adicionarItem('menuPrincipal','Cadastros/Usuário','CUsuario_verEdicao','controleMenu/imagens/edit_user.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Pesquisar','CUtilitario_pesquisaGeral','.sistema/imagens/botao_pesquisar16x16.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','controleMenu/imagens/exec.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas','controleMenu/imagens/view_text.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase','controleMenu/imagens/connect_creating.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','controleMenu/imagens/folder_inbox.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','controleMenu/imagens/locale16.png');
+			$this->adicionarItem('menuPrincipal','Sistema/Principal','CControleAcesso_verPrincipal','.sistema/temas/frameCalixto/imagens/imac.png',true);
+			$this->adicionarItem('menuPrincipal','Sistema/Login','CControleAcesso_verLogin','.sistema/temas/frameCalixto/imagens/padlocke.png',true);
+			
+			$this->adicionarItem('menuPrincipal','Cadastros/Estado','CEstado_verEdicao','.sistema/temas/frameCalixto/imagens/web-file.png');
+			$this->adicionarItem('menuPrincipal','Cadastros/Pessoa','CPessoa_verEdicao','.sistema/temas/frameCalixto/imagens/personal-folder2.png');
+			$this->adicionarItem('menuPrincipal','Cadastros/Perfil','CPerfil_verEdicao','.sistema/temas/frameCalixto/imagens/Generic2.png');
+			$this->adicionarItem('menuPrincipal','Cadastros/Usuário','CUsuario_verEdicao','.sistema/temas/frameCalixto/imagens/user.png');
+			
+			$this->adicionarItem('menuPrincipal','Apoio/Pesquisar','CUtilitario_pesquisaGeral','.sistema/temas/frameCalixto/imagens/view.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','.sistema/temas/frameCalixto/imagens/swipe-machine.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas','.sistema/temas/frameCalixto/imagens/window-side-by-side.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase','.sistema/temas/frameCalixto/imagens/gears.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','.sistema/temas/frameCalixto/imagens/database2.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','.sistema/temas/frameCalixto/imagens/conf.png');
 
 			$this->menuPrincipal->passar_id('menuPrincipal');
-			$this->menuPrincipal->Apoio->passar_imagem('controleMenu/imagens/principal.gif');
-			$this->menuPrincipal->Cadastros->passar_imagem('controleMenu/imagens/editors_section.gif');
-			$this->menuPrincipal->Sistema->passar_imagem('controleMenu/imagens/relatorios.gif');
+			$this->menuPrincipal->Apoio->passar_imagem('.sistema/temas/frameCalixto/imagens/suport.png');
+			$this->menuPrincipal->Cadastros->passar_imagem('.sistema/temas/frameCalixto/imagens/shared.png');
+			$this->menuPrincipal->Sistema->passar_imagem('.sistema/temas/frameCalixto/imagens/globo.png');
 			return $this->menuPrincipal;
 		}
 		catch(erro $e){

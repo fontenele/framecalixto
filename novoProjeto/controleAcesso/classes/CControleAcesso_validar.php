@@ -13,8 +13,8 @@ class CControleAcesso_validar extends controle{
 		try{
 			$this->passarProximoControle(definicaoEntidade::controle($this,'verLogin'));
 			$controleAcesso = new NControleAcesso();
-			$controleAcesso->passarLogin($_POST['login']);
-			$controleAcesso->passarSenha($_POST['senha']);
+			$controleAcesso->passarNmLogin($_POST['nmLogin']);
+			$controleAcesso->passarNmSenha($_POST['nmSenha']);
 			$controleAcesso->validarLogin();
 			$this->registrarComunicacao($this->inter->pegarMensagem('usuarioLogado'));
 			$this->passarProximoControle(definicaoEntidade::controle($this,'verPrincipal'));
