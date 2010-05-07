@@ -861,7 +861,7 @@ abstract class persistente extends objeto{
 	public function gerarComandoDestruicaoSequence(){
 		try{
 			$estrutura = $this->pegarEstrutura();
-			return "drop sequence {$estrutura['nomeSequencia']}";
+			return "drop sequence if exists {$estrutura['nomeSequencia']}";
 		}
 		catch(erro $e){
 			throw $e;
@@ -889,7 +889,7 @@ abstract class persistente extends objeto{
 	public function gerarComandoDestruicaoTabela(){
 		try{
 			$estrutura = $this->pegarEstrutura();
-			return $comando = "drop table {$estrutura['nomeTabela']} cascade";
+			return $comando = "drop table if exists {$estrutura['nomeTabela']} cascade";
 		}
 		catch(erro $e){
 			throw $e;

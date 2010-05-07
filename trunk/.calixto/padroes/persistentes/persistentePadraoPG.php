@@ -67,16 +67,13 @@ class persistentePadraoPG extends persistente{
 		}
 		return false;
 	}
-	/**
-	 * Método de criação da função de banco accent_remove
-	 */
-	public function plAccentRemove(){
-		$comando = "
+	public static function gerarComandoAccentRemove() {
+		return "
 			--
 			-- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: postgres
 			--
-			CREATE PROCEDURAL LANGUAGE plpgsql;
-			SET search_path = public, pg_catalog;
+			--CREATE PROCEDURAL LANGUAGE plpgsql;
+			--SET search_path = public, pg_catalog;
 			--
 			-- Name: accent_remove(character varying); Type: FUNCTION; Schema: public; Owner: postgres
 			--
@@ -146,7 +143,12 @@ class persistentePadraoPG extends persistente{
 				LANGUAGE plpgsql STRICT;
 			ALTER FUNCTION public.accent_remove(text_input character varying) OWNER TO postgres;
 		";
-		$this->executarComando($comando);
+	}
+	/**
+	 * Método de criação da função de banco accent_remove
+	 */
+	public function plAccentRemove(){
+		$this->executarComando(self::gerarComandoAccentRemove());
 	}
 
 }
