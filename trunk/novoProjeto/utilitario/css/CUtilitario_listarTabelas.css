@@ -1,0 +1,14 @@
+.lista > a {
+	text-decoration: underline !important;
+}
+.lista ul {
+	margin-left: 5px;
+	margin-bottom: 15px;
+	
+}
+.lista ul li {
+	margin-bottom: 10px;
+}
+.lista ul li a {
+	padding: 5px;
+}

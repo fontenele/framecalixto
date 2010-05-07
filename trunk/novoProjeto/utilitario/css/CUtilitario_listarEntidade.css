@@ -1,0 +1,8 @@
+.tabela0 thead tr th {
+	font-weight: bold !important;
+	font-variant: small-caps;
+}
+.tabela0 tbody tr td.nomeEntidade {
+	font-style: italic;
+	font-weight: bold;
+}

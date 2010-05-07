@@ -1,0 +1,25 @@
+.texto{
+	padding: 5px;
+}
+fieldset{
+	border: 1px solid #ddd;
+	margin-bottom: 5px;
+	padding: 3px;
+	display: inline;
+}
+fieldset legend{
+	padding-left: 4px;
+	padding-right: 4px;
+	font-weight: bold;
+	font-variant: small-caps;
+}
+.campo label{
+	font-style: italic;
+	display: inline-table !important;
+	width: 205px;
+	text-align: right;
+	padding-right: 2px;
+}
+.tabela2 tbody tr th, .tabela2 tbody tr td.campo1{
+	font-style: italic;
+}
