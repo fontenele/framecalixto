@@ -50,7 +50,7 @@ class erro extends Exception{
 		<fieldset class='erroNegro'>
 			<legend>{$this->titulo}</legend>
 			<link type='text/css' rel='stylesheet' href='.sistema/debug.css' />
-			<img src='.sistema/imagens/{$this->imagem}' alt='[imagem]'>
+			<img src='".definicaoPasta::tema()."icones/error.png'>
 			<table summary='text' class='erroNegro'>
 				<tr>
 					<td>Mensagem:</td>

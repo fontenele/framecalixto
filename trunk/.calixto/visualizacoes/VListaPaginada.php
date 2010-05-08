@@ -137,7 +137,7 @@ class VListaPaginada extends objeto{
 	function montarListagem(){
 		if(!$this->colecao->possuiItens()){
 			$mensagem = $this->inter->pegarMensagem('registrosNaoEncontrados');
-			return "<center>$mensagem</center>";
+			return "<div class='ui-widget-content' style='width:90%;margin:auto;text-align:center;'>{$mensagem}</div>";
 		}
 		if(is_array($this->campos)){
 			$conexao = conexao::criar();
@@ -149,7 +149,7 @@ class VListaPaginada extends objeto{
 				$campo = $this->campos[$chave];
 				$tamanho = ($campo['tamanho']) ? "width='{$campo['tamanho']}'" : '' ;
 				$alinhamento = ($campo['alinhamento']) ? "align='{$campo['alinhamento']}'" : '' ;
-				$retorno.="<th {$tamanho} {$alinhamento} >{$campo['titulo']}</th>\n";
+				$retorno.="<th class='ui-state-default ui-widget-content' {$tamanho} {$alinhamento} >{$campo['titulo']}</th>\n";
 			}
 			$retorno.= "</tr>\n";
 			$x = 0;
@@ -262,7 +262,7 @@ class VListaPaginada extends objeto{
 		$retorno = '';
 		$paginas = $this->inter->pegarTexto('paginas');
 		if($this->pagina->pegarTamanhoGeral() > $this->pagina->pegarTamanhoPagina()){
-			$retorno.="<div class='container3'>\n";
+			$retorno.="<div class='container3 ui-widget-content'>\n";
 			$retorno.="	<div class='a'></div>\n";
 			$retorno.="	<div class='b'></div>\n";
 			$retorno.="	<div class='c'></div>\n";
@@ -282,8 +282,8 @@ class VListaPaginada extends objeto{
 			$linkUltimo = sprintf('?c=%s&amp;pagina=%s',$this->controle, (int)$paginas);
 
 
-			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span>Primeiro</span>" : "<a href='{$linkPrimeiro}'>Primeiro</a>";
-			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span>Anterior</span>" : "<a href='{$linkAnterior}'>Anterior</a>";
+			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span>Primeiro</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkPrimeiro}'>Primeiro</a></span>";
+			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span>Anterior</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkAnterior}'>Anterior</a></span>";
 
 
 			$retorno.= '<select id="seletorPagina">';
@@ -300,8 +300,8 @@ class VListaPaginada extends objeto{
 
 			$retorno.="</select>";
 
-			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span>Próximo</span>" : "<a href='{$linkProximo}'>Próximo</a>";
-			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span>Último</span>" : "<a href='{$linkUltimo}'>Último</a>";
+			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span>Próximo</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkProximo}'>Próximo</a></span>";
+			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span>Último</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkUltimo}'>Último</a></span>";
 
 			$retorno.="		</p>\n	</div>\n";
 			$retorno.="</div>\n";
@@ -315,6 +315,9 @@ class VListaPaginada extends objeto{
 	*/
 	function __toString(){
 		try{
+			$classe = definicaoEntidade::internacionalizacao($this->controle);
+			$this->inter = new $classe();
+			$this->definirListagem();
 			$retorno = $this->montarListagem();
 			$retorno.= $this->montarPaginador();
 			return $retorno;
@@ -332,7 +335,7 @@ class VListaPaginada extends objeto{
 	{
 		$controle = definicaoEntidade::controle($negocio,'excluir');
 		$link = sprintf("?c=%s&amp;chave=%s",$controle,$negocio->valorChave());
-		return "<a href='javascript:if(confirm(\"Deseja mesmo excluir este item?\")){window.location=\"{$link}\";}' title='Excluir registro.' ><img src='.sistema/imagens/icon-delete.png' border='0' /></a>";
+		return "<a href='javascript:if(confirm(\"Deseja mesmo excluir este item?\")){window.location=\"{$link}\";}' title='Excluir registro'><img src='".definicaoPasta::tema()."icones/delete.png' border='0' /></a>";
 	}
 
 	/**
@@ -344,7 +347,7 @@ class VListaPaginada extends objeto{
 	{
 		$controle = definicaoEntidade::controle($negocio,'verEdicao');
 		$link = sprintf("?c=%s&amp;chave=%s",$controle,$negocio->valorChave());
-		return "<a href='{$link}' title='Alterar registro.' ><img src='.sistema/imagens/icon-edit.png' border='0' /></a>";
+		return "<a href='{$link}' title='Alterar registro'><img src='".definicaoPasta::tema()."icones/pencil.png' border='0' /></a>";
 	}
 }
 ?>
