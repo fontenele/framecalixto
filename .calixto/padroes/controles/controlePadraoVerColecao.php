@@ -55,8 +55,8 @@ abstract class controlePadraoVerColecao extends controlePadrao{
 		$menu = parent::montarMenuPrograma();
 		$gravar = $this->inter->pegarTexto('botaoGravar');
 		$listagem = $this->inter->pegarTexto('botaoListagem');
-		$menu->$gravar = new VMenu($gravar,'javascript:document.formulario.submit();','.sistema/imagens/botao_gravar.png');
-		$menu->$listagem = new VMenu($listagem,sprintf("?c=%s",definicaoEntidade::controle($this,'verPesquisa')),'.sistema/imagens/botao_listagem.png');
+		$menu->$gravar = new VMenu($gravar,'javascript:document.formulario.submit();',definicaoPasta::tema().'icones/disk.png');
+		$menu->$listagem = new VMenu($listagem,sprintf("?c=%s",definicaoEntidade::controle($this,'verPesquisa')),definicaoPasta::tema().'icones/application_view_list.png');
 		return $menu;
 	}
 	/**

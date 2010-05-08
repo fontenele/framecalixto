@@ -78,9 +78,9 @@ class controlePadraoVerEdicao extends controlePadrao{
 		$excluir = $this->inter->pegarTexto('botaoExcluir');
 		$listagem = $this->inter->pegarTexto('botaoListagem');
 		$chave = isset($_GET['chave']) ? $_GET['chave'] : ($this->negocio->valorChave()) ? $this->negocio->valorChave() : null;
-		$menu->$gravar = new VMenu($gravar,'javascript:$.submeter();','.sistema/imagens/botao_gravar.png');
-		if($chave) $menu->$excluir = new VMenu($excluir,sprintf("?c=%s&amp;chave=%s",definicaoEntidade::controle($this,'excluir'),$chave),'.sistema/imagens/botao_excluir.png');
-		$menu->$listagem = new VMenu($listagem,sprintf("?c=%s",definicaoEntidade::controle($this,'verPesquisa')),'.sistema/imagens/botao_listagem.png');
+		$menu->$gravar = new VMenu($gravar,'javascript:$.submeter();',definicaoPasta::tema().'icones/disk.png');
+		if($chave) $menu->$excluir = new VMenu($excluir,sprintf("?c=%s&amp;chave=%s",definicaoEntidade::controle($this,'excluir'),$chave),definicaoPasta::tema().'icones/delete.png');
+		$menu->$listagem = new VMenu($listagem,sprintf("?c=%s",definicaoEntidade::controle($this,'verPesquisa')),definicaoPasta::tema().'icones/application_view_list.png');
 		return $menu;
 	}
 }
