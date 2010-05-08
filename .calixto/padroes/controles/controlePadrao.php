@@ -27,12 +27,9 @@ class controlePadrao extends controle{
 	public function criarVisualizacaoPadrao(){
 		$this->visualizacao = new visualizacaoPadrao($this);
 		$this->visualizacao->nomeLogado			= sessaoSistema::tem('usuario') ? sessaoSistema::pegar('usuario')->valorDescricao() : 'Visitante';
+		$this->visualizacao->estaLogado			= sessaoSistema::tem('usuario') ? true : false;
 		$this->visualizacao->comunicacaoSistema = sessaoSistema::tem('comunicacao') ? new VComunicacao(sessaoSistema::retirar('comunicacao')) : '';
 		$this->visualizacao->requisicaoAjax		= controle::requisicaoAjax();
-		$this->visualizacao->menuPrincipal		= '';
-		$this->visualizacao->menuModulo			= '';
-		$this->visualizacao->menuPrograma		= '';
-		$this->visualizacao->descricaoDeAjuda	= '';
 		$this->visualizacao->action				= '';
 		$this->visualizacao->mensagemErroData	= '';
 		$this->visualizacao->mensagemErroDia	= '';
@@ -51,6 +48,7 @@ class controlePadrao extends controle{
 		$this->visualizacao->cssEntidade		= definicaoPasta::css($this).'principal.css';
 		$this->visualizacao->cssLocal			= definicaoPasta::css($this).get_class($this).'.css';
 		$this->visualizacao->jsTema				= definicaoPasta::tema().'/configurador.js';
+		$this->visualizacao->dirTema			= definicaoPasta::tema();
 		$this->visualizacao->jsEntidade			= definicaoPasta::js($this).'principal.js';
 		$this->visualizacao->jsLocal			= definicaoPasta::js($this).get_class($this).'.js';
 	}
@@ -193,7 +191,7 @@ class controlePadrao extends controle{
 	public function gerarMenuprincipal(){
 		$arMenu = $this->montarMenuPrincipal();
 		if($arMenu){
-			$this->visualizacao->menuPrincipal = "<div class='menu1' >{$arMenu}</div>";
+			$this->visualizacao->menuPrincipal = "<div class='menu1'>{$arMenu}</div>";
 		}else{
 			$this->visualizacao->menuPrincipal = '';
 		}
@@ -215,13 +213,19 @@ class controlePadrao extends controle{
 	*/
 	public function gerarMenuPrograma(){
 		$menu = $this->montarMenuPrograma();
+		
+		if($menu && $menu instanceof colecaoPadraoMenu) {
+			while($menuItem = $menu->avancar()) {
+				$menuItem->passar_classe('ui-state-default ui-corner-all');
+			}
+		}
 		switch(true){
 			case is_array($menu):
 				$menu = new VMenu($menu);
-				$this->visualizacao->menuPrograma = "<div class='menu3' >{$menu->_coMenu}</div>";
+				$this->visualizacao->menuPrograma = "<div class='menu3'>{$menu->_coMenu}</div>";
 			break;
 			case $menu instanceof colecaoPadraoMenu:
-				$this->visualizacao->menuPrograma = "<div class='menu3' >{$menu}</div>";
+				$this->visualizacao->menuPrograma = "<div class='menu3'>{$menu}</div>";
 			break;
 			default:
 				$this->visualizacao->menuPrograma = '';
