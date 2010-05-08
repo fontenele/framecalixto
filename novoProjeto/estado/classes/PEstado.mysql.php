@@ -2,7 +2,7 @@
 /**
 * Classe de persistência
 * @package Sistema
-* @subpackage estado
+* @subpackage Estado
 */
 class PEstado extends persistentePadraoMySql{}
 ?>

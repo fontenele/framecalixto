@@ -2,7 +2,7 @@
 /**
 * Classe de internacionalização
 * @package Sistema
-* @subpackage estado
+* @subpackage Estado
 */
 class IEstado extends internacionalizacaoPadrao{}
 ?>

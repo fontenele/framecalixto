@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade nomeBanco='public.estado' nomeSequencia='public.sq_estado'>
+<entidade  nomeBanco='public.estado' nomeSequencia='public.sq_estado'>
 	<propriedades>
-		<propriedade id='idEstado' tipo='numerico' tamanho='2' obrigatorio='sim' indicePrimario='sim'>
-			<banco nome='esta_id_estado' />
-			<apresentacao componente='oculto' />
+		<propriedade id='idEstado' tipo='numerico' tamanho='2' obrigatorio='sim' indicePrimario='sim'  >
+			<banco nome='esta_id_estado'  />
+			<apresentacao componente='oculto'  />
 		</propriedade>
-		<propriedade id='sgSigla' tipo='texto' tamanho='2' obrigatorio='sim' indiceUnico='sim'>
-			<banco nome='esta_sg_sigla' />
-			<apresentacao componente='caixa de entrada'>
+		<propriedade id='sgSigla' tipo='texto' tamanho='2' obrigatorio='sim'  >
+			<banco nome='esta_sg_sigla'  />
+			<apresentacao componente='caixa de entrada' >
 				<listagem ordem='1' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='nmEstado' tipo='texto' tamanho='70' obrigatorio='sim' descritivo='1'>
-			<banco nome='esta_nm_estado' ordem='1' />
-			<apresentacao componente='caixa de entrada'>
+		<propriedade id='nmEstado' tipo='texto' tamanho='70' obrigatorio='sim' descritivo='1'  >
+			<banco nome='esta_nm_estado' ordem='1'  />
+			<apresentacao componente='caixa de entrada' >
 				<listagem ordem='2' tamanho='90%' />
 			</apresentacao>
 		</propriedade>
