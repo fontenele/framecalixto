@@ -94,7 +94,7 @@ if(isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'],'amf')) {
 	$server->setProduction(false);
 	
 	$arDiretorios = scandir(dirname(__FILE__));
-	$arDiretoriosNaoEntidades = array('.','..','.tmp','Zend','.sistema','utilitario');
+	$arDiretoriosNaoEntidades = array('.','..','.tmp','.sistema');
 	foreach($arDiretorios as $dirName) {
 		if(!in_array($dirName,$arDiretoriosNaoEntidades) && is_dir($dirName) && is_dir(dirname(__FILE__).'/'.$dirName.'/classes')) {
 			$server->addDirectory(dirname(__FILE__).'/'.$dirName.'/classes');
