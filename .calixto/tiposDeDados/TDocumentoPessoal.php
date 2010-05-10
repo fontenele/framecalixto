@@ -7,6 +7,19 @@
 */
 class TDocumentoPessoal extends TTelefone{
 	/**
+	* metodo construtor do documento pessoal
+	* @param string numero formatado
+	*/
+	public function __construct($numero = ''){
+		$tamanho = strlen($numero);
+		switch($tamanho) {
+			case 14:
+				$this->passarTipo('cnpj');
+			break;
+		}
+		parent::__construct($numero);
+	}
+	/**
 	* @var string tipo do documento
 	*/
 	protected $tipo = 'cpf';
@@ -49,6 +62,7 @@ class TDocumentoPessoal extends TTelefone{
 				}
 			break;
 			case 'cnpj':
+			
 				for($i = $tamanho -1; $i >= 0; $i--){
 					$j++;
 					if($j == 15){ break; }
@@ -60,6 +74,7 @@ class TDocumentoPessoal extends TTelefone{
 				}
 			break;
 		}
+		
 		return $res;
 	}
 }
