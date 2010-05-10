@@ -65,25 +65,43 @@ class NControleMenu extends negocio{
 	public function menuPrincipal(){
 		try{
 			$this->menuPrincipal = new colecaoPadraoMenu();
-			$this->adicionarItem('menuPrincipal','Sistema/Principal','CControleAcesso_verPrincipal','.sistema/temas/frameCalixto/imagens/imac.png',true);
-			$this->adicionarItem('menuPrincipal','Sistema/Login','CControleAcesso_verLogin','.sistema/temas/frameCalixto/imagens/padlocke.png',true);
-			
-			$this->adicionarItem('menuPrincipal','Cadastros/Estado','CEstado_verEdicao','.sistema/temas/frameCalixto/imagens/web-file.png');
-			$this->adicionarItem('menuPrincipal','Cadastros/Pessoa','CPessoa_verEdicao','.sistema/temas/frameCalixto/imagens/personal-folder2.png');
-			$this->adicionarItem('menuPrincipal','Cadastros/Perfil','CPerfil_verEdicao','.sistema/temas/frameCalixto/imagens/Generic2.png');
-			$this->adicionarItem('menuPrincipal','Cadastros/Usuário','CUsuario_verEdicao','.sistema/temas/frameCalixto/imagens/user.png');
-			
-			$this->adicionarItem('menuPrincipal','Apoio/Pesquisar','CUtilitario_pesquisaGeral','.sistema/temas/frameCalixto/imagens/view.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','.sistema/temas/frameCalixto/imagens/swipe-machine.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas','.sistema/temas/frameCalixto/imagens/window-side-by-side.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase','.sistema/temas/frameCalixto/imagens/gears.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','.sistema/temas/frameCalixto/imagens/database2.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','.sistema/temas/frameCalixto/imagens/conf.png');
-
 			$this->menuPrincipal->passar_id('menuPrincipal');
-			$this->menuPrincipal->Apoio->passar_imagem('.sistema/temas/frameCalixto/imagens/suport.png');
-			$this->menuPrincipal->Cadastros->passar_imagem('.sistema/temas/frameCalixto/imagens/shared.png');
-			$this->menuPrincipal->Sistema->passar_imagem('.sistema/temas/frameCalixto/imagens/globo.png');
+			
+			$nmLoginLabel = sessaoSistema::tem('usuario') ? 'Sair' : 'Entrar';
+			$nmLoginImagem = sessaoSistema::tem('usuario') ? 'door_out.png' : 'key.png';
+			
+			$this->menuPrincipal->Sistema->passar_imagem('.sistema/temas/frameCalixto/icones/computer.png');
+			
+			$this->adicionarItem('menuPrincipal','Sistema/Página Principal','CControleAcesso_verPrincipal','.sistema/temas/frameCalixto/icones/monitor.png',true);
+			$this->adicionarItem('menuPrincipal',"Sistema/{$nmLoginLabel}",'CControleAcesso_verLogin',".sistema/temas/frameCalixto/icones/{$nmLoginImagem}",true);
+			
+			$this->menuPrincipal->{'Administração'}->passar_imagem('.sistema/temas/frameCalixto/icones/server.png');
+			$this->menuPrincipal->{'Administração'}->Estados->passar_imagem('.sistema/temas/frameCalixto/icones/group.png');
+			$this->menuPrincipal->{'Administração'}->Pessoas->passar_imagem('.sistema/temas/frameCalixto/icones/vcard.png');
+			$this->menuPrincipal->{'Administração'}->Perfis->passar_imagem('.sistema/temas/frameCalixto/icones/medal_gold_1.png');
+			$this->menuPrincipal->{'Administração'}->{'Usuários'}->passar_imagem('.sistema/temas/frameCalixto/icones/user.png');
+			
+			$this->adicionarItem('menuPrincipal','Administração/Estados/Novo Registro','CEstado_verEdicao','.sistema/temas/frameCalixto/icones/group_add.png');
+			$this->adicionarItem('menuPrincipal','Administração/Estados/Pesquisar','CEstado_verPesquisa','.sistema/temas/frameCalixto/icones/group.png');
+			
+			$this->adicionarItem('menuPrincipal','Administração/Pessoas/Novo Registro','CPessoa_verEdicao','.sistema/temas/frameCalixto/icones/vcard_add.png');
+			$this->adicionarItem('menuPrincipal','Administração/Pessoas/Pesquisar','CPessoa_verPesquisa','.sistema/temas/frameCalixto/icones/vcard.png');
+			
+			$this->adicionarItem('menuPrincipal','Administração/Perfis/Novo Registro','CPerfil_verEdicao','.sistema/temas/frameCalixto/icones/medal_gold_add.png');
+			$this->adicionarItem('menuPrincipal','Administração/Perfis/Pesquisar','CPerfil_verPesquisa','.sistema/temas/frameCalixto/icones/medal_gold_1.png');
+			
+			$this->adicionarItem('menuPrincipal','Administração/Usuários/Novo Registro','CUsuario_verEdicao','.sistema/temas/frameCalixto/icones/user_add.png');
+			$this->adicionarItem('menuPrincipal','Administração/Usuários/Pesquisar','CUsuario_verPesquisa','.sistema/temas/frameCalixto/icones/user.png');
+			
+			$this->menuPrincipal->Apoio->passar_imagem('.sistema/temas/frameCalixto/icones/help.png');
+			
+			$this->adicionarItem('menuPrincipal','Apoio/Pesquisar','CUtilitario_pesquisaGeral','.sistema/temas/frameCalixto/icones/find.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','.sistema/temas/frameCalixto/icones/cog.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas','.sistema/temas/frameCalixto/icones/application_tile_horizontal.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase','.sistema/temas/frameCalixto/icones/application_side_contract.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','.sistema/temas/frameCalixto/icones/arrow_in.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','.sistema/temas/frameCalixto/icones/wrench.png');
+			
 			return $this->menuPrincipal;
 		}
 		catch(erro $e){

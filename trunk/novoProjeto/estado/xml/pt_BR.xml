@@ -21,6 +21,9 @@
 		</propriedades>
 	</entidade>
 	<controles>
-		<titulo>Cadastro de Estado</titulo>
+		<titulo>Estados</titulo>
+		<textos>
+			<texto id="verPesquisaPDF">Relatório de Estados</texto>
+		</textos>
 	</controles>
 </internacionalizacao>
