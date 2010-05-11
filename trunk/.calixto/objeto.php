@@ -83,7 +83,7 @@ abstract class objeto{
         foreach($array as $var => $val){
             if($val instanceof objeto) $val = $val->xml();
             if(is_array($val)) $val = $this->arrayXml($val);
-            $xml.="<{$var}>{$val}</{$var}>\n";
+            $xml.= $val;
         }
         $xml.= "\n\n";
         return $xml;
