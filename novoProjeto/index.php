@@ -1,7 +1,6 @@
 <?php
 /**
 * Arquivo de indice para o funcionamento do sistema 
-* Teste
 */
 $versao = '5.1.2';
 if(phpversion() < $versao) throw new Exception(sprintf('O Calixto Framework não funciona com versão inferior a %s.',$versao));
@@ -92,7 +91,9 @@ if(isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'],'amf')) {
 	include_once('../.calixto/externas/Zend/Amf/Server.php');
 	session_start();
 	$server = new Zend_Amf_Server();
-	$server->setProduction(false);
+	
+	if(definicaoSistema::pegarAmbiente() == definicaoSistema::producao) { $server->setProduction(true); }
+	else { $server->setProduction(false); }
 	
 	$arDiretorios = scandir(dirname(__FILE__));
 	$arDiretoriosNaoEntidades = array('.','..','.tmp','.sistema');
