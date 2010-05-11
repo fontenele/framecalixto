@@ -155,7 +155,7 @@ class controlePadraoListagem extends controlePadrao{
 			$chaves = array_keys($this->campos);
 			sort($chaves);
 			$retorno = "\n<table summary='text' class=\"tabela0\">\n";
-			$retorno.= "<thead><tr>\n";
+			$retorno.= "<thead class='ui-state-default'><tr class='ui-widget-header'>\n";
 			foreach($chaves as $chave){
 				$campo = $this->campos[$chave];
 				$tamanho = ($campo['tamanho']) ? "width='{$campo['tamanho']}'" : '' ;
