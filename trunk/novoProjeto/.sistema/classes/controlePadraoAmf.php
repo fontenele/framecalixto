@@ -53,7 +53,7 @@ class controlePadraoAmf extends controlePadrao {
 	* @param controle $entidade
 	* @param visualizacao $visualizacao
 	*/
-	public static function registrarInternacionalizacao($entidade,&$visualizacao){
+	public static function registrarInternacionalizacao($entidade,$visualizacao){
 		$inter = definicaoEntidade::internacionalizacao($entidade);
 		$entidade = definicaoEntidade::entidade($entidade);
 		$inter = new $inter();
