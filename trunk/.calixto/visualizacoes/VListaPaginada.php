@@ -143,15 +143,15 @@ class VListaPaginada extends objeto{
 			$conexao = conexao::criar();
 			$chaves = array_keys($this->campos);
 			sort($chaves);
-			$retorno = "\n<table summary='text' class=\"tabela0\">\n";
-			$retorno.= "<tr>\n";
+			$retorno = "\n<table summary='text' class=\"tabela0 ui-widget-content ui-corner-all\">\n";
+			$retorno.= "<thead class='ui-state-default'><tr class='ui-widget-header'>\n";
 			foreach($chaves as $chave){
 				$campo = $this->campos[$chave];
 				$tamanho = ($campo['tamanho']) ? "width='{$campo['tamanho']}'" : '' ;
 				$alinhamento = ($campo['alinhamento']) ? "align='{$campo['alinhamento']}'" : '' ;
 				$retorno.="<th class='ui-state-default ui-widget-content' {$tamanho} {$alinhamento} >{$campo['titulo']}</th>\n";
 			}
-			$retorno.= "</tr>\n";
+			$retorno.= "</tr></thead>\n";
 			$x = 0;
 			if($this->colecao->possuiItens()){
 				$item = $this->colecao->retornarItem();
