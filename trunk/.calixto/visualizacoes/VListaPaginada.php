@@ -262,7 +262,7 @@ class VListaPaginada extends objeto{
 		$retorno = '';
 		$paginas = $this->inter->pegarTexto('paginas');
 		if($this->pagina->pegarTamanhoGeral() > $this->pagina->pegarTamanhoPagina()){
-			$retorno.="<div class='container3 ui-widget-content'>\n";
+			$retorno.="<div class='container3 ui-state-default ui-corner-bottom'>\n";
 			$retorno.="	<div class='a'></div>\n";
 			$retorno.="	<div class='b'></div>\n";
 			$retorno.="	<div class='c'></div>\n";
@@ -281,11 +281,11 @@ class VListaPaginada extends objeto{
 			$linkProximo = sprintf('?c=%s&amp;pagina=%s',$this->controle, $this->pagina->pegarPagina() + 1);
 			$linkUltimo = sprintf('?c=%s&amp;pagina=%s',$this->controle, (int)$paginas);
 
-
-			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span>Primeiro</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkPrimeiro}'>Primeiro</a></span>";
-			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span>Anterior</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkAnterior}'>Anterior</a></span>";
-
-
+			$classe = "class='ui-widget-content ui-corner-all'";
+			
+			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classe}>Primeiro</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkPrimeiro}'>Primeiro</a></span>";
+			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classe}>Anterior</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkAnterior}'>Anterior</a></span>";
+			
 			$retorno.= '<select id="seletorPagina">';
 
 			for($i=1;$i <= $paginas;$i++){
@@ -300,8 +300,8 @@ class VListaPaginada extends objeto{
 
 			$retorno.="</select>";
 
-			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span>Próximo</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkProximo}'>Próximo</a></span>";
-			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span>Último</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkUltimo}'>Último</a></span>";
+			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classe}>Próximo</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkProximo}'>Próximo</a></span>";
+			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classe}>Último</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkUltimo}'>Último</a></span>";
 
 			$retorno.="		</p>\n	</div>\n";
 			$retorno.="</div>\n";

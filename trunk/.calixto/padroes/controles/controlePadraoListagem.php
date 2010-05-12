@@ -154,7 +154,7 @@ class controlePadraoListagem extends controlePadrao{
 			$conexao = conexao::criar();
 			$chaves = array_keys($this->campos);
 			sort($chaves);
-			$retorno = "\n<table summary='text' class=\"tabela0\">\n";
+			$retorno = "\n<table summary='text' class=\"tabela0 ui-widget-content ui-corner-all\">\n";
 			$retorno.= "<thead class='ui-state-default'><tr class='ui-widget-header'>\n";
 			foreach($chaves as $chave){
 				$campo = $this->campos[$chave];
@@ -272,7 +272,7 @@ class controlePadraoListagem extends controlePadrao{
 		$retorno = '';
 		$paginas = $this->inter->pegarTexto('paginas');
 		if($this->pagina->pegarTamanhoGeral() > $this->pagina->pegarTamanhoPagina()){
-			$retorno.="<div class='container3'>\n";
+			$retorno.="<div class='container3 ui-state-default ui-corner-bottom'>\n";
 			$retorno.="	<div class='a'></div>\n";
 			$retorno.="	<div class='b'></div>\n";
 			$retorno.="	<div class='c'></div>\n";
@@ -291,10 +291,10 @@ class controlePadraoListagem extends controlePadrao{
 			$linkProximo = sprintf('?c=%s&amp;pagina=%s',$this->controle, $this->pagina->pegarPagina() + 1);
 			$linkUltimo = sprintf('?c=%s&amp;pagina=%s',$this->controle, (int)$paginas);
 
-			$classe = "class='ui-state-default ui-corner-all'";
-			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classe}>>Primeiro</span>" : "<a {$classe}> href='{$linkPrimeiro}'>Primeiro</a>";
-			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classe}>>Anterior</span>" : "<a {$classe}> href='{$linkAnterior}'>Anterior</a>";
-
+			$classe = "class='ui-widget-content ui-corner-all'";
+			
+			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classe}>Primeiro</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkPrimeiro}'>Primeiro</a></span>";
+			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classe}>Anterior</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkAnterior}'>Anterior</a></span>";
 
 			$retorno.= '<select id="seletorDePagina">';
 
@@ -310,8 +310,8 @@ class controlePadraoListagem extends controlePadrao{
 			
 			$retorno.="</select>";
 
-			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classe}>>Próximo</span>" : "<a {$classe}> href='{$linkProximo}'>Próximo</a>";
-			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classe}>>Último</span>" : "<a {$classe}> href='{$linkUltimo}'>Último</a>";
+			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classe}>Próximo</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkProximo}'>Próximo</a></span>";
+			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classe}>Último</span>" : "<span class='ui-state-default ui-corner-all'><a href='{$linkUltimo}'>Último</a></span>";
 
 			$retorno.="		</p>\n	</div>\n";
 			$retorno.="</div>\n";
