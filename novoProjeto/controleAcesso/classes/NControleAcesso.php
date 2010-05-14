@@ -53,7 +53,7 @@ class NControleAcesso extends negocio{
 				default:
 					$nUsuario = new NUsuario();
 					$nUsuario->passarNmLogin(operador::igual($this->pegarNmLogin()));
-					$nUsuario->passarNmSenha(operador::igual($this->pegarNmSenha()));
+					$nUsuario->passarNmSenha(operador::igual(md5($this->pegarNmSenha())));
 					$colecao = $nUsuario->pesquisar(new pagina());
 					if(!$colecao->possuiItens()) throw(new erroAcesso('Usuário não autorizado!'));
 					sessaoSistema::registrar('usuario',$colecao->avancar());
