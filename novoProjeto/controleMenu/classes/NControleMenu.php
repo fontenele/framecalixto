@@ -76,22 +76,11 @@ class NControleMenu extends negocio{
 			$this->adicionarItem('menuPrincipal',"Sistema/{$nmLoginLabel}",'CControleAcesso_verLogin',".sistema/temas/frameCalixto/icones/{$nmLoginImagem}",true);
 			
 			$this->menuPrincipal->{'Administração'}->passar_imagem('.sistema/temas/frameCalixto/icones/server.png');
-			$this->menuPrincipal->{'Administração'}->Estados->passar_imagem('.sistema/temas/frameCalixto/icones/group.png');
-			$this->menuPrincipal->{'Administração'}->Pessoas->passar_imagem('.sistema/temas/frameCalixto/icones/vcard.png');
-			$this->menuPrincipal->{'Administração'}->Perfis->passar_imagem('.sistema/temas/frameCalixto/icones/medal_gold_1.png');
-			$this->menuPrincipal->{'Administração'}->{'Usuários'}->passar_imagem('.sistema/temas/frameCalixto/icones/user.png');
 			
-			$this->adicionarItem('menuPrincipal','Administração/Estados/Pesquisar','CEstado_verPesquisa','.sistema/temas/frameCalixto/icones/group.png');
-			$this->adicionarItem('menuPrincipal','Administração/Estados/Novo Registro','CEstado_verEdicao','.sistema/temas/frameCalixto/icones/group_add.png');
-			
-			$this->adicionarItem('menuPrincipal','Administração/Pessoas/Pesquisar','CPessoa_verPesquisa','.sistema/temas/frameCalixto/icones/vcard.png');
-			$this->adicionarItem('menuPrincipal','Administração/Pessoas/Novo Registro','CPessoa_verEdicao','.sistema/temas/frameCalixto/icones/vcard_add.png');
-			
-			$this->adicionarItem('menuPrincipal','Administração/Perfis/Pesquisar','CPerfil_verPesquisa','.sistema/temas/frameCalixto/icones/medal_gold_1.png');
-			$this->adicionarItem('menuPrincipal','Administração/Perfis/Novo Registro','CPerfil_verEdicao','.sistema/temas/frameCalixto/icones/medal_gold_add.png');
-			
-			$this->adicionarItem('menuPrincipal','Administração/Usuários/Pesquisar','CUsuario_verPesquisa','.sistema/temas/frameCalixto/icones/user.png');
-			$this->adicionarItem('menuPrincipal','Administração/Usuários/Novo Registro','CUsuario_verEdicao','.sistema/temas/frameCalixto/icones/user_add.png');
+			$this->adicionarItem('menuPrincipal','Administração/Estados','CEstado_verPesquisa','.sistema/temas/frameCalixto/icones/group.png');
+			$this->adicionarItem('menuPrincipal','Administração/Pessoas','CPessoa_verPesquisa','.sistema/temas/frameCalixto/icones/vcard.png');
+			$this->adicionarItem('menuPrincipal','Administração/Perfis','CPerfil_verPesquisa','.sistema/temas/frameCalixto/icones/medal_gold_1.png');
+			$this->adicionarItem('menuPrincipal','Administração/Usuários','CUsuario_verPesquisa','.sistema/temas/frameCalixto/icones/user.png');
 			
 			$this->menuPrincipal->Apoio->passar_imagem('.sistema/temas/frameCalixto/icones/help.png');
 			
