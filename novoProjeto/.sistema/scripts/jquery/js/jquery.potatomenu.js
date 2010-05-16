@@ -17,7 +17,7 @@
 				menuItemClass:'potato-menu-item',
 				menuGroupClass:'potato-menu-group ui-widget-content ui-corner-all',
 				verticalClass:'potato-menu-vertical',
-				holizontalClass:'potato-menu-holizontal ui-state-default ui-state-hover',
+				holizontalClass:'potato-menu-holizontal ui-widget-header',
 				hasVerticalClass:'potato-menu-has-vertical',
 				hasHolizontalClass:'potato-menu-has-holizontal',
 				showDuration: 350,
