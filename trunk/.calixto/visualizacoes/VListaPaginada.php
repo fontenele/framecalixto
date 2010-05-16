@@ -137,7 +137,7 @@ class VListaPaginada extends objeto{
 	function montarListagem(){
 		if(!$this->colecao->possuiItens()){
 			$mensagem = $this->inter->pegarMensagem('registrosNaoEncontrados');
-			return "<div class='ui-widget-content' style='width:90%;margin:auto;text-align:center;'>{$mensagem}</div>";
+			return "<div class='ui-state-highlight ui-corner-bottom' style='width:90%;margin:auto;text-align:center;'>{$mensagem}</div>";
 		}
 		if(is_array($this->campos)){
 			$conexao = conexao::criar();
