@@ -7,7 +7,6 @@ if(phpversion() < $versao) throw new Exception(sprintf('O Calixto Framework não
 header("Content-type:text/html; charset=utf-8");
 date_default_timezone_set('America/Sao_Paulo');
 set_time_limit(0);
-defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__)));
 //Carrregando as classes de definições e erros
 include_once('../.calixto/definicoes/include.php');
 //Lendo o arquivo XML de definições de diretórios e arquivos
@@ -51,7 +50,7 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 		$back = null;
 	}else{
 		ob_start();
-			debug_print_backtrace();
+		debug_print_backtrace();
 		$back = ob_get_clean();
 	}
 	echo "
@@ -78,39 +77,6 @@ include_once('.sistema/debug.php');
 include_once('.sistema/definicoes.php');
 $dir = definirDiretorio('Sistema');
 define('diretorioPrioritario',$dir['stDiretorio']);
-set_include_path(
-	implode(
-		PATH_SEPARATOR, array(
-    		realpath(APPLICATION_PATH . '/../.calixto/externas/'),
-    		get_include_path(),
-		)
-	)
-);
-
-if(isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'],'amf')) {
-	include_once('../.calixto/externas/Zend/Amf/Server.php');
-	session_start();
-	$server = new Zend_Amf_Server();
-	
-	if(definicaoSistema::pegarAmbiente() == definicaoSistema::producao) { $server->setProduction(true); }
-	else { $server->setProduction(false); }
-	
-	$arDiretorios = scandir(dirname(__FILE__));
-	$arDiretoriosNaoEntidades = array('.','..','.tmp','.sistema');
-	foreach($arDiretorios as $dirName) {
-		if(!in_array($dirName,$arDiretoriosNaoEntidades) && is_dir($dirName) && is_dir(dirname(__FILE__).'/'.$dirName.'/classes')) {
-			$server->addDirectory(dirname(__FILE__).'/'.$dirName.'/classes');
-			$arArquivos = scandir(dirname(__FILE__).'/'.$dirName.'/classes');
-			foreach($arArquivos as $controles) {
-				if(substr($controles,0,1) == 'C') {
-					require_once( dirname(__FILE__)."/".$dirName."/classes/{$controles}" );
-				}
-			}
-		}
-	}
-	echo($server->handle());
-}else{
-	if(isset($_GET['c'])) $_GET['c'] = is_numeric($_GET['c']) ? 'CSsd_Retorno' : $_GET['c'];
-	new gerenteControles(isset($_REQUEST['c'])? $_REQUEST['c']:definicaoSistema::pegarControleInicial());
-}
+if(isset($_GET['c'])) $_GET['c'] = is_numeric($_GET['c']) ? 'CSsd_Retorno' : $_GET['c'];
+new gerenteControles(isset($_REQUEST['c'])? $_REQUEST['c']:definicaoSistema::pegarControleInicial());
 ?>
