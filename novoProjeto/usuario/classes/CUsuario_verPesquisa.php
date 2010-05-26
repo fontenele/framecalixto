@@ -12,8 +12,8 @@ class CUsuario_verPesquisa extends controlePadraoPesquisa{
 	 * @param colecao $colecao
 	 * @param pagina $pagina
 	 */
-	public static function montarListagem(visualizacao $visualizacao,colecao $colecao,pagina $pagina){
-		parent::montarListagem($visualizacao,$colecao,$pagina);
+	public static function montarListagem(visualizacao $visualizacao,colecao $colecao,pagina $pagina, $entidade = null){
+		parent::montarListagem($visualizacao,$colecao,$pagina, $entidade);
 		$visualizacao->listagem->adicionarColunaPersonalizada('Perfis', 'CUsuario_verPesquisa::apresentarPerfil', '5%', 'D', 3);
 		$visualizacao->listagem->adicionarColunaPersonalizada('Acessos', 'CUsuario_verPesquisa::apresentarAcesso', '5%', 'D', 4);
 	}

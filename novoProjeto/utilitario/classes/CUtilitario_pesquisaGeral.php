@@ -88,7 +88,7 @@ class CUtilitario_pesquisaGeral extends controlePadraoPesquisa{
 			$nome['controle'] = definicaoEntidade::controle($obNegocio, 'verPesquisa');
 			if($this->exibirListagem($arquivo)){
 				$colecao = $obNegocio->pesquisaGeral($this->pegarFiltro(),$this->pegarPagina(),isset($_POST['nivel']) ? $_POST['nivel'] : 1);
-				call_user_func_array("{$nome['controle']}::montarListagem", array($this->visualizacao,$colecao,$this->pegarPagina()));
+				call_user_func_array("{$nome['controle']}::montarListagem", array($this->visualizacao,$colecao,$this->pegarPagina(),$nome['controle']));
 				$this->visualizacao->listagem->passarControle($nome['controle']);
 				if($colecao->contarItens()){
 					$listagens[$idx]['listagem'] = $this->visualizacao->listagem;
