@@ -92,8 +92,8 @@ class controlePadraoPesquisa extends controlePadrao{
 	 * @param colecao $colecao
 	 * @param pagina $pagina
 	 */
-	public static function montarListagem(visualizacao $visualizacao,colecao $colecao,pagina $pagina){
-		$visualizacao->listagem = new VListaPaginada($colecao,$pagina);
+	public static function montarListagem(visualizacao $visualizacao,colecao $colecao,pagina $pagina, $entidade = null){
+		$visualizacao->listagem = new VListaPaginada($colecao,$pagina, $entidade);
 	}
 }
 ?>

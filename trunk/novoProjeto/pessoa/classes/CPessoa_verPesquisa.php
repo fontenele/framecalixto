@@ -12,8 +12,8 @@ class CPessoa_verPesquisa extends controlePadraoPesquisa{
 	 * @param colecao $colecao
 	 * @param pagina $pagina
 	 */
-	public static function montarListagem(visualizacao $visualizacao,colecao $colecao,pagina $pagina){
-		parent::montarListagem($visualizacao,$colecao,$pagina);
+	public static function montarListagem(visualizacao $visualizacao,colecao $colecao,pagina $pagina, $entidade = null){
+		parent::montarListagem($visualizacao,$colecao,$pagina, $entidade);
 		$visualizacao->listagem->adicionarColunaPersonalizada('Tipo', 'CPessoa_verPesquisa::tipoPessoa', '5%', null, -1);
 		//$this->visualizacao->listagem->adicionarColunaPersonalizada('Tarefa', 'CPessoa_verPesquisa::novaTarefa', '5%', null, 10000000);
 	}

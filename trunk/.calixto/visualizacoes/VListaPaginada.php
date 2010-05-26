@@ -27,11 +27,11 @@ class VListaPaginada extends objeto{
 	* Método construtor
 	* @param colecaoPadraoNegocio $colecao
 	*/
-	public function __construct(colecaoPadraoNegocio $colecao,pagina $pagina){
+	public function __construct(colecaoPadraoNegocio $colecao,pagina $pagina, $entidade = null){
 		$this->colecao = $colecao;
 		$this->colecao->resetar();
 		$this->pagina = $pagina;
-		$this->controle = controlePadrao::pegarNomeControle();
+		$this->controle = $entidade ? $entidade : controlePadrao::pegarNomeControle();
 		$classe = definicaoEntidade::internacionalizacao($this->controle);
 		$this->inter = new $classe();
 		$this->definirListagem();
