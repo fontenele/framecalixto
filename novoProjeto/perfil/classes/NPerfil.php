@@ -15,6 +15,10 @@ class NPerfil extends negocioPadrao{
 	*/
 	public $nmPerfil;
 	/**
+	* @var boolean Registrar Logs de Acesso
+	*/
+	public $boLogAcesso;
+	/**
 	* @var colecao Acessos do Perfil
 	*/
 	public $coAcessos;
