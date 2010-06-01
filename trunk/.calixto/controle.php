@@ -30,6 +30,7 @@ abstract class controle extends objeto{
 			if($session) sessaoSistema::iniciar();
 			$this->gerente = $gerente;
 			$this->sessao = new sessaoPrograma(definicaoEntidade::entidade($this));
+			$this->gravarLogAcesso();
 			$this->validarAcessoAoControle();
 			$this->criarVisualizacaoPadrao();
 			$this->criarInternacionalizacaoPadrao();
@@ -59,6 +60,33 @@ abstract class controle extends objeto{
 		}
 		catch(erro $e){
 			throw $e;
+		}
+	}
+	/**
+	* Método que registra o log de acesso
+	*/
+	final public function gravarLogAcesso(){
+		if(sessaoSistema::tem('usuario')){
+			$boLogAcesso = false;
+			
+			$nUsuario = sessaoSistema::pegar('usuario');
+			$nUsuario->carregarPerfis();
+			if($nUsuario->coPerfis->possuiItens()){
+				while($nPerfilUsuario = $nUsuario->coPerfis->avancar()){
+					$nPerfil = new NPerfil();
+					$nPerfil->ler($nPerfilUsuario->pegarIdPerfil());
+					if($nPerfil->pegarBoLogAcesso()) { $boLogAcesso = true; }
+				}
+			}
+			
+			if($boLogAcesso){
+				$nLogAcesso = new NLogAcesso();
+				$nLogAcesso->passarIdUsuario(sessaoSistema::pegar('usuario')->valorChave());
+				$nLogAcesso->passarDtAcesso(TDataHora::agora());
+				$nLogAcesso->txIP = $_SERVER["REMOTE_ADDR"];
+				$nLogAcesso->txUrl = $_SERVER['QUERY_STRING'];
+				$nLogAcesso->gravar();
+			}
 		}
 	}
 	/**

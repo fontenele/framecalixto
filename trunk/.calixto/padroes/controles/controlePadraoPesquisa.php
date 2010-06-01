@@ -39,8 +39,8 @@ class controlePadraoPesquisa extends controlePadrao{
 		$menu = parent::montarMenuPrograma();
 		$novo = $this->inter->pegarTexto('botaoNovo');
 		$pesquisar = $this->inter->pegarTexto('botaoPesquisar');
-		$menu->$novo = new VMenu($novo,sprintf("?c=%s",definicaoEntidade::controle($this,'verEdicao')),definicaoPasta::tema().'icones/add.png');
-		$menu->$pesquisar = new VMenu($pesquisar,'javascript:document.formulario.submit();',definicaoPasta::tema().'icones/application_view_list.png');
+		$menu->$novo = new VMenu($novo,sprintf("?c=%s",definicaoEntidade::controle($this,'verEdicao')),'.sistema/icones/add.png');
+		$menu->$pesquisar = new VMenu($pesquisar,'javascript:document.formulario.submit();','.sistema/icones/application_view_list.png');
 		return $menu;
 	}
 	/**
