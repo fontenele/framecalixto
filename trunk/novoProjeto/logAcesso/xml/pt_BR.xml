@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>Log Acesso</nome>
+		<propriedades>
+		<propriedade nome='idLogAcesso'>
+			<nome>Código</nome>
+			<abreviacao>Cód.</abreviacao>
+			<descricao>Informe o código</descricao>
+		</propriedade>
+		<propriedade nome='idUsuario'>
+			<nome>Usuário</nome>
+			<abreviacao>Usuário</abreviacao>
+			<descricao>Informe o usuário</descricao>
+		</propriedade>
+		<propriedade nome='txUrl'>
+			<nome>URL</nome>
+			<abreviacao>URL</abreviacao>
+			<descricao>Informe a URL</descricao>
+		</propriedade>
+		<propriedade nome='dtAcesso'>
+			<nome>Data</nome>
+			<abreviacao>Dt.</abreviacao>
+			<descricao>Informe a data do acesso</descricao>
+		</propriedade>
+		<propriedade nome='txIP'>
+			<nome>IP</nome>
+			<abreviacao>IP</abreviacao>
+			<descricao>Informe o IP do cliente</descricao>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de Log Acesso</titulo>
+	</controles>
+</internacionalizacao>

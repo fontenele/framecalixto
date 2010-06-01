@@ -13,6 +13,11 @@
 			<abreviacao>Perfil</abreviacao>
 			<descricao>Nome do Perfil</descricao>
 		</propriedade>
+		<propriedade nome='boLogAcesso'>
+			<nome>Logar</nome>
+			<abreviacao>Logar</abreviacao>
+			<descricao>Logar</descricao>
+		</propriedade>
 		</propriedades>
 	</entidade>
 	<controles>

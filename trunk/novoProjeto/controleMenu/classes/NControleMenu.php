@@ -70,26 +70,27 @@ class NControleMenu extends negocio{
 			$nmLoginLabel = sessaoSistema::tem('usuario') ? 'Sair' : 'Entrar';
 			$nmLoginImagem = sessaoSistema::tem('usuario') ? 'door_out.png' : 'key.png';
 			
-			$this->menuPrincipal->Sistema->passar_imagem('.sistema/temas/frameCalixto/icones/computer.png');
+			$this->menuPrincipal->Sistema->passar_imagem('.sistema/icones/computer.png');
 			
-			$this->adicionarItem('menuPrincipal','Sistema/Página Principal','CControleAcesso_verPrincipal','.sistema/temas/frameCalixto/icones/monitor.png',true);
-			$this->adicionarItem('menuPrincipal',"Sistema/{$nmLoginLabel}",'CControleAcesso_verLogin',".sistema/temas/frameCalixto/icones/{$nmLoginImagem}",true);
+			$this->adicionarItem('menuPrincipal','Sistema/Página Principal','CControleAcesso_verPrincipal','.sistema/icones/monitor.png',true);
+			$this->adicionarItem('menuPrincipal',"Sistema/{$nmLoginLabel}",'CControleAcesso_verLogin',".sistema/icones/{$nmLoginImagem}",true);
 			
-			$this->menuPrincipal->{'Administração'}->passar_imagem('.sistema/temas/frameCalixto/icones/server.png');
+			$this->menuPrincipal->{'Administração'}->passar_imagem('.sistema/icones/server.png');
 			
-			$this->adicionarItem('menuPrincipal','Administração/Estados','CEstado_verPesquisa','.sistema/temas/frameCalixto/icones/group.png');
-			$this->adicionarItem('menuPrincipal','Administração/Pessoas','CPessoa_verPesquisa','.sistema/temas/frameCalixto/icones/vcard.png');
-			$this->adicionarItem('menuPrincipal','Administração/Perfis','CPerfil_verPesquisa','.sistema/temas/frameCalixto/icones/medal_gold_1.png');
-			$this->adicionarItem('menuPrincipal','Administração/Usuários','CUsuario_verPesquisa','.sistema/temas/frameCalixto/icones/user.png');
+			$this->adicionarItem('menuPrincipal','Administração/Estados','CEstado_verPesquisa','.sistema/icones/group.png');
+			$this->adicionarItem('menuPrincipal','Administração/Pessoas','CPessoa_verPesquisa','.sistema/icones/vcard.png');
+			$this->adicionarItem('menuPrincipal','Administração/Perfis','CPerfil_verPesquisa','.sistema/icones/medal_gold_1.png');
+			$this->adicionarItem('menuPrincipal','Administração/Usuários','CUsuario_verPesquisa','.sistema/icones/user.png');
+			$this->adicionarItem('menuPrincipal','Administração/Log de Acessos','CLogAcesso_verPesquisa','.sistema/icones/map_magnify.png');
 			
-			$this->menuPrincipal->Apoio->passar_imagem('.sistema/temas/frameCalixto/icones/help.png');
+			$this->menuPrincipal->Apoio->passar_imagem('.sistema/icones/help.png');
 			
-			$this->adicionarItem('menuPrincipal','Apoio/Pesquisar','CUtilitario_pesquisaGeral','.sistema/temas/frameCalixto/icones/find.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','.sistema/temas/frameCalixto/icones/cog.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas','.sistema/temas/frameCalixto/icones/application_tile_horizontal.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase','.sistema/temas/frameCalixto/icones/application_side_contract.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','.sistema/temas/frameCalixto/icones/arrow_in.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','.sistema/temas/frameCalixto/icones/wrench.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Pesquisar','CUtilitario_pesquisaGeral','.sistema/icones/find.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','.sistema/icones/cog.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Tabelas','CUtilitario_listarTabelas','.sistema/icones/application_tile_horizontal.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Recriador de Base','CUtilitario_atualizadorBase','.sistema/icones/application_side_contract.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','.sistema/icones/arrow_in.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','.sistema/icones/wrench.png');
 			
 			return $this->menuPrincipal;
 		}

@@ -14,8 +14,16 @@ class CPerfil_verPesquisa extends controlePadraoPesquisa{
 	 */
 	public static function montarListagem(visualizacao $visualizacao,colecao $colecao,pagina $pagina, $entidade = null){
 		parent::montarListagem($visualizacao,$colecao,$pagina, $entidade);
+		$visualizacao->listagem->adicionarColunaPersonalizada('Logar', 'CPerfil_verPesquisa::apresentarLogar', '5%', 'D', 2);
 		$visualizacao->listagem->adicionarColunaPersonalizada('Usuarios', 'CPerfil_verPesquisa::apresentarUsuario', '5%', 'D', 3);
 		$visualizacao->listagem->adicionarColunaPersonalizada('Acessos', 'CPerfil_verPesquisa::apresentarAcesso', '5%', 'D', 4);
+	}
+	/**
+	* Metodo especialista
+	*/
+	public static function apresentarLogar(NPerfil $negocio){
+		$imagem = $negocio->pegarBoLogAcesso() ? 'accept.png' : 'exclamation.png';
+		return "<img src='.sistema/icones/{$imagem}' />";
 	}
 	/**
 	* Metodo especialista
