@@ -70,10 +70,12 @@ body {
 }
 .opcoesSistema {
 	float: right;
-	margin-top: -33px;
+	margin-top: -23px;
+	padding-right: 14px;
 }
 .opcoesSistema img {
-	width: 36px;
+	/*width: 36px;*/
+	padding-left: 5px;
 }
 .descricaoDeAjuda {
 	width: 90%;
