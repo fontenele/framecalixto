@@ -48,7 +48,7 @@ $(document).ready( function() {
 		$('.data').datepicker({
 			dateFormat: 'dd/mm/yy',
 			showOn: 'both',
-			buttonImage: '.sistema/temas/frameCalixto/icones/date.png',
+			buttonImage: '.sistema/icones/date.png',
 			buttonImageOnly: true ,
 			yearRange: '-100:+20'
 		});
