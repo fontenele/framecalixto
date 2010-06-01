@@ -7,6 +7,7 @@
 class VCheck extends VInput{
 	function __construct($nome = 'naoInformado',$valor = null){
 		parent::__construct($nome, $valor);
+		$this->passarChecked($valor);
 		$this->passarType('checkbox');
 		$this->passarClass('checkbox');
 	}
