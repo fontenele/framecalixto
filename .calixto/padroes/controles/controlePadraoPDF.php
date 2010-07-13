@@ -102,9 +102,9 @@ class controlePadraoPDF extends controle{
 	/**
 	*
 	*/
-	public function mostrar(){
+	public function mostrar($name='',$dest=''){
 		$this->visualizacao->close();
-		$this->visualizacao->output();
+		$this->visualizacao->output($name='',$dest='');
 	}
 	public function ln($h = 7){
 		$this->visualizacao->ln($h);
