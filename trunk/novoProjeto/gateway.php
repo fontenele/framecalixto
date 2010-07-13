@@ -3,9 +3,11 @@
 date_default_timezone_set('America/Sao_Paulo');
 set_time_limit(0);
 defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__)));
-include_once('../.calixto/definicoes/include.php');
 //Lendo o arquivo XML de definições de diretórios e arquivos
-$definicoes = definicao::pegarDefinicao('.sistema/xml/definicoes.xml');
+$definicoes = simplexml_load_file('.sistema/xml/definicoes.xml');
+$dirCalixto = strval($definicoes->classes->classe[0]['dir']);
+//Carrregando as classes de definições e erros
+include_once($dirCalixto.'definicoes/include.php');
 switch (definicaoSistema::pegarAmbiente()) {
 	case definicaoSistema::homologacao  :
 		ini_set('display_errors','Off');
