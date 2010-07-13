@@ -19,7 +19,7 @@
 		<arquivo tipo='internacionalizacao do sistema' nome='.sistema/xml/pt_BR.xml' />
 	</arquivos>
 	<classes>
-		<classe dir='../.calixto/' />
+		<classe id='calixto' dir='../.calixto/' />
 		<classe id='T' dir='../.calixto/tiposDeDados/' />
 		<classe id='P' dir='classes/' entidade='sim' tipoBanco='sim' />
 		<classe id='N' dir='classes/' entidade='sim' />
