@@ -7,10 +7,11 @@ if(phpversion() < $versao) throw new Exception(sprintf('O Calixto Framework não
 header("Content-type:text/html; charset=utf-8");
 date_default_timezone_set('America/Sao_Paulo');
 set_time_limit(0);
-//Carrregando as classes de definições e erros
-include_once('../.calixto/definicoes/include.php');
 //Lendo o arquivo XML de definições de diretórios e arquivos
-$definicoes = definicao::pegarDefinicao('.sistema/xml/definicoes.xml');
+$definicoes = simplexml_load_file('.sistema/xml/definicoes.xml');
+$dirCalixto = strval($definicoes->classes->classe[0]['dir']);
+//Carrregando as classes de definições e erros
+include_once($dirCalixto.'definicoes/include.php');
 switch (definicaoSistema::pegarAmbiente()) {
 	case definicaoSistema::homologacao  :
 		ini_set('display_errors','Off');
@@ -23,10 +24,8 @@ switch (definicaoSistema::pegarAmbiente()) {
 		ini_set('display_errors','On');
 	break;
 }
-
 error_reporting(E_ALL | E_STRICT);
 set_error_handler('reportarErro');
-
 function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 	if(strpos($arquivo,'conexaoPadrao')) return;
 	$imagemErro = 'erro.png';
@@ -72,7 +71,6 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 		</pre>
 		</fieldset>";
 }
-
 include_once('.sistema/debug.php');
 include_once('.sistema/definicoes.php');
 $dir = definirDiretorio('Sistema');
