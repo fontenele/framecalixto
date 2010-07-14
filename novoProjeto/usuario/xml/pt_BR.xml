@@ -3,25 +3,25 @@
 	<entidade>
 		<nome>Usuário</nome>
 		<propriedades>
+		<propriedade nome='idUsuario'>
+			<nome>Código</nome>
+			<abreviacao>Cód.</abreviacao>
+			<descricao>Informe o código</descricao>
+		</propriedade>
 		<propriedade nome='idPessoa'>
 			<nome>Pessoa</nome>
 			<abreviacao>Pessoa</abreviacao>
-			<descricao>Pessoa Responsável</descricao>
-		</propriedade>
-		<propriedade nome='idUsuario'>
-			<nome>Identificador</nome>
-			<abreviacao>Id</abreviacao>
-			<descricao>Identificador do Usuário</descricao>
+			<descricao>Informe a pessoa responsável</descricao>
 		</propriedade>
 		<propriedade nome='nmLogin'>
 			<nome>Login</nome>
 			<abreviacao>Login</abreviacao>
-			<descricao>Nome do Usuário</descricao>
+			<descricao>Informe o Login</descricao>
 		</propriedade>
 		<propriedade nome='nmSenha'>
 			<nome>Senha</nome>
 			<abreviacao>Senha</abreviacao>
-			<descricao>Palavra Chave do Usuário</descricao>
+			<descricao>Informe a senha</descricao>
 		</propriedade>
 		</propriedades>
 	</entidade>
