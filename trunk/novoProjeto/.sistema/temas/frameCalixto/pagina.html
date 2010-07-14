@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href=".sistema/scripts/jquery/css/humanity/jquery-ui-1.8.2.custom.css" id="cssJquery" media="screen"></link>
 	<link type="text/css" rel="stylesheet" href="«$cssGlobal»" media="screen" id="cssGlobalDoSistema"></link>
 	<link type="text/css" rel="stylesheet" href="«$cssEntidade»" media="screen"></link>
 	<link type="text/css" rel="stylesheet" href="«$cssLocal»" media="screen"></link>
 	<link type="text/css" rel="stylesheet" href=".sistema/scripts/jquery/css/clickmenu.css" media="screen"></link>
 	<link rel="icon" href=".sistema/icones/weather_sun.png" type="image/x-icon" />
 	«$cssExtra»
-	
 	<script language='javascript' type="text/javascript" >
 		var JS_ERRO_DATA = '«$mensagemErroData»';
 		var JS_ERRO_DIA  = '«$mensagemErroDia»';
@@ -19,7 +19,7 @@
 		var JS_DIRETORIO_RAIZ = '.sistema/scripts/';
 	</script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery-1.4.2.min.js" ></script>
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/ui/jquery-ui-1.7.2.custom.js" ></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/ui/jquery-ui-1.8.2.custom.js" ></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/ui/i18n/ui.datepicker-pt-BR.js" ></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.livequery.min.js" ></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.maskedinput-1.2.2.js" ></script>
@@ -29,20 +29,11 @@
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.autocomplete.js"></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.bgiframe.js"></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.clickmenu.js"></script>
-	
-	<!--script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.validate.min.js" ></script>
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.filestyle.mini.js"></script>
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.potatomenu.js"></script>
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.tooltip.min.js"></script-->
-	
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/calixto.funcoes.js"></script>
 	<script language="javascript" type="text/javascript" src="«$jsTema»"></script>
 	<script language="javascript" type="text/javascript" src="«$jsEntidade»"></script>
 	<script language="javascript" type="text/javascript" src="«$jsLocal»"></script>
 	«$jsExtra»
-	
-	
-	
 	<title>«$titulo» [«$tituloEspecifico»]</title>
 </head>
 <body>
@@ -54,14 +45,9 @@
 			«$menuPrincipal»
 			«$comunicacaoSistema»
 			«$menuModulo»
-	    	«if $descricaoDeAjuda»<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">«$descricaoDeAjuda»</div>«/if»
+	    	«if $descricaoDeAjuda»<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all"><span class='ui-icon ui-icon-info' style='float:left;'></span>«$descricaoDeAjuda»</div>«/if»
 			«$pagina»
 		</div>
 	</div>
-	<!--div id="rodape">
-		<a href="#" name="a" title="a"><img src=".sistema/temas/frameCalixto/imagens/imac.png" border="0" /></a>
-		<a href="#" name="b" title="b"><img src=".sistema/temas/frameCalixto/imagens/calendar.png" border="0" /></a>
-		<a href="#" name="c" title="c"><img src=".sistema/temas/frameCalixto/imagens/camera.png" border="0" /></a>
-	</div-->
 </body>
 </html>

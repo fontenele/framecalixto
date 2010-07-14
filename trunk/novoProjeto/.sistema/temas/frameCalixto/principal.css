@@ -1,7 +1,5 @@
 @import url(css/reset.css);
 @import url(css/ie.css);
-@import url(css/humanity/jquery-ui-1.7.2.custom.css);
-@import url(css/jquery.autocomplete.css);
 
 body {
 	width: 100%;
