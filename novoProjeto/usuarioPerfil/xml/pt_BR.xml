@@ -4,19 +4,19 @@
 		<nome>Usuário Perfil</nome>
 		<propriedades>
 		<propriedade nome='idUsuarioPerfil'>
-			<nome>Identificador</nome>
-			<abreviacao>id</abreviacao>
-			<descricao>Identificador do Usuário Perfil</descricao>
+			<nome>Código</nome>
+			<abreviacao>Cód.</abreviacao>
+			<descricao>Informe o código</descricao>
 		</propriedade>
 		<propriedade nome='idUsuario'>
 			<nome>Usuário</nome>
 			<abreviacao>Usuário</abreviacao>
-			<descricao>Identificador do Usuário</descricao>
+			<descricao>Informe o usuário</descricao>
 		</propriedade>
 		<propriedade nome='idPerfil'>
 			<nome>Perfil</nome>
 			<abreviacao>Perfil</abreviacao>
-			<descricao>Identificador do Perfil</descricao>
+			<descricao>Informe o perfil</descricao>
 		</propriedade>
 		</propriedades>
 	</entidade>
