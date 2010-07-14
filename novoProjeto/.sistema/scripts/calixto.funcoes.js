@@ -113,7 +113,7 @@ $(document).ready( function() {
 */
 
     $("input:checkbox[readonly]").click( function(){ return false; } );
-	$('textarea')
+	/*$('textarea')
 		.blur(function(){
 			if(!$(this).attr('id')) return;
 			$(this).val($(this).val().substring(0,parseInt($(this).attr('limite'))));
@@ -134,6 +134,7 @@ $(document).ready( function() {
 			$('#textarea_'+$(this).attr('id')+' span').html(($(this).val().length +1) +'/'+$(this).attr('limite'));
 			return true;
 		});
+    */
 	$('#favoritos').click(function(){
 		if (window.sidebar){
 			window.sidebar.addPanel(document.title,document.location,"");
