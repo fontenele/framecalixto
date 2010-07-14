@@ -6,12 +6,12 @@
 			<propriedade nome="nmLogin">
 				<nome>Usuário</nome>
 				<abreviacao>Usuário</abreviacao>
-				<descricao>Identificador de login da pessoa</descricao>
+				<descricao>Informe o usuário</descricao>
 			</propriedade>
 			<propriedade nome="nmSenha">
 				<nome>Senha</nome>
 				<abreviacao>Senha</abreviacao>
-				<descricao>Palavra chave de acesso</descricao>
+				<descricao>Informe a senha</descricao>
 			</propriedade>
 		</propriedades>
 	</entidade>
