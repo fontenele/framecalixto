@@ -66,7 +66,7 @@ $(document).ready( function() {
 			$('.sliderTime').hide();
 		}
 	}
-	$("#suggest13").autocomplete("?c=CUtilitario_mapaSistema", {
+	/*$("#suggest13").autocomplete("?c=CUtilitario_mapaSistema", {
 		minChars: 0,
 		width: 310,
 		matchContains: "word",
@@ -87,7 +87,7 @@ $(document).ready( function() {
 	});
 	$('#suggest13').result(function(objeto,dados,valor){
 		window.location ='?c='+valor;
-	});
+	});*/
 
 /*	$.autocomplete($('#seletorPrograma'),{
 		delay:10,
