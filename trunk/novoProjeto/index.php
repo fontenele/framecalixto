@@ -12,6 +12,7 @@ $definicoes = simplexml_load_file('.sistema/xml/definicoes.xml');
 $dirCalixto = strval($definicoes->classes->classe[0]['dir']);
 //Carrregando as classes de definições e erros
 include_once($dirCalixto.'definicoes/include.php');
+$definicoes = definicao::pegarDefinicao('.sistema/xml/definicoes.xml');
 switch (definicaoSistema::pegarAmbiente()) {
 	case definicaoSistema::homologacao  :
 		ini_set('display_errors','Off');
