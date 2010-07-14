@@ -221,3 +221,13 @@ body {
 	font-size: 12pt;
 }
 /* abas */
+
+
+.radiolist ~ span {
+}
+.radiolist div label {
+    display: inline !important;
+}
+.radiolist div  {
+    display: inline !important;
+}
