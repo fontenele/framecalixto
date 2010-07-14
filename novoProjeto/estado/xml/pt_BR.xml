@@ -4,19 +4,19 @@
 		<nome>Estado</nome>
 		<propriedades>
 		<propriedade nome='idEstado'>
-			<nome>id</nome>
-			<abreviacao>Identificador</abreviacao>
-			<descricao>Identificador</descricao>
+			<nome>Código</nome>
+			<abreviacao>Cód.</abreviacao>
+			<descricao>Informe o código</descricao>
 		</propriedade>
 		<propriedade nome='sgSigla'>
 			<nome>Sigla</nome>
 			<abreviacao>Sigla</abreviacao>
-			<descricao>Sigla do Estado</descricao>
+			<descricao>Informe a sigla</descricao>
 		</propriedade>
 		<propriedade nome='nmEstado'>
-			<nome>Estado</nome>
-			<abreviacao>Estado</abreviacao>
-			<descricao>Nome do Estado</descricao>
+			<nome>Nome</nome>
+			<abreviacao>Nome</abreviacao>
+			<descricao>Informe o nome</descricao>
 		</propriedade>
 		</propriedades>
 	</entidade>
