@@ -35,7 +35,8 @@
 			<tbody>
 			«foreach from=$listagem key=negocio item=nome»
 			<tr class="«cycle values='linhaListagem1,linhaListagem2'»">
-				<td class="nomeEntidade">«$nome» </td>
+				<td class="nomeEntidade"><a
+                href="?c=CUtilitario_geradorDefinirEntidade&entidade=«$negocio»">«$nome»</a></td>
 				<td class="nomeNegocio">«$negocios[$negocio]»</td>
 				<td class="nomeTabela"><a title="Definição da tabela '«$tabelas[$negocio]»' no banco de dados" href="?c=CUtilitario_listarCamposTabela&tabela=«$tabelas[$negocio]»">«$tabelas[$negocio]» </a></td>
 				<td class="nomeSequence">«$sequencias[$negocio]» </td>
