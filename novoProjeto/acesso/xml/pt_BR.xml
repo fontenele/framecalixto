@@ -4,34 +4,34 @@
 		<nome>Acesso</nome>
 		<propriedades>
 		<propriedade nome='idAcesso'>
-			<nome>Identificador do acesso</nome>
-			<abreviacao>Id</abreviacao>
-			<descricao>Identificador do acesso</descricao>
+			<nome>Código</nome>
+			<abreviacao>Cód.</abreviacao>
+			<descricao>Informe o código</descricao>
 		</propriedade>
 		<propriedade nome='idPerfil'>
-			<nome>Identificador do perfil</nome>
+			<nome>Perfil</nome>
 			<abreviacao>Perfil</abreviacao>
-			<descricao>Identificador do Perfil</descricao>
+			<descricao>Informe o Perfil</descricao>
 		</propriedade>
 		<propriedade nome='idUsuario'>
-			<nome>Identificador do usuário</nome>
+			<nome>Usuário</nome>
 			<abreviacao>Usuário</abreviacao>
-			<descricao>Identificador do Usuário</descricao>
+			<descricao>Informe o Usuário</descricao>
 		</propriedade>
 		<propriedade nome='nmAcesso'>
-			<nome>Nome do Acesso</nome>
-			<abreviacao>Acesso</abreviacao>
-			<descricao>Nome do Acesso</descricao>
+			<nome>Nome</nome>
+			<abreviacao>Nome</abreviacao>
+			<descricao>Informe o nome do acesso</descricao>
 		</propriedade>
 		<propriedade nome='dtInicio'>
-			<nome>Data Inicio</nome>
-			<abreviacao>Inicio</abreviacao>
-			<descricao>Data de inicio do Acesso</descricao>
+			<nome>Data Início</nome>
+			<abreviacao>Dt. Início</abreviacao>
+			<descricao>Informe a data de início</descricao>
 		</propriedade>
 		<propriedade nome='dtFim'>
 			<nome>Data Fim</nome>
-			<abreviacao>Fim</abreviacao>
-			<descricao>Data de Fim do Acesso</descricao>
+			<abreviacao>Dt. Fim</abreviacao>
+			<descricao>Informe a data fim</descricao>
 		</propriedade>
 		</propriedades>
 	</entidade>
