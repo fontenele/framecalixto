@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade  nomeBanco='public.menu' nomeSequencia='public.menu_menu_id_menu_seq'>
+<entidade  nomeBanco='public.menu' nomeSequencia='public.sq_menu'>
 	<propriedades>
 		<propriedade id='idMenu' tipo='numerico' tamanho='4' obrigatorio='sim' indicePrimario='sim'  >
 			<banco nome='menu_id_menu'  />
