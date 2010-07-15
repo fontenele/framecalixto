@@ -48,22 +48,20 @@ class VRadioLista extends VComponente {
 					}
 				}
 			}else{
-				$conteudo = '<table summary="text" >';
+				
+                $conteudo = '';
 				$i = 0;
 				foreach($this->conteudo as $indice => $texto){
-					if($i == 0) $conteudo.='<tr>';
 					if($indice == $this->valor){
 						$this->conteudo[$indice]['radio']->passarChecked(true);
-						$conteudo .= "<td>{$this->conteudo[$indice]['radio']} {$this->conteudo[$indice]['label']} </td>";
+						$conteudo.= "<div>{$this->conteudo[$indice]['radio']} {$this->conteudo[$indice]['label']} </div>";
 					}else{
-						$conteudo .= "<td>{$this->conteudo[$indice]['radio']} {$this->conteudo[$indice]['label']} </td>";
+						$conteudo.= "<div>{$this->conteudo[$indice]['radio']} {$this->conteudo[$indice]['label']} </div>";
 					}
 					if(++$i >= $this->colunas){
-						$conteudo.='</tr>';
 						$i = 0;
 					}
 				}
-				$conteudo.='</table>';
 			}
 			$this->conteudo = $conteudo;
 		}
