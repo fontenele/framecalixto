@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>Menu</nome>
+		<propriedades>
+		<propriedade nome='idMenu'>
+			<nome>Código</nome>
+			<abreviacao>Cód.</abreviacao>
+			<descricao>Informe o código</descricao>
+		</propriedade>
+		<propriedade nome='nmMenu'>
+			<nome>Nome</nome>
+			<abreviacao>Nome</abreviacao>
+			<descricao>Informe o nome</descricao>
+		</propriedade>
+		<propriedade nome='txDescricao'>
+			<nome>Descrição</nome>
+			<abreviacao>Descrição</abreviacao>
+			<descricao>Informe a descrição</descricao>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de Menu</titulo>
+	</controles>
+</internacionalizacao>

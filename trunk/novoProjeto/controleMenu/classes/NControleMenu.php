@@ -45,6 +45,21 @@ class NControleMenu extends negocio{
 		}
 	}
 	/**
+	* Método criado para adicionar um item a um menu
+	* @param string $propriedadeMenu propriedade que ficara adicionado o item
+	* @param string $caminhoItem caminho do item separado por / (barra)
+	* @param string $valorItem item do menu que será acessado
+	* @param string $destravar destrava a validação do controle de acesso
+	*/
+	public function adicionarItemDinamico($coPadraoMenu,$caminhoItem,$valorItem, $imagem = null ,$destravar = false, $prefixo = '?c='){
+		if($destravar || $this->menuLiberado || isset($this->acessosLiberados[$valorItem])){
+			$arCaminho = explode('/',$caminhoItem);
+			$item = $arCaminho[count($arCaminho)-1];
+			$imagem = $imagem ? ",'{$imagem}'":null;
+			eval("\$coPadraoMenu->{'".str_replace('/',"'}->{'",$caminhoItem)."'} = new VMenu('{$item}','{$prefixo}{$valorItem}'{$imagem});");
+		}
+	}
+	/**
 	* Método criado para fazer a verificação do menuPrincipal do sistema quanto ao controle de acesso
 	* @param string $propriedadeMenu propriedade que ficara adicionado o item
 	* @param string $caminhoItem caminho do item separado por / (barra)
@@ -98,6 +113,39 @@ class NControleMenu extends negocio{
 			return array();
 		}
 	}
+    public function menuPrincipalDinamico(){
+        return $this->montarMenuDinamico('menuPrincipal'); 
+    }
+    public function montarMenuDinamico($nmMenu){
+       $coPadraoMenu = new colecaoPadraoMenu();
+       $coPadraoMenu->passar_id($nmMenu);
+       $nMenu = new NMenu();
+       $nMenu->passarNmMenu($nmMenu);
+       $nMenu = $nMenu->pesquisar()->pegar(0);
+       $idMenu = $nMenu->valorChave();
+       
+       $nMenuItem = new NMenuItem();
+       $nMenuItem->passarIdMenu($idMenu);
+       $nMenuItem->passarIdPai(operador::eNulo(operador::restricaoE));
+       $coMenuItens = $nMenuItem->pesquisar();
+
+       if($coMenuItens->possuiItens()){
+            while($nMenuItem = $coMenuItens->avancar()){
+                $this->adicionarItemDinamico($coPadraoMenu,$nMenuItem->pegarNmMenuItem(),$nMenuItem->pegarTxUrl(),$nMenuItem->pegarTxImagem());
+                $nMenuItensFilhos = new NMenuItem();
+                $nMenuItensFilhos->passarIdMenu($idMenu);
+                $nMenuItensFilhos->passarIdPai($nMenuItem->valorChave());
+                
+                $coMenuItensFilhos = $nMenuItensFilhos->pesquisar();
+                if($coMenuItensFilhos->possuiItens()){
+                    while($nMenuItemFilho = $coMenuItensFilhos->avancar()){
+                        $this->adicionarItemDinamico($coPadraoMenu,$nMenuItem->pegarNmMenuItem().'/'.$nMenuItemFilho->pegarNmMenuItem(),$nMenuItemFilho->pegarTxUrl(),$nMenuItemFilho->pegarTxImagem());
+                    }
+                }
+            }
+       }
+       return $coPadraoMenu;
+    }
 	/**
 	* Método criado para efetuar a montagem do menu do sistema
 	*/

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<internacionalizacao>
+	<entidade>
+		<nome>Menu Item</nome>
+		<propriedades>
+		<propriedade nome='idMenuItem'>
+			<nome>Código</nome>
+			<abreviacao>Cód.</abreviacao>
+			<descricao>Informe o código</descricao>
+		</propriedade>
+		<propriedade nome='idPai'>
+			<nome>Item Pai</nome>
+			<abreviacao>Pai</abreviacao>
+			<descricao>Informe o item pai</descricao>
+		</propriedade>
+		<propriedade nome='idMenu'>
+			<nome>Menu</nome>
+			<abreviacao>Menu</abreviacao>
+			<descricao>Informe o menu</descricao>
+		</propriedade>
+		<propriedade nome='nrPosicao'>
+			<nome>Posição</nome>
+			<abreviacao>Pos.</abreviacao>
+			<descricao>Informe a posição</descricao>
+		</propriedade>
+		<propriedade nome='txUrl'>
+			<nome>URL</nome>
+			<abreviacao>URL</abreviacao>
+			<descricao>Informe a URL</descricao>
+		</propriedade>
+		<propriedade nome='nmAlvo'>
+			<nome>Alvo</nome>
+			<abreviacao>Alvo</abreviacao>
+			<descricao>Informe o alvo (target)</descricao>
+		</propriedade>
+		<propriedade nome='txImagem'>
+			<nome>Imagem</nome>
+			<abreviacao>Imagem</abreviacao>
+			<descricao>Informe o caminho da imagem</descricao>
+		</propriedade>
+		<propriedade nome='boDestravado'>
+			<nome>Destravado</nome>
+			<abreviacao>Destrav.</abreviacao>
+			<descricao>Informe se o item é destravado do controle de acesso</descricao>
+			<dominio>
+				<opcao id='SIM'>Sim</opcao>
+				<opcao id='NAO'>Não</opcao>
+			</dominio>
+		</propriedade>
+		<propriedade nome='nmMenuItem'>
+			<nome>Nome</nome>
+			<abreviacao>Nome</abreviacao>
+			<descricao>Informe o nome</descricao>
+		</propriedade>
+		<propriedade nome='txDescricao'>
+			<nome>Descrição</nome>
+			<abreviacao>Desc.</abreviacao>
+			<descricao>Informe a Descrição</descricao>
+		</propriedade>
+		</propriedades>
+	</entidade>
+	<controles>
+		<titulo>Cadastro de Menu Item</titulo>
+	</controles>
+</internacionalizacao>
