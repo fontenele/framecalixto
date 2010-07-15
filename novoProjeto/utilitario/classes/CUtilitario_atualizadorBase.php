@@ -44,6 +44,8 @@ class CUtilitario_atualizadorBase extends controlePadrao{
  		$classes[] = 'PAcesso';
  		$classes[] = 'PUsuarioPerfil';
  		$classes[] = 'PLogAcesso';
+ 		$classes[] = 'PMenu';
+ 		$classes[] = 'PMenuItem';
 		return $classes;
 	}
 
