@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<entidade  nomeBanco='public.menu' nomeSequencia='public.menu_menu_id_menu_seq'>
+	<propriedades>
+		<propriedade id='idMenu' tipo='numerico' tamanho='4' obrigatorio='sim' indicePrimario='sim'  >
+			<banco nome='menu_id_menu'  />
+			<apresentacao componente='oculto'  />
+		</propriedade>
+		<propriedade id='nmMenu' tipo='texto' tamanho='50' obrigatorio='sim' descritivo='1'  >
+			<banco nome='menu_nm_menu' ordem='1'  />
+			<apresentacao componente='caixa de entrada' >
+				<listagem ordem='1' tamanho='30%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='txDescricao' tipo='texto'  >
+			<banco nome='menu_tx_descricao'  />
+			<apresentacao componente='caixa de texto' >
+				<listagem ordem='2' tamanho='70%' />
+			</apresentacao>
+		</propriedade>
+	</propriedades>
+</entidade>
