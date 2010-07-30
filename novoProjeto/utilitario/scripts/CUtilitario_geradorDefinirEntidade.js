@@ -95,7 +95,8 @@ gerador = {
 		}
 	},
 	passarNome:function (obj){
-		$('.ln_' + this.pegarLinha(obj) + ' .propriedade').html(obj.val());
+		$('.ln_' + this.pegarLinha(obj) + ' td.propriedade').html(obj.val());
+		$('.ln_' + this.pegarLinha(obj) + ' input.propriedade').val(obj.val());
 	},
 	remover:function(linha){
 		$('.ln_' + linha).remove();
