@@ -102,7 +102,7 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		$menu = parent::montarMenuPrograma();
 		$item = $this->inter->pegarTexto('botaoGravar');
 		$menu->$item->passar_link('javascript:document.formulario.submit();');
-		$menu->$item->passar_imagem('.sistema/imagens/botao_gravar.png');
+		$menu->$item->passar_imagem('.sistema/icones/disk.png');
 		return $menu;
 	}
 }
