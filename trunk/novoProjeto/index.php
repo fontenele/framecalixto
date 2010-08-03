@@ -1,5 +1,5 @@
 <?php
-/**
+/** 
 * Arquivo de indice para o funcionamento do sistema 
 */
 $versao = '5.1.2';
