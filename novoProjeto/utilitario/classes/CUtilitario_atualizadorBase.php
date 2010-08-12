@@ -23,7 +23,6 @@ class CUtilitario_atualizadorBase extends controlePadrao{
 				echo $persistente->comandoDestruicaoCompleto();
 				echo $persistente->comandoCriacaoCompleto();
 			}
-			echo persistentePadraoPG::gerarComandoAccentRemove();
 		}else{
 			foreach($persistentes as $nomePersistente){
 				$persistente = new $nomePersistente($c);
@@ -43,9 +42,6 @@ class CUtilitario_atualizadorBase extends controlePadrao{
  		$classes[] = 'PPerfil';
  		$classes[] = 'PAcesso';
  		$classes[] = 'PUsuarioPerfil';
- 		$classes[] = 'PLogAcesso';
- 		$classes[] = 'PMenu';
- 		$classes[] = 'PMenuItem';
 		return $classes;
 	}
 

@@ -1,42 +1,43 @@
 <form name="formulario" method="post" action="«$action»" >
-	<div class="container0 ui-widget-content ui-corner-all">
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
-		<div class="d"></div>
-		<div class="e"></div>
-		<div class="f"></div>
-		<div class="g"></div>
-		<div class="h"></div>
-		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»<span style="font-weight:bold;">«$tabela»</span></h1>
-		<div class="lista">
-			<table summary="text" class="tabela0 ui-widget-content ui-corner-all">
-				<thead>
-					<tr>
-						<th class="ui-state-default">Campo</th>
-						<th class="ui-state-default">Tipo</th>
-						<th class="ui-state-default">Tamanho</th>
-						<th class="ui-state-default">PK</th>
-						<th class="ui-state-default">Esquema FK</th>
-						<th class="ui-state-default">Tabela FK</th>
-						<th class="ui-state-default">Campo FK</th>
-					</tr>
-				</thead>
-				«foreach from=$listagem item=nome»
-				<tr title="«php»echo $this->nome['descricao']«/php»" class="«cycle values='linhaListagem1,linhaListagem2'»">
-					<td class="campo1">«php»echo $this->nome['campo'] «/php»</td>
-					<td class="campo1">«php»echo $this->nome['tipo_de_dado'] «/php»</td>
-					<td class="campo1">«php»echo $this->nome['tamanho'] «/php»</td>
-					<td class="campo1">«php»echo $this->nome['campo_pk'] «/php»</td>
-					<td class="campo1">«php»echo $this->nome['esquema_fk'] «/php»</td>
-					<td class="campo1">«php»echo $this->nome['tabela_fk'] «/php»</td>
-					<td class="campo1">«php»echo $this->nome['campo_fk'] «/php»</td>
+<div class="container0">
+	<div class="a"></div>
+	<div class="b"></div>
+	<div class="c"></div>
+	<div class="d"></div>
+	<div class="e"></div>
+	<div class="f"></div>
+	<div class="g"></div>
+	<div class="h"></div>
+	<h1 class="titulo">&nbsp;</h1>
+	<div class="lista">
+		<center>«$tabela»</center>
+		<table summary="text" class="tabela0">
+			<thead>
+				<tr>
+					<th>Campo</th>
+					<th>Tipo</th>
+					<th>Tamanho</th>
+					<th>PK</th>
+					<th>Esquema FK</th>
+					<th>Tabela FK</th>
+					<th>Campo FK</th>
 				</tr>
-				«/foreach»
-			</table>
-	        <div id='menu_corpo'>
-	            «$menuPrograma»
-	        </div>
-		</div>
+			</thead>
+			«foreach from=$listagem item=nome»
+			<tr title="«php»echo $this->nome['descricao']«/php»">
+				<td class="campo1">«php»echo $this->nome['campo'] «/php»</td>
+				<td class="campo1">«php»echo $this->nome['tipo_de_dado'] «/php»</td>
+				<td class="campo1">«php»echo $this->nome['tamanho'] «/php»</td>
+				<td class="campo1">«php»echo $this->nome['campo_pk'] «/php»</td>
+				<td class="campo1">«php»echo $this->nome['esquema_fk'] «/php»</td>
+				<td class="campo1">«php»echo $this->nome['tabela_fk'] «/php»</td>
+				<td class="campo1">«php»echo $this->nome['campo_fk'] «/php»</td>
+			</tr>
+			«/foreach»
+		</table>
+        <div id='menu_corpo'>
+            «$menuPrograma»
+        </div>
 	</div>
+</div>
 </form>

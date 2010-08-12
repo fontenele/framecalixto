@@ -18,11 +18,6 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 			'2'=>$this->inter->pegarTexto('ambiente2'),
 			'1'=>$this->inter->pegarTexto('ambiente1')
 		);
-		$arTiposBancosDisponiveis = array(
-			'postgres'=>'PostgreSQL',
-			'mysql'=>'MySql',
-			'oracle'=>'Oracle'
-		);
 		$arBooleano		= array('sim'=>$this->inter->pegarTexto('sim'),'nao'=>$this->inter->pegarTexto('nao'));
 
 		$paginaInicial	= ($paginaInicial = strval($definicoes->sistema['paginaInicial'])) ? $paginaInicial : 'CControleAcesso_verPrincipal';
@@ -52,17 +47,16 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		$this->visualizacao->metodoMenuSistema = VComponente::montar('input','controleDeMenu[metodoMenuSistema]',$metodoMenu2);
 		//Bancos
 		$conexao = $tipo = $porta = $nome = $usuario = $senha = array();
-		$arInputConfig = array('size'=>'10','style'=>'margin-right: 2px;');
-		$arSelectConfig = array('style'=>'margin-right: 2px;');
+		$arInputConfig = array('size'=>'12px');
 		foreach($definicoes->xpath('/definicoes/bancos/banco') as $banco){
-			$conexao[] 	= VComponente::montar('input'			,'banco[id][]'		,$banco['id']		,$arInputConfig);
-			$tipo[] 	= VComponente::montar('select'			,'banco[tipo][]'	,$banco['tipo']		,$arSelectConfig, $arTiposBancosDisponiveis);
-			$servidor[] = VComponente::montar('input'			,'banco[servidor][]',$banco['servidor']	,$arInputConfig);
-			$porta[] 	= VComponente::montar('input'			,'banco[porta][]'	,$banco['porta']	,array('size'=>'2'));
-			$nome[] 	= VComponente::montar('input'			,'banco[nome][]'	,$banco['nome']		,$arInputConfig);
-			$usuario[] 	= VComponente::montar('input'			,'banco[usuario][]'	,$banco['usuario']	,$arInputConfig);
-			$senha[] 	= VComponente::montar('palavra chave'	,'banco[senha][]'	,$banco['senha']	,$arInputConfig);
-			$multipla[] = VComponente::montar('combobox'		,'banco[conexaoMultipla][]',$banco['conexaoMultipla'] == 'sim' ? 'sim':'nao',null,$arBooleano);
+			$conexao[] 	= VComponente::montar('input'	,'banco[id][]'		,$banco['id']		,$arInputConfig);
+			$tipo[] 	= VComponente::montar('input'	,'banco[tipo][]'	,$banco['tipo']		,$arInputConfig);
+			$servidor[] = VComponente::montar('input'	,'banco[servidor][]',$banco['servidor']	,$arInputConfig);
+			$porta[] 	= VComponente::montar('input'	,'banco[porta][]'	,$banco['porta']	,$arInputConfig);
+			$nome[] 	= VComponente::montar('input'	,'banco[nome][]'	,$banco['nome']		,$arInputConfig);
+			$usuario[] 	= VComponente::montar('input'	,'banco[usuario][]'	,$banco['usuario']	,$arInputConfig);
+			$senha[] 	= VComponente::montar('input'	,'banco[senha][]'	,$banco['senha']	,$arInputConfig);
+			$multipla[] = VComponente::montar('combobox','banco[conexaoMultipla][]',$banco['conexaoMultipla'] == 'sim' ? 'sim':'nao',null,$arBooleano);
 		}
 		$this->visualizacao->conexao = $conexao;
 		$this->visualizacao->tipo = $tipo;
@@ -77,7 +71,7 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		foreach($definicoes->xpath('/definicoes/diretorios/diretorio') as $diretorio){
 			$dirId[] 	= VComponente::montar('VHidden','diretorios[id][]',$diretorio['id']);
 			$dir[] 		= VComponente::montar('input','diretorios[dir][]',$diretorio['dir'],array('size'=>'60px'));
-			$entidade[] = VComponente::montar('combobox','diretorios[entidade][]',$diretorio['entidade'] == 'sim'?'sim':'nao',array('style'=>'width: 80px'),$arBooleano);
+			$entidade[] = VComponente::montar('combobox','diretorios[entidade][]',$diretorio['entidade'] == 'sim'?'sim':'nao',null,$arBooleano);
 		}
 		$this->visualizacao->dirId = $dirId;
 		$this->visualizacao->dirCaminho = $dir;
@@ -102,7 +96,17 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		$menu = parent::montarMenuPrograma();
 		$item = $this->inter->pegarTexto('botaoGravar');
 		$menu->$item->passar_link('javascript:document.formulario.submit();');
-		$menu->$item->passar_imagem('.sistema/icones/disk.png');
+		$menu->$item->passar_imagem('.sistema/imagens/botao_gravar.png');
+		return $menu;
+	}
+	/**
+	* Monta a coleção de menu principal
+	* @return colecaoPadraoMenu menu principal
+	*/
+	public function montarMenuPrincipal(){
+//		$menu = parent::montarMenuPrincipal();
+		$menu = new colecaoPadraoMenu();
+		$menu->Sistema->Principal->passar_link('?c=CControleAcesso_verPrincipal');
 		return $menu;
 	}
 }
