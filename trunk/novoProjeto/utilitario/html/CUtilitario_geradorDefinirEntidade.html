@@ -1,120 +1,123 @@
+<link type="text/css" rel="stylesheet" href=".sistema/scripts/jquery-ui/js/jquery-ui-1.7.2.custom.css" media="screen" ></link>
+<script src=".sistema/scripts/jquery-ui/js/jquery-ui-1.7.2.custom.min.js"  type="text/javascript" language="javascript"></script>
 <form id="affForm" name="formulario" method="post" action="«$action»" >
-	<h3>Acessado via: «$acesso»</h3>
-	<div class="container0 ui-widget-content ui-corner-all">
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
-		<div class="d"></div>
-		<div class="e"></div>
-		<div class="f"></div>
-		<div class="g"></div>
-		<div class="h"></div>
-		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
-		<div class="texto">
-			<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">«$textoAjudaDefinicao»</div>
-			<div class="container0" id='camada'>
-				<div class="a"></div>
-				<div class="b"></div>
-				<div class="c"></div>
-				<div class="d"></div>
-				<div class="e"></div>
-				<div class="f"></div>
-				<div class="g"></div>
-				<div class="h"></div>
-				<div class="texto">
-					<div class="tabela2">
-						<label>Nome: </label>
-						<span>«$entidade»</span>
+<h3>Acessado via: «$acesso»</h3>
+<div class="container0">
+	<div class="a"></div>
+	<div class="b"></div>
+	<div class="c"></div>
+	<div class="d"></div>
+	<div class="e"></div>
+	<div class="f"></div>
+	<div class="g"></div>
+	<div class="h"></div>
+	<h1 class="titulo">Definições</h1>
+	<div class="texto">
+		«$textoAjudaDefinicao»
+		<div class="container0" id='camada'>
+			<div class="a"></div>
+			<div class="b"></div>
+			<div class="c"></div>
+			<div class="d"></div>
+			<div class="e"></div>
+			<div class="f"></div>
+			<div class="g"></div>
+			<div class="h"></div>
+			<h1 class="titulo">Entidade</h1>
+			<div class="texto">
+				<div id="tabs">
+					<ul>
+						<li><a id="guia_1" href="#tabs-1">Entidade</a></li>
+						<li><a id="guia_2" href="#tabs-2">Negócio</a></li>
+						<li><a id="guia_3" href="#tabs-3">Persistente</a></li>
+						<li><a id="guia_4" href="#tabs-4">Visualização</a></li>
+						<li><a id="guia_5" href="#tabs-5">Configurações</a></li>
+					</ul>
+					<div id="tabs-1">
+						<table summary="text" >
+							<tr>
+								<td>Nome da entidade:</td>
+								<td>«$entidade»</td>
+							</tr>
+						</table>
+						<table summary="text" class="tabela1"  id="ent">
+							<input type="button" value="Adicionar nova propriedade"  id="adicionar" />
+							<tr>
+								<th title="O nome da característica da entidade">Nome da Propriedade</th>
+								<th title="A abreviação da característica da entidade">Nome abreviado</th>
+								<th title="A descrição da característica da entidade">Descrição</th>
+							</tr>
+						</table>
 					</div>
-					<div id="tabs">
-						<ul>
-							<li><a id="guia_1" href="#tabs-1">Propriedades</a></li>
-							<li><a id="guia_2" href="#tabs-2">Negócio</a></li>
-							<li><a id="guia_3" href="#tabs-3">Persistente</a></li>
-							<li><a id="guia_4" href="#tabs-4">Visualização</a></li>
-							<li><a id="guia_5" href="#tabs-5">Configurações</a></li>
-						</ul>
-						<div id="tabs-1">
-							<table summary="text" class="tabela1 ui-corner-all" id="ent">
-								<tr>
-									<th class="ui-state-default" title="O nome da característica da entidade">Nome da Propriedade</th>
-									<th class="ui-state-default" title="A abreviação da característica da entidade">Nome abreviado</th>
-									<th class="ui-state-default" title="A descrição da característica da entidade">Descrição (Tooltip)</th>
-								</tr>
-							</table><br />
-							<input type="button" value="Adicionar nova propriedade" id="adicionar" />
-						</div>
-						<div id="tabs-2">
-							Sugerir nomes das <a href="#" id="sugerirNomesPropriedades">propriedades</a>.<br /><br />
-							<table summary="text" class="tabela1 ui-corner-all" id="neg">
-								<tr>
-									<th class="ui-state-default" title="O nome da propriedade da entidade">Propriedade</th>
-									<th class="ui-state-default" title="O nome da propriedade na camada de negócio">Propriedade de Negócio</th>
-									<th class="ui-state-default" title="O tamanho em caracteres da propriedade">Tamanho</th>
-									<th class="ui-state-default" title="O tipo de dado da propriedade">Tipo</th>
-									<th class="ui-state-default" title="Chave primária">PK</th>
-									<th class="ui-state-default" title="Não Nulo">NN</th>
-									<th class="ui-state-default" title="Chave única">UK</th>
-									<th class="ui-state-default" title="Chave extrangeira">FK</th>
-									<th class="ui-state-default" title="Domínio,  Ex.de preechimento: [1,Sim][2,Não]">Dominio</th>
-									<th class="ui-state-default" title="Classe de negócio assosiativa">Classe Associativa</th>
-									<th class="ui-state-default" title="Método de leitura utilizado pela classe de negócio assosiativa">Método de leitura</th>
-								</tr>
-							</table>
-						</div>
-						<div id="tabs-3">
-							Sugerir nome de <a href="#" id="sugerirNomeTabela">tabela</a> de <a href="#" id="sugerirNomeSequence">sequence</a> e nomes dos <a href="#" id="sugerirNomesCampos">campos</a>.<br /><br />
-							<div class="texto">
-								<div class='campo'>
-									<label>Tabela: </label>
-									<span>«$nomeTabela»</span>
-								</div>
-								<div class='campo'>
-									<label>Sequence: </label>
-									<span>«$nomeSequence»</span>
-								</div>
-							</div><br />
-							<table summary="text" class="tabela1 ui-corner-all" id="per">
-								<tr>
-									<th class="ui-state-default" title="O nome da propriedade da entidade">Propriedade</th>
-									<th class="ui-state-default" title="O nome do campo na tabela do banco">Campo da tabela</th>
-									<th class="ui-state-default" title="A prioridade de ordenação do campo na tabela do banco">Ordenação</th>
-									<th class="ui-state-default" title="O tipo de ordenação do campo">Decrescente</th>
-									<th class="ui-state-default" title="Caso chave extrangeira identifique o nome da tabela de referência ">Referencia a tabela</th>
-									<th class="ui-state-default" title="Caso chave extrangeira identifique o nome do campo de referência ">Referencia ao campo</th>
-								</tr>
-							</table>
-						</div>
-						<div id="tabs-4">
-							Sugerir <a href="#" id="sugerirComponentes">componentes</a> de visualização.<br /><br />
-							<table summary="text" class="tabela1 ui-corner-all" id="vis">
-								<tr>
-									<th class="ui-state-default" title="O nome da propriedade da entidade">Propriedade</th>
-									<th class="ui-state-default" title="Definição do componente de apresentação da propriedade">Componente</th>
-									<th class="ui-state-default" title="A ordem na listagem de apresentação">Ordem na listagem</th>
-									<th class="ui-state-default" title="A ordem na apresentação descritiva Ex: '001 - Campo01 - Campo02'">Ordem na descrição</th>
-									<th class="ui-state-default" title="A largura da coluna na listagem de apresentação (em %)">Largura</th>
-								</tr>
-							</table>
-						</div>
-						<div id="tabs-5">
-							<table summary="text" class="tabela1">
-								<tr><th></th><th>Banco de dados</th></tr>
-								<tr><td>«$recriarBase»</td><td>Recriar a tabela no banco de dados</td></tr>
-							</table>
-							Gerar os <a href="#" id="gerarArquivos">arquivos</a> das <a href="#" id="gerarClasses">classes</a>, dos <a href="#" id="gerarTemplates">templates</a> e dos <a href="#" id="gerarXml">xmls</a>.
-							<table summary="text" class="tabela1" id="arq">
-								<tr><th></th><th title="Selecione o arquivo para salvá-lo">Arquivos</th></tr>
-							</table>
-						</div>
-					</div><br />
-					<div id='menu_corpo'>
-						«$menuPrograma»
+					<div id="tabs-2">
+						Sugerir nomes das <a href="#" id="sugerirNomesPropriedades">propriedades</a>.
+						<table summary="text" class="tabela1"  id="neg">
+							<tr>
+								<th title="O nome da propriedade da entidade">Propriedade</th>
+								<th title="O nome da propriedade na camada de negócio">Propriedade de Negócio</th>
+								<th title="O tamanho em caracteres da propriedade">Tamanho</th>
+								<th title="O tipo de dado da propriedade">Tipo</th>
+								<th title="Chave primária">PK</th>
+								<th title="Não Nulo">NN</th>
+								<th title="Chave única">UK</th>
+								<th title="Chave extrangeira">FK</th>
+								<th title="Domínio,  Ex.de preechimento: [1,Sim][2,Não]">Dominio</th>
+								<th title="Classe de negócio assosiativa">Classe Associativa</th>
+								<th title="Método de leitura utilizado pela classe de negócio assosiativa">Método de leitura</th>
+							</tr>
+						</table>
 					</div>
+					<div id="tabs-3">
+						Sugerir nome de <a href="#" id="sugerirNomeTabela">tabela</a> de <a href="#" id="sugerirNomeSequence">sequence</a> e nomes dos <a href="#" id="sugerirNomesCampos">campos</a>.
+						<table summary="text" class="tabela1">
+							<tr>
+								<td>Tabela</td><td>«$nomeTabela»</td>
+							</tr>
+							<tr>
+								<td>Sequence</td><td>«$nomeSequence»</td>
+							</tr>
+						</table>
+						<table summary="text" class="tabela1"  id="per">
+							<tr>
+								<th title="O nome da propriedade da entidade">Propriedade</th>
+								<th title="O nome do campo na tabela do banco">Campo da tabela</th>
+								<th title="A prioridade de ordenação do campo na tabela do banco">Ordenação</th>
+								<th title="O tipo de ordenação do campo">Decrescente</th>
+								<th title="Caso chave extrangeira identifique o nome da tabela de referência ">Referencia a tabela</th>
+								<th title="Caso chave extrangeira identifique o nome do campo de referência ">Referencia ao campo</th>
+							</tr>
+						</table>
+					</div>
+					<div id="tabs-4">
+						Sugerir <a href="#" id="sugerirComponentes">componentes</a> de visualização.
+						<table summary="text" class="tabela1"  id="vis">
+							<tr>
+								<th title="O nome da propriedade da entidade">Propriedade</th>
+								<th title="Definição do componente de apresentação da propriedade">Componente</th>
+								<th title="A ordem na listagem de apresentação">Ordem na listagem</th>
+								<th title="A ordem na apresentação descritiva Ex: '001 - Campo01 - Campo02'">Ordem na descrição</th>
+								<th title="A largura da coluna na listagem de apresentação (em %)">Largura</th>
+							</tr>
+						</table>
+					</div>
+					<div id="tabs-5">
+						<table summary="text" class="tabela1">
+							<tr><th></th><th>Banco de dados</th></tr>
+							<tr><td>«$recriarBase»</td><td>Recriar a tabela no banco de dados</td></tr>
+						</table>
+						Gerar os <a href="#" id="gerarArquivos">arquivos</a> das <a href="#" id="gerarClasses">classes</a>, dos <a href="#" id="gerarTemplates">templates</a> e dos <a href="#" id="gerarXml">xmls</a>.
+						<table summary="text" class="tabela1" id="arq">
+							<tr><th></th><th title="Selecione o arquivo para salvá-lo">Arquivos</th></tr>
+						</table>
+					</div>
+				</div>
+				<div id='menu_corpo'>
+					«$menuPrograma»
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </form>
 «if $dados »
 <script language="javascript">

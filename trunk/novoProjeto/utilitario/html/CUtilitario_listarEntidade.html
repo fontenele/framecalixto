@@ -7,7 +7,7 @@
 			});
 		})
 	</script>
-<div class="container0 ui-widget-content ui-corner-all">
+<div class="container0">
 	<div class="a"></div>
 	<div class="b"></div>
 	<div class="c"></div>
@@ -16,39 +16,38 @@
 	<div class="f"></div>
 	<div class="g"></div>
 	<div class="h"></div>
-	<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
+	<h1 class="titulo">Entidades do sitema</h1>
 	<div class="lista">
-		<table summary="text" class="tabela0 ui-widget-content ui-corner-all">
-			<thead>
-				<tr>
-					<th class="nomeEntidade ui-state-default">Entidade</th>
-					<th class="nomeNegocio ui-state-default">Negócio</th>
-					<th class="nomeTabela ui-state-default">Tabela</th>
-					<th class="nomeSequence ui-state-default">Sequence</th>
-					<th class="existente ui-state-default centralizado">Campos Banco</th>
-					<th class="definido ui-state-default centralizado">Campos Entidade</th>
-					<th class="definido ui-state-default centralizado"></th>
-					<th class="ui-state-default centralizado"></th>
-					<th class="ui-state-default centralizado"></th>
-				</tr>
-			</thead>
-			<tbody>
+		<table class="tabela1">
+				<thead>
+					<tr>
+						<th>Testar</th>
+						<th>Editar</th>
+						<th class="nomeEntidade">Nome da Entidade</th>
+						<th class="nomeNegocio">Classe de negócio</th>
+						<th class="nomeTabela">Tabela</th>
+						<th class="nomeSequence">Sequence</th>
+						<th class="existente">Campos Existentes</th>
+						<th class="definido">Campos Definidos</th>
+						<th class="definido"></th>
+					</tr>
+				</thead>
+				<tbody>
 			«foreach from=$listagem key=negocio item=nome»
-			<tr class="«cycle values='linhaListagem1,linhaListagem2'»">
-				<td class="nomeEntidade"><a
-                href="?c=CUtilitario_geradorDefinirEntidade&entidade=«$negocio»">«$nome»</a></td>
-				<td class="nomeNegocio">«$negocios[$negocio]»</td>
-				<td class="nomeTabela"><a title="Definição da tabela '«$tabelas[$negocio]»' no banco de dados" href="?c=CUtilitario_listarCamposTabela&tabela=«$tabelas[$negocio]»">«$tabelas[$negocio]» </a></td>
-				<td class="nomeSequence">«$sequencias[$negocio]» </td>
-				<td class="numerico direita">«$camposExistentes[$negocio]»</td>
-				<td class="numerico direita">«$camposDefinidos[$negocio]»</td>
+			<tr>
+				<td align="center"><a href="?c=«$controles[$negocio]»" ><img border="0" src="utilitario/imagens/testar_programa.png"/></a></td>
+				<td align="center"><a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" ><img border="0" src=".sistema/imagens/icon-edit.png"/></a></td>
+				<td align="left" class="nomeEntidade">«$nome» </td>
+				<td align="left" class="nomeNegocio">«$negocios[$negocio]»</td>
+				<td align="left" class="nomeTabela"><a title="Definição da tabela '«$tabelas[$negocio]»' no banco de dados" href="?c=CUtilitario_listarCamposTabela&tabela=«$tabelas[$negocio]»">«$tabelas[$negocio]» </a></td>
+				<td align="left" class="nomeSequence">«$sequencias[$negocio]» </td>
+				<td align="left" class="numerico">«$camposExistentes[$negocio]»</td>
+				<td align="left" class="numerico">«$camposDefinidos[$negocio]»</td>
 				<td align="left" >«$diferencas[$negocio]»</td>
-				<td class="centralizado"><a href="?c=«$controles[$negocio]»" title="Ver Tela de Pesquisa dessa Entidade"><img border="0" src="utilitario/imagens/testar_programa.png"/></a></td>
-				<td class="centralizado"><a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" title="Editar essa Entidade"><img border="0" src=".sistema/imagens/icon-edit.png"/></a></td>
 			</tr>
 			«/foreach»
-			</tbody>
-		</table>
+				</tbody>
+			</table>
         <div id='menu_corpo'>
             «$menuPrograma»
         </div>
