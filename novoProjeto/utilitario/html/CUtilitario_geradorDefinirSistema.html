@@ -1,130 +1,130 @@
 <form name="formulario" method="post" action="«$action»" >
-<div class="container0">
-	<div class="a"></div>
-	<div class="b"></div>
-	<div class="c"></div>
-	<div class="d"></div>
-	<div class="e"></div>
-	<div class="f"></div>
-	<div class="g"></div>
-	<div class="h"></div>
-	<h1 class="titulo">&nbsp;</h1>
-	<div class="texto">
-		<fieldset>
-            <legend>«$textoSistema»</legend>
-            <table summary="text" class="tabela2">
-                <tr>
-                    <td class="campo1">«$textoPaginaInicial»:</td>
-                    <td class="campo2">«$paginaInicial»</td>
-                </tr>
-                <tr>
-                    <td class="campo1">«$textoPaginaErro»:</td>
-                    <td class="campo2">«$paginaErro»</td>
-                </tr>
-                <tr>
-                    <td class="campo1">«$textoAmbiente»:</td>
-                    <td class="campo2">«$ambiente»</td>
-                </tr>
-            </table>
-		</fieldset>
-		<fieldset>
-            <legend>«$textoControleAcesso»</legend>
-            <table summary="text" class="tabela2">
-                <tr>
-                    <td class="campo1">«$textoLiberadoCA»:</td>
-                    <td class="campo2">«$liberadoCA»</td>
-                </tr>
-                <tr>
-                    <td class="campo1">«$textoClasseCA»:</td>
-                    <td class="campo2">«$classeCA»</td>
-                </tr>
-                <tr>
-                    <td class="campo1">«$textoMetodoCA»:</td>
-                    <td class="campo2">«$metodoCA»</td>
-                </tr>
-            </table>
-        </fieldset>
-		<fieldset>
-            <legend>«$textoControleMenu»</legend>
-            <table summary="text" class="tabela2">
-                <tr>
-                    <td class="campo1">«$textoClasseMenu»:</td>
-                    <td class="campo2">«$classeMenu»</td>
-                </tr>
-                <tr>
-                    <td class="campo1">«$textoMetodoMenuPrincipal»:</td>
-                    <td class="campo2">«$metodoMenuPrincipal»</td>
-                </tr>
-                <tr>
-                    <td class="campo1">«$textoMetodoMenuSistema»:</td>
-                    <td class="campo2">«$metodoMenuSistema»</td>
-                </tr>
-            </table>
-		</fieldset>
-		<fieldset>
-            <legend>«$textoBancos»</legend>
-            <table summary="text" class="tabela2">
-                <tr>
-                    <th>Referência</th>
-                    <th>Apelido</th>
-                    <th>Tipo</th>
-                    <th>Servidor</th>
-                    <th>Porta</th>
-                    <th>Nome</th>
-                    <th>Usuario</th>
-                    <th>Senha</th>
-                    <th>Multipla</th>
-                </tr>
-            «foreach from=$conexao key=i item=a »
-                <tr>
-                    <td class="campo1">«$i»:</td>
-                    <td class="campo2">«$conexao[$i]»</td>
-                    <td class="campo2">«$tipo[$i]»</td>
-                    <td class="campo2">«$servidor[$i]»</td>
-                    <td class="campo2">«$porta[$i]»</td>
-                    <td class="campo2">«$nome[$i]»</td>
-                    <td class="campo2">«$usuario[$i]»</td>
-                    <td class="campo2">«$senha[$i]»</td>
-                    <td class="campo2">«$multipla[$i]»</td>
-                </tr>
-            «/foreach»
-            </table>
-		</fieldset>
-		<fieldset>
-            <legend>«$textoDiretorios»</legend>
-            <table summary="text" class="tabela2">
-                <tr>
-                    <th>Referência</th>
-                    <th>Caminho</th>
-                    <th>Interno da Entidade</th>
-                </tr>
-            «foreach from=$dirId key=i item=a »
-                <tr>
-                    <td class="campo1">«$dirId[$i]»«$dirId[$i]->pegarValue()»:</td>
-                    <td class="campo2">«$dirCaminho[$i]»</td>
-                    <td class="campo2">«$dirEntidade[$i]»</td>
-                </tr>
-            «/foreach»
-            </table>
-		</fieldset>
-		<fieldset>
-            <legend>«$textoArquivos»</legend>
-            <table summary="text" class="tabela2">
-                <tr>
-                    <th>Referência</th>
-                    <th>Arquivo</th>
-                </tr>
-            «foreach from=$arqId key=i item=a »
-                <tr>
-                    <td class="campo1">«$arqId[$i]»«$arqId[$i]->pegarValue()»:</td>
-                    <td class="campo2">«$arquivo[$i]»</td>
-                </tr>
-            «/foreach»
-            </table>
-		</fieldset>
-        <div id='menu_corpo'>
-            «$menuPrograma»
-        </div>
+	<div class="container0 ui-widget-content ui-corner-all">
+		<div class="a"></div>
+		<div class="b"></div>
+		<div class="c"></div>
+		<div class="d"></div>
+		<div class="e"></div>
+		<div class="f"></div>
+		<div class="g"></div>
+		<div class="h"></div>
+		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
+		<div class="texto">
+			<fieldset class="ui-widget-content ui-corner-all">
+	            <legend>«$textoSistema»</legend>
+	            <div class="tabela2">
+	                <div class='campo'>
+	                    <label>«$textoPaginaInicial»:</label>
+	                    <span>«$paginaInicial»</span>
+	                </div>
+	                <div class='campo'>
+	                    <label>«$textoPaginaErro»:</label>
+	                    <span>«$paginaErro»</span>
+	                </div>
+	                <div class='campo'>
+	                    <label>«$textoAmbiente»:</label>
+	                    <span>«$ambiente»</span>
+	                </div>
+	            </div>
+			</fieldset>
+			<fieldset class="ui-widget-content ui-corner-all">
+	            <legend>«$textoControleAcesso»</legend>
+	            <div class="tabela2">
+	                <div class='campo'>
+	                    <label>«$textoLiberadoCA»:</label>
+	                    <span>«$liberadoCA»</span>
+	                </div>
+	                <div class='campo'>
+	                    <label>«$textoClasseCA»:</label>
+	                    <span>«$classeCA»</span>
+	                </div>
+	                <div class='campo'>
+	                    <label>«$textoMetodoCA»:</label>
+	                    <span>«$metodoCA»</span>
+	                </div>
+	            </div>
+	        </fieldset>
+			<fieldset class="ui-widget-content ui-corner-all">
+	            <legend>«$textoControleMenu»</legend>
+	            <div class="tabela2">
+	                <div class='campo'>
+	                    <label>«$textoClasseMenu»:</label>
+	                    <span>«$classeMenu»</span>
+	                </div>
+	                <div class='campo'>
+	                    <label>«$textoMetodoMenuPrincipal»:</label>
+	                    <span>«$metodoMenuPrincipal»</span>
+	                </div>
+	                <div class='campo'>
+	                    <label>«$textoMetodoMenuSistema»:</label>
+	                    <span>«$metodoMenuSistema»</span>
+	                </div>
+	            </div>
+			</fieldset>
+			<fieldset class="ui-widget-content ui-corner-all">
+	            <legend>«$textoBancos»</legend>
+	            <table summary="text" class="tabela2">
+	                <tr>
+	                    <th>Cód.</th>
+	                    <th>Nome</th>
+	                    <th>Tipo</th>
+	                    <th>Servidor</th>
+	                    <th>Porta</th>
+	                    <th>Banco</th>
+	                    <th>Usuario</th>
+	                    <th>Senha</th>
+	                    <th>Multipla</th>
+	                </tr>
+	            	«foreach from=$conexao key=i item=a »
+	                <tr>
+	                    <td class="campo1">«$i»:</td>
+	                    <td class="campo2">«$conexao[$i]»</td>
+	                    <td class="campo2">«$tipo[$i]»</td>
+	                    <td class="campo2">«$servidor[$i]»</td>
+	                    <td class="campo2">«$porta[$i]»</td>
+	                    <td class="campo2">«$nome[$i]»</td>
+	                    <td class="campo2">«$usuario[$i]»</td>
+	                    <td class="campo2">«$senha[$i]»</td>
+	                    <td class="campo2">«$multipla[$i]»</td>
+	                </tr>
+	            	«/foreach»
+	            </table>
+			</fieldset>
+			<fieldset class="ui-widget-content ui-corner-all">
+	            <legend>«$textoDiretorios»</legend>
+	            <table summary="text" class="tabela2">
+	                <tr>
+	                    <th>Referência</th>
+	                    <th>Caminho</th>
+	                    <th>Interno da Entidade</th>
+	                </tr>
+	            «foreach from=$dirId key=i item=a »
+	                <tr>
+	                    <td class="campo1">«$dirId[$i]»«$dirId[$i]->pegarValue()»:</td>
+	                    <td class="campo2">«$dirCaminho[$i]»</td>
+	                    <td class="campo2">«$dirEntidade[$i]»</td>
+	                </tr>
+	            «/foreach»
+	            </table>
+			</fieldset>
+			<fieldset class="ui-widget-content ui-corner-all">
+	            <legend>«$textoArquivos»</legend>
+	            <table summary="text" class="tabela2">
+	                <tr>
+	                    <th>Referência</th>
+	                    <th>Arquivo</th>
+	                </tr>
+	            «foreach from=$arqId key=i item=a »
+	                <tr>
+	                    <td class="campo1">«$arqId[$i]»«$arqId[$i]->pegarValue()»:</td>
+	                    <td class="campo2">«$arquivo[$i]»</td>
+	                </tr>
+	            «/foreach»
+	            </table>
+			</fieldset>
+	        <div id='menu_corpo'>
+	            «$menuPrograma»
+	        </div>
+		</div>
 	</div>
-</div>
 </form>
