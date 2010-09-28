@@ -30,11 +30,13 @@ $(document).ready( function() {
 			$(this).val('');
 		}
 	});
-	$(".moeda").priceFormat({
-		prefix: 'R$ ',
-		centsSeparator: ',',
-		thousandsSeparator: '.'
-	});
+	if($.priceFormat){
+		$(".moeda").priceFormat({
+			prefix: 'R$ ',
+			centsSeparator: ',',
+			thousandsSeparator: '.'
+		});
+	}
 	$('.email')
 		.live('blur',function(){
 			re = /^[\w!#$%&'*+\/=?^`{|}~-]+(\.[\w!#$%&'*+\/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/;

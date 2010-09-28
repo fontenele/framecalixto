@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="author" content="Dave Shea" />
+	<meta name="keywords" content="design, css, cascading, style, sheets, xhtml, graphic design, w3c, web standards, visual, display" />
+	<meta name="description" content="A demonstration of what can be accomplished visually through CSS-based design." />
+	<meta name="robots" content="all" />
+	<link rel="Shortcut Icon" type="image/x-icon" href="http://www.csszengarden.com/favicon.ico" />
+	<link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.csszengarden.com/zengarden.xml" />
+	<!--link type="text/css" rel="stylesheet" href="http://www.csszengarden.com/188/188.css" media="screen" ></link-->
+	<link type="text/css" rel="stylesheet" href="«$cssGlobal»" media="screen" ></link>
+	<link type="text/css" rel="stylesheet" href="«$cssEntidade»" media="screen" ></link>
+	<link type="text/css" rel="stylesheet" href="«$cssLocal»" media="screen" ></link>
+	«$cssExtra»
+	<script language='javascript' type="text/javascript" >
+		var JS_ERRO_DATA = '«$mensagemErroData»';
+		var JS_ERRO_DIA  = '«$mensagemErroDia»';
+		var JS_ERRO_MES  = '«$mensagemErroMes»';
+		var JS_ERRO_ANO  = '«$mensagemErroAno»';
+		var JS_ERRO_HORA = '«$mensagemErroHora»';
+		var JS_ERRO_EMAIL= '«$mensagemErroEmail»';
+		var JS_DIRETORIO_RAIZ = '.sistema/scripts/';
+	</script>
+	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery-1.4.2.min.js" ></script>
+	<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.maskedinput-1.2.2.js" ></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/calixto.funcoes.js" ></script>
+	<script language="javascript" type="text/javascript" src="«$jsEntidade»" ></script>
+	<script language="javascript" type="text/javascript" src="«$jsLocal»" ></script>
+	«$jsExtra»
+	<title>«$titulo»&nbsp;</title>
+	<title>css Zen Garden: The Beauty in CSS Design</title>
+
+	<!-- to correct the unsightly Flash of Unstyled Content. http://www.bluerobot.com/web/css/fouc.asp -->
+	<script type="text/javascript"></script>
+</head>
+<body id="css-zen-garden">
+
+<div id="container">
+	<div id="intro">
+		<div id="pageHeader">
+			<h1><span>css Zen Garden</span></h1>
+			<h2><span>The Beauty of <acronym title="Cascading Style Sheets">CSS</acronym> Design</span></h2>
+			<a href="?c=CControleAcesso_verPrincipal" title="Página Inicial"><img src=".sistema/imagens/folder_home.png" alt="Inicial" border="0"/></a>
+			<a href="#" title="Adicionar a favoritos"><img id="favoritos" src=".sistema/imagens/favoritos.gif" alt="Favoritos" border="0"/></a>
+			<a href="?c=CControleAcesso_verLogin" title="Sair do sistema"><img src=".sistema/imagens/sair.gif" alt="Sair" border="0"/></a>
+		</div>
+
+		<div id="quickSummary">
+			<p class="p1">«$comunicacaoSistema»</p>
+			<p class="p2"></p>
+		</div>
+
+		<div id="preamble">
+			<h3><span>«$subtitulo»&nbsp;&nbsp;</span></h3>
+			<p class="p1"><span>«$tituloEspecifico»&nbsp;</span></p>
+			<p class="p2"><span></span></p>
+			<p class="p3"><span></span></p>
+		</div>
+	</div>
+
+	<div id="supportingText">
+		<div id="explanation">
+			<h3><span>Como proceder?</span></h3>
+			<p class="p1"><span>«$descricaoDeAjuda»</span></p>
+
+			<p class="p2"><span></span></p>
+		</div>
+
+		<div id="participation">
+			<h3><span>Participation</span></h3>
+			<p class="p1"><span>«$pagina»</span></p>
+
+			<p class="p2"><span></span></p>
+			<p class="p3"><span></span></p>
+
+					</div>
+
+		<div id="benefits">
+			<h3><span>Objetivo</span></h3>
+			<p class="p1"><span>Objetivo desta tela.</span></p>
+		</div>
+
+		<div id="requirements">
+
+			<h3><span>Requerimentos</span></h3>
+			<p class="p1"><span>Requerimentos para funcionamento da tela</span></p>
+
+			<p class="p2"><span><span>Os campos marcados com <span class="campoObrigatorio">*</span> são de preenchimento obrigatório</span></span></p>
+			<p class="p3"><span></span></p>
+			<p class="p4"><span></span></p>
+			<p class="p5"><span></span></p>
+		</div>
+
+		<div id="footer">
+			<a href="?c=CControleAcesso_verPrincipal" title="Página Inicial"><img src=".sistema/imagens/folder_home.png" alt="Inicial" border="0"/></a>
+			<a href="#" title="Adicionar a favoritos"><img id="favoritos" src=".sistema/imagens/favoritos.gif" alt="Favoritos" border="0"/></a>
+			<a href="?c=CControleAcesso_verLogin" title="Sair do sistema"><img src=".sistema/imagens/sair.gif" alt="Sair" border="0"/></a>
+		</div>
+
+	</div>
+
+
+	<div id="linkList">
+		<div id="linkList2">
+
+			<div id="lselect">
+				<h3 class="select"><span>Operações:</span></h3>
+					«$menuPrograma»
+			</div>
+
+			<div id="larchives">
+				<h3 class="archives"><span>Principal:</span></h3>
+				«$menuPrincipal»
+			</div>
+
+			<div id="lresources">
+				<h3 class="resources"><span>Extras:</span></h3>
+				«$menuModulo»
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
+
+<!-- These extra divs/spans may be used as catch-alls to add extra imagery. -->
+<div id="extraDiv1"><span></span></div><div id="extraDiv2"><span></span></div><div id="extraDiv3"><span></span></div>
+<div id="extraDiv4"><span></span></div><div id="extraDiv5"><span></span></div><div id="extraDiv6"><span></span></div>
+
+</body>
+</html>

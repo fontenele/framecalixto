@@ -58,8 +58,8 @@
  *	A adição de scripts nesta sessão torna uma carga obrigatória em TODAS as
  *	páginas do sistema.
  *»
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery-1.4.2.min.js" ></script>
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/ui/jquery-ui-1.8.2.custom.js" ></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery-1.4.2.min.js" id="jsJQuery" ></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/ui/jquery-ui-1.8.2.custom.js" id="jsJQueryUI" ></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.livequery.min.js" ></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.maskedinput-1.2.2.js" ></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.price_format.1.0.js"></script>
@@ -67,10 +67,10 @@
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/fullcalendar.min.js"></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.bgiframe.js"></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.clickmenu.js"></script>
-	<script language="javascript" type="text/javascript" src=".sistema/scripts/calixto.funcoes.js"></script>
-	<script language="javascript" type="text/javascript" src="«$jsTema»"></script>
-	<script language="javascript" type="text/javascript" src="«$jsEntidade»"></script>
-	<script language="javascript" type="text/javascript" src="«$jsLocal»"></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/calixto.funcoes.js" id="jsGlobalDoSistema"></script>
+	<script language="javascript" type="text/javascript" src="«$jsTema»" id="jsTema"></script>
+	<script language="javascript" type="text/javascript" src="«$jsEntidade»" id="jsEntidade"></script>
+	<script language="javascript" type="text/javascript" src="«$jsLocal»" id="jsLocal"></script>
 «**
  * "Scripts extras"
  *	Configure esta variável no seu controle para um script específico

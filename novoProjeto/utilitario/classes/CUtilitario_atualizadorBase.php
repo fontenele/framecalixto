@@ -11,7 +11,7 @@ class CUtilitario_atualizadorBase extends controlePadrao{
 	*/
 	function inicial(){
 		$this->passarProximoControle(definicaoEntidade::controle('CControleAcesso','verPrincipal'));
-		$imprimir = true;
+		$imprimir = false;
 		$c = conexao::criar();
 		$persistentes = $this->classes();
 		if($imprimir){
@@ -29,6 +29,8 @@ class CUtilitario_atualizadorBase extends controlePadrao{
 				$persistente = new $nomePersistente($c);
 				$persistente->recriar();
 			}
+			if($persistente instanceof persistentePadraoPG) $persistente->plAccentRemove();
+			CUtilitario_importadorXML::importarXml(file_get_contents('dados.xml'));
 		}
 		if($imprimir) die;
 		$this->registrarComunicacao("Base de dados recriada.");
@@ -43,6 +45,9 @@ class CUtilitario_atualizadorBase extends controlePadrao{
  		$classes[] = 'PPerfil';
  		$classes[] = 'PAcesso';
  		$classes[] = 'PUsuarioPerfil';
+ 		$classes[] = 'PLogAcesso';
+ 		$classes[] = 'PMenu';
+ 		$classes[] = 'PMenuItem';
 		return $classes;
 	}
 

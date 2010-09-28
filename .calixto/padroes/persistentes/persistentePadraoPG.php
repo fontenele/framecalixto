@@ -77,7 +77,7 @@ class persistentePadraoPG extends persistente{
 			--
 			-- Name: accent_remove(character varying); Type: FUNCTION; Schema: public; Owner: postgres
 			--
-			CREATE FUNCTION accent_remove(text_input character varying) RETURNS character varying
+			CREATE OR REPLACE FUNCTION accent_remove(text_input character varying) RETURNS character varying
 				AS $$
 			DECLARE 
 				text_output varchar;

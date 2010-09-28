@@ -1,5 +1,5 @@
-@import url(css/jquery/humanity/jquery-ui-1.8.2.custom.css);
-@import url(css/jquery/clickmenu.css);
+@import url(css/jquery/jquery-ui-1.8.5.custom.css);
+@import url(css/clickmenu.css);
 @import url(css/reset.css);
 @import url(css/ie.css);
 
@@ -46,7 +46,7 @@ body {
 	margin-top: 10px;
 }
 .linhaListagem1:hover, .linhaListagem2:hover {
-	background-color: #CFCFCF !important;
+	background-color: #d8e4f3 !important;
 }
 .linhaListagem1 td, .linhaListagem2 td {
 	padding: 2px;
@@ -55,10 +55,10 @@ body {
 	text-decoration: underline !important;
 }
 .linhaListagem1 {
-	background-color: #EFEFEF;
+	background-color: #FAFAFA;
 }
 .linhaListagem2 {
-	background-color: #DFDFDF;
+	background-color: #eeeeee;
 }
 .centro, .centralizado { text-align: center; }
 .direita { text-align: right; }
