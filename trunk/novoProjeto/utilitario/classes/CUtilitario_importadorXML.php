@@ -12,20 +12,21 @@ class CUtilitario_importadorXML extends controlePadrao{
 	function inicial(){
 		$this->passarProximoControle(definicaoEntidade::controle($this,'verImportador'));
 		if(isset($_POST['xml'])){
-			$string = str_replace("\'","'",$_POST['xml']);
-			$xml = simplexml_load_string($string);
-			$vetor = array();
-			foreach($xml->classe as $classe){
-				$nomeClasse = (strval($classe['nome'])) ? strval($classe['nome']) : false;
-				$operacao = (strval($classe['operacao'])) ? strval($classe['operacao']) : false;
-				if($nomeClasse){
-					$negocio = new $nomeClasse();
-					$negocio->xmlPraNegocio($classe);
-					$operacao ? $negocio->$operacao() : $negocio->importar() ;
-				}
-			}
+			self::importarXml($_POST['xml']);
 		}
 		$this->registrarComunicacao($this->inter->pegarMensagem('importarSucesso'));
+	}
+	public static function importarXml($xml){
+		$xml = simplexml_load_string(str_replace("\'","'",$xml));
+		foreach($xml->classe as $classe){
+			$nomeClasse = (strval($classe['nome'])) ? strval($classe['nome']) : false;
+			$operacao = (strval($classe['operacao'])) ? strval($classe['operacao']) : false;
+			if($nomeClasse){
+				$negocio = new $nomeClasse();
+				$negocio->xmlPraNegocio($classe);
+				$operacao ? $negocio->$operacao() : $negocio->importar() ;
+			}
+		}
 	}
 }
 ?>

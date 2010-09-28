@@ -14,7 +14,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$this->gerarMenus();
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->visualizacao->jsExtra = '
-			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery-ui-1.7.2.custom.min.js"></script>
+			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery-ui-1.8.2.custom.min.js"></script>
 			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/calixto.string.js"></script>
 		';
 
