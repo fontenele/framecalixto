@@ -1,6 +1,6 @@
 <?php
 /**
-* Arquivo de indice para o funcionamento do sistema     ****
+* Arquivo de indice para o funcionamento do sistema
 */
 $versao = '5.1.2';
 if(phpversion() < $versao) throw new Exception(sprintf('O Calixto Framework não funciona com versão inferior a %s.',$versao));
