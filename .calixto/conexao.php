@@ -8,26 +8,23 @@ abstract class conexao extends objeto{
 	const oracle = 'oracle';
 	const postgres = 'postgres';
 	const mysql = 'mysql';
+	const sqlserver = 'mssql';
+	const sqlite = 'sqlite';
 	/**
 	* O recurso de conexão com Banco de Dados
 	* @var resource
 	*/
-	public $conexao;
+	protected $conexao;
 	/**
 	* O ponteiro do recurso com o resultado do comando
 	* @var resource
 	*/
-	public $cursor;
+	protected $cursor;
 	/**
 	* String de conexao
 	* @var string
 	*/
 	protected $strConn;
-	/**
-	* Método construtor
-	* Faz a chamada de validação de acesso ao controle
-	*/
-	abstract function __construct();
 	/**
 	* Cria uma Conexao com Banco de Dados
 	* @param string Servidor do Banco de dados
@@ -61,7 +58,8 @@ abstract class conexao extends objeto{
 					$conexao = false;
 			}
 		}else{
-			switch($tipoBanco){
+			return conexaoPadraoPDO::conectar($tipoBanco, $servidor, $porta, $banco, $usuario, $senha);
+/*			switch($tipoBanco){
 				case 'postgres':
 					$conexao = conexaoPadraoPG::conectar($servidor, $porta, $banco, $usuario, $senha);
 				break;
@@ -74,6 +72,7 @@ abstract class conexao extends objeto{
 				default:
 					$conexao = false;
 			}
+*/
 		}
 		return $conexao;
 	}
