@@ -73,6 +73,7 @@ class conexaoPadraoPDO extends conexao{
 						self::$conexoes[$idx] = new PDO($dsn,$usuario,$senha);
 					break;
 				}
+				self::$conexoes[$idx]->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
 				throw new erroBanco($e->getMessage(), $e->getCode());
 			}
@@ -103,10 +104,10 @@ class conexaoPadraoPDO extends conexao{
 	* @return integer número de linhas afetadas
 	*/
 	function executarComando($sql){
-		$this->cursor = self::$conexoes[$this->id]->query($sql);
-		$res = self::$conexoes[$this->id]->errorInfo();
-		if($res[0] !== "00000"){
-			$e =  new erroBanco($res[2], $res[1]);
+		try{
+			$this->cursor = self::$conexoes[$this->id]->query($sql);
+		}  catch (PDOException $e){
+			$e =  new erroBanco($e->getMessage(), $e->getCode());
 			$e->comando = $sql;
 			throw $e;
 		}
