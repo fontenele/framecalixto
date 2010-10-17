@@ -12,7 +12,7 @@ gerador = {
 		['tmoeda',				'TMoeda']
 	],
 	componentes:[
-		['caixa de entrada',	'Entrada (input)'					],
+		['caixa de entrada',	'Entrada (input)'						],
 		['oculto',				'Oculto (hidden)'						],
 		['caixa de combinacao',	'Caixa de Combinação (select)'			],
 		['caixa de selecao',	'Caixa de Seleção (select multiple)'	],
@@ -110,7 +110,7 @@ gerador = {
 				'<td><input tabindex="1" type="text" name="en_nome['+ this.linha +']"		id="en_nome_'+ this.linha +'"			value="'+nome+'"		class="nome" /></td>' +
 				'<td><input tabindex="1" type="text" name="en_abreviacao['+ this.linha +']"	id="en_abreviacao_'+ this.linha +'"		value="'+abreviado+'"	class="abreviado" /></td>' +
 				'<td><input tabindex="1" type="text" name="en_descricao['+ this.linha +']"	id="en_descicao_'+ this.linha +'"		value="'+descricao+'"	class="descricao" /></td>' +
-				'<td><a tabindex="1" href="javascript:gerador.remover('+ this.linha +');">remover</a></td>' +
+				'<td><a class="" tabindex="1" href="javascript:gerador.remover('+ this.linha +');">remover</a></td>' +
 			'</tr>';
 		$('#ent tr:last').after(template);
 	},
@@ -134,16 +134,16 @@ gerador = {
 		template =
 			'<tr class="ln_'+ this.linha +'" >' +
 				'<td class="propriedade centro" ></td>' +
-				'<td class="centro"><input tabindex="1" type="text"		name="ng_nome['+this.linha+']"			value="'+propriedade+'"	class="propriedade" /></td>' +
-				'<td class="centro"><input tabindex="1" type="text"		name="ng_tamanho['+this.linha+']"		value="'+tamanho+'"		class="tamanho" size="4" /></td>' +
-				'<td class="centro"><select tabindex="1"					name="ng_tipo['+this.linha+']"	id="ng_tipo_'+this.linha+'"		class="tipo">' + options + '</select></td>' +
-				'<td class="centro"><input tabindex="1" type="radio"		name="ng_chave_pk"						value="'+this.linha+'"	class="pk" '+ (pk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_nn['+this.linha+']"			value="'+nn+'"			class="nn" '+ (nn ? 'checked="checked"' : '')  +' /></td>' +
-				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_uk['+this.linha+']"			value="'+uk+'"			class="uk" '+ (uk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_fk['+this.linha+']"			value="'+fk+'"			class="fk" '+ (fk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td class="centro"><input tabindex="1" type="text"		name="ng_dominio['+this.linha+']"		value="'+dominio+'"		class="dominio" /></td>' +
-				'<td class="centro"><input tabindex="1" type="'+ type  +'"	name="ng_associativa['+this.linha+']"	value="'+classe+'"		class="associativa" id="ng_associativa_'+this.linha+'" /></td>' +
-				'<td class="centro"><input tabindex="1" type="'+ type  +'"	name="ng_metodo['+this.linha+']"		value="'+metodo+'"		class="metodo" id="ng_metodo_'+this.linha+'" /></td>' +
+				'<td class="centro"><input tabindex="1" type="text"		name="ng_nome['+this.linha+']"		value="'+propriedade+'"	class="propriedade" /></td>' +
+				'<td class="centro"><input tabindex="1" type="text"		name="ng_tamanho['+this.linha+']"	value="'+tamanho+'"		class="tamanho" size="4" /></td>' +
+				'<td class="centro"><select tabindex="1"				name="ng_tipo['+this.linha+']"		id="ng_tipo_'+this.linha+'"		class="tipo">' + options + '</select></td>' +
+				'<td class="centro"><input tabindex="1" type="radio"	name="ng_chave_pk"					value="'+this.linha+'"	class="pk" '+ (pk ? 'checked="checked"' : '')  +' /></td>' +
+				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_nn['+this.linha+']"		value="'+nn+'"			class="nn" '+ (nn ? 'checked="checked"' : '')  +' /></td>' +
+				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_uk['+this.linha+']"		value="'+uk+'"			class="uk" '+ (uk ? 'checked="checked"' : '')  +' /></td>' +
+				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_fk['+this.linha+']"		value="'+fk+'"			class="fk" '+ (fk ? 'checked="checked"' : '')  +' /></td>' +
+				(dominio ? '<td colspan="2"><input tabindex="1" type="text"		name="ng_dominio['+this.linha+']"		value="'+dominio+'"		class="dominio" title="Domínio,  Ex.de preechimento: [1,Sim][2,Não]" /></td>' :
+				('<td><input tabindex="1" type="'+ type  +'"	name="ng_associativa['+this.linha+']"	value="'+classe+'"		class="associativa" id="ng_associativa_'+this.linha+'" title="Classe de negócio assosiativa" />' +
+				'<input tabindex="1" type="'+ type  +'"	name="ng_metodo['+this.linha+']"		value="'+metodo+'"		class="metodo" id="ng_metodo_'+this.linha+'" title="Método de leitura utilizado pela classe de negócio assosiativa" /></td>')) +
 			'</tr>';
 		$('#neg tr:last').after(template);
 	},
@@ -302,6 +302,7 @@ $(document).ready( function() {
 	$('.nome').live('change',function(){
 		gerador.passarNome($(this));
 		linha = gerador.pegarLinha($(this));
+
 		if(!$('.ln_' + linha + ' .abreviado').val()) $('.ln_' + linha + ' .abreviado').val($(this).val());
 	});
 	$('.pk').live('click',function(){

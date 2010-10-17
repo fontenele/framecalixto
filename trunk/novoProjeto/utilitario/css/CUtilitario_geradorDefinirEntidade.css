@@ -1,3 +1,9 @@
 #sugerirNomesPropriedades, #sugerirNomeTabela, #sugerirNomeSequence, #sugerirNomesCampos, #sugerirComponentes, #gerarArquivos, #gerarClasses, #gerarTemplates, #gerarXml {
 	text-decoration: underline !important;
 }
+.dominio{
+	width: 200px;
+}
+.associativa, .metodo{
+	width: 100px;
+}
