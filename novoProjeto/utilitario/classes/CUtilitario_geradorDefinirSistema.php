@@ -19,9 +19,10 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 			'1'=>$this->inter->pegarTexto('ambiente1')
 		);
 		$arTiposBancosDisponiveis = array(
+			'sqlite'=>'Sqlite',
 			'postgres'=>'PostgreSQL',
 			'mysql'=>'MySql',
-			'oracle'=>'Oracle'
+			'oracle'=>'Oracle',
 		);
 		$arBooleano		= array('sim'=>$this->inter->pegarTexto('sim'),'nao'=>$this->inter->pegarTexto('nao'));
 

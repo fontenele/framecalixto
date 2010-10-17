@@ -190,6 +190,8 @@ class CUtilitario_geradorGerarFonte extends controle{
 		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$persistente}.mysql.php",$visualizacao->pegar('classesPersistente.html'));
 		$visualizacao->persistentePai = 'persistentePadraoOCI';
 		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$persistente}.oracle.php",$visualizacao->pegar('classesPersistente.html'));
+		$visualizacao->persistentePai = 'persistentePadraoSqlite';
+		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$persistente}.sqlite.php",$visualizacao->pegar('classesPersistente.html'));
 	}
 	/**
 	* Monta a classe de negocio
