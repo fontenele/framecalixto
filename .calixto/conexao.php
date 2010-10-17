@@ -11,6 +11,10 @@ abstract class conexao extends objeto{
 	const sqlserver = 'mssql';
 	const sqlite = 'sqlite';
 	/**
+	* tipo de banco da conexao
+	*/
+	protected $tipo;
+	/**
 	* O recurso de conexão com Banco de Dados
 	* @var resource
 	*/
