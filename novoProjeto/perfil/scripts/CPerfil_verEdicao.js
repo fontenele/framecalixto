@@ -50,7 +50,7 @@ jQuery.fn.extend({
 });
 
 $(document).ready(function(){
-	$('.tabela2').addUl({
+/*	$('.tabela2').addUl({
 		acaoUl:function(){
 			//alert('adicionando lista');
 		},
@@ -58,7 +58,7 @@ $(document).ready(function(){
 			//alert('adicionando item');
 		}
 	});
-	$('.visual').live('dblclick',function(){
+*/	$('.visual').live('dblclick',function(){
 		$(this).hide().parent().find('.edicao').show().focus();
 	});
 	$('.edicao').live('blur',function(){
