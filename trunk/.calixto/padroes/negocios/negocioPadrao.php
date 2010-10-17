@@ -516,9 +516,16 @@ abstract class negocioPadrao extends negocio{
             $this->ler($this->valorChave());
             $this->verificarAntesExcluir();
             $persistente = $this->pegarPersistente();
+			if($this->pegarConexao()->pegarTipo() == conexao::sqlite){
+				if($persistente->possuiDependentes($this->valorChave()))
+					throw new erroNegocio(sprintf($this->inter->pegarMensagem('dependente'),$this->valorDescricao()));
+			}
             $persistente->excluir($this->valorChave());
         }
         catch(Erro $e){
+			if($this->pegarConexao()->pegarTipo() == conexao::sqlite){
+				throw $e;
+			}
             if($persistente->possuiDependentes($this->valorChave()))
                 throw new erroNegocio(sprintf($this->inter->pegarMensagem('dependente'),$this->valorDescricao()));
             throw $e;

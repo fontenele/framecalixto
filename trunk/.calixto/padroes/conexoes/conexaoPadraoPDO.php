@@ -5,11 +5,6 @@
 * @subpackage Banco de Dados
 */
 class conexaoPadraoPDO extends conexao{
-	const oracle = 'oracle';
-	const postgres = 'postgres';
-	const mysql = 'mysql';
-	const sqlserver = 'mssql';
-	const sqlite = 'sqlite';
 	/**
 	* Identificador da conexao
 	*/
@@ -46,57 +41,59 @@ class conexaoPadraoPDO extends conexao{
 	*/
 	public static function conectar($tipo, $servidor, $porta, $banco, $usuario, $senha, $id = 1){
 		$idx = md5("$tipo, $servidor, $porta, $banco, $usuario, $senha, $id");
-		if(!isset(self::$conexoes[$idx])){
+		if(!isset(self::$conexoes['conexao'][$idx])){
 			//if($porta) $servidor = "$servidor,$porta";
 			try {
 				switch ($tipo){
-					case conexaoPadraoPDO::postgres:
+					case conexao::postgres:
 						$dsn = sprintf('pgsql:host=%s;dbname=%s',$servidor,$banco);
-						self::$conexoes[$idx] = new PDO($dsn,$usuario,$senha);
-						self::$conexoes[$idx]->query("SET DATESTYLE TO German;");
-						self::$conexoes[$idx]->query("SET CLIENT_ENCODING TO UTF8;");
+						self::$conexoes['conexao'][$idx] = new PDO($dsn,$usuario,$senha);
+						self::$conexoes['conexao'][$idx]->query("SET DATESTYLE TO German;");
+						self::$conexoes['conexao'][$idx]->query("SET CLIENT_ENCODING TO UTF8;");
 					break;
-					case conexaoPadraoPDO::mysql:
+					case conexao::mysql:
 						$dsn = sprintf('mysql:dbname=%s,host=%s',$servidor,$banco);
-						self::$conexoes[$idx] = new PDO($dsn,$usuario,$senha);
+						self::$conexoes['conexao'][$idx] = new PDO($dsn,$usuario,$senha);
 					break;
-					case conexaoPadraoPDO::sqlserver:
+					case conexao::sqlserver:
 						$dsn = sprintf('mssql:host=%s;dbname=%s',$servidor,$banco);
-						self::$conexoes[$idx] = new PDO($dsn,$usuario,$senha);
+						self::$conexoes['conexao'][$idx] = new PDO($dsn,$usuario,$senha);
 					break;
-					case conexaoPadraoPDO::sqlite:
-						$dsn = sprintf('sqlite:%s',$banco);
-						self::$conexoes[$idx] = new PDO($dsn,$usuario,$senha);
+					case conexao::sqlite:
+						$dsn = sprintf('sqlite:./%s',$banco);
+						self::$conexoes['conexao'][$idx] = new PDO($dsn,$usuario,$senha);
 					break;
-					case conexaoPadraoPDO::oracle:
+					case conexao::oracle:
 						$dsn = sprintf('oci:dbname=%s',$banco);
-						self::$conexoes[$idx] = new PDO($dsn,$usuario,$senha);
+						self::$conexoes['conexao'][$idx] = new PDO($dsn,$usuario,$senha);
 					break;
 				}
-				self::$conexoes[$idx]->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				self::$conexoes['conexao'][$idx]->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
 				throw new erroBanco($e->getMessage(), $e->getCode());
 			}
 		}
-		return new conexaoPadraoPDO($idx);
+		$conn = new conexaoPadraoPDO($idx);
+		$conn->passarTipo($tipo);
+		return $conn;
 	}
 	/**
 	* Inicia uma Transação no Banco de Dados
 	*/
 	function iniciarTransacao(){
-		self::$conexoes[$this->id]->beginTransaction();
+		self::$conexoes['conexao'][$this->id]->beginTransaction();
 	}
 	/**
 	* Confirma uma Transação no Banco de Dados
 	*/
 	function validarTransacao(){
-		self::$conexoes[$this->id]->commit();
+		self::$conexoes['conexao'][$this->id]->commit();
 	}
 	/**
 	* Desfaz uma Transação aberta no Banco de Dados
 	*/
 	function desfazerTransacao(){
-		self::$conexoes[$this->id]->rollBack();
+		self::$conexoes['conexao'][$this->id]->rollBack();
 	}
 	/**
 	* Executa uma query SQL no Banco de Dados
@@ -105,9 +102,9 @@ class conexaoPadraoPDO extends conexao{
 	*/
 	function executarComando($sql){
 		try{
-			$this->cursor = self::$conexoes[$this->id]->query($sql);
+			self::$conexoes['cursor'][$this->id] = self::$conexoes['conexao'][$this->id]->query($sql);
 		}  catch (PDOException $e){
-			$e =  new erroBanco($e->getMessage(), $e->getCode());
+			$e =  new erroBanco($e->getMessage(),1,$e);
 			$e->comando = $sql;
 			throw $e;
 		}
@@ -117,20 +114,11 @@ class conexaoPadraoPDO extends conexao{
 	* @return array
 	*/
 	function pegarRegistro(){
-		return $this->cursor->fetch(PDO::FETCH_ASSOC);
+		return self::$conexoes['cursor'][$this->id]->fetch(PDO::FETCH_ASSOC);
 	}
 	/**
 	* Desconecta do banco de dados
 	*/
 	public function desconectar(){}
-	/**
-	* Método de sobrecarga para serializar a classe
-	*/
-	protected function __sleep(){
-		$ar = get_object_vars($this);
-		unset($ar['conexoes']);
-		unset($ar['cursor']);
-		return array_keys($ar);
-	}
 }
 ?>
