@@ -1,0 +1,72 @@
+«*			*** TEMPLATE PRINCIPAL DO SISTEMA ***
+
+	Configure este template para atender as necessidades do tema do seu sistema
+
+*»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+«* Icone da barra de endereços *»
+	<link rel="icon" href=".sistema/icones/weather_sun.png" type="image/x-icon" id="iconeBarraEnderecos"/>
+«* CSS do Sistema *»
+	<link type="text/css" rel="stylesheet" href="«$cssGlobal»" media="screen" id="cssGlobalDoSistema"></link>
+	<link type="text/css" rel="stylesheet" href="«$cssEntidade»" media="screen" id="cssEntidade"></link>
+	<link type="text/css" rel="stylesheet" href="«$cssLocal»" media="screen" id="cssLocal"></link>
+	«$cssExtra»
+«* Script de internacionalização do sistema *»
+	<script  language='javascript' type="text/javascript" id="jsInternacionalizacao">
+		var JS_ERRO_DATA = '«$mensagemErroData»';
+		var JS_ERRO_DIA  = '«$mensagemErroDia»';
+		var JS_ERRO_MES  = '«$mensagemErroMes»';
+		var JS_ERRO_ANO  = '«$mensagemErroAno»';
+		var JS_ERRO_HORA = '«$mensagemErroHora»';
+		var JS_ERRO_EMAIL= '«$mensagemErroEmail»';
+		var JS_DIRETORIO_RAIZ = '.sistema/scripts/';
+	</script>
+«* Scripts do Sistema
+
+	Caso sinta necessidade de adicionar um script no sistema SEMPRE verifique se
+	este script é realmente utilizado em todas as telas do sistema, caso não seja
+	inclua o script pela variável $jsExtra do template.
+
+	A adição de scripts nesta sessão torna uma carga obrigatória em TODAS as
+	páginas do sistema.
+
+	*»
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/ui/jquery-ui-1.8.2.custom.js" ></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/ui/i18n/ui.datepicker-pt-BR.js" ></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.livequery.min.js" ></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.maskedinput-1.2.2.js" ></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.price_format.1.0.js"></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.message.min.js"></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/fullcalendar.min.js"></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.bgiframe.js"></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.clickmenu.js"></script>
+	<script language="javascript" type="text/javascript" src=".sistema/scripts/calixto.funcoes.js"></script>
+	<script language="javascript" type="text/javascript" src="«$jsTema»"></script>
+	<script language="javascript" type="text/javascript" src="«$jsEntidade»"></script>
+	<script language="javascript" type="text/javascript" src="«$jsLocal»"></script>
+«* Scripts extras
+
+	Configure esta variável no seu controle para um script específico
+	Neste caso adicione a tag script completa para funcionamento correto
+
+*»
+	«$jsExtra»
+	<title>«$titulo» [«$tituloEspecifico»]</title>
+</head>
+<body>
+	<div id="pagina">
+		<div class="conteudo ui-widget-content">
+			<div id="topo">
+				<img alt="FrameCalixto" src=".sistema/temas/frameCalixto/imagens/frameCalixto.png"  />
+			</div>
+			«$menuPrincipal»
+			«$comunicacaoSistema»
+			«$menuModulo»
+	    	«if $descricaoDeAjuda»<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all"><span class='ui-icon ui-icon-info' style='float:left;'></span>«$descricaoDeAjuda»</div>«/if»
+			«$pagina»
+		</div>
+	</div>
+</body>
+</html>
