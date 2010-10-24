@@ -794,7 +794,10 @@ abstract class persistente extends objeto{
 	public function criarChavesEstrangeiras(){
 		try{
 			if(($comandoCriacaoChavesEstrangeiras = $this->gerarComandoCriacaoChavesEstrangeiras())){
-				$this->executarComando($comandoCriacaoChavesEstrangeiras);
+				$arComandos = explode(';',$comandoCriacaoChavesEstrangeiras);
+				foreach ($arComandos as $comando) {
+					$this->executarComando($comando);
+				}
 			}
 		}
 		catch(erro $e){

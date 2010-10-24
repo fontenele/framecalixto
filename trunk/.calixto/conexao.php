@@ -63,7 +63,7 @@ abstract class conexao extends objeto{
 			}
 		}else{
 			return conexaoPadraoPDO::conectar($tipoBanco, $servidor, $porta, $banco, $usuario, $senha);
-/*			switch($tipoBanco){
+			switch($tipoBanco){
 				case 'postgres':
 					$conexao = conexaoPadraoPG::conectar($servidor, $porta, $banco, $usuario, $senha);
 				break;
@@ -76,7 +76,7 @@ abstract class conexao extends objeto{
 				default:
 					$conexao = false;
 			}
-*/
+
 		}
 		return $conexao;
 	}
