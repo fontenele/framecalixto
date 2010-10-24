@@ -227,5 +227,55 @@ class persistentePadraoSqlite extends persistente{
 		}
 		return false;
 	}
+	public function descrever(){
+		$estrutura = $this->pegarEstrutura();
+		$comando = "
+			select sql from sqlite_master
+		where
+			tbl_name = '{$estrutura['nomeTabela']}'";
+		$res = $this->pegarSelecao($comando);
+		$cmp = array();
+		if($res){
+			$tipos = array(
+				'text'=>'texto',
+				'integer'=>'numerico',
+				'timestamp'=>'data',
+			);
+			foreach($res as $ref => $comando){
+				if(preg_match("/^[\ \t\n]*create[\ \t\n]*table[\ \t\n]*(.*)[\ \t\n]*\(/i",$comando['sql'],$val)){
+					$referencias[$ref]['nomeTabela'] = $val[1];
+				}
+				$linhas = explode("\n",$comando['sql']);
+				foreach($linhas as $lin => $linha){
+					if(preg_match("/(^[\ \t\n]*create)|(^[\ \t\n]*\)[\ \t\n]*$)/i", ($linha),$valores)){
+						continue;
+					}
+					if(preg_match("/^[\ \t\n]*foreign[\ \t\n]*key[\ \t\n]*\((.*)\)[\ \t\n]*references[\ \t\n]*(.*)\((.*)\)/i", ($linha),$valores)){
+						$cmp[$valores[1]]['tabela_fk'		]=$valores[2];
+						$cmp[$valores[1]]['campo_fk'		]=$valores[3];
+						continue;
+					}
+					if(preg_match("/^([\ \t\n]*[aA-zZ0-9]+)([\ \t\n]*[aA-zZ0-9]+)[\ \t\n]*(\([0-9]+\)|)[\ \t\n]*(primary\ key|)([\ \t\n]*autoincrement|)[\ \t\n]*(null|not\ null),$/i", ($linha),$valores)){
+						$valores[3] = str_replace('(', '', $valores[3]);
+						$valores[3] = str_replace(')', '', $valores[3]);
+						$valores = array_map('trim', $valores);
+						$cmp[$valores[1]]['esquema'			]='';
+						$cmp[$valores[1]]['tabela'			]=$estrutura['nomeTabela'];
+						$cmp[$valores[1]]['campo'			]=$valores[1];
+						$cmp[$valores[1]]['obrigatorio'		]=$valores[6];
+						$cmp[$valores[1]]['tipo'			]=$valores[2];
+						$cmp[$valores[1]]['tipo_de_dado'	]=$tipos[$valores[2]];
+						$cmp[$valores[1]]['tamanho'			]=$valores[3];
+						$cmp[$valores[1]]['descricao'		]=null;
+						$cmp[$valores[1]]['campo_pk'		]=$valores[4];
+						$cmp[$valores[1]]['esquema_fk'		]=null;
+						$cmp[$valores[1]]['tabela_fk'		]=isset($cmp[$valores[1]]['tabela_fk']) ? $cmp[$valores[1]]['tabela_fk'] : null;
+						$cmp[$valores[1]]['campo_fk'		]=isset($cmp[$valores[1]]['campo_fk']) ? $cmp[$valores[1]]['campo_fk'] : null;
+					}
+				}
+			}
+		}
+		return $cmp;
+	}
 }
 ?>

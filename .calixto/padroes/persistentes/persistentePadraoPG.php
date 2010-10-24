@@ -141,7 +141,7 @@ class persistentePadraoPG extends persistente{
 				return text_output;
 			end; $$
 				LANGUAGE plpgsql STRICT;
-			ALTER FUNCTION public.accent_remove(text_input character varying) OWNER TO postgres;
+		--	
 		";
 	}
 	/**
@@ -149,6 +149,7 @@ class persistentePadraoPG extends persistente{
 	 */
 	public function plAccentRemove(){
 		$this->executarComando(self::gerarComandoAccentRemove());
+		$this->executarComando("ALTER FUNCTION public.accent_remove(text_input character varying) OWNER TO postgres;");
 	}
 
 }
