@@ -34,16 +34,16 @@ class CUtilitario_geradorGerarFonte extends controle{
 		CUtilitario_geradorGerarFonte::$nomeSequence = caracteres::RetiraAcentos(CUtilitario_geradorGerarFonte::$entidade['nomeSequence'] ? CUtilitario_geradorGerarFonte::$entidade['nomeSequence'] : "sq_{CUtilitario_geradorGerarFonte::$nomeTabela}");
 		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade))
 			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade,0777);
-		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade,2777);
+		//chmod(CUtilitario_geradorGerarFonte::$nomeEntidade,2777);
 		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes"))
 			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes",0777);
-		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes",2777);
+		//chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes",2777);
 		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml"))
 			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml",0777);
-		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml",2777);
+		//chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml",2777);
 		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade."/html"))
 			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade."/html",0777);
-		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/html",2777);
+		//chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/html",2777);
 		umask(0111);
 		$visualizacao->entidade = CUtilitario_geradorGerarFonte::$entidade['entidade'];
 		$visualizacao->pacote = CUtilitario_geradorGerarFonte::$entidade['entidade'];
@@ -112,17 +112,26 @@ class CUtilitario_geradorGerarFonte extends controle{
 			$ordenacao = (CUtilitario_geradorGerarFonte::$entidade['bd_ordem'][$index])? "ordem='".CUtilitario_geradorGerarFonte::$entidade['bd_ordem'][$index]."' " : '' ;
 			$tipoOrdenacao = isset(CUtilitario_geradorGerarFonte::$entidade['bd_tipo_ordem'][$index]) ? "tipoOrdem='inversa' " : '';
 			$descritivo = (CUtilitario_geradorGerarFonte::$entidade['vi_ordemDescritivo'][$index])? "descritivo='".CUtilitario_geradorGerarFonte::$entidade['vi_ordemDescritivo'][$index]."' " : '' ;
-			$classeAssociativa = ((isset(CUtilitario_geradorGerarFonte::$entidade['ng_fk'][$index])) && (CUtilitario_geradorGerarFonte::$entidade['ng_associativa'][$index])) ? "classeAssociativa='".CUtilitario_geradorGerarFonte::$entidade['ng_associativa'][$index]."' " : '';
-			$metodoLeitura = ((isset(CUtilitario_geradorGerarFonte::$entidade['ng_fk'][$index])) && (CUtilitario_geradorGerarFonte::$entidade['ng_metodo'][$index])) ? "metodoLeitura='".CUtilitario_geradorGerarFonte::$entidade['ng_metodo'][$index]."' " : '';
-			$xml.= "\t\t<propriedade {$id}{$tipo}{$tamanho}{$obrigatorio}{$chavePrimaria}{$chaveUnica}{$classeAssociativa}{$metodoLeitura}{$descritivo} >\n";
-			if(CUtilitario_geradorGerarFonte::$entidade['ng_dominio'][$index]){
-				$arDominio = explode('][',substr(CUtilitario_geradorGerarFonte::$entidade['ng_dominio'][$index],1,strlen(CUtilitario_geradorGerarFonte::$entidade['ng_dominio'][$index]) -2));
-				$xml.="\t\t\t<dominio>\n";
-				foreach($arDominio as $item){
-					$item = explode(',',$item);
-					$xml.="\t\t\t\t<opcao id='{$item[0]}' />\n";
+			$classeAssociativa = '';
+			$metodoLeitura = '';
+			if(strpos(CUtilitario_geradorGerarFonte::$entidade['ng_dominio_associativa'][$index], '[') === false){
+				if((isset(CUtilitario_geradorGerarFonte::$entidade['ng_fk'][$index]))){
+					$cl = explode('::',CUtilitario_geradorGerarFonte::$entidade['ng_dominio_associativa'][$index]);
+					$classeAssociativa = " classeAssociativa='{$cl[0]}'";
+					$metodoLeitura = (isset($cl[1])) ? " metodoLeitura='{$cl[1]}'" : '';
 				}
-				$xml.="\t\t\t</dominio>\n";
+			}
+			$xml.= "\t\t<propriedade {$id}{$tipo}{$tamanho}{$obrigatorio}{$chavePrimaria}{$chaveUnica}{$classeAssociativa}{$metodoLeitura}{$descritivo} >\n";
+			if(($dominioAssociativa = CUtilitario_geradorGerarFonte::$entidade['ng_dominio_associativa'][$index])){
+				if(strpos($dominioAssociativa, '[') !== false){
+					$arDominio = explode('][',substr($dominioAssociativa,1,strlen($dominioAssociativa) -2));
+					$xml.="\t\t\t<dominio>\n";
+					foreach($arDominio as $item){
+						$item = explode(',',$item);
+						$xml.="\t\t\t\t<opcao id='{$item[0]}' />\n";
+					}
+					$xml.="\t\t\t</dominio>\n";
+				}
 			}
 			if(isset(CUtilitario_geradorGerarFonte::$entidade['ng_fk'][$index])){
 				$xml.= "\t\t\t<banco {$nomeBanco}{$ordenacao}{$tipoOrdenacao}>\n";
@@ -159,14 +168,14 @@ class CUtilitario_geradorGerarFonte extends controle{
 			$xml.= "\t\t\t<nome>".CUtilitario_geradorGerarFonte::$entidade['en_nome'][$index]."</nome>\n";
 			$xml.= "\t\t\t<abreviacao>".CUtilitario_geradorGerarFonte::$entidade['en_abreviacao'][$index]."</abreviacao>\n";
 			$xml.= "\t\t\t<descricao>".CUtilitario_geradorGerarFonte::$entidade['en_descricao'][$index]."</descricao>\n";
-			if(CUtilitario_geradorGerarFonte::$entidade['ng_dominio'][$index]){
-				$arDominio = explode('][',substr(CUtilitario_geradorGerarFonte::$entidade['ng_dominio'][$index],1,strlen(CUtilitario_geradorGerarFonte::$entidade['ng_dominio'][$index]) -2));
-				$xml.="\t\t\t<dominio>\n";
-				foreach($arDominio as $item){
-					$item = explode(',',$item);
-					$xml.="\t\t\t\t<opcao id='{$item[0]}'>{$item[1]}</opcao>\n";
-				}
-				$xml.="\t\t\t</dominio>\n";
+			if(strpos($stDominio = CUtilitario_geradorGerarFonte::$entidade['ng_dominio_associativa'][$index], '[') !== false){
+					$arDominio = explode('][',substr($stDominio,1,strlen($stDominio) -2));
+					$xml.="\t\t\t<dominio>\n";
+					foreach($arDominio as $item){
+						$item = explode(',',$item);
+						$xml.="\t\t\t\t<opcao id='{$item[0]}'>{$item[1]}</opcao>\n";
+					}
+					$xml.="\t\t\t</dominio>\n";
 			}
 			$xml.= "\t\t</propriedade>\n";
 		}

@@ -1,68 +1,126 @@
-gerador = {
-	linha:0,
-	tipos:[
-		['texto',				'texto'],
-		['numerico',			'numerico'],
-		['data',				'data'],
-		['tdocumentopessoal',	'TCpf'],
-		['tcnpj',				'TCnpj'],
-		['tcep',				'TCep'],
-		['ttelefone',			'TTelefone'],
-		['tnumerico',			'TNumerico'],
-		['tmoeda',				'TMoeda']
-	],
-	componentes:[
-		['caixa de entrada',	'Entrada (input)'						],
-		['oculto',				'Oculto (hidden)'						],
-		['caixa de combinacao',	'Caixa de Combinação (select)'			],
-		['caixa de selecao',	'Caixa de Seleção (select multiple)'	],
-		['radios',				'Lista de opções (radios)'				],
-		['palavra chave',		'Palavra Chave (password)'				],
-		['marcador',			'Marcador (checkbox)'					],
-		['caixa de texto',		'Caixa de Texto (textarea)'				],
-		['nome completo',		'Nome completo de pessoa'				],
-		['email',				'Email'									],
-		['data',				'Campo Data: 01/01/1980'				],
-		['hora',				'Campo Hora: 23:59'						],
-		['data e hora',			'Campo Data e Hora: 01/01/1980 23:59'	],
-		['telefone',			'Telefone: (99)9999-9999 '				],
-		['cep',					'CEP: 99.999-999'						],
-		['documento pessoal',	'CPF: 99.999.999-99'					],
-		['documento pessoal',	'CNPJ: 99.999.999/9999-99'				],
-		['numerico',			'Número: 99.999.999,99'					],
-		['moeda',				'Moeda: R$ 99.999.999,99'				]
-	],
-	pegarLinha: function(obj){
-		return obj.parent().parent().attr('class').split('_')[1];
+function c(tipo,nome,valor,valoresPossiveis,attrs){
+	if(tipo != 'select'){
+		tipo = 'input type="'+tipo+'"';
+		if(valor && (tipo == 'input type="radio"')) tipo+=' checked="checked"';
+		if(valor && (tipo == 'input type="checkbox"')) tipo+=' checked="checked"';
+	}
+	comp = $('<'+tipo+'>')
+		.combo(valoresPossiveis)
+		.attr('tabindex',1)
+		.attr('name',nome+'[]')
+		.addClass('campoListagem')
+		.addClass(nome)
+		.val(valor);
+	if(attrs) comp.attr(attrs);
+	return $('<div/>').append(comp).addClass('d-td');
+}
+jQuery.fn.extend({
+	estrutura : {
+		"classes":[
+			'%s/classes/C%s_excluir.php',
+			'%s/classes/C%s_gravar.php',
+			'%s/classes/C%s_mudarPagina.php',
+			'%s/classes/C%s_pesquisar.php',
+			'%s/classes/C%s_verEdicao.php',
+			'%s/classes/C%s_verPesquisa.php',
+			'%s/classes/I%s.php',
+			'%s/classes/N%s.php',
+			'%s/classes/P%s.mysql.php',
+			'%s/classes/P%s.postgres.php',
+			'%s/classes/P%s.sqlite.php',
+			'%s/classes/P%s.oracle.php'
+		],
+		"templates":[
+			'%s/html/C%s_verEdicao.html',
+			'%s/html/C%s_verPesquisa.html'
+		],
+		"xml":[
+			'%s/xml/entidade.xml',
+			'%s/xml/pt_BR.xml'
+		]
 	},
-	sugerirComponente: function(obj){
-		linha = this.pegarLinha(obj);
-		if($('input[name="ng_chave_pk"]:checked').val() == linha) return 'oculto';
-		if($('.ln_'+linha+' .dominio').val()) return 'caixa de combinacao';
-		if($('.ln_'+linha+' .fk').val()) return 'caixa de combinacao';
-		switch(obj.val()){
-			case('texto'):				return 'caixa de entrada';
-			case('numerico'):			return 'caixa de entrada';
-			case('data'):				return 'data';
-			case('tdocumentopessoal'):	return 'documento pessoal';
-			case('tcnpj'):				return 'documento pessoal';
-			case('tcep'):				return 'cep';
-			case('ttelefone'):			return 'telefone';
-			case('tnumerico'):			return 'numerico';
-			case('tmoeda'):				return 'moeda';
+	tipoDeDados:{
+		'texto':			'texto',
+		'numerico':			'numerico',
+		'data':				'data',
+		'tdocumentopessoal':'TCpf',
+		'tcnpj':			'TCnpj',
+		'tcep':				'TCep',
+		'ttelefone':		'TTelefone',
+		'tnumerico':		'TNumerico',
+		'tmoeda':			'TMoeda'
+	},
+	componentes:{
+		'caixa de entrada':		'Entrada (input)'						,
+		'oculto':				'Oculto (hidden)'						,
+		'caixa de combinacao':	'Caixa de Combinação (select)'			,
+		'caixa de selecao':		'Caixa de Seleção (select multiple)'	,
+		'radios':				'Lista de opções (radios)'				,
+		'palavra chave':		'Palavra Chave (password)'				,
+		'marcador':				'Marcador (checkbox)'					,
+		'caixa de texto':		'Caixa de Texto (textarea)'				,
+		'nome completo':		'Nome completo de pessoa'				,
+		'email':				'Email'									,
+		'data':					'Data: 01/01/1980'						,
+		'hora':					'Hora: 23:59'							,
+		'data e hora':			'Data e Hora: 01/01/1980 23:59'			,
+		'telefone':				'Telefone: (99)9999-9999 '				,
+		'cep':					'CEP: 99.999-999'						,
+		'documento pessoal':	'CPF: 99.999.999-99'					,
+		'documento pessoal':	'CNPJ: 99.999.999/9999-99'				,
+		'numerico':				'Número: 99.999.999,99'					,
+		'moeda':				'Moeda: R$ 99.999.999,99'
+	},
+	combo:function(valores,semIndice){
+		if(!valores) return $(this);
+		comp = this;
+		$.each(valores, function(v,t){
+			comp.append(new Option(t, semIndice ? t : v));
+		});
+		return $(this);
+	},
+	sugerirNgNome: function(){
+		return $(this).val($(this).pegarLinhas('#ent').find('.en_nome').val().lowerCamelCase());
+	},
+	sugerirDbCampo: function(){
+		return $(this).val($(this).pegarLinhas('#ent').find('.en_nome').val().toLowerCase().strReplace(' ','_').retiraAcentos());
+	},
+	sugerirViComponente: function(){
+		linha = $(this).pegarLinhas('#neg');
+		if(linha.find('.ng_chave_pk').attr('checked')) return $(this).val('oculto');
+		if(linha.find('.ng_dominio_associativa').val()) return $(this).val('caixa de combinacao');
+		switch(linha.find('.ng_tipo').val()){
+			case('texto'):return $(this).val('caixa de entrada');
+			case('numerico'):return $(this).val('caixa de entrada');
+			case('data'):return $(this).val('data');
+			case('tdocumentopessoal'):return $(this).val('documento pessoal');
+			case('tcnpj'):return $(this).val('documento pessoal');
+			case('tcep'):return $(this).val('cep');
+			case('ttelefone'):return $(this).val('telefone');
+			case('tnumerico'):return $(this).val('numerico');
+			case('tmoeda'):return $(this).val('moeda');
 		}
+	},
+	pegarNrLinha: function(){
+		return $(this).parents('.d-tr').index();
+	},
+	pegarLinhas: function(tabela){
+		tabela = tabela || '';
+		return $(tabela+'.t-linhas').find('.d-tr:eq('+$(this).pegarNrLinha()+')');
+	},
+	remover: function(){
+		return $('.t-linhas').find('.d-tr:eq('+$(this).pegarNrLinha()+')').remove();
 	},
 	adicionarLinha:function(valores,chave){
 		valores = valores || '';
 		chave = chave || '';
-		this.linha++;
 		if(valores){
-			this.adicionarEntidade(
+			$(this).adicionarEntidade(
 				valores.inter.nome,
 				valores.inter.abreviacao,
 				valores.inter.descricao
 			);
-			this.adicionarNegocio(
+			$(this).adicionarNegocio(
 				valores.negocio.propriedade,
 				valores.persistente.tamanho,
 				valores.persistente.tipo,
@@ -74,45 +132,40 @@ gerador = {
 				(valores.negocio.classeAssociativa ? valores.negocio.classeAssociativa : ''),
 				(valores.negocio.classeAssociativa ? valores.negocio.metodoLeitura : '')
 			);
-			this.adicionarPersistente(
+			$(this).adicionarPersistente(
 				valores.negocio.campo,
 				valores.persistente.ordem,
 				valores.persistente.tipoOrdem,
 				(valores.persistente.chaveEstrangeira ? valores.persistente.chaveEstrangeira.tabela : ''),
 				(valores.persistente.chaveEstrangeira ? valores.persistente.chaveEstrangeira.campo : '')
 			);
-			this.adicionarVisualizacao(
+			$(this).adicionarVisualizacao(
 				valores.controle.componente,
 				(valores.controle.listagem ? valores.controle.ordem : '' ),
 				valores.negocio.descritivo,
 				(valores.controle.listagem ? valores.controle.largura.strReplace('%','') : '' )
 			);
 		}else{
-			this.adicionarEntidade();
-			this.adicionarNegocio();
-			this.adicionarPersistente();
-			this.adicionarVisualizacao();
+			$(this).adicionarEntidade();
+			$(this).adicionarNegocio();
+			$(this).adicionarPersistente();
+			$(this).adicionarVisualizacao();
 		}
-	},
-	passarNome:function (obj){
-		//$('.ln_' + this.pegarLinha(obj) + ' input.propriedade').html(obj.val());
-		$('.ln_' + this.pegarLinha(obj) + ' td.propriedade').html(obj.val());
-	},
-	remover:function(linha){
-		$('.ln_' + linha).remove();
 	},
 	adicionarEntidade:function(nome,abreviado,descricao){
 		nome = nome || '';
 		abreviado = abreviado || '';
 		descricao = descricao || '';
-		template =
-			'<tr class="ln_'+ this.linha +'" >' +
-				'<td><input tabindex="1" type="text" name="en_nome['+ this.linha +']"		id="en_nome_'+ this.linha +'"			value="'+nome+'"		class="nome" /></td>' +
-				'<td><input tabindex="1" type="text" name="en_abreviacao['+ this.linha +']"	id="en_abreviacao_'+ this.linha +'"		value="'+abreviado+'"	class="abreviado" /></td>' +
-				'<td><input tabindex="1" type="text" name="en_descricao['+ this.linha +']"	id="en_descicao_'+ this.linha +'"		value="'+descricao+'"	class="descricao" /></td>' +
-				'<td><a class="" tabindex="1" href="javascript:gerador.remover('+ this.linha +');">remover</a></td>' +
-			'</tr>';
-		$('#ent tr:last').after(template);
+		$('#ent').append(
+			$('<div/>').addClass('d-tr')
+				.append(c('text','en_nome',nome))
+				.append(c('text','en_abreviacao',abreviado))
+				.append(c('text','en_descricao',descricao))
+				.append($('<div>')
+							.addClass('d-td')
+							.append($('<a href="#"><img border="0" src=".sistema/icones/delete.png"></a>')
+							.click(function(){$(this).remover();})))
+		);
 	},
 	adicionarNegocio:function (propriedade,tamanho,tipo,pk,nn,uk,fk,dominio,classe,metodo){
 		propriedade = propriedade || '';
@@ -124,28 +177,22 @@ gerador = {
 		fk = fk || '';
 		dominio = dominio || '';
 		classe = classe || '';
-		metodo = metodo || '';
-		options = '';
-		for(i in this.tipos){
-			selected = (tipo == this.tipos[i][0]) ? 'selected="selected"' : '';
-			options +='<option value="' + this.tipos[i][0] + '" ' + selected + '>' + this.tipos[i][1] + '</option>';
-		}
-		type = (fk ? 'text' : 'hidden');
-		template =
-			'<tr class="ln_'+ this.linha +'" >' +
-				'<td class="propriedade centro" ></td>' +
-				'<td class="centro"><input tabindex="1" type="text"		name="ng_nome['+this.linha+']"		value="'+propriedade+'"	class="propriedade" /></td>' +
-				'<td class="centro"><input tabindex="1" type="text"		name="ng_tamanho['+this.linha+']"	value="'+tamanho+'"		class="tamanho" size="4" /></td>' +
-				'<td class="centro"><select tabindex="1"				name="ng_tipo['+this.linha+']"		id="ng_tipo_'+this.linha+'"		class="tipo">' + options + '</select></td>' +
-				'<td class="centro"><input tabindex="1" type="radio"	name="ng_chave_pk"					value="'+this.linha+'"	class="pk" '+ (pk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_nn['+this.linha+']"		value="'+nn+'"			class="nn" '+ (nn ? 'checked="checked"' : '')  +' /></td>' +
-				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_uk['+this.linha+']"		value="'+uk+'"			class="uk" '+ (uk ? 'checked="checked"' : '')  +' /></td>' +
-				'<td class="centro"><input tabindex="1" type="checkbox"	name="ng_fk['+this.linha+']"		value="'+fk+'"			class="fk" '+ (fk ? 'checked="checked"' : '')  +' /></td>' +
-				(dominio ? '<td colspan="2"><input tabindex="1" type="text"		name="ng_dominio['+this.linha+']"		value="'+dominio+'"		class="dominio" title="Domínio,  Ex.de preechimento: [1,Sim][2,Não]" /></td>' :
-				('<td><input tabindex="1" type="'+ type  +'"	name="ng_associativa['+this.linha+']"	value="'+classe+'"		class="associativa" id="ng_associativa_'+this.linha+'" title="Classe de negócio assosiativa" />' +
-				'<input tabindex="1" type="'+ type  +'"	name="ng_metodo['+this.linha+']"		value="'+metodo+'"		class="metodo" id="ng_metodo_'+this.linha+'" title="Método de leitura utilizado pela classe de negócio assosiativa" /></td>')) +
-			'</tr>';
-		$('#neg tr:last').after(template);
+		metodo = metodo || 'lerTodos';
+		linha = $('#neg div.d-tr:last').index();
+		$('#neg').append(
+			$('<div/>').addClass('d-tr')
+				.append($('<div/>').addClass('d-td propriedade ui-state-default'))
+				.append(c('text','ng_nome',propriedade))
+				.append(c('select','ng_tipo',tipo,$(this).tipoDeDados).css({'width':'120px'}))
+				.append(c('text','ng_tamanho',tamanho,null,{'size':20}))
+				.append(c('radio','ng_chave_pk',pk).click(function(){$(this).parents('.d-tr').find('.ng_tipo').val('numerico')}))
+				.append(c('checkbox','ng_nn',nn))
+				.append(c('checkbox','ng_uk',uk))
+				.append(c('checkbox','ng_fk',fk))
+				.append(c('text','ng_dominio_associativa',fk ? ((classe+metodo) != '::lerTodos' ? classe+'::'+metodo : '') : dominio,null,{'size':100}))
+		);
+		$('#neg div.d-tr:last>.d-td>.ng_chave_pk').attr('name','ng_chave_pk').val(linha);
+		$('#neg div.d-tr:last>.d-td>.ng_fk').attr('name','ng_fk['+linha+']').val(linha);
 	},
 	adicionarPersistente:function (campo,ordem,tipoOrdem,tabelaReferencia,campoReferencia){
 		campo = campo || '';
@@ -153,176 +200,137 @@ gerador = {
 		tipoOrdem = tipoOrdem || '';
 		tabelaReferencia = tabelaReferencia || '';
 		campoReferencia = campoReferencia || '';
-		type = (tabelaReferencia ? 'text' : 'hidden');
-		template =
-			'<tr class="ln_'+ this.linha +'" >' +
-				'<td class="propriedade centro" ></td>' +
-				'<td class="centro"><input tabindex="1" type="text"		name="bd_campo['+this.linha+']"				value="'+campo+'"				class="campo" /></td>' +
-				'<td class="centro"><input tabindex="1" type="text"		name="bd_ordem['+this.linha+']"				value="'+ordem+'"				class=ordem"" size="4"/></td>' +
-				'<td class="centro"><input tabindex="1" type="checkbox"	name="bd_tipo_ordem['+this.linha+']"		value="'+tipoOrdem+'"			class="tipoOrdem" /></td>' +
-				'<td class="centro"><input tabindex="1" type="'+ type  +'"	name="bd_referencia_tabela['+this.linha+']"	value="'+tabelaReferencia+'"	class="tabelaReferencia" id="bd_referencia_tabela_'+this.linha+'" /></td>' +
-				'<td class="centro"><input tabindex="1" type="'+ type  +'"	name="bd_referencia_campo['+this.linha+']"	value="'+campoReferencia+'"		class="campoReferencia" id="bd_referencia_campo_'+this.linha+'" /></td>' +
-			'</tr>';
-		$('#per tr:last').after(template);
+		$('#per').append(
+			$('<div/>').addClass('d-tr')
+				.append($('<div/>').addClass('d-td propriedade ui-state-default'))
+				.append(c('text','bd_campo',campo))
+				.append(c('text','bd_ordem',ordem))
+				.append(c('checkbox','bd_tipo_ordem',tipoOrdem))
+				.append(tabelaReferencia ? c('text','bd_referencia_tabela',tabelaReferencia) : c('text','bd_referencia_tabela',tabelaReferencia).hide())
+				.append(tabelaReferencia ? c('text','bd_referencia_campo',campoReferencia) : c('text','bd_referencia_campo',campoReferencia).hide())
+		);
 	},
 	adicionarVisualizacao:function (componente,ordem,ordemDescritivo,largura){
 		componente = componente || '';
 		ordem = ordem || '';
 		ordemDescritivo = ordemDescritivo || '';
 		largura = largura || '';
-		options = '';
-		for(i in this.componentes){
-			selected = (componente == this.componentes[i][0]) ? 'selected="selected"' : '';
-			options +='<option value="' + this.componentes[i][0] + '" ' + selected + '>' + this.componentes[i][1] + '</option>';
-		}
-		template =
-			'<tr class="ln_'+ this.linha +'" >' +
-				'<td class="propriedade centro" ></td>' +
-				'<td class="centro"><select tabindex="1" name="vi_componente['+ this.linha +']" id="vi_componente_'+ this.linha +'" class="viComponente">' + options + '</select></td>' +
-				'<td class="centro"><input tabindex="1" name="vi_ordem['+ this.linha +']"	value="'+ordem+'" size="4" /></td>' +
-				'<td class="centro"><input tabindex="1" name="vi_ordemDescritivo['+ this.linha +']"	value="'+ordemDescritivo+'" size="4" /></td>' +
-				'<td class="centro"><input tabindex="1" name="vi_largura['+ this.linha +']"	value="'+largura+'" size="4" /></td>' +
-			'</tr>';
-		$('#vis tr:last').after(template);
+		$('#vis').append(
+			$('<div/>').addClass('d-tr')
+				.append($('<div/>').addClass('d-td propriedade ui-state-default'))
+				.append(c('select','vi_componente','caixa de entrada'/*componente*/,$(this).componentes))
+				.append(c('text','vi_ordem',ordem).attr('size',3))
+				.append(c('text','vi_ordemDescritivo',ordemDescritivo))
+				.append(c('text','vi_largura',largura))
+		);
 	},
 	preencherTela:function(definicao){
-		try{
 			$('#entidade').val(definicao.inter.nome);
 			$('#nomeTabela').val(definicao.bd.nomeTabela);
 			$('#nomeSequence').val(definicao.bd.nomeSequencia);
 			$('#entidade').trigger('change',false);
 			for(i in definicao.entidade){
 				valores = definicao.entidade[i];
-				this.adicionarLinha(valores,definicao.bd.chavePrimaria);
-				this.passarNome($('#en_nome_'+this.linha), valores.inter.nome);
+				$(this).adicionarLinha(valores,definicao.bd.chavePrimaria);
+				$('.en_nome:last').trigger('change');
 			}
-		}
-		catch(e){
-			alert(e.message);
-		}
 	}
-};
+});
 $(document).ready( function() {
 	$("#tabs").tabs();
 	$('input').live('keyup',function(event){
-    		if(event.originalEvent.ctrlKey)	switch(event.originalEvent.keyCode){
-    			case(38): $(this).parent().parent().prev().find('.'+$(this).attr('class')).focus().select();break; //Acima
-    			case(40): $(this).parent().parent().next().find('.'+$(this).attr('class')).focus().select();break; //Abaixo
-    			case(39): if($(this).parent().next().children()[0]) $(this).parent().next().children()[0].focus().select();break; //Direita
-    			case(37): if($(this).parent().prev().children()[0]) $(this).parent().prev().children()[0].focus().select();break; //Esquerda
-    		}
+			focar = function(obj){return (foco = obj.find('.campoListagem')) ? foco.first().focus().select() : false;}
+    		if(event.originalEvent.ctrlKey){
+				coluna = $(this).parents('.d-td').index();
+				switch(event.originalEvent.keyCode){
+					case(39):if(!focar($(this).parents('.d-td').next())){}break; //Direita
+					case(37):if(!focar($(this).parents('.d-td').prev())){}break; //Esquerda
+					case(38):if(!focar($(this).parents('.d-tr').prev().children(':eq('+coluna+')'))){}break; //Acima
+					case(40):if(!focar($(this).parents('.d-tr').next().children(':eq('+coluna+')'))){}break; //Abaixo
+				}
+			}
    			return true;
     	});
-	$('#adicionar').click(function(){
-		gerador.adicionarLinha();
-	});
+	$('.adicionar').click(function(){$(this).adicionarLinha();});
 	$('#entidade').change(function(){
 		$('.arquivo').remove();
 		if($('#entidade').val()){
-			nome = $('#entidade').val().lowerCamelCase();
+			dir = $('#entidade').val().lowerCamelCase();
 			nomeClasse = $('#entidade').val().upperCamelCase();
-			classes = new Array(
-				 nome + '/classes/C' + nomeClasse + '_excluir.php',
-				 nome + '/classes/C' + nomeClasse + '_gravar.php',
-				 nome + '/classes/C' + nomeClasse + '_mudarPagina.php',
-				 nome + '/classes/C' + nomeClasse + '_pesquisar.php',
-				 nome + '/classes/C' + nomeClasse + '_verEdicao.php',
-				 nome + '/classes/C' + nomeClasse + '_verPesquisa.php',
-				 nome + '/classes/I' + nomeClasse + '.php',
-				 nome + '/classes/N' + nomeClasse + '.php',
-				 nome + '/classes/P' + nomeClasse + '.mysql.php',
-				 nome + '/classes/P' + nomeClasse + '.postgres.php',
-				 nome + '/classes/P' + nomeClasse + '.oracle.php'
-			);
-			templates = new Array(
-				 nome + '/html/C' + nomeClasse + '_verEdicao.html',
-				 nome + '/html/C' + nomeClasse + '_verPesquisa.html'
-			);
-			xml = new Array(
-				 nome + '/xml/entidade.xml',
-				 nome + '/xml/pt_BR.xml'
-			);
-			montarArquivos = function(arArquivos,classe){
-				for(i in arArquivos){
-					arquivo = arArquivos[i];
-					template =
-						'<tr class="arquivo '+classe+'" >' +
-							'<td><input tabindex="1" type="checkbox" value="'+arquivo+'" name="arquivo['+arquivo+']"/></td>' +
-							'<td>'+ arquivo +'"</td>' +
-						'</tr>';
-					$('#arq tr:last').after(template);
-				}
-			}
-			montarArquivos(classes,'classes');
-			montarArquivos(templates,'templates');
-			montarArquivos(xml,'xml');
+			$.each($(this).estrutura,function(classe,arquivos){
+				$.each(arquivos,function(i,arquivo){
+					arquivo = sprintf(arquivo,dir,nomeClasse);
+					$('#arq .d-tr:last').after($('<div>').addClass('d-tr arquivo').addClass(classe)
+						.append($('<div>').addClass('d-td').append($('<input type="checkbox">').attr('name','arquivo['+arquivo+']')))
+						.append($('<div>').addClass('d-td').html(arquivo))
+					);
+				});
+			});
 		}
 	});
 	$('#sugerirNomeTabela').click(function(){
-		if($('#entidade').val()) $('#nomeTabela').val($('#entidade').val().toLowerCase().strReplace(' ','_').retiraAcentos());
+		if($('#entidade').val()) $('#nomeTabela').val($('#entidade').val().toLowerCase().strReplace(' ','_').retiraAcentos());return false;
 	});
 	$('#sugerirNomeSequence').click(function(){
-		if($('#entidade').val()) $('#nomeSequence').val('sq_' + $('#entidade').val().toLowerCase().strReplace(' ','_').retiraAcentos());
+		if($('#entidade').val()) $('#nomeSequence').val('sq_' + $('#entidade').val().toLowerCase().strReplace(' ','_').retiraAcentos());return false;
 	});
 	$('#sugerirNomesCampos').click(function(){
-		$('.nome').each(function(){
-			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .campo').val($(this).val().toLowerCase().strReplace(' ','_').retiraAcentos());
-		});
+		$('.bd_campo').each(function(){$(this).sugerirDbCampo();});return false;
 	});
 	$('#sugerirNomesPropriedades').click(function(){
-		$('.nome').each(function(){
-			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .propriedade').val($(this).val().lowerCamelCase());
-		});
-	});
-	$('#gerarArquivos').toggle(function(){
-		$('.arquivo input[type="checkbox"]').attr('checked','checked');
-	},function(){
-		$('.arquivo input[type="checkbox"]').attr('checked','');
-	});
-	$('#gerarClasses').toggle(function(){
-		$('.classes input[type="checkbox"]').attr('checked','checked');
-	},function(){
-		$('.classes input[type="checkbox"]').attr('checked','');
-	});
-	$('#gerarTemplates').toggle(function(){
-		$('.templates input[type="checkbox"]').attr('checked','checked');
-	},function(){
-		$('.templates input[type="checkbox"]').attr('checked','');
-	});
-	$('#gerarXml').toggle(function(){
-		$('.xml input[type="checkbox"]').attr('checked','checked');
-	},function(){
-		$('.xml input[type="checkbox"]').attr('checked','');
+		$('.ng_nome').each(function(){$(this).sugerirNgNome();});return false;
 	});
 	$('#sugerirComponentes').click(function(){
-		$('.tipo').each(function(){
-			if($(this).val()) $('.ln_'+gerador.pegarLinha($(this))+' .viComponente').val(gerador.sugerirComponente($(this)));
-		});
+		$('.vi_componente').each(function(){$(this).sugerirViComponente();});return false;
 	});
-	$('.nome').live('change',function(){
-		gerador.passarNome($(this));
-		linha = gerador.pegarLinha($(this));
-
-		if(!$('.ln_' + linha + ' .abreviado').val()) $('.ln_' + linha + ' .abreviado').val($(this).val());
+	$('#gerarArquivos').toggle(function(){
+			$('.arquivo input[type="checkbox"]').attr('checked','checked');return false;
+		},function(){
+			$('.arquivo input[type="checkbox"]').attr('checked','');return false;
 	});
-	$('.pk').live('click',function(){
-		$('.ln_' + $(this).parent().parent().attr('class').split('_')[1] + ' .tipo').val('numerico');
+	$('#gerarClasses').toggle(function(){
+			$('.classes input[type="checkbox"]').attr('checked','checked');return false;
+		},function(){
+			$('.classes input[type="checkbox"]').attr('checked','');return false;
 	});
-	$('.fk').live('click',function(){
-		try{
-			linha = gerador.pegarLinha($(this));
-			if($(this).attr('checked')){
-				document.getElementById('ng_associativa_' + linha).type = 'text';
-				document.getElementById('ng_metodo_' + linha).type = 'text';
-				document.getElementById('bd_referencia_tabela_' + linha).type = 'text';
-				document.getElementById('bd_referencia_campo_' + linha).type = 'text';
-			}else{
-				document.getElementById('ng_associativa_' + linha).type = 'hidden';
-				document.getElementById('ng_metodo_' + linha).type = 'hidden';
-				document.getElementById('bd_referencia_tabela_' + linha).type = 'hidden';
-				document.getElementById('bd_referencia_campo_' + linha).type = 'hidden';
-			}
-		}catch(e){alert(e.message)}
+	$('#gerarTemplates').toggle(function(){
+			$('.templates input[type="checkbox"]').attr('checked','checked');return false;
+		},function(){
+			$('.templates input[type="checkbox"]').attr('checked','');return false;
+	});
+	$('#gerarXml').toggle(function(){
+			$('.xml input[type="checkbox"]').attr('checked','checked');return false;
+		},function(){
+			$('.xml input[type="checkbox"]').attr('checked','');return false;
+	});
+	$('.guia').click(function(){
+		$($(this).attr('href')).find('.campoListagem:first').focus().select()
+	});
+	$('.campoListagem')
+		.live('focus',function(){$(this).parents('.d-td').addClass('focado');})
+		.live('blur',function(){$(this).parents('.d-td').removeClass('focado');});
+	$('input.campoListagem').live('focus',function(){
+		$(this).addClass('focado');
+	});
+	$('input.campoListagem').live('blur',function(){
+		$(this).removeClass('focado');
+	});
+	$('.en_nome').live('change',function(){
+		$(this).pegarLinhas().find('.propriedade').html($(this).val());
+		abrev = $(this).parents('.d-tr').find('.en_abreviacao');
+		if(!abrev.val()) abrev.val($(this).val());
+	});
+	$('.ng_chave_pk').live('click',function(){
+		$(this).parents('.d-tr').find('.ng_tipo').val('numerico');
+	});
+	$('.ng_fk').live('click',function(){
+		if($(this).attr('checked')){
+			$(this).pegarLinhas('#per').find('.bd_referencia_tabela').parent().show().removeAttr('style');
+			$(this).pegarLinhas('#per').find('.bd_referencia_campo').parent().show().removeAttr('style');
+		}else{
+			$(this).pegarLinhas('#per').find('.bd_referencia_tabela').parent().hide();
+			$(this).pegarLinhas('#per').find('.bd_referencia_campo').parent().hide();
+		}
 	});
 	$('form').submit(function(){
 		var marcado = false;
@@ -336,5 +344,5 @@ $(document).ready( function() {
 		}
 		return confirm("Confirma a geração?");
 	});
-	if(definicao) gerador.preencherTela(definicao[0]);
+	if(definicao) $(this).preencherTela(definicao[0]);
 });
