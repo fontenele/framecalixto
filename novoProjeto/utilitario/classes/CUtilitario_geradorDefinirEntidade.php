@@ -114,6 +114,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
  			if(!isset($mapNegocio['bd']['campo'][$map['campo']]['chaveEstrangeira']))
 				$mapEntidade[$i]['persistente']['chaveEstrangeira'] = false;
 			$mapEntidade[$i]['persistente']['ordem'] = '';
+			if(isset($mapNegocio['bd']['ordem']))
 			foreach($mapNegocio['bd']['ordem'] as $iOrdem => $ordem){
 				$ordem = explode(' ',$ordem);
 				if($map['campo'] == $ordem[0]){
