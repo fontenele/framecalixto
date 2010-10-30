@@ -1,7 +1,10 @@
 <?php
 /**
- *
- */
+* Classe que representa uma coleção de filtros
+* Esta classe padroniza a forma de agrupamento de itens no sistema
+* @package FrameCalixto
+* @subpackage utilitários
+*/
 class colecaoPadraoFiltro extends colecaoPadraoObjeto{
 
 	/**

@@ -1,14 +1,41 @@
 <?php
 include_once('externas/phpmailer/class.phpmailer.php');
+/**
+ * Classe utilitária para criação de email
+ * @package FrameCalixto
+ * @subpackage utilitários
+ */
 class email{
-
+	/**
+	 * Nome do Remetente
+	 * @var string remetente do email
+	 */
 	public $nomeRemetente;
+	/**
+	 * Email do remetente para uma eventual resposta
+	 * @var string email do remetente
+	 */
 	public $emailRemetente;
-
+	/**
+	 * Assunto do email
+	 * @var string
+	 */
 	public $assunto;
+	/**
+	 * Texto com o conteúdo do email
+	 * @var string
+	 */
 	public $conteudo;
+	/**
+	 * Objeto responsável pela configuração e envio do email
+	 * @var PHPMailer objeto configurador de email
+	 */
 	public $mail;
-
+	/**
+	 * Método construtor
+	 * @param string $nomeRemetente
+	 * @param string $emailRemetente
+	 */
 	public function __construct($nomeRemetente, $emailRemetente){
 
 		$this->mail = new PHPMailer();
@@ -26,34 +53,57 @@ class email{
 		$this->mail->IsHTML(true); // send as HTML
 
 	}
-
+	/**
+	 * Configura o nome do remetente do email a ser enviado
+	 * @param string $nome
+	 */
 	public function passarNomeRemetente($nome){
 		$this->mail->FromName = $nome;
 	}
-
+	/**
+	 * Configura o email do remetente do email a ser enviado
+	 * @param string $email
+	 */
 	public function passarEmailRemetente($email){
 		$this->mail->From = $email;
 	}
-
+	/**
+	 * Adiciona um destinatário ao email a ser enviado
+	 * @param string $nome
+	 * @param string $email
+	 */
 	public function addEmailDestinatario($nome = null , $email){
 		$this->mail->AddAddress( $email , $nome );
 	}
-
+	/**
+	 * Configura o assunto do email a ser enviado
+	 * @param string $assunto
+	 */
 	public function passarAssunto($assunto){
 		$this->mail->Subject = $assunto;
 	}
-
+	/**
+	 * Configura o conteúdo do email a ser enviado
+	 * @param string $conteudo
+	 */
 	public function passarConteudo($conteudo){
 		$this->mail->Body		= $conteudo;
 		$this->mail->AltBody	= $conteudo;
 	}
-
-	public function validarEmail(){
+	/**
+	 * Valida um email
+	 * @param string $email
+	 */
+	public static function validar($email){
 		if (!ereg("^([0-9,a-z,A-Z]+)([.,_]([0-9,a-z,A-Z]+))*[@]([0-9,a-z,A-Z]+)([.,_,-]([0-9,a-z,A-Z]+))*[.]([0-9,a-z,A-Z]){2}([0-9,a-z,A-Z])?$", $email)){
-			throw new Exception('Email inválido!');
+			return false;
 		}
+		return true;
 	}
-
+	/**
+	 * Configura o cabeçalho do email
+	 * @return string
+	 */
 	private function cabecalhoEmail(){
 
 		$boundary = "XYZ-" . date("dmYis") . "-ZYX";
@@ -66,9 +116,11 @@ class email{
 
 		return $headers;
 	}
-
+	/**
+	 * Envia o email
+	 * @return boolean
+	 */
 	public function enviar(){
-
 		return $this->mail->Send();
 
 	}

@@ -1,51 +1,51 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade nomeBanco='public.menu_item' nomeSequencia='public.sq_menu_item'>
+<entidade  nomeBanco='public.menu_item' nomeSequencia='public.sq_menu_item'>
 	<propriedades>
 		<propriedade id='idMenuItem' tipo='numerico' tamanho='4' obrigatorio='sim' indicePrimario='sim'  >
 			<banco nome='meit_id_menu_item'  />
-			<apresentacao componente='oculto'  />
+			<apresentacao componente='caixa de entrada'  />
 		</propriedade>
-		<propriedade id='idPai' tipo='numerico' tamanho='4' classeAssociativa='NMenuItem' metodoLeitura='lerTodos'  >
+		<propriedade id='idPai' tipo='numerico' tamanho='4' obrigatorio='sim'  classeAssociativa='NMenuItem' metodoLeitura='lerTodos' >
 			<banco nome='meit_id_pai' ordem='2' >
 				<chaveEstrangeira tabela='public.menu_item' campo='meit_id_menu_item' />
 			</banco>
-			<apresentacao componente='caixa de combinacao' >
+			<apresentacao componente='caixa de entrada' >
 				<listagem ordem='2' tamanho='30%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='idMenu' tipo='numerico' tamanho='4' obrigatorio='sim' classeAssociativa='NMenu' metodoLeitura='lerTodos'  >
+		<propriedade id='idMenu' tipo='numerico' tamanho='4' obrigatorio='sim'  classeAssociativa='NMenu' metodoLeitura='lerTodos' >
 			<banco nome='meit_id_menu' ordem='1' >
 				<chaveEstrangeira tabela='public.menu' campo='menu_id_menu' />
 			</banco>
-			<apresentacao componente='caixa de combinacao' >
+			<apresentacao componente='caixa de entrada' >
 				<listagem ordem='1' tamanho='30%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='nrPosicao' tipo='numerico'  >
+		<propriedade id='nrPosicao' tipo='numerico' tamanho='10'  >
 			<banco nome='meit_nr_posicao' ordem='3'  />
 			<apresentacao componente='caixa de entrada' >
 				<listagem ordem='4' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='txUrl' tipo='texto'  >
+		<propriedade id='txUrl' tipo='texto' tamanho='1024'  >
 			<banco nome='meit_tx_url'  />
-			<apresentacao componente='caixa de texto'  />
+			<apresentacao componente='caixa de entrada'  />
 		</propriedade>
 		<propriedade id='nmAlvo' tipo='texto' tamanho='20'  >
 			<banco nome='meit_nm_alvo'  />
 			<apresentacao componente='caixa de entrada'  />
 		</propriedade>
-		<propriedade id='txImagem' tipo='texto'  >
+		<propriedade id='txImagem' tipo='texto' tamanho='1024'  >
 			<banco nome='meit_tx_imagem'  />
-			<apresentacao componente='caixa de texto'  />
+			<apresentacao componente='caixa de entrada'  />
 		</propriedade>
-		<propriedade id='boDestravado' tipo='texto' tamanho='3' obrigatorio='sim'  >
+		<propriedade id='boDestravado' tipo='texto' tamanho='3'  >
 			<dominio>
 				<opcao id='SIM' />
 				<opcao id='NAO' />
 			</dominio>
 			<banco nome='meit_bo_destravado'  />
-			<apresentacao componente='caixa de combinacao'  />
+			<apresentacao componente='caixa de entrada'  />
 		</propriedade>
 		<propriedade id='nmMenuItem' tipo='texto' tamanho='50' descritivo='1'  >
 			<banco nome='meit_nm_menu_item'  />
@@ -53,9 +53,9 @@
 				<listagem ordem='3' tamanho='30%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='txDescricao' tipo='texto'  >
+		<propriedade id='txDescricao' tipo='texto' tamanho='3000'  >
 			<banco nome='meit_tx_descricao'  />
-			<apresentacao componente='caixa de texto'  />
+			<apresentacao componente='caixa de entrada'  />
 		</propriedade>
 	</propriedades>
 </entidade>

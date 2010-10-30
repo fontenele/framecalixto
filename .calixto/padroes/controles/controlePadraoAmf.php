@@ -1,4 +1,9 @@
 <?php
+/**
+* Classe de definição da camada de controle para Amf
+* @package FrameCalixto
+* @subpackage Controle
+*/
 class controlePadraoAmf extends controlePadrao {
 	/**
 	* @var pagina pagina a ser listada

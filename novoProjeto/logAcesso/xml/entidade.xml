@@ -19,7 +19,7 @@
 				<listagem ordem='3' tamanho='40%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='dtAcesso' tipo='texto' descritivo='1'  >
+		<propriedade id='dtAcesso' tipo='data' descritivo='1'  >
 			<banco nome='loac_dt_acesso' ordem='1'  />
 			<apresentacao componente='data e hora' >
 				<listagem ordem='1' tamanho='15%' />

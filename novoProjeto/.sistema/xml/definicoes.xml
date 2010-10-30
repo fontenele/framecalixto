@@ -4,7 +4,7 @@
 	<controleDeAcesso liberado='sim' classe='NControleAcesso' metodoLiberacao='validarAcesso' />
 	<controleDeMenu classe='NControleMenu' metodoMenuSite='menuPrincipal' metodoMenuSistema='menuMenuSistema' />
 	<bancos>
-		<banco id='padrao' tipo='sqlite' servidor='localhost' porta='5432' nome='framecalixto' usuario='postgres' senha='postgres' conexaoMultipla='nao' />
+		<banco id='padrao' tipo='sqlite' servidor='localhost' porta='5432' nome='alysson' usuario='postgres' senha='postgres' conexaoMultipla='nao' />
 	</bancos>
 	<diretorios>
 		<diretorio id='temporario' dir='.tmp/' entidade='nao' />

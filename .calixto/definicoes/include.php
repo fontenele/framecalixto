@@ -1,4 +1,9 @@
 <?php
+/**
+* Arquivo de inclusao do pacote de definições
+* @package FrameCalixto
+* @subpackage Definicoes
+*/
 include_once('definicao.php');
 include_once('definicaoArquivo.php');
 include_once('definicaoBanco.php');
