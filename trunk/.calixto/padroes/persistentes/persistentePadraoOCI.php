@@ -1,14 +1,9 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of persistentePadraoOCI
- *
- * @author modesto
- */
+* Classe de representação de uma camada de persistencia com Banco de Dados Oracle
+* @package FrameCalixto
+* @subpackage Persistente
+*/
 class persistentePadraoOCI extends persistente{
 	/**
 	* Monta o mapeamento de tipo de dados do banco

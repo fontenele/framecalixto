@@ -1,7 +1,10 @@
 <?php
 /**
- *
- */
+* Classe de controle
+* Mapeador do sistema
+* @package Sistema
+* @subpackage Utilitario
+*/
 class CUtilitario_mapaSistema extends controle{
 	/**
 	 * Método inicial
@@ -10,9 +13,17 @@ class CUtilitario_mapaSistema extends controle{
 		if(!isset($_GET['q'])) return;
 		$this->responder($this->mapear(),$_GET['q']);
 	}
+	/**
+	 * Método de mapeamento do menu do sistema
+	 * @todo implementar o metodo
+	 */
 	public static function mapearMenu(){
 		
 	}
+	/**
+	 * Método que monta o array de mapeamento do sistema
+	 * @return array
+	 */
 	public static function mapear(){
 		$d = dir(".");
 		$res = array();
@@ -45,6 +56,12 @@ class CUtilitario_mapaSistema extends controle{
 		$d->close();
 		return $res;
 	}
+	/**
+	 * Método que ajusta a resposta do controle
+	 * @param array $items
+	 * @param string $q
+	 * @return string
+	 */
 	protected function responder($items,$q){
 		if(!$q) return;
 		$q = caracteres::RetiraAcentos($q);

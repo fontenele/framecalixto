@@ -1,6 +1,9 @@
 <?php
 /**
- *
+* Classe de controle
+* Realiza uma pesquisa geral nos dados do sistema
+* @package Sistema
+* @subpackage Utilitario
  */
 class CUtilitario_pesquisaGeral extends controlePadraoPesquisa{
 	public $filtro = 'calixto';
@@ -52,9 +55,18 @@ class CUtilitario_pesquisaGeral extends controlePadraoPesquisa{
 		$menu->removerItem($this->inter->pegarTexto('botaoPesquisar'));
 		return $menu;
 	}
+	/**
+	 * Verifica se o controle pode exibir uma listagem
+	 * @param <type> $controle
+	 * @return <type>
+	 */
 	protected function exibirListagem($controle){
 		return is_file($controle['caminho']);
 	}
+	/**
+	 * Varre o sistema e registra as listagens de respostas no template
+	 * @return array
+	 */
 	protected function entidades(){
 		for($i=1; $i < 6;$i++) $niveis[$i] = "nivel de busca {$i}";
 		$this->visualizacao->nivel = VComponente::montar(VComponente::caixaCombinacao, 'nivel', isset($_POST['nivel']) ? $_POST['nivel'] : 1 ,null,$niveis);

@@ -34,16 +34,16 @@ class CUtilitario_geradorGerarFonte extends controle{
 		CUtilitario_geradorGerarFonte::$nomeSequence = caracteres::RetiraAcentos(CUtilitario_geradorGerarFonte::$entidade['nomeSequence'] ? CUtilitario_geradorGerarFonte::$entidade['nomeSequence'] : "sq_{CUtilitario_geradorGerarFonte::$nomeTabela}");
 		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade))
 			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade,0777);
-		//chmod(CUtilitario_geradorGerarFonte::$nomeEntidade,2777);
+		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade,2777);
 		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes"))
 			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes",0777);
-		//chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes",2777);
+		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes",2777);
 		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml"))
 			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml",0777);
-		//chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml",2777);
+		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml",2777);
 		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade."/html"))
 			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade."/html",0777);
-		//chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/html",2777);
+		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/html",2777);
 		umask(0111);
 		$visualizacao->entidade = CUtilitario_geradorGerarFonte::$entidade['entidade'];
 		$visualizacao->pacote = CUtilitario_geradorGerarFonte::$entidade['entidade'];

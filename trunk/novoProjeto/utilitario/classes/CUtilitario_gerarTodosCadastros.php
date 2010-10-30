@@ -1,6 +1,19 @@
 <?php
+/**
+* Classe de controle
+* Gera todos os cadastro com referência nas tabela existentes no banco de dados
+* @package Sistema
+* @subpackage Utilitario
+*/
 class CUtilitario_gerarTodosCadastros extends controle{
+	/**
+	 * Tabelas existentes no banco
+	 * @var array
+	 */
 	protected $tabelas;
+	/**
+	* Método inicial do controle
+	*/
 	public function inicial(){
 		$this->passarProximoControle(definicaoEntidade::controle($this,'listarEntidade'));
 		$conexao = conexao::criar();
@@ -12,6 +25,12 @@ class CUtilitario_gerarTodosCadastros extends controle{
 			CUtilitario_geradorGerarFonte::gerarFonte($this->visualizacao,$arDadosGerador);
 		}
 	}
+	/**
+	 * Prepara os dados para envio ao gerador de cadastros
+	 * @param string $nome
+	 * @param array $dados
+	 * @return array
+	 */
 	protected function prepararDados($nome,$dados){
 		$res = array();
 		if(strpos($nome, '.')){
@@ -69,9 +88,20 @@ class CUtilitario_gerarTodosCadastros extends controle{
 		);
 		return $res;
 	}
+	/**
+	 * Retorna o nome da sequence relativo a tabela em um schema
+	 * @param string $squema
+	 * @param string $tabela
+	 * @return string
+	 */
 	protected function nomeDaSequence($squema,$tabela){
 		return "{$squema}.sq_{$tabela}";
 	}
+	/**
+	 * Ajusta o nome de uma propriedade para um nome de campo
+	 * @param string $dado
+	 * @return string
+	 */
 	protected function nomePropriedade($dado){
 		$prop = explode('_',$dado['campo']);
 		$res = null;
@@ -80,6 +110,11 @@ class CUtilitario_gerarTodosCadastros extends controle{
 		}
 		return $res;
 	}
+	/**
+	 * Ajusta o nome de uma tabela para o nome da classe de negócio
+	 * @param string $tabela
+	 * @return string
+	 */
 	protected function classeNegocio($tabela){
 		if(!$tabela) return null;
 		$res = null;
@@ -89,6 +124,11 @@ class CUtilitario_gerarTodosCadastros extends controle{
 		}
 		return "N{$res}";
 	}
+	/**
+	 * Ajusta o nome de um campo da tabela para um atributo de negócio
+	 * @param string $dado
+	 * @return string
+	 */
 	protected function atributoNegocio($dado){
 		$arNomes = explode('_',$dado['campo']);
 		$atributo = null;

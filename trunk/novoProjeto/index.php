@@ -1,6 +1,8 @@
 <?php
 /**
 * Arquivo de indice para o funcionamento do sistema
+* @package Sistema
+* @subpackage Index
 */
 $versao = '5.1.2';
 if(phpversion() < $versao) throw new Exception(sprintf('O Calixto Framework não funciona com versão inferior a %s.',$versao));
@@ -27,6 +29,15 @@ switch (definicaoSistema::pegarAmbiente()) {
 }
 error_reporting(E_ALL | E_STRICT);
 set_error_handler('reportarErro');
+/**
+ * Apresenta os erros do PHP ao desenvolvedor
+ * @param integer $codigo
+ * @param string $mensagem
+ * @param string $arquivo
+ * @param integer $linha
+ * @param string $tipoErro
+ * @return void
+ */
 function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 	if(strpos($arquivo,'conexaoPadrao')) return;
 	$imagemErro = 'erro.png';

@@ -3,7 +3,7 @@
 	<propriedades>
 		<propriedade id='idMenu' tipo='numerico' tamanho='4' obrigatorio='sim' indicePrimario='sim'  >
 			<banco nome='menu_id_menu'  />
-			<apresentacao componente='oculto'  />
+			<apresentacao componente='caixa de entrada'  />
 		</propriedade>
 		<propriedade id='nmMenu' tipo='texto' tamanho='50' obrigatorio='sim' descritivo='1'  >
 			<banco nome='menu_nm_menu' ordem='1'  />
@@ -11,9 +11,9 @@
 				<listagem ordem='1' tamanho='30%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='txDescricao' tipo='texto'  >
+		<propriedade id='txDescricao' tipo='texto' tamanho='200'  >
 			<banco nome='menu_tx_descricao'  />
-			<apresentacao componente='caixa de texto' >
+			<apresentacao componente='caixa de entrada' >
 				<listagem ordem='2' tamanho='70%' />
 			</apresentacao>
 		</propriedade>

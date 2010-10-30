@@ -52,8 +52,13 @@ class conexaoPadraoPDO extends conexao{
 						self::$conexoes['conexao'][$idx]->query("SET CLIENT_ENCODING TO UTF8;");
 					break;
 					case conexao::mysql:
-						$dsn = sprintf('mysql:dbname=%s,host=%s',$servidor,$banco);
-						self::$conexoes['conexao'][$idx] = new PDO($dsn,$usuario,$senha);
+						$dsn = sprintf('mysql:host=%s;dbname=%s',$servidor,$banco);
+						self::$conexoes['conexao'][$idx] = new PDO(
+							$dsn,
+							$usuario,
+							$senha,
+							array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+						);
 					break;
 					case conexao::sqlserver:
 						$dsn = sprintf('mssql:host=%s;dbname=%s',$servidor,$banco);

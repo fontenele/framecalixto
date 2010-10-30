@@ -1,24 +1,88 @@
 <?php
+/**
+* Classe que encapsula a passagem da operação a ser realizada na persistente
+* @package FrameCalixto
+* @subpackage utilitários
+*/
 class operador extends objeto{
+	/**
+	 * Operador de 'and'
+	 */
     const restricaoE  = ' and ';
+	/**
+	 * Operador de 'or'
+	 */
     const restricaoOU = '  or ';
+	/**
+	 * Operador de '>'
+	 */
     const maiorQue = '>';
+	/**
+	 * Operador de '>='
+	 */
     const maiorOuIgual = '>=';
+	/**
+	 * Operador de '<'
+	 */
     const menorQue = '<';
+	/**
+	 * Operador de '<='
+	 */
     const menorOuIgual = '<=';
+	/**
+	 * Operador de 'not null'
+	 */
     const naoENulo = 'não Nulo';
+	/**
+	 * Operador de 'null'
+	 */
     const eNulo = '';
+	/**
+	 * Operador de 'and'
+	 */
     const igual = '=';
+	/**
+	 * Operador de '<>'
+	 */
     const diferente = '<>';
+	/**
+	 * Operador de 'like %texto%'
+	 */
     const como = '%texto%';
+	/**
+	 * Operador de 'like texto%'
+	 */
     const iniciandoComo = 'texto%';
+	/**
+	 * Operador de 'like %texto'
+	 */
     const finalizandoComo = '%texto';
+	/**
+	 * Operador de 'in (1,2,3...)'
+	 */
     const dominio = '1 ou 2 ou 3...';
+	/**
+	 * Operador de 'between'
+	 */
     const entre = 'valores entre {valor1} e {valor2}';
+	/**
+	 * Operador de 'busca gulosa'
+	 */
     const generico = '%aáãàä%';
-
+	/**
+	 * Operador a ser passado
+	 * @var string
+	 */
     public $operador;
+	/**
+	 * Valor a ser comparado
+	 * @var mixed
+	 */
     public $valor;
+	/**
+	 * Restrição utilizada após o operador
+	 * @var string
+	 */
 	public $restricao;
     /**
      * Método de configuração de um operador
