@@ -153,4 +153,19 @@
 		<nmEmail>mulek@hotmail.com</nmEmail>
 		<nmSite>www.basedainformacao.com.br</nmSite>
 	</classe>
+	<classe nome='NPessoa'>
+		<csPessoa>FI</csPessoa>
+		<nmPessoa>Raul Maia</nmPessoa>
+		<nrDocumento></nrDocumento>
+		<nrCep></nrCep>
+		<nrTelefone></nrTelefone>
+		<nrTelefone2></nrTelefone2>
+		<nrTelefone3></nrTelefone3>
+		<idEstado></idEstado>
+		<nmMunicipio></nmMunicipio>
+		<nmBairro></nmBairro>
+		<txEndereco></txEndereco>
+		<nmEmail></nmEmail>
+		<nmSite></nmSite>
+	</classe>
 </classes>
