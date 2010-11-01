@@ -1,5 +1,9 @@
 <?php
-
+/**
+* Arquivo de indice para o funcionamento do sistema
+* @package Sistema
+* @subpackage Gateway
+*/
 date_default_timezone_set('America/Sao_Paulo');
 set_time_limit(0);
 defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__)));
