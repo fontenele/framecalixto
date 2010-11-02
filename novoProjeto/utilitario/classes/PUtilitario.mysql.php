@@ -27,7 +27,7 @@ class PUtilitario extends persistentePadraoMySql {
 		$i = 0;
 		while ($registro = $this->conexao->pegarRegistro()){
 			$i++;
-			$retorno[$i]['campo'] = $registro['Field'] //ajeitar tudo !!!
+			$retorno[$i]['campo'] = $registro['Field'] ;//ajeitar tudo !!!
 			$retorno[$i]['tipo_de_dado'] = $registro['Type'];
 			$retorno[$i]['tamanho'] = $registro['Type'];
 			$retorno[$i]['campo_pk'] = $registro['Key'] == 'PRI' ? $registro['Field'] : '';
