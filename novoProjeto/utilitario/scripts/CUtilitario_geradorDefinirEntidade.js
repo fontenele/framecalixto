@@ -218,7 +218,7 @@ jQuery.fn.extend({
 		$('#vis').append(
 			$('<div/>').addClass('d-tr')
 				.append($('<div/>').addClass('d-td propriedade ui-state-default'))
-				.append(c('select','vi_componente','caixa de entrada'/*componente*/,$(this).componentes))
+				.append(c('select','vi_componente',componente,$(this).componentes))
 				.append(c('text','vi_ordem',ordem).attr('size',3))
 				.append(c('text','vi_ordemDescritivo',ordemDescritivo))
 				.append(c('text','vi_largura',largura))
