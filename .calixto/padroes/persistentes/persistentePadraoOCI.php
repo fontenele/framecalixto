@@ -19,6 +19,8 @@ class persistentePadraoOCI extends persistente{
 		$mapeamento['ttelefone'] = 'varchar2';
 		$mapeamento['tdocumentopessoal'] = 'varchar2';
 		$mapeamento['tcep'] = 'varchar2';
+		$mapeamento['tcnpj'] = 'varchar2';
+		$mapeamento['tcpf'] = 'varchar2';
 		$mapeamento['data'] = 'date';
 		return $mapeamento;
 	}

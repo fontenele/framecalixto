@@ -24,6 +24,8 @@ class persistentePadraoSqlite extends persistente{
 		$mapeamento['ttelefone'] = 'text';
 		$mapeamento['tdocumentopessoal'] = 'text';
 		$mapeamento['tcep'] = 'text';
+		$mapeamento['tcnpj'] = 'text';
+		$mapeamento['tcpf'] = 'text';
 		$mapeamento['data'] = 'timestamp';
 		return $mapeamento;
 	}
