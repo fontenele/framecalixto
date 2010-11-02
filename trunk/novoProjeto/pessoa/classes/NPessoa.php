@@ -72,7 +72,7 @@ class NPessoa extends negocioPadrao{
 	*/
 	public function importar(){
 		$nEstado = new NEstado($this->conexao);
-		$nEstado->passarSgSigla($this->pegarIdEstado());
+		$nEstado->passarSgSigla(operador::igual($this->pegarIdEstado()));
 		$resultado = $nEstado->pesquisar(new pagina());
 		$this->passarIdEstado((!$resultado) ? null : $resultado->avancar()->valorChave());
 		parent::importar();
@@ -93,7 +93,7 @@ class NPessoa extends negocioPadrao{
 	*/
 	function lerColaboradores(){
 		$nPessoa = new NPessoa();
-		$nPessoa->passarCsPessoa('FI');
+		$nPessoa->passarCsPessoa(operador::igual('FI'));
 		return $nPessoa->pesquisar(new pagina());
 	}
 	/**
@@ -102,7 +102,7 @@ class NPessoa extends negocioPadrao{
 	*/
 	function lerEmpresasInternas(){
 		$nPessoa = new NPessoa();
-		$nPessoa->passarCsPessoa('JI');
+		$nPessoa->passarCsPessoa(operador::igual('JI'));
 		return $nPessoa->pesquisar();
 	}
 }
