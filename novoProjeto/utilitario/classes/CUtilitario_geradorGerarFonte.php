@@ -117,8 +117,8 @@ class CUtilitario_geradorGerarFonte extends controle{
 			if(strpos(CUtilitario_geradorGerarFonte::$entidade['ng_dominio_associativa'][$index], '[') === false){
 				if((isset(CUtilitario_geradorGerarFonte::$entidade['ng_fk'][$index]))){
 					$cl = explode('::',CUtilitario_geradorGerarFonte::$entidade['ng_dominio_associativa'][$index]);
-					$classeAssociativa = " classeAssociativa='{$cl[0]}'";
-					$metodoLeitura = (isset($cl[1])) ? " metodoLeitura='{$cl[1]}'" : '';
+					$classeAssociativa = "classeAssociativa='{$cl[0]}' ";
+					$metodoLeitura = (isset($cl[1])) ? "metodoLeitura='{$cl[1]}' " : '';
 				}
 			}
 			$xml.= "\t\t<propriedade {$id}{$tipo}{$tamanho}{$obrigatorio}{$chavePrimaria}{$chaveUnica}{$classeAssociativa}{$metodoLeitura}{$descritivo} >\n";
