@@ -30,7 +30,15 @@ class colecao extends objeto{
 		if(isset($this->itens[$chaves[$item]])) return $this->itens[$chaves[$item]];
 	}
 	/**
-	* Método de avanço da coleção 
+	* Método de retirada do primeiro item da coleção
+	* @return mixed Item da coleção
+	*/
+	public function arrancar($ponta = 'inicio'){
+		if($ponta == 'inicio') return array_shift($this->itens);
+		return array_pop($this->itens);
+	}
+	/**
+	* Método de avanço da coleção
 	* @return mixed Item da coleção
 	*/
 	public function avancar(){

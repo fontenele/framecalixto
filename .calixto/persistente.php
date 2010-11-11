@@ -600,6 +600,13 @@ abstract class persistente extends objeto{
 			throw $e;
 		}
 	}
+	public function atualizarArvore($valor,$chave,$posicaoInicial,$posicaoFinal = false){
+		$estrutura = $this->pegarEstrutura();
+		$filtro = "{$chave} > {$posicaoInicial}";
+		if($posicaoFinal) $filtro .= " and {$chave} < {$posicaoFinal}";
+		$comando = "update {$estrutura['nomeTabela']} set {$chave}={$chave}{$valor} where {$filtro}";
+		$this->executarComando($comando);
+	}
 	/**
 	* Gera o comando de alteração de um registro no banco de dados
 	* @param array correlativa entre campos e valores do registro
@@ -624,7 +631,11 @@ abstract class persistente extends objeto{
 				}
 			}
 			$comando = substr($comando,0,-2)."\n";
-			$comando .= "where {$estrutura['chavePrimaria']} = '{$valorChave}'";
+			if($valorChave instanceof colecaoPadraoFiltro){
+				$comando .= $this->gerarClausulaDeFiltro($valorChave,true);
+			}else{
+				$comando .= "where {$estrutura['chavePrimaria']} = '{$valorChave}'";
+			}
 			return $comando;
 		}
 		catch(erro $e){
