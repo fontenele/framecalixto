@@ -526,6 +526,7 @@ abstract class negocioPadrao extends negocio{
 			if($this->pegarConexao()->pegarTipo() == conexao::sqlite){
 				throw $e;
 			}
+            $persistente = $this->pegarPersistente();
             if($persistente->possuiDependentes($this->valorChave()))
                 throw new erroNegocio(sprintf($this->inter->pegarMensagem('dependente'),$this->valorDescricao()));
             throw $e;

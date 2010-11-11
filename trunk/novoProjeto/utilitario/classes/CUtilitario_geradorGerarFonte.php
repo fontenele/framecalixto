@@ -17,7 +17,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 	* Método inicial do controle
 	*/
 	public function inicial(){
-		$this->passarProximoControle(definicaoEntidade::controle($this,'geradorDefinirEntidade'));
+		$this->passarProximoControle(definicaoEntidade::controle($this,'listarEntidade'));
 		CUtilitario_geradorGerarFonte::gerarFonte($this->visualizacao,$_POST);
 	}
 	public static function gerarFonte(visualizacao $visualizacao,$dadosGerador){
