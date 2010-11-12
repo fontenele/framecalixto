@@ -231,6 +231,13 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 			}
 		}
 	}
+	public function lerPais(){
+		$negocio = get_class($this);
+		$negocio = new $negocio($this->pegarConexao());
+		$negocio->{"filtrar".ucfirst($this->nomeChaveEsquerda())}(operador::menorQue($this->valorChaveEsquerda()));
+		$negocio->{"filtrar".ucfirst($this->nomeChaveDireita())}(operador::maiorQue($this->valorChaveDireita()));
+		return $negocio->pesquisar();
+	}
 	/**
 	 * Método que retorna um array com a representação do aninhamento contido no objeto
 	 * @return array
