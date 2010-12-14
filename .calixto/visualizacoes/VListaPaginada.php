@@ -315,9 +315,6 @@ class VListaPaginada extends objeto{
 	*/
 	function __toString(){
 		try{
-			$classe = definicaoEntidade::internacionalizacao($this->controle);
-			$this->inter = new $classe();
-			$this->definirListagem();
 			$retorno = $this->montarListagem();
 			$retorno.= $this->montarPaginador();
 			return $retorno;
