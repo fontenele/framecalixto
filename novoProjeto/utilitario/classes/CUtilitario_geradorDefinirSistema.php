@@ -59,7 +59,7 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 			$conexao[] 	= VComponente::montar('input'			,'banco[id][]'		,$banco['id']		,$arInputConfig);
 			$tipo[] 	= VComponente::montar('select'			,'banco[tipo][]'	,$banco['tipo']		,$arSelectConfig, $arTiposBancosDisponiveis);
 			$servidor[] = VComponente::montar('input'			,'banco[servidor][]',$banco['servidor']	,$arInputConfig);
-			$porta[] 	= VComponente::montar('input'			,'banco[porta][]'	,$banco['porta']	,array('size'=>'2'));
+			$porta[] 	= VComponente::montar('input'			,'banco[porta][]'	,$banco['porta']	,array('size'=>'3'));
 			$nome[] 	= VComponente::montar('input'			,'banco[nome][]'	,$banco['nome']		,$arInputConfig);
 			$usuario[] 	= VComponente::montar('input'			,'banco[usuario][]'	,$banco['usuario']	,$arInputConfig);
 			$senha[] 	= VComponente::montar('palavra chave'	,'banco[senha][]'	,$banco['senha']	,$arInputConfig);
