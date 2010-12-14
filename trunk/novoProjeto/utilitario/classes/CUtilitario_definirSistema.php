@@ -53,7 +53,17 @@ class CUtilitario_definirSistema extends controle{
 		$xml.= "\t<controleDeMenu classe='{$d['controleDeMenu']['classe']}' metodoMenuSite='{$d['controleDeMenu']['metodoMenuSite']}' metodoMenuSistema='{$d['controleDeMenu']['metodoMenuSistema']}' />\n";
 		$xml.= "\t<bancos>\n";
 		foreach($d['banco']['id'] as $id => $banco){
-			$xml.= "\t\t<banco id='{$d['banco']['id'][$id]}' tipo='{$d['banco']['tipo'][$id]}' servidor='{$d['banco']['servidor'][$id]}' porta='{$d['banco']['porta'][$id]}' nome='{$d['banco']['nome'][$id]}' usuario='{$d['banco']['usuario'][$id]}' senha='{$d['banco']['senha'][$id]}' conexaoMultipla='{$d['banco']['conexaoMultipla'][$id]}' />\n";
+			switch($d['banco']['tipo'][$id]){
+				case 'sqlite':
+				case 'postgres':
+					$pdo = 'sim';
+				break;
+				case 'mysql':
+				case 'oracle':
+				default:
+					$pdo = 'nao';
+			}
+			$xml.= "\t\t<banco id='{$d['banco']['id'][$id]}' tipo='{$d['banco']['tipo'][$id]}' servidor='{$d['banco']['servidor'][$id]}' porta='{$d['banco']['porta'][$id]}' nome='{$d['banco']['nome'][$id]}' usuario='{$d['banco']['usuario'][$id]}' senha='{$d['banco']['senha'][$id]}' conexaoMultipla='{$pdo}' />\n";
 		}
 		$xml.= "\t</bancos>\n";
 		$xml.= "\t<diretorios>\n";

@@ -10,118 +10,166 @@
 		<div class="h"></div>
 		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
 		<div class="texto">
-			<fieldset class="ui-widget-content ui-corner-all">
-	            <legend>«$textoSistema»</legend>
-	            <div class="tabela2">
-	                <div class='campo'>
-	                    <label>«$textoPaginaInicial»:</label>
-	                    <span>«$paginaInicial»</span>
-	                </div>
-	                <div class='campo'>
-	                    <label>«$textoPaginaErro»:</label>
-	                    <span>«$paginaErro»</span>
-	                </div>
-	                <div class='campo'>
-	                    <label>«$textoAmbiente»:</label>
-	                    <span>«$ambiente»</span>
-	                </div>
-	            </div>
-			</fieldset>
-			<fieldset class="ui-widget-content ui-corner-all">
-	            <legend>«$textoControleAcesso»</legend>
-	            <div class="tabela2">
-	                <div class='campo'>
-	                    <label>«$textoLiberadoCA»:</label>
-	                    <span>«$liberadoCA»</span>
-	                </div>
-	                <div class='campo'>
-	                    <label>«$textoClasseCA»:</label>
-	                    <span>«$classeCA»</span>
-	                </div>
-	                <div class='campo'>
-	                    <label>«$textoMetodoCA»:</label>
-	                    <span>«$metodoCA»</span>
-	                </div>
-	            </div>
-	        </fieldset>
-			<fieldset class="ui-widget-content ui-corner-all">
-	            <legend>«$textoControleMenu»</legend>
-	            <div class="tabela2">
-	                <div class='campo'>
-	                    <label>«$textoClasseMenu»:</label>
-	                    <span>«$classeMenu»</span>
-	                </div>
-	                <div class='campo'>
-	                    <label>«$textoMetodoMenuPrincipal»:</label>
-	                    <span>«$metodoMenuPrincipal»</span>
-	                </div>
-	                <div class='campo'>
-	                    <label>«$textoMetodoMenuSistema»:</label>
-	                    <span>«$metodoMenuSistema»</span>
-	                </div>
-	            </div>
-			</fieldset>
-			<fieldset class="ui-widget-content ui-corner-all">
-	            <legend>«$textoBancos»</legend>
-	            <table summary="text" class="tabela2">
-	                <tr>
-	                    <th>Cód.</th>
-	                    <th>Nome</th>
-	                    <th>Tipo</th>
-	                    <th>Servidor</th>
-	                    <th>Porta</th>
-	                    <th>Banco</th>
-	                    <th>Usuario</th>
-	                    <th>Senha</th>
-	                    <th>PDO</th>
-	                </tr>
-	            	«foreach from=$conexao key=i item=a »
-	                <tr>
-	                    <td class="campo1">«$i»:</td>
-	                    <td class="campo2">«$conexao[$i]»</td>
-	                    <td class="campo2">«$tipo[$i]»</td>
-	                    <td class="campo2">«$servidor[$i]»</td>
-	                    <td class="campo2">«$porta[$i]»</td>
-	                    <td class="campo2">«$nome[$i]»</td>
-	                    <td class="campo2">«$usuario[$i]»</td>
-	                    <td class="campo2">«$senha[$i]»</td>
-	                    <td class="campo2">«$multipla[$i]»</td>
-	                </tr>
-	            	«/foreach»
-	            </table>
-			</fieldset>
-			<fieldset class="ui-widget-content ui-corner-all">
-	            <legend>«$textoDiretorios»</legend>
-	            <table summary="text" class="tabela2">
-	                <tr>
-	                    <th>Referência</th>
-	                    <th>Caminho</th>
-	                    <th>Interno da Entidade</th>
-	                </tr>
-	            «foreach from=$dirId key=i item=a »
-	                <tr>
-	                    <td class="campo1">«$dirId[$i]»«$dirId[$i]->pegarValue()»:</td>
-	                    <td class="campo2">«$dirCaminho[$i]»</td>
-	                    <td class="campo2">«$dirEntidade[$i]»</td>
-	                </tr>
-	            «/foreach»
-	            </table>
-			</fieldset>
-			<fieldset class="ui-widget-content ui-corner-all">
-	            <legend>«$textoArquivos»</legend>
-	            <table summary="text" class="tabela2">
-	                <tr>
-	                    <th>Referência</th>
-	                    <th>Arquivo</th>
-	                </tr>
-	            «foreach from=$arqId key=i item=a »
-	                <tr>
-	                    <td class="campo1">«$arqId[$i]»«$arqId[$i]->pegarValue()»:</td>
-	                    <td class="campo2">«$arquivo[$i]»</td>
-	                </tr>
-	            «/foreach»
-	            </table>
-			</fieldset>
+			<div id="tabs">
+				<ul>
+					<li><a id="guia_1" class="guia" href="#tabs-1" accesskey="1"><label class="atalho">1.</label>Geral</a></li>
+					<li><a id="guia_2" class="guia" href="#tabs-2" accesskey="2"><label class="atalho">2.</label>Controle de Acesso</a></li>
+					<li><a id="guia_3" class="guia" href="#tabs-3" accesskey="3"><label class="atalho">3.</label>Controle de Menu</a></li>
+					<li><a id="guia_4" class="guia" href="#tabs-4" accesskey="4"><label class="atalho">4.</label>Banco de Dados</a></li>
+					<li><a id="guia_5" class="guia" href="#tabs-5" accesskey="5"><label class="atalho">5.</label>Diretórios</a></li>
+					<li><a id="guia_6" class="guia" href="#tabs-6" accesskey="6"><label class="atalho">6.</label>Arquivos</a></li>
+				</ul>
+				<div id="tabs-1">
+					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+						<span style="float: left;" class="ui-icon ui-icon-info"></span>
+						<div class="help">Nas configurações gerais do sistema você poderá definir qual a página inicial do sistema e qual a página de erro do sistema e ainda qual o ambiente que o sistema está funcionando.</div>
+					</div><br/>
+					<fieldset class="ui-widget-content ui-corner-all">
+						<legend>«$textoSistema»</legend>
+						<div class="tabela2">
+							<div class='campo'>
+								<label>«$textoPaginaInicial»:</label>
+								<span>«$paginaInicial»</span>
+							</div>
+							<div class='campo'>
+								<label>«$textoPaginaErro»:</label>
+								<span>«$paginaErro»</span>
+							</div>
+							<div class='campo'>
+								<label>«$textoAmbiente»:</label>
+								<span>«$ambiente»</span>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<div id="tabs-2">
+					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+						<span style="float: left;" class="ui-icon ui-icon-info"></span>
+						<div class="help">Nas configurações a seguir você poderá definir qual a classe e qual o método que fará a validação dos acessos do sistema, além de também poder desativar o controle de acesso.</div>
+					</div><br/>
+					<fieldset class="ui-widget-content ui-corner-all">
+						<legend>«$textoControleAcesso»</legend>
+						<div class="tabela2">
+							<div class='campo'>
+								<label>«$textoLiberadoCA»:</label>
+								<span>«$liberadoCA»</span>
+							</div>
+							<div class='campo'>
+								<label>«$textoClasseCA»:</label>
+								<span>«$classeCA»</span>
+							</div>
+							<div class='campo'>
+								<label>«$textoMetodoCA»:</label>
+								<span>«$metodoCA»</span>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<div id="tabs-3">
+					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+						<span style="float: left;" class="ui-icon ui-icon-info"></span>
+						<div class="help">Você poderá definir aqui qual a classe e quais os métodos que farão as criações dos menus principal e menu do sistema.</div>
+					</div><br/>
+					<fieldset class="ui-widget-content ui-corner-all">
+						<legend>«$textoControleMenu»</legend>
+						<div class="tabela2">
+							<div class='campo'>
+								<label>«$textoClasseMenu»:</label>
+								<span>«$classeMenu»</span>
+							</div>
+							<div class='campo'>
+								<label>«$textoMetodoMenuPrincipal»:</label>
+								<span>«$metodoMenuPrincipal»</span>
+							</div>
+							<div class='campo'>
+								<label>«$textoMetodoMenuSistema»:</label>
+								<span>«$metodoMenuSistema»</span>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<div id="tabs-4">
+					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+						<span style="float: left;" class="ui-icon ui-icon-info"></span>
+						<div class="help">Configure aqui as conexões que o sistema possui com os bancos de dados.</div>
+					</div><br/>
+					<fieldset class="ui-widget-content ui-corner-all">
+						<legend>«$textoBancos»</legend>
+						<div class="d-table" id="conexoes">
+							<div class="d-tr">
+								<div class="d-th">Nome</div>
+								<div class="d-th">Tipo</div>
+								<div class="d-th">Servidor</div>
+								<div class="d-th">Porta</div>
+								<div class="d-th">Banco</div>
+								<div class="d-th">Usuário</div>
+								<div class="d-th">Senha</div>
+							</div>
+							«foreach from=$conexao key=i item=a »
+							<div class="d-tr">
+								<div class="d-td">«$conexao[$i]»</div>
+								<div class="d-td tipoConn">«$tipo[$i]»</div>
+								<div class="d-td">«$servidor[$i]»</div>
+								<div class="d-td">«$porta[$i]»</div>
+								<div class="d-td">«$nome[$i]»</div>
+								<div class="d-td">«$usuario[$i]»</div>
+								<div class="d-td">«$senha[$i]»</div>
+							</div>
+							«/foreach»
+						</div>
+						<br/>
+					</fieldset>
+					<div>
+						<span class="ui-state-default ui-corner-all"><a href="#" id="novaConexao"><img style="border: 0px none; vertical-align: bottom;" src=".sistema/imagens/botao_gravar.png">Nova conexão</a></span>
+					</div>
+				</div>
+				<div id="tabs-5">
+					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+						<span style="float: left;" class="ui-icon ui-icon-info"></span>
+						<div class="help">Defina abaixo a estrutura de diretórios do sistema.</div>
+					</div><br/>
+					<fieldset class="ui-widget-content ui-corner-all">
+						<legend>«$textoDiretorios»</legend>
+						<table summary="text" class="tabela2">
+							<tr>
+								<th>Referência</th>
+								<th>Caminho</th>
+								<th>Interno da Entidade</th>
+							</tr>
+						«foreach from=$dirId key=i item=a »
+							<tr>
+								<td class="campo1">«$dirId[$i]»«$dirId[$i]->pegarValue()»:</td>
+								<td class="campo2">«$dirCaminho[$i]»</td>
+								<td class="campo2">«$dirEntidade[$i]»</td>
+							</tr>
+						«/foreach»
+						</table>
+					</fieldset>
+
+				</div>
+				<div id="tabs-6">
+					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+						<span style="float: left;" class="ui-icon ui-icon-info"></span>
+						<div class="help">Nesta etapa você pode definir alguns arquivos do sistema.</div>
+					</div><br/>
+					<fieldset class="ui-widget-content ui-corner-all">
+						<legend>«$textoArquivos»</legend>
+						<table summary="text" class="tabela2">
+							<tr>
+								<th>Referência</th>
+								<th>Arquivo</th>
+							</tr>
+						«foreach from=$arqId key=i item=a »
+							<tr>
+								<td class="campo1">«$arqId[$i]»«$arqId[$i]->pegarValue()»:</td>
+								<td class="campo2">«$arquivo[$i]»</td>
+							</tr>
+						«/foreach»
+						</table>
+					</fieldset>
+
+				</div>
+			</div><br/>
 	        <div id='menu_corpo'>
 	            «$menuPrograma»
 	        </div>

@@ -1,3 +1,11 @@
+.celula{border: 1px solid #c0c0c0; }
+.d-table{display:table; border:1px solid #c0c0c0; padding: 1px;}
+.d-caption{display:table-caption; background:#c0c0c0;}
+.d-th{display:table-cell; background:#c0c0c0; padding: 2px;}
+.d-tr{display:table-row;}
+.d-td{display:table-cell; padding: 5px; padding: 1px;}
+
+.dialogo{display: none;}
 .texto{
 	padding: 5px;
 }
