@@ -257,7 +257,7 @@ class persistentePadraoSqlite extends persistente{
 						$cmp[$valores[1]]['campo_fk'		]=$valores[3];
 						continue;
 					}
-					if(preg_match("/^([\ \t\n]*[aA-zZ0-9]+)([\ \t\n]*[aA-zZ0-9]+)[\ \t\n]*(\([0-9]+\)|)[\ \t\n]*(primary\ key|)([\ \t\n]*autoincrement|)[\ \t\n]*(null|not\ null),$/i", ($linha),$valores)){
+					if(preg_match("/^([\ \t\n]*[aA-zZ0-9]+)([\ \t\n]*[aA-zZ0-9]+)[\ \t\n]*(\([0-9]+\)|)[\ \t\n]*(primary\ key|)([\ \t\n]*autoincrement|)[\ \t\n]*(null|not\ null)(,|)$/i", ($linha),$valores)){
 						$valores[3] = str_replace('(', '', $valores[3]);
 						$valores[3] = str_replace(')', '', $valores[3]);
 						$valores = array_map('trim', $valores);
