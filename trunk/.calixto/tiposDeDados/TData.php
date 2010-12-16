@@ -36,7 +36,7 @@ class TData extends objeto{
 						case isset($arData[3]) && $arData[3]: $arData = explode('-',$arData[3]); break;
 						default: $arData = array(0,0,0);
 					}
-					$aux = $arData[1]; $arData[1] = $arData[0]; $arData[0] = $aux;
+					$this->tempoMarcado = mktime($arHora[0], $arHora[1], $arHora[2], $arData[1], $arData[0], $arData[2]);
 				break;
 				case('m/d/y'):
 					$erData = '/(^\d{2}\/\d{2}\/\d{4})|(^\d{2}\.\d{2}\.\d{4})|(^\d{2}-\d{2}-\d{4})/';
@@ -50,6 +50,7 @@ class TData extends objeto{
 						case isset($arData[3]) && $arData[3]: $arData = explode('-',$arData[3]); break;
 						default: $arData = array(0,0,0);
 					}
+					$this->tempoMarcado = mktime($arHora[0], $arHora[1], $arHora[2], $arData[0], $arData[1], $arData[2]);
 				break;
 				case('y/m/d'):
 					$erData = '/(^\d{4}\/\d{2}\/\d{2})|(^\d{4}\.\d{2}\.\d{2})|(^\d{4}-\d{2}-\d{2})/';
@@ -63,10 +64,9 @@ class TData extends objeto{
 						case isset($arData[3]) && $arData[3]: $arData = explode('-',$arData[3]); break;
 						default: $arData = array(0,0,0);
 					}
-					$aux = $arData[2]; $arData[2] = $arData[0]; $arData[0] = $aux;
+					$this->tempoMarcado = mktime($arHora[0], $arHora[1], $arHora[2], $arData[1], $arData[2], $arData[0]);
 				break;
 			}
-			$this->tempoMarcado = mktime($arHora[0], $arHora[1], $arHora[2], $arData[0], $arData[1], $arData[2]);
 		}catch(exception $e){
 			x($data);die();
 		}
