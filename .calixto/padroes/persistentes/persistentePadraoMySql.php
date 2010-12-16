@@ -32,33 +32,6 @@ abstract class persistentePadraoMySql extends persistente{
 		$mapeamento['data'] = 'DATETIME';
 		return $mapeamento;
 	}
-	//**************************************************************************
-	//**************************************************************************
-	// 							COMANDOS DML
-	//**************************************************************************
-	//**************************************************************************
-	/**
-	* Gera o comando de inserção de um registro no banco de dados
-	* @param array correlativa entre campos e valores do registro
-	* @return string comando de inserção
-	*/
-	public function gerarComandoInserir($array){
-		$estrutura = $this->pegarEstrutura();
-		$campos = implode(',',array_keys($array));
-		foreach($array as $campo => $valor){
-			if (empty($valor)) {
-				$valores[] = "null";
-			}else{
-				if($campo == $estrutura['chavePrimaria']){
-					$valores[] = "null";
-				}else{
-					$valores[] = "'".str_replace("'","''",$valor)."'";
-				}
-			}
-		}
-		$valores = implode(',',$valores);
-		return "insert into {$estrutura['nomeTabela']} ($campos) values ($valores);\n";
-	}
 
 	//**************************************************************************
 	//**************************************************************************
@@ -154,6 +127,33 @@ abstract class persistentePadraoMySql extends persistente{
 		foreach($arComandos as $comando){
 			if(trim($comando)) parent::executarComando($comando);
 		}
+	}
+	/**
+	* Método de conversão de tipo de dado
+	* @param mixed dado a ser convertido
+	* @param array campo referente
+	*/
+	public function converterDado($valor,$campo = null){
+		if($campo){
+			switch(strtolower($campo['tipo'])){
+				case 'datahora':
+					return new TDataHora($valor,'y/m/d');
+				break;
+				case 'data':
+					return new TData($valor,'y/m/d');
+				break;
+			}
+		}else{
+			switch(true){
+				case($valor instanceof TDataHora):
+					return date('Y/m/d H:i:s', $valor->pegarTempoMarcado());
+				break;
+				case($valor instanceof TData):
+					return date('Y/m/d', $valor->pegarTempoMarcado());
+				break;
+			}
+		}
+		return parent::converterDado($valor, $campo);
 	}
 }
 ?>
