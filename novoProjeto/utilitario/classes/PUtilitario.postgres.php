@@ -6,11 +6,30 @@
 * @subpackage Utilitario
 */
 class PUtilitario extends persistentePadraoPG {
-	
+	public function lerTabelasComDescricao(){
+		$sql = "
+			select distinct
+			schemaname as esquema,
+			cols.table_name as nome,
+			(select pg_catalog.obj_description(oid) from pg_catalog.pg_class c where c.relname=cols.table_name limit 1) as descricao
+			from information_schema.columns cols
+			inner join pg_tables tab on cols.table_name = tab.tablename
+			where
+				schemaname <> 'pg_catalog' and
+				schemaname <> 'information_schema'
+			";
+		$this->conexao->executarComando($sql);
+		$retorno = array();
+		while ($registro = $this->conexao->pegarRegistro()){
+			$retorno[] = $registro ;
+		}
+		return $retorno;
+	}
 	public function lerTabelas(){
 		$sql = "
 			select 
-				schemaname || '.' || tablename as tabela
+				schemaname || '.' || tablename as tabela,
+				'' as descricao
 			from 
 				pg_tables 
 			where 
@@ -71,9 +90,11 @@ class PUtilitario extends persistentePadraoPG {
 			select
 				tabela.*,
 				pk.campo_pk,
+				fk.constraint,
 				fk.esquema_fk,
 				fk.tabela_fk,
-				fk.campo_fk
+				fk.campo_fk,
+				uk.unique_key
 			from 
 				(SELECT 
 					n.nspname as esquema, 
@@ -139,7 +160,7 @@ class PUtilitario extends persistentePadraoPG {
 				FROM 
 					pg_class
 					JOIN pg_namespace ON pg_namespace.oid=pg_class.relnamespace AND
-					pg_namespace.nspname NOT LIKE 'pg_%'
+					pg_namespace.nspname NOT LIKE E'pg_%'
 					JOIN pg_attribute ON pg_attribute.attrelid=pg_class.oid AND
 					pg_attribute.attisdropped='f'
 					JOIN pg_index ON pg_index.indrelid=pg_class.oid AND
@@ -166,7 +187,7 @@ class PUtilitario extends persistentePadraoPG {
 					n.nspname AS esquema,
 					cl.relname AS tabela,
 					a.attname AS campo,
-					--ct.conname AS chave,
+					ct.conname AS constraint,
 					nf.nspname AS esquema_fk,
 					clf.relname AS tabela_fk,
 					af.attname AS campo_fk
@@ -185,7 +206,37 @@ class PUtilitario extends persistentePadraoPG {
 					and tabela.tabela = fk.tabela
 					and tabela.campo = fk.campo
 				)
-			where
+				left join
+                (
+
+                    SELECT
+                        ic.relname AS index_name,
+                        bc.relname AS tab_name,
+                        ta.attname AS column_name,
+                        i.indisunique AS unique_key,
+                        i.indisprimary AS primary_key
+                    FROM
+                        pg_class bc,
+                        pg_class ic,
+                        pg_index i,
+                        pg_attribute ta,
+                        pg_attribute ia
+                    WHERE
+                        bc.oid = i.indrelid
+                        AND ic.oid = i.indexrelid
+                        AND ia.attrelid = i.indexrelid
+                        AND ta.attrelid = bc.oid
+                        AND ta.attrelid = i.indrelid
+                        AND ta.attnum = i.indkey[ia.attnum-1]
+                    ORDER BY
+                        index_name, tab_name, column_name
+                ) as uk
+                on
+                (
+
+                    tabela.tabela = uk.tab_name
+                    and tabela.campo = uk.column_name
+                )			where
 			    {$tabela}
 			order by
 				tabela.esquema, 
@@ -221,6 +272,50 @@ class PUtilitario extends persistentePadraoPG {
 		$retorno = array();
 		while ($registro = $this->conexao->pegarRegistro()){
 			$retorno[$registro['esquema'].'.'.$registro['sequencia']] = $registro['esquema'].'.'.$registro['sequencia'] ;
+		}
+		return $retorno;
+	}
+
+	public function lerRestricoes($tabela){
+		$tabela = explode('.',$tabela);
+		$esquema = isset($tabela[1]) ? $tabela[0] : 'public';
+		$tabela = isset($tabela[1]) ? $tabela[1] : $tabela[0];
+		$sql = "
+			SELECT
+				pc.conname as nome,
+				pg_catalog.pg_get_constraintdef(pc.oid, true) AS condicao,
+				--(select pg_catalog.obj_description(oid) from pg_catalog.pg_class c where c.relname=cols.table_name limit 1) as descricao,
+				'' as descricao,
+				pc.contype,
+				CASE WHEN pc.contype='u' OR pc.contype='p' THEN (
+					SELECT
+						indisclustered
+					FROM
+						pg_catalog.pg_depend pd,
+						pg_catalog.pg_class pl,
+						pg_catalog.pg_index pi
+					WHERE
+						pd.refclassid=pc.tableoid
+						AND pd.refobjid=pc.oid
+						AND pd.objid=pl.oid
+						AND pl.oid=pi.indexrelid
+				) ELSE
+					NULL
+				END AS indisclustered
+			FROM
+				pg_catalog.pg_constraint pc
+			WHERE
+				pc.conrelid = (SELECT oid FROM pg_catalog.pg_class WHERE relname='{$tabela}'
+					AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace
+					WHERE nspname='{$esquema}'))
+				and pg_catalog.pg_get_constraintdef(pc.oid, true) like 'CHECK%'
+			ORDER BY
+				1
+			";
+		$this->conexao->executarComando($sql);
+		$retorno = array();
+		while ($registro = $this->conexao->pegarRegistro()){
+			$retorno[] = $registro;
 		}
 		return $retorno;
 	}
