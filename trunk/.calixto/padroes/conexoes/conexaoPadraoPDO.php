@@ -46,13 +46,13 @@ class conexaoPadraoPDO extends conexao{
 			try {
 				switch ($tipo){
 					case conexao::postgres:
-						$dsn = sprintf('pgsql:host=%s;dbname=%s',$servidor,$banco);
+						$dsn = sprintf('pgsql:host=%s;dbname=%s;port=%s',$servidor,$banco,($porta ? $porta : 5432 ));
 						self::$conexoes['conexao'][$idx] = new PDO($dsn,$usuario,$senha);
 						self::$conexoes['conexao'][$idx]->query("SET DATESTYLE TO German;");
 						self::$conexoes['conexao'][$idx]->query("SET CLIENT_ENCODING TO UTF8;");
 					break;
 					case conexao::mysql:
-						$dsn = sprintf('mysql:host=%s;dbname=%s',$servidor,$banco);
+						$dsn = sprintf('mysql:host=%s;dbname=%s;port=%s',$servidor,$banco,($porta ? $porta : 3306 ));
 						self::$conexoes['conexao'][$idx] = new PDO(
 							$dsn,
 							$usuario,
