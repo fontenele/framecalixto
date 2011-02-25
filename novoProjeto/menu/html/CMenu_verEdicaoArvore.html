@@ -1,0 +1,53 @@
+<script type="text/javascript" src="menu/scripts/fc-context-menu.js"></script>
+<script type="text/javascript" src="menu/scripts/fc-treeview.js"></script>
+<script type="text/javascript" src="menu/scripts/fc-treeview-manager.js"></script>
+<link href="menu/css/fc-treeview.css" rel="stylesheet" type="text/css">
+<link href="menu/css/fc-context-menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#tree').fcTreeViewManager({
+			offsetX : -65,
+			offsetY : 0
+		});
+	});
+</script>
+
+<div class="fc-context-menu">
+	<ul>
+		<li class="edit"><a>Inserir Após</a></li>
+		<li class="fedit seprator"><a>Inserir Filho</a></li>
+		<li class="cut seprator"><a>Recortar</a></li>
+		<li class="paste"><a>Colar Após</a></li>
+		<li class="fpaste seprator"><a>Colar Filho</a></li>
+		<li class="delete"><a>Excluir</a></li>
+	</ul>
+</div>
+<div class="arvore">
+	<ul id="tree">
+		<li><span >Cadastros</span>
+			<ul>
+				<li ><span >Funcionários</span></li>
+			</ul>
+		</li>
+		<li><span >Movimentação</span>
+			<ul>
+				<li><span >Alteração de processos</span>
+
+					<ul>
+						<li><span >Interno</span></li>
+						<li ><span >Externo</span></li>
+					</ul>
+				</li>
+				<li ><span >Retorno de Processo</span></li>
+			</ul>
+		</li>
+		<li class="closed"><span >Relatórios</span>
+			<ul>
+				<li><span >Produção</span></li>
+				<li><span >Pessoal</span></li>
+				<li ><span >Auxiliar de Processo</span></li>
+			</ul>
+		</li>
+		<li ><span >Apoio</span></li>
+	</ul>
+</div>

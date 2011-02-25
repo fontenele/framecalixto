@@ -3,18 +3,41 @@
 	<propriedades>
 		<propriedade id='idMenu' tipo='numerico' tamanho='4' obrigatorio='sim' indicePrimario='sim'  >
 			<banco nome='menu_id_menu'  />
-			<apresentacao componente='caixa de entrada'  />
+			<apresentacao componente='oculto'  />
 		</propriedade>
 		<propriedade id='nmMenu' tipo='texto' tamanho='50' obrigatorio='sim' descritivo='1'  >
-			<banco nome='menu_nm_menu' ordem='1'  />
+			<banco nome='menu_nm_menu'  />
 			<apresentacao componente='caixa de entrada' >
-				<listagem ordem='1' tamanho='30%' />
+				<listagem ordem='2' tamanho='15%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='txDescricao' tipo='texto' tamanho='200'  >
+		<propriedade id='txDescricao' tipo='texto' tamanho='200' obrigatorio='sim'  >
 			<banco nome='menu_tx_descricao'  />
 			<apresentacao componente='caixa de entrada' >
-				<listagem ordem='2' tamanho='70%' />
+				<listagem ordem='3' tamanho='70%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='menu' tipo='texto' tamanho='60' obrigatorio='sim'  >
+			<dominio>
+				<opcao id='1' />
+				<opcao id='2' />
+				<opcao id='3' />
+			</dominio>
+			<banco nome='menu_cl_menu' ordem='1'  />
+			<apresentacao componente='caixa de combinacao' >
+				<listagem ordem='1' tamanho='15%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='idE' tipo='numerico' tamanho='50' >
+			<banco nome='idE' ordem='2'  />
+			<apresentacao componente='caixa de entrada'  >
+				<listagem ordem='4' tamanho='10%' />
+			</apresentacao>
+		</propriedade>
+		<propriedade id='idD' tipo='numerico' tamanho='50' >
+			<banco nome='idD'  />
+			<apresentacao componente='caixa de entrada'  >
+				<listagem ordem='5' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
 	</propriedades>
