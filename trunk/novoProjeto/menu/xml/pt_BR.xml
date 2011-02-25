@@ -18,6 +18,26 @@
 			<abreviacao>Descrição</abreviacao>
 			<descricao>Informe a descrição</descricao>
 		</propriedade>
+		<propriedade nome='menu'>
+			<nome>Menu</nome>
+			<abreviacao>Menu</abreviacao>
+			<descricao>Grupo do menu</descricao>
+			<dominio>
+				<opcao id='1'>Menu Principal</opcao>
+				<opcao id='2'>Menu do Modulo</opcao>
+				<opcao id='3'>Menu do Programa</opcao>
+			</dominio>
+		</propriedade>
+		<propriedade nome='idE'>
+			<nome>idE</nome>
+			<abreviacao>idE</abreviacao>
+			<descricao>Chave Esquerda</descricao>
+		</propriedade>
+		<propriedade nome='idD'>
+			<nome>idD</nome>
+			<abreviacao>idD</abreviacao>
+			<descricao>Chave Direita</descricao>
+		</propriedade>
 		</propriedades>
 	</entidade>
 	<controles>
