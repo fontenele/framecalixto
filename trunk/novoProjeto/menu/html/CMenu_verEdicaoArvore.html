@@ -5,6 +5,7 @@
 <link href="menu/css/fc-context-menu.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('.arvore ul:first').attr('id','tree');
 		$('#tree').fcTreeViewManager({
 			offsetX : -65,
 			offsetY : 0
@@ -23,31 +24,5 @@
 	</ul>
 </div>
 <div class="arvore">
-	<ul id="tree">
-		<li><span >Cadastros</span>
-			<ul>
-				<li ><span >Funcionários</span></li>
-			</ul>
-		</li>
-		<li><span >Movimentação</span>
-			<ul>
-				<li><span >Alteração de processos</span>
-
-					<ul>
-						<li><span >Interno</span></li>
-						<li ><span >Externo</span></li>
-					</ul>
-				</li>
-				<li ><span >Retorno de Processo</span></li>
-			</ul>
-		</li>
-		<li class="closed"><span >Relatórios</span>
-			<ul>
-				<li><span >Produção</span></li>
-				<li><span >Pessoal</span></li>
-				<li ><span >Auxiliar de Processo</span></li>
-			</ul>
-		</li>
-		<li ><span >Apoio</span></li>
-	</ul>
+	«$arvore»
 </div>
