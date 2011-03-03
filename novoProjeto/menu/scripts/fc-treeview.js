@@ -10,6 +10,7 @@
 				$(this).parent().find('.hitarea:first').addClass('closed-hitarea');
 			}
 		});
+		console.log($(this).find('li'));
 		$(this).find('li>ul').parent().prepend($('<div class="hitarea"></div>'));
 		$(this).find('li.closed').find('.hitarea:first').trigger('click');
 		return $(this);
