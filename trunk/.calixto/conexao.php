@@ -46,8 +46,7 @@ abstract class conexao extends objeto{
 		$usuario	= $usuario	?	$usuario	:	definicaoBanco::pegarUsuario($id);
 		$senha		= $senha	?	$senha		:	definicaoBanco::pegarSenha($id);
 		$tipoBanco		= $tipoBanco		?	$tipoBanco		:	definicaoBanco::pegarTipo($id);
- 		$multipla	= definicaoBanco::conexaoMultipla($id);
-		if($multipla){
+		if(definicaoBanco::conexaoMultipla($id)){
 			return conexaoPadraoPDO::conectar($tipoBanco, $servidor, $porta, $banco, $usuario, $senha);
 //			switch($tipoBanco){
 //				case 'postgres':
