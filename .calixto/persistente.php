@@ -6,9 +6,14 @@
 */
 abstract class persistente extends objeto{
 	/**
+	 * Classe de internacionalização para documentação das tabelas
+	 * @var internacionalizacao 
+	 */
+	protected static $inter = false;
+	/**
 	 * @var boolean variável de debugger
 	 */
-	protected $imprimirComandos = false;
+	protected static $imprimirComandos = false;
 	/**
 	* @var array array com a estrutura dos objetos persistentes
 	* criado para a execução de cache
@@ -31,11 +36,21 @@ abstract class persistente extends objeto{
 			throw $e;
 		}
 	}
-	public function imprimirComandos($valor){
+	/**
+	 * Retorna se a persistente está imprimindo os comandos de execução
+	 * @return boolean 
+	 */
+	public static function imprimindoComandos(){
+		return self::$imprimirComandos;
+	}
+	/**
+	 * Configura a persistente para imprimir os comandos de execução
+	 * @param boolean $valor
+	 */
+	public static function imprimirComandos($valor){
 		$ar = debug_backtrace();
-		$classe = get_class($this);
-		echo "<div class='debug'>{$classe} configurando impressão por :{$ar[0]['file']} na linha:{$ar[0]['line']}</div>";
-		$this->imprimirComandos = $valor;
+		echo "<div class='debug'>persistente configurando impressão por :{$ar[0]['file']} na linha:{$ar[0]['line']}</div>";
+		self::$imprimirComandos = (boolean)$valor;
 	}
 	/**
 	* Método de sobrecarga para printar a classe
@@ -52,6 +67,21 @@ abstract class persistente extends objeto{
 		}
 		catch(erro $e){
 			throw $e;
+		}
+	}
+	/**
+	* @return internacionalizacao
+	*/
+	public function internacionalizacao(){
+		try{
+			if(isset(self::$inter[definicaoEntidade::internacionalizacao($this)])){
+				return self::$inter[definicaoEntidade::internacionalizacao($this)];
+			}else{
+				$internacionalizacao = definicaoEntidade::internacionalizacao($this);
+				return self::$inter[definicaoEntidade::internacionalizacao($this)] = new $internacionalizacao();
+			}
+		}  catch (Exception $e){
+			return false;
 		}
 	}
 	/**
@@ -80,6 +110,7 @@ abstract class persistente extends objeto{
 							if(isset($campo['indicePrimario']) && strtolower(strval($campo['indicePrimario'])) == 'sim'){
 								$estrutura['chavePrimaria'] = $nomeCampo;
 							}
+							$estrutura['campo'][$nomeCampo]['propriedade'] = strval($campo['id']);
 							$estrutura['campo'][$nomeCampo]['nome'] = $nomeCampo;
 							$estrutura['campo'][$nomeCampo]['tipo'] = strtolower(strval($campo['tipo']));
 							$estrutura['campo'][$nomeCampo]['tamanho'] = strval($campo['tamanho']);
@@ -124,7 +155,7 @@ abstract class persistente extends objeto{
 	*/
 	public function executarComando($comando = null){
 		try{
-			if($this->imprimirComandos) debug2($comando);
+			if(self::$imprimirComandos) debug2($comando." \n<br/>\n ");
 			return $this->conexao->executarComando($comando);
 		}
 		catch(erro $e){
@@ -349,6 +380,7 @@ abstract class persistente extends objeto{
 	* @return string
 	*/
 	public function gerarClausulaDeFiltro($filtro, $nomeDaClausula = true){
+		if(!$filtro) return '';
 		$comando = '';
 		$estrutura = $this->pegarEstrutura();
 		if(is_array($filtro)){
@@ -600,11 +632,21 @@ abstract class persistente extends objeto{
 			throw $e;
 		}
 	}
-	public function atualizarArvore($valor,$chave,$posicaoInicial,$posicaoFinal = false){
+	/**
+	 * Método que atualiza os registros na arvore
+	 * @param string $valor valor de incremento no campo
+	 * @param string $chave nome do campo para modificaçao
+	 * @param string $posicaoInicial valor inicial do escopo
+	 * @param string $posicaoFinal valor final do escopo
+	 * @param colecaoPadraoFiltro $filtro agrupamento da arvore
+	 */
+	public function atualizarArvore($valor,$chave,$posicaoInicial,$posicaoFinal = false, colecaoPadraoFiltro $filtro = null){
 		$estrutura = $this->pegarEstrutura();
+		$agrupamento = $this->gerarClausulaDeFiltro($filtro, false);
+		if($agrupamento) $agrupamento.=' and  ';
 		$filtro = "{$chave} > {$posicaoInicial}";
 		if($posicaoFinal) $filtro .= " and {$chave} < {$posicaoFinal}";
-		$comando = "update {$estrutura['nomeTabela']} set {$chave}={$chave}{$valor} where {$filtro}";
+		$comando = "update {$estrutura['nomeTabela']} set {$chave}={$chave}{$valor} where {$agrupamento}({$filtro})";
 		$this->executarComando($comando);
 	}
 	/**
@@ -724,6 +766,47 @@ abstract class persistente extends objeto{
 		}
 		catch(erro $e){
 			throw $e;
+		}
+	}
+	/**
+	* Gera o comando de criacao dos comentários da tabela
+	* @return string comando de criação dos comentários da tabela
+	*/
+	public function gerarComandoComentarioTabela(){
+		$estrutura = $this->pegarEstrutura();
+		$inter = $this->internacionalizacao();
+		return sprintf("COMMENT ON TABLE %s IS '%s'",$estrutura['nomeTabela'],$inter->pegarNome());
+	}
+	/**
+	* Gera os comandos de criacao dos comentários dos campos da tabela
+	* @return array comandos de criação dos comentários dos campos da tabela
+	*/
+	public function gerarComandoComentarioCampos(){
+		$estrutura = $this->pegarEstrutura();
+		$inter = $this->internacionalizacao();
+		$comandos = array();
+		foreach($estrutura['campo'] as $nomeCampo => $campo){
+			$comandos[$nomeCampo] = sprintf("COMMENT ON COLUMN %s.%s IS '%s'",$estrutura['nomeTabela'],$nomeCampo,$inter->pegarPropriedade($campo['propriedade'], 'descricao'));
+		}
+		return $comandos;
+	}
+
+	/**
+	* Cria os comentários da tabela no banco de dados
+	*/
+	public function criarComentarioTabela(){
+		if(($inter = $this->internacionalizacao())){
+			$this->executarComando($this->gerarComentarioTabela());
+		}
+	}
+	/**
+	* Cria os comentários dos campos da tabela no banco de dados
+	*/
+	public function criarComentarioCampos(){
+		if(($inter = $this->internacionalizacao())){
+			foreach($this->gerarComandoComentarioCampos() as $comando){
+				$this->executarComando($comando);
+			}
 		}
 	}
 	/**
@@ -860,6 +943,8 @@ abstract class persistente extends objeto{
 		try{
 			$this->criarSequence();
 			$this->criarTabela();
+			$this->criarComentarioTabela();
+			$this->criarComentarioCampos();
 			$this->criarChavePrimaria();
 			$this->criarChavesEstrangeiras();
 			$this->criarRestricoes();
@@ -982,6 +1067,15 @@ abstract class persistente extends objeto{
 			if(($comandoCriacaoTabela = $this->gerarComandoCriacaoTabela())){
 				//$comando.= "-- Comando de criação da tabela\n";
 				$comando.= 	"{$comandoCriacaoTabela};\n";
+			}
+			if(($comandoComentarioTabela = $this->gerarComandoComentarioTabela())){
+				//$comando.= "-- Comentario de tabela\n";
+				$comando.= 	"{$comandoComentarioTabela};\n";
+			}
+			if(($comandoComentarioCampos = $this->gerarComandoComentarioCampos())){
+				//$comando.= "-- Comentario de campos\n";
+				$comandoComentarioCampos = implode(";\n",$comandoComentarioCampos);
+				$comando.= 	"{$comandoComentarioCampos};\n";
 			}
 			if(($comandoCriacaoChavePrimaria = $this->gerarComandoCriacaoChavePrimaria())){
 				//$comando.= "\n-- Comando de criação da chave primária\n";
