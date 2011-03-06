@@ -2,9 +2,6 @@
 @import url(css/clickmenu.css);
 @import url(css/reset.css);
 @import url(css/ie.css);
-#topo{
-	display: none;
-}
 body {
 	width: 100%;
 	height: 100%;
