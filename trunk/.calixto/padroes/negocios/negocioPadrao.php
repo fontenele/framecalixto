@@ -7,6 +7,11 @@
 */
 abstract class negocioPadrao extends negocio{
 	/**
+	 * Objeto padrão de acesso aos dados
+	 * @var persistente
+	 */
+	protected $__persistente;
+	/**
 	 * fila de filtro de pesquisa
 	 * @var array
 	 */
@@ -167,7 +172,7 @@ abstract class negocioPadrao extends negocio{
 							}else{
 								$dominio = false;
 							}
-							$mapeador[] = array(
+							$mapeador[strval($propriedade['id'])] = array(
 								'propriedade'		=> strval($propriedade['id']		),
 								'tipo'				=> strval($propriedade['tipo']			),
 								'campo'				=> strtolower(strval($propriedade->banco['nome']	)),
@@ -351,8 +356,9 @@ abstract class negocioPadrao extends negocio{
 	*/
 	public function pegarPersistente(){
 		try{
+			if($this->__persistente) return $this->__persistente;
 			$persistente = definicaoEntidade::persistente($this);
-			return new $persistente($this->pegarConexao());
+			return $this->__persistente = new $persistente($this->pegarConexao());
 		}
 		catch(erro $e){
 			throw $e;
@@ -544,6 +550,20 @@ abstract class negocioPadrao extends negocio{
 		}
 	}
 	/**
+	 * Monta uma colecaoPadraoFiltro para a persistente
+	 * @param colecaoPadraoFiltro $filtro
+	 * @return colecaoPadraoFiltro 
+	 */
+	protected function montarFiltroParaPersistente(colecaoPadraoFiltro $filtro){
+		$arMapeamento = $this->pegarMapeamento();
+		$novoFiltro = new colecaoPadraoFiltro();
+		foreach($filtro->itens as $campo => $item ){
+			list($campo,$operador) = each($item);
+			$novoFiltro->$arMapeamento[$campo]['campo'] = $operador;
+		}
+		return $novoFiltro;
+	}
+	/**
 	* Retorna uma coleção com os negócios pesquisados
 	* @param pagina pagina referente
 	* @param filtro dados de pesquisa (não obrigatorio)
@@ -554,17 +574,9 @@ abstract class negocioPadrao extends negocio{
 			if(!$pagina) $pagina = new pagina(0);
 			$persistente = $this->pegarPersistente();
 			if($this->__filtroDePesquisa->possuiItens()){
-				$arMapeamento = $this->pegarMapeamento();
-				$arMap = array();
-				foreach($arMapeamento as $campo){
-					$arMap[$campo['propriedade']] = $campo['campo'];
-				}
-				$filtro = new colecaoPadraoFiltro();
-				foreach($this->__filtroDePesquisa->itens as $campo => $item ){
-					list($campo,$operador) = each($item);
-					$filtro->$arMap[$campo] = $operador;
-				}
-				$arResultadoLeitura = $persistente->pesquisar($filtro,$pagina);
+				$arResultadoLeitura = $persistente->pesquisar(
+						$this->montarFiltroParaPersistente($filtro ? $filtro : $this->__filtroDePesquisa)
+						,$pagina);
 			}else{
 				$arResultadoLeitura = $persistente->pesquisar($this->negocioPraVetor(),$pagina);
 			}

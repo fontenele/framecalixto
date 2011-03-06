@@ -261,23 +261,42 @@ class persistentePadraoSqlite extends persistente{
 						$valores[3] = str_replace('(', '', $valores[3]);
 						$valores[3] = str_replace(')', '', $valores[3]);
 						$valores = array_map('trim', $valores);
-						$cmp[$valores[1]]['esquema'			]='';
-						$cmp[$valores[1]]['tabela'			]=$estrutura['nomeTabela'];
-						$cmp[$valores[1]]['campo'			]=$valores[1];
-						$cmp[$valores[1]]['obrigatorio'		]=$valores[6];
-						$cmp[$valores[1]]['tipo'			]=$valores[2];
-						$cmp[$valores[1]]['tipo_de_dado'	]=$tipos[$valores[2]];
-						$cmp[$valores[1]]['tamanho'			]=$valores[3];
-						$cmp[$valores[1]]['descricao'		]=null;
-						$cmp[$valores[1]]['campo_pk'		]=$valores[4];
-						$cmp[$valores[1]]['esquema_fk'		]=null;
-						$cmp[$valores[1]]['tabela_fk'		]=isset($cmp[$valores[1]]['tabela_fk']) ? $cmp[$valores[1]]['tabela_fk'] : null;
-						$cmp[$valores[1]]['campo_fk'		]=isset($cmp[$valores[1]]['campo_fk']) ? $cmp[$valores[1]]['campo_fk'] : null;
+						$cmp[$valores[1]]['esquema'		]='';
+						$cmp[$valores[1]]['tabela'		]=$estrutura['nomeTabela'];
+						$cmp[$valores[1]]['campo'		]=$valores[1];
+						$cmp[$valores[1]]['obrigatorio'	]=$valores[6];
+						$cmp[$valores[1]]['tipo'		]=$valores[2];
+						$cmp[$valores[1]]['tipo_de_dado']=$tipos[$valores[2]];
+						$cmp[$valores[1]]['tamanho'		]=$valores[3];
+						$cmp[$valores[1]]['descricao'	]=null;
+						$cmp[$valores[1]]['campo_pk'	]=$valores[4];
+						$cmp[$valores[1]]['esquema_fk'	]=null;
+						$cmp[$valores[1]]['tabela_fk'	]=isset($cmp[$valores[1]]['tabela_fk']) ? $cmp[$valores[1]]['tabela_fk'] : null;
+						$cmp[$valores[1]]['campo_fk'	]=isset($cmp[$valores[1]]['campo_fk']) ? $cmp[$valores[1]]['campo_fk'] : null;
 					}
 				}
 			}
 		}
 		return $cmp;
 	}
+	/**
+	* Gera o comando de criacao dos comentários da tabela
+	* @return string comando de criação dos comentários da tabela
+	*/
+	public function gerarComandoComentarioTabela(){}
+	/**
+	* Gera os comandos de criacao dos comentários dos campos da tabela
+	* @return array comandos de criação dos comentários dos campos da tabela
+	*/
+	public function gerarComandoComentarioCampos(){}
+
+	/**
+	* Cria os comentários da tabela no banco de dados
+	*/
+	public function criarComentarioTabela(){}
+	/**
+	* Cria os comentários dos campos da tabela no banco de dados
+	*/
+	public function criarComentarioCampos(){}
 }
 ?>

@@ -11,7 +11,30 @@
  * @subpackage Negocio
  */
 abstract class negocioPadraoArvore extends negocioPadrao{
-	//public $debug = false;
+	/**
+	 * Indice da chave identificador do objeto da árvore
+	 */
+	const idxIdentificador = 'id';
+	/**
+	 * Indice da chave esquerda no retorno da árvore
+	 */
+	const idxEsquerda = 'e';
+	/**
+	 * Indice da chave direita no retorno da árvore
+	 */
+	const idxDireita = 'd';
+	/**
+	 * Indice da chave descrição no retorno da árvore
+	 */
+	const idxDescricao = 'ds';
+	/**
+	 * Indice da chave dos filhos no retorno da árvore
+	 */
+	const idxFilhos = 'filhos';
+	/**
+	 * Coleção com os filhos do objeto
+	 * @var colecaoPadraoNegocio 
+	 */
 	protected $colecaoFilhos;
 	/**
 	* Metodo construtor
@@ -30,6 +53,13 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 	 */
 	abstract public function nomeChaveDireita();
 	/**
+	 * Método de retorno da coleção de filtro para agrupamento lógico de árvores
+	 * @return colecaoPadraoFiltro
+	 */
+	protected function filtroDeAgrupamentoDaArvore(){
+		return new colecaoPadraoFiltro();
+	}
+	/**
 	 * Método que retorna o valor da chave esquerda da arvore
 	 * @return integer
 	 */
@@ -43,25 +73,34 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 	public function valorChaveDireita(){
 		return $this->{$this->nomeChaveDireita()};
 	}
+	protected function atualizarDadosArvore($valor, $chave, $posicaoInicial, $posicaoFinal){
+		$estrutura = $this->pegarMapeamento();
+		$persistente = $this->pegarPersistente();
+		$persistente->atualizarArvore(
+			$valor,
+			$estrutura[$chave]['campo'],
+			$posicaoInicial,
+			$posicaoFinal,
+			$this->montarFiltroParaPersistente($this->filtroDeAgrupamentoDaArvore())
+		);
+	}
 	/**
 	 * Método que ajusta o espaço para caber mais um registro na arvore
 	 * @param integer $posicao
 	 */
 	protected function abrirEspaco($posicao,$tamanho = '2'){
-		//if(self::$debug) echo ("--ABRINDO ESPACO COM TAMANHO {$tamanho} NA POSICAO {$posicao}<br/>");
-		$persistente = $this->pegarPersistente();
-		$persistente->atualizarArvore("+{$tamanho}", $this->nomeChaveEsquerda(), $posicao);
-		$persistente->atualizarArvore("+{$tamanho}", $this->nomeChaveDireita(), $posicao);
+		if(persistente::imprimindoComandos()) echo ("\n<br/> --ABRINDO ESPACO COM TAMANHO {$tamanho} NA POSICAO {$posicao}<br/>");
+		$this->atualizarDadosArvore("+{$tamanho}", $this->nomeChaveEsquerda(), $posicao, null);
+		$this->atualizarDadosArvore("+{$tamanho}", $this->nomeChaveDireita(), $posicao, null);
 	}
 	/**
 	 * Método que ajusta o espaço para remover um registro da arvore
 	 * @param integer $posicao
 	 */
 	protected function fecharEspaco($posicao,$tamanho = '2'){
-		//if(self::$debug) echo ("--FECHANDO ESPACO COM TAMANHO {$tamanho} NA POSICAO {$posicao}<br/>");
-		$persistente = $this->pegarPersistente();
-		$persistente->atualizarArvore("-{$tamanho}", $this->nomeChaveEsquerda(), $posicao);
-		$persistente->atualizarArvore("-{$tamanho}", $this->nomeChaveDireita(), $posicao);
+		if(persistente::imprimindoComandos()) echo ("\n<br/> --FECHANDO ESPACO COM TAMANHO {$tamanho} NA POSICAO {$posicao}<br/>");
+		$this->atualizarDadosArvore("-{$tamanho}", $this->nomeChaveEsquerda(), $posicao, null);
+		$this->atualizarDadosArvore("-{$tamanho}", $this->nomeChaveDireita(), $posicao, null);
 	}
 	/**
 	 * Método que ajusta um bloco de registros para mover a direita
@@ -70,10 +109,9 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 	 * @param integer $distancia 
 	 */
 	protected function moverBlocoDireita($posicaoInicial, $posicaoFinal, $distancia){
-		//if(self::$debug) echo ("--MOVENDO BLOCO [{$posicaoInicial}-{$posicaoFinal}] PARA DIREITA {$distancia} CASAS<br/>");
-		$persistente = $this->pegarPersistente();
-		$persistente->atualizarArvore("+{$distancia}", $this->nomeChaveEsquerda(), $posicaoInicial-1, $posicaoFinal+1);
-		$persistente->atualizarArvore("+{$distancia}", $this->nomeChaveDireita(), $posicaoInicial-1, $posicaoFinal+1);
+		if(persistente::imprimindoComandos()) echo ("\n<br/> --MOVENDO BLOCO [{$posicaoInicial}-{$posicaoFinal}] PARA DIREITA {$distancia} CASAS<br/>");
+		$this->atualizarDadosArvore("+{$distancia}", $this->nomeChaveEsquerda(), $posicaoInicial-1, $posicaoFinal+1);
+		$this->atualizarDadosArvore("+{$distancia}", $this->nomeChaveDireita(), $posicaoInicial-1, $posicaoFinal+1);
 	}
 	/**
 	 * Método que ajusta um bloco de registros para mover a esquerda
@@ -82,19 +120,22 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 	 * @param integer $distancia
 	 */
 	protected function moverBlocoEsquerda($posicaoInicial, $posicaoFinal, $distancia){
-		//if(self::$debug) echo ("--MOVENDO BLOCO [{$posicaoInicial}-{$posicaoFinal}] PARA ESQUERDA {$distancia} CASAS<br/>");
-		$persistente = $this->pegarPersistente();
-		$persistente->atualizarArvore("-{$distancia}", $this->nomeChaveEsquerda(), $posicaoInicial-1, $posicaoFinal+1);
-		$persistente->atualizarArvore("-{$distancia}", $this->nomeChaveDireita(), $posicaoInicial-1, $posicaoFinal+1);
+		if(persistente::imprimindoComandos()) echo ("\n<br/> --MOVENDO BLOCO [{$posicaoInicial}-{$posicaoFinal}] PARA ESQUERDA {$distancia} CASAS<br/>");
+		$this->atualizarDadosArvore("-{$distancia}", $this->nomeChaveEsquerda(), $posicaoInicial-1, $posicaoFinal+1);
+		$this->atualizarDadosArvore("-{$distancia}", $this->nomeChaveDireita(), $posicaoInicial-1, $posicaoFinal+1);
 	}
 	/**
 	* Método utilizado para efetuar as verificações antes de executar a alteração
 	* @param negocio objeto antes da alteração .
 	*/
 	public function  verificarAntesAlterar($negocio) {
-		//if(self::$debug) echo ("--MOVENDO TRECHO [".$negocio->valorChaveEsquerda()."-".$negocio->valorChaveDireita()."] PARA POSICAO ".$this->valorChaveEsquerda()."<br/>");
+		if(persistente::imprimindoComandos()){
+			echo ("\n<br/><strong> --MOVIMENTAÇÃO DE TRECHO (Alteração)</strong>");
+			$trecho = "[".$negocio->valorChaveEsquerda()."-".$negocio->valorChaveDireita()."] PARA POSICAO ".$this->valorChaveEsquerda()."<br/>";
+		}
 		switch (true) {
 			case !$this->valorChaveEsquerda() :
+				if(persistente::imprimindoComandos()) echo ("\n<br/> --MOVENDO COMO PRIMEIRO {$trecho}");
 				//moveu como primeiro
 				$this->{$this->nomeChaveEsquerda()} = '0';
 				$tamanho = $negocio->valorChaveDireita() - $negocio->valorChaveEsquerda() + 1;
@@ -106,9 +147,11 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 			case $negocio->valorChaveEsquerda() == $this->valorChaveEsquerda()+1 :
 			case $negocio->valorChaveEsquerda() === $this->valorChaveEsquerda() :
 				//Não moveu
+				if(persistente::imprimindoComandos()) echo ("\n<br/> --NÃO MOVEU POSICIONAMENTO IGUAL {$trecho} ou ".$this->valorChaveEsquerda()+1);
 			break;
 			case $this->valorChaveEsquerda() > $negocio->valorChaveEsquerda() :
 				//Moveu pra direita
+				if(persistente::imprimindoComandos()) echo ("\n<br/> --MOVENDO PARA DIREITA {$trecho}");
 				$tamanho = $negocio->valorChaveDireita() - $negocio->valorChaveEsquerda() + 1;
 				$this->abrirEspaco($this->valorChaveEsquerda(),$tamanho);
 				$diferenca = $this->valorChaveEsquerda() - $negocio->valorChaveEsquerda() +1;
@@ -117,6 +160,7 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 			break;
 			case $this->valorChaveEsquerda() < $negocio->valorChaveEsquerda() :
 				//Moveu pra esquerda
+				if(persistente::imprimindoComandos()) echo ("\n<br/> --MOVENDO PARA ESQUERDA {$trecho}");
 				$tamanho = $negocio->valorChaveDireita() - $negocio->valorChaveEsquerda() + 1;
 				$diferenca = ($negocio->valorChaveEsquerda() + $tamanho - $this->valorChaveEsquerda() -1);
 				$this->abrirEspaco($this->valorChaveEsquerda(),$tamanho);
@@ -131,6 +175,7 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 	* Método utilizado para efetuar as verificações antes de executar a inclusão
 	*/
 	public function  verificarAntesInserir() {
+		if(persistente::imprimindoComandos()) echo ("\n<br/> <strong>--MOVIMENTAÇÃO DE TRECHO (Inclusão)</strong>");
 		$this->{$this->nomeChaveEsquerda()} += 1;
 		$this->{$this->nomeChaveDireita()} = $this->valorChaveEsquerda() +1;
 		parent::verificarAntesInserir();
@@ -140,6 +185,7 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 	* Método utilizado para efetuar as verificações antes de executar a exclusão
 	*/
 	public function  verificarAntesExcluir() {
+		if(persistente::imprimindoComandos()) echo ("\n<br/> <strong>--MOVIMENTAÇÃO DE TRECHO (Exclusão)</strong>");
 		parent::verificarAntesExcluir();
 		$objeto = definicaoEntidade::negocio($this);
 		$negocio = new $objeto($this->conexao);
@@ -168,8 +214,9 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 					$negocio->ler($this->valorChave());
 					$this->verificarAntesAlterar($negocio);
 					$arNegocio = $this->negocioPraVetor();
-					unset ($arNegocio[$this->nomeChaveDireita()]);
-					unset ($arNegocio[$this->nomeChaveEsquerda()]);
+					$estrutura = $this->pegarMapeamento();
+					unset ($arNegocio[$estrutura[$this->nomeChaveDireita()]['campo']]);
+					unset ($arNegocio[$estrutura[$this->nomeChaveEsquerda()]['campo']]);
 					$persistente->alterar($arNegocio,$this->valorChave());
 				break;
 				default:
@@ -231,6 +278,10 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 			}
 		}
 	}
+	/**
+	 * Método de leitura dos pais do objeto
+	 * @return colecaoPadraoNegocio
+	 */
 	public function lerPais(){
 		$negocio = get_class($this);
 		$negocio = new $negocio($this->pegarConexao());
@@ -249,17 +300,19 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 			}
 			if(!$this->valorChave()) return $filhos;
 			return array(
-				'e'=>$this->valorChaveEsquerda(),
-				'd'=>$this->valorChaveDireita(),
-				'ds'=>$this->valorDescricao(),
-				'fi'=>$filhos
+				self::idxIdentificador=>$this->valorChave(),
+				self::idxEsquerda=>$this->valorChaveEsquerda(),
+				self::idxDireita=>$this->valorChaveDireita(),
+				self::idxDescricao=>$this->valorDescricao(),
+			self::idxFilhos=>$filhos
 				);
 		}else{
 			return array(
-				'e'=>$this->valorChaveEsquerda(),
-				'd'=>$this->valorChaveDireita(),
-				'ds'=>$this->valorDescricao(),
-				);
+				self::idxIdentificador=>$this->valorChave(),
+				self::idxEsquerda=>$this->valorChaveEsquerda(),
+				self::idxDireita=>$this->valorChaveDireita(),
+				self::idxDescricao=>$this->valorDescricao(),
+			);
 
 		}
 	}
@@ -268,21 +321,21 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 	 * @param string $idReferencia identificador do objeto de referência
 	 * @param boolean $filho flag de configuração para posicionar como filho da referência
 	 */
-	public function ajustarPosicao($id = null,$filho = false){
+	public function ajustarPosicao($idReferencia = null,$filho = false){
 		$referencia = clone $this;
 		switch(true){
-			case (!$id):
+			case (!$idReferencia):
 				//Envia como primeiro
 				$this->{$this->nomeChaveEsquerda()} = null;
 			break;
 			case ($filho):
 				//Envia como primeiro filho
-				$referencia->ler($id);
+				$referencia->ler($idReferencia);
 				$this->{$this->nomeChaveEsquerda()} = $referencia->valorChaveEsquerda();
 			break;
 			case (!$filho):
 				//Envia como após
-				$referencia->ler($id);
+				$referencia->ler($idReferencia);
 				$this->{$this->nomeChaveEsquerda()} = $referencia->valorChaveDireita();
 			break;
 		}

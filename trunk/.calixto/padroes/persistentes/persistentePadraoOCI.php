@@ -133,5 +133,24 @@ class persistentePadraoOCI extends persistente{
 			}
 		}
 	}
+	/**
+	* Gera o comando de criacao dos comentários da tabela
+	* @return string comando de criação dos comentários da tabela
+	*/
+	public function gerarComandoComentarioTabela(){}
+	/**
+	* Gera os comandos de criacao dos comentários dos campos da tabela
+	* @return array comandos de criação dos comentários dos campos da tabela
+	*/
+	public function gerarComandoComentarioCampos(){}
+
+	/**
+	* Cria os comentários da tabela no banco de dados
+	*/
+	public function criarComentarioTabela(){}
+	/**
+	* Cria os comentários dos campos da tabela no banco de dados
+	*/
+	public function criarComentarioCampos(){}
 }
 ?>
