@@ -77,6 +77,11 @@ class controlePadraoGravar extends controlePadrao{
 	 * Realiza a operação de gravação do objeto de negócio
 	 */
 	public function gravar(){
+		if($this->negocio instanceof negocioPadraoArvore){
+			$idReferencia = (isset($_GET['idReferencia'])) ? $_GET['idReferencia'] : null;
+			$filho = (isset($_GET['filho'])) ? $_GET['filho'] : false;
+			$this->negocio->ajustarPosicao($idReferencia,$filho);
+		}
 		$this->negocio->gravar();
 	}
 	/**
