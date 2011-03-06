@@ -89,6 +89,7 @@ jQuery.fn.extend({
 		linha = $(this).pegarLinhas('#neg');
 		if(linha.find('.ng_chave_pk').attr('checked')) return $(this).val('oculto');
 		if(linha.find('.ng_dominio_associativa').val()) return $(this).val('caixa de combinacao');
+		if(linha.find('.ng_tamanho').val() > 100) return $(this).val('caixa de texto');
 		switch(linha.find('.ng_tipo').val()){
 			case('texto'):return $(this).val('caixa de entrada');
 			case('numerico'):return $(this).val('caixa de entrada');
