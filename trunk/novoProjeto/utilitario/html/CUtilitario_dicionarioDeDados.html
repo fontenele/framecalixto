@@ -2,72 +2,41 @@
 	«if $tabelas»
 	<style type="text/css">
 		/*ol contagem recursiva*/
-		ol { counter-reset: item }
-		li { display: block }
-		li:before {
+		.container0 ol { counter-reset: item }
+		.container0 li { display: block }
+		.container0 li:before {
 			content: counters(item, ".") " "; counter-increment: item
 		}
 		/*fim da ol contagem recursiva*/
-		ol{
+		.container0 ol{
 			list-style:decimal !important;
 			padding: 10px;
 		}
-		li{
+		.container0 li{
 			font-family: arial;
 			font-weight: bold;
 		}
-		li>p{
+		.container0 li>p{
 			font-weight: normal;
 			padding: 10px;
 			color: #0000FF;
 
 		}
-		table{
+		.container0 table{
 			font-family: arial;
 			font-weight: normal;
 			padding: 10px;
 		}
-		table>caption{
+		.container0 table>caption{
 			text-align:left;
 		}
-		.descricao-tabela{
+		.container0 .descricao-tabela{
 			border-width: medium;
 		}
 	</style>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#imagem').dblclick(function(){
-				$('#caminho').parent()
-					.show()
-				.end()
-					.val('');
-			});
-			$('#carregar').click(function(){
-				$('#caminho').parent().hide();
-				$('#imagem').parent()
-					.show()
-				.end()
-					.attr('src',$('#caminho').val());
-			});
-		});
-	</script>
 	<div class="container0">
 		<ol>
-			<li>Diretrizes do Documento
-				<p>
-					[O objetivo da especificação de banco de dados é documentar todos os itens de dados que participam da implementação do sistema de forma a tornar claro o sentido do seu uso. Importante ressaltar que as nomenclaturas dos itens de dados devem seguir o especificado no documento Padrões de Banco de Dados. Os exemplos são meramente direcionadores de como preencher o documento.]
-				</p>
-			</li>
-			<li>Modelo Físico de Banco de Dados
-				<p>
-					[O modelo de banco deverá ser anexado a este documento e encaminhado em arquivo junto à solicitação de criação/alteração de banco de dados]
-					<div><input id="caminho"/><span id="carregar">Carregar imagem</span></div>
-					<div><img id="imagem" src="aaaaa" alt="Imagem do Modelo Físico"/></div>
-				</p>
 			<li>Objetos de Banco de Dados
-				<p>
-					[Descrever os objetos de dados criados para o projeto específico, para cada tabela.]
-				</p>
 				<ol>
 					<div class="container0">
 						«php»foreach($this->_tpl_vars['tabelas'] as $this->_tpl_vars['dados']):«/php»
