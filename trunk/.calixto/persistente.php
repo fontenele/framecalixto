@@ -363,7 +363,7 @@ abstract class persistente extends objeto{
 			case(operador::iniciandoComo)	: $comando= " upper(%s) like upper('%%%s') %s "; break;
 			case(operador::finalizandoComo)	: $comando= " upper(%s) like upper('%s%%') %s "; break;
 			case(operador::como)			: $comando= " upper(%s) like upper('%%%s%%') %s "; break;
-			case(operador::generico)		: $comando= " upper(accent_remove(%s)) like upper(accent_remove('%%%s%%')) %s "; break;
+			case(operador::generico)		: $comando= " upper(%s) like upper('%%%s%%') %s "; break;
 			case(operador::igual)			: $comando= " %s = '%s' %s "; break;
 			case(operador::maiorOuIgual)	: $comando= " %s >= '%s' %s "; break;
 			case(operador::maiorQue)		: $comando= " %s > '%s' %s "; break;
