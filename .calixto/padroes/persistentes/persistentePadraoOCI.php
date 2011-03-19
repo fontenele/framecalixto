@@ -1,15 +1,17 @@
 <?php
+
 /**
-* Classe de representação de uma camada de persistencia com Banco de Dados Oracle
-* @package FrameCalixto
-* @subpackage Persistente
-*/
-class persistentePadraoOCI extends persistente{
+ * Classe de representação de uma camada de persistencia com Banco de Dados Oracle
+ * @package FrameCalixto
+ * @subpackage Persistente
+ */
+class persistentePadraoOCI extends persistente {
+
 	/**
-	* Monta o mapeamento de tipo de dados do banco
-	* @return array mapeamento
-	*/
-	public function mapeamento(){
+	 * Monta o mapeamento de tipo de dados do banco
+	 * @return array mapeamento
+	 */
+	public function mapeamento() {
 		$mapeamento['obrigatorio']['sim'] = 'not null';
 		$mapeamento['obrigatorio']['nao'] = 'null';
 		$mapeamento['texto'] = 'varchar2';
@@ -24,42 +26,51 @@ class persistentePadraoOCI extends persistente{
 		$mapeamento['data'] = 'date';
 		return $mapeamento;
 	}
+
 	/**
-	* Gera a sequencia numérica da persistente correspondente
-	* @return integer numero sequencial
-	*/
-	public function gerarSequencia(){
-		try{
+	 * Gera a sequencia numérica da persistente correspondente
+	 * @return integer numero sequencial
+	 */
+	public function gerarSequencia() {
+		try {
 			$estrutura = $this->pegarEstrutura();
 			$retorno = $this->pegarSelecao("select {$estrutura['nomeSequencia']}.nextval as sequencia from dual");
 			return $retorno[0]['sequencia'];
-		}
-		catch(erro $e){
+		} catch (erro $e) {
 			throw $e;
 		}
 	}
+
 	/**
-	* Gera o comando de leitura paginada
-	* @param pagina pagina referente
-	* @param string comando sql para execução
-	* @return string comando SQL de leitura
-	*/
-	public function gerarComandoLerPaginado(pagina $pagina, $sql){
-		try{
-			if($pagina->pegarTamanhoPagina() != 0){
-				$sql = "select * from (select rownum as \"número da linha\", selecao.* from ({$sql}) selecao) selecao where \"número da linha\" >= ".($pagina->pegarLinhaInicial())." and \"número da linha\" <= ".($pagina->pegarLinhaInicial() + $pagina->pegarTamanhoPagina());
+	 * Retorna a ultima sequencia númerica inserida da persistente correspondente
+	 * @return integer numero sequencial
+	 */
+	public function pegarUltimaSequencia() {
+		return false;
+	}
+
+	/**
+	 * Gera o comando de leitura paginada
+	 * @param pagina pagina referente
+	 * @param string comando sql para execução
+	 * @return string comando SQL de leitura
+	 */
+	public function gerarComandoLerPaginado(pagina $pagina, $sql) {
+		try {
+			if ($pagina->pegarTamanhoPagina() != 0) {
+				$sql = "select * from (select rownum as \"número da linha\", selecao.* from ({$sql}) selecao) selecao where \"número da linha\" >= " . ($pagina->pegarLinhaInicial()) . " and \"número da linha\" <= " . ($pagina->pegarLinhaInicial() + $pagina->pegarTamanhoPagina());
 			}
 			return $sql;
-		}
-		catch(erro $e){
+		} catch (erro $e) {
 			throw $e;
 		}
 	}
+
 	/**
 	 * Método que verifica se um registro possui dependentes no banco
 	 * @return boolean
 	 */
-	public function possuiDependentes($chave){
+	public function possuiDependentes($chave) {
 		$estrutura = $this->pegarEstrutura();
 		$comando = "
 			select
@@ -110,47 +121,63 @@ class persistentePadraoOCI extends persistente{
 		tb.column_id
 		";
 		$res = $this->pegarSelecao($comando);
-		if($res) foreach($res as $comando){
-			$dependentes = $this->pegarSelecao(sprintf($comando['sql'],$chave));
-			if($dependentes[0]['dep']) return true;
-		}
+		if ($res)
+			foreach ($res as $comando) {
+				$dependentes = $this->pegarSelecao(sprintf($comando['sql'], $chave));
+				if ($dependentes[0]['dep'])
+					return true;
+			}
 		return false;
 	}
+
 	/**
-	* Método que manipula cada item da cláusula de filtro
-	* @param string $operacao referência utilizada na cláusula de filtro
-	* @param array $campo
-	* @param operador $operador
-	* @param mixed $valor
-	* @param mixed $dominio
-	*/
-	public function manipularItemDeFiltro(&$operacao,$campo,operador $operador,$valor,$dominio){
-		if($operador->pegarOperador() == operador::generico) {
-			if($campo['tipo'] == 'numero'){
+	 * Método que manipula cada item da cláusula de filtro
+	 * @param string $operacao referência utilizada na cláusula de filtro
+	 * @param array $campo
+	 * @param operador $operador
+	 * @param mixed $valor
+	 * @param mixed $dominio
+	 */
+	public function manipularItemDeFiltro(&$operacao, $campo, operador $operador, $valor, $dominio) {
+		if ($operador->pegarOperador() == operador::generico) {
+			if ($campo['tipo'] == 'numero') {
 				$operacao = " upper(%s) like upper(%%%s%%) %s ";
-			}else{
+			} else {
 				$operacao = " upper(%s) like upper('%%%s%%') %s ";
 			}
 		}
 	}
-	/**
-	* Gera o comando de criacao dos comentários da tabela
-	* @return string comando de criação dos comentários da tabela
-	*/
-	public function gerarComandoComentarioTabela(){}
-	/**
-	* Gera os comandos de criacao dos comentários dos campos da tabela
-	* @return array comandos de criação dos comentários dos campos da tabela
-	*/
-	public function gerarComandoComentarioCampos(){}
 
 	/**
-	* Cria os comentários da tabela no banco de dados
-	*/
-	public function criarComentarioTabela(){}
+	 * Gera o comando de criacao dos comentários da tabela
+	 * @return string comando de criação dos comentários da tabela
+	 */
+	public function gerarComandoComentarioTabela() {
+
+	}
+
 	/**
-	* Cria os comentários dos campos da tabela no banco de dados
-	*/
-	public function criarComentarioCampos(){}
+	 * Gera os comandos de criacao dos comentários dos campos da tabela
+	 * @return array comandos de criação dos comentários dos campos da tabela
+	 */
+	public function gerarComandoComentarioCampos() {
+
+	}
+
+	/**
+	 * Cria os comentários da tabela no banco de dados
+	 */
+	public function criarComentarioTabela() {
+
+	}
+
+	/**
+	 * Cria os comentários dos campos da tabela no banco de dados
+	 */
+	public function criarComentarioCampos() {
+		
+	}
+
 }
+
 ?>

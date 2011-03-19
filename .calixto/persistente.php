@@ -554,6 +554,8 @@ abstract class persistente extends objeto{
 		}
 	}
 	abstract function gerarSequencia();
+	abstract function pegarUltimaSequencia();
+	
 	/**
 	* Gera o comando de inserção de um registro no banco de dados
 	* @param array correlativa entre campos e valores do registro
@@ -796,7 +798,7 @@ abstract class persistente extends objeto{
 	*/
 	public function criarComentarioTabela(){
 		if(($inter = $this->internacionalizacao())){
-			$this->executarComando($this->gerarComentarioTabela());
+			$this->executarComando($this->gerarComandoComentarioTabela());
 		}
 	}
 	/**
