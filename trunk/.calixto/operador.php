@@ -196,7 +196,7 @@ class operador extends objeto{
      * @param string $restricao
      * @return operador
      */
-    public static function naoENulo($restricao = null){
+    public static function naoENulo($restricao  = operador::restricaoE){
         $operador = new operador();
         $operador->passarOperador(operador::naoENulo);
 		$operador->passarRestricao($restricao);
@@ -207,7 +207,7 @@ class operador extends objeto{
      * @param string $restricao
      * @return operador
      */
-    public static function eNulo($restricao = null){
+    public static function eNulo($restricao  = operador::restricaoE){
         $operador = new operador();
         $operador->passarOperador(operador::eNulo);
 		$operador->passarRestricao($restricao);
