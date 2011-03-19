@@ -81,6 +81,17 @@ class persistentePadraoPG extends persistente {
 			}
 		return false;
 	}
+	function gerarItemDeFiltro(operador $operador, $campo, $tipo) {
+		$retorno = parent::gerarItemDeFiltro($operador, $campo, $tipo);
+		if ($retorno && ($operador->pegarOperador() == operador::generico))
+			$retorno = sprintf(
+				" upper(accent_remove(%s)) like upper(accent_remove('%%%s%%')) %s ",
+				$campo,
+				$this->tratarInjection($operador->pegarValor()),
+				$operador->pegarRestricao()
+			);
+		return $retorno;
+	}
 
 	public static function gerarComandoAccentRemove() {
 		return "
