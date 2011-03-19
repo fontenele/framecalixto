@@ -411,6 +411,7 @@ abstract class negocioPadrao extends negocio{
 					$this->valorChave($persistente->gerarSequencia());
 					$this->verificarAntesInserir();
 					$persistente->inserir($this->negocioPraVetor());
+					if(($id = $persistente->pegarUltimaSequencia())) $this->valorChave($id);
 				break;
 			}
 		}

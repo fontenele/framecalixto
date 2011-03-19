@@ -1,15 +1,17 @@
 <?php
+
 /**
-* Classe de representação de uma camada de persistencia com Banco de Dados postgreSql
-* @package FrameCalixto
-* @subpackage Persistente
-*/
-class persistentePadraoPG extends persistente{
+ * Classe de representação de uma camada de persistencia com Banco de Dados postgreSql
+ * @package FrameCalixto
+ * @subpackage Persistente
+ */
+class persistentePadraoPG extends persistente {
+
 	/**
-	* Monta o mapeamento de tipo de dados do banco
-	* @return array mapeamento
-	*/
-	public function mapeamento(){
+	 * Monta o mapeamento de tipo de dados do banco
+	 * @return array mapeamento
+	 */
+	public function mapeamento() {
 		$mapeamento['obrigatorio']['sim'] = 'not null';
 		$mapeamento['obrigatorio']['nao'] = 'null';
 		$mapeamento['texto'] = 'character varying';
@@ -24,29 +26,37 @@ class persistentePadraoPG extends persistente{
 		$mapeamento['data'] = 'timestamp';
 		return $mapeamento;
 	}
+
 	/**
-	* Gera a sequencia numérica da persistente correspondente
-	* @return integer numero sequencial
-	*/
-	public function gerarSequencia(){
-		try{
+	 * Gera a sequencia numérica da persistente correspondente
+	 * @return integer numero sequencial
+	 */
+	public function gerarSequencia() {
+		try {
 			$estrutura = $this->pegarEstrutura();
 			$retorno = $this->pegarSelecao("select nextval('{$estrutura['nomeSequencia']}') as sequencia;");
 			return $retorno[0]['sequencia'];
-		}
-		catch(erro $e){
+		} catch (erro $e) {
 			$this->criarSequence();
 			$this->gerarSequencia();
-		}
-		catch(erro $e){
+		} catch (erro $e) {
 			throw $e;
 		}
 	}
+
+	/**
+	 * Retorna a ultima sequencia númerica inserida da persistente correspondente
+	 * @return integer numero sequencial
+	 */
+	public function pegarUltimaSequencia() {
+		return false;
+	}
+
 	/**
 	 * Método que verifica se um registro possui dependentes no banco
 	 * @return boolean
 	 */
-	public function possuiDependentes($chave){
+	public function possuiDependentes($chave) {
 		$estrutura = $this->pegarEstrutura();
 		$comando = "
 		SELECT
@@ -63,12 +73,15 @@ class persistentePadraoPG extends persistente{
 			nf.nspname || '.' || clf.relname = '{$estrutura['nomeTabela']}'
 		";
 		$res = $this->pegarSelecao($comando);
-		if($res) foreach($res as $comando){
-			$dependentes = $this->pegarSelecao(sprintf($comando['sql'],$chave));
-			if($dependentes) return true;
-		}
+		if ($res)
+			foreach ($res as $comando) {
+				$dependentes = $this->pegarSelecao(sprintf($comando['sql'], $chave));
+				if ($dependentes)
+					return true;
+			}
 		return false;
 	}
+
 	public static function gerarComandoAccentRemove() {
 		return "
 			--
@@ -146,13 +159,15 @@ class persistentePadraoPG extends persistente{
 		--	
 		";
 	}
+
 	/**
 	 * Método de criação da função de banco accent_remove
 	 */
-	public function plAccentRemove(){
+	public function plAccentRemove() {
 		$this->executarComando(self::gerarComandoAccentRemove());
 		$this->executarComando("ALTER FUNCTION public.accent_remove(text_input character varying) OWNER TO postgres;");
 	}
 
 }
+
 ?>
