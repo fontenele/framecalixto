@@ -61,5 +61,16 @@ class caracteres {
 		$stTexto = str_replace('Õ','O', $stTexto);
 		return $stTexto;
 	}
+
+	public static function encrypt($string, $recursividade=0) {
+		if($recursividade) $string = caracteres::encrypt ($string, --$recursividade);
+		return base64_encode($string);
+	}
+
+	public static function decrypt($string, $recursividade=0) {
+		if($recursividade) $string = caracteres::decrypt ($string, --$recursividade);
+		return base64_decode($string);
+	}
+
 }
 ?>

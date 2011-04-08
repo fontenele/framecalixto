@@ -26,7 +26,7 @@ class VRadioLista extends VComponente {
 				$this->conteudo[$index]['radio']->passarId("id_{$this->nome}_{$index}");
 				$this->conteudo[$index]['label'] = new VEtiquetaHtml('label');
 				$this->conteudo[$index]['label']->passarConteudo($valor);
-				$this->conteudo[$index]['label']->passarId("id_{$this->nome}_{$index}");
+				$this->conteudo[$index]['label']->passarFor("id_{$this->nome}_{$index}");
 			}
 		}else{
 			$this->conteudo = $conteudo;
@@ -60,6 +60,7 @@ class VRadioLista extends VComponente {
 					}
 					if(++$i >= $this->colunas){
 						$i = 0;
+						$conteudo.= "<br/>";
 					}
 				}
 			}
