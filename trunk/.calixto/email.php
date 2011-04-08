@@ -72,7 +72,7 @@ class email{
 	 * @param string $nome
 	 * @param string $email
 	 */
-	public function addEmailDestinatario($nome = null , $email){
+	public function addEmailDestinatario($nome = null , $email = null){
 		$this->mail->AddAddress( $email , $nome );
 	}
 	/**
