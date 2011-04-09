@@ -5,7 +5,7 @@
 * @package FrameCalixto
 * @subpackage utilitários
 */
-class diretorio extends Directory {
+class diretorio {
    protected $currentPath;
    protected $slash;
    protected $rootPath;
