@@ -73,17 +73,17 @@ class colecao extends objeto{
 	public function pegar($indice = null){
 		if(!$indice){
 			$ar = array_keys($this->itens);
-			if(!$ar) throw new Erro("Coleção vazia!");
+			if(!$ar) throw new erro("Coleção vazia!");
 			if($this->tem($ar[0])){
 				return $this->itens[$ar[0]];
 			}else{
-				throw new Erro("Item {$ar[0]} Inexistente na coleção!");
+				throw new erro("Item {$ar[0]} Inexistente na coleção!");
 			}
 		}
 		if($this->tem($indice)){
 			return $this->itens[$indice];
 		}else{
-			throw new Erro("Item {$indice} Inexistente na coleção!");
+			throw new erro("Item {$indice} Inexistente na coleção!");
 		}
 	}
 	/**
