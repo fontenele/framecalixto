@@ -127,16 +127,16 @@
 		<csPessoa>FI</csPessoa>
 		<nmPessoa>Guilherme de Oliveira Fontenele</nmPessoa>
 		<nrDocumento>00356297110</nrDocumento>
-		<nrCep>70670000</nrCep>
-		<nrTelefone>6133441234</nrTelefone>
+		<nrCep>70673621</nrCep>
+		<nrTelefone>6130465726</nrTelefone>
 		<nrTelefone2>6196212011</nrTelefone2>
 		<nrTelefone3></nrTelefone3>
 		<idEstado>DF</idEstado>
 		<nmMunicipio>Brasília</nmMunicipio>
 		<nmBairro>Sudoeste</nmBairro>
-		<txEndereco>SQSW 103</txEndereco>
-		<nmEmail>guilherme@sybtaxbr.com</nmEmail>
-		<nmSite>www.syntaxbr.com</nmSite>
+		<txEndereco>CLSW 303 - Bl. A - Sala 114</txEndereco>
+		<nmEmail>guilherme@fontenele.net</nmEmail>
+		<nmSite>www.fontesolutions.com.br</nmSite>
 	</classe>
 	<classe nome='NPessoa'>
 		<csPessoa>FI</csPessoa>
