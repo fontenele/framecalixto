@@ -29,8 +29,8 @@ class controlePadraoPDF extends controle{
 	* @param integer margem superior
 	* @param integer margem direita
 	*/
-	public function margens($esquerda,$topo,$direita=-1){
-		$this->visualizacao->SetMargins($esquerda,$topo,$direita);
+	public function margens($esquerda=15,$topo=27,$direita=15){
+		$this->visualizacao->SetMargins($esquerda, $topo, $direita);
 	}
 	/**
 	* Método de configuração da margem esquerda
@@ -65,8 +65,8 @@ class controlePadraoPDF extends controle{
 	* Método de configuração do título
 	* @param integer margem esquerda
 	*/
-	public function titulo($margem){
-		$this->visualizacao->setTitle($margem);
+	public function titulo($titulo){
+		$this->visualizacao->setTitle($titulo);
 	}
 	/**
 	* Adiciona uma nova página no documento
@@ -102,12 +102,11 @@ class controlePadraoPDF extends controle{
 	/**
 	*
 	*/
-	public function mostrar($name='',$dest=''){
-		$this->visualizacao->close();
-		$this->visualizacao->output($name='',$dest='');
+	public function mostrar($name='',$dest='I'){
+		$this->visualizacao->Output($name,$dest);
 	}
 	public function ln($h = 7){
-		$this->visualizacao->ln($h);
+		$this->visualizacao->Ln($h);
 	}
 }
 ?>
