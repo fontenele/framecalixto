@@ -98,7 +98,7 @@ class persistentePadraoPG extends persistente {
 			--
 			-- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: postgres
 			--
-			--CREATE PROCEDURAL LANGUAGE plpgsql;
+			-- CREATE PROCEDURAL LANGUAGE plpgsql;
 			--SET search_path = public, pg_catalog;
 			--
 			-- Name: accent_remove(character varying); Type: FUNCTION; Schema: public; Owner: postgres

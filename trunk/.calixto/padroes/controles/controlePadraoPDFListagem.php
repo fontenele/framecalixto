@@ -27,7 +27,7 @@ class controlePadraoPDFListagem extends controlePadraoPDF{
 	*/
 	function inicial(){
 		try{
-			$this->adicionarPagina();
+			$this->margens(10, 10, 10);
 			$this->passarCampos(array());
 			$this->definirFiltro();
 			$this->registrarInternacionalizacao();
@@ -57,6 +57,7 @@ class controlePadraoPDFListagem extends controlePadraoPDF{
 		$this->visualizacao->SetFont('Times','B',8);
 		$this->ln(10);
 		$this->celula(190,5,$this->titulo,1);
+		$this->visualizacao->SetFont('Times','',8);
 		$this->ln();
 		
 	}
@@ -97,7 +98,7 @@ class controlePadraoPDFListagem extends controlePadraoPDF{
 		$inter = definicaoEntidade::internacionalizacao($this);
 		$entidade = definicaoEntidade::entidade($this);
 		$inter = new $inter();
-    	$this->passarTitulo( (isset($_GET['c']) && $inter->pegarTexto(definicaoEntidade::funcionalidade($_GET['c']))) ? $inter->pegarTexto(definicaoEntidade::funcionalidade($_GET['c'])) : 'Relatório');
+		$this->passarTitulo((isset($_GET['c']) && $inter->pegarTexto(definicaoEntidade::funcionalidade($_GET['c']))) ? $inter->pegarTexto(definicaoEntidade::funcionalidade($_GET['c'])) : 'Relatório');
 		$internacionalizacao = $inter->pegarInternacionalizacao();
 		if(isset($internacionalizacao['propriedade'])){
 			foreach($internacionalizacao['propriedade'] as $indice => $propriedade){
