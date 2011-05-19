@@ -6,6 +6,11 @@
 * @subpackage Estado
 */
 class CEstado_verPesquisaPDF extends controlePadraoPDFListagem{
-	public function mostrarTodosFiltros(){ return false; }
+	/**
+	* Método que monta o topo do relatório
+	*/
+	public function montarTopo($mostrarTodos = false){
+		parent::montarTopo($mostrarTodos);
+	}
 }
 ?>

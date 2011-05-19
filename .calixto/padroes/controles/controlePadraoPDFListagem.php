@@ -31,7 +31,7 @@ class controlePadraoPDFListagem extends controlePadraoPDF{
 			$this->passarCampos(array());
 			$this->definirFiltro();
 			$this->registrarInternacionalizacao();
-			$this->montarTopo($this->mostrarTodosFiltros());
+			$this->montarTopo();
 			$this->montarListagem($this->definirColecao());
 			$this->mostrar();
 		}
@@ -39,7 +39,6 @@ class controlePadraoPDFListagem extends controlePadraoPDF{
 			throw $e;
 		}
 	}
-	public function mostrarTodosFiltros(){ return true; }
 	/**
 	* Método que monta o topo do relatório
 	*/

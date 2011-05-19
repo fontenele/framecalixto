@@ -7252,7 +7252,7 @@ class TCPDF {
 			$cached_file = true;
 			$imsize = @getimagesize($file);
 			if ($imsize === FALSE) {
-				unlink($file);
+				//unlink($file);
 				$cached_file = false;
 			}
 		} else { // image file
@@ -7285,7 +7285,7 @@ class TCPDF {
 						$cached_file = true;
 						$imsize = @getimagesize($file);
 						if ($imsize === FALSE) {
-							unlink($file);
+							//unlink($file);
 							$cached_file = false;
 						}
 					}
@@ -7515,7 +7515,7 @@ class TCPDF {
 					$tempname = tempnam(K_PATH_CACHE, 'jpg_');
 					$img->writeImage($tempname);
 					$info = $this->_parsejpeg($tempname);
-					unlink($tempname);
+					//unlink($tempname);
 					$img->destroy();
 				} else {
 					return;
@@ -7542,7 +7542,7 @@ class TCPDF {
 		}
 		if ($cached_file) {
 			// remove cached file
-			unlink($file);
+			//unlink($file);
 		}
 		// set alignment
 		$this->img_rb_y = $y + $h;
@@ -7668,7 +7668,7 @@ class TCPDF {
 		imagedestroy($image);
 		$retvars = $this->_parsejpeg($tempname);
 		// tidy up by removing temporary image
-		unlink($tempname);
+		//unlink($tempname);
 		return $retvars;
 	}
 
@@ -7692,7 +7692,7 @@ class TCPDF {
 		// get PNG image data
 		$retvars = $this->_parsepng($tempname);
 		// tidy up by removing temporary image
-		unlink($tempname);
+		//unlink($tempname);
 		return $retvars;
 	}
 
@@ -7943,8 +7943,8 @@ class TCPDF {
 		// embed image, masked with previously embedded mask
 		$this->Image($tempfile_plain, $x, $y, $w, $h, $type, $link, $align, $resize, $dpi, $palign, false, $imgmask);
 		// remove temp files
-		unlink($tempfile_alpha);
-		unlink($tempfile_plain);
+		//unlink($tempfile_alpha);
+		//unlink($tempfile_plain);
 	}
 
 	/**
@@ -8144,7 +8144,7 @@ class TCPDF {
 			// Remove the original buffer
 			if (isset($this->diskcache) AND $this->diskcache) {
 				// remove buffer file from cache
-				unlink($this->buffer);
+				//unlink($this->buffer);
 			}
 			unset($this->buffer);
 			// remove filler space
@@ -8176,10 +8176,10 @@ class TCPDF {
 			} else {
 				openssl_pkcs7_sign($tempdoc, $tempsign, $this->signature_data['signcert'], array($this->signature_data['privkey'], $this->signature_data['password']), array(), PKCS7_BINARY | PKCS7_DETACHED, $this->signature_data['extracerts']);
 			}
-			unlink($tempdoc);
+			//unlink($tempdoc);
 			// read signature
 			$signature = file_get_contents($tempsign);
-			unlink($tempsign);
+			//unlink($tempsign);
 			// extract signature
 			$signature = substr($signature, $pdfdoc_length);
 			$signature = substr($signature, (strpos($signature, "%%EOF\n\n------") + 13));
@@ -8335,7 +8335,7 @@ class TCPDF {
 	public function _destroy($destroyall=false, $preserve_objcopy=false) {
 		if ($destroyall AND isset($this->diskcache) AND $this->diskcache AND (!$preserve_objcopy) AND (!$this->empty_string($this->buffer))) {
 			// remove buffer file from cache
-			unlink($this->buffer);
+			//unlink($this->buffer);
 		}
 		foreach (array_keys(get_object_vars($this)) as $val) {
 			if ($destroyall OR (
@@ -8574,7 +8574,7 @@ class TCPDF {
 			$this->_out('<<'.$filter.'/Length '.strlen($p).'>> stream'."\n".$p."\n".'endstream'."\n".'endobj');
 			if ($this->diskcache) {
 				// remove temporary files
-				unlink($this->pages[$n]);
+				//unlink($this->pages[$n]);
 			}
 		}
 		//Pages root
@@ -10962,11 +10962,11 @@ class TCPDF {
 			// remove temporary files used for images
 			foreach ($this->imagekeys as $key) {
 				// remove temporary files
-				unlink($this->images[$key]);
+				//unlink($this->images[$key]);
 			}
 			foreach ($this->fontkeys as $key) {
 				// remove temporary files
-				unlink($this->fonts[$key]);
+				//unlink($this->fonts[$key]);
 			}
 		}
 	}
@@ -12290,10 +12290,10 @@ class TCPDF {
 				if (!openssl_pkcs7_encrypt($tempkeyfile, $tempencfile, $pubkey['c'], array(), PKCS7_DETACHED | PKCS7_BINARY)) {
 					$this->Error('Unable to encrypt the file: '.$tempkeyfile);
 				}
-				unlink($tempkeyfile);
+				//unlink($tempkeyfile);
 				// read encryption signature
 				$signature = file_get_contents($tempencfile, false, null, $envelope_lenght);
-				unlink($tempencfile);
+				//unlink($tempencfile);
 				// extract signature
 				$signature = substr($signature, strpos($signature, 'Content-Disposition'));
 				$tmparr = explode("\n\n", $signature);

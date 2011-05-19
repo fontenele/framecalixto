@@ -1,6 +1,6 @@
 <?php
 define('K_TCPDF_EXTERNAL_CONFIG', TRUE);
-$k_path_main = 'externas/tcpdf/';
+$k_path_main = '../.calixto/externas/tcpdf/';
 define('K_PATH_MAIN', $k_path_main);
 $k_path_url = $k_path_main; // default value for console mode
 if (isset($_SERVER['HTTP_HOST']) AND (!empty($_SERVER['HTTP_HOST']))) {
@@ -15,7 +15,7 @@ if (isset($_SERVER['HTTP_HOST']) AND (!empty($_SERVER['HTTP_HOST']))) {
 define('K_PATH_URL', $k_path_url);
 define('K_PATH_FONTS', K_PATH_MAIN . 'fonts/');
 define('K_PATH_CACHE', realpath('.tmp/').'/');
-define('K_PATH_URL_CACHE', K_PATH_URL . 'cache/');
+define('K_PATH_URL_CACHE', K_PATH_URL . '.tmp/');
 define('K_PATH_IMAGES', K_PATH_MAIN . 'images/');
 define('K_BLANK_IMAGE', K_PATH_IMAGES . '_blank.png');
 define('PDF_PAGE_FORMAT', 'A4');
