@@ -103,7 +103,7 @@ class controlePadraoPDF extends controle{
 	*
 	*/
 	public function mostrar($name='',$dest='I'){
-		$this->visualizacao->Output($name,$dest);
+		$this->visualizacao->Output(($name ? $name : get_class($this)).'.pdf',$dest);
 	}
 	public function ln($h = 7){
 		$this->visualizacao->Ln($h);
