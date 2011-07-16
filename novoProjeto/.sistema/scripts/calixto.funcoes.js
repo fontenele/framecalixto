@@ -1,18 +1,21 @@
+$.fn.validar = function(){
+	var erros = '';
+	$.each($(this).find('.obrigatorio'),function(i,campoObrigatorio){
+		if(!$(campoObrigatorio).val()){
+			if(!erros) primeiroErro = campoObrigatorio;
+			erros += $(campoObrigatorio).attr('title')+";\n";
+		}
+	});
+	if(erros){
+		$.erro("Restrições de obrigatoriedade:",erros);
+		if(primeiroErro) $(primeiroErro).focus();
+		return false;
+	}
+	return true;
+};
 $(document).ready( function() {
 	$('form').submit(function(){
-		var erros = '';
-		$.each($(this).find('.obrigatorio'),function(i,campoObrigatorio){
-			if(!$(campoObrigatorio).val()){
-				if(!erros) primeiroErro = campoObrigatorio;
-				erros += $(campoObrigatorio).attr('title')+";\n";
-			}
-		});
-		if(erros){
-			$.erro("Restrições de obrigatoriedade:",erros);
-			if(primeiroErro) $(primeiroErro).focus();
-			return false;
-		}
-		return true;
+		return $(this).validar();
 	});
 	$('.obrigatorio')
 		.focus(function(){$(this).campoObrigatorio();})
@@ -114,7 +117,7 @@ $(document).ready( function() {
 	});
 */
 
-    $("input:checkbox[readonly]").click( function(){ return false; } );
+    $("input:checkbox[readonly]").click( function(){return false;} );
 	/*$('textarea')
 		.blur(function(){
 			if(!$(this).attr('id')) return;
