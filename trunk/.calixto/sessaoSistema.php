@@ -10,8 +10,10 @@ class sessaoSistema extends objeto{
 	* Inicia a sessao com o servidor
 	*/
 	static function iniciar(){
-		session_start();
+	  if (!isset($_SESSION) || !is_array($_SESSION))
+		  session_start();
 	}
+
 	/**
 	* Encerra a sessão do sistema com o servidor
 	*/

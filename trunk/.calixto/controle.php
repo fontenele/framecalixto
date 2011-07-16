@@ -14,7 +14,7 @@ abstract class controle extends objeto{
 	*/
 	public $gerente;
 	/**
-	* @var gerenteSessao
+	* @var sessaoPrograma
 	*/
 	public $sessao;
 	/**

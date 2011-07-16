@@ -77,7 +77,7 @@ class gerenteControles extends objeto{
 		}
 		catch (erroBanco $e){
             if(controle::tipoResposta()){
-                $this->exibirErro($e,'Ocorreu um erro de banco de dados, contacte a DTI (MEC).');
+                $this->exibirErro($e,'Ocorreu um erro de banco de dados, provavelmente nossos analista já estão analisando o motivo.');
             }else{
                 echo $e->__toHtml();
 			}
