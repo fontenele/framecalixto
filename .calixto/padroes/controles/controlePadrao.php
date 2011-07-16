@@ -339,6 +339,45 @@ class controlePadrao extends controle{
 	* metodo de apresentação do negocio
 	* @param negocio objeto para a apresentação
 	* @param visualizacao template de registro para edição
+	* @param grupo que sera montada a visualizacao
+	*/
+	public static function montarApresentacaoAgrupadaDeEdicao(negocio $negocio, visualizacao $visualizacao, $grupo){
+		$estrutura = controlePadrao::pegarEstrutura($negocio);
+		foreach($estrutura['campos'] as $nome => $opcoes){
+			$pegarPropriedade = 'pegar'.ucfirst($nome);
+			$valor = $negocio->$pegarPropriedade();
+			$grupoNome = $grupo.ucfirst($nome);
+			if($opcoes['componente']){
+				switch(true){
+					case($opcoes['classeAssociativa'] && $opcoes['metodoLeitura']):
+						$array = controlePadrao::montarVetorDescritivo($opcoes['classeAssociativa'],$opcoes['metodoLeitura']);
+						$visualizacao->$grupoNome = VComponente::montar($opcoes['componente'],"{$grupo}[{$nome}]",$valor,null,$array);
+					break;
+					case($opcoes['classeAssociativa']):
+						$array = controlePadrao::montarVetorDescritivo($opcoes['classeAssociativa']);
+						$visualizacao->$grupoNome = VComponente::montar($opcoes['componente'],"{$grupo}[{$nome}]",$valor,null,$array);
+					break;
+					default:
+						$visualizacao->$grupoNome = VComponente::montar($opcoes['componente'],"{$grupo}[{$nome}]",$valor,null,$opcoes['valores']);
+				}
+				if ($visualizacao->$grupoNome instanceof VInput && $opcoes['tamanho']) {
+					$visualizacao->$grupoNome->passarMaxlength($opcoes['tamanho']);
+				}
+				$visualizacao->$grupoNome->passarTitle($negocio->pegarInter()->pegarPropriedade($nome,'descricao'));
+				if($visualizacao->$grupoNome instanceof VInput ){
+					if(($opcoes['tamanho'] + 2) > 60){
+						$visualizacao->$grupoNome->passarSize(60);
+					}else{
+						$visualizacao->$grupoNome->passarSize(($opcoes['tamanho'] + 2));
+					}
+				}
+			}
+		}
+	}
+	/**
+	* metodo de apresentação do negocio
+	* @param negocio objeto para a apresentação
+	* @param visualizacao template de registro para edição
 	*/
 	public static function montarApresentacaoEdicao(negocio $negocio, visualizacao $visualizacao){
 		$estrutura = controlePadrao::pegarEstrutura($negocio);
