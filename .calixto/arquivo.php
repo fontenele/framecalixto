@@ -46,5 +46,10 @@ class arquivo extends objeto{
 			throw $e;
 		}
 	}
+	static public function ler($caminhoArquivo){
+		if (self::legivel($caminhoArquivo))
+			return file_get_contents($caminhoArquivo);
+		return '';
+	}
 }
 ?>
