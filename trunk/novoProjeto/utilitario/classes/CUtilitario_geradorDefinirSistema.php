@@ -26,6 +26,7 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		);
 		$arBooleano		= array('sim'=>$this->inter->pegarTexto('sim'),'nao'=>$this->inter->pegarTexto('nao'));
 
+		$nome			= ($nome = strval($definicoes->sistema['nome'])) ? $nome : 'padrao';
 		$paginaInicial	= ($paginaInicial = strval($definicoes->sistema['paginaInicial'])) ? $paginaInicial : 'CControleAcesso_verPrincipal';
 		$paginaErro		= ($paginaErro = strval($definicoes->sistema['paginaErro'])) ? $paginaErro : 'CControleAcesso_erroAcesso';
 
@@ -40,6 +41,7 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		$this->sessao->limpar();
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		//Páginas do sistema
+		$this->visualizacao->nomeSessao 	= VComponente::montar('input','sistema[nome]',$nome);
 		$this->visualizacao->paginaInicial 	= VComponente::montar('input','sistema[paginaInicial]',$paginaInicial);
 		$this->visualizacao->paginaErro 	= VComponente::montar('input','sistema[paginaErro]',$paginaErro);
 		$this->visualizacao->ambiente 	= VComponente::montar('select','sistema[ambiente]',$paginaErro,null,$arAmbiente);

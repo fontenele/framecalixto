@@ -18,6 +18,7 @@
 			<texto id="geradorDefinirSistema">Configurador do Sistema</texto>
 			<!-- Sistema -->
 			<texto id="sistema">Configurações de Sistema</texto>
+			<texto id="nomeSessao">Nome da Sessão</texto>
 			<texto id="paginaInicial">Página inicial do sistema</texto>
 			<texto id="paginaErro">Página de erro do sistema</texto>
 			<texto id="ambiente">Ambiente do sistema</texto>
