@@ -48,7 +48,7 @@ class CUtilitario_definirSistema extends controle{
 		$d = $_POST;
 		$xml = "<?xml version='1.0' encoding='utf-8' ?>\n";
 		$xml.= "<definicoes>\n";
-		$xml.= "\t<sistema paginaInicial='{$d['sistema']['paginaInicial']}' paginaErro='{$d['sistema']['paginaErro']}' ambiente='{$d['sistema']['ambiente']}' />\n";
+		$xml.= "\t<sistema nome='{$d['sistema']['nome']}' paginaInicial='{$d['sistema']['paginaInicial']}' paginaErro='{$d['sistema']['paginaErro']}' ambiente='{$d['sistema']['ambiente']}' />\n";
 		$xml.= "\t<controleDeAcesso liberado='{$d['controleDeAcesso']['liberado']}' classe='{$d['controleDeAcesso']['classe']}' metodoLiberacao='{$d['controleDeAcesso']['metodoLiberacao']}' />\n";
 		$xml.= "\t<controleDeMenu classe='{$d['controleDeMenu']['classe']}' metodoMenuSite='{$d['controleDeMenu']['metodoMenuSite']}' metodoMenuSistema='{$d['controleDeMenu']['metodoMenuSistema']}' />\n";
 		$xml.= "\t<bancos>\n";
