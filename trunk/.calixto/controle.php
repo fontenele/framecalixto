@@ -30,7 +30,7 @@ abstract class controle extends objeto{
 			if($session) sessaoSistema::iniciar();
 			$this->gerente = $gerente;
 			$this->sessao = new sessaoPrograma(definicaoEntidade::entidade($this));
-			$this->gravarLogAcesso();
+			//$this->gravarLogAcesso();
 			$this->validarAcessoAoControle();
 			$this->criarVisualizacaoPadrao();
 			$this->criarInternacionalizacaoPadrao();
