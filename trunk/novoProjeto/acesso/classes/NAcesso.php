@@ -64,7 +64,7 @@ class NAcesso extends negocioPadrao{
 	 * @return colecaoPadraoNegocio
 	 */
 	public function lerAcessosPorUsuario(NUsuario $nUsuario, $controle = null){
-		return $this->vetorPraColecao($this->pegarPersistente()->lerAcessosPorUsuario($nUsuario->idUsuario,$controle));
+		return $this->vetorPraColecao($this->pegarPersistente()->lerAcessosPorUsuario($nUsuario->valorChave(),$controle));
 	}
 }
 ?>
