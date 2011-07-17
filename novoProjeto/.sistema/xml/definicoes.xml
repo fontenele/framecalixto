@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <definicoes>
-	<sistema paginaInicial='' paginaErro='CControleAcesso_erroAcesso' ambiente='3' />
+	<sistema paginaInicial='CControleAcesso_verPrincipal' paginaErro='CControleAcesso_erroAcesso' ambiente='3' />
 	<controleDeAcesso liberado='sim' classe='NControleAcesso' metodoLiberacao='validarAcesso' />
 	<controleDeMenu classe='NControleMenu' metodoMenuSite='menuPrincipal' metodoMenuSistema='menuMenuSistema' />
 	<bancos>
-		<banco id='padrao' tipo='sqlite' servidor='localhost' porta='5432' nome='framecalixto' usuario='postgres' senha='postgres' conexaoMultipla='sim' />
+		<banco id='padrao' tipo='postgres' servidor='localhost' porta='5432' nome='framecalixto' usuario='postgres' senha='postgres' conexaoMultipla='sim' />
 	</bancos>
 	<diretorios>
 		<diretorio id='temporario' dir='.tmp/' entidade='nao' />
