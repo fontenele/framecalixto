@@ -168,4 +168,100 @@
 		<nmEmail></nmEmail>
 		<nmSite></nmSite>
 	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>1</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>2</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>3</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>3</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>5</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1.1</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>2</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1.2</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>4</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1.2.1</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>5</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1.2.2</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>7</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1.2.1.1</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>6</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>1</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>2</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>3</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>3</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>5</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1.1</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>2</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1.2</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>4</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1.2.1</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>5</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1.2.2</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>7</idE>
+	</classe>
+	<classe nome='NMenu'>
+		<nmMenu>1.2.1.1</nmMenu>
+		<txDescricao>Item Menu</txDescricao>
+		<menu>1</menu>
+		<idE>6</idE>
+	</classe>
 </classes>
