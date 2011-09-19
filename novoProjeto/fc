@@ -96,6 +96,7 @@ if(isset($argv[1])){
         case "iniciar":
             echo $colors->getColoredString(" Definindo permissões nos diretórios do projeto...", "yellow")." ";
             if(chmod(getcwd()."/.sistema/xml/definicoes.xml",0777)){ echo $colors->getColoredString("OK", "green")."\n"; }
+            if(chmod(getcwd()."/.tmp",0777)){ echo $colors->getColoredString("OK", "green")."\n"; }
             else { echo $colors->getColoredString("FALHOU", "green")."\n"; }
             break;
     }
