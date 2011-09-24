@@ -71,7 +71,7 @@ class gerenteControles extends objeto{
                 sessaoSistema::registrar('comunicacao', $e->getMessage());
                 if(!empty($this->proximoControle))
                     $this->redirecionar("?c={$this->proximoControle}");
-                $this->redirecionar(sprintf('?c=%s','CControleAcesso_verPrincipal'));
+                $this->redirecionar(sprintf('?c=%s',definicaoSistema::pegarControleInicial()));
 			}
 			return false;
 		}

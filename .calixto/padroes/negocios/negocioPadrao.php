@@ -124,7 +124,9 @@ abstract class negocioPadrao extends negocio{
 			throw new erro("Propriedade [{$propriedade}] inexistente!");
 		}
 		catch(erro $e){
-			throw $e;
+			$ar = debug_backtrace();
+			$m = get_class($this).'::'.$metodo;
+			throw new erro("Método inexistente [{$m}] chamado no arquivo:{$ar[0]['file']} na linha:{$ar[0]['line']}");
 		}
     }
 	/**
@@ -378,6 +380,10 @@ abstract class negocioPadrao extends negocio{
 	*/
 	public function ler($identificador){
 		try{
+			$estrutura = $this->pegarMapeamento();
+			if(!$identificador && ($estrutura[$this->nomeChave()]['obrigatorio'] == 'sim')){
+				return $this;
+			}
 			$persistente = $this->pegarPersistente();
             $array = $persistente->ler($identificador);
 			if(is_array($array))
@@ -595,7 +601,8 @@ abstract class negocioPadrao extends negocio{
 	public function totalDePesquisar($filtro = null){
 		try{
 			$persistente = $this->pegarPersistente();
-			return $persistente->totalDePesquisar($filtro);
+			return $persistente->totalDePesquisar(
+				$this->montarFiltroParaPersistente($filtro ? $filtro : $this->__filtroDePesquisa));
 		}
 		catch(Erro $e){
 			throw $e;

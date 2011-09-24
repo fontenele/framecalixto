@@ -32,6 +32,7 @@ abstract class objeto{
 					return;
 				} else {
 					if($r->isStatic()) throw new erro('Atributo statico protegido.');
+					if($r->isPrivate()) throw new erro('Atributo privado.');
 					return $this->$var;
 				}
 			}
@@ -42,7 +43,9 @@ abstract class objeto{
 			throw new erro("Propriedade [{$propriedade}] inexistente!");
 		}
 		catch(erro $e){
-			throw $e;
+			$ar = debug_backtrace();
+			$m = get_class($this).'::'.$metodo;
+			throw new erro("Método inexistente [{$m}] chamado no arquivo:{$ar[0]['file']} na linha:{$ar[0]['line']}");
 		}
     }
 	/**
@@ -50,7 +53,8 @@ abstract class objeto{
 	* @return string texto de saída da classe
 	*/
 	public function __toString(){
-		debug2($this);
+		$ar = debug_backtrace();
+		x($this);
 		return '';
 	}
 	/**
