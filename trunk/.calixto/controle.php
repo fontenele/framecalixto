@@ -10,7 +10,15 @@ abstract class controle extends objeto{
     const json = 'json';
     const texto = 'texto';
 	/**
-	* @var string define o próximo controle para ser redirecionado
+	 * @var string armazana a chamada url atual 
+	 */
+	private static $urlAtual;
+	/**
+	 * @var string armazena o nome do controle construido
+	 */
+	private static $nomeControle;
+	/**
+	* @var gerenteControles
 	*/
 	public $gerente;
 	/**
@@ -25,20 +33,43 @@ abstract class controle extends objeto{
 	* Método construtor
 	* Faz a chamada de validação de acesso ao controle
 	*/
-	final function __construct($gerente = null,$session = false){
-		try{
-			if($session) sessaoSistema::iniciar();
+	final function __construct($gerente = null, $session = false) {
+		try {
+			controle::$nomeControle = get_class($this);
+			if ($session)
+				sessaoSistema::iniciar();
 			$this->gerente = $gerente;
 			$this->sessao = new sessaoPrograma(definicaoEntidade::entidade($this));
+			$this->registrarAcesso();
 			//$this->gravarLogAcesso();
 			$this->validarAcessoAoControle();
 			$this->criarVisualizacaoPadrao();
 			$this->criarInternacionalizacaoPadrao();
 			$this->inicial();
-		}
-		catch(erro $e){
+		} catch (erro $e) {
 			throw $e;
 		}
+	}
+	/**
+	 * Registra o acesso requerido na sessao do sistema
+	 */
+	public function registrarAcesso(){
+		sessaoSistema::registrar('ultimoAcesso', $_SERVER['REQUEST_URI']);
+	}
+
+	/**
+	 * Retorna o nome do último controle construído
+	 * @return string
+	 */
+	public static function urlAcessada(){
+		return controle::$urlAtual;
+	}
+	/**
+	 * Retorna o nome do último controle construído
+	 * @return string
+	 */
+	public static function controleAcessado(){
+		return controle::$nomeControle;
 	}
 	/**
 	* Método de validação do controle de acesso
@@ -131,6 +162,7 @@ abstract class controle extends objeto{
 	*/
 	public static function requisicaoAjax(){
         if(controle::tipoResposta() == controle::ajax) return true;
+        if(controle::tipoResposta() == controle::json) return true;
 		return (isset($_GET['ajax']));
 	}
     /**

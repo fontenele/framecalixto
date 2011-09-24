@@ -40,17 +40,18 @@ class controlePadrao extends controle{
 		$this->visualizacao->menuModulo			= '';
 		$this->visualizacao->menuPrincipal		= '';
 		$this->visualizacao->menuPrograma		= '';
+		$this->visualizacao->titulo				= '';
 		$this->visualizacao->tituloEspecifico	= '';
 		$this->visualizacao->descricaoDeAjuda	= '';
 		$this->visualizacao->cssExtra			= '';
 		$this->visualizacao->jsExtra			= '';
-		$this->visualizacao->cssGlobal			= definicaoPasta::tema().'/principal.css';
-		$this->visualizacao->cssEntidade		= definicaoPasta::css($this).'principal.css';
-		$this->visualizacao->cssLocal			= definicaoPasta::css($this).get_class($this).'.css';
-		$this->visualizacao->jsTema				= definicaoPasta::tema().'/configurador.js';
+		$this->visualizacao->cssGlobal			= is_file($arquivo = definicaoPasta::tema().'/principal.css')?$arquivo:'';
+		$this->visualizacao->cssEntidade		= is_file($arquivo = definicaoPasta::css($this).'principal.css')?$arquivo:'';
+		$this->visualizacao->cssLocal			= is_file($arquivo = definicaoPasta::css($this).get_class($this).'.css')?$arquivo:'';
+		$this->visualizacao->jsTema				= is_file($arquivo = definicaoPasta::tema().'/configurador.js')?$arquivo:'';
+		$this->visualizacao->jsEntidade			= is_file($arquivo = definicaoPasta::js($this).'principal.js')?$arquivo:'';
+		$this->visualizacao->jsLocal			= is_file($arquivo = definicaoPasta::js($this).get_class($this).'.js')?$arquivo:'';
 		$this->visualizacao->dirTema			= definicaoPasta::tema();
-		$this->visualizacao->jsEntidade			= definicaoPasta::js($this).'principal.js';
-		$this->visualizacao->jsLocal			= definicaoPasta::js($this).get_class($this).'.js';
 	}
 	/**
 	* Método que retorna o negócio referente ao controle
@@ -69,7 +70,7 @@ class controlePadrao extends controle{
 	* @return string
 	*/
 	public static function pegarNomeControle(){
-		return isset($_GET['c']) ? $_GET['c'] : null;
+		return controle::controleAcessado();
 	}
 	/**
 	* Retorna a estrutura do controle definido em seu xml
@@ -141,10 +142,10 @@ class controlePadrao extends controle{
 			sprintf(
                 '%s - %s',
                 $inter->pegarTitulo(),
-                $inter->pegarTexto(	isset($_GET['c']) ? definicaoEntidade::funcionalidade($_GET['c']):	null)
+                $inter->pegarTexto(	definicaoEntidade::funcionalidade(controle::controleAcessado()) )
             );
         }else{
-    		$visualizacao->tituloEspecifico = $inter->pegarTexto(	isset($_GET['c']) ? definicaoEntidade::funcionalidade($_GET['c']):	null);
+    		$visualizacao->tituloEspecifico = $inter->pegarTexto(definicaoEntidade::funcionalidade(controle::controleAcessado()));
         }
 		$internacionalizacao = $inter->pegarInternacionalizacao();
 		if(isset($internacionalizacao['propriedade']))
@@ -174,6 +175,61 @@ class controlePadrao extends controle{
 		if(isset($internacionalizacao['mensagem']))
 		foreach($internacionalizacao['mensagem'] as $indice => $mensagem){
 			$var = 'mensagem'.ucfirst($indice);
+			$visualizacao->$var = $mensagem;
+		}
+	}
+	/**
+	* Método de registro da internacionalização
+	* @param controle $entidade
+	* @param visualizacao $visualizacao
+	* @param string $grupo
+	*/
+	public static function registrarInternacionalizacaoAgrupada($entidade,$visualizacao,$grupo){
+		$inter = definicaoEntidade::internacionalizacao($entidade);
+		$entidade = definicaoEntidade::entidade($entidade);
+		$inter = new $inter();
+
+		$visualizacao->{"{$grupo}_titulo"}		= $inter->pegarTituloSistema();
+		$visualizacao->{"{$grupo}_subtitulo"}	= $inter->pegarSubtituloSistema();
+        if($inter->pegarTitulo()){
+		$visualizacao->{"{$grupo}_tituloEspecifico"} =
+			sprintf(
+                '%s - %s',
+                $inter->pegarTitulo(),
+                $inter->pegarTexto(definicaoEntidade::funcionalidade(controle::controleAcessado()))
+            );
+        }else{
+    		$visualizacao->{"{$grupo}_tituloEspecifico"} =
+				$inter->pegarTexto(definicaoEntidade::funcionalidade(controle::controleAcessado()));
+        }
+		$internacionalizacao = $inter->pegarInternacionalizacao();
+		if(isset($internacionalizacao['propriedade']))
+		foreach($internacionalizacao['propriedade'] as $indice => $propriedade){
+			if(isset($propriedade['nome'])){
+				$var = "{$grupo}_nome".ucfirst($indice);
+				$visualizacao->$var = strval($propriedade['nome']);
+			}
+			if(isset($propriedade['abreviacao'])){
+				$var = "{$grupo}_abreviacao".ucfirst($indice);
+				$visualizacao->$var = $propriedade['abreviacao'];
+			}
+			if(isset($propriedade['descricao'])){
+				$var = "{$grupo}_descricao".ucfirst($indice);
+				$visualizacao->$var = $propriedade['descricao'];
+			}
+			if(isset($propriedade['dominio'])){
+				$var = "{$grupo}_dominio".ucfirst($indice);
+				$visualizacao->$var = $propriedade['dominio'];
+			}
+		}
+		if(isset($internacionalizacao['texto']))
+		foreach($internacionalizacao['texto'] as $indice => $texto){
+			$var = "{$grupo}_texto".ucfirst($indice);
+			$visualizacao->$var = $texto;
+		}
+		if(isset($internacionalizacao['mensagem']))
+		foreach($internacionalizacao['mensagem'] as $indice => $mensagem){
+			$var = "{$grupo}_mensagem".ucfirst($indice);
 			$visualizacao->$var = $mensagem;
 		}
 	}
@@ -306,6 +362,16 @@ class controlePadrao extends controle{
 		}
 	}
 	/**
+	 * Retorna o valor descritivo de uma instancia de negocio
+	 * @param string $classe
+	 * @param string $chave
+	 * @return string
+	 */
+	public static function pegarDescricaoNegocio($classe,$chave){
+		$negocio = new $classe();
+		return $negocio->ler($chave)->valorDescricao();
+	}
+	/**
 	* metodo de apresentação do negocio
 	* @param negocio objeto para a apresentação
 	* @param visualizacao template de registro para visualizacao
@@ -317,19 +383,41 @@ class controlePadrao extends controle{
 			$valor = $negocio->$pegarPropriedade();
 			if($opcoes['componente']){
 				switch(true){
-					case($opcoes['classeAssociativa'] && $opcoes['metodoLeitura']):
-						$array = controlePadrao::montarVetorDescritivo($opcoes['classeAssociativa'],$opcoes['metodoLeitura']);
-						$visualizacao->$nome = $array[$valor];
-					break;
 					case($opcoes['classeAssociativa']):
-						$array = controlePadrao::montarVetorDescritivo($opcoes['classeAssociativa']);
-						$visualizacao->$nome = $array[$valor];
+						$visualizacao->$nome = controlePadrao::pegarDescricaoNegocio($opcoes['classeAssociativa'], $valor);
 					break;
 					default:
 						if(count($opcoes['valores'])){
 							$visualizacao->$nome = $opcoes['valores'][$negocio->$pegarPropriedade()];
 						}else{
 							$visualizacao->$nome = $valor;
+						}
+				}
+			}
+		}
+	}
+	/**
+	* metodo de apresentação do negocio
+	* @param negocio objeto para a apresentação
+	* @param visualizacao template de registro para visualizacao
+	* @param grupo que sera montada a visualizacao
+	*/
+	public static function montarApresentacaoAgrupadaVisual(negocio $negocio, visualizacao $visualizacao, $grupo){
+		$estrutura = controlePadrao::pegarEstrutura($negocio);
+		foreach($estrutura['campos'] as $nome => $opcoes){
+			$pegarPropriedade = 'pegar'.ucfirst($nome);
+			$valor = $negocio->$pegarPropriedade();
+			$grupoNome = $grupo.'_'.$nome;
+			if($opcoes['componente']){
+				switch(true){
+					case($opcoes['classeAssociativa']):
+						$visualizacao->$grupoNome = controlePadrao::pegarDescricaoNegocio($opcoes['classeAssociativa'], $valor);
+					break;
+					default:
+						if(count($opcoes['valores'])){
+							$visualizacao->$grupoNome = $opcoes['valores'][$negocio->$pegarPropriedade()];
+						}else{
+							$visualizacao->$grupoNome = $valor;
 						}
 				}
 			}
@@ -346,7 +434,7 @@ class controlePadrao extends controle{
 		foreach($estrutura['campos'] as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
 			$valor = $negocio->$pegarPropriedade();
-			$grupoNome = $grupo.ucfirst($nome);
+			$grupoNome = $grupo.'_'.$nome;
 			if($opcoes['componente']){
 				switch(true){
 					case($opcoes['classeAssociativa'] && $opcoes['metodoLeitura']):
@@ -509,6 +597,9 @@ class controlePadrao extends controle{
 			break;
 			case 'tdocumentopessoal':
 				$negocio->$metodo(new TDocumentoPessoal($valor));
+			break;
+			case 'tcnpj':
+				$negocio->$metodo(new TCnpj($valor));
 			break;
 			default:
 				$negocio->$metodo($valor);

@@ -19,7 +19,7 @@ class controlePadraoGravar extends controlePadrao{
 			$this->definirProximoControle();
 			$this->definirNegocio();
 			$this->iniciarTransacao();
-			$this->montarNegocio($this->negocio);
+			$this->montarNegocio($this->negocio,$_POST);
 			$this->registrarNegocioNaSessao();
 			$this->gravar();
 			$this->aposGravar();
