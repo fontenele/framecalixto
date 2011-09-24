@@ -41,7 +41,8 @@ class VComponente extends VEtiquetaHtml{
 		parent::__construct($etiqueta);
 		$this->passarTabindex(1);
 		$this->passarName($nome);
-		$this->passarId($nome);
+		$this->passarId(str_replace(array('[',']'), array('-',''), $nome));
+		$this->adicionarClass('componente');
 		if($valor) $this->passarValue($valor);
 	}
 	/**
@@ -125,6 +126,7 @@ class VComponente extends VEtiquetaHtml{
 					$tTipoDado = ($valor instanceof TNumerico) ? $valor : new TCnpj(null) ;
 					$tTipoDado->passarTipo('cnpj');
 					$objeto = new VInputDocumentoPessoal($nome,$tTipoDado);
+					$objeto->passarTipo('cnpj');
 				break;
 				case 'cep':
 					$tTipoDado = ($valor instanceof TCep) ? $valor : new TCep(null) ;

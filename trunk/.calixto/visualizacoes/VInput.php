@@ -9,6 +9,7 @@ class VInput extends VComponente{
 		parent::__construct('input',$nome, $valor);
 		$this->fechada = false;
 		$this->passarSize(30);
+		$this->passarType('text');
 	}
 }
 ?>
