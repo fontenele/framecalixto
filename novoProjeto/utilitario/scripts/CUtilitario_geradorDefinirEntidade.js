@@ -19,8 +19,8 @@ jQuery.fn.extend({
 		"classes":[
 			'%s/classes/C%s_excluir.php',
 			'%s/classes/C%s_gravar.php',
-			'%s/classes/C%s_mudarPagina.php',
-			'%s/classes/C%s_pesquisar.php',
+		//	'%s/classes/C%s_mudarPagina.php',
+		//	'%s/classes/C%s_pesquisar.php',
 			'%s/classes/C%s_verEdicao.php',
 			'%s/classes/C%s_verPesquisa.php',
 			'%s/classes/I%s.php',
@@ -235,6 +235,36 @@ jQuery.fn.extend({
 				$(this).adicionarLinha(valores,definicao.bd.chavePrimaria);
 				$('.en_nome:last').trigger('change');
 			}
+	},
+	preencherCasoDeUso:function(definicao){
+			//Caso de uso
+			$('.uc-nome').html('Cadastro de '+definicao.inter.nome);
+			var data = new Date();
+			$('.uc-data').html(data.getDate()+'/'+(data.getMonth()+1)+'/'+data.getFullYear());
+			for (i in definicao.entidade){
+				$(this).adicionarComponenteUc(i,definicao.entidade[i]);
+			}
+			$('.uc-nome-tabela').html(definicao.bd.nomeTabela);
+			console.log(definicao);
+	},
+	adicionarComponenteUc:function(nome,componente){
+		if(componente.controle.componente == 'oculto') return;
+		var valores = new Array;
+		var textos = new Array;
+		if(componente.controle.valores) for(i in componente.controle.valores){
+			if(i){
+				valores.push(i);
+				textos.push(componente.controle.valores[i])
+			}
+		}
+		valores = valores.length ? ', sendo possível somente a seleção dos valores ('+valores.join(', ')+') com os respectivos textos ('+textos.join(', ')+')' : '';
+		$('.uc-campos-pesquisa .uc-opcao:first').parent().before('<li>O Campo <span class="uc-componente">"'+componente.inter.nome+'"</span> utilizando um componente '+componente.controle.componente+' '+(componente.controle.tamanho ? ', com tamanho máximo definido em '+componente.controle.tamanho+' caracteres' : '')+', com a dica de tela ['+componente.inter.descricao+']'+valores+'</li>');
+		$('.uc-campos-edicao .uc-opcao:first').parent().before('<li>O Campo '+(componente.negocio.obrigatorio ? 'obrigatório': '')+' <span class="uc-componente">"'+componente.inter.nome+'"</span> utilizando um componente '+componente.controle.componente+' '+(componente.controle.tamanho ? ', com tamanho máximo definido em '+componente.controle.tamanho+' caracteres' : '')+', com a dica de tela ['+componente.inter.descricao+']'+valores+'</li>');
+		if(componente.negocio.obrigatorio){
+			$('.uc-gravacao-sem-dados').append('<li>Caso o campo <span class="uc-componente">"'+componente.inter.nome+'"</span> não esteja preenchido, o registro não deverá ser gravado e o sistema deverá retornar a mensagem:<br/>'+
+				'O campo é ['+componente.inter.nome+'] obrigatório.'+
+			'</li>');
+		}
 	}
 });
 $(document).ready( function() {
@@ -345,5 +375,18 @@ $(document).ready( function() {
 		}
 		return confirm("Confirma a geração?");
 	});
+	$('.descritor').click(function(){
+		var cont = $(this).html();
+		$(this).html('');
+		$(this).append(
+		$('<input>')
+			.blur(function(){
+				$('.'+$(this).parent().clone().removeClass('descritor').attr('class')).html($(this).val());
+			})
+			.val(cont)
+		);
+		$(this).find('input').select();
+	});
 	if(definicao) $(this).preencherTela(definicao[0]);
+	if(definicao) $(this).preencherCasoDeUso(definicao[0]);
 });

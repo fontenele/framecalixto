@@ -1,0 +1,26 @@
+<form name="formulario" method="post" action="«$action»" >
+	<div class="ver-edicao">
+		<h1 class="titulo-especifico">«$tituloEspecifico»<span style="font-weight:bold;">«$tabela»</span></h1>
+		<div class="listagem">
+			<table summary="text" class="tabela0">
+				<thead>
+					<tr>
+						<th>Campo</th>
+						<th>Banco</th>
+						<th>Aplicação</th>
+					</tr>
+				</thead>
+				«foreach from=$listagem key=nome item=campo»
+				<tr class="«cycle values='linha linha1,linha linha2'»">
+					<td class="campo1">«$nome»</td>
+					<td class="campo1">«php»echo isset($this->campo['banco']) ? $this->campo['banco'] : ''; «/php»</td>
+					<td class="campo1">«php»echo isset($this->campo['aplicacao']) ? $this->campo['aplicacao'] : ''; «/php»</td>
+				</tr>
+				«/foreach»
+			</table>
+	        <div id='menu_corpo'>
+	            «$menuPrograma»
+	        </div>
+		</div>
+	</div>
+</form>
