@@ -105,7 +105,7 @@ class NControleMenu extends negocio{
 			$this->adicionarItem('menuPrincipal','Apoio/Banco','','.sistema/icones/database.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Banco/Lista para gerador','CUtilitario_listarTabelas','.sistema/icones/database_lightning.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Banco/Dicionário de dados','CUtilitario_dicionarioDeDados','.sistema/icones/database_table.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Banco/Recriador de Banco','CUtilitario_atualizadorBase','.sistema/icones/database_delete.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Banco/Recriador de Banco','CUtilitario_verRecriarBase','.sistema/icones/database_delete.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','.sistema/icones/arrow_in.png');
 			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','.sistema/icones/wrench.png');
 			
