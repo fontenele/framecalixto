@@ -1,0 +1,65 @@
+<link type="text/css" rel="stylesheet" href=".sistema/debug.css" ></link>
+<style type="text/css">
+	.sql1{
+		background-color: #ECECEC;
+	}
+	.sql2{
+		background-color: #F6F6F6;
+	}
+	#resultado-recriacao{
+		display: none;
+		width: 800px;
+		height: 500px;
+	}
+	#comandos{
+		font-size: .8em;
+		overflow: auto;
+		height: 500px;
+	}
+	pre{
+		padding: 0px;
+		margin: 2px;
+	}
+</style>
+<form name="formulario" method="post" action="«$action»" >
+	<div id="resultado-recriacao" title="Resultado da execução"><div id="comandos"></div></div>
+<div class="container0 ui-widget-content ui-corner-all">
+	<div class="a"></div>
+	<div class="b"></div>
+	<div class="c"></div>
+	<div class="d"></div>
+	<div class="e"></div>
+	<div class="f"></div>
+	<div class="g"></div>
+	<div class="h"></div>
+	<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
+	<div class="texto">
+		<div class="listagem">
+			<table summary="text" class="tabela0 ui-widget-content ui-corner-all">
+			<caption>
+			«$executarNoBanco» Executar os comandos no banco.<br/><br/>
+			</caption>
+			<thead class="ui-state-default">
+				<tr class="ui-widget-header">
+					<th class="ui-state-default ui-widget-content"><input type="checkbox" id="checkAll"/></th>
+					<th class="ui-state-default ui-widget-content nomeTabela" >Tabela</th>
+					<th class="ui-state-default ui-widget-content nomeTabela" >Nome</th>
+				</tr>
+			</thead>
+				<tbody>
+			«foreach from=$listagem item=nome»
+					<tr class="«cycle values='linha linhaListagem1, linha linhaListagem2'»">
+						<td class="check" align="center">«$nome.check»</td>
+						<td align="left">«$nome.tabela»</td>
+						<td align="left">«$nome.nome»</td>
+					</tr>
+			«/foreach»
+				</tbody>
+			</table>
+			<div id='menu_corpo'>
+	            «$menuPrograma»
+			</div>
+		</div>
+	</div>
+</div>
+</form>

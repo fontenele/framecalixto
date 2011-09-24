@@ -79,7 +79,7 @@ class PUtilitario extends persistentePadraoPG {
 
 	public function lerTabela($tabela){
 		if (strpos($tabela,'.') === false){
-			$tabela = "tabela = '{$tabela}'";
+			$tabela = "tabela.tabela = '{$tabela}'";
 		}else{
 			$tabela = explode('.',$tabela);
 			if(count($tabela) > 1){
