@@ -160,9 +160,9 @@ class TData extends objeto{
 	* metodo de retorno da string de data
 	* @return string data formatada
 	*/
-	public function pegarData(){
+	public function pegarData($formato = 'd/m/Y'){
 		if($this->tempoMarcado)
-		return date('d/m/Y', $this->tempoMarcado);
+		return date($formato, $this->tempoMarcado);
 		return null;
 	}
 	/**
