@@ -54,12 +54,71 @@ function debug2($var,$metodos = true, $visualizacao = false){
 			echo '</tr></table></td></tr></table>';
 		break;
 		case is_object($var):
+
+			$reflect = new ReflectionObject($var);
 			echo '<table summary="text" border=1 class="objeto"><tr><td><table class="propriedades">';
-			echo '<tr><td><font class="tipoClasse"><b>('.get_class($var).')</b></font></td></tr>';
+			echo '<tr><td><font class="tipoClasse" title="'.substr($reflect->getDocComment(), 3, -2).'"><b>('.$reflect->getName().')</b></font></td></tr>';
 			if($metodos){
-				foreach(get_class_methods($var) as $propriedade => $valor){
-					echo '<tr><td>-><font class="metodo">'.$valor.'</font>()</td></tr>';
+				foreach($reflect->getMethods() as $metodo){
+						$acesso = null;
+						if($metodo->isPublic()) $acesso = 'public';
+						if($metodo->isPrivate()) $acesso = 'private';
+						if($metodo->isProtected()) $acesso = 'protected';
+						if($metodo->isStatic()) $acesso .= ' static';
+						if($metodo->isFinal()) $acesso .= ' final';
+						$pars = $metodo->getParameters();
+						$comment = explode("\n",substr($metodo->getDocComment(), 3, -2));
+						$commentArgs = array();
+						$commentRet = array('t'=>null,'d'=>null);
+						foreach($comment as $linhaComm){
+							if(preg_match('/(@\w*)[\ \t\n]*(\w*)[\ \t\n]*(\$\w*){0,1}[\ \t\n]*(.*)/', $linhaComm, $matches)){
+								switch (strtolower ($matches[1])) {
+									case '@param':
+										$commentArgs[] = array('t'=>$matches[2],'d'=>$matches[4]);
+										break;
+									case '@return':
+										$commentRet['t'] = $matches[2];
+										$commentRet['d'] = $matches[3];
+										break;
+								}
+							}
+						}
+						$args = array();
+						foreach($pars as $idx => $par){
+							if(isset($commentArgs[$idx])){
+								$args[]= $commentArgs[$idx]['t'].' <font class="variavel" title="'.$commentArgs[$idx]['d'].'">$'.$par->getName().'</font>';
+							}else{
+								$args[]= ' <font class="variavel" >$'.$par->getName().'</font>';
+							}
+						}
+						$args = implode(', ',$args);
+						switch(strtolower($commentRet['t'])){
+							case 'boolean':
+								$retorno =  '<font class="booleano" >(booleano)</font>';
+							break;
+							case 'integer':
+								$retorno =  '<font class="numero" >(integer)</font>';
+							break;
+							case 'double':
+								$retorno =  '<font class="numero" >(double)</font>';
+							break;
+							case 'float':
+								$retorno =  '<font class="numero" >(float)</font>';
+							break;
+							case 'string':
+								$retorno =  '<font class="string" >(string)</font>';
+							break;
+							case 'array':
+								$retorno =  '<font class="array" >(array)</font>';
+							break;
+							default:
+								$retorno =  ($commentRet['t']) ? '<font class="objeto" >('. $commentRet['t'] . ')</font>':'(void)';
+							break;
+						}
+
+					echo '<tr><td><font class="keyword">'.$acesso.' </font> '.$retorno.' function <font class="metodo" title="'.substr($metodo->getDocComment(), 3, -2).'">'.$metodo->getName().'</font>('.$args.');</td></tr>';
 				}
+				return;
 			}
 			switch(true){
 				case ($var instanceof TData):
@@ -69,15 +128,13 @@ function debug2($var,$metodos = true, $visualizacao = false){
 				case (($var instanceof visualizacao) && !$visualizacao):
 				break;
 				default:
-					$reflect = new ReflectionObject($var);
 						foreach ($reflect->getProperties(ReflectionProperty::IS_PUBLIC + ReflectionProperty::IS_PROTECTED + ReflectionProperty::IS_PRIVATE) as $prop) {
 						$acesso = null;
 						if($prop->isPublic()) $acesso = 'public';
 						if($prop->isPrivate()) $acesso = 'private';
 						if($prop->isProtected()) $acesso = 'protected';
-
 						if($prop->isStatic()) $acesso .= ' static';
-						echo '<tr><td><font class="keyword">'.$acesso.' </font><font class="variavel">$'.$prop->getName().'</font></td><td>';
+						echo '<tr><td><font class="keyword">'.$acesso.' </font><font class="variavel" title="'.substr($prop->getDocComment(), 3, -2).'">$'.$prop->getName().'</font></td><td>';
 						echo debug2(___pegarValorAtributo($var,$prop),$metodos);
 						echo '</td></tr>';
 					}
@@ -124,7 +181,8 @@ function ___pegarValorAtributo($valor,$atributo){
 		}
 		return $valor->{$atributo->getName()};
 	}catch (erro $e){
-		return '«««AcessoNegadoStatico»»»';
+		if($atributo->isStatic()) return '«««AcessoNegado [Atributo Statico Protegido]»»»';
+		return '«««AcessoNegado [Atributo Privado]»»»';
 	}catch (Exception $e){
 		return '«««AcessoNegado»»»';
 	}
@@ -156,5 +214,10 @@ function x3($x){
 	$ar = debug_backtrace();
 	echo "<div class='debug'>Chamada da função x3 no arquivo:{$ar[0]['file']} na linha:{$ar[0]['line']}</div>";
 	echo debug3($x);
+}
+function f($x){
+	$ar = debug_backtrace();
+	echo "<div class='debug'>Chamada da função f no arquivo:{$ar[0]['file']} na linha:{$ar[0]['line']}</div>";
+	echo debug2($x,true);
 }
 ?>
