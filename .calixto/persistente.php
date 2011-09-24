@@ -1,4 +1,26 @@
 <?php
+function buffer_persistente($buffer){
+//	return $buffer;
+	$arDebug = explode("\n",$buffer);
+	$res = "";
+	foreach($arDebug as $chamada => $linha){
+		if(preg_match('/^#(\d*)(.*)\(/', $linha,$f)){
+			$n=isset($f[1]) ? $f[1] : '?????';
+			$funcao=isset($f[2]) ? $f[2] : '?????';
+			$pos = strpos($funcao, '(');
+			if($pos !== false){
+				$funcao = substr($funcao, 0, $pos);
+			}
+		}
+		if(preg_match('/ called at \[(.*):(\d*)\]\s*$/', $linha,$l)){
+			$linha=isset($l[1]) ? $l[1] : '????';
+			$nrLinha=isset($l[2]) ? $l[2] : '???';
+			$res.= "#{$n}<font class='metodo'>{$funcao}</font> [<font class='variavel'>{$linha}</font>:<font class='numero'>{$nrLinha}</font>]<br/>";
+		}
+
+	}
+	return $res;
+}
 /**
 * Classe de representação de uma camada de persistencia com Banco de Dados
 * @package FrameCalixto
@@ -14,6 +36,7 @@ abstract class persistente extends objeto{
 	 * @var boolean variável de debugger
 	 */
 	protected static $imprimirComandos = false;
+	protected static $pilhaDeChamadas = false;
 	/**
 	* @var array array com a estrutura dos objetos persistentes
 	* criado para a execução de cache
@@ -41,16 +64,18 @@ abstract class persistente extends objeto{
 	 * @return boolean 
 	 */
 	public static function imprimindoComandos(){
-		return self::$imprimirComandos;
+		return (boolean) self::$imprimirComandos;
 	}
 	/**
 	 * Configura a persistente para imprimir os comandos de execução
 	 * @param boolean $valor
+	 * @param boolean $pilhaDeChamadas
 	 */
-	public static function imprimirComandos($valor){
+	public static function imprimirComandos($valor,$pilhaDeChamadas = true){
 		$ar = debug_backtrace();
-		echo "<div class='debug'>persistente configurando impressão por :{$ar[0]['file']} na linha:{$ar[0]['line']}</div>";
+		echo "<link rel='stylesheet' href='.sistema/debug.css' /><div class='debug'>persistente configurando impressão por :{$ar[0]['file']} na linha:{$ar[0]['line']}</div>";
 		self::$imprimirComandos = (boolean)$valor;
+		self::$pilhaDeChamadas = (boolean)$pilhaDeChamadas;
 	}
 	/**
 	* Método de sobrecarga para printar a classe
@@ -86,12 +111,19 @@ abstract class persistente extends objeto{
 	}
 	/**
 	* Metodo criado para especificar a estrutura da persistente
-	* @param string caminho do arquivo
+	* @param string nome da persistente
 	*/
-	public function pegarEstrutura($arquivoXML = null){
+	public function pegarEstrutura($nomePersistente = null){
 		try{
+			if($nomePersistente){
+				if(isset(persistente::$estrutura[$nomePersistente])){ 
+					return persistente::$estrutura[$nomePersistente];
+				}else{
+					throw new erroPersistente('Não foi possível acessar a estrutura da persistente, não existe instancia ativa de '.$nomePersistente);
+				}
+			}
 			if(!isset(persistente::$estrutura[get_class($this)])){
-				$arquivoXML = definicaoArquivo::pegarXmlEntidade($this,$arquivoXML);
+				$arquivoXML = definicaoArquivo::pegarXmlEntidade($this,null);
 				switch(true){
 					case !($arquivoXML):
 					break;
@@ -155,7 +187,27 @@ abstract class persistente extends objeto{
 	*/
 	public function executarComando($comando = null){
 		try{
-			if(self::$imprimirComandos) debug2($comando." \n<br/>\n ");
+			if(self::$imprimirComandos){
+				if (!is_integer(self::$imprimirComandos)) {
+					self::$imprimirComandos = 1;
+				} else {
+					self::$imprimirComandos++;
+				}
+				$nrComando = self::$imprimirComandos;
+				$sqlClass = $nrComando%2 ? 'sql1' : 'sql2' ;
+				echo "<table class='{$sqlClass}'>";
+				echo "<tr class='linha'>";
+				echo "<td class='numero'>{$nrComando}</td>";
+				if(self::$pilhaDeChamadas){
+					echo "<td class='string'><pre>";
+					ob_start('buffer_persistente');
+					debug_print_backtrace();
+					ob_end_flush();
+					echo "</pre></td>";
+				}
+				echo "<td class='string'><pre>{$comando}</pre></td>";
+				echo "</tr></table>";
+			}
 			return $this->conexao->executarComando($comando);
 		}
 		catch(erro $e){
@@ -202,6 +254,9 @@ abstract class persistente extends objeto{
 				case 'tdocumentopessoal':
 					return new TDocumentoPessoal($valor);
 				break;
+				case 'tcnpj':
+					return new TCnpj($valor);
+				break;
 				default:
 					return $valor;
 			}
@@ -219,6 +274,18 @@ abstract class persistente extends objeto{
 		}
 	}
 	/**
+	 * Método de formatação dos registros para os dados de outras persistentes
+	 * @param array $estrutura
+	 * @param array $tupla
+	 */
+	public function formatarRegistro($estrutura,&$tupla){
+		foreach($estrutura['campo'] as $campo => $atributos){
+			if(isset($tupla[$campo])) {
+				$tupla[$campo] = $this->converterDado($tupla[$campo],$atributos);
+			}
+		}
+	}
+	/**
 	* Retorna o registro corrente na conexão com o banco.(necessita de controle de transação)
 	* @return array registro corrente
 	*/
@@ -227,11 +294,7 @@ abstract class persistente extends objeto{
 			if(!is_subclass_of($this->conexao,'conexao')) throw new erroPersistente('Utilização incorreta da persistente! Possívelmente você efetuou uma chamada do método '.get_class($this).'::pegarRegistro sem controle de conexão!');
 			$tupla = $this->conexao->pegarRegistro();
 			$estrutura = $this->pegarEstrutura();
-			foreach($estrutura['campo'] as $campo => $atributos){
-				if(isset($tupla[$campo])) {
-					$tupla[$campo] = $this->converterDado($tupla[$campo],$atributos);
-				}
-			}
+			$this->formatarRegistro($estrutura, $tupla);
 			return $tupla;
 		}
 		catch(erro $e){
@@ -469,7 +532,13 @@ abstract class persistente extends objeto{
 			if(is_subclass_of($filtro, 'filtro')){
 				trigger_error( 'Para se utilizar um "filtro" deve-se especializar o método "pesquisar" da persistente ['.get_class($this).']');
 			}
-			return $this->lerPaginado($pagina, $this->gerarComandoPesquisar($filtro));
+			if($pagina->pegarTamanhoPagina() == 0){
+				$res = $this->pegarSelecao($this->gerarComandoPesquisar($filtro));
+				$pagina->passarTamanhoGeral(count($res));
+				return $res;
+			}else{
+				return $this->lerPaginado($pagina, $this->gerarComandoPesquisar($filtro));
+			}
 		}
 		catch(erro $e){
 			throw $e;
@@ -777,7 +846,7 @@ abstract class persistente extends objeto{
 	public function gerarComandoComentarioTabela(){
 		$estrutura = $this->pegarEstrutura();
 		$inter = $this->internacionalizacao();
-		return sprintf("COMMENT ON TABLE %s IS '%s'",$estrutura['nomeTabela'],$inter->pegarNome());
+		return sprintf("COMMENT ON TABLE %s \n\tIS '%s'",$estrutura['nomeTabela'],$inter->pegarNome());
 	}
 	/**
 	* Gera os comandos de criacao dos comentários dos campos da tabela
@@ -788,7 +857,7 @@ abstract class persistente extends objeto{
 		$inter = $this->internacionalizacao();
 		$comandos = array();
 		foreach($estrutura['campo'] as $nomeCampo => $campo){
-			$comandos[$nomeCampo] = sprintf("COMMENT ON COLUMN %s.%s IS '%s'",$estrutura['nomeTabela'],$nomeCampo,$inter->pegarPropriedade($campo['propriedade'], 'descricao'));
+			$comandos[$nomeCampo] = sprintf("COMMENT ON COLUMN %s.%s \n\tIS '%s'",$estrutura['nomeTabela'],$nomeCampo,$inter->pegarPropriedade($campo['propriedade'], 'descricao'));
 		}
 		return $comandos;
 	}
@@ -822,8 +891,7 @@ abstract class persistente extends objeto{
 			$nomeTabela = $arNomeTable[count($arNomeTable) -1];
 			$comando = "";
 			if($estrutura['chavePrimaria']){
-				$comando .= "alter table only {$estrutura['nomeTabela']} \n
-				add constraint {$nomeTabela}_pk primary key ({$estrutura['chavePrimaria']})";
+				$comando .= "alter table only {$estrutura['nomeTabela']} \n\tadd constraint {$nomeTabela}_pk primary key ({$estrutura['chavePrimaria']})";
 			}
 			return $comando;
 		}
@@ -856,8 +924,7 @@ abstract class persistente extends objeto{
 			$comando = "";
 			foreach($estrutura['campo'] as $nomeCampo => $referencia){
 				if(isset($referencia['chaveEstrangeira'])){
-					$comando .= "alter table only {$estrutura['nomeTabela']} \n
-					add constraint {$nomeTabela}_{$nomeCampo}_fk foreign key ($nomeCampo) references {$referencia['chaveEstrangeira']['tabela']}({$referencia['chaveEstrangeira']['campo']});";
+					$comando .= "alter table only {$estrutura['nomeTabela']} \n\tadd constraint {$nomeTabela}_{$nomeCampo}_fk foreign key ($nomeCampo) \n\treferences {$referencia['chaveEstrangeira']['tabela']}({$referencia['chaveEstrangeira']['campo']});";
 				}
 			}
 			return $comando;
@@ -915,8 +982,7 @@ abstract class persistente extends objeto{
 						$valores .="'$valor',";
 					}
 					$valores = substr($valores,0,-1);
-					$comando .= "alter table only {$estrutura['nomeTabela']} \n
-					add check ($nomeCampo in ($valores))";
+					$comando .= "alter table only {$estrutura['nomeTabela']} \n\tadd check ($nomeCampo in ($valores))";
 				}
 			}
 			return $comando;
@@ -1063,33 +1129,33 @@ abstract class persistente extends objeto{
 		try{
 			$comando = '';
 			if(($comandoCriacaoSequence = $this->gerarComandoCriacaoSequence())){
-				//$comando = "-- Comando de criação da sequence\n";
+				//$comando = "\n--[  Comando de criação da sequence  ]\n";
 				$comando.= 	"{$comandoCriacaoSequence};\n";
 			}
 			if(($comandoCriacaoTabela = $this->gerarComandoCriacaoTabela())){
-				//$comando.= "-- Comando de criação da tabela\n";
+				//$comando.= "\n--[  Comando de criação da tabela  ]\n";
 				$comando.= 	"{$comandoCriacaoTabela};\n";
 			}
-			if(($comandoComentarioTabela = $this->gerarComandoComentarioTabela())){
-				//$comando.= "-- Comentario de tabela\n";
-				$comando.= 	"{$comandoComentarioTabela};\n";
-			}
-			if(($comandoComentarioCampos = $this->gerarComandoComentarioCampos())){
-				//$comando.= "-- Comentario de campos\n";
-				$comandoComentarioCampos = implode(";\n",$comandoComentarioCampos);
-				$comando.= 	"{$comandoComentarioCampos};\n";
-			}
 			if(($comandoCriacaoChavePrimaria = $this->gerarComandoCriacaoChavePrimaria())){
-				//$comando.= "\n-- Comando de criação da chave primária\n";
+				//$comando.= "\n--[  Comando de criação da chave primária  ]\n";
 				$comando.= "{$comandoCriacaoChavePrimaria};\n";
 			}
 			if(($comandoCriacaoChavesEstrangeiras = $this->gerarComandoCriacaoChavesEstrangeiras())){
-				//$comando.= "\n-- Comando de criação das chaves estrangeiras\n";
+				//$comando.= "\n--[  Comando de criação das chaves estrangeiras  ]\n";
 				$comando.= 	"{$comandoCriacaoChavesEstrangeiras};\n";
 			}
 			if(($comandoRestricao = $this->gerarComandoRestricao())){
-				//$comando.= "\n-- Comando de criação das restrições\n";
+				//$comando.= "\n--[  Comando de criação das restrições  ]\n";
 				$comando.= 	"{$comandoRestricao};\n";
+			}
+			if(($comandoComentarioTabela = $this->gerarComandoComentarioTabela())){
+				$comando.= "\n--[  Comentario de tabela  ]\n";
+				$comando.= 	"{$comandoComentarioTabela};\n";
+			}
+			if(($comandoComentarioCampos = $this->gerarComandoComentarioCampos())){
+				//$comando.= "\n--[  Comentario de campos  ]\n";
+				$comandoComentarioCampos = implode(";\n",$comandoComentarioCampos);
+				$comando.= 	"{$comandoComentarioCampos};\n";
 			}
 			return $comando;
 		}
