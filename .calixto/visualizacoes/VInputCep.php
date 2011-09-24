@@ -7,7 +7,7 @@
 class VInputCep extends VInput{
 	function __construct($nome = 'naoInformado',TCep $valor){
 		parent::__construct($nome, $valor);
-		$this->passarClass('cep');
+		$this->adicionarClass('cep');
 		$this->passarSize('10');
 		$this->passarMaxlength('10');
 		$this->passarValue($valor->__toString());

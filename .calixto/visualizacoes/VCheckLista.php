@@ -18,11 +18,20 @@ class VCheckLista extends VEtiquetaHtml {
 		$conteudo = '';
 		if(is_array($this->conteudo)){
 			$conteudo .= $this->titulo;
+			$i = 0;
 			foreach($this->conteudo as $indice => $texto){
+				$i++;
 				$check = $this->montarCheck($nome,$indice);
 				$label = new VEtiquetaHtml('label');
-				$label->passarConteudo($check.'&nbsp;'.$texto.$this->listagem);
-				$conteudo .= $label;
+				$label->passarConteudo($check.'&nbsp;'.$texto);
+				if ($this->listagem) {
+					if ($i % 2) {
+						$label->passarClass('linha linha1');
+					} else {
+						$label->passarClass('linha linha2');
+					}
+				}
+				$conteudo .= $label.$this->listagem;
 			}
 			$this->conteudo = $conteudo;
 		}

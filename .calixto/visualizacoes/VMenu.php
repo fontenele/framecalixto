@@ -78,17 +78,18 @@ class VMenu extends objeto{
 	public function __toString(){
 		$this->_nome = $this->_nome ? $this->_nome : 'não informado';
 		$this->_tabIndex = $this->_tabIndex ? $this->_tabIndex : 9999;
+		$id = $this->_id ? " id='{$this->_id}'" : null;
+		$classe = $this->_classe ? " class='{$this->_classe}'" : null;
+		$link = $this->_link ? " href='{$this->_link}'" : " href='#'";
 		$imagem = !$this->_imagem ? null : "<img src='{$this->_imagem}' style='border:0px; vertical-align:bottom;' /> ";
 		if($this->_coMenu->possuiItens()){
-			$menu  = "<li class='{$this->_classe}' ><a href=\"#\">{$imagem}{$this->_nome}</a>\n";
-			$menu .= $this->_coMenu;
-			$menu .= "\n</li>\n";
+			$menu = "<li{$classe}{$id} ><a href='#'>{$imagem}{$this->_nome}</a>\n";
+			$menu.= $this->_coMenu;
+			$menu.= "\n</li>\n";
 		}else{
 			if(!$this->_link)	return '';
-			$classe = $this->_classe ? " class='{$this->_classe}'" : null;
-			$id = $this->_id ? " id='{$this->_id}'" : null;
 			$tabindex = $this->_tabIndex ? " tabindex='{$this->_tabIndex}'" : null;
-			$menu =  "<li{$classe}><a href='{$this->_link}'>{$imagem}{$this->_nome}</a></li>\n";
+			$menu =  "<li{$classe}{$id}><a{$link}>{$imagem}{$this->_nome}</a></li>\n";
 		}
 		return $menu;
 	}
