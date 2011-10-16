@@ -1,15 +1,15 @@
 $(document).ready(function(){
 	$('#checkAll').click(function(){
 		if($(this).attr('checked')){
-			$('tr.linha input').attr('checked','checked');
+			$('input[type=checkbox]:not(:first)').attr('checked','checked');
 		}else{
-			$('tr.linha input').removeAttr('checked');
+			$('input[type=checkbox]:not(:first)').removeAttr('checked');
 		}
 	});
 	$('#executar')
 	.click(function(){
 		if($('#executarNoBanco').attr('checked')){
-			if(!window.confirm( 'Deseja realmente destruir as tabelas selecionadas? \nEsta não tem retorno.')){
+			if(!window.confirm( 'Deseja realmente destruir as tabelas selecionadas? \nEsta operação não tem retorno.')){
 				return;
 			}
 		}

@@ -102,6 +102,24 @@ jQuery.fn.extend({
 			case('tmoeda'):return $(this).val('moeda');
 		}
 	},
+	pegarDominio:function(){
+		if(!$(this).val()) return false;
+		if($(this).val().split('::').length > 1){
+			return false;
+		}
+		val = $(this).val().trim().substr(1,$(this).val().length -2);
+		cod = new Array;
+		txt = new Array;
+		$.each(val.split(']['),function(i,val){
+			a = val.split(',');
+			cod.push(a[0]);
+			txt.push(a[1]);
+		});
+		return {
+			"cod":cod,
+			"val":txt
+		};
+	},
 	pegarNrLinha: function(){
 		return $(this).parents('.d-tr').index();
 	},
@@ -116,6 +134,7 @@ jQuery.fn.extend({
 		valores = valores || '';
 		chave = chave || '';
 		if(valores){
+			console.log(valores);
 			$(this).adicionarEntidade(
 				valores.inter.nome,
 				valores.inter.abreviacao,
@@ -142,6 +161,8 @@ jQuery.fn.extend({
 			);
 			$(this).adicionarVisualizacao(
 				valores.controle.componente,
+				valores.controle.edicao ? 'sim' : 'nao',
+				valores.controle.pesquisa ? 'sim' : 'nao',
 				(valores.controle.listagem ? valores.controle.ordem : '' ),
 				valores.negocio.descritivo,
 				(valores.controle.listagem ? valores.controle.largura.strReplace('%','') : '' )
@@ -211,19 +232,24 @@ jQuery.fn.extend({
 				.append(tabelaReferencia ? c('text','bd_referencia_campo',campoReferencia) : c('text','bd_referencia_campo',campoReferencia).hide())
 		);
 	},
-	adicionarVisualizacao:function (componente,ordem,ordemDescritivo,largura){
+	adicionarVisualizacao:function (componente,edicao,pesquisa,ordem,ordemDescritivo,largura){
 		componente = componente || '';
 		ordem = ordem || '';
 		ordemDescritivo = ordemDescritivo || '';
 		largura = largura || '';
+		linha = $('#vis div.d-tr:last').index();
 		$('#vis').append(
 			$('<div/>').addClass('d-tr')
 				.append($('<div/>').addClass('d-td propriedade ui-state-default'))
 				.append(c('select','vi_componente',componente,$(this).componentes))
+				.append(c('checkbox','vi_edicao',(edicao == 'nao' ? false : true)))
+				.append(c('checkbox','vi_pesquisa',pesquisa == 'nao' ? false : true))
 				.append(c('text','vi_ordem',ordem).attr('size',3))
 				.append(c('text','vi_ordemDescritivo',ordemDescritivo))
 				.append(c('text','vi_largura',largura))
 		);
+		$('#vis div.d-tr:last>.d-td>.vi_edicao').attr('name','vi_edicao['+linha+']').val(linha);
+		$('#vis div.d-tr:last>.d-td>.vi_pesquisa').attr('name','vi_pesquisa['+linha+']').val(linha);
 	},
 	preencherTela:function(definicao){
 			$('#entidade').val(definicao.inter.nome);
@@ -237,17 +263,104 @@ jQuery.fn.extend({
 			}
 	},
 	preencherCasoDeUso:function(definicao){
-			//Caso de uso
-			$('.uc-nome').html('Cadastro de '+definicao.inter.nome);
-			var data = new Date();
-			$('.uc-data').html(data.getDate()+'/'+(data.getMonth()+1)+'/'+data.getFullYear());
-			for (i in definicao.entidade){
-				$(this).adicionarComponenteUc(i,definicao.entidade[i]);
-			}
-			$('.uc-nome-tabela').html(definicao.bd.nomeTabela);
-			console.log(definicao);
+		var data = new Date();
+		$('.en_nome').each(function(){$(this).ucAtualizar();});
+		$('.uc-data').html(data.getDate()+'/'+(data.getMonth()+1)+'/'+data.getFullYear());
+		$('.uc-nome').html('Cadastro de '+definicao.inter.nome);
+		$('.uc-nome-tabela').html(definicao.bd.nomeTabela);
 	},
-	adicionarComponenteUc:function(nome,componente){
+	ucAtualizar:function(){
+		$(this).ucItemPesquisa();
+		$(this).ucItemEdicao();
+		$(this).ucItemListagem();
+		$(this).ucItemObrigatorio();
+	},
+	ucItemPesquisa:function(){
+		var linhas = $(this).pegarLinhas();
+		var selComp = '.uc-item-pesquisa.uc-componente_'+$(this).pegarNrLinha();
+		var classComp = 'uc-item-pesquisa uc-componente_'+$(this).pegarNrLinha();
+		if(!linhas.find('.vi_pesquisa').attr('checked')) {
+			$(selComp).remove();
+			return;
+		}
+		var valores = linhas.find('.ng_dominio_associativa').pegarDominio();
+		var txValores = valores ? ', sendo possível somente a seleção dos valores ('+valores.cod.join(', ')+') com os respectivos textos ('+valores.val.join(', ')+')' : '';
+		var txItem =
+			'O Campo <span class="uc-componente">"'+linhas.find('.en_nome').val()+'"</span>'+
+				'<br/><dd>Utilizando um componente '+linhas.find('.ng_tipo').val()+' '+(linhas.find('.ng_tamanho').val() ? ','+
+				'<br/><dd>Com tamanho máximo definido em '+linhas.find('.ng_tamanho').val()+' caracteres' : '')+','+
+				'<br/><dd>Com a dica de tela ['+linhas.find('.en_descricao').val()+']'+
+				'<br/><dd>'+txValores+'<br/>'
+			;
+		if($(selComp)[0]){
+			$(selComp).html(txItem);
+		}else{
+			$('.uc-campos-pesquisa .uc-opcao:first')
+				.parent().before('<li class="'+classComp+'">'+txItem+'</li>');
+		}
+	},
+	ucItemEdicao:function(){
+		var linhas = $(this).pegarLinhas();
+		var selComp = '.uc-item-edicao.uc-componente_'+$(this).pegarNrLinha();
+		var classComp = 'uc-item-edicao uc-componente_'+$(this).pegarNrLinha();
+		if(!linhas.find('.vi_edicao').attr('checked')) {
+			$(selComp).remove();
+			return;
+		}
+		var valores = linhas.find('.ng_dominio_associativa').pegarDominio();
+		var txValores = valores ? ', sendo possível somente a seleção dos valores ('+valores.cod.join(', ')+') com os respectivos textos ('+valores.val.join(', ')+')' : '';
+		var txItem =
+			'O Campo '+(linhas.find('.ng_nn').attr('checked') ? 'obrigatório ': '')+'<span class="uc-componente">"'+linhas.find('.en_nome').val()+'"</span>'+
+				'<br/><dd>Utilizando um componente '+linhas.find('.ng_tipo').val()+' '+(linhas.find('.ng_tamanho').val() ? ','+
+				'<br/><dd>Com tamanho máximo definido em '+linhas.find('.ng_tamanho').val()+' caracteres' : '')+','+
+				'<br/><dd>Com a dica de tela ['+linhas.find('.en_descricao').val()+']'+
+				'<br/><dd>'+txValores+'<br/>'
+			;
+		if($(selComp)[0]){
+			$(selComp).html(txItem);
+		}else{
+			$('.uc-campos-edicao .uc-opcao:first')
+				.parent().before('<li class="'+classComp+'">'+txItem+'</li>');
+		}
+	},
+	ucItemListagem:function(){
+		var linhas = $(this).pegarLinhas();
+		if(!linhas.find('.vi_ordem').val()) return;
+		var selComp = '.uc-item-listagem.uc-componente_'+$(this).pegarNrLinha();
+		var classComp = 'uc-item-listagem uc-componente_'+$(this).pegarNrLinha();
+		var valores = linhas.find('.ng_dominio_associativa').pegarDominio();
+		var txItem =
+                'A coluna com o título <span class="uc-componente">"'+linhas.find('.en_abreviacao').val()+'"</span>'+
+                    '<br/><dd>Deverá apresentar os '+(valores.length?'valores ('+valores.val.join(', ')+')':'dados')+' referente ao campo '+linhas.find('.en_nome').val()+' do Cadastro de <span class="uc-nome"></span><br/>'
+			;
+		if($(selComp)[0]){
+			$(selComp).html(txItem);
+		}else{
+			$('.uc-colunas .uc-opcao:first')
+				.parent().before('<li class="'+classComp+'">'+txItem+'</li>');
+		}
+	},
+	ucItemObrigatorio:function(){
+		var linhas = $(this).pegarLinhas();
+		var selComp = '.uc-item-obrigatorio.uc-componente_'+$(this).pegarNrLinha();
+		var classComp = 'uc-item-obrigatorio uc-componente_'+$(this).pegarNrLinha();
+		if(!linhas.find('.ng_nn').attr('checked')){
+			$(selComp).remove();
+			return;
+		}
+		var txItem =
+                'Caso o campo <span class="uc-componente">"'+linhas.find('.en_nome').val()+'"</span> não esteja preenchido,'+
+                    '<br/><dd>O registro não deverá ser gravado e o sistema deverá retornar a mensagem:'+
+                    '<br/><dd>O campo é ['+linhas.find('.en_nome').val()+'] obrigatório.<br/>'
+			;
+		if($(selComp)[0]){
+			$(selComp).html(txItem);
+		}else{
+			$('.uc-gravacao-sem-dados')
+				.append('<li class="'+classComp+'">'+txItem+'</li>');
+		}
+	},
+	alterarUc:function(nome,componente){
 		if(componente.controle.componente == 'oculto') return;
 		var valores = new Array;
 		var textos = new Array;
@@ -257,14 +370,18 @@ jQuery.fn.extend({
 				textos.push(componente.controle.valores[i])
 			}
 		}
-		valores = valores.length ? ', sendo possível somente a seleção dos valores ('+valores.join(', ')+') com os respectivos textos ('+textos.join(', ')+')' : '';
-		$('.uc-campos-pesquisa .uc-opcao:first').parent().before('<li>O Campo <span class="uc-componente">"'+componente.inter.nome+'"</span> utilizando um componente '+componente.controle.componente+' '+(componente.controle.tamanho ? ', com tamanho máximo definido em '+componente.controle.tamanho+' caracteres' : '')+', com a dica de tela ['+componente.inter.descricao+']'+valores+'</li>');
-		$('.uc-campos-edicao .uc-opcao:first').parent().before('<li>O Campo '+(componente.negocio.obrigatorio ? 'obrigatório': '')+' <span class="uc-componente">"'+componente.inter.nome+'"</span> utilizando um componente '+componente.controle.componente+' '+(componente.controle.tamanho ? ', com tamanho máximo definido em '+componente.controle.tamanho+' caracteres' : '')+', com a dica de tela ['+componente.inter.descricao+']'+valores+'</li>');
-		if(componente.negocio.obrigatorio){
-			$('.uc-gravacao-sem-dados').append('<li>Caso o campo <span class="uc-componente">"'+componente.inter.nome+'"</span> não esteja preenchido, o registro não deverá ser gravado e o sistema deverá retornar a mensagem:<br/>'+
-				'O campo é ['+componente.inter.nome+'] obrigatório.'+
-			'</li>');
+		var txValores = valores.length ? ', sendo possível somente a seleção dos valores ('+valores.join(', ')+') com os respectivos textos ('+textos.join(', ')+')' : '';
+		$('.uc-campos-pesquisa .uc-opcao:first').parent().before(txItemPesquisa);
+		$('.uc-campos-edicao .uc-opcao:first').parent().before(txItemEdicao);
+		if(componente.controle.listagem){
+			$('.uc-colunas .uc-opcao:first').parent().before(txItemListagem);
 		}
+		if(componente.negocio.obrigatorio){
+			$('.uc-gravacao-sem-dados').append(txItemObrigatorio);
+		}
+	},
+	dadosLinha:function(){
+		$(this).parents('.d-tr')
 	}
 });
 $(document).ready( function() {
@@ -353,6 +470,11 @@ $(document).ready( function() {
 	});
 	$('.ng_chave_pk').live('click',function(){
 		$(this).parents('.d-tr').find('.ng_tipo').val('numerico');
+	});
+	$('.en_nome, .en_abreviado, .en_descricao, .ng_tipo, .ng_tamanho, .ng_nn, .ng_dominio_associativa, .vi_componente, .vi_edicao, .vi_pesquisa, .vi_ordem')
+		.live('change',function(){$(this).ucAtualizar();});
+	$('#nomeTabela').change(function(){
+		$('.uc-nome-tabela').html($(this).val());
 	});
 	$('.ng_fk').live('click',function(){
 		if($(this).attr('checked')){

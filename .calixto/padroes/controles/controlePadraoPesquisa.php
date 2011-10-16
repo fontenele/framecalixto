@@ -122,7 +122,7 @@ class controlePadraoPesquisa extends controlePadrao {
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao') {
 		parent::montarApresentacao($negocio);
 		$help = new VEtiquetaHtml('div');
-		$help->passarClass('help');
+		$help->passarClass('fc-ajuda');
 		$help->passarConteudo($this->inter->pegarTexto('ajudaPesquisa'));
 		$this->visualizacao->descricaoDeAjuda = $help;
 		$this->visualizacao->tituloListagem = $this->inter->pegarTexto('tituloListagem');

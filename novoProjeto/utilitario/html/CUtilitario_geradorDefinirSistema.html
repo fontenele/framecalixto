@@ -1,15 +1,10 @@
 <form name="formulario" method="post" action="«$action»" >
-	<div class="container0 ui-widget-content ui-corner-all">
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
-		<div class="d"></div>
-		<div class="e"></div>
-		<div class="f"></div>
-		<div class="g"></div>
-		<div class="h"></div>
-		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
-		<div class="texto">
+	<div class="fc-edicao">
+		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
+		<div class="fc-campo-grupo">
+			<div class="fc-campo-subgrupo">
+				
+			</div>
 			<div id="tabs">
 				<ul>
 					<li><a id="guia_1" class="guia" href="#tabs-1" accesskey="1"><label class="atalho">1.</label>Geral</a></li>
@@ -20,11 +15,11 @@
 					<li><a id="guia_6" class="guia" href="#tabs-6" accesskey="6"><label class="atalho">6.</label>Arquivos</a></li>
 				</ul>
 				<div id="tabs-1">
-					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+					<div class="fc-ajuda">
 						<span style="float: left;" class="ui-icon ui-icon-info"></span>
 						<div class="help">Nas configurações gerais do sistema você poderá definir qual a página inicial do sistema e qual a página de erro do sistema e ainda qual o ambiente que o sistema está funcionando.</div>
 					</div><br/>
-					<fieldset class="ui-widget-content ui-corner-all">
+					<fieldset>
 						<legend>«$textoSistema»</legend>
 						<div class="tabela2">
 							<div class='campo'>
@@ -47,11 +42,11 @@
 					</fieldset>
 				</div>
 				<div id="tabs-2">
-					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+					<div class="fc-ajuda">
 						<span style="float: left;" class="ui-icon ui-icon-info"></span>
 						<div class="help">Nas configurações a seguir você poderá definir qual a classe e qual o método que fará a validação dos acessos do sistema, além de também poder desativar o controle de acesso.</div>
 					</div><br/>
-					<fieldset class="ui-widget-content ui-corner-all">
+					<fieldset>
 						<legend>«$textoControleAcesso»</legend>
 						<div class="tabela2">
 							<div class='campo'>
@@ -70,11 +65,11 @@
 					</fieldset>
 				</div>
 				<div id="tabs-3">
-					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+					<div class="fc-ajuda">
 						<span style="float: left;" class="ui-icon ui-icon-info"></span>
 						<div class="help">Você poderá definir aqui qual a classe e quais os métodos que farão as criações dos menus principal e menu do sistema.</div>
 					</div><br/>
-					<fieldset class="ui-widget-content ui-corner-all">
+					<fieldset>
 						<legend>«$textoControleMenu»</legend>
 						<div class="tabela2">
 							<div class='campo'>
@@ -93,11 +88,11 @@
 					</fieldset>
 				</div>
 				<div id="tabs-4">
-					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+					<div class="fc-ajuda">
 						<span style="float: left;" class="ui-icon ui-icon-info"></span>
 						<div class="help">Configure aqui as conexões que o sistema possui com os bancos de dados.</div>
 					</div><br/>
-					<fieldset class="ui-widget-content ui-corner-all">
+					<fieldset>
 						<legend>«$textoBancos»</legend>
 						<div class="d-table" id="conexoes">
 							<div class="d-tr">
@@ -128,11 +123,11 @@
 					</div>
 				</div>
 				<div id="tabs-5">
-					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+					<div class="fc-ajuda">
 						<span style="float: left;" class="ui-icon ui-icon-info"></span>
 						<div class="help">Defina abaixo a estrutura de diretórios do sistema.</div>
 					</div><br/>
-					<fieldset class="ui-widget-content ui-corner-all">
+					<fieldset>
 						<legend>«$textoDiretorios»</legend>
 						<table summary="text" class="tabela2">
 							<tr>
@@ -152,11 +147,11 @@
 
 				</div>
 				<div id="tabs-6">
-					<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+					<div class="fc-ajuda">
 						<span style="float: left;" class="ui-icon ui-icon-info"></span>
 						<div class="help">Nesta etapa você pode definir alguns arquivos do sistema.</div>
 					</div><br/>
-					<fieldset class="ui-widget-content ui-corner-all">
+					<fieldset>
 						<legend>«$textoArquivos»</legend>
 						<table summary="text" class="tabela2">
 							<tr>

@@ -1,4 +1,4 @@
 $(document).ready( function() {
-	$('.texto').hide();
-	$('.titulo').click(function(){$(this).next().toggle();});
+	$('.fc-campo-grupo:not(:first)').hide();
+	$('.fc-titulo-especifico').click(function(){$(this).next().toggle();});
 });

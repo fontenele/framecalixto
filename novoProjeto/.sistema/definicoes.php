@@ -11,10 +11,10 @@ function __autoload($stClasse){
 			case (is_file($ar['stArquivo'] = definicaoPasta::tema().$stClasse.'.php')):
 				include_once $ar['stArquivo'];
 			break;
-			case (defined('diretorioPrioritario') &&  is_file($ar['stArquivo'] = diretorioPrioritario.$stClasse.'.php')):
+			case (is_file($ar['stArquivo'] = definicaoPasta::padraoDoSistema().$stClasse.'.php')):
 				include_once $ar['stArquivo'];
 			break;
-			case (defined('diretorioPrioritario') &&  is_file($ar['stArquivo'] = diretorioPrioritario.$stClasse.'.php')):
+			case (is_file($ar['stArquivo'] = definicaoPasta::padraoDoFrameCalixto().$stClasse.'.php')):
 				include_once $ar['stArquivo'];
 			break;
 			default:

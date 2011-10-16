@@ -30,7 +30,7 @@ class controlePadraoVerEdicao extends controlePadrao{
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'gravar'));
 		$this->visualizacao->chave = VComponente::montar('oculto',$this->negocio->nomeChave(),$this->negocio->valorChave());
 		$help = new VEtiquetaHtml('div');
-		$help->passarClass('help');
+		$help->passarClass('fc-ajuda');
 		$help->passarConteudo($this->inter->pegarTexto('ajudaNovo'));
 		switch(true){
 			case(isset($_GET['chave'])):

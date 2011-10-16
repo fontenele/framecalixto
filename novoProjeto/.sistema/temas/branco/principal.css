@@ -2,233 +2,87 @@
 @import url(css/clickmenu.css);
 @import url(css/reset.css);
 @import url(css/ie.css);
+@import url(css/framecalixto.css);
+
+
+
+
+body{
+/*	background-color: #5F9EA0;*/
+/*	background: url(http://farm4.static.flickr.com/3286/4553543620_78a2a85e18_o.jpg) repeat;*/
+/*	background: url(http://i49.tinypic.com/tq53.png) repeat;*/
+/*	background: url(http://fc04.deviantart.com/fs30/f/2008/148/c/3/Wood_floor_by_gnrbishop.jpg) repeat;*/
+}
 body {
-	width: 100%;
-	height: 100%;
-	font-family: Calibri;
-	background-color: #FAF8F7;
+/*	background-image: url("http://img24.imageshack.us/img24/8207/plantillaazul3columnas.jpg");*/
+/*	background: url(http://i96.photobucket.com/albums/l185/ajojo00/a04e558c.jpg) repeat;*/
+/*	background-image:url(http://i400.photobucket.com/albums/pp85/simplyblogitbackgrounds/brickwallcopy.jpg?t=1248875373);	background-position: center;*/
+	background-image:url(../../../imagens/wintermoonwhite3col.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
 }
-
-#pagina {
-	width: 90%;
-	margin: 0 auto;
-	position: relative;
-}
-
-#pagina .conteudo {
-	min-height: 600px;
-	-moz-border-radius: 0 0 4px 4px;
-	border-top: none !important;
-}
-
-#topo {
-	height: 60px;
-	font-size: 2.6em;
-	font-variant: small-caps;
-}
-#topo span {
-	padding-left: 10px;
-	margin-top: 20px;
-	cursor: default;
-}
-.opcoesSistema {
-	float: right;
-	margin-top: -23px;
-	padding-right: 14px;
-}
-.opcoesSistema img {
-	padding-left: 5px;
-}
-.descricaoDeAjuda {
-	width: 90%;
-	margin: auto;
-	margin-top: 10px;
-}
-.linhaListagem1:hover, .linhaListagem2:hover {
-	background-color: #d8e4f3 !important;
-}
-.linhaListagem1 td, .linhaListagem2 td {
-	padding: 2px;
-}
-.linhaListagem1 td a, .linhaListagem2 td a {
-	text-decoration: underline !important;
-}
-.linhaListagem1 {
-	background-color: #FAFAFA;
-}
-.linhaListagem2 {
-	background-color: #eeeeee;
-}
-.centro, .centralizado { text-align: center; }
-.direita { text-align: right; }
-.esquerda { text-align: left; }
-
-/* menu3 */
-.menu3 {
-	width: 90%;
-	margin: auto;
-}
-.menu3 ul {
-	list-style: none;
-}
-.menu3 ul li {
-	display: inline;
-	padding-right: .5em;
-	padding-top: 2px;
-	padding-bottom: 2px;
-}
-.menu3 ul li a:hover {
-	
-}
-.menu3 ul li a {
-	padding: .4em;
-	font-variant: small-caps;
-}
-.menu3 ul li a img {
-	vertical-align: -5px !important;
-	width: 20px;
-}
-/* menu3 */
-
-#rodape {
-	position: fixed;
-	border-bottom: none !important;
-	font-size: .8em;
-	font-variant: small-caps;
-	cursor: default;
-	width: 90%;
-	left: 5%;
-	bottom: 0;
-	margin: auto;
+#topo{
 	text-align: center;
-	-moz-border-radius: 4px 4px 0 0;
 }
-
-/* container0 */
-.container0 {
-	width: 90%;
-	margin: 1em auto;
-	padding-bottom: 1em;
-
+#topo img{
+	width: 100px;
 }
-.container0 > h1 {
-	cursor: default;
-	border-top: none !important;
-}
-.container0 h1 img {
-	width: 16px;
-	vertical-align: -2px;
-}
-.container0 .tabela2 {
-	width: 800px;
-	margin-left: 40px;
+#pagina{
+	margin: 0px auto;
 	padding: 10px;
-	padding-top: 7px;
+	width: 960px;
+	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+/*	border: 1px solid #d3d3d3;*/
+	min-height: 100%;
+/*	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);*/
+	background-color: #ffffff;
 }
-.container0 .tabela0 {
-	width: 800px;
-	margin: 10px auto;
-}
-.container0 .tabela2 .campo {
-	padding-bottom: .2em;
-}
-.container0 .tabela2 .campo label {
-	display: block;
-	padding-bottom: .1em;
-}
-.container0 .tabela2 .campo .campoObrigatorio {
-	padding-left: .2em;
-}
-/* container0 */
-
-/* container2 */
-.container2 {
-	margin-top: 2em;
-}
-.container2 h1 {
-	font-size: 1.2em;
-	width: 90%;
-	margin: auto;
-	margin-top: 20px;
-	cursor: default;
-	text-indent: 5px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	font-variant: small-caps;
-	cursor: default;
-}
-.container2 h1 img {
-	width: 16px;
-	vertical-align: -2px;
-}
-.container2 .tabela0 {
-	width: 90%;
-	margin: auto;
-	margin-top: 7px;
-}
-.container2 .tabela0 thead tr th {
-	border: medium none !important;
-	padding: 3px;
-	padding-left: 2px;
-	padding-top: .5em;
-	padding-bottom: .5em;
-}
-.container2 .tabela0 tbody tr td {
+input, select, textarea{
+	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+	border-top-color: #aaaaaa;
+	border-left-color: #aaaaaa;
+	border-bottom-color: #dddddd;
+	border-right-color: #dddddd;
 	padding: 2px;
 }
-/* container2 */
+input:focus, select:focus, textarea:focus{
+	background-color: #ffffd5;
+    border-top-color: #ffcc00;
+    border-left-color: #ffcc00;
+	border-bottom-color: #ffff66;
+	border-right-color: #ffff66;
+}
+input:hover, select:hover, textarea:hover{
+    border-top-color: #ffcc00;
+    border-left-color: #ffcc00;
+	border-bottom-color: #ffff66;
+	border-right-color: #ffff66;
+}
+fieldset{
+	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+.ui-datepicker{
+	font-size: .8em;
+}
+.ui-tabs{
+	font-size: .8em;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+.ui-widget-content{
+	background: url("") repeat-x scroll 50% 50%;
+}
+.ui-tabs-selected .ui-state-active{
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+li.ui-state-active{
 
-/* container3 */
-.tabela0 + .container3 {
-	width: 89.9%;
-	padding-top: 3px;
-	padding-bottom: 3px;
-	margin: auto;
-	
-	border-top: none !important;
 }
-.tabela0 + .container3 > .texto {
-	text-align: center;
+.fc-campo-grupo{
+/*	background: url(http://i49.tinypic.com/tq53.png) repeat;*/
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
-.tabela0 + .container3 > .texto p a, .tabela0 + .container3 > .texto p span {
-	padding-left: .3em;
-	padding-right: .3em;
-	margin-left: .3em;
-	margin-right: .3em;
-}
-.tabela0 + .container3 > .texto p select {
-	width: 50px;
-	margin-left: .3em;
-	margin-right: .3em;
-}
-/* container3 */
-
-/* abas */
-.ui-tabs-nav li, .ui-tabs-nav li a {
-	
-}
-.ui-tabs .ui-tabs-nav li a {
-	float:left;
-	padding: 5px 8px;
-	text-decoration:none;
-	font-size: 11pt;
-	font-weight: bold;
-	
-}
-.ui-tabs .ui-tabs-hide {
-	display: none;
-}
-.ui-tabs {
-	font-size: 12pt;
-}
-/* abas */
-
-
-.radiolist ~ span {
-}
-.radiolist div label {
-    display: inline !important;
-}
-.radiolist div  {
-    display: inline !important;
+.d-table{
+	background-color: #ffffff;
 }

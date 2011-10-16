@@ -5,6 +5,11 @@
 * @subpackage visualização
 */
 class VInputDataHora extends VInput{
+	/**
+	 * Identificador do objeto
+	 * @var string
+	 */
+	protected $id;
     /**
      * Componente de data
      * @var VInputData
@@ -22,9 +27,17 @@ class VInputDataHora extends VInput{
      */
 	public function __construct($nome = 'naoInformado',TData $valor){
 		$this->data = new VInputData($nome."[data]",$valor);
+		$this->id = $nome;
         $this->data->passarId("{$nome}_data");
 		$this->hora = new VInputHora($nome."[hora]",$valor);
         $this->hora->passarId("{$nome}_hora");
+	}
+	/**
+	 * Retorna o id do objeto
+	 * @return string
+	 */
+	public function pegarId(){
+		return $this->id;
 	}
 	/**
 	* Método de sobrecarga para evitar a criação de métodos repetitivos

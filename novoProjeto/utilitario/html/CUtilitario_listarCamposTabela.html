@@ -1,16 +1,10 @@
 <form name="formulario" method="post" action="«$action»" >
-	<div class="container0 ui-widget-content ui-corner-all">
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
-		<div class="d"></div>
-		<div class="e"></div>
-		<div class="f"></div>
-		<div class="g"></div>
-		<div class="h"></div>
-		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»<span style="font-weight:bold;">«$tabela»</span></h1>
-		<div class="lista">
-			<table summary="text" class="tabela0 ui-widget-content ui-corner-all">
+	<div class="fc-pesquisa">
+		<h1 class="fc-titulo-especifico">«$tituloEspecifico»<span style="font-weight:bold;">«$tabela»</span></h1>
+		<div class="fc-campo-grupo">
+		<br/>
+		<div class="fc-listagem-grupo">
+			<table summary="text" class="fc-listagem-dados">
 				<thead>
 					<tr>
 						<th class="ui-state-default">Campo</th>
@@ -23,7 +17,7 @@
 					</tr>
 				</thead>
 				«foreach from=$listagem item=nome»
-				<tr title="«php»echo $this->nome['descricao']«/php»" class="«cycle values='linhaListagem1,linhaListagem2'»">
+				<tr title="«php»echo $this->nome['descricao']«/php»" class="«cycle values='fc-linha fc-linha1,fc-linha fc-linha2'»">
 					<td class="campo1">«php»echo $this->nome['campo'] «/php»</td>
 					<td class="campo1">«php»echo $this->nome['tipo_de_dado'] «/php»</td>
 					<td class="campo1">«php»echo $this->nome['tamanho'] «/php»</td>
@@ -35,7 +29,8 @@
 				«/foreach»
 			</table>
 	        <div id='menu_corpo'>
-	            «$menuPrograma»
+	            <br/>«$menuPrograma»<br/><br/>
+	        </div>
 	        </div>
 		</div>
 	</div>

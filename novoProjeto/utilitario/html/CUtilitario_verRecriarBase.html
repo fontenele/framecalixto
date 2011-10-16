@@ -23,32 +23,26 @@
 </style>
 <form name="formulario" method="post" action="«$action»" >
 	<div id="resultado-recriacao" title="Resultado da execução"><div id="comandos"></div></div>
-<div class="container0 ui-widget-content ui-corner-all">
-	<div class="a"></div>
-	<div class="b"></div>
-	<div class="c"></div>
-	<div class="d"></div>
-	<div class="e"></div>
-	<div class="f"></div>
-	<div class="g"></div>
-	<div class="h"></div>
-	<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
-	<div class="texto">
-		<div class="listagem">
-			<table summary="text" class="tabela0 ui-widget-content ui-corner-all">
-			<caption>
-			«$executarNoBanco» Executar os comandos no banco.<br/><br/>
-			</caption>
-			<thead class="ui-state-default">
-				<tr class="ui-widget-header">
-					<th class="ui-state-default ui-widget-content"><input type="checkbox" id="checkAll"/></th>
-					<th class="ui-state-default ui-widget-content nomeTabela" >Tabela</th>
-					<th class="ui-state-default ui-widget-content nomeTabela" >Nome</th>
+<div class="fc-pesquisa">
+	<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
+	<div class="fc-campo-grupo">
+		<div class="fc-campo">
+			<label></label>
+			<span>«$executarNoBanco»Executar os comandos no banco.</span>
+		</div>
+		<div class="fc-listagem-grupo">
+			<h1 class="fc-listagem-titulo">Tabelas</h1>
+			<table summary="text" class="fc-dados-listagem">
+			<thead>
+				<tr>
+					<th><input type="checkbox" id="checkAll"/></th>
+					<th class="nomeTabela" >Tabela</th>
+					<th class="nomeTabela" >Nome</th>
 				</tr>
 			</thead>
 				<tbody>
 			«foreach from=$listagem item=nome»
-					<tr class="«cycle values='linha linhaListagem1, linha linhaListagem2'»">
+					<tr class="«cycle values='fc-linha fc-linha1, fc-linha fc-linha2'»">
 						<td class="check" align="center">«$nome.check»</td>
 						<td align="left">«$nome.tabela»</td>
 						<td align="left">«$nome.nome»</td>
