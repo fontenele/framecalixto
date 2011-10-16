@@ -1,44 +1,28 @@
 <!---------------------- TEMPLATE PADRÃO ---------------------->
 <form name="formulario" method="post" action="«ldelim»$action«rdelim»" >
-	<div class="container0 ui-widget-content ui-corner-all">
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
-		<div class="d"></div>
-		<div class="e"></div>
-		<div class="f"></div>
-		<div class="g"></div>
-		<div class="h"></div>
-		<h1 class="ui-state-default ui-corner-all">«ldelim»$tituloEspecifico«rdelim»</h1>
-		<div class="texto">
+	<div class="fc-pesquisa">
+		<h1 class="fc-titulo-especifico">«ldelim»$tituloEspecifico«rdelim»</h1>
+		<div class="fc-campo-grupo">
 			«*
 
 				ATENÇÃO AO MODIFICAR ESTE TEMPLATE VERIFIQUE A QUESTÃO DE IDENTAÇÃO
 				O FOREACH ABAIXO PARECE BAGUNÇADO "MAS" ELE DEIXA O RESULTADO ORGANIZADO
 
 
-			*»<div class="tabela2">«foreach from=$nomes key=indice item=propriedade »
+			*»<div class="fc-campo-subgrupo">«foreach from=$nomes key=indice item=propriedade »
 
-				<div class="campo">
+				<div class="fc-campo">
 					<label for="«$propriedade»">«ldelim»$«$indice»«rdelim»:</label>
 					<span>«ldelim»$«$propriedade»«rdelim»</span>
 				</div>			«/foreach»
 
 			</div>
 	        <div id='menu_corpo'>
-	            «ldelim»$menuPrograma«rdelim»
+	            «ldelim»$menuPrograma«rdelim»<br/><br/>
 	        </div>
-			<div class="container2">
-				<div class="a"></div>
-				<div class="b"></div>
-				<div class="c"></div>
-				<div class="d"></div>
-				<div class="e"></div>
-				<div class="f"></div>
-				<div class="g"></div>
-				<div class="h"></div>
-				<h1 class="ui-state-default ui-corner-all"><img src=".sistema/icones/application_view_list.png" /> Listagem</h1>
-				<div class="texto">
+			<div class="fc-listagem-grupo">
+				<h1 class="fc-listagem-titulo"><span class='fc-icon-pesquisa' ></span> «ldelim»$textoTituloListagem«rdelim»</h1>
+				<div class="fc-listagem">
 					«ldelim»$listagem«rdelim»
 				</div>
 			</div>

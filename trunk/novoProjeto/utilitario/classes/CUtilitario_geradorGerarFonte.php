@@ -11,7 +11,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 	public static $nomeTabela;
 	public static $nomeSequence;
 	public static $entidade;
-	protected static $debug = false;
+	protected static $debug = true;
 	
 	/**
 	* Método inicial do controle
@@ -106,6 +106,8 @@ class CUtilitario_geradorGerarFonte extends controle{
 			$chaveUnica = isset(CUtilitario_geradorGerarFonte::$entidade['????'][$index]) ? "indiceUnico='sim' " : '' ;
 			$nomeBanco = isset(CUtilitario_geradorGerarFonte::$entidade['bd_campo'][$index]) ? "nome='".CUtilitario_geradorGerarFonte::$entidade['bd_campo'][$index]."' " : '';
 			$componente = isset(CUtilitario_geradorGerarFonte::$entidade['vi_componente'][$index]) ? "componente='".CUtilitario_geradorGerarFonte::$entidade['vi_componente'][$index]."' ":'';
+			$pesquisa = isset(CUtilitario_geradorGerarFonte::$entidade['vi_pesquisa'][$index]) ? "pesquisa='sim' ":"pesquisa='nao' ";
+			$edicao = isset(CUtilitario_geradorGerarFonte::$entidade['vi_edicao'][$index]) ? "edicao='sim' ": "edicao='nao' ";
 			$largura = isset(CUtilitario_geradorGerarFonte::$entidade['vi_largura'][$index]) ? "tamanho='".CUtilitario_geradorGerarFonte::$entidade['vi_largura'][$index]."%' ":'';
 			$link = isset(CUtilitario_geradorGerarFonte::$entidade['vi_link'][$index]) ? "hyperlink='sim' ":'';
 			$chavePrimaria = (CUtilitario_geradorGerarFonte::$entidade['ng_chave_pk'] == $index)  ? "indicePrimario='sim' " : '';
@@ -142,11 +144,11 @@ class CUtilitario_geradorGerarFonte extends controle{
 			}
 			if(CUtilitario_geradorGerarFonte::$entidade['vi_ordem'][$index]){
 				$ordem = "ordem='".CUtilitario_geradorGerarFonte::$entidade['vi_ordem'][$index]."' ";
-				$xml.= "\t\t\t<apresentacao {$componente}>\n";
+				$xml.= "\t\t\t<apresentacao {$componente}{$edicao}{$pesquisa}>\n";
 				$xml.= "\t\t\t\t<listagem {$ordem}{$largura}{$link}/>\n";
 				$xml.= "\t\t\t</apresentacao>\n";
 			}else{
-				$xml.= "\t\t\t<apresentacao {$componente} />\n";
+				$xml.= "\t\t\t<apresentacao {$componente}{$edicao}{$pesquisa} />\n";
 			}
 			$xml.= "\t\t</propriedade>\n";
 		}

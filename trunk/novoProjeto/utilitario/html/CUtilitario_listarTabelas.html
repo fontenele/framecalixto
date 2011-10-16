@@ -1,27 +1,27 @@
+<style type="text/css">
+#tabelas{
+	list-style-type: none;
+}
+#tabelas li{
+	margin: 10px;
+}
+</style>
 <form name="formulario" method="post" action="«$action»" >
-	<div class="container0 ui-widget-content ui-corner-all">
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
-		<div class="d"></div>
-		<div class="e"></div>
-		<div class="f"></div>
-		<div class="g"></div>
-		<div class="h"></div>
-		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
-		<div class="lista">
-			Gerar <a href="?c=CUtilitario_gerarTodosCadastros">todos</a> os cadastros de todas as tabelas.<br/><br/>
-			<ul>
+	<div class="fc-pesquisa">
+		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
+		<div class="fc-campo-grupo">
+			<br/>Gerar <a href="?c=CUtilitario_gerarTodosCadastros">todos</a> os cadastros de todas as tabelas.<br/><br/>
+			<ul id="tabelas">
 			«foreach from=$listagem item=nome»
 				<li>
-					<span class="ui-state-default ui-corner-all"><a href="?c=CUtilitario_listarCamposTabela&tabela=«$nome»" >Ver</a></span>
-					<span class="ui-state-default ui-corner-all"><a href="?c=CUtilitario_geradorDefinirEntidade&tabela=«$nome»" >Gerar cadastro</a></span>
+					<span class="fc-menu-item"><a href="?c=CUtilitario_listarCamposTabela&tabela=«$nome»" >Ver</a></span>
+					<span class="fc-menu-item"><a href="?c=CUtilitario_geradorDefinirEntidade&tabela=«$nome»" >Gerar cadastro</a></span>
 					«$nome»
 				</li>
 			«/foreach»
 			</ul>
 	        <div id='menu_corpo'>
-	            «$menuPrograma»
+	            «$menuPrograma»<br/><br/>
 	        </div>
 		</div>
 	</div>

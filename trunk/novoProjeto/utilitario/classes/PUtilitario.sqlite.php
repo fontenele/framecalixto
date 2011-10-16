@@ -50,7 +50,7 @@ class PUtilitario extends persistentePadraoSqlite {
 		$d->close();
 	}
 	public function lerTabela($tabela){
-		return $this->pegarPersistente($tabela)->descrever($tabela);
+		return ($this->pegarPersistente($tabela)) ? $this->pegarPersistente($tabela)->descrever($tabela) : array();
 	}
 	
 	public function lerSequenciasDoBanco(){

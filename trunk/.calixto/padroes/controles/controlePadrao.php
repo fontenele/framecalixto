@@ -26,6 +26,8 @@ class controlePadrao extends controle{
 	*/
 	public function criarVisualizacaoPadrao(){
 		$this->visualizacao = new visualizacaoPadrao($this);
+		$this->visualizacao->baseUri            = false;
+		//$this->visualizacao->baseUri            = $_SERVER['SCRIPT_NAME'];
 		$this->visualizacao->nomeLogado			= sessaoSistema::tem('usuario') ? sessaoSistema::pegar('usuario')->valorDescricao() : 'Visitante';
 		$this->visualizacao->estaLogado			= sessaoSistema::tem('usuario') ? true : false;
 		$this->visualizacao->comunicacaoSistema = sessaoSistema::tem('comunicacao') ? new VComunicacao(sessaoSistema::retirar('comunicacao')) : '';
@@ -52,6 +54,8 @@ class controlePadrao extends controle{
 		$this->visualizacao->jsEntidade			= is_file($arquivo = definicaoPasta::js($this).'principal.js')?$arquivo:'';
 		$this->visualizacao->jsLocal			= is_file($arquivo = definicaoPasta::js($this).get_class($this).'.js')?$arquivo:'';
 		$this->visualizacao->dirTema			= definicaoPasta::tema();
+		$this->visualizacao->{' pesquisa '}		= ($this instanceof controlePadraoPesquisa);
+		$this->visualizacao->{' edicao '}		= ($this instanceof controlePadraoVerEdicao);
 	}
 	/**
 	* Método que retorna o negócio referente ao controle
@@ -103,7 +107,8 @@ class controlePadrao extends controle{
 						'tamanho'		=> strval($propriedade['tamanho']	),
 						'tipo'			=> strval($propriedade['tipo']	),
 						'obrigatorio'	=> strval($propriedade['obrigatorio']	),
-						'pesquisa'		=> strval($propriedade->apresentacao['pesquisa']	),
+						'pesquisa'		=> (caracteres::RetiraAcentos(strtolower(strval($propriedade->apresentacao['pesquisa']))) == 'nao') ? false : true ,
+						'edicao'		=> (caracteres::RetiraAcentos(strtolower(strval($propriedade->apresentacao['edicao']))) == 'nao') ? false : true ,
 						'valores'		=> $arValores,
 						'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
 						'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
@@ -247,7 +252,7 @@ class controlePadrao extends controle{
 	public function gerarMenuprincipal(){
 		$arMenu = $this->montarMenuPrincipal();
 		if($arMenu){
-			$this->visualizacao->menuPrincipal = "<div class='menu1'>{$arMenu}</div>";
+			$this->visualizacao->menuPrincipal = "<div class='fc-menu-sistema'>{$arMenu}</div>";
 		}else{
 			$this->visualizacao->menuPrincipal = '';
 		}
@@ -256,10 +261,10 @@ class controlePadrao extends controle{
 	* Utiliza os itens montados para o menu do módulo e registra na visualização
 	*/
 	public function gerarMenuModulo(){
-		// $this->visualizacao->menuModulo = null;//new VMenu($this->montarMenuModulo(),'menu2','9998');
+		// $this->visualizacao->menuModulo = null;//new VMenu($this->montarMenuModulo(),'fc-menu-modulo','9998');
         $arMenu = $this->montarMenuModulo();
 		if($arMenu){
-			$this->visualizacao->menuModulo = "<div class='menu2' >{$arMenu}</div>";
+			$this->visualizacao->menuModulo = "<div class='fc-menu-modulo' >{$arMenu}</div>";
 		}else{
 			$this->visualizacao->menuModulo = '';
 		}
@@ -272,16 +277,16 @@ class controlePadrao extends controle{
 		
 		if($menu && $menu instanceof colecaoPadraoMenu) {
 			while($menuItem = $menu->avancar()) {
-				$menuItem->passar_classe('ui-state-default ui-corner-all');
+				$menuItem->passar_classe('fc-menu-item');
 			}
 		}
 		switch(true){
 			case is_array($menu):
 				$menu = new VMenu($menu);
-				$this->visualizacao->menuPrograma = "<div class='menu3'>{$menu->_coMenu}</div>";
+				$this->visualizacao->menuPrograma = "<div class='fc-menu-programa'>{$menu->_coMenu}</div>";
 			break;
 			case $menu instanceof colecaoPadraoMenu:
-				$this->visualizacao->menuPrograma = "<div class='menu3'>{$menu}</div>";
+				$this->visualizacao->menuPrograma = "<div class='fc-menu-programa'>{$menu}</div>";
 			break;
 			default:
 				$this->visualizacao->menuPrograma = '';
@@ -496,7 +501,14 @@ class controlePadrao extends controle{
 						$visualizacao->$nome->passarSize(($opcoes['tamanho'] + 2));
 					}
 				}
-				if($nome != $negocio->nomeChave()) $visualizacao->_tpl_vars['componentes padroes'][] = $visualizacao->$nome;
+				if($nome != $negocio->nomeChave()) {
+					if($visualizacao->{' pesquisa '} && $opcoes['pesquisa']){
+						$visualizacao->_tpl_vars['componentes padroes'][] = $visualizacao->$nome;
+					}
+					if($visualizacao->{' edicao '} && $opcoes['edicao']){
+						$visualizacao->_tpl_vars['componentes padroes'][] = $visualizacao->$nome;
+					}
+				}
 			}
 		}
 		$visualizacao->enviar = VComponente::montar('enviar','enviar', $negocio->pegarInter()->pegarTexto('enviar'));

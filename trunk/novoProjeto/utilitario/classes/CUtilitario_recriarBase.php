@@ -20,7 +20,10 @@ class CUtilitario_recriarBase extends controlePadrao{
 				$persistente = new $nomeClasse($c);
 				$persistente->pegarPersistente()->recriar();
 			}
-			if($persistente instanceof persistentePadraoPG) $persistente->plAccentRemove();
+			if($c->pegarTipo() == conexao::postgres) {
+				$pUtilitario = new PUtilitario($c);
+				$pUtilitario->plAccentRemove();
+			}
 			CUtilitario_importadorXML::importarXml(file_get_contents('dados.xml'));
 			persistente::imprimirComandos(false,false);
 		}else{

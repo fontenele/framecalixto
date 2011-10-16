@@ -89,6 +89,11 @@ class PUtilitario extends persistentePadraoPG {
 		$sql = "
 			select
 				tabela.*,
+				case when tabela.tipo_de_dado <> 'numerico' then
+					tamanho
+				else
+					tamanho/65536
+				end as tamanho,
 				pk.campo_pk,
 				fk.constraint,
 				fk.esquema_fk,
@@ -132,7 +137,7 @@ class PUtilitario extends persistentePadraoPG {
 					end as tipo_de_dado					
 					, case 
 						when a.attlen >= 0 then a.attlen
-						else a.atttypmod-4
+						else (a.atttypmod-4)
 					  END AS tamanho
 					, cm.description as descricao
 				FROM	pg_attribute a

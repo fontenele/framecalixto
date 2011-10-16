@@ -2,9 +2,10 @@
 
 	Configure este template para atender as necessidades do tema do seu sistema
 
-*»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+*»<!DOCTYPE HTML>
+<html lang="pt-br">
 <head>
+    «if $baseUri»<base href="«$baseUri»" />«/if»
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 «**
  * "Icone da barra de endereços"
@@ -16,19 +17,19 @@
  *	O arquivo css abaixo irá conter a importação de todos os arquivos css necessários
  *	para a visualização básica do tema do sistema
  *»
-	<link type="text/css" rel="stylesheet" href="«$cssGlobal»" media="screen" id="cssGlobalDoSistema"></link>
+	«if $cssGlobal»<link type="text/css" rel="stylesheet" href="«$cssGlobal»" media="screen" id="cssGlobalDoSistema"/>«/if»
 «**
  * "CSS comum da entidade do sistema"
  *	O arquivo css abaixo irá definir as necessidades comuns da aparência de 
  *	uma entidade
  *»
-	<link type="text/css" rel="stylesheet" href="«$cssEntidade»" media="screen" id="cssEntidade"></link>
+	«if $cssEntidade»<link type="text/css" rel="stylesheet" href="«$cssEntidade»" media="screen" id="cssEntidade"/>«/if»
 «**
  * "CSS específico do controle da entidade"
  *	O arquivo css abaixo irá definir as necessidades comuns da aparência de
  *	um único controle de uma entidade
  *»
-	<link type="text/css" rel="stylesheet" href="«$cssLocal»" media="screen" id="cssLocal"></link>
+	«if $cssLocal»<link type="text/css" rel="stylesheet" href="«$cssLocal»" media="screen" id="cssLocal"/>«/if»
 «**
  * "CSS extra especificado no controle"
  *	A variável abaixo define as tags de css extra para o controle
@@ -68,9 +69,9 @@
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.bgiframe.js"></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery.clickmenu.js"></script>
 	<script language="javascript" type="text/javascript" src=".sistema/scripts/calixto.funcoes.js" id="jsGlobalDoSistema"></script>
-	<script language="javascript" type="text/javascript" src="«$jsTema»" id="jsTema"></script>
-	<script language="javascript" type="text/javascript" src="«$jsEntidade»" id="jsEntidade"></script>
-	<script language="javascript" type="text/javascript" src="«$jsLocal»" id="jsLocal"></script>
+	«if $jsTema»<script language="javascript" type="text/javascript" src="«$jsTema»" id="jsTema"></script>«/if»
+	«if $jsEntidade»<script language="javascript" type="text/javascript" src="«$jsEntidade»" id="jsEntidade"></script>«/if»
+	«if $jsLocal»<script language="javascript" type="text/javascript" src="«$jsLocal»" id="jsLocal"></script>«/if»
 «**
  * "Scripts extras"
  *	Configure esta variável no seu controle para um script específico
@@ -81,14 +82,15 @@
 </head>
 <body>
 	<div id="pagina">
-		<div class="conteudo ui-widget-content">
+		<div class="fc-conteudo">
 			<div id="topo">
-				<img alt="FrameCalixto" src=".sistema/temas/frameCalixto/imagens/frameCalixto.png"  />
+	<!--				<img alt="FrameCalixto" src=".sistema/imagens/logoFrameCalixto2.png"  />-->
+					<img alt="FrameCalixto" src=".sistema/imagens/logoFrameCalixto3.svg" />
 			</div>
 			«$menuPrincipal»
 			«$comunicacaoSistema»
 			«$menuModulo»
-	    	«if $descricaoDeAjuda»<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all"><span class='ui-icon ui-icon-info' style='float:left;'></span>«$descricaoDeAjuda»</div>«/if»
+	    	«if $descricaoDeAjuda»<div class="fc-descricao-ajuda help"><span class='fc-icon-info' ></span>«$descricaoDeAjuda»</div>«/if»
 			«$pagina»
 		</div>
 	</div>

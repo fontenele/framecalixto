@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <entidade  nomeBanco='public.log_acesso' nomeSequencia='public.sq_log_acesso'>
 	<propriedades>
-		<propriedade id='idLogAcesso' tipo='numerico' tamanho='4' obrigatorio='sim' indicePrimario='sim'  >
+		<propriedade id='idLogAcesso' tipo='numerico' tamanho='10' obrigatorio='sim' indicePrimario='sim'  >
 			<banco nome='loac_id_log_acesso'  />
 			<apresentacao componente='oculto'  />
 		</propriedade>
-		<propriedade id='idUsuario' tipo='numerico' tamanho='4' classeAssociativa='NUsuario' metodoLeitura='lerTodos' descritivo='2'  >
+		<propriedade id='idUsuario' tipo='numerico' tamanho='10' classeAssociativa='NUsuario' metodoLeitura='lerTodos' descritivo='2'  >
 			<banco nome='loac_id_usuario' ordem='2' >
 				<chaveEstrangeira tabela='public.usuario' campo='usua_id_usuario' />
 			</banco>

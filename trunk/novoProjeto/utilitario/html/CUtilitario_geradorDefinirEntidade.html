@@ -2,6 +2,12 @@
 	<h3>Acessado via: «$acesso»</h3>
 
 	<style type="text/css">
+		ol{
+			list-style-type:none;
+		}
+		#tabs{
+			font-size: .8em;
+		}
 		.d-table{display:table; border:1px solid #c0c0c0; padding: 1px;}
 		.d-caption{display:table-caption; background:#c0c0c0;}
 		.d-th{display:table-cell; background:#c0c0c0; padding: 2px;}
@@ -24,29 +30,29 @@
 			color: #7b2929;
 		}
 		#uc{
-			font-size: .8em;
-		}
+			padding: 30px;
+}
 		#uc ul{
 			padding-left: 20px;
 		}
 		#uc .indice ol {
-			counter-reset: indice;
+			counter-reset: indice1;
 			padding-left: 20px;
 		}
 		#uc .indice li:before {
-			content: counters(indice, ".") " - ";
-			counter-increment: indice;
+			content: counters(indice1, ".") "-";
+			counter-increment: indice1;
 		}
 		#uc .especificacao li{
 			padding: 10px;
 		}
 		#uc .especificacao ol {
-			counter-reset: indice;
+			counter-reset: indice2;
 			padding-left: 20px;
 		}
 		#uc .especificacao li:before {
-			content: counters(indice, ".") " - ";
-			counter-increment: indice;
+			content: counters(indice2, ".") "-";
+			counter-increment: indice2;
 		}
 		#uc h1{
 			font-size: 2em;
@@ -77,29 +83,12 @@
 			font-style: italic;
 		}
 	</style>
-	<div class="container0 ui-widget-content ui-corner-all">
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
-		<div class="d"></div>
-		<div class="e"></div>
-		<div class="f"></div>
-		<div class="g"></div>
-		<div class="h"></div>
-		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
-		<div class="texto">
-			<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">«$textoAjudaDefinicao»</div>
-			<div class="container0" id='camada'>
-				<div class="a"></div>
-				<div class="b"></div>
-				<div class="c"></div>
-				<div class="d"></div>
-				<div class="e"></div>
-				<div class="f"></div>
-				<div class="g"></div>
-				<div class="h"></div>
-				<div class="texto">
-					<div class="tabela2">
+	<div class="fc-ajuda">«$textoAjudaDefinicao»</div>
+	<div class="fc-edicao">
+		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
+			<div class="fc-campo-grupo" id='camada'>
+				<div class="fc-campo-subgrupo">
+					<div class="fc-campo">
 						<label>Nome: </label>
 						<span>«$entidade»</span>
 					</div>
@@ -113,52 +102,52 @@
 							<li><a id="guia_6" class="guia" href="#tabs-6" accesskey="6"><label class="atalho">6.</label>Caso de Uso</a></li>
 						</ul>
 						<div id="tabs-1">
-							<div class="d-table t-linhas tabela1 ui-corner-all" id="ent">
+							<div class="d-table t-linhas tabela1 fc-campo" id="ent">
 								<div class="d-tr">
-									<div class="d-th ui-state-default" title="O nome da característica da entidade">Nome da Propriedade</div>
-									<div class="d-th ui-state-default" title="A abreviação da característica da entidade">Nome abreviado</div>
-									<div class="d-th ui-state-default" title="A descrição da característica da entidade">Descrição (Tooltip)</div>
-									<div class="d-th ui-state-default" title="Clique para remover esta coluna."></div>
+									<div class="d-th " title="O nome da característica da entidade">Nome da Propriedade</div>
+									<div class="d-th " title="A abreviação da característica da entidade">Nome abreviado</div>
+									<div class="d-th " title="A descrição da característica da entidade">Descrição (Tooltip)</div>
+									<div class="d-th " title="Clique para remover esta coluna."></div>
 								</div>
 							</div><br />
 							<input type="button" value="Adicionar nova propriedade" class="adicionar" accesskey="A"/>
 						</div>
 						<div id="tabs-2">
 							Sugerir nomes das <a href="#" id="sugerirNomesPropriedades" accesskey="P"><label class="atalho">p</label>ropriedades</a>.<br /><br />
-							<div class="d-table t-linhas tabela1 ui-corner-all" id="neg">
+							<div class="d-table t-linhas tabela1 fc-campo" id="neg">
 								<div class="d-tr">
-									<div class="d-th ui-state-default" title="O nome da propriedade da entidade">Propriedade</div>
-									<div class="d-th ui-state-default" title="O nome da propriedade na camada de negócio">Propriedade de Negócio</div>
-									<div class="d-th ui-state-default" title="O tipo de dado da propriedade">Tipo</div>
-									<div class="d-th ui-state-default" title="O tamanho em caracteres da propriedade">Tamanho</div>
-									<div class="d-th ui-state-default" title="Chave primária">PK</div>
-									<div class="d-th ui-state-default" title="Não Nulo">NN</div>
-									<div class="d-th ui-state-default" title="Chave única">UK</div>
-									<div class="d-th ui-state-default" title="Chave extrangeira">FK</div>
-									<div class="d-th ui-state-default" title="Selecione um método ou defina um domínio Ex:[1,Sim][2,Não]">Dominio ou Método de Leitura</div>
+									<div class="d-th " title="O nome da propriedade da entidade">Propriedade</div>
+									<div class="d-th " title="O nome da propriedade na camada de negócio">Propriedade de Negócio</div>
+									<div class="d-th " title="O tipo de dado da propriedade">Tipo</div>
+									<div class="d-th " title="O tamanho em caracteres da propriedade">Tamanho</div>
+									<div class="d-th " title="Chave primária">PK</div>
+									<div class="d-th " title="Não Nulo">NN</div>
+									<div class="d-th " title="Chave única">UK</div>
+									<div class="d-th " title="Chave extrangeira">FK</div>
+									<div class="d-th " title="Selecione um método ou defina um domínio Ex:[1,Sim][2,Não]">Dominio ou Método de Leitura</div>
 								</div>
 							</div>
 						</div>
 						<div id="tabs-3">
 							Sugerir nome de <a href="#" id="sugerirNomeTabela" accesskey="T"><label class="atalho">t</label>abela</a> de <a href="#" id="sugerirNomeSequence" accesskey="S"><label class="atalho">s</label>equence</a> e nomes dos <a href="#" id="sugerirNomesCampos" accesskey="M">ca<label class="atalho">m</label>pos</a>.<br /><br />
 							<div class="texto">
-								<div class='campo'>
+								<div class='fc-campo'>
 									<label>Tabela: </label>
 									<span>«$nomeTabela»</span>
 								</div>
-								<div class='campo'>
+								<div class='fc-campo'>
 									<label>Sequence: </label>
 									<span>«$nomeSequence»</span>
 								</div>
 							</div><br />
-							<div class="d-table t-linhas tabela1 ui-corner-all" id="per">
+							<div class="d-table t-linhas tabela1 fc-campo"	 id="per">
 								<div class="d-tr">
-									<div class="d-th ui-state-default" title="O nome da propriedade da entidade">Propriedade</div>
-									<div class="d-th ui-state-default" title="O nome do campo na tabela do banco">Campo da tabela</div>
-									<div class="d-th ui-state-default" title="A prioridade de ordenação do campo na tabela do banco">Ordenação</div>
-									<div class="d-th ui-state-default" title="O tipo de ordenação do campo">Decrescente</div>
-									<div class="d-th ui-state-default" title="Caso chave extrangeira identifique o nome da tabela de referência ">Referencia a tabela</div>
-									<div class="d-th ui-state-default" title="Caso chave extrangeira identifique o nome do campo de referência ">Referencia ao campo</div>
+									<div class="d-th " title="O nome da propriedade da entidade">Propriedade</div>
+									<div class="d-th " title="O nome do campo na tabela do banco">Campo da tabela</div>
+									<div class="d-th " title="A prioridade de ordenação do campo na tabela do banco">Ordenação</div>
+									<div class="d-th " title="O tipo de ordenação do campo">Decrescente</div>
+									<div class="d-th " title="Caso chave extrangeira identifique o nome da tabela de referência ">Referencia a tabela</div>
+									<div class="d-th " title="Caso chave extrangeira identifique o nome do campo de referência ">Referencia ao campo</div>
 								</div>
 							</div>
 						</div>
@@ -166,11 +155,13 @@
 							Sugerir <a href="#" id="sugerirComponentes" accesskey="C"><label class="atalho">c</label>omponentes</a> de visualização.<br /><br />
 							<div class="d-table t-linhas tabela1 ui-corner-all" id="vis">
 								<div class="d-tr">
-									<div class="d-th ui-state-default" title="O nome da propriedade da entidade">Propriedade</div>
-									<div class="d-th ui-state-default" title="Definição do componente de apresentação da propriedade">Componente</div>
-									<div class="d-th ui-state-default" title="A ordem na listagem de apresentação">Ordem na listagem</div>
-									<div class="d-th ui-state-default" title="A ordem na apresentação descritiva Ex: '001 - Campo01 - Campo02'">Ordem na descrição</div>
-									<div class="d-th ui-state-default" title="A largura da coluna na listagem de apresentação (em %)">Largura</div>
+									<div class="d-th " title="O nome da propriedade da entidade">Propriedade</div>
+									<div class="d-th " title="Definição do componente de apresentação da propriedade">Componente</div>
+									<div class="d-th " title="Apresentar na 'tela padrão de edição'">Edição</div>
+									<div class="d-th " title="Apresentar na 'tela padrão de pesquisa'">Pesquisa</div>
+									<div class="d-th " title="A ordem de apresentação na listagem da tela de pesquisa">Listagem</div>
+									<div class="d-th " title="A ordem na apresentação descritiva do registro Ex: 'Campo01 - Campo02 - Campo03'">Ordem na descrição</div>
+									<div class="d-th " title="A largura da coluna na listagem de apresentação (em %)">Largura</div>
 								</div>
 							</div>
 						</div>
@@ -180,20 +171,20 @@
 							<br/>
 							<div class="d-table tabela1" id="arq">
 								<div class="d-tr">
-									<div class="d-th ui-state-default"></div>
-									<div class="d-th ui-state-default">Banco de dados</div>
+									<div class="d-th "></div>
+									<div class="d-th ">Banco de dados</div>
 								</div>
 								<div class="d-tr"><div class="d-td">«$recriarBase»</div><div class="d-td">Recriar a tabela no banco de dados</div></div>
 								<div class="d-tr">
-									<div class="d-th ui-state-default"></div>
-									<div class="d-th ui-state-default" title="Selecione o arquivo para salvá-lo">Arquivos</div>
+									<div class="d-th "></div>
+									<div class="d-th " title="Selecione o arquivo para salvá-lo">Arquivos</div>
 								</div>
 							</div>
 						</div>
 						<div id="tabs-6">
 							<div class="d-table tabela1">
 								<div class="d-tr">
-									<div class="d-th ui-state-default">Caso de uso do cadastro</div>
+									<div class="d-th ">Caso de uso do cadastro</div>
 								</div>
 								<div class="d-tr">
 									<div id="uc" style="text-align: justify;"><br/>
@@ -271,11 +262,11 @@
 																	Esta tela tem a funcão de pesquisa e navegação nos registros do cadastro e é definida com os seguintes componentes e opções:
 																	<ol class="uc-campos-pesquisa">
 																		<li>A opção <span class="uc-opcao">"Novo Registro"</span> para apresentar a tela de inclusão de um novo registro.</li>
-																		<li>A opção <span class="uc-opcao">"Pesquisar"</span> para efetuar a pesquisa segundo o preenchimento dos campos da pesquisa.</li>
+																		<li>A opção <span class="uc-opcao">"Pesquisar"</span> para efetuar a pesquisa segundo o preenchimento dos campos da pesquisa.<br/><br/></li>
 																		<li>Também deverá apresentar uma <span>listagem</span> para a apresentação dos dados de <span class="descritor uc-nome"></span>
-																			<ol>Em cada item da listagem deverá possuir os links com as ações:
-																				<li><span class="uc-opcao">"Excluir"</span> para acionar a exclusão do registro referente a linha da listagem.</li>
-																				<li><span class="uc-opcao">"Editar"</span> para apresentar a tela de edição do registro referente a linha da listagem.</li>
+																			<ol class="uc-colunas">Em cada item da listagem deverá possuir os links com as ações:
+																				<li class="uc-coluna-excluir"><span class="uc-opcao">"Excluir"</span> para acionar a exclusão do registro referente a linha da listagem.</li>
+																				<li class="uc-coluna-editar"><span class="uc-opcao">"Editar"</span> para apresentar a tela de edição do registro referente a linha da listagem.</li>
 																			</ol>
 																		</li>
 																	</ol>
@@ -302,7 +293,7 @@
 														</li>
 														<li>Exclusão Condicional
 															<ol>
-																<li>Ao clicar em uma opção [Excluir], o sistema deverá solicitar uma confirmação ao ator com a seguinte mensagem “Deseja realmente excluir este registro?”. Caso a resposta do ator seja afirmativa o sistema deverá realizar a exclusão do registro, caso a resposta do ator seja negativa o sistema deverá cancelar a operação.</li>
+																<li>Ao clicar em uma opção [Excluir], o sistema deverá solicitar uma confirmação ao ator com a seguinte mensagem <br/><dd>“Deseja realmente excluir este registro?”. <br/><dd>Caso a resposta do ator seja afirmativa o sistema deverá realizar a exclusão do registro, <br/><dd>caso a resposta do ator seja negativa o sistema deverá cancelar a operação.<br/></li>
 															</ol>
 														</li>
 														<li>Gravação sem Dados
@@ -320,6 +311,7 @@
 											<li title="Uma condição prévia de um caso de uso é o estado do sistema que deve estar presente antes de um caso de uso ser realizado.">
 												Condições Prévias
 												<ol class="uc-condicoes-previas">
+													<li>O sistema deverá estar configurado e com conetado ao banco de dados.</li>
 													<li>A tabela "<span class="uc-nome-tabela"></span>" deverá existir e estar disponível para leitura e gravação.</li>
 												</ol>
 											</li>
@@ -327,6 +319,12 @@
 												Condições Posteriores
 												<ol class="uc-condicoes-posteriores">
 													<li>O cadastro deverá conseguir efetuar as operações de inclusão, pesquisa, alteração e exclusão nos registros da tabela "<span class="uc-nome-tabela"></span>".</li>
+													<li>A pesquisa poderá ser efetuada pelos campos disponíveis na tela de pesquisa.</li>
+												</ol>
+											</li>
+											<li>Pontos de Extensão.
+												<ol>
+													<li>Não se aplica.</li>
 												</ol>
 											</li>
 											</ol>
@@ -342,7 +340,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </form>
 «if $dados »
 <script type="text/javascript">

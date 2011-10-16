@@ -41,7 +41,6 @@ class CUtilitario_verRecriarBase extends controlePadrao {
  		$classes[] = 'NUsuarioPerfil';
  		$classes[] = 'NLogAcesso';
  		$classes[] = 'NMenu';
- 		$classes[] = 'NMenuItem';
 		return $classes;
 	}
 	/**

@@ -31,41 +31,41 @@
 		</propriedade>
 		<propriedade id='nrCep' tipo='tcep' tamanho='8'>
 			<banco nome='pess_nr_cep' />
-			<apresentacao componente='cep' />
+			<apresentacao componente='cep' pesquisa='nao' />
 		</propriedade>
 		<propriedade id='nrTelefone' tipo='ttelefone' tamanho='21'>
 			<banco nome='pess_nr_telefone' />
-			<apresentacao componente='telefone'>
+			<apresentacao componente='telefone' pesquisa='nao'>
 				<listagem ordem='5' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='nrTelefone2' tipo='ttelefone' tamanho='21'>
 			<banco nome='pess_nr_telefone2' />
-			<apresentacao componente='telefone'>
+			<apresentacao componente='telefone' pesquisa='nao'>
 				<listagem ordem='6' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='nrTelefone3' tipo='ttelefone' tamanho='21'>
 			<banco nome='pess_nr_telefone3' />
-			<apresentacao componente='telefone' />
+			<apresentacao componente='telefone' pesquisa='nao' />
 		</propriedade>
 		<propriedade id='idEstado' tipo='numerico' tamanho='2' classeAssociativa='NEstado'>
 			<banco nome='pess_id_estado'>
 				<chaveEstrangeira tabela='public.estado' campo='esta_id_estado' />
 			</banco>
-			<apresentacao componente='caixa de combinacao' />
+			<apresentacao componente='caixa de combinacao' pesquisa='nao' />
 		</propriedade>
 		<propriedade id='nmMunicipio' tipo='texto' tamanho='100'>
 			<banco nome='pess_nm_municipio' />
-			<apresentacao componente='caixa de entrada' />
+			<apresentacao componente='caixa de entrada'  pesquisa='nao'/>
 		</propriedade>
 		<propriedade id='nmBairro' tipo='texto' tamanho='100'>
 			<banco nome='pess_nm_bairro' />
-			<apresentacao componente='caixa de entrada' />
+			<apresentacao componente='caixa de entrada' pesquisa='nao' />
 		</propriedade>
 		<propriedade id='txEndereco' tipo='texto' tamanho='254'>
 			<banco nome='pess_tx_endereco' />
-			<apresentacao componente='caixa de texto' />
+			<apresentacao componente='caixa de texto' pesquisa='nao' />
 		</propriedade>
 		<propriedade id='nmEmail' tipo='texto' tamanho='255'>
 			<banco nome='pess_nm_email' />
@@ -73,7 +73,7 @@
 		</propriedade>
 		<propriedade id='nmSite' tipo='texto' tamanho='1000'>
 			<banco nome='pess_nm_site' />
-			<apresentacao componente='caixa de entrada' />
+			<apresentacao componente='caixa de entrada' pesquisa='nao' />
 		</propriedade>
 	</propriedades>
 </entidade>

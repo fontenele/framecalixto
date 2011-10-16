@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <entidade  nomeBanco='public.menu' nomeSequencia='public.sq_menu'>
 	<propriedades>
-		<propriedade id='idMenu' tipo='numerico' tamanho='4' obrigatorio='sim' indicePrimario='sim'  >
+		<propriedade id='idMenu' tipo='numerico' tamanho='10' obrigatorio='sim' indicePrimario='sim'  >
 			<banco nome='menu_id_menu'  />
 			<apresentacao componente='oculto'  />
 		</propriedade>
@@ -28,14 +28,14 @@
 				<listagem ordem='1' tamanho='15%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='idE' tipo='numerico' tamanho='50' >
-			<banco nome='idE' ordem='2'  />
+		<propriedade id='idE' tipo='numerico' tamanho='10' >
+			<banco nome='menu_id_esquerdo' ordem='2'  />
 			<apresentacao componente='caixa de entrada'  >
 				<listagem ordem='4' tamanho='10%' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='idD' tipo='numerico' tamanho='50' >
-			<banco nome='idD'  />
+		<propriedade id='idD' tipo='numerico' tamanho='10' >
+			<banco nome='menu_id_direito'  />
 			<apresentacao componente='caixa de entrada'  >
 				<listagem ordem='5' tamanho='10%' />
 			</apresentacao>

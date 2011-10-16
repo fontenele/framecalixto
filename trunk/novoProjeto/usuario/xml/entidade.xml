@@ -21,7 +21,7 @@
 		</propriedade>
 		<propriedade id='nmSenha' tipo='texto' tamanho='32' obrigatorio='sim'>
 			<banco nome='usua_nm_senha' operador='igual' />
-			<apresentacao componente='palavra chave' />
+			<apresentacao componente='palavra chave' pesquisa='nao' />
 		</propriedade>
 	</propriedades>
 </entidade>

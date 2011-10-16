@@ -7,7 +7,7 @@
 class VComunicacao extends VEtiquetaHtml{
 	function __construct($comunicacao){
 		parent::__construct('div');
-		$this->passarClass('comunicacao ui-state-highlight');
+		$this->passarClass('fc-comunicacao');
 		$this->passarConteudo($comunicacao);
 	}
 }

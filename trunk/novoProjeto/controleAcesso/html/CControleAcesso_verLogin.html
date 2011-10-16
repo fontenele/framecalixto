@@ -1,30 +1,22 @@
 <form name="formulario" method="post" action="«$action»">
-	<div class="container0 ui-widget-content ui-corner-all">
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
-		<div class="d"></div>
-		<div class="e"></div>
-		<div class="f"></div>
-		<div class="g"></div>
-		<div class="h"></div>
-		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
-		<div class="texto">
-			<div class="tabela2">
-				<div class='campo'>
+	<div class="fc-edicao">
+		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
+		<div class="fc-campo-grupo">
+			<div class="fc-campo-subgrupo">
+				<div class='fc-campo'>
 					<label for='«$nmLogin->pegarId()»'>«$nomeNmLogin»:</label>
 					<span>«$nmLogin»</span>
 				</div>
-				<div class='campo'>
+				<div class='fc-campo'>
 					<label for='«$nmSenha->pegarId()»'>«$nomeNmSenha»:</label>
 					<span>«$nmSenha»</span>
 				</div>
-				<div class='campo'>
+				<div class='fc-campo'>
 					<label></label>
 					<span>«$btEnviar»</span>
 				</div>
 			</div>
-	        <div id='menu_corpo'>
+	        <div id='fc-menu-corpo'>
 	            «$menuPrograma»
 	        </div>
 		</div>

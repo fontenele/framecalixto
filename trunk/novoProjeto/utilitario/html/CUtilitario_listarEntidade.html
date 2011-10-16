@@ -7,50 +7,50 @@
 			});
 		})
 	</script>
-<div class="container0 ui-widget-content ui-corner-all">
-	<div class="a"></div>
-	<div class="b"></div>
-	<div class="c"></div>
-	<div class="d"></div>
-	<div class="e"></div>
-	<div class="f"></div>
-	<div class="g"></div>
-	<div class="h"></div>
-	<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
-	<div class="lista">
-		<table summary="text" class="tabela0 ui-widget-content ui-corner-all">
-			<thead>
-				<tr>
-					<th class="nomeEntidade ui-state-default">Entidade</th>
-					<th class="nomeNegocio ui-state-default">Negócio</th>
-					<th class="nomeTabela ui-state-default">Tabela</th>
-					<th class="nomeSequence ui-state-default">Sequence</th>
-					<th class="existente ui-state-default centralizado">Campos Banco</th>
-					<th class="definido ui-state-default centralizado">Campos Entidade</th>
-					<th class="definido ui-state-default centralizado"></th>
-					<th class="ui-state-default centralizado"></th>
-					<th class="ui-state-default centralizado"></th>
-				</tr>
-			</thead>
-			<tbody>
-			«foreach from=$listagem key=negocio item=nome»
-			<tr class="«cycle values='linhaListagem1,linhaListagem2'»">
-				<td class="nomeEntidade">«$nome» </td>
-				<td class="nomeNegocio">«$negocios[$negocio]»</td>
-				<td class="nomeTabela"><a title="Definição da tabela '«$tabelas[$negocio]»' no banco de dados" href="?c=CUtilitario_listarCamposTabela&tabela=«$tabelas[$negocio]»">«$tabelas[$negocio]» </a></td>
-				<td class="nomeSequence">«$sequencias[$negocio]» </td>
-				<td class="numerico direita">«$camposExistentes[$negocio]»</td>
-				<td class="numerico direita">«$camposDefinidos[$negocio]»</td>
-				<td align="left" >«$diferencas[$negocio]»</td>
-				<td class="centralizado"><a href="?c=«$controles[$negocio]»" title="Ver Tela de Pesquisa dessa Entidade"><img border="0" src=".sistema/icones/application_view_list.png"/></a></td>
-				<td class="centralizado"><a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" title="Editar essa Entidade"><img border="0" src=".sistema/icones/pencil.png"/></a></td>
-			</tr>
-			«/foreach»
-			</tbody>
-		</table>
-        <div id='menu_corpo'>
-            «$menuPrograma»
-        </div>
+<div class="fc-pesquisa">
+	<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
+	<div class="fc-campo-grupo">
+		<div id='menu_corpo' class="fc-menu-corpo">
+			<br/>
+			«$menuPrograma»
+			<br/>
+			<br/>
+		</div>
+		<div class="fc-listagem-grupo">
+			<h1 class="fc-listagem-titulo"><span class='fc-icon-pesquisa' ></span> «$textoTituloListagem»</h1>
+			<div class="fc-listagem">
+				<table summary="text" class="fc-listagem-dados">
+					<thead>
+						<tr>
+							<th class="nomeEntidade">Entidade</th>
+							<th class="nomeNegocio">Negócio</th>
+							<th class="nomeTabela">Tabela</th>
+							<th class="nomeSequence">Sequence</th>
+							<th class="existente centralizado">Campos Banco</th>
+							<th class="definido centralizado">Campos Entidade</th>
+							<th class="definido centralizado"></th>
+							<th class="centralizado"></th>
+							<th class="centralizado"></th>
+						</tr>
+					</thead>
+					<tbody>
+					«foreach from=$listagem key=negocio item=nome»
+					<tr class="«cycle values='fc-linha fc-linha1,fc-linha fc-linha2'»">
+						<td class="nomeEntidade">«$nome» </td>
+						<td class="nomeNegocio">«$negocios[$negocio]»</td>
+						<td class="nomeTabela"><a title="Definição da tabela '«$tabelas[$negocio]»' no banco de dados" href="?c=CUtilitario_listarCamposTabela&tabela=«$tabelas[$negocio]»">«$tabelas[$negocio]» </a></td>
+						<td class="nomeSequence">«$sequencias[$negocio]» </td>
+						<td class="numerico direita">«$camposExistentes[$negocio]»</td>
+						<td class="numerico direita">«$camposDefinidos[$negocio]»</td>
+						<td align="left" >«$diferencas[$negocio]»</td>
+						<td class="centralizado"><a href="?c=«$controles[$negocio]»" title="Ver Tela de Pesquisa dessa Entidade"><img border="0" src=".sistema/icones/application_view_list.png"/></a></td>
+						<td class="centralizado"><a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" title="Editar essa Entidade"><img border="0" src=".sistema/icones/pencil.png"/></a></td>
+					</tr>
+					«/foreach»
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </div>
 </form>

@@ -13,7 +13,7 @@
 		</propriedade>
 		<propriedade id='boLogAcesso' tipo='texto' tamanho='3'>
 			<banco nome='perf_bo_log_acesso' />
-			<apresentacao componente='marcador'/>
+			<apresentacao componente='marcador' pesquisa='nao' />
 		</propriedade>
 	</propriedades>
 </entidade>
