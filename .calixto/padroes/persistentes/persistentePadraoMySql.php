@@ -133,7 +133,7 @@ abstract class persistentePadraoMySql extends persistente {
 	 */
 	public function pegarUltimaSequencia() {
 		$estrutura = $this->pegarEstrutura();
-		$retorno = $this->pegarSelecao("SELECT from {$estrutura['nomeTabela']} LAST_INSERT_ID();");
+		$retorno = $this->pegarSelecao("SELECT LAST_INSERT_ID() as sequencia;");
 		return $retorno[0]['sequencia'];
 	}
 
