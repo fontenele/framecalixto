@@ -7,6 +7,23 @@
 */
 class PUtilitario extends persistentePadraoSqlite {
 
+	public function lerTabelasComDescricao(){
+		$sql = "
+			SELECT 
+				'' as esquema,
+				name as nome,
+				'' as descricao
+			FROM sqlite_master
+			WHERE type='table' and name <> 'sqlite_sequence'
+			ORDER BY name
+		";
+		$this->conexao->executarComando($sql);
+		$retorno = array();
+		while ($registro = $this->conexao->pegarRegistro()){
+			$retorno[] = $registro ;
+		}
+		return $retorno;
+	}
 	public function lerTabelas(){
 		$sql = "
 			SELECT name as tabela FROM sqlite_master
@@ -50,7 +67,12 @@ class PUtilitario extends persistentePadraoSqlite {
 		$d->close();
 	}
 	public function lerTabela($tabela){
+		$arTabela = explode('.',$tabela);
+		if(count($arTabela)>1) $tabela = $arTabela[1];
 		return ($this->pegarPersistente($tabela)) ? $this->pegarPersistente($tabela)->descrever($tabela) : array();
+	}
+	public function lerRestricoes($tabela){
+		return array();
 	}
 	
 	public function lerSequenciasDoBanco(){

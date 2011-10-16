@@ -63,14 +63,14 @@
 									<tr title="«$campo.descricao»" class="«cycle values='linhaListagem1,linhaListagem2'»">
 										<td class="campo1">«$campo.tipo_de_dado»</td>
 										<td class="campo1">«$campo.campo»</td>
-										<td class="campo1">«if $campo.tipo == 'character varying'»varchar«else»«$campo.tipo»«/if»(«$campo.tamanho»)</td>
+										<td class="campo1">«if $campo.tipo == 'character varying'»varchar«else»«$campo.tipo»«/if»«if $campo.tamanho»(«$campo.tamanho»)«/if»</td>
 										<td class="campo1" align='center' width='5px'>«if $campo.campo_pk»x«/if»</td>
-										<td class="campo1" align='center' width='5px'>«if $campo.esquema_fk»x«/if»</td>
+										<td class="campo1" align='center' width='5px'>«if $campo.tabela_fk»x«/if»</td>
 										<td class="campo1" align='center' width='5px'>«if $campo.unique_key»x«/if»</td>
 										<td class="campo1" align='center' width='5px'>«if $campo.obrigatorio»x«/if»</td>
 										<td class="campo1">«$campo.descricao»</td>
 									</tr>
-									«if $campo.esquema_fk»
+									«if $campo.tabela_fk»
 										«php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['campo']=$this->_tpl_vars['campo']['campo'];«/php»
 										«php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['constraint']=$this->_tpl_vars['campo']['constraint'];«/php»
 										«php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['esquema_fk']=$this->_tpl_vars['campo']['esquema_fk'];«/php»

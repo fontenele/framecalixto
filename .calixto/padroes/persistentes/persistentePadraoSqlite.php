@@ -290,13 +290,15 @@ class persistentePadraoSqlite extends persistente {
 						$cmp[$valores[1]]['esquema'] = '';
 						$cmp[$valores[1]]['tabela'] = $estrutura['nomeTabela'];
 						$cmp[$valores[1]]['campo'] = $valores[1];
-						$cmp[$valores[1]]['obrigatorio'] = $valores[6];
+						$cmp[$valores[1]]['obrigatorio'] = $valores[6] == 'null' ? null : $valores[6];
 						$cmp[$valores[1]]['tipo'] = $valores[2];
 						$cmp[$valores[1]]['tipo_de_dado'] = $tipos[$valores[2]];
 						$cmp[$valores[1]]['tamanho'] = $valores[3];
 						$cmp[$valores[1]]['descricao'] = null;
 						$cmp[$valores[1]]['campo_pk'] = $valores[4];
 						$cmp[$valores[1]]['esquema_fk'] = null;
+						$cmp[$valores[1]]['unique_key'] = null;
+						$cmp[$valores[1]]['constraint'] = 'undefined';
 						$cmp[$valores[1]]['tabela_fk'] = isset($cmp[$valores[1]]['tabela_fk']) ? $cmp[$valores[1]]['tabela_fk'] : null;
 						$cmp[$valores[1]]['campo_fk'] = isset($cmp[$valores[1]]['campo_fk']) ? $cmp[$valores[1]]['campo_fk'] : null;
 					}
