@@ -87,6 +87,5 @@ include_once('.sistema/debug.php');
 include_once('.sistema/definicoes.php');
 $dir = definirDiretorio('Sistema');
 define('diretorioPrioritario',$dir['stDiretorio']);
-if(isset($_GET['c'])) $_GET['c'] = is_numeric($_GET['c']) ? 'CSsd_Retorno' : $_GET['c'];
 new gerenteControles(isset($_REQUEST['c'])? $_REQUEST['c']:definicaoSistema::pegarControleInicial());
 ?>
