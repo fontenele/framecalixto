@@ -76,6 +76,9 @@ fieldset{
 .ui-tabs-selected .ui-state-active{
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
+.ui-widget-content{
+	background-color: #ffffff;
+}
 li.ui-state-active{
 
 }

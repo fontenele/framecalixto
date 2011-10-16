@@ -134,7 +134,6 @@ jQuery.fn.extend({
 		valores = valores || '';
 		chave = chave || '';
 		if(valores){
-			console.log(valores);
 			$(this).adicionarEntidade(
 				valores.inter.nome,
 				valores.inter.abreviacao,
