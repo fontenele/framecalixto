@@ -6,6 +6,19 @@
 * @subpackage Utilitario
 */
 class PUtilitario extends persistentePadraoMySql {
+	public function lerTabelasComDescricao(){
+		$sql = "show tables";
+		$this->conexao->executarComando($sql);
+		$retorno = array();
+		while ($registro = $this->conexao->pegarRegistro()){
+			$retorno[] = array(
+				'esquema'=>'',
+				'nome'=>$registro[key($registro)] ,
+				'descricao'=>'',
+			);
+		}
+		return $retorno;
+	}
 	
 	public function lerTabelas(){
 		$sql = "show tables";
@@ -19,13 +32,19 @@ class PUtilitario extends persistentePadraoMySql {
 	public function lerCampos($tabela){
 		return $this->lerTabela($tabela);
 	}
-
+	public function lerRestricoes(){
+		return array();
+	}
 	public function lerTabela($tabela){
+		return $this->descrever($tabela);
+		x($res);die;
 		$sql = "describe {$tabela}";
+		$sql = "SHOW CREATE TABLE {$tabela}";
 		$this->conexao->executarComando($sql);
 		$retorno = array();
 		$i = 0;
 		while ($registro = $this->conexao->pegarRegistro()){
+			x($registro);die;
 			$i++;
 			$retorno[$i]['campo'] = $registro['Field'] ;//ajeitar tudo !!!
 			$retorno[$i]['tipo_de_dado'] = $registro['Type'];

@@ -255,12 +255,15 @@ class persistentePadraoSqlite extends persistente {
 		return false;
 	}
 
-	public function descrever() {
-		$estrutura = $this->pegarEstrutura();
+	public function descrever($nomeTabela = null) {
+		if(!$nomeTabela){
+			$estrutura = $this->pegarEstrutura();
+			$nomeTabela = $estrutura['nomeTabela'];
+		}
 		$comando = "
 			select sql from sqlite_master
 		where
-			tbl_name = '{$estrutura['nomeTabela']}'";
+			tbl_name = '{$nomeTabela}'";
 		$res = $this->pegarSelecao($comando);
 		$cmp = array();
 		if ($res) {
@@ -288,7 +291,7 @@ class persistentePadraoSqlite extends persistente {
 						$valores[3] = str_replace(')', '', $valores[3]);
 						$valores = array_map('trim', $valores);
 						$cmp[$valores[1]]['esquema'] = '';
-						$cmp[$valores[1]]['tabela'] = $estrutura['nomeTabela'];
+						$cmp[$valores[1]]['tabela'] = $nomeTabela;
 						$cmp[$valores[1]]['campo'] = $valores[1];
 						$cmp[$valores[1]]['obrigatorio'] = $valores[6] == 'null' ? null : $valores[6];
 						$cmp[$valores[1]]['tipo'] = $valores[2];

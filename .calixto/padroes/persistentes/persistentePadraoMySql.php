@@ -178,6 +178,69 @@ abstract class persistentePadraoMySql extends persistente {
 		return parent::converterDado($valor, $campo);
 	}
 
+	public function descrever($nomeTabela = null) {
+		if(!$nomeTabela){
+			$estrutura = $this->pegarEstrutura();
+			$nomeTabela = $estrutura['nomeTabela'];
+		}
+		$comando = "SHOW CREATE TABLE {$nomeTabela}";
+		$this->executarComando($comando);
+		$res = $this->conexao->pegarRegistro();
+		$cmp = array();
+		if ($res) {
+			$tipos = array(
+				'varchar' => 'texto',
+				'int' => 'numerico',
+				'datetime' => 'data',
+			);
+			$sql = str_replace('`','',$res['Create Table']);
+			$res = array();
+			$res[0]['sql'] = $sql;
+			foreach ($res as $ref => $comando) {
+				if (preg_match("/^[\ \t\n]*create[\ \t\n]*table[\ \t\n]*(.*)[\ \t\n]*\(/i", $comando['sql'], $val)) {
+					$referencias[$ref]['nomeTabela'] = trim($val[1]);
+				}
+				$linhas = explode("\n", $comando['sql']);
+				foreach ($linhas as $lin => $linha) {
+					if(!preg_match('/^[\ \t\n]*(create|key|constraint)/i', $linha))
+					  if (preg_match("/^[\ \t\n]*([aA-zZ0-9]+)[\ \t\n]*([aA-zZ0-9]+)[\ \t\n]*(\([0-9]+\)|)(.*)(default null|not null)(.*)$/i", ($linha), $valores)) {
+						$valores[3] = str_replace('(', '', $valores[3]);
+						$valores[3] = str_replace(')', '', $valores[3]);
+						$valores = array_map('trim', $valores);
+						$cmp[$valores[1]]['esquema'] = '';
+						$cmp[$valores[1]]['tabela'] = $nomeTabela;
+						$cmp[$valores[1]]['campo'] = $valores[1];
+						$cmp[$valores[1]]['obrigatorio'] = $valores[5] == 'DEFAULT NULL' ? null : $valores[5];
+						$cmp[$valores[1]]['tipo'] = $valores[2];
+						$cmp[$valores[1]]['tipo_de_dado'] = $tipos[$valores[2]];
+						$cmp[$valores[1]]['tamanho'] = $valores[3];
+						$cmp[$valores[1]]['descricao'] = null;
+						$cmp[$valores[1]]['campo_pk'] = null;
+						$cmp[$valores[1]]['esquema_fk'] = null;
+						$cmp[$valores[1]]['unique_key'] = null;
+						$cmp[$valores[1]]['constraint'] = null;
+						$cmp[$valores[1]]['tabela_fk'] = null;
+						$cmp[$valores[1]]['campo_fk'] = null;
+					}
+					if (preg_match("/(^[\ \t\n]*create)|(^[\ \t\n]*\)[\ \t\n]*$)/i", ($linha), $valores)) {
+						continue;
+					}
+					if (preg_match("/^[\ \t\n]*primary[\ \t\n]*key[\ \t\n]*\((.*)\)/i", ($linha), $valores)) {
+						$cmp[$valores[1]]['campo_pk'] = $valores[1];
+					}
+					if (preg_match("/^[\ \t\n]*key[\ \t\n]*(.*)[\ \t\n]*\((.*)\)/i", ($linha), $valores)) {
+						$cmp[$valores[2]]['constraint'] = $valores[1];
+					}
+					if (preg_match("/^[\ \t\n]*constraint[\ \t\n]*(.*)[\ \t\n]*foreign[\ \t\n]*key[\ \t\n]*\((.*)\)[\ \t\n]*references[\ \t\n]*(.*)\((.*)\)/i", ($linha), $valores)) {
+						$cmp[$valores[2]]['tabela_fk'] = $valores[3];
+						$cmp[$valores[2]]['campo_fk'] = $valores[4];
+						continue;
+					}
+				}
+			}
+		}
+		return $cmp;
+	}
 	/**
 	 * Gera o comando de criacao dos comentários da tabela
 	 * @return string comando de criação dos comentários da tabela
