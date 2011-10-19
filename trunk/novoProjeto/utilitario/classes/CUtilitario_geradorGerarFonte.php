@@ -11,7 +11,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 	public static $nomeTabela;
 	public static $nomeSequence;
 	public static $entidade;
-	protected static $debug = true;
+	protected static $debug = false;
 	
 	/**
 	* Método inicial do controle

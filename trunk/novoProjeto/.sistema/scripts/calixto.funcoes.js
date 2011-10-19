@@ -26,20 +26,19 @@ $(document).ready( function() {
 	$('.cep').mask("99.999-999",{completed:function(){}});
 	$('.telefone').mask("(99) 9999-9999? r:9999",{completed:function(){}});
 	$('.hora').mask("99:99:99",{completed:function(){}});
-	$('.data').mask("99/99/9999");
+	$('.data').formatarData();
+	//$('.data').mask("99/99/9999");
 	//$('.numerico').mask("999999999999");
 	$('.moeda').blur(function() {
 		if($(this).val() == 'R$ 0,00') {
 			$(this).val('');
 		}
 	});
-	if($.priceFormat){
 		$(".moeda").priceFormat({
 			prefix: 'R$ ',
 			centsSeparator: ',',
 			thousandsSeparator: '.'
 		});
-	}
 	$('.email')
 		.live('blur',function(){
 			re = /^[\w!#$%&'*+\/=?^`{|}~-]+(\.[\w!#$%&'*+\/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/;

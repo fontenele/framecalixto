@@ -55,9 +55,6 @@ jQuery.fn.formatarData = function (configurador){
 			inDia = arData[form[0]] ? arData[form[0]] : dataAtual[form[0]];
 			inMes = arData[form[1]] ? arData[form[1]] : dataAtual[form[1]];
 			inAno = arData[form[2]] ? arData[form[2]] : dataAtual[form[2]];
-			console.log('Dia:'+inDia);
-			console.log('Mes:'+inMes);
-			console.log('Ano:'+inAno);
 			reAno = /^(2[0-1]|19)\d{2}$/;
 			if(!reAno.exec(inAno)) throw 2;
 			reMes = /^(0[1-9]|1[0-2])$/;
