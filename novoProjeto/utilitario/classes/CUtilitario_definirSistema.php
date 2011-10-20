@@ -56,20 +56,27 @@ class CUtilitario_definirSistema extends controle{
 			switch($d['banco']['tipo'][$id]){
 				case 'sqlite':
 				case 'postgres':
+				case 'mysql':
 					$pdo = 'sim';
 				break;
-				case 'mysql':
 				case 'oracle':
 				default:
 					$pdo = 'nao';
 			}
+			$d['banco']['servidor'][$id] = isset($d['banco']['servidor'][$id]) ? $d['banco']['servidor'][$id] : null;
+			$d['banco']['porta'][$id] = isset($d['banco']['porta'][$id]) ? $d['banco']['porta'][$id] : null;
+			$d['banco']['usuario'][$id] = isset($d['banco']['usuario'][$id]) ? $d['banco']['usuario'][$id] : null;
+			$d['banco']['senha'][$id] = isset($d['banco']['senha'][$id]) ? $d['banco']['senha'][$id] : null;
 			$xml.= "\t\t<banco id='{$d['banco']['id'][$id]}' tipo='{$d['banco']['tipo'][$id]}' servidor='{$d['banco']['servidor'][$id]}' porta='{$d['banco']['porta'][$id]}' nome='{$d['banco']['nome'][$id]}' usuario='{$d['banco']['usuario'][$id]}' senha='{$d['banco']['senha'][$id]}' conexaoMultipla='{$pdo}' />\n";
 		}
 		$xml.= "\t</bancos>\n";
 		$xml.= "\t<diretorios>\n";
 		foreach($d['diretorios']['id'] as $id => $diretorio){
-			$xml.= "\t\t<diretorio id='{$d['diretorios']['id'][$id]}' dir='{$d['diretorios']['dir'][$id]}' entidade='{$d['diretorios']['entidade'][$id]}' />\n";
+			$xml.= "\t\t<diretorio id='{$d['diretorios']['id'][$id]}' dir='{$d['diretorios']['dir'][$id]}' entidade='nao' />\n";
 		}
+		$xml.= "\t\t<diretorio id='templates' dir='html/' entidade='sim' />\n";
+		$xml.= "\t\t<diretorio id='css' dir='css/' entidade='sim' />\n";
+		$xml.= "\t\t<diretorio id='js' dir='scripts/' entidade='sim' />\n";
 		$xml.= "\t</diretorios>\n";
 		$xml.= "\t<arquivos>\n";
 		foreach($d['arquivos']['tipo'] as $tipo => $arquivo){
