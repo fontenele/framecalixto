@@ -43,16 +43,26 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		//Páginas do sistema
 		$this->visualizacao->nomeSessao 	= VComponente::montar('input','sistema[nome]',$nome);
 		$this->visualizacao->paginaInicial 	= VComponente::montar('input','sistema[paginaInicial]',$paginaInicial);
+		$this->visualizacao->paginaInicial->adicionarClass('classe');
 		$this->visualizacao->paginaErro 	= VComponente::montar('input','sistema[paginaErro]',$paginaErro);
+		$this->visualizacao->paginaErro->adicionarClass('classe');
 		$this->visualizacao->ambiente 	= VComponente::montar('select','sistema[ambiente]',$paginaErro,null,$arAmbiente);
 		//Controle de acesso do sistema
 		$this->visualizacao->liberadoCA = VComponente::montar('combobox','controleDeAcesso[liberado]',$liberadoCA,null,$arBooleano);
 		$this->visualizacao->classeCA = VComponente::montar('input','controleDeAcesso[classe]',$classeCA);
+		$this->visualizacao->classeCA->adicionarClass('classe');
 		$this->visualizacao->metodoCA = VComponente::montar('input','controleDeAcesso[metodoLiberacao]',$metodoCA);
+		$this->visualizacao->metodoCA->passarClasse('controleDeAcesso-classe');
+		$this->visualizacao->metodoCA->adicionarClass('metodo');
 		//Controle de menu do sistema
 		$this->visualizacao->classeMenu = VComponente::montar('input','controleDeMenu[classe]',$classeMenu);
+		$this->visualizacao->classeMenu->adicionarClass('classe');
 		$this->visualizacao->metodoMenuPrincipal = VComponente::montar('input','controleDeMenu[metodoMenuSite]',$metodoMenu1);
+		$this->visualizacao->metodoMenuPrincipal->passarClasse('controleDeMenu-classe');
+		$this->visualizacao->metodoMenuPrincipal->adicionarClass('metodo');
 		$this->visualizacao->metodoMenuSistema = VComponente::montar('input','controleDeMenu[metodoMenuSistema]',$metodoMenu2);
+		$this->visualizacao->metodoMenuSistema->passarClasse('controleDeMenu-classe');
+		$this->visualizacao->metodoMenuSistema->adicionarClass('metodo');
 		//Bancos
 		$conexao = $tipo = $porta = $nome = $usuario = $senha = array();
 		$arInputConfig = array('size'=>'10','style'=>'margin-right: 2px;');
@@ -77,19 +87,23 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 		$this->visualizacao->multipla = $multipla;
 
 		//Diretorios
+		$dirIgnorados = array('css','templates','js');
 		foreach($definicoes->xpath('/definicoes/diretorios/diretorio') as $diretorio){
+			if(in_array($diretorio['id'], $dirIgnorados)) continue;
 			$dirId[] 	= VComponente::montar('VHidden','diretorios[id][]',$diretorio['id']);
-			$dir[] 		= VComponente::montar('input','diretorios[dir][]',$diretorio['dir'],array('size'=>'60px'));
-			$entidade[] = VComponente::montar('combobox','diretorios[entidade][]',$diretorio['entidade'] == 'sim'?'sim':'nao',array('style'=>'width: 80px'),$arBooleano);
+			$dir[] 		= $cmp = VComponente::montar('input','diretorios[dir][]',$diretorio['dir'],array('size'=>'60px'));
+			$cmp->adicionarClass('diretorio');
 		}
 		$this->visualizacao->dirId = $dirId;
 		$this->visualizacao->dirCaminho = $dir;
-		$this->visualizacao->dirEntidade = $entidade;
 
 		//Arquivos
 		foreach($definicoes->xpath('/definicoes/arquivos/arquivo') as $arquivo){
 			$arqId[] 	= VComponente::montar('VHidden','arquivos[tipo][]',$arquivo['tipo']);
-			$arq[] 		= VComponente::montar('input','arquivos[nome][]',$arquivo['nome'],array('size'=>'60px'));
+			$arq[] 		= $comp = VComponente::montar('input','arquivos[nome][]',$arquivo['nome'],array('size'=>'60px'));
+			if(strval($arquivo['tipo']) == 'internacionalizacao do sistema'){
+				$comp->passarId('inter');
+			}
 		}
 		$this->visualizacao->arqId = $arqId;
 		$this->visualizacao->arquivo = $arq;
@@ -104,8 +118,9 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 	public function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
 		$item = $this->inter->pegarTexto('botaoGravar');
-		$menu->$item->passar_link('javascript:document.formulario.submit();');
-		$menu->$item->passar_imagem('.sistema/imagens/botao_gravar.png');
+		$menu->$item->passar_link('#');
+		$menu->$item->passar_id('salvar');
+		$menu->$item->passar_imagem('.sistema/icones/disk.png');
 		return $menu;
 	}
 }

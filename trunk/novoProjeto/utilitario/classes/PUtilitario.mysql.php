@@ -37,7 +37,6 @@ class PUtilitario extends persistentePadraoMySql {
 	}
 	public function lerTabela($tabela){
 		return $this->descrever($tabela);
-		x($res);die;
 		$sql = "describe {$tabela}";
 		$sql = "SHOW CREATE TABLE {$tabela}";
 		$this->conexao->executarComando($sql);

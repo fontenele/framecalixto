@@ -23,6 +23,7 @@ class json {
 			case 'string':
 				$var = str_replace("\n",'\n',$var);
 				$var = str_replace("^",'\^',$var);
+				$var = str_replace('"','\"',$var);
 				return (string) '"'.$var.'"';
 			case 'array':
 				return $this->codificarArray($var);

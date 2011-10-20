@@ -1,3 +1,16 @@
+<style>
+.teste,.teste-db{
+	width: 16px;
+	height: 16px;
+	font-size: .9em;
+}
+.ok{
+	background-image: url('.sistema/icones/accept.png');
+}
+.erro{
+	background-image: url('.sistema/icones/error.png');
+}
+</style>
 <form name="formulario" method="post" action="«$action»" >
 	<div class="fc-edicao">
 		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
@@ -29,10 +42,12 @@
 							<div class='campo'>
 								<label>«$textoPaginaInicial»:</label>
 								<span>«$paginaInicial»</span>
+								<span class="teste ok erro" guia="#guia_1">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</div>
 							<div class='campo'>
 								<label>«$textoPaginaErro»:</label>
 								<span>«$paginaErro»</span>
+								<span class="teste ok erro" guia="#guia_1">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</div>
 							<div class='campo'>
 								<label>«$textoAmbiente»:</label>
@@ -56,10 +71,12 @@
 							<div class='campo'>
 								<label>«$textoClasseCA»:</label>
 								<span>«$classeCA»</span>
+								<span class="teste ok erro" guia="#guia_2">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</div>
 							<div class='campo'>
 								<label>«$textoMetodoCA»:</label>
 								<span>«$metodoCA»</span>
+								<span class="teste ok erro" guia="#guia_2">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</div>
 						</div>
 					</fieldset>
@@ -75,14 +92,17 @@
 							<div class='campo'>
 								<label>«$textoClasseMenu»:</label>
 								<span>«$classeMenu»</span>
+								<span class="teste ok erro" guia="#guia_3">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</div>
 							<div class='campo'>
 								<label>«$textoMetodoMenuPrincipal»:</label>
 								<span>«$metodoMenuPrincipal»</span>
+								<span class="teste ok erro" guia="#guia_3">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</div>
 							<div class='campo'>
 								<label>«$textoMetodoMenuSistema»:</label>
 								<span>«$metodoMenuSistema»</span>
+								<span class="teste ok erro" guia="#guia_3">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</div>
 						</div>
 					</fieldset>
@@ -103,24 +123,23 @@
 								<div class="d-th">Banco</div>
 								<div class="d-th">Usuário</div>
 								<div class="d-th">Senha</div>
+								<div class="d-th"></div>
 							</div>
 							«foreach from=$conexao key=i item=a »
 							<div class="d-tr">
 								<div class="d-td">«$conexao[$i]»</div>
 								<div class="d-td tipoConn">«$tipo[$i]»</div>
-								<div class="d-td">«$servidor[$i]»</div>
-								<div class="d-td">«$porta[$i]»</div>
-								<div class="d-td">«$nome[$i]»</div>
-								<div class="d-td">«$usuario[$i]»</div>
-								<div class="d-td">«$senha[$i]»</div>
+								<div class="d-td db postgres mysql">«$servidor[$i]»</div>
+								<div class="d-td db postgres mysql">«$porta[$i]»</div>
+								<div class="d-td db postgres mysql oracle sqlite">«$nome[$i]»</div>
+								<div class="d-td db postgres mysql oracle">«$usuario[$i]»</div>
+								<div class="d-td db postgres mysql oracle">«$senha[$i]»</div>
+								<div class="d-td"><div class="teste ok erro teste-db" guia="#guia_4"></div></div>
 							</div>
 							«/foreach»
 						</div>
-						<br/>
+						<input type="button" id="novaConexao" value="Nova conexão">
 					</fieldset>
-					<div>
-						<span class="ui-state-default ui-corner-all"><a href="#" id="novaConexao"><img style="border: 0px none; vertical-align: bottom;" src=".sistema/imagens/botao_gravar.png">Nova conexão</a></span>
-					</div>
 				</div>
 				<div id="tabs-5">
 					<div class="fc-ajuda">
@@ -130,18 +149,22 @@
 					<fieldset>
 						<legend>«$textoDiretorios»</legend>
 						<table summary="text" class="tabela2">
-							<tr>
-								<th>Referência</th>
-								<th>Caminho</th>
-								<th>Interno da Entidade</th>
-							</tr>
-						«foreach from=$dirId key=i item=a »
-							<tr>
-								<td class="campo1">«$dirId[$i]»«$dirId[$i]->pegarValue()»:</td>
-								<td class="campo2">«$dirCaminho[$i]»</td>
-								<td class="campo2">«$dirEntidade[$i]»</td>
-							</tr>
-						«/foreach»
+							<thead>
+								<tr>
+									<th>Referência</th>
+									<th>Caminho</th>
+								</tr>
+							</thead>
+							<tbody id="listagem-diretorios">
+								«foreach from=$dirId key=i item=a »
+								<tr>
+									<td class="campo1">«$dirId[$i]»«$dirId[$i]->pegarValue()»:</td>
+									<td class="campo2 campo">«$dirCaminho[$i]»
+									<span class="teste ok erro" guia="#guia_5">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									</td>
+								</tr>
+								«/foreach»
+							</tbody>
 						</table>
 					</fieldset>
 
@@ -154,16 +177,22 @@
 					<fieldset>
 						<legend>«$textoArquivos»</legend>
 						<table summary="text" class="tabela2">
-							<tr>
-								<th>Referência</th>
-								<th>Arquivo</th>
-							</tr>
+							<thead>
+								<tr>
+									<th>Referência</th>
+									<th>Arquivo</th>
+								</tr>
+							</thead>
+							<tbody id="listagem-arquivos">
 						«foreach from=$arqId key=i item=a »
-							<tr>
+							<tr class="campo">
 								<td class="campo1">«$arqId[$i]»«$arqId[$i]->pegarValue()»:</td>
-								<td class="campo2">«$arquivo[$i]»</td>
+								<td class="campo2 campo" arquivo="«$arqId[$i]->pegarValue()»">«$arquivo[$i]»
+								«if $arquivo[$i]->pegarId() == 'inter' »<span class="teste ok erro" guia="#guia_6">&nbsp;&nbsp;&nbsp;&nbsp;</span>«/if»
+								</td>
 							</tr>
 						«/foreach»
+							</tbody>
 						</table>
 					</fieldset>
 

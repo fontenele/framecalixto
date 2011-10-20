@@ -7,33 +7,8 @@
 */
 function __autoload($stClasse){
 	try{
-		switch(true){
-			case (is_file($ar['stArquivo'] = definicaoPasta::tema().$stClasse.'.php')):
-				include_once $ar['stArquivo'];
-			break;
-			case (is_file($ar['stArquivo'] = definicaoPasta::padraoDoSistema().$stClasse.'.php')):
-				include_once $ar['stArquivo'];
-			break;
-			case (is_file($ar['stArquivo'] = definicaoPasta::padraoDoFrameCalixto().$stClasse.'.php')):
-				include_once $ar['stArquivo'];
-			break;
-			default:
-				$ar = definirDiretorio($stClasse);
-				switch(true){
-					case !(is_dir($ar['stDiretorio'])):
-						throw new erroInclusao("Diretório [{$ar['stDiretorio']}] inexistente!");
-					break;
-					case !(is_file($ar['stArquivo'])):
-						throw new erroInclusao("Arquivo [{$ar['stArquivo']}] inexistente!");
-					break;
-					case !(is_readable($ar['stArquivo'])):
-						throw new erroInclusao("Arquivo [{$ar['stArquivo']}] sem permissão de leitura!");
-					break;
-					default:
-						include_once $ar['stArquivo'];
-					break;
-				}
-		}
+		 $arquivo = arquivoClasse($stClasse);
+		 include_once($arquivo);
 	}catch (erroInclusao $e) {
 		echo $e->__toHtml();
 	}catch (Exception $e) {
@@ -52,6 +27,44 @@ function __autoload($stClasse){
 				";
 				die();
 			}
+	}
+}
+/**
+ * Localiza o caminho da classe passada
+ * @param string $stClasse nome da classe
+ * @return string
+ */
+function arquivoClasse($stClasse){
+	try{
+		switch(true){
+			case (is_file($ar['stArquivo'] = definicaoPasta::tema().$stClasse.'.php')):
+				return $ar['stArquivo'];
+			break;
+			case (is_file($ar['stArquivo'] = definicaoPasta::padraoDoSistema().$stClasse.'.php')):
+				return $ar['stArquivo'];
+			break;
+			case (is_file($ar['stArquivo'] = definicaoPasta::padraoDoFrameCalixto().$stClasse.'.php')):
+				return $ar['stArquivo'];
+			break;
+			default:
+				$ar = definirDiretorio($stClasse);
+				switch(true){
+					case !(is_dir($ar['stDiretorio'])):
+						throw new erroInclusao("Diretório [{$ar['stDiretorio']}] inexistente!");
+					break;
+					case !(is_file($ar['stArquivo'])):
+						throw new erroInclusao("Arquivo [{$ar['stArquivo']}] inexistente!");
+					break;
+					case !(is_readable($ar['stArquivo'])):
+						throw new erroInclusao("Arquivo [{$ar['stArquivo']}] sem permissão de leitura!");
+					break;
+					default:
+						return $ar['stArquivo'];
+					break;
+				}
+		}
+	}catch (Exception $e) {
+		throw $e;
 	}
 }
 /**
