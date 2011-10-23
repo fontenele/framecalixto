@@ -1,3 +1,9 @@
+<style type="text/css">
+	.fc-listagem-grupo{
+		margin-top: 15px;
+		margin-bottom: 15px;
+}
+</style>
 <form name="formulario" method="post" action="«$action»" >
 <div class="fc-pesquisa">
 	<h1 class="fc-titulo-especifico">Pesquisa Geral</h1>
@@ -11,15 +17,13 @@
 		<span>«php»echo $listagem['nome'];«/php» <b>(«php»echo $listagem['ocorrencias'];«/php»)</b></span>
 	</h1>
 	<div class="fc-campo-grupo">
-		<br/>
 		<div class="fc-listagem-grupo">
 			<h1 class="fc-listagem-titulo"><span class='fc-icon-pesquisa' ></span> «$textoTituloListagem»</h1>
 			<div class="fc-listagem">
 			«php»echo $listagem['listagem'];«/php»
 			</div>
 		</div>
-		<a class="fc-menu-item" href="?c=«php»echo $listagem['controlePesquisa'];«/php»">Pesquisa avançada de «php»echo $listagem['nome'];«/php»</a></li
-		<br/>
+		<a class="fc-menu-item" href="?c=«php»echo $listagem['controlePesquisa'];«/php»">Pesquisa avançada de «php»echo $listagem['nome'];«/php»</a>
 	<br/>
 	</div>
 «php»endforeach«/php»
