@@ -20,7 +20,7 @@ class CUsuario_selecionarAcessos extends controlePadrao{
 			$negocio->carregarAcessos();
 			$negocio->coAcessos->excluir();
 			$negocio = new $negocio($conexao);
-			foreach($_POST['controle'] as $index => $controle){
+			if(isset($_POST['controle'])) foreach($_POST['controle'] as $index => $controle){
 				$nAcesso = new NAcesso($conexao);
 				$nAcesso->passarIdUsuario($_POST['idUsuario']);
 				$nAcesso->passarNmAcesso($controle);

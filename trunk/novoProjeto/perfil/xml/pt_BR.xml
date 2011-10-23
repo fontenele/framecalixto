@@ -22,5 +22,9 @@
 	</entidade>
 	<controles>
 		<titulo>Perfis</titulo>
+		<textos>
+			<texto id="verSelecionarAcessos">Selecionar acessos</texto>
+			<texto id="verColecaoUsuarioPerfil">Selecionar os usuários</texto>
+		</textos>
 	</controles>
 </internacionalizacao>
