@@ -27,5 +27,9 @@
 	</entidade>
 	<controles>
 		<titulo>Usuários</titulo>
+		<textos>
+			<texto id="verSelecionarAcessos">Selecionar os acessos</texto>
+			<texto id="verColecaoUsuarioPerfil">Selecionar os perfís</texto>
+		</textos>
 	</controles>
 </internacionalizacao>

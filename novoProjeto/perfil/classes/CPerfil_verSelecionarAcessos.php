@@ -12,6 +12,17 @@ class CPerfil_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 	* @param string tipo de visualização a ser utilizada 'edicao' ou 'visual'
 	*/
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
+		if($negocio->pegarIdPerfil()){
+			$nPerfil = new NPerfil();
+			$nPerfil->ler($negocio->pegarIdPerfil());
+			$this->visualizacao->perfil = $nPerfil->pegarNmPerfil();
+		}
+		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'selecionarAcessos'));
+		$this->visualizacao->idPerfil = VComponente::montar('oculto','idPerfil',$negocio->pegarIdPerfil());
+		$this->visualizacao->nmPerfil = $negocio->pegarNmPerfil();
+		$this->visualizacao->listagem = CPerfil_verSelecionarAcessos::montarListagemAcessos($negocio);
+	}
+	public static function montarListagemAcessos(negocio $negocio){
 		if($negocio->valorChave()) {$negocio->carregarAcessos();}
 		$controlesPerfil = array_flip($negocio->coAcessos->gerarVetorDeAtributo('nmAcesso'));
 		$sistema = dir(".");
@@ -57,15 +68,7 @@ class CPerfil_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 				$listagem .= "\t\t\t<tr class='fc-linha {$linha}'><td></td><td>{$vCheckBox}</td><td>{$arControle[1]}</td><td>{$execucao}</td></tr>\n";
 			}
 		}
-		if($negocio->pegarIdPerfil()){
-			$nPerfil = new NPerfil();
-			$nPerfil->ler($negocio->pegarIdPerfil());
-			$this->visualizacao->perfil = $nPerfil->pegarNmPerfil();
-		}
-		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'selecionarAcessos'));
-		$this->visualizacao->idPerfil = VComponente::montar('oculto','idPerfil',$negocio->pegarIdPerfil());
-		$this->visualizacao->nmPerfil = $negocio->pegarNmPerfil();
-		$this->visualizacao->listagem = $listagem;
+		return $listagem;
 	}
 	/**
 	* Retorna um array com os itens do menu do programa

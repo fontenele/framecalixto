@@ -1,42 +1,34 @@
 <form name="formulario" method="post" action="«$action»">
-	<div class="container0 ui-widget-content ui-corner-all">
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
-		<div class="d"></div>
-		<div class="e"></div>
-		<div class="f"></div>
-		<div class="g"></div>
-		<div class="h"></div>
-		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
-		<div class="texto">
-			<div class="tabela2">
-				<div class='campo'>
+	<div class="fc-pesquisa">
+		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
+		<div class="fc-campo-grupo">
+			<div class="fc-campo-subgrupo">
+				<div class='fc-campo'>
 					<label>«$nomeNmPerfil»:</label>
 					<span>«$idPerfil»«$nmPerfil»</span>
 				</div>
 			</div>
-	        <div id='menu_corpo'>
+	        <div id='fc-menu-corpo'>
 	            «$menuPrograma»
 	        </div>
 		</div>
-	</div>
-	<div class="container0">
-		<div class="a"></div>
-		<div class="b"></div>
-		<div class="c"></div>
-		<div class="d"></div>
-		<div class="e"></div>
-		<div class="f"></div>
-		<div class="g"></div>
-		<div class="h"></div>
-		<h1 class="ui-state-default ui-corner-all"><img src=".sistema/icones/application_view_list.png" /> Acessos</h1>
-		<div class="texto">
-			<a href='javascript:marcar(true);'>Todos</a>
-			<a href='javascript:marcar(false);'>Nenhum</a>
-			<table summary="text" class="tabela1">
-				<tr><th>Entidade</th><th colspan='2'>Acesso</th></tr>
-				«$listagem»
+		<div class="fc-listagem-grupo">
+			<h1 class="fc-listagem-titulo"><img src=".sistema/icones/application_view_list.png" />
+				(<a href='javascript:marcar(false);'>Nenhum</a>/<a href='javascript:marcar(true);'>Todos</a>)
+				Acessos
+			</h1>
+			<div class="fc-listagem">
+				<table summary="text" class="fc-listagem-dados">
+					<thead>
+						<tr>
+							<th>Entidade</th>
+							<th colspan="2">Acesso</th>
+							<th>Descrição</th>
+						</tr>
+					</thead>
+					<tbody>
+					«$listagem»
+					</tbody>
 			</table>
 		</div>
 	</div>

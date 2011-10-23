@@ -4,7 +4,7 @@
 	<controleDeAcesso liberado='sim' classe='NControleAcesso' metodoLiberacao='validarAcesso' />
 	<controleDeMenu classe='NControleMenu' metodoMenuSite='menuPrincipal' metodoMenuSistema='menuMenuSistema' />
 	<bancos>
-		<banco id='padrao' tipo='mysql' servidor='localhost' porta='3306' nome='framecalixto' usuario='root' senha='' conexaoMultipla='sim' />
+		<banco id='padrao' tipo='sqlite' servidor='' porta='' nome='framecalixto' usuario='' senha='' conexaoMultipla='sim' />
 	</bancos>
 	<diretorios>
 		<diretorio id='temporario' dir='.tmp/' entidade='nao' />
