@@ -171,7 +171,7 @@ class VListaPaginadaPDF extends objeto{
 											$valorDoCampo = $valorDoCampo->__toString();
 										}
 								}
-								$controlePDF->celula($tamanho,4,$valorDoCampo,1,0,$campo['alinhamento'],1,$link);
+								$controlePDF->celula($tamanho,4,$valorDoCampo,0,0,$campo['alinhamento'],1,$link);
 							break;
 							default:
 								$pegar = 'pegar'.ucfirst($campo['campo']);
@@ -190,7 +190,7 @@ class VListaPaginadaPDF extends objeto{
 											$valorDoCampo = $valorDoCampo->__toString();
 										}
 								}
-								$controlePDF->celula($tamanho,4,$valorDoCampo,1,0,$campo['alinhamento'],1);
+								$controlePDF->celula($tamanho,4,$valorDoCampo,0,0,$campo['alinhamento'],1);
 							break;
 						}
 					}
@@ -211,7 +211,7 @@ class VListaPaginadaPDF extends objeto{
 		if($nrLinha%2){
 			$controlePDF->visualizacao->SetFillColor(239,239,239);
 		}else{
-			$controlePDF->visualizacao->SetFillColor(223,223,223);
+			$controlePDF->visualizacao->SetFillColor(255,255,255);
 		}
 	}
 }

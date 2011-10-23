@@ -1,5 +1,6 @@
 <?php
 /**
+ * Classe de controle
  * Testa a existencia de uma classe
  */
 class CUtilitario_testarClasse extends controlePadrao {

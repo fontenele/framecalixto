@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Ver o Usuário
+* Retorna um JSON com a definição da entidade do sistema
 * @package Sistema
 * @subpackage Utilitario
 */

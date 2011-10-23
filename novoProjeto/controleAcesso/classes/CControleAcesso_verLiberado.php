@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Processar a validação do login
+* Exemplo de um controle padrao com acesso liberado
 * @package Sistema
 * @subpackage Login
 */

@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Ver o Usuário
+* Visualiza a tela de importação de dados para o sistema
 * @package Sistema
 * @subpackage Utilitario
 */

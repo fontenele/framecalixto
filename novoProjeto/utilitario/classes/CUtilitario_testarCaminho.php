@@ -1,5 +1,6 @@
 <?php
 /**
+ * Classe de controle
  * Testa um caminho do sistema
  */
 class CUtilitario_testarCaminho extends controlePadrao{

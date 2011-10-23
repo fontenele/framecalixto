@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Ver o Usuário
+* Visualiza a tela de definição de um cadastro do sistema
 * @package Sistema
 * @subpackage Utilitario
 */

@@ -14,19 +14,27 @@ body{
 /*	background: url(http://fc04.deviantart.com/fs30/f/2008/148/c/3/Wood_floor_by_gnrbishop.jpg) repeat;*/
 }
 body {
-/*	background-image: url("http://img24.imageshack.us/img24/8207/plantillaazul3columnas.jpg");*/
+/*	background: url("http://img24.imageshack.us/img24/8207/plantillaazul3columnas.jpg") no-repeat;*/
 /*	background: url(http://i96.photobucket.com/albums/l185/ajojo00/a04e558c.jpg) repeat;*/
-/*	background-image:url(http://i400.photobucket.com/albums/pp85/simplyblogitbackgrounds/brickwallcopy.jpg?t=1248875373);	background-position: center;*/
-	background-image:url(../../../imagens/wintermoonwhite3col.jpg);
-	background-repeat: no-repeat;
+/*	background:url(http://i400.photobucket.com/albums/pp85/simplyblogitbackgrounds/brickwallcopy.jpg?t=1248875373);	background-position: center;*/
+	background:url(../../../imagens/wintermoonwhite3col.jpg) no-repeat;
+/*	background:url(http://fc09.deviantart.com/fs49/f/2009/206/8/2/Abstract_Desktop_Background_by_jcsawyer.png) no-repeat;*/
+/*	background:url(http://us.cdn1.123rf.com/168nwm/kentoh/kentoh1102/kentoh110200026/8755239-seamless-linen-cloth-texture-as-a-background.jpg) no-repeat;*/
+/*	background: url(http://media.bigoo.ws/content/background/cloth/cloth_94.jpg) repeat;*/
+/*	background: url(http://www.psdgraphics.com/file/blue-binary-code.jpg) no-repeat;*/
 	background-attachment: fixed;
 	background-position: center;
 }
 #topo{
 	text-align: center;
+	background-color: #EDEDE4;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
-#topo img{
-	width: 100px;
+.cmDiv{
+	text-align: left;
+}
+#logoSistema{
+	width: 75px;
 }
 #pagina{
 	margin: 0px auto;
@@ -62,6 +70,7 @@ input:hover, select:hover, textarea:hover{
 fieldset{
 	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+	border: 0px;
 }
 .ui-datepicker{
 	font-size: .8em;
@@ -84,8 +93,19 @@ li.ui-state-active{
 }
 .fc-campo-grupo{
 /*	background: url(http://i49.tinypic.com/tq53.png) repeat;*/
+/*	background: url(http://media.bigoo.ws/content/background/cloth/cloth_94.jpg) repeat;*/
+/*	background-color: #EDEDE4;*/
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 .d-table{
 	background-color: #ffffff;
+}
+.help{
+	padding: 5px;
+}
+.fc-ajuda{
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+	border: inherit;
+	background: url('../../../icones/information.png') no-repeat center left #ffffd5;
+	padding-left: 20px;
 }

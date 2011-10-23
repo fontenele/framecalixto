@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Atualizador de Base de Dados
+* Lista os campos de uma tabela do banco de dados
 * @package Sistema
 * @subpackage Utilitario
 */
@@ -29,10 +29,11 @@ class CUtilitario_listarCamposTabela extends controlePadrao{
 	//	return $menu;
 		$menu = parent::montarMenuPrograma();
 		$menu->{'Tabelas do Banco'}->passar_link('?c=CUtilitario_listarTabelas');
-		$menu->{'Tabelas do Banco'}->passar_imagem('utilitario/imagens/tabelas.png');
+		$menu->{'Tabelas do Banco'}->passar_imagem('.sistema/icones/table_multiple.png');
 		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_listarEntidade');
-		$menu->{'Entidades do sistema'}->passar_imagem('utilitario/imagens/entidades.png');
+		$menu->{'Entidades do sistema'}->passar_imagem('.sistema/icones/package.png');
 		$menu->{'Carregar para o gerador'}->passar_link("?c=CUtilitario_geradorDefinirEntidade&tabela={$_GET['tabela']}");
+		$menu->{'Carregar para o gerador'}->passar_imagem('.sistema/icones/lightning_go.png');
 		return $menu;
 	}
 }

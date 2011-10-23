@@ -5,6 +5,7 @@
 * @subpackage Controle
 */
 class controlePadraoPDF extends controle{
+	private static $estrutura;
 	/**
 	* Classe PDF de controle do documento
 	* @var Spdf
@@ -12,6 +13,61 @@ class controlePadraoPDF extends controle{
 	public $visualizacao;
 	public $modoDeVisualizar;
 	public function inicial(){}
+	/**
+	* Retorna a estrutura do controle definido em seu xml
+	* @param controle $entidade
+	* @return array
+	*/
+	public static function pegarEstrutura($entidade){
+		try{
+			$entidadeInternacionalizacao = definicaoEntidade::internacionalizacao($entidade);
+			$entidade = definicaoEntidade::entidade($entidade);
+			$inter = new $entidadeInternacionalizacao();
+			$arquivoXML = definicaoArquivo::pegarXmlEntidade($inter);
+			if(isset(controlePadraoPDF::$estrutura[$entidade])){
+				return controlePadraoPDF::$estrutura[$entidade];
+			}else{
+				$mapeador = array();
+				$xml = simplexml_load_file($arquivoXML);
+				$mapeador['tamanhoPaginaListagem'] = strval($xml['tamanhoPaginaListagem']) ? (int) strval($xml['tamanhoPaginaListagem']) : 10;
+				foreach($xml->propriedades->propriedade as $propriedade){
+					$arValores = array();
+					$idPropriedade = strval($propriedade['id']);
+					if(isset($propriedade->dominio->opcao)){
+						$arValores[''] = '&nbsp;';
+						foreach($propriedade->dominio->opcao as $opcao){
+							$arValores[strval($opcao['id'])] = $inter->pegarOpcao($idPropriedade,strval($opcao['id']));
+						}
+					}
+					$mapeador['campos'][$idPropriedade] = array(
+						'label'			=> $inter->pegarPropriedade($idPropriedade,'nome'),
+						'componente'	=> strval($propriedade->apresentacao['componente']	),
+						'tamanho'		=> strval($propriedade['tamanho']	),
+						'tipo'			=> strval($propriedade['tipo']	),
+						'obrigatorio'	=> strval($propriedade['obrigatorio']	),
+						'pesquisa'		=> (caracteres::RetiraAcentos(strtolower(strval($propriedade->apresentacao['pesquisa']))) == 'nao') ? false : true ,
+						'edicao'		=> (caracteres::RetiraAcentos(strtolower(strval($propriedade->apresentacao['edicao']))) == 'nao') ? false : true ,
+						'valores'		=> $arValores,
+						'classeAssociativa'	=> strval($propriedade['classeAssociativa']		),
+						'metodoLeitura'		=> strval($propriedade['metodoLeitura']		)
+					);
+					$mapeador['campos'][$idPropriedade]['listagem'] = false;
+					if(isset($propriedade->apresentacao->listagem)){
+						$mapeador['campos'][$idPropriedade]['listagem'] = true;
+						$mapeador['campos'][$idPropriedade]['titulo']	= $inter->pegarPropriedade($idPropriedade,'abreviacao');
+						$mapeador['campos'][$idPropriedade]['hyperlink'] = strval($propriedade->apresentacao->listagem['hyperlink']);
+						$mapeador['campos'][$idPropriedade]['largura'] = strval($propriedade->apresentacao->listagem['tamanho']);
+						$mapeador['campos'][$idPropriedade]['ordem'] = strval($propriedade->apresentacao->listagem['ordem']	);
+						$mapeador['campos'][$idPropriedade]['campoPersonalizado'] = strval($propriedade->apresentacao->listagem['campoPersonalizado'] );
+					}
+				}
+				return controlePadraoPDF::$estrutura[$entidade] = $mapeador;
+			}
+		}
+		catch(erro $e){
+			throw $e;
+		}
+	}
 	/**
 	* Método de criação da visualizacao
 	*/

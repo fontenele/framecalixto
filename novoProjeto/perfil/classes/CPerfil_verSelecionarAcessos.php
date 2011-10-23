@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Cria a visualização de um objeto : Acesso do Perfil
+* Visualiza a seleção de acessos para um perfil
 * @package Sistema
 * @subpackage Perfil
 */
@@ -28,9 +28,20 @@ class CPerfil_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 		$sistema->close();
 		$entidadeControle = '';
 		$listagem = '';
+		$i = 0;
 		foreach($controlesSistema as $controle){
 			if($controle){
+				$i++;
+				$linha = 'fc-linha'.($i%2 ? 1 : 2);
 				$controle = substr(basename($controle),0,-4);
+				$doc = new documentacao(new ReflectionClass($controle));
+				$arDoc = explode("\n",$doc->pegar());
+				foreach($arDoc as $index => $linDoc){
+					if(strtolower(trim($linDoc)) == 'classe de controle'){
+						unset($arDoc[$index]);
+					}
+				}
+				$execucao = implode('',$arDoc);
 				$arControle = explode('_',$controle);
 				if($arControle[0] != $entidadeControle ){
 					$entidadeControle = $arControle[0];
@@ -43,7 +54,7 @@ class CPerfil_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 				$vCheckBox = VComponente::montar('checkbox','controle[]',$controle);
 				$vCheckBox->passarChecked(isset($controlesPerfil[$controle]));
 				$vCheckBox = $vCheckBox->__toString();
-				$listagem .= "\t\t\t<tr><td></td><td>{$vCheckBox}</td><td>{$arControle[1]}</td></tr>\n";
+				$listagem .= "\t\t\t<tr class='fc-linha {$linha}'><td></td><td>{$vCheckBox}</td><td>{$arControle[1]}</td><td>{$execucao}</td></tr>\n";
 			}
 		}
 		if($negocio->pegarIdPerfil()){

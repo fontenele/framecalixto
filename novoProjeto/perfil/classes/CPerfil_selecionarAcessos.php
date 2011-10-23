@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Cria a visualização de um objeto : Acesso do perfil
+* Executa a gravação dos acessos selecionados para o perfil
 * @package Sistema
 * @subpackage acessoDoPerfil
 */
