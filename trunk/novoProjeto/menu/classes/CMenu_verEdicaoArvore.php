@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Executa a gravação de um objeto : Menu
+* Visualiza a arvore de menu para a edição
 * @package Sistema
 * @subpackage Menu
 */

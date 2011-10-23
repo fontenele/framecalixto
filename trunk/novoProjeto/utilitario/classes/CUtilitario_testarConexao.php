@@ -1,5 +1,6 @@
 <?php
 /**
+ * Classe de controle
  * Testa a conexao com um banco de dados
  */
 class CUtilitario_testarConexao extends controlePadrao{

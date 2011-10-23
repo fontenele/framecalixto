@@ -1,5 +1,6 @@
 <?php
 /**
+ * Classe de controle
  * Visualiza as persistentes que irão executar a recriação da tabela no banco
  * @author calixto
  */

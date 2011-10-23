@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Cria a visualização de um objeto : Acesso do Usuario
+* Visualiza a seleção de acessos para um usuário
 * @package Sistema
 * @subpackage Usuario
 */
@@ -28,8 +28,10 @@ class CUsuario_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 		$sistema->close();
 		$entidadeControle = '';
 		$listagem = '';
+		$i=0;
 		foreach($controlesSistema as $controle){
 			if($controle){
+				$linha = 'fc-linha'.($i%2 ? 1 : 2);
 				$controle = substr(basename($controle),0,-4);
 				$arControle = explode('_',$controle);
 				if($arControle[0] != $entidadeControle ){
@@ -45,7 +47,7 @@ class CUsuario_verSelecionarAcessos extends controlePadraoVerEdicaoUmPraMuitos{
 				$vCheckBox = $vCheckBox->__toString();
 				$vDtInicio = null;#VComponente::montar('data e hora','dtInicio[]',null);
 				$vDtFim = null;VComponente::montar('data e hora','dtFim[]',null);
-				$listagem .= "\t\t\t<tr><td></td><td>{$vCheckBox}</td><td>{$arControle[1]}</td><!--<td>{$vDtInicio}</td><td>&nbsp;</td><td>{$vDtFim}</td>--></tr>\n";
+				$listagem .= "\t\t\t<tr class='fc-linha {$linha}'><td></td><td>{$vCheckBox}</td><td>{$arControle[1]}</td><!--<td>{$vDtInicio}</td><td>&nbsp;</td><td>{$vDtFim}</td>--></tr>\n";
 			}
 		}
 		if($negocio->pegarIdUsuario()){

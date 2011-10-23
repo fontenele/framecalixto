@@ -8,11 +8,12 @@
 		<textos>
 			<texto id="sim">Sim</texto>
 			<texto id="nao">Não</texto>
-			<texto id="botaoNovo">Novo Registro</texto>
+			<texto id="botaoNovo">Ir Para Novo Registro</texto>
 			<texto id="botaoGravar">Salvar</texto>
 			<texto id="botaoExcluir">Excluir</texto>
 			<texto id="botaoListagem">Tela de Pesquisa</texto>
 			<texto id="botaoPesquisar">Pesquisar</texto>
+			<texto id="botaoImpressao">Imprimir</texto>
 			<texto id="botaoLimpar">Limpar Campos</texto>
 			<texto id="verPesquisa">Pesquisa</texto>
 			<texto id="verEdicao">Edição</texto>

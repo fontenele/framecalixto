@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Cria a visualização de um objeto : Acesso do usuario
+* Executa a gravação dos acessos selecionados para o usuário
 * @package Sistema
 * @subpackage Usuario
 */

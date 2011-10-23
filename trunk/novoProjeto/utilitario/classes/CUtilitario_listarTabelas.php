@@ -26,7 +26,7 @@ class CUtilitario_listarTabelas extends controlePadrao{
 	function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
 		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_listarEntidade');
-		$menu->{'Entidades do sistema'}->passar_imagem('utilitario/imagens/entidades.png');
+		$menu->{'Entidades do sistema'}->passar_imagem('.sistema/icones/package.png');
 		return $menu;
 	}
 }

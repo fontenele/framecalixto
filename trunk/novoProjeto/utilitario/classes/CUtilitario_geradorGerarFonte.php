@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Ver o Usuário
+* Executa a criação dos arquivos e classes definidos no gerador
 * @package Sistema
 * @subpackage Utilitario
 */
@@ -59,6 +59,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		//CUtilitario_geradorGerarFonte::montarControlePesquisar($visualizacao);
 		CUtilitario_geradorGerarFonte::montarControleVerEdicao($visualizacao);
 		CUtilitario_geradorGerarFonte::montarControleVerPesquisa($visualizacao);
+		CUtilitario_geradorGerarFonte::montarControleVerListagemPdf($visualizacao);
 		CUtilitario_geradorGerarFonte::montarTemplateVerEdicao($visualizacao);
 		CUtilitario_geradorGerarFonte::montarTemplateVerPesquisa($visualizacao);
 		exec("chmod -R 777 ".CUtilitario_geradorGerarFonte::$nomeEntidade);
@@ -299,6 +300,16 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$visualizacao->controleNome = "{$controle}_verPesquisa";
 		$visualizacao->controlePai = 'controlePadraoPesquisa';
 		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$controle}_verPesquisa.php",$visualizacao->pegar('classesControle.html'));
+	}
+	/**
+	* Monta o controle de Ver Listagem Pdf
+	*/
+	public static function montarControleVerListagemPdf(visualizacao $visualizacao){
+		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
+		$visualizacao->acao = "Cria a visualização PDF listando objetos : ".CUtilitario_geradorGerarFonte::$entidade['entidade'];
+		$visualizacao->controleNome = "{$controle}_verListagemPdf";
+		$visualizacao->controlePai = 'controlePadraoPDFListagem';
+		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$controle}_verListagemPdf.php",$visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o template de ver

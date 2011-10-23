@@ -8,7 +8,7 @@
 class NEstado extends negocioPadrao{
 	/**
 	* @gerador variavelPadrao
-	* @var integer id
+	* @var integer Código
 	*/
 	public $idEstado;
 	/**
@@ -18,7 +18,7 @@ class NEstado extends negocioPadrao{
 	public $sgSigla;
 	/**
 	* @gerador variavelPadrao
-	* @var string Estado
+	* @var string Nome
 	*/
 	public $nmEstado;
 	/**

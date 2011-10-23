@@ -14,8 +14,8 @@
 			<ul id="tabelas">
 			«foreach from=$listagem item=nome»
 				<li>
-					<span class="fc-menu-item"><a href="?c=CUtilitario_listarCamposTabela&tabela=«$nome»" >Ver</a></span>
-					<span class="fc-menu-item"><a href="?c=CUtilitario_geradorDefinirEntidade&tabela=«$nome»" >Gerar cadastro</a></span>
+					<span class="fc-menu-item"><a href="?c=CUtilitario_listarCamposTabela&tabela=«$nome»" ><img style="border:0px; vertical-align:bottom;" src=".sistema/icones/eye.png">Ver</a></span>
+					<span class="fc-menu-item"><a href="?c=CUtilitario_geradorDefinirEntidade&tabela=«$nome»" ><img style="border:0px; vertical-align:bottom;" src=".sistema/icones/lightning_go.png">Gerar cadastro</a></span>
 					«$nome»
 				</li>
 			«/foreach»

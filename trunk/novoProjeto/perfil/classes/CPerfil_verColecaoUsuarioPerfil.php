@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Cria a visualização de um objeto : Perfil do Usuario
+* Visualiza os usuário relacionados a um perfil
 * @package Sistema
 * @subpackage Perfil
 */

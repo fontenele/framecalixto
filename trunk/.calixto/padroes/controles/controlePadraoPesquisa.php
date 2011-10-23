@@ -50,8 +50,13 @@ class controlePadraoPesquisa extends controlePadrao {
 		$menu = parent::montarMenuPrograma();
 		$novo = $this->inter->pegarTexto('botaoNovo');
 		$pesquisar = $this->inter->pegarTexto('botaoPesquisar');
-		$menu->$novo = new VMenu($novo, sprintf("?c=%s", definicaoEntidade::controle($this, 'verEdicao')), '.sistema/icones/add.png');
-		$menu->$pesquisar = new VMenu($pesquisar, 'javascript:document.formulario.submit();', '.sistema/icones/application_view_list.png');
+		$impressao = $this->inter->pegarTexto('botaoImpressao');
+		$menu->$novo		= new VMenu($novo, sprintf("?c=%s", definicaoEntidade::controle($this, 'verEdicao')), '.sistema/icones/add.png');
+		$menu->$pesquisar	= new VMenu($pesquisar, 'javascript:document.formulario.submit();', '.sistema/icones/magnifier.png');
+		try{
+			arquivoClasse(definicaoEntidade::controle($this, 'verListagemPdf'));
+			$menu->$impressao	= new VMenu($impressao, sprintf('?c=%s', definicaoEntidade::controle($this, 'verListagemPdf')), '.sistema/icones/printer.png');
+		}  catch (erroInclusao $e){}
 		return $menu;
 	}
 

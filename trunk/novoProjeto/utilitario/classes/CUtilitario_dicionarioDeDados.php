@@ -2,7 +2,7 @@
 
 /**
  * Classe de controle
- * Atualizador de Base de Dados
+ * Visualiza o dicionário de dados do banco corrente do sistema
  * @package Sistema
  * @subpackage Utilitario
  */

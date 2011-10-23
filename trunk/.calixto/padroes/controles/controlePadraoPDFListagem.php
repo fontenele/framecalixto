@@ -43,14 +43,19 @@ class controlePadraoPDFListagem extends controlePadraoPDF{
 	* Método que monta o topo do relatório
 	*/
 	public function montarTopo($mostrarTodos = true){
+		$estrutura = $this->pegarEstrutura($this);
 		$negocio = $this->pegarFiltro();
+		$this->ln();
 		$this->visualizacao->SetFont('Times','B',6);
-		foreach($this->campos as $campo => $label){
-			$metodo = 'pegar'.ucfirst($campo);
+		foreach($estrutura['campos'] as $nomeCampo => $dadosCampo){
+		//foreach($this->campos as $campo => $label){
+			$metodo = 'pegar'.ucfirst($nomeCampo);
 			$valor = $negocio->$metodo();
 			if($mostrarTodos || $valor){
-				$this->celula(100,4,"{$label}: {$valor}");
-				$this->ln(2);
+				if($dadosCampo['pesquisa']){
+					$this->celula(100,4,"{$dadosCampo['label']}: {$valor}");
+					$this->ln(2);
+				}
 			}
 		}
 		$this->visualizacao->SetFont('Times','B',8);
@@ -61,16 +66,32 @@ class controlePadraoPDFListagem extends controlePadraoPDF{
 		
 	}
 	/**
+	 * Retorna o nome da variável que irá segurar o filtro na sessão
+	 * @return string
+	 */
+	protected function nomeDoFiltro() {
+		return 'filtro';
+	}
+
+	/**
+	 * Método que define como se comporta um filtro novo ou limpo
+	 * @return negocioPadrao
+	 */
+	protected function filtroNovo() {
+		$negocio = definicaoEntidade::negocio($this);
+		return new $negocio();
+	}
+	/**
 	* Método que define o objeto de negócio que executará a pesquisa
 	*/
 	public function definirFiltro(){
 		$negocio = definicaoEntidade::negocio($this);
 		if($_POST){
-			$this->filtro = new $negocio();
+			$this->filtro = $this->filtroNovo();
 			$this->montarNegocio($this->filtro);
-			$this->sessao->registrar('filtro',$this->filtro);
+			$this->sessao->registrar($this->nomeDoFiltro(),$this->filtro);
 		}else{
-			$this->filtro = ($this->sessao->tem('filtro')) ? $this->sessao->pegar('filtro'): new $negocio();
+			$this->filtro = ($this->sessao->tem($this->nomeDoFiltro())) ? $this->sessao->pegar($this->nomeDoFiltro()): $this->filtroNovo();
 		}
 	}
 	/**
@@ -78,7 +99,7 @@ class controlePadraoPDFListagem extends controlePadraoPDF{
 	* @return colecaoPadraoNegocio coleção a ser listada
 	*/
 	public function definirColecao(){
-		$metodo = ($this->sessao->tem('filtro')) ? 'pesquisar' : 'lerTodos';
+		$metodo = ($this->sessao->tem($this->nomeDoFiltro())) ? 'pesquisar' : 'lerTodos';
 		return $this->filtro->$metodo();
 	}
 	/**

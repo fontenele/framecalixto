@@ -23,6 +23,8 @@ jQuery.fn.extend({
 		//	'%s/classes/C%s_pesquisar.php',
 			'%s/classes/C%s_verEdicao.php',
 			'%s/classes/C%s_verPesquisa.php',
+			'%s/classes/C%s_verListagemPdf.php',
+		//	'%s/classes/C%s_verRegistroPdf.php',
 			'%s/classes/I%s.php',
 			'%s/classes/N%s.php',
 			'%s/classes/P%s.mysql.php',
@@ -289,7 +291,7 @@ jQuery.fn.extend({
 				'<br/><dd>Utilizando um componente '+linhas.find('.ng_tipo').val()+' '+(linhas.find('.ng_tamanho').val() ? ','+
 				'<br/><dd>Com tamanho máximo definido em '+linhas.find('.ng_tamanho').val()+' caracteres' : '')+','+
 				'<br/><dd>Com a dica de tela ['+linhas.find('.en_descricao').val()+']'+
-				'<br/><dd>'+txValores+'<br/>'
+				'<br/><dd>'+txValores
 			;
 		if($(selComp)[0]){
 			$(selComp).html(txItem);
@@ -313,7 +315,7 @@ jQuery.fn.extend({
 				'<br/><dd>Utilizando um componente '+linhas.find('.ng_tipo').val()+' '+(linhas.find('.ng_tamanho').val() ? ','+
 				'<br/><dd>Com tamanho máximo definido em '+linhas.find('.ng_tamanho').val()+' caracteres' : '')+','+
 				'<br/><dd>Com a dica de tela ['+linhas.find('.en_descricao').val()+']'+
-				'<br/><dd>'+txValores+'<br/>'
+				'<br/><dd>'+txValores+''
 			;
 		if($(selComp)[0]){
 			$(selComp).html(txItem);
@@ -330,7 +332,7 @@ jQuery.fn.extend({
 		var valores = linhas.find('.ng_dominio_associativa').pegarDominio();
 		var txItem =
                 'A coluna com o título <span class="uc-componente">"'+linhas.find('.en_abreviacao').val()+'"</span>'+
-                    '<br/><dd>Deverá apresentar os '+(valores.length?'valores ('+valores.val.join(', ')+')':'dados')+' referente ao campo '+linhas.find('.en_nome').val()+' do Cadastro de <span class="uc-nome"></span><br/>'
+                    '<br/><dd>Deverá apresentar os '+(valores.length?'valores ('+valores.val.join(', ')+')':'dados')+' referente ao campo '+linhas.find('.en_nome').val()+' do Cadastro de <span class="uc-nome"></span>'
 			;
 		if($(selComp)[0]){
 			$(selComp).html(txItem);
