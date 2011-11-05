@@ -27,7 +27,7 @@ String.prototype.lowerCamelCase = function (){
  */
 String.prototype.retiraAcentos = function(){
 	str = this;
-	stA = new String('çàèìòùâêîôûäëïöüáéííúãĩõũÇÀÈÌÒÙÂÊÎÔÛÄËÏÖÜÁÉÍÓÚÃĨÕŨ');
+	stA = new String('çàèìòùâêîôûäëïöüáéíóúãĩõũÇÀÈÌÒÙÂÊÎÔÛÄËÏÖÜÁÉÍÓÚÃĨÕŨ');
 	stB = new String('caeiouaeiouaeiouaeiouaiouÇAEIOUAEIOUAEIOUAEIOUAIOU');
 	for(i in stA){ str = str.strReplace(stA.charAt(i),stB.charAt(i)); }
 	return str;
