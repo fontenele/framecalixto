@@ -565,9 +565,9 @@ abstract class persistente extends objeto{
 	*/
 	public function lerPaginado(pagina $pagina, $sql){
 		try{
-			$total = $this->pegarSelecao("select count(*) as \"quantidade de registros\" from ({$sql}) selecao");
+			$total = $this->pegarSelecao("select count(*) as \"quantidade\" from ({$sql}) selecao");
 			if(isset($total[0]['quantidade'])){
-				$pagina->passarTamanhoGeral((integer) $total[0]['quantidade de registros']);
+				$pagina->passarTamanhoGeral((integer) $total[0]['quantidade']);
 			}
 			return $this->pegarSelecao($this->gerarComandoLerPaginado($pagina, $sql));
 		}
