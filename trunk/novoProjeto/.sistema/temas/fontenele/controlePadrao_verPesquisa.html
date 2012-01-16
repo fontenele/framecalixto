@@ -1,0 +1,42 @@
+<!--********************* TEMPLATE PADRÃO **********************-->
+<form name="formulario" method="post" action="«$action»">
+<div class="container0 ui-widget-content ui-corner-all">
+	<div class="a"></div>
+	<div class="b"></div>
+	<div class="c"></div>
+	<div class="d"></div>
+	<div class="e"></div>
+	<div class="f"></div>
+	<div class="g"></div>
+	<div class="h"></div>
+	<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
+	<div class="texto">
+		<div class="tabela2">
+			«php»foreach($this->_tpl_vars['componentes padroes'] as $componente){
+				echo "\t\t\t<div class='campo'>\n";
+				echo "\t\t\t\t<label for='{$componente->pegarId()}'>{$this->_tpl_vars['nome'.ucfirst($componente->pegarId())]}:</label>\n";
+				echo "\t\t\t\t<span>{$componente}</span>\n";
+				echo "\t\t\t</div>\n";
+			}«/php»
+		</div>
+        <div id='menu_corpo'>
+            «$menuPrograma»
+        </div>
+		<div class="container2">
+			<div class="a"></div>
+			<div class="b"></div>
+			<div class="c"></div>
+			<div class="d"></div>
+			<div class="e"></div>
+			<div class="f"></div>
+			<div class="g"></div>
+			<div class="h"></div>
+			<h1 class="ui-state-default ui-corner-all"><img src=".sistema/icones/application_view_list.png" /> Listagem</h1>
+			<div class="texto">
+				«$listagem»
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+<!--********************* TEMPLATE PADRÃO **********************-->
