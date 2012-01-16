@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding="utf-8" ?>
 <internacionalizacao>
 	<sistema>
-		<titulo>TITULO DO SISTEMA</titulo>
-		<subtitulo>Subtítulo do Sistema</subtitulo>
+		<titulo>Título da Aplicação</titulo>
+		<subtitulo>Subtítulo</subtitulo>
 	</sistema>
 	<controles>
 		<textos>
