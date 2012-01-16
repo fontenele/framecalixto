@@ -1,0 +1,41 @@
+@import url(css/reset.css);
+@import url(css/jquery/humanity/jquery-ui-1.8.2.custom.css);
+@import url(css/jquery/clickmenu.css);
+@import url(css/ie.css);
+
+/**
+http://kuler.adobe.com/#themeID/1697105
+C28923 - amarelo
+737000 - verde escuro
+7C8A4C - verde medio
+8BA8AD - azul medio
+EBFAFF - azul muito claro
+*/
+
+* {
+	font-family: Calibri;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #EBFAFF;
+	position: absolute;
+}
+
+#pagina {
+	height: 100%;
+}
+
+#topo {
+	height: 40px;
+	background-color: #C28923;
+}
+
+#topo span {
+	vertical-align: -12px;
+	margin-left: 10px;
+	font-variant: small-caps;
+	font-size: 1.2em;
+	word-spacing: .25em;
+}
