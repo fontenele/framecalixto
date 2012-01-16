@@ -33,10 +33,17 @@
 	<div id="pagina">
 		<div id="topo"><span>«$titulo»</span></div>
 		«$menuPrincipal»
-		«$comunicacaoSistema»
-		«$menuModulo»
-		«if $descricaoDeAjuda»<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all"><span class='ui-icon ui-icon-info' style='float:left;'></span>«$descricaoDeAjuda»</div>«/if»
-		<div class="conteudo">«$pagina»</div>
+		<div id="conteudo">
+			«$comunicacaoSistema»
+			«$menuModulo»
+			«if $descricaoDeAjuda»
+			<div class="descricaoDeAjuda help ui-state-highlight ui-corner-all">
+				<span class='ui-icon ui-icon-info' style='float:left;'></span>
+				«$descricaoDeAjuda»
+			</div>
+			«/if»
+			«$pagina»
+		</div>
 	</div>
 </body>
 </html>

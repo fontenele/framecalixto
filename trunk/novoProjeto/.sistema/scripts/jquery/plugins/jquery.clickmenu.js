@@ -482,7 +482,7 @@
 			}
 
 			//the floating list elements are destroying the layout..so make it nice again..
-			$(this).wrap('<div class="cmDiv ui-widget-header"></div>').after('<div style="clear: both; visibility: hidden;"></div>');
+			$(this).wrap('<div class="cmDiv"></div>').after('<div style="clear: both; visibility: hidden;"></div>');
 	    });
 	};
 	$.fn.clickMenu.setDefaults = function(o)
@@ -508,7 +508,7 @@
 				$(outer).css('position', 'absolute');
 			}
 			//add the boxes
-			$(this).addClass('innerBox ui-widget-content').wrap(outer).
+			$(this).addClass('innerBox').wrap(outer).
 					before('<div class="shadowbox1"></div><div class="shadowbox2"></div><div class="shadowbox3"></div>');
 	    });
 	};
