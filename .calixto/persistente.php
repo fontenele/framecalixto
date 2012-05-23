@@ -195,18 +195,22 @@ abstract class persistente extends objeto{
 				}
 				$nrComando = self::$imprimirComandos;
 				$sqlClass = $nrComando%2 ? 'sql1' : 'sql2' ;
-				echo "<table class='{$sqlClass}'>";
+				echo "<br/><table class='{$sqlClass} objeto'>";
 				echo "<tr class='linha'>";
-				echo "<td class='numero'>{$nrComando}</td>";
 				if(self::$pilhaDeChamadas){
-					echo "<td class='string'><pre>";
-					ob_start('buffer_persistente');
-					debug_print_backtrace();
-					ob_end_flush();
-					echo "</pre></td>";
-				}
-				echo "<td class='string'><pre>{$comando}</pre></td>";
-				echo "</tr></table>";
+                                    echo "<td class='numero' rowspan='2'>{$nrComando}</td>";
+                                    echo "<td class='string'><pre>";
+                                    ob_start('buffer_persistente');
+                                    debug_print_backtrace();
+                                    ob_end_flush();
+                                    echo "</pre></td></tr><tr>";
+                                    echo "<td class='string'><pre>{$comando}</pre></td>";
+                                    echo "</tr></table>";
+				}else{
+                                    echo "<td class='numero'>{$nrComando}</td>";
+                                    echo "<td class='string'><pre>{$comando}</pre></td>";
+                                    echo "</tr></table>";
+                                }
 			}
 			return $this->conexao->executarComando($comando);
 		}
