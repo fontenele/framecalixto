@@ -57,6 +57,16 @@ class pagina extends objeto{
 		$this->pagina = ($pagina < 1) ? 1 : $pagina;
 	}
 	/**
+	* Define o escopo total de linhas existentes
+	* @param integer número de linhas existentes
+	*/
+	function passarTamanhoGeral($tamanhoGeral) {
+		$this->tamanhoGeral = $tamanhoGeral;
+		if(($this->tamanhoGeral > 0) && ($this->tamanhoGeral < ($this->tamanhoPagina * $this->pagina))){
+			$this->pagina = $this->ultima();
+		}
+	}
+	/**
 	* Retorna o tamanho geral do conteudo
 	* @return integer número total de linhas do conteudo geral
 	*/
