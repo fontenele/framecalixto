@@ -237,6 +237,7 @@ abstract class persistente extends objeto{
 	public function converterDado($valor,$campo = null){
 		if($campo){
 			switch(strtolower($campo['tipo'])){
+				case 'data e hora':
 				case 'datahora':
 					return new TDataHora($valor);
 				break;
