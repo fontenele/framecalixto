@@ -354,6 +354,17 @@ class controlePadrao extends controle{
 		}
 	}
 	/**
+	 * Adiciona um VMenu na colecaoPadraoMenu
+	 * @param colecaoPadraoMenu $menu
+	 * @param string $item nome do item no menu
+	 * @param string $link apontamento do item
+	 * @param string $img icone do item no menu
+	 */
+	public static function adicionarItemMenu($menu, $item, $link = '#', $img = null){
+		$menu->$item = new VMenu($item, $link, $img);
+	}
+	
+	/**
 	* Método montador de array descritivo
 	* Monta um array [chave]=>descricao de uma coleção de objetos de negocio
 	*/
