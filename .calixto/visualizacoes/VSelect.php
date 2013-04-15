@@ -11,6 +11,9 @@ class VSelect extends VComponente{
 		$this->valor = $valor;
 	}
 	function configurar(){
+		$this->conteudo = $this->options();
+	}
+	function options(){
 		$conteudo = '';
 		if(is_array($this->conteudo)){
 			foreach($this->conteudo as $indice => $texto){
@@ -20,8 +23,8 @@ class VSelect extends VComponente{
 					$conteudo .= "<option value='{$indice}'>{$texto}</option>";
 				}
 			}
-			$this->conteudo = $conteudo;
 		}
+		return $conteudo;
 	}
 	function passarValores($valores){
 		$this->conteudo = $valores;

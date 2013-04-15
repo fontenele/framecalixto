@@ -52,6 +52,7 @@ class controlePadraoPesquisa extends controlePadrao {
 		$pesquisar = $this->inter->pegarTexto('botaoPesquisar');
 		$impressao = $this->inter->pegarTexto('botaoImpressao');
 		$menu->$novo		= new VMenu($novo, sprintf("?c=%s", definicaoEntidade::controle($this, 'verEdicao')), '.sistema/icones/add.png');
+        $menu->$novo->passar_classeLink('btn btn-success');
 		$menu->$pesquisar	= new VMenu($pesquisar, 'javascript:document.formulario.submit();', '.sistema/icones/magnifier.png');
 		try{
 			arquivoClasse(definicaoEntidade::controle($this, 'verListagemPdf'));

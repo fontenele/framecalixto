@@ -252,7 +252,7 @@ class controlePadrao extends controle{
 	public function gerarMenuprincipal(){
 		$arMenu = $this->montarMenuPrincipal();
 		if($arMenu){
-			$this->visualizacao->menuPrincipal = "<div class='fc-menu-sistema'>{$arMenu}</div>";
+			$this->visualizacao->menuPrincipal = "<div class='fc-menu-sistema well sidebar-nav'>{$arMenu}</div>";
 		}else{
 			$this->visualizacao->menuPrincipal = '';
 		}
@@ -278,6 +278,8 @@ class controlePadrao extends controle{
 		if($menu && $menu instanceof colecaoPadraoMenu) {
 			while($menuItem = $menu->avancar()) {
 				$menuItem->passar_classe('fc-menu-item');
+                if(!$menuItem->pegar_classeLink())
+                    $menuItem->passar_classeLink('btn');
 			}
 		}
 		switch(true){

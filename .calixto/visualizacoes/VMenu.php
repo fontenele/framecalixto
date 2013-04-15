@@ -30,6 +30,10 @@ class VMenu extends objeto{
 	*/
 	public $_classe;
 	/**
+	* @var string classe de CSS do link
+	*/
+	public $_classeLink;
+	/**
 	* @var colecao itens do menu
 	*/
 	public $_coMenu;
@@ -80,6 +84,7 @@ class VMenu extends objeto{
 		$this->_tabIndex = $this->_tabIndex ? $this->_tabIndex : 9999;
 		$id = $this->_id ? " id='{$this->_id}'" : null;
 		$classe = $this->_classe ? " class='{$this->_classe}'" : null;
+		$classeLink = $this->_classe ? " class='{$this->_classeLink}'" : null;
 		$link = $this->_link ? " href='{$this->_link}'" : " href='#'";
 		$imagem = !$this->_imagem ? null : "<img src='{$this->_imagem}' style='border:0px; vertical-align:bottom;' /> ";
 		if($this->_coMenu->possuiItens()){
@@ -89,7 +94,7 @@ class VMenu extends objeto{
 		}else{
 			if(!$this->_link)	return '';
 			$tabindex = $this->_tabIndex ? " tabindex='{$this->_tabIndex}'" : null;
-			$menu =  "<li{$classe}{$id}><a{$link}>{$imagem}{$this->_nome}</a></li>\n";
+			$menu =  "<li{$classe}{$id}><a{$link}{$classeLink}>{$imagem}{$this->_nome}</a></li>\n";
 		}
 		return $menu;
 	}

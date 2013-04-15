@@ -30,6 +30,7 @@ class json {
 			case 'object':
 				if(get_class($var) == 'TCep') { return json_encode($var->__toString()); }
 				if(get_class($var) == 'TData') { return json_encode($var->__toString()); }
+				if(get_class($var) == 'TDataHora') { return json_encode($var->__toString()); }
 				if(get_class($var) == 'TNumerico') { return json_encode($var->__toString()); }
 				if(get_class($var) == 'TTelefone') { return json_encode($var->__toString()); }
 				if(get_class($var) == 'TCNPJ') { return json_encode($var->__toString()); }
