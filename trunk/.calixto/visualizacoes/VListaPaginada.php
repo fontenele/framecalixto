@@ -143,7 +143,7 @@ class VListaPaginada extends objeto{
 			$conexao = conexao::criar();
 			$chaves = array_keys($this->campos);
 			sort($chaves);
-			$retorno = "\n<table summary='text' class=\"fc-listagem-dados\">\n";
+			$retorno = "\n<table summary='text' class=\"fc-listagem-dados table table-striped table-bordered table-condensed\">\n";
 			$retorno.= "<thead><tr>\n";
 			foreach($chaves as $chave){
 				$campo = $this->campos[$chave];
@@ -263,7 +263,7 @@ class VListaPaginada extends objeto{
 		$paginas = $this->inter->pegarTexto('paginas');
 		if($this->pagina->pegarTamanhoGeral() > $this->pagina->pegarTamanhoPagina()){
 			$retorno.="<div class='fc-paginador-grupo'>\n";
-			$retorno.="	<div class='fc-paginador'>\n";
+			$retorno.="	<div class='fc-paginador btn-group'>\n";
 			$retorno.="		<p>&nbsp;\n";
 			$paginas = ($this->pagina->pegarTamanhoGeral()/$this->pagina->pegarTamanhoPagina() +1);
 			$paginas = (($this->pagina->pegarTamanhoGeral()%$this->pagina->pegarTamanhoPagina()) == 0) ? $paginas -1 : $paginas;
@@ -273,13 +273,13 @@ class VListaPaginada extends objeto{
 			$linkProximo = sprintf('?c=%s&amp;pagina=%s',$this->controle, $this->pagina->pegarPagina() + 1);
 			$linkUltimo = sprintf('?c=%s&amp;pagina=%s',$this->controle, (int)$paginas);
 
-			$classe   ="class='fc-paginador-opcao'";
-			$classeOff="class='fc-paginador-opcao-off'";
+			$classe   ="class='fc-paginador-opcao btn'";
+			$classeOff="class='fc-paginador-opcao-off btn disabled'";
 			
-			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classeOff}>Primeiro</span>" : "<span {$classe}><a href='{$linkPrimeiro}'>Primeiro</a></span>";
-			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classeOff}>Anterior</span>" : "<span {$classe}><a href='{$linkAnterior}'>Anterior</a></span>";
+			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classeOff}>Primeiro</span>" : "<a href='{$linkPrimeiro}'><span {$classe}>Primeiro</span></a>";
+			$retorno.= $this->pagina->pegarPagina() == 1 ? "<span {$classeOff}>Anterior</span>" : "<a href='{$linkAnterior}'><span {$classe}>Anterior</span></a>";
 			
-			$retorno.= '<select id="seletorPagina">';
+			$retorno.= '<select id="seletorPagina" class="input-small">';
 
 			for($i=1;$i <= $paginas;$i++){
 
@@ -293,8 +293,8 @@ class VListaPaginada extends objeto{
 
 			$retorno.="</select>";
 
-			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classeOff}>Próximo</span>" : "<span {$classe}><a href='{$linkProximo}'>Próximo</a></span>";
-			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classeOff}>Último</span>" : "<span {$classe}><a href='{$linkUltimo}'>Último</a></span>";
+			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classeOff}>Próximo</span>" : "<a href='{$linkProximo}'><span {$classe}>Próximo</span></a>";
+			$retorno.= $this->pagina->pegarPagina() == (int)$paginas ? "<span {$classeOff}>Último</span>" : "<a href='{$linkUltimo}'><span {$classe}>Último</span></a>";
 
 			$retorno.="		</p>\n	</div>\n";
 			$retorno.="</div>\n";

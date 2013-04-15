@@ -190,5 +190,19 @@ class TData extends objeto{
         $data = $this->pegarData();
 		return $data ? $data : '';
 	}
+    /**
+    * Método de codificação para XML
+    * @return string XML
+    */
+    public function xml(){
+        return (string) $this;
+    }
+    /**
+	* Método de codificação para JSON
+	* @return string JSON
+	*/
+	public function json(){
+		return (string) $this;
+	}
 }
 ?>

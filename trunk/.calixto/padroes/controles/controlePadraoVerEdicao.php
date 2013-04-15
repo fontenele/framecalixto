@@ -79,7 +79,11 @@ class controlePadraoVerEdicao extends controlePadrao{
 		$listagem = $this->inter->pegarTexto('botaoListagem');
 		$chave = isset($_GET['chave']) ? $_GET['chave'] : ($this->negocio->valorChave()) ? $this->negocio->valorChave() : null;
 		$menu->$gravar = new VMenu($gravar,'javascript:$.submeter();','.sistema/icones/disk.png');
-		if($chave) $menu->$excluir = new VMenu($excluir,sprintf("?c=%s&amp;chave=%s",definicaoEntidade::controle($this,'excluir'),$chave),'.sistema/icones/delete.png');
+        $menu->$gravar->passar_classeLink('btn btn-primary');
+		if($chave){
+            $menu->$excluir = new VMenu($excluir,sprintf("?c=%s&amp;chave=%s",definicaoEntidade::controle($this,'excluir'),$chave),'.sistema/icones/delete.png');
+            $menu->$excluir->passar_classeLink('btn btn-danger');
+        }
 		$menu->$listagem = new VMenu($listagem,sprintf("?c=%s",definicaoEntidade::controle($this,'verPesquisa')),'.sistema/icones/application_view_list.png');
 		return $menu;
 	}

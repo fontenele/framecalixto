@@ -135,8 +135,19 @@ abstract class negocioPadrao extends negocio{
 	public function __atributos() {
 		$vars = parent::__atributos();
 		unset($vars['conexao']);
+		unset($vars['__persistente']);
+		unset($vars['__filtroDePesquisa']);
 		return $vars;
 	}
+    public function vetor(){
+        $vars = get_object_vars($this);
+		unset($vars['conexao']);
+		unset($vars['inter']);
+		unset($vars['__persistente']);
+		unset($vars['__filtroDePesquisa']);
+		unset($vars['__filtroDePesquisa']);
+        return $vars;
+    }
 	/**
 	* retorna um array de mapeamento da internacionalização do negocio
 	* @return array mapeamento de internacionalização

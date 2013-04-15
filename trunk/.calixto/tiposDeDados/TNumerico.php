@@ -91,5 +91,12 @@ class TNumerico extends objeto{
 			return (float) preg_replace('/[^0-9]/','',$string);
 		}
 	}
+    /**
+    * Método de codificação para XML
+    * @return string XML
+    */
+    public function xml(){
+        return (string) $this;
+    }
 }
 ?>

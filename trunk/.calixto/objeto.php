@@ -57,7 +57,10 @@ abstract class objeto{
 		x($this);
 		return '';
 	}
-	/**
+    public function vetor(){
+        return get_object_vars($this);
+    }
+    /**
 	* Método de codificação para JSON
 	* @return string JSON
 	*/
@@ -70,7 +73,7 @@ abstract class objeto{
     * @return string XML
     */
     public function xml(){
-        $variaveis = get_object_vars($this);
+        $variaveis = $this->vetor();
         if(isset($variaveis['conexao'])) unset($variaveis['conexao']);
         $classe = get_class($this);
         $xml = "<{$classe}>\n";

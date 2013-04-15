@@ -77,5 +77,12 @@ class TDocumentoPessoal extends TTelefone{
 		
 		return $res;
 	}
+    /**
+    * Método de codificação para XML
+    * @return string XML
+    */
+    public function xml(){
+        return (string) $this;
+    }
 }
 ?>

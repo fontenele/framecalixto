@@ -25,6 +25,7 @@ class persistentePadraoPG extends persistente {
 		$mapeamento['tcpf'] = 'character varying';
 		$mapeamento['tdatahora'] = 'timestamp';
 		$mapeamento['data'] = 'timestamp';
+		$mapeamento['data e hora'] = 'timestamp';
 		return $mapeamento;
 	}
 
