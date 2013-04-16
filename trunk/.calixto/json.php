@@ -21,6 +21,7 @@ class json {
 			case 'double': return (double) $var;
 			case 'float': return (float) $var;
 			case 'string':
+				$var = str_replace("\r",'',$var);
 				$var = str_replace("\n",'\n',$var);
 				$var = str_replace("^",'\^',$var);
 				$var = str_replace('"','\"',$var);
