@@ -252,7 +252,8 @@ class controlePadrao extends controle{
 	public function gerarMenuprincipal(){
 		$arMenu = $this->montarMenuPrincipal();
 		if($arMenu){
-			$this->visualizacao->menuPrincipal = "<div class='fc-menu-sistema well sidebar-nav'>{$arMenu}</div>";
+//			$this->visualizacao->menuPrincipal = "<div class='fc-menu-sistema well sidebar-nav'>{$arMenu}</div>";
+			$this->visualizacao->menuPrincipal = $arMenu;
 		}else{
 			$this->visualizacao->menuPrincipal = '';
 		}
