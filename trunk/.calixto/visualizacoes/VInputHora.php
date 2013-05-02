@@ -9,7 +9,7 @@ class VInputHora extends VInput{
 		parent::__construct($nome, $valor);
 		$this->passarSize('8');
 		$this->passarMaxlength('8');
-		$this->passarClass('hora');
+		$this->passarClass('hora input-mini');
 		$this->passarValue($valor->pegarHora());
 	}
 }
