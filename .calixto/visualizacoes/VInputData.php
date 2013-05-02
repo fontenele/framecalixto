@@ -14,7 +14,7 @@ class VInputData extends VInput{
 		parent::__construct($nome, $valor);
 		$this->passarSize('10');
 		$this->passarMaxlength('10');
-		$this->passarClass('data');
+		$this->passarClass('data input-small');
 		$this->passarValue($valor ? $valor->pegarData() : '');
 	}
     /**
