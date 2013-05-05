@@ -30,6 +30,10 @@ class visualizacaoPadrao extends visualizacao{
 	* @param string Nome do arquivo de formatação da visualização
 	*/
 	function mostrar($pagina = null){
+		$tmp = $this->template_dir;
+		$this->template_dir = '.';
+		$this->mensageria = $this->pegar(definicaoPasta::tema().'/mensageria.html');
+		$this->template_dir = $tmp;
 		$template = false;
         switch(true){
             case $pagina:

@@ -151,11 +151,29 @@ abstract class controle extends objeto{
 		$this->gerente->proximoControle = $proximoControle;
 	}
 	/**
-	* executa na sessão do sistema o registro da comunicacao
-	* @param string mensagem de comunicacao
-	*/
-	public function registrarComunicacao($comunicacao){
-		sessaoSistema::registrar('comunicacao', $comunicacao);
+	 * executa na sessão do sistema o registro da comunicacao
+	 * @param string $comunicacao mensagem de comunicacao
+	 * @param string $tipo (erro, sucesso ou alerta)
+	 */
+	public function registrarComunicacao($comunicacao, $tipo = 'alerta'){
+		controle::comunicar($comunicacao,$tipo);
+	}
+	/**
+	 * executa na sessão do sistema o registro da comunicacao
+	 * @param string $comunicacao mensagem de comunicacao
+	 * @param string $tipo (erro, sucesso ou alerta)
+	 */
+	public static function comunicar($comunicacao, $tipo){
+		switch($tipo){
+			case 'erro':
+				sessaoSistema::registrar('comunicacaoErro', $comunicacao);
+			break;
+			case 'sucesso':
+				sessaoSistema::registrar('comunicacaoSucesso', $comunicacao);
+			break;
+			default:
+				sessaoSistema::registrar('comunicacaoAlerta', $comunicacao);
+		}
 	}
 	/**
 	* retorna se a requisição do controle foi feita via ajax

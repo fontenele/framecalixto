@@ -29,16 +29,13 @@ class controlePadraoVerEdicao extends controlePadrao{
 	public function montarApresentacao(negocio $negocio, $tipo = 'edicao'){
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'gravar'));
 		$this->visualizacao->chave = VComponente::montar('oculto',$this->negocio->nomeChave(),$this->negocio->valorChave());
-		$help = new VEtiquetaHtml('div');
-		$help->passarClass('fc-ajuda');
-		$help->passarConteudo($this->inter->pegarTexto('ajudaNovo'));
+		$this->visualizacao->descricaoDeAjuda = $this->inter->pegarTexto('ajudaNovo');
 		switch(true){
 			case(isset($_GET['chave'])):
 			case($this->negocio->valorChave()):
-				$help->passarConteudo($this->inter->pegarTexto('ajudaEdicao'));
+				$this->visualizacao->descricaoDeAjuda = $this->inter->pegarTexto('ajudaEdicao');
 			break;
 		}
-		$this->visualizacao->descricaoDeAjuda = $help;
 		parent::montarApresentacao($negocio, $tipo);
 	}
 	/**
