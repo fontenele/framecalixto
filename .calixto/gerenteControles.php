@@ -36,7 +36,7 @@ class gerenteControles extends objeto{
             if(controle::tipoResposta()){
                 $this->exibirErro($e);
             }else{
-                sessaoSistema::registrar('comunicacao', $e->getMessage());
+				controle::comunicar($e->getMessage(), 'erro');
                 if(!empty($this->proximoControle))
                     $this->redirecionar("?c={$this->proximoControle}");
             }
@@ -46,7 +46,7 @@ class gerenteControles extends objeto{
             if(controle::tipoResposta()){
                 $this->exibirErro($e);
             }else{
-                sessaoSistema::registrar('comunicacao', $e->getMessage());
+				controle::comunicar($e->getMessage(), 'erro');
                 if(!empty($this->proximoControle))
                     $this->redirecionar("?c={$this->proximoControle}");
                 $this->redirecionar('?c='.definicaoSistema::pegarControleInicial());
@@ -57,7 +57,7 @@ class gerenteControles extends objeto{
             if(controle::tipoResposta()){
                 $this->exibirErro($e);
             }else{
-                sessaoSistema::registrar('comunicacao', $e->getMessage());
+				controle::comunicar($e->getMessage(), 'erro');
                 if(!empty($this->proximoControle))
                     $this->redirecionar("?c={$this->proximoControle}");
                 $this->redirecionar(sprintf('?c=%s','CControleAcesso_verPrincipal'));
@@ -68,7 +68,7 @@ class gerenteControles extends objeto{
             if(controle::tipoResposta()){
                 $this->exibirErro($e);
             }else{
-                sessaoSistema::registrar('comunicacao', $e->getMessage());
+				controle::comunicar($e->getMessage(), 'erro');
                 if(!empty($this->proximoControle))
                     $this->redirecionar("?c={$this->proximoControle}");
                 $this->redirecionar(sprintf('?c=%s',definicaoSistema::pegarControleInicial()));

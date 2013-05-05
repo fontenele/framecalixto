@@ -64,7 +64,7 @@ class controlePadraoExcluir extends controlePadrao{
 			$json = new json();
 			echo $json->pegarJson($arRes);
 		}else{
-			$this->registrarComunicacao($this->inter->pegarMensagem('excluirSucesso'));
+			$this->registrarComunicacao($this->inter->pegarMensagem('excluirSucesso'),'sucesso');
 		}
 	}
 }

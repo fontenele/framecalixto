@@ -30,7 +30,9 @@ class controlePadrao extends controle{
 		//$this->visualizacao->baseUri            = $_SERVER['SCRIPT_NAME'];
 		$this->visualizacao->nomeLogado			= sessaoSistema::tem('usuario') ? sessaoSistema::pegar('usuario')->valorDescricao() : 'Visitante';
 		$this->visualizacao->estaLogado			= sessaoSistema::tem('usuario') ? true : false;
-		$this->visualizacao->comunicacaoSistema = sessaoSistema::tem('comunicacao') ? new VComunicacao(sessaoSistema::retirar('comunicacao')) : '';
+		$this->visualizacao->comunicacaoErro	= sessaoSistema::tem('comunicacaoErro') ? sessaoSistema::retirar('comunicacaoErro') : '';
+		$this->visualizacao->comunicacaoAlerta	= sessaoSistema::tem('comunicacaoAlerta') ? sessaoSistema::retirar('comunicacaoAlerta') : '';
+		$this->visualizacao->comunicacaoSucesso	= sessaoSistema::tem('comunicacaoSucesso') ? sessaoSistema::retirar('comunicacaoSucesso') : '';
 		$this->visualizacao->requisicaoAjax		= controle::requisicaoAjax();
 		$this->visualizacao->action				= '';
 		$this->visualizacao->mensagemErroData	= '';

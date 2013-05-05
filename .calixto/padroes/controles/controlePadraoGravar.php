@@ -104,7 +104,7 @@ class controlePadraoGravar extends controlePadrao{
 			$json = new json();
 			echo $json->pegarJson($arRes);
 		}else{
-			$this->registrarComunicacao($this->inter->pegarMensagem('gravarSucesso'));
+			$this->registrarComunicacao($this->inter->pegarMensagem('gravarSucesso'),'sucesso');
 		}
 	}
 }
