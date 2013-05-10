@@ -43,10 +43,10 @@ class gerenteControles extends objeto{
 			return false;
 		}
 		catch (erroLogin $e){
+			controle::comunicar($e->getMessage(), 'erro');
             if(controle::tipoResposta()){
                 $this->exibirErro($e);
             }else{
-				controle::comunicar($e->getMessage(), 'erro');
                 if(!empty($this->proximoControle))
                     $this->redirecionar("?c={$this->proximoControle}");
                 $this->redirecionar('?c='.definicaoSistema::pegarControleInicial());
