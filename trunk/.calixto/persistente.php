@@ -37,6 +37,7 @@ abstract class persistente extends objeto{
 	 */
 	protected static $imprimirComandos = false;
 	protected static $pilhaDeChamadas = false;
+	public static $arquivoLog = false;
 	/**
 	* @var array array com a estrutura dos objetos persistentes
 	* criado para a execução de cache
@@ -211,6 +212,19 @@ abstract class persistente extends objeto{
                                     echo "<td class='string'><pre>{$comando}</pre></td>";
                                     echo "</tr></table>";
                                 }
+			}
+			if(persistente::$arquivoLog){
+				static $sqlLog = 0;
+				$sqlLog++;
+				file_put_contents(persistente::$arquivoLog, "
+--------------------------------------------------------------
+-- Comando {$sqlLog}
+--------------------------------------------------------------
+{$comando}
+--------------------------------------------------------------
+
+
+				",FILE_APPEND);
 			}
 			return $this->conexao->executarComando($comando);
 		}
