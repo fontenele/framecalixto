@@ -475,15 +475,14 @@ abstract class negocioPadrao extends negocio{
 	* Método utilizado para efetuar as verificações antes de executar a inclusão
 	*/
 	public function verificarAntesInserir(){
+		$classe = get_class($this);
 		$mapeador = $this->pegarMapeamento();
-		$variaveisClasse = array_keys(get_class_vars(get_class($this)));
+		$variaveisClasse = array_keys(get_class_vars($classe));
 		$indicesUnicos = array();
 		foreach($mapeador as $valor){
 			// Testa campos obrigatórios
 			if(($valor['propriedade'] != $this->nomeChave()) && ($valor['obrigatorio'] == 'sim') && in_array($valor['propriedade'], $variaveisClasse)){
-				$metodo = "pegar{$valor['propriedade']}";
-				$conteudo = $this->$metodo();
-				$conteudo = trim("{$conteudo}");
+				$conteudo = trim((string) $this->{"pegar{$valor['propriedade']}"}());
 				if(empty($conteudo)){
 					throw new erroNegocio(sprintf($this->inter->pegarMensagem('obrigatorio'),$this->inter->pegarPropriedade($valor['propriedade'])));
 				}
@@ -491,10 +490,13 @@ abstract class negocioPadrao extends negocio{
 			if($valor['indiceUnico']) $indicesUnicos[] = $valor['propriedade'];
 		}
 		if($indicesUnicos){
-			$classe = get_class($this);
 			$negocio = new $classe($this->pegarConexao());
 			foreach($indicesUnicos as $propriedade){
-				$negocio->{"passar{$propriedade}"}(operador::igual($this->{"pegar{$propriedade}"}()));
+				if($this->{"pegar{$propriedade}"}()){
+					$negocio->{"filtrar{$propriedade}"}(operador::igual($this->{"pegar{$propriedade}"}()));
+				}else{
+					$negocio->{"filtrar{$propriedade}"}(operador::eNulo());
+				}
 			}
 			$colecao = $negocio->pesquisar();//'Registro já cadastrado!'
 			if($colecao->contarItens()) throw new erroNegocio($this->inter->pegarMensagem('repetido'));
@@ -506,8 +508,9 @@ abstract class negocioPadrao extends negocio{
 	* @param negocio objeto antes da alteração .
 	*/
 	public function verificarAntesAlterar($negocio){
+		$classe = get_class($this);
 		$mapeador = $this->pegarMapeamento();
-		$variaveisClasse = array_keys(get_class_vars(get_class($this)));
+		$variaveisClasse = array_keys(get_class_vars($classe));
 		$indicesUnicos = array();
 		foreach($mapeador as $valor){
 			$campo = $valor['campo'];
@@ -522,10 +525,13 @@ abstract class negocioPadrao extends negocio{
 			if($valor['indiceUnico']) $indicesUnicos[] = $valor['propriedade'];
 		}
 		if($indicesUnicos){
-			$classe = get_class($this);
 			$negocio = new $classe($this->pegarConexao());
 			foreach($indicesUnicos as $propriedade){
-				$negocio->{"passar{$propriedade}"}(operador::igual($this->{"pegar{$propriedade}"}()));
+				if($this->{"pegar{$propriedade}"}()){
+					$negocio->{"filtrar{$propriedade}"}(operador::igual($this->{"pegar{$propriedade}"}()));
+				}else{
+					$negocio->{"filtrar{$propriedade}"}(operador::eNulo());
+				}
 			}
 			$colecao = $negocio->pesquisar();//'Registro já cadastrado!'
 			$colecao->removerItem($this->valorChave());
