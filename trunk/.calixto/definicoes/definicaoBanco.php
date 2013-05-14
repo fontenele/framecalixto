@@ -46,6 +46,13 @@ class definicaoBanco{
 		return strval(definicao::pegarDefinicao()->bancos->banco[$id]['nome']);
 	}
 	/**
+	* Retorna o nome do banco
+	* @param integer identificador da conexao
+	*/
+	static final function pegarSchema($id = 0){
+		return strval(definicao::pegarDefinicao()->bancos->banco[$id]['schema']);
+	}
+	/**
 	* Retorna o usuario
 	* @param integer identificador da conexao
 	*/
