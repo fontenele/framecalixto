@@ -355,6 +355,7 @@ abstract class persistente extends objeto {
 	 * @return string Nome da tabela
 	 */
 	public function pegarNomeTabela($comSchema = true) {
+		$estrutura = $this->pegarEstrutura();
 		if(!$comSchema) return strtolower($estrutura['nomeTabela']);
 		$estrutura = $this->pegarEstrutura();
 		return strtolower($this->pegarNomeSchema() ? $this->pegarNomeSchema() . $estrutura['nomeTabela'] : $estrutura['nomeTabela']);
@@ -901,7 +902,7 @@ abstract class persistente extends objeto {
 				$arTabelaExtrangeira = explode('.', $referencia['chaveEstrangeira']['tabela']);
 				$tabelaExtrangeira = $referencia['chaveEstrangeira']['tabela'];
 				if (count($arTabelaExtrangeira) == 1) {
-					$tabelaExtrangeira = $this->schema . '.' . $tabelaExtrangeira;
+					$tabelaExtrangeira = $this->pegarNomeSchema() . $tabelaExtrangeira;
 				}
 				$comando .= "alter table only {$this->pegarNomeTabela()} \n\tadd constraint {$this->pegarNomeTabela(false)}_{$nomeCampo}_fk foreign key ($nomeCampo) \n\treferences {$tabelaExtrangeira}({$referencia['chaveEstrangeira']['campo']});";
 			}
