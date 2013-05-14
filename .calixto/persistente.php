@@ -351,9 +351,11 @@ abstract class persistente extends objeto {
 
 	/**
 	 * Retorna o nome da tabela utilizada pela persistente
+	 * @param boolean verificador se retorna com o nome do schema
 	 * @return string Nome da tabela
 	 */
-	public function pegarNomeTabela() {
+	public function pegarNomeTabela($comSchema = true) {
+		if(!$comSchema) return strtolower($estrutura['nomeTabela']);
 		$estrutura = $this->pegarEstrutura();
 		return strtolower($this->pegarNomeSchema() ? $this->pegarNomeSchema() . $estrutura['nomeTabela'] : $estrutura['nomeTabela']);
 	}
@@ -364,7 +366,7 @@ abstract class persistente extends objeto {
 	 */
 	public function pegarNomeSequencia() {
 		$estrutura = $this->pegarEstrutura();
-		return strtolower($this->schema ? $this->schema . '.' . $estrutura['nomeSequencia'] : $estrutura['nomeSequencia']);
+		return strtolower($this->pegarNomeSchema() ? $this->pegarNomeSchema() . $estrutura['nomeSequencia'] : $estrutura['nomeSequencia']);
 	}
 
 	/**
@@ -873,7 +875,7 @@ abstract class persistente extends objeto {
 		$estrutura = $this->pegarEstrutura();
 		$comando = "";
 		if ($estrutura['chavePrimaria']) {
-			$comando .= "alter table only {$this->pegarNomeTabela()} \n\tadd constraint {$this->pegarNomeTabela()}_pk primary key ({$estrutura['chavePrimaria']})";
+			$comando .= "alter table only {$this->pegarNomeTabela()} \n\tadd constraint {$this->pegarNomeTabela(false)}_pk primary key ({$estrutura['chavePrimaria']})";
 		}
 		return $comando;
 	}
@@ -901,7 +903,7 @@ abstract class persistente extends objeto {
 				if (count($arTabelaExtrangeira) == 1) {
 					$tabelaExtrangeira = $this->schema . '.' . $tabelaExtrangeira;
 				}
-				$comando .= "alter table only {$this->pegarNomeTabela()} \n\tadd constraint {$this->pegarNomeTabela()}_{$nomeCampo}_fk foreign key ($nomeCampo) \n\treferences {$tabelaExtrangeira}({$referencia['chaveEstrangeira']['campo']});";
+				$comando .= "alter table only {$this->pegarNomeTabela()} \n\tadd constraint {$this->pegarNomeTabela(false)}_{$nomeCampo}_fk foreign key ($nomeCampo) \n\treferences {$tabelaExtrangeira}({$referencia['chaveEstrangeira']['campo']});";
 			}
 		}
 		return $comando;
