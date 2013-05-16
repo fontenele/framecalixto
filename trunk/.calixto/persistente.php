@@ -329,6 +329,12 @@ abstract class persistente extends objeto {
 		return $retorno;
 	}
 
+	public function criarSchema() {
+		$res = $this->pegarSelecao('SELECT 1 as schema FROM pg_namespace WHERE nspname = \'' . definicaoBanco::pegarSchema() . '\'');
+		if (!$res)
+			$this->executarComando('create schema ' . definicaoBanco::pegarSchema());
+	}
+
 	/**
 	 * Nome do schema utilizado na persistente
 	 * @param boolean $ponto setando para true já vem com o ponto para ligar na tabela
@@ -356,7 +362,8 @@ abstract class persistente extends objeto {
 	 */
 	public function pegarNomeTabela($comSchema = true) {
 		$estrutura = $this->pegarEstrutura();
-		if(!$comSchema) return strtolower($estrutura['nomeTabela']);
+		if (!$comSchema)
+			return strtolower($estrutura['nomeTabela']);
 		$estrutura = $this->pegarEstrutura();
 		return strtolower($this->pegarNomeSchema() ? $this->pegarNomeSchema() . $estrutura['nomeTabela'] : $estrutura['nomeTabela']);
 	}
@@ -805,14 +812,22 @@ abstract class persistente extends objeto {
 		$mapeamento = $this->mapeamento();
 		$comando = "create table {$this->pegarNomeTabela()} (\n";
 		foreach ($estrutura['campo'] as $nomeCampo => $campo) {
-			if ($campo['tamanho']) {
-				$comando .= "	$nomeCampo {$mapeamento[$campo['tipo']]}({$campo['tamanho']}) {$mapeamento['obrigatorio'][$campo['obrigatorio']]},\n";
-			} else {
-				$comando .= "	$nomeCampo {$mapeamento[$campo['tipo']]} {$mapeamento['obrigatorio'][$campo['obrigatorio']]},\n";
-			}
+			$comando .= $this->gerarComandoCriacaoCampo($mapeamento, $nomeCampo, $campo);
 		}
 		$comando = substr($comando, 0, -2) . "\n)";
 		return $comando;
+	}
+
+	/**
+	 * Gera o comando de criação do campo da tabela no banco de dados
+	 * @param array $mapeamento
+	 * @param string $nomeCampo
+	 * @param array $campo
+	 * @return string
+	 */
+	public function gerarComandoCriacaoCampo($mapeamento, $nomeCampo, $campo) {
+		$campo['tamanho'] = $campo['tamanho'] ? "({$campo['tamanho']})" : '';
+		return "	$nomeCampo {$mapeamento[$campo['tipo']]}{$campo['tamanho']} {$mapeamento['obrigatorio'][$campo['obrigatorio']]},\n";
 	}
 
 	/**
