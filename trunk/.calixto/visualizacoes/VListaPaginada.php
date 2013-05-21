@@ -221,6 +221,7 @@ class VListaPaginada extends objeto{
 											$valorDoCampo = $valorDoCampo->__toString();
 										}
 								}
+								$valorDoCampo = htmlspecialchars($valorDoCampo);
 								$retorno.="\t\t<td {$alinhamento} {$classeHTML}>{$valorDoCampo}</td>\n";
 							break;
 						}
