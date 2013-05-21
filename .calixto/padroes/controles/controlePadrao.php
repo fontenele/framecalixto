@@ -99,7 +99,7 @@ class controlePadrao extends controle{
 					$arValores = array();
 					$idPropriedade = strval($propriedade['id']);
 					if(isset($propriedade->dominio->opcao)){
-						$arValores[''] = '&nbsp;';
+						$arValores[''] = '';
 						foreach($propriedade->dominio->opcao as $opcao){
 							$arValores[strval($opcao['id'])] = $inter->pegarOpcao($idPropriedade,strval($opcao['id']));
 						}
@@ -377,9 +377,9 @@ class controlePadrao extends controle{
 		if(is_subclass_of($classe,'negocio')){
 			$classe = new $classe();
 			$colecao = $classe->$metodo();
-			return $colecao->gerarVetorDescritivo('&nbsp;');
+			return $colecao->gerarVetorDescritivo('');
 		}else{
-			return $array [''] = '&nbsp;';
+			return $array [''] = '';
 		}
 	}
 	/**

@@ -25,7 +25,10 @@ class json {
 				$var = str_replace("\n",'\n',$var);
 				$var = str_replace("^",'\^',$var);
 				$var = str_replace('"','\"',$var);
-				return (string) '"'.htmlspecialchars($var).'"';
+				$var = str_replace('&','&amp;',$var);
+				$var = str_replace('<','&lt;',$var);
+				$var = str_replace('>','&gt;',$var);
+				return (string) '"'.$var.'"';
 			case 'array':
 				return $this->codificarArray($var);
 			case 'object':
