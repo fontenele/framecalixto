@@ -6,6 +6,10 @@
 * @subpackage visualização
 */
 class json {
+	public static function encode($valor){
+		$json = new json();
+		return $json->pegarJson($valor);
+	}
 	/**
 	* Retorna um json preparado para um eval em javascript
 	* @param mixed parametro para codificar
