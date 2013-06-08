@@ -48,18 +48,28 @@ class controlePadraoPesquisa extends controlePadrao {
 	 */
 	function montarMenuPrograma() {
 		$menu = parent::montarMenuPrograma();
-		$novo = $this->inter->pegarTexto('botaoNovo');
-		$pesquisar = $this->inter->pegarTexto('botaoPesquisar');
-		$impressao = $this->inter->pegarTexto('botaoImpressao');
-		$menu->$novo		= new VMenu($novo, sprintf("?c=%s", definicaoEntidade::controle($this, 'verEdicao')), '.sistema/icones/add.png');
-        $menu->$novo->passar_classeLink('btn btn-success');
-		$menu->$pesquisar	= new VMenu($pesquisar, 'javascript:document.formulario.submit();', '.sistema/icones/magnifier.png');
-		try{
-			arquivoClasse(definicaoEntidade::controle($this, 'verListagemPdf'));
-			$menu->$impressao	= new VMenu($impressao, sprintf('?c=%s', definicaoEntidade::controle($this, 'verListagemPdf')), '.sistema/icones/printer.png');
-		}  catch (erroInclusao $e){}
+		$this->montarBotaoNovo($menu);
+		$this->montarBotaoPesquisar($menu);
+		$this->montarBotaoImpressao($menu);
 		return $menu;
 	}
+	public function montarBotaoNovo($menu){
+		$novo = $this->inter->pegarTexto('botaoNovo');
+		$menu->$novo		= new VMenu($novo, sprintf("?c=%s", definicaoEntidade::controle($this, 'verEdicao')), 'icon-plus-sign icon-white');
+        $menu->$novo->passar_classeLink('btn btn-success');
+	}
+	public function montarBotaoPesquisar($menu){
+		$pesquisar = $this->inter->pegarTexto('botaoPesquisar');
+		$menu->$pesquisar	= new VMenu($pesquisar, 'javascript:document.formulario.submit();', 'icon-search');
+	}
+	public function montarBotaoImpressao($menu){
+		try{
+			$impressao = $this->inter->pegarTexto('botaoImpressao');
+			arquivoClasse(definicaoEntidade::controle($this, 'verListagemPdf'));
+			$menu->$impressao	= new VMenu($impressao, sprintf('?c=%s', definicaoEntidade::controle($this, 'verListagemPdf')), 'icon-print');
+		}  catch (erroInclusao $e){}
+	}
+	
 
 	/**
 	 * Retorna o nome da variável que irá segurar a página na sessão

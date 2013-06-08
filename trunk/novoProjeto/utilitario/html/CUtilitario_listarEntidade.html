@@ -1,39 +1,25 @@
-<form name="formulario" method="post" action="«$action»" >
-	<script type="javascript">
-		$(document).ready(function(){
-			$('.nomeTabela').hide();
-			$('.nomeEntidade').click(function(){
-				$('.nomeTabela').toggle();
-			});
-		})
-	</script>
-<div class="fc-pesquisa">
-	<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
-	<div class="fc-campo-grupo">
-		<div id='menu_corpo' class="fc-menu-corpo">
-			<br/>
-			«$menuPrograma»
-			<br/>
-			<br/>
-		</div>
-		<div class="fc-listagem-grupo">
-			<h1 class="fc-listagem-titulo"><span class='fc-icon-pesquisa' ></span> «$textoTituloListagem»</h1>
-			<div class="fc-listagem">
-				<table summary="text" class="fc-listagem-dados">
-					<thead>
-						<tr>
-							<th class="nomeEntidade">Entidade</th>
-							<th class="nomeNegocio">Negócio</th>
-							<th class="nomeTabela">Tabela</th>
-							<th class="nomeSequence">Sequence</th>
-							<th class="existente centralizado">Campos Banco</th>
-							<th class="definido centralizado">Campos Entidade</th>
-							<th class="definido centralizado"></th>
-							<th class="centralizado"></th>
-							<th class="centralizado"></th>
-						</tr>
-					</thead>
-					<tbody>
+<div class="container">
+	<form name="formulario" method="post" action="«$action»" >
+		<fieldset>
+			<legend>«$tituloEspecifico»</legend>
+			<div id='menu_corpo'>
+				«$menuPrograma»
+			</div>
+			<table class="table table-striped table-bordered table-hover table-condensed">
+				<thead>
+					<tr>
+						<th class="nomeEntidade">Entidade</th>
+						<th class="nomeNegocio">Negócio</th>
+						<th class="nomeTabela">Tabela</th>
+						<th class="nomeSequence">Sequence</th>
+						<th class="existente centralizado">Campos Banco</th>
+						<th class="definido centralizado">Campos Entidade</th>
+						<th class="definido centralizado"></th>
+						<th class="centralizado"></th>
+						<th class="centralizado"></th>
+					</tr>
+				</thead>
+				<tbody>
 					«foreach from=$listagem key=negocio item=nome»
 					<tr class="«cycle values='fc-linha fc-linha1,fc-linha fc-linha2'»">
 						<td class="nomeEntidade">«$nome» </td>
@@ -43,14 +29,12 @@
 						<td class="numerico direita">«$camposExistentes[$negocio]»</td>
 						<td class="numerico direita">«$camposDefinidos[$negocio]»</td>
 						<td align="left" >«$diferencas[$negocio]»</td>
-						<td class="centralizado"><a href="?c=«$controles[$negocio]»" title="Ver Tela de Pesquisa dessa Entidade"><img border="0" src=".sistema/icones/application_view_list.png"/></a></td>
-						<td class="centralizado"><a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" title="Editar essa Entidade"><img border="0" src=".sistema/icones/pencil.png"/></a></td>
+						<td class="centralizado"><a href="?c=«$controles[$negocio]»" title="Ver Tela de Pesquisa dessa Entidade"><i class="icon-th-list"></i></td>
+						<td class="centralizado"><a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" title="Editar essa Entidade"><i class="icon-pencil"></i></td>
 					</tr>
 					«/foreach»
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+				</tbody>
+			</table>
+		</fieldset>
+	</form>
 </div>
-</form>

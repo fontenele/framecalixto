@@ -20,11 +20,10 @@ class CUtilitario_verRecriarBase extends controlePadrao {
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'recriarBase'));
 		$this->visualizacao->tituloEspecifico = 'Recriador de Base';
 		$this->visualizacao->listagem = $this->classes();
-		$this->visualizacao->executarNoBanco = VComponente::montar('checkbox', 'executarNoBanco', 'executarNoBanco');
 		foreach($this->classes() as $classe){
 			$obNegocio = new $classe();
 			$arPersistente = $obNegocio->pegarPersistente()->pegarEstrutura();
-			$listagem[$classe]['check'] = VComponente::montar('checkbox', "classes[{$classe}]", $classe);
+			$listagem[$classe]['classe'] = $classe;
 			$listagem[$classe]['tabela'] = $arPersistente['nomeTabela'];
 			$listagem[$classe]['nome'] = $obNegocio->pegarInter()->pegarNome();
 		}

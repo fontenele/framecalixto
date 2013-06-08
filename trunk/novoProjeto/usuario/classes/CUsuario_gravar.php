@@ -13,7 +13,7 @@ class CUsuario_gravar extends controlePadraoGravar{
 	*/
 	public static function montarNegocio(negocio $negocio,$dados = null){
 		parent::montarNegocio($negocio,$dados);
-		$negocio->passarNmSenha(md5($negocio->pegarNmSenha()));
+		$negocio->encriptarNmSenha();
 	}
 }
 ?>

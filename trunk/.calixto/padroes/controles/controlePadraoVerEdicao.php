@@ -71,18 +71,42 @@ class controlePadraoVerEdicao extends controlePadrao{
 	*/
 	function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
-		$gravar = $this->inter->pegarTexto('botaoGravar');
-		$excluir = $this->inter->pegarTexto('botaoExcluir');
-		$listagem = $this->inter->pegarTexto('botaoListagem');
-		$chave = isset($_GET['chave']) ? $_GET['chave'] : ($this->negocio->valorChave()) ? $this->negocio->valorChave() : null;
-		$menu->$gravar = new VMenu($gravar,'javascript:$.submeter();','.sistema/icones/disk.png');
-        $menu->$gravar->passar_classeLink('btn btn-primary');
-		if($chave){
-            $menu->$excluir = new VMenu($excluir,sprintf("?c=%s&amp;chave=%s",definicaoEntidade::controle($this,'excluir'),$chave),'.sistema/icones/delete.png');
-            $menu->$excluir->passar_classeLink('btn btn-danger');
-        }
-		$menu->$listagem = new VMenu($listagem,sprintf("?c=%s",definicaoEntidade::controle($this,'verPesquisa')),'.sistema/icones/application_view_list.png');
+		$this->montarBotaoGravar($menu);
+		$this->montarBotaoExcluir($menu);
+		$this->montarBotaoListagem($menu);
 		return $menu;
+	}
+	/**
+	 * Monta no menu o botão de gravar
+	 * @param colecaoPadraoMenu $menu
+	 */
+	function montarBotaoGravar($menu){
+		$gravar = $this->inter->pegarTexto('botaoGravar');
+		$icoGravar = $this->inter->pegarTexto('icoBotaoGravar');
+		$menu->$gravar = new VMenu($gravar,'javascript:$.submeter();','icon-pencil icon-white');
+        $menu->$gravar->passar_classeLink('btn btn-primary');
+	}
+	/**
+	 * Monta no menu o botão de excluir
+	 * @param colecaoPadraoMenu $menu
+	 */
+	function montarBotaoExcluir($menu){
+		$chave = isset($_GET['chave']) ? $_GET['chave'] : ($this->negocio->valorChave()) ? $this->negocio->valorChave() : null;
+		if(!$chave) return;
+		$excluir = $this->inter->pegarTexto('botaoExcluir');
+		$icoExcluir = $this->inter->pegarTexto('icoBotaoExcluir');
+		$menu->$excluir = new VMenu($excluir,sprintf("?c=%s&amp;chave=%s",definicaoEntidade::controle($this,'excluir'),$chave),'icon-trash icon-white');
+		$menu->$excluir->passar_classeLink('btn btn-danger');
+	}
+	/**
+	 * Monta no menu o botão de listagem
+	 * @param colecaoPadraoMenu $menu
+	 */
+	function montarBotaoListagem($menu){
+		$listagem = $this->inter->pegarTexto('botaoListagem');
+		$icoListagem = $this->inter->pegarTexto('icoBotaoListagem');
+		$menu->$listagem = new VMenu($listagem,sprintf("?c=%s",definicaoEntidade::controle($this,'verPesquisa')),'icon-list-alt');
+		
 	}
 }
 ?>

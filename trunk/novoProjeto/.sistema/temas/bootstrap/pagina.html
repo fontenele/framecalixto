@@ -1,0 +1,105 @@
+«*			*** TEMPLATE PRINCIPAL DO SISTEMA ***
+
+Configure este template para atender as necessidades do tema do seu sistema
+
+*»<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        «if $baseUri»<base href="«$baseUri»" />«/if»
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        «**
+        * "Icone da barra de endereços"
+        *	O arquivo com a imagem que irá aparecer na barra de endereços é definida na tag abaixo
+        *»
+        <link rel="icon" href=".sistema/icones/weather_sun.png" type="image/x-icon" id="iconeBarraEnderecos"/>
+        «**
+        * "CSS do Sistema"
+        *	O arquivo css abaixo irá conter a importação de todos os arquivos css necessários
+        *	para a visualização básica do tema do sistema
+        *»
+        «if $cssGlobal»<link type="text/css" rel="stylesheet" href="«$cssGlobal»" media="screen" id="cssGlobalDoSistema"/>«/if»
+        «**
+        * "CSS comum da entidade do sistema"
+        *	O arquivo css abaixo irá definir as necessidades comuns da aparência de 
+        *	uma entidade
+        *»
+        «if $cssEntidade»<link type="text/css" rel="stylesheet" href="«$cssEntidade»" media="screen" id="cssEntidade"/>«/if»
+        «**
+        * "CSS específico do controle da entidade"
+        *	O arquivo css abaixo irá definir as necessidades comuns da aparência de
+        *	um único controle de uma entidade
+        *»
+        «if $cssLocal»<link type="text/css" rel="stylesheet" href="«$cssLocal»" media="screen" id="cssLocal"/>«/if»
+        «**
+        * "CSS extra especificado no controle"
+        *	A variável abaixo define as tags de css extra para o controle
+        *»
+        «$cssExtra»
+        «**
+        * "Script de internacionalização do sistema"
+        *	Neste trecho será definido todas as variáveis de internacionalização javascript
+        *	para a utilização nos scripts e mensagens de javascript do sistema
+        *»
+        <script  language='javascript' type="text/javascript" id="jsInternacionalizacao">
+			var JS_ERRO_DATA = '«$mensagemErroData»';
+			var JS_ERRO_DIA = '«$mensagemErroDia»';
+			var JS_ERRO_MES = '«$mensagemErroMes»';
+			var JS_ERRO_ANO = '«$mensagemErroAno»';
+			var JS_ERRO_HORA = '«$mensagemErroHora»';
+			var JS_ERRO_EMAIL = '«$mensagemErroEmail»';
+			var JS_DIRETORIO_RAIZ = '.sistema/scripts/';
+        </script>
+        «**
+        * "Scripts do Sistema"
+        *	Caso sinta necessidade de adicionar um script no sistema SEMPRE verifique se
+        *	este script é realmente utilizado em todas as telas do sistema, caso não seja
+        *	inclua o script pela variável $jsExtra do template.
+        *
+        * "Atenção"
+        *	A adição de scripts nesta sessão torna uma carga obrigatória em TODAS as
+        *	páginas do sistema.
+        *»
+        <script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/jquery-1.7.1.min.js" id="jsJQuery" ></script>
+        <script language="javascript" type="text/javascript" src=".sistema/temas/bootstrap/js/bootstrap.min.js"></script>
+        <script language="javascript" type="text/javascript" src=".sistema/temas/bootstrap/js/bootstrap-datepicker.js"></script>
+        <!--<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/ui/jquery-ui-1.8.2.custom.js" id="jsJQueryUI" ></script>-->
+        <script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/plugins/jquery.livequery.min.js" ></script>
+        <script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/plugins/jquery.maskedinput-1.2.2.js" ></script>
+        <script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/plugins/jquery.price_format.1.0.js"></script>
+        <script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/plugins/jquery.message.min.js"></script>
+        <!--<script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/plugins/fullcalendar.min.js"></script>-->
+        <script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/plugins/jquery.bgiframe.js"></script>
+        <script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/plugins/jquery.clickmenu.js"></script>
+        <script language="javascript" type="text/javascript" src=".sistema/scripts/calixto.date.js"></script>
+        <script language="javascript" type="text/javascript" src=".sistema/scripts/calixto.formatadores.js"></script>
+        <script language="javascript" type="text/javascript" src=".sistema/scripts/calixto.funcoes.js" id="jsGlobalDoSistema"></script>
+        «if $jsTema»<script language="javascript" type="text/javascript" src="«$jsTema»" id="jsTema"></script>«/if»
+        «if $jsEntidade»<script language="javascript" type="text/javascript" src="«$jsEntidade»" id="jsEntidade"></script>«/if»
+        «if $jsLocal»<script language="javascript" type="text/javascript" src="«$jsLocal»" id="jsLocal"></script>«/if»
+        «**
+        * "Scripts extras"
+        *	Configure esta variável no seu controle para um script específico
+        *	Neste caso adicione a tag script completa para funcionamento correto
+        *»
+        «$jsExtra»
+        <title>«$titulo» [«$tituloEspecifico»]</title>
+    </head>
+    <body>
+		<div class="navbar navbar-inverse">
+			<div class="navbar-inner">
+				<a href="#" class="brand">FrameCalixto</a>
+				<ul class="nav pull-right">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+							<i class="icon-user icon-white"></i>
+							«$nomeLogado»
+							«$menuPrincipal»
+						</a> 
+					</li>
+					<li><a href="?c=CControleAcesso_verLogin"><i class="icon-off icon-white"></i>«if $nomeLogado == 'Visitante'»Acessar«else»Desligar«/if»</a> </li>
+				</ul>
+			</div>
+		</div>
+        «$pagina»
+    </body>
+</html>

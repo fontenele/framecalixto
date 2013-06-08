@@ -34,7 +34,7 @@ class CUtilitario_listarEntidade extends controlePadrao{
 						$sequencias->$arquivo = $obNegocio->pegarPersistente()->pegarNomeSequencia();
 						$classesNegocio->$arquivo = 'N'.ucfirst($arquivo);
 						$camposDefinidos->$arquivo = count($obNegocio->pegarMapeamento());
-						$camposExistentes->$arquivo = count($pUtilitario->lerCampos($obNegocio->pegarPersistente()->pegarNomeTabela()));
+						$camposExistentes->$arquivo = count($pUtilitario->lerCampos($obNegocio->pegarPersistente()->pegarNomeTabela(false)));
 						$diferencas->$arquivo = ($camposDefinidos->$arquivo - $camposExistentes->$arquivo) ? 'difereça': '';
 						$controles->$arquivo = 'C'.ucfirst($arquivo).'_verPesquisa';
 					}

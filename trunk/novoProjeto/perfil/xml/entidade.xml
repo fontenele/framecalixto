@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade  nomeBanco='public.perfil' nomeSequencia='public.sq_perfil'>
+<entidade  nomeBanco='perfil' nomeSequencia='sq_perfil'>
 	<propriedades>
 		<propriedade id='idPerfil' tipo='numerico' tamanho='10' indicePrimario='sim'>
 			<banco nome='perf_id_perfil' />

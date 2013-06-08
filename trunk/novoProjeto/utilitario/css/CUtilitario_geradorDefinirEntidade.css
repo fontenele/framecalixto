@@ -10,3 +10,100 @@
 .uc{
 	width: 800px;
 }
+
+
+ol{
+	list-style-type:none;
+}
+#tabs{
+	font-size: .8em;
+}
+.d-table{display:table; border:1px solid #c0c0c0; padding: 1px;}
+.d-caption{display:table-caption; background:#c0c0c0;}
+.d-th{display:table-cell; background:#c0c0c0; padding: 2px;}
+.d-tr{display:table-row;}
+.d-td{display:table-cell; padding: 5px; border: 1px solid #c0c0c0; padding: 1px;}
+.campoListagem{
+	width: 95%;
+}
+input.campoListagem{
+	border-left-width: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+}
+.focado{
+	background-color: #D8E4F3;
+}
+.atalho{
+	font-weight: bold;
+	color: #7b2929;
+}
+#uc{
+	padding: 30px;
+}
+#uc ul{
+	padding-left: 20px;
+}
+#uc .indice ol {
+	counter-reset: indice1;
+	padding-left: 20px;
+}
+#uc .indice li:before {
+	content: counters(indice1, ".") "-";
+	counter-increment: indice1;
+}
+#uc .especificacao li{
+	padding: 10px;
+}
+#uc .especificacao ol {
+	counter-reset: indice2;
+	padding-left: 20px;
+}
+#uc .especificacao li:before {
+	content: counters(indice2, ".") "-";
+	counter-increment: indice2;
+}
+#uc h1{
+	font-size: 2em;
+	text-align: center;
+}
+#uc h2{
+	font-size: 1.2em;
+	padding: 10px;
+}
+#uc .indice{
+	font-size: .8em;
+}
+#uc .revisao{
+	font-size: .8em;
+}
+#uc .descritor{
+	min-height: 10px;
+	min-width: 60px;
+}
+#uc .descritor:hover{
+	border: 1px  dashed;
+}
+#uc .uc-nome-tela{
+	font-weight: bold;
+	font-style: italic;
+}
+#uc .uc-opcao{
+	font-style: italic;
+}
+
+
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+	margin-bottom: 1px;
+}	
+.oculto{
+	display:none;
+}
+body .modal-resultado {
+    /* new custom width */
+    width: 750px;
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    margin-left: -375px;
+}

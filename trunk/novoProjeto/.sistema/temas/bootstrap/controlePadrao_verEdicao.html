@@ -1,0 +1,25 @@
+<!--********************* TEMPLATE PADRÃO **********************-->
+<div class="container">
+	«$mensageria»
+	<form name="formulario" method="post" action="«$action»" class="form-horizontal well">
+		<div class="fc-edicao">
+			<h4 class="fc-titulo-especifico">«$tituloEspecifico»</h4>
+			<hr/>
+			<div class="fc-campo-grupo">
+				«$chave»
+				<div class="fc-campo-subgrupo">
+					«php»foreach($this->_tpl_vars['componentes padroes'] as $componente){
+					echo "\t\t\t<div class='fc-campo control-group'>\n";
+						echo "\t\t\t\t<label class='control-label' for='{$componente->pegarId()}'>{$this->_tpl_vars['nome'.ucfirst($componente->pegarId())]}:</label>\n";
+						echo "\t\t\t\t<div class='controls'>{$componente}</div>\n";
+						echo "\t\t\t</div>\n";
+					}«/php»
+				</div>
+				<div class="fc-menu-corpo">
+					«$menuPrograma»<br/>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<!--********************* TEMPLATE PADRÃO **********************-->

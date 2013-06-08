@@ -1,0 +1,56 @@
+@import "css/bootstrap-original.css";
+@import "css/datepicker.css";
+@import "icones.css";
+
+
+
+#menu-lateral{
+    display: none;
+    float: left;
+    position: absolute;
+    top: 25px;
+    left: -40px;
+}
+div.container a.brand {
+    background: url("../../../imagens/logoFrameCalixto3.png") no-repeat scroll 0 10px transparent;
+    margin-left: 0;
+    padding: 8px 20px 12px 40px;
+}
+.fc-linha1:hover, .fc-linha2:hover{
+    background-color: #F5F5F5;
+    border: 1px solid #E3E3E3;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 19px;
+}
+ul.fc-menu-sistema li{
+    list-style-type:none;
+}
+ul.fc-menu-programa li{
+    list-style-type:none;
+    display: inline;
+}
+.fc-menu-item{
+    list-style-type:none;
+    display: inline;
+}
+
+.oculto{
+    display: none;
+}
+#menuPrincipal.dropdown-menu{
+	min-width: 220px;
+}
+[class^="fc-icon-"], [class*=" fc-icon-"] {
+  /*background-image: url("../img/glyphicons-halflings.png");*/
+  /*background-position: 14px 14px;*/
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 18px;
+  line-height: 18px;
+  margin-top: 1px;
+  vertical-align: text-top;
+  width: 18px;
+}

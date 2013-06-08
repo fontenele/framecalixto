@@ -22,8 +22,8 @@ class CPerfil_verPesquisa extends controlePadraoPesquisa{
 	* Metodo especialista
 	*/
 	public static function apresentarLogar(NPerfil $negocio){
-		$imagem = $negocio->pegarBoLogAcesso() ? 'accept.png' : 'exclamation.png';
-		return "<img src='.sistema/icones/{$imagem}' />";
+		$imagem = $negocio->pegarBoLogAcesso() ? 'icon-check' : 'icon-warning-sign';
+		return "<i class='{$imagem}' ></i>";
 	}
 	/**
 	* Metodo especialista

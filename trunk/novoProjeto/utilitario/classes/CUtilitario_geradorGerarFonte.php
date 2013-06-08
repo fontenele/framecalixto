@@ -10,62 +10,62 @@ class CUtilitario_geradorGerarFonte extends controle{
 	public static $nomeNegocio;
 	public static $nomeTabela;
 	public static $nomeSequence;
-	public static $entidade;
-	protected static $debug = false;
+	public static $dados;
+	protected static $executar;
 	
 	/**
 	* Método inicial do controle
 	*/
 	public function inicial(){
-		$this->passarProximoControle(definicaoEntidade::controle($this,'listarEntidade'));
-		CUtilitario_geradorGerarFonte::gerarFonte($this->visualizacao,$_POST);
+		//$this->passarProximoControle(definicaoEntidade::controle($this,'listarEntidade'));
+		self::$executar = $_POST['executar'];
+		self::gerarFonte($this->visualizacao,$_POST);
 	}
 	public static function gerarFonte(visualizacao $visualizacao,$dadosGerador){
-		CUtilitario_geradorGerarFonte::$entidade = $dadosGerador;
-		CUtilitario_geradorGerarFonte::$entidade['ng_nome'] = array_map('caracteres::RetiraAcentos',CUtilitario_geradorGerarFonte::$entidade['ng_nome']);
-		CUtilitario_geradorGerarFonte::$entidade['bd_campo'] = array_map('caracteres::RetiraAcentos',CUtilitario_geradorGerarFonte::$entidade['bd_campo']);
-		$arNome = explode(' ',strtolower(caracteres::RetiraAcentos(CUtilitario_geradorGerarFonte::$entidade['entidade'])));
+		self::$dados = $dadosGerador;
+		self::$dados['negocio']['propriedade'] = array_map('caracteres::RetiraAcentos',self::$dados['negocio']['propriedade']);
+		self::$dados['persistente']['campo'] = array_map('caracteres::RetiraAcentos',self::$dados['persistente']['campo']);
+		$arNome = explode(' ',strtolower(caracteres::RetiraAcentos(self::$dados['entidade'])));
 		$nome = array_shift($arNome);
 		$arNome = array_map("ucFirst", $arNome) ;
 		array_unshift($arNome,$nome);
-		CUtilitario_geradorGerarFonte::$nomeEntidade = implode('',$arNome);
-		CUtilitario_geradorGerarFonte::$nomeNegocio = 'N'.ucFirst(CUtilitario_geradorGerarFonte::$nomeEntidade);
-		CUtilitario_geradorGerarFonte::$nomeTabela = caracteres::RetiraAcentos(CUtilitario_geradorGerarFonte::$entidade['nomeTabela']);
-		CUtilitario_geradorGerarFonte::$nomeSequence = caracteres::RetiraAcentos(CUtilitario_geradorGerarFonte::$entidade['nomeSequence'] ? CUtilitario_geradorGerarFonte::$entidade['nomeSequence'] : "sq_{CUtilitario_geradorGerarFonte::$nomeTabela}");
-		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade))
-			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade,0777);
-		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade,2777);
-		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes"))
-			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes",0777);
-		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes",2777);
-		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml"))
-			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml",0777);
-		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml",2777);
-		if(!is_dir(CUtilitario_geradorGerarFonte::$nomeEntidade."/html"))
-			mkdir(CUtilitario_geradorGerarFonte::$nomeEntidade."/html",0777);
-		chmod(CUtilitario_geradorGerarFonte::$nomeEntidade."/html",2777);
-		umask(0111);
-		$visualizacao->entidade = CUtilitario_geradorGerarFonte::$entidade['entidade'];
-		$visualizacao->pacote = CUtilitario_geradorGerarFonte::$entidade['entidade'];
+		self::$nomeEntidade = implode('',$arNome);
+		self::$nomeNegocio = 'N'.ucFirst(self::$nomeEntidade);
+		self::$nomeTabela = caracteres::RetiraAcentos(self::$dados['nomeTabela']);
+		self::$nomeSequence = caracteres::RetiraAcentos(self::$dados['nomeSequence'] ? self::$dados['nomeSequence'] : "sq_{self::$nomeTabela}");
+		if(self::$executar){
+			if(!is_dir(self::$nomeEntidade))
+				mkdir(self::$nomeEntidade,0777);
+			chmod(self::$nomeEntidade,2777);
+			if(!is_dir(self::$nomeEntidade."/classes"))
+				mkdir(self::$nomeEntidade."/classes",0777);
+			chmod(self::$nomeEntidade."/classes",2777);
+			if(!is_dir(self::$nomeEntidade."/xml"))
+				mkdir(self::$nomeEntidade."/xml",0777);
+			chmod(self::$nomeEntidade."/xml",2777);
+			if(!is_dir(self::$nomeEntidade."/html"))
+				mkdir(self::$nomeEntidade."/html",0777);
+			chmod(self::$nomeEntidade."/html",2777);
+			umask(0111);
+		}
+		$visualizacao->entidade = self::$dados['entidade'];
+		$visualizacao->pacote = self::$dados['entidade'];
 		$visualizacao->classe = 'class';
-		CUtilitario_geradorGerarFonte::montarArquivoDefinicaoXML($visualizacao);
-		CUtilitario_geradorGerarFonte::montarArquivoInternacionalizacaoXML($visualizacao);
-		CUtilitario_geradorGerarFonte::montarPersistente($visualizacao);
-		CUtilitario_geradorGerarFonte::montarNegocio($visualizacao);
-		CUtilitario_geradorGerarFonte::montarInternacionalizacao($visualizacao);
-		CUtilitario_geradorGerarFonte::montarControleExcluir($visualizacao);
-		CUtilitario_geradorGerarFonte::montarControleGravar($visualizacao);
-		//CUtilitario_geradorGerarFonte::montarControleMudarPagina($visualizacao);
-		//CUtilitario_geradorGerarFonte::montarControlePesquisar($visualizacao);
-		CUtilitario_geradorGerarFonte::montarControleVerEdicao($visualizacao);
-		CUtilitario_geradorGerarFonte::montarControleVerPesquisa($visualizacao);
-		CUtilitario_geradorGerarFonte::montarControleVerListagemPdf($visualizacao);
-		CUtilitario_geradorGerarFonte::montarTemplateVerEdicao($visualizacao);
-		CUtilitario_geradorGerarFonte::montarTemplateVerPesquisa($visualizacao);
-		exec("chmod -R 777 ".CUtilitario_geradorGerarFonte::$nomeEntidade);
-		if(CUtilitario_geradorGerarFonte::$debug){die;}
-		if(isset(CUtilitario_geradorGerarFonte::$entidade['recriarBase'])){
-			$persistente = definicaoEntidade::persistente(CUtilitario_geradorGerarFonte::$nomeNegocio);
+		self::montarArquivoDefinicaoXML($visualizacao);
+		self::montarArquivoInternacionalizacaoXML($visualizacao);
+		self::montarPersistente($visualizacao);
+		self::montarNegocio($visualizacao);
+		self::montarInternacionalizacao($visualizacao);
+		self::montarControleExcluir($visualizacao);
+		self::montarControleGravar($visualizacao);
+		self::montarControleVerEdicao($visualizacao);
+		self::montarControleVerPesquisa($visualizacao);
+		self::montarControleVerListagemPdf($visualizacao);
+		self::montarTemplateVerEdicao($visualizacao);
+		self::montarTemplateVerPesquisa($visualizacao);
+		exec("chmod -R 777 ".self::$nomeEntidade);
+		if((self::$dados['recriarBase']) && self::$executar){
+			$persistente = definicaoEntidade::persistente(self::$nomeNegocio);
 			$conexao = conexao::criar();
 			$obPersistente = new $persistente($conexao);
 			$obPersistente->recriar();
@@ -78,12 +78,12 @@ class CUtilitario_geradorGerarFonte extends controle{
 	*/
 	protected static function escreverArquivo($caminho,$conteudo){
 		$caminho = caracteres::RetiraAcentos($caminho);
-		if(!isset(CUtilitario_geradorGerarFonte::$entidade['arquivo'][$caminho])) return ;
-		if(CUtilitario_geradorGerarFonte::$debug){
-			echo "<br /><br /><br />No arquivo: {$caminho}<br /><br />";
-			highlight_string($conteudo);
+		if(!(self::$dados['arquivo'][$caminho])) return ;
+		echo "<fieldset><legend>No arquivo: {$caminho}</legend><div class='well'>";
+		highlight_string($conteudo);
+		echo "</div></fieldset>";
+		if(!self::$executar)
 			return ;
-		}
 		$handle = fopen ($caminho, "w");
 		fwrite($handle, $conteudo);
 		fclose($handle);
@@ -93,39 +93,39 @@ class CUtilitario_geradorGerarFonte extends controle{
 	* Monta o conteúdo do arquivo de definção XML
 	*/
 	public static function montarArquivoDefinicaoXML(){
-		$tabela = " nomeBanco='".CUtilitario_geradorGerarFonte::$nomeTabela."'";
-		$sequence = " nomeSequencia='".CUtilitario_geradorGerarFonte::$nomeSequence."'";
+		$tabela = " nomeBanco='".self::$nomeTabela."'";
+		$sequence = " nomeSequencia='".self::$nomeSequence."'";
 		$xml = "<?xml version='1.0' encoding='utf-8' ?>\n";
 		$xml.= "<entidade {$tabela}{$sequence}>\n";
 		$xml.= "\t<propriedades>\n";
 		
-		foreach(CUtilitario_geradorGerarFonte::$entidade['ng_nome'] as $index => $nomePropriedadeNegocio){
-			$id = "id='".CUtilitario_geradorGerarFonte::$entidade['ng_nome'][$index]."' ";
-			$tipo= "tipo='".CUtilitario_geradorGerarFonte::$entidade['ng_tipo'][$index]."' ";
-			$tamanho = (CUtilitario_geradorGerarFonte::$entidade['ng_tamanho'][$index]) ? "tamanho='".CUtilitario_geradorGerarFonte::$entidade['ng_tamanho'][$index]."' " : '' ;
-			$obrigatorio = isset(CUtilitario_geradorGerarFonte::$entidade['ng_nn'][$index]) ? "obrigatorio='sim' " : '' ;
-			$chaveUnica = isset(CUtilitario_geradorGerarFonte::$entidade['????'][$index]) ? "indiceUnico='sim' " : '' ;
-			$nomeBanco = isset(CUtilitario_geradorGerarFonte::$entidade['bd_campo'][$index]) ? "nome='".CUtilitario_geradorGerarFonte::$entidade['bd_campo'][$index]."' " : '';
-			$componente = isset(CUtilitario_geradorGerarFonte::$entidade['vi_componente'][$index]) ? "componente='".CUtilitario_geradorGerarFonte::$entidade['vi_componente'][$index]."' ":'';
-			$pesquisa = isset(CUtilitario_geradorGerarFonte::$entidade['vi_pesquisa'][$index]) ? "pesquisa='sim' ":"pesquisa='nao' ";
-			$edicao = isset(CUtilitario_geradorGerarFonte::$entidade['vi_edicao'][$index]) ? "edicao='sim' ": "edicao='nao' ";
-			$largura = isset(CUtilitario_geradorGerarFonte::$entidade['vi_largura'][$index]) ? "tamanho='".CUtilitario_geradorGerarFonte::$entidade['vi_largura'][$index]."%' ":'';
-			$link = isset(CUtilitario_geradorGerarFonte::$entidade['vi_link'][$index]) ? "hyperlink='sim' ":'';
-			$chavePrimaria = (CUtilitario_geradorGerarFonte::$entidade['ng_chave_pk'] == $index)  ? "indicePrimario='sim' " : '';
-			$ordenacao = (CUtilitario_geradorGerarFonte::$entidade['bd_ordem'][$index])? "ordem='".CUtilitario_geradorGerarFonte::$entidade['bd_ordem'][$index]."' " : '' ;
-			$tipoOrdenacao = isset(CUtilitario_geradorGerarFonte::$entidade['bd_tipo_ordem'][$index]) ? "tipoOrdem='inversa' " : '';
-			$descritivo = (CUtilitario_geradorGerarFonte::$entidade['vi_ordemDescritivo'][$index])? "descritivo='".CUtilitario_geradorGerarFonte::$entidade['vi_ordemDescritivo'][$index]."' " : '' ;
+		foreach(self::$dados['negocio']['propriedade'] as $index => $nomePropriedadeNegocio){
+			$id = "id='".self::$dados['negocio']['propriedade'][$index]."' ";
+			$tipo= "tipo='".self::$dados['negocio']['tipo'][$index]."' ";
+			$tamanho = (self::$dados['negocio']['tamanho'][$index]) ? "tamanho='".self::$dados['negocio']['tamanho'][$index]."' " : '' ;
+			$obrigatorio = (self::$dados['negocio']['nn'][$index]) ? "obrigatorio='sim' " : '' ;
+			$chaveUnica = (self::$dados['negocio']['uk'][$index]) ? "indiceUnico='sim' " : '' ;
+			$nomeBanco = (self::$dados['persistente']['campo'][$index]) ? "nome='".self::$dados['persistente']['campo'][$index]."' " : '';
+			$componente = (self::$dados['visualizacao']['componente'][$index]) ? "componente='".self::$dados['visualizacao']['componente'][$index]."' ":'';
+			$pesquisa = (self::$dados['visualizacao']['pesquisa'][$index]) ? "pesquisa='sim' ":"pesquisa='nao' ";
+			$edicao = (self::$dados['visualizacao']['edicao'][$index]) ? "edicao='sim' ": "edicao='nao' ";
+			$chavePrimaria = (self::$dados['negocio']['pk'] == $index)  ? "indicePrimario='sim' " : '';
+			$ordenacao = (self::$dados['persistente']['ordem'][$index])? "ordem='".self::$dados['persistente']['ordem'][$index]."' " : '' ;
+			$tipoOrdenacao = (self::$dados['persistente']['tipo-ordem'][$index]) ? "tipoOrdem='inversa' " : '';
+			$descritivo = (self::$dados['visualizacao']['ordem-descritivo'][$index])? "descritivo='".self::$dados['visualizacao']['ordem-descritivo'][$index]."' " : '' ;
+			$largura = isset(self::$dados['visualizacao']['largura'][$index]) ? "tamanho='".self::$dados['visualizacao']['largura'][$index]."%' ":'';
+			$link = isset(self::$dados['visualizacao']['link'][$index]) ? "hyperlink='sim' ":'';
 			$classeAssociativa = '';
 			$metodoLeitura = '';
-			if(strpos(CUtilitario_geradorGerarFonte::$entidade['ng_dominio_associativa'][$index], '[') === false){
-				if((isset(CUtilitario_geradorGerarFonte::$entidade['ng_fk'][$index]))){
-					$cl = explode('::',CUtilitario_geradorGerarFonte::$entidade['ng_dominio_associativa'][$index]);
+			if(strpos(self::$dados['negocio']['dominio-associativa'][$index], '[') === false){
+				if(self::$dados['negocio']['fk'][$index]){
+					$cl = explode('::',self::$dados['negocio']['dominio-associativa'][$index]);
 					$classeAssociativa = "classeAssociativa='{$cl[0]}' ";
 					$metodoLeitura = (isset($cl[1])) ? "metodoLeitura='{$cl[1]}' " : '';
 				}
 			}
 			$xml.= "\t\t<propriedade {$id}{$tipo}{$tamanho}{$obrigatorio}{$chavePrimaria}{$chaveUnica}{$classeAssociativa}{$metodoLeitura}{$descritivo} >\n";
-			if(($dominioAssociativa = CUtilitario_geradorGerarFonte::$entidade['ng_dominio_associativa'][$index])){
+			if(($dominioAssociativa = self::$dados['negocio']['dominio-associativa'][$index])){
 				if(strpos($dominioAssociativa, '[') !== false){
 					$arDominio = explode('][',substr($dominioAssociativa,1,strlen($dominioAssociativa) -2));
 					$xml.="\t\t\t<dominio>\n";
@@ -136,15 +136,15 @@ class CUtilitario_geradorGerarFonte extends controle{
 					$xml.="\t\t\t</dominio>\n";
 				}
 			}
-			if(isset(CUtilitario_geradorGerarFonte::$entidade['ng_fk'][$index])){
+			if(self::$dados['negocio']['fk'][$index]){
 				$xml.= "\t\t\t<banco {$nomeBanco}{$ordenacao}{$tipoOrdenacao}>\n";
-				$xml.= "\t\t\t\t<chaveEstrangeira tabela='".CUtilitario_geradorGerarFonte::$entidade['bd_referencia_tabela'][$index]."' campo='".CUtilitario_geradorGerarFonte::$entidade['bd_referencia_campo'][$index]."' />\n";
+				$xml.= "\t\t\t\t<chaveEstrangeira tabela='".self::$dados['persistente']['referencia-tabela'][$index]."' campo='".self::$dados['persistente']['referencia-campo'][$index]."' />\n";
 				$xml.= "\t\t\t</banco>\n";
 			}else{
 				$xml.= "\t\t\t<banco {$nomeBanco}{$ordenacao}{$tipoOrdenacao} />\n";
 			}
-			if(CUtilitario_geradorGerarFonte::$entidade['vi_ordem'][$index]){
-				$ordem = "ordem='".CUtilitario_geradorGerarFonte::$entidade['vi_ordem'][$index]."' ";
+			if(self::$dados['visualizacao']['ordem'][$index]){
+				$ordem = "ordem='".self::$dados['visualizacao']['ordem'][$index]."' ";
 				$xml.= "\t\t\t<apresentacao {$componente}{$edicao}{$pesquisa}>\n";
 				$xml.= "\t\t\t\t<listagem {$ordem}{$largura}{$link}/>\n";
 				$xml.= "\t\t\t</apresentacao>\n";
@@ -155,7 +155,7 @@ class CUtilitario_geradorGerarFonte extends controle{
 		}
 		$xml.= "\t</propriedades>\n";
 		$xml.= "</entidade>";
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml/entidade.xml",$xml);
+		self::escreverArquivo(self::$nomeEntidade."/xml/entidade.xml",$xml);
 	}
 	/**
 	* Monta o conteúdo do arquivo de definção XML
@@ -164,14 +164,14 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$xml = "<?xml version='1.0' encoding='utf-8' ?>\n";
 		$xml.= "<internacionalizacao>\n";
 		$xml.= "\t<entidade>\n";
-		$xml.= "\t\t<nome>".CUtilitario_geradorGerarFonte::$entidade['entidade']."</nome>\n";
+		$xml.= "\t\t<nome>".self::$dados['entidade']."</nome>\n";
 		$xml.= "\t\t<propriedades>\n";
-		foreach(CUtilitario_geradorGerarFonte::$entidade['ng_nome'] as $index => $nomePropriedadeNegocio){
+		foreach(self::$dados['negocio']['propriedade'] as $index => $nomePropriedadeNegocio){
 			$xml.= "\t\t<propriedade nome='{$nomePropriedadeNegocio}'>\n";
-			$xml.= "\t\t\t<nome>".CUtilitario_geradorGerarFonte::$entidade['en_nome'][$index]."</nome>\n";
-			$xml.= "\t\t\t<abreviacao>".CUtilitario_geradorGerarFonte::$entidade['en_abreviacao'][$index]."</abreviacao>\n";
-			$xml.= "\t\t\t<descricao>".CUtilitario_geradorGerarFonte::$entidade['en_descricao'][$index]."</descricao>\n";
-			if(strpos($stDominio = CUtilitario_geradorGerarFonte::$entidade['ng_dominio_associativa'][$index], '[') !== false){
+			$xml.= "\t\t\t<nome>".self::$dados['inter']['nome'][$index]."</nome>\n";
+			$xml.= "\t\t\t<abreviacao>".self::$dados['inter']['abreviacao'][$index]."</abreviacao>\n";
+			$xml.= "\t\t\t<descricao>".self::$dados['inter']['descricao'][$index]."</descricao>\n";
+			if(strpos($stDominio = self::$dados['negocio']['dominio-associativa'][$index], '[') !== false){
 					$arDominio = explode('][',substr($stDominio,1,strlen($stDominio) -2));
 					$xml.="\t\t\t<dominio>\n";
 					foreach($arDominio as $item){
@@ -185,25 +185,25 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$xml.= "\t\t</propriedades>\n";
 		$xml.= "\t</entidade>\n";
 		$xml.= "\t<controles>\n";
-		$xml.= "\t\t<titulo>Cadastro de ".CUtilitario_geradorGerarFonte::$entidade['entidade']."</titulo>\n";
+		$xml.= "\t\t<titulo>Cadastro de ".self::$dados['entidade']."</titulo>\n";
 		$xml.= "\t</controles>\n";
 		$xml.= "</internacionalizacao>\n";
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/xml/pt_BR.xml", $xml);
+		self::escreverArquivo(self::$nomeEntidade."/xml/pt_BR.xml", $xml);
 	}
 	/**
 	* Monta as classes persistentes
 	*/
 	public static function montarPersistente(visualizacao $visualizacao){
-		$persistente = definicaoEntidade::persistente(CUtilitario_geradorGerarFonte::$nomeNegocio);
+		$persistente = definicaoEntidade::persistente(self::$nomeNegocio);
 		$visualizacao->persistenteNome = $persistente;
 		$visualizacao->persistentePai = 'persistentePadraoPG';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$persistente}.postgres.php",$visualizacao->pegar('classesPersistente.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$persistente}.postgres.php",$visualizacao->pegar('classesPersistente.html'));
 		$visualizacao->persistentePai = 'persistentePadraoMySql';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$persistente}.mysql.php",$visualizacao->pegar('classesPersistente.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$persistente}.mysql.php",$visualizacao->pegar('classesPersistente.html'));
 		$visualizacao->persistentePai = 'persistentePadraoOCI';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$persistente}.oracle.php",$visualizacao->pegar('classesPersistente.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$persistente}.oracle.php",$visualizacao->pegar('classesPersistente.html'));
 		$visualizacao->persistentePai = 'persistentePadraoSqlite';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$persistente}.sqlite.php",$visualizacao->pegar('classesPersistente.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$persistente}.sqlite.php",$visualizacao->pegar('classesPersistente.html'));
 	}
 	/**
 	* Monta a classe de negocio
@@ -219,130 +219,130 @@ class CUtilitario_geradorGerarFonte extends controle{
 		$arTipos['tnumerico'] = 'TNumerico';
 		$arTipos['tmoeda'] = 'TMoeda';
 		$arTiposEntidade = array();
-		foreach(CUtilitario_geradorGerarFonte::$entidade['ng_tipo'] as $indice => $tipo){
+		foreach(self::$dados['negocio']['tipo'] as $indice => $tipo){
 			if(isset($arTipos[$tipo])) {
 				$arTiposEntidade[$indice] = $arTipos[$tipo];
 			}else{
 				$arTiposEntidade[$indice] = $tipo;
 			}
 		}
-		$visualizacao->nomes = CUtilitario_geradorGerarFonte::$entidade['ng_nome'];
-		$visualizacao->chave = CUtilitario_geradorGerarFonte::$entidade['ng_nome'][CUtilitario_geradorGerarFonte::$entidade['ng_chave_pk']];
-		$visualizacao->nomesPropriedades = CUtilitario_geradorGerarFonte::$entidade['en_nome'];
+		$visualizacao->nomes = self::$dados['negocio']['propriedade'];
+		$visualizacao->chave = self::$dados['negocio']['pk'];
+		$visualizacao->nomesPropriedades = self::$dados['inter']['nome'];
 		$visualizacao->tipos = $arTiposEntidade;
-		$visualizacao->negocioNome = CUtilitario_geradorGerarFonte::$nomeNegocio;
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/".CUtilitario_geradorGerarFonte::$nomeNegocio.".php",$visualizacao->pegar('classesNegocio.html'));
+		$visualizacao->negocioNome = self::$nomeNegocio;
+		self::escreverArquivo(self::$nomeEntidade."/classes/".self::$nomeNegocio.".php",$visualizacao->pegar('classesNegocio.html'));
 	}
 	/**
 	* Monta a classe de internacionalização
 	*/
 	public static function montarInternacionalizacao(visualizacao $visualizacao){
-		$internacionalizacao = definicaoEntidade::internacionalizacao(CUtilitario_geradorGerarFonte::$nomeNegocio);
+		$internacionalizacao = definicaoEntidade::internacionalizacao(self::$nomeNegocio);
 		$visualizacao->internacionalizacaoNome = $internacionalizacao;
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$internacionalizacao}.php",$visualizacao->pegar('classesInternacionalizacao.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$internacionalizacao}.php",$visualizacao->pegar('classesInternacionalizacao.html'));
 	}
 	/**
 	* Monta o controle de Exclusão
 	*/
 	public static function montarControleExcluir(visualizacao $visualizacao){
-		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
-		$visualizacao->acao = "Executa a exclusão de um objeto : ".CUtilitario_geradorGerarFonte::$entidade['entidade'];
+		$controle = definicaoEntidade::controle(self::$nomeNegocio);
+		$visualizacao->acao = "Executa a exclusão de um objeto : ".self::$dados['entidade'];
 		$visualizacao->controleNome = "{$controle}_excluir";
 		$visualizacao->controlePai = 'controlePadraoExcluir';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$controle}_excluir.php",$visualizacao->pegar('classesControle.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$controle}_excluir.php",$visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Gravação
 	*/
 	public static function montarControleGravar(visualizacao $visualizacao){
-		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
-		$visualizacao->acao = "Executa a gravação de um objeto : ".CUtilitario_geradorGerarFonte::$entidade['entidade'];
+		$controle = definicaoEntidade::controle(self::$nomeNegocio);
+		$visualizacao->acao = "Executa a gravação de um objeto : ".self::$dados['entidade'];
 		$visualizacao->controleNome = "{$controle}_gravar";
 		$visualizacao->controlePai = 'controlePadraoGravar';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$controle}_gravar.php",$visualizacao->pegar('classesControle.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$controle}_gravar.php",$visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Mudança de Pagina
 	*/
 	public static function montarControleMudarPagina(visualizacao $visualizacao){
-		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
+		$controle = definicaoEntidade::controle(self::$nomeNegocio);
 		$visualizacao->acao = "Executa a mudança de pagina da listagem";
 		$visualizacao->controleNome = "{$controle}_mudarPagina";
 		$visualizacao->controlePai = 'controlePadraoMudarPagina';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$controle}_mudarPagina.php",$visualizacao->pegar('classesControle.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$controle}_mudarPagina.php",$visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Pesquisar
 	*/
 	public static function montarControlePesquisar(visualizacao $visualizacao){
-		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
-		$visualizacao->acao = "Executa a pesquisa de um objeto : ".CUtilitario_geradorGerarFonte::$entidade['entidade'];
+		$controle = definicaoEntidade::controle(self::$nomeNegocio);
+		$visualizacao->acao = "Executa a pesquisa de um objeto : ".self::$dados['entidade'];
 		$visualizacao->controleNome = "{$controle}_pesquisar";
 		$visualizacao->controlePai = 'controlePadraoPesquisar';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$controle}_pesquisar.php",$visualizacao->pegar('classesControle.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$controle}_pesquisar.php",$visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Ver
 	*/
 	public static function montarControleVerEdicao(visualizacao $visualizacao){
-		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
-		$visualizacao->acao = "Cria a visualização de um objeto : ".CUtilitario_geradorGerarFonte::$entidade['entidade'];
+		$controle = definicaoEntidade::controle(self::$nomeNegocio);
+		$visualizacao->acao = "Cria a visualização de um objeto : ".self::$dados['entidade'];
 		$visualizacao->controleNome = "{$controle}_verEdicao";
 		$visualizacao->controlePai = 'controlePadraoVerEdicao';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$controle}_verEdicao.php",$visualizacao->pegar('classesControle.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$controle}_verEdicao.php",$visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Ver a Pesquisa
 	*/
 	public static function montarControleVerPesquisa(visualizacao $visualizacao){
-		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
-		$visualizacao->acao = "Cria a visualização da pesquisa de um objeto : ".CUtilitario_geradorGerarFonte::$entidade['entidade'];
+		$controle = definicaoEntidade::controle(self::$nomeNegocio);
+		$visualizacao->acao = "Cria a visualização da pesquisa de um objeto : ".self::$dados['entidade'];
 		$visualizacao->controleNome = "{$controle}_verPesquisa";
 		$visualizacao->controlePai = 'controlePadraoPesquisa';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$controle}_verPesquisa.php",$visualizacao->pegar('classesControle.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$controle}_verPesquisa.php",$visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o controle de Ver Listagem Pdf
 	*/
 	public static function montarControleVerListagemPdf(visualizacao $visualizacao){
-		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
-		$visualizacao->acao = "Cria a visualização PDF listando objetos : ".CUtilitario_geradorGerarFonte::$entidade['entidade'];
+		$controle = definicaoEntidade::controle(self::$nomeNegocio);
+		$visualizacao->acao = "Cria a visualização PDF listando objetos : ".self::$dados['entidade'];
 		$visualizacao->controleNome = "{$controle}_verListagemPdf";
 		$visualizacao->controlePai = 'controlePadraoPDFListagem';
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/classes/{$controle}_verListagemPdf.php",$visualizacao->pegar('classesControle.html'));
+		self::escreverArquivo(self::$nomeEntidade."/classes/{$controle}_verListagemPdf.php",$visualizacao->pegar('classesControle.html'));
 	}
 	/**
 	* Monta o template de ver
 	*/
 	public static function montarTemplateVerEdicao(visualizacao $visualizacao){
-		$visualizacao->chaveNegocio = CUtilitario_geradorGerarFonte::$entidade['ng_nome'][CUtilitario_geradorGerarFonte::$entidade['ng_chave_pk']];
+		$visualizacao->chaveNegocio = self::$dados['negocio']['pk'];
 		$camposControle = array();
-		foreach(CUtilitario_geradorGerarFonte::$entidade['ng_nome'] as $chave => $valor){
-			if(CUtilitario_geradorGerarFonte::$entidade['ng_chave_pk'] != $chave) $camposControle['nome'.ucFirst($valor)] = $valor;
+		foreach(self::$dados['negocio']['propriedade'] as $chave => $valor){
+			if(self::$dados['negocio']['pk'] != $chave) $camposControle['nome'.ucFirst($valor)] = $valor;
 		}
 		$visualizacao->nomes = $camposControle;
-		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
+		$controle = definicaoEntidade::controle(self::$nomeNegocio);
 		$arNomeTema = explode('/',definicaoPasta::tema());
 		if(!($nomeTema = array_pop($arNomeTema))){$nomeTema = array_pop($arNomeTema);};
 		$nomeTema = $nomeTema ? $nomeTema.'_' : null;
 		if(!is_file($visualizacao->template_dir."{$nomeTema}templateVerEdicao.html")) $nomeTema = null;
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/html/{$nomeTema}{$controle}_verEdicao.html",$visualizacao->pegar("{$nomeTema}templateVerEdicao.html"));
+		self::escreverArquivo(self::$nomeEntidade."/html/{$nomeTema}{$controle}_verEdicao.html",$visualizacao->pegar("{$nomeTema}templateVerEdicao.html"));
 	}
 	/**
 	* Monta o template de verPesquisa
 	*/
 	public static function montarTemplateVerPesquisa(visualizacao $visualizacao){
 		$camposControle = array();
-		foreach(CUtilitario_geradorGerarFonte::$entidade['ng_nome'] as $chave => $valor){
-			if(CUtilitario_geradorGerarFonte::$entidade['ng_chave_pk'] != $chave) $camposControle['nome'.ucFirst($valor)] = $valor;
+		foreach(self::$dados['negocio']['propriedade'] as $chave => $valor){
+			if(self::$dados['negocio']['pk'] != $chave) $camposControle['nome'.ucFirst($valor)] = $valor;
 		}
 		$visualizacao->nomes = $camposControle;
-		$controle = definicaoEntidade::controle(CUtilitario_geradorGerarFonte::$nomeNegocio);
+		$controle = definicaoEntidade::controle(self::$nomeNegocio);
 		$arNomeTema = explode('/',definicaoPasta::tema());
 		if(!($nomeTema = array_pop($arNomeTema))){$nomeTema = array_pop($arNomeTema);};
 		$nomeTema = $nomeTema ? $nomeTema.'_' : null;
 		if(!is_file($visualizacao->template_dir."{$nomeTema}templateVerPesquisa.html")) $nomeTema = null;
-		CUtilitario_geradorGerarFonte::escreverArquivo(CUtilitario_geradorGerarFonte::$nomeEntidade."/html/{$nomeTema}{$controle}_verPesquisa.html",$visualizacao->pegar("{$nomeTema}templateVerPesquisa.html"));
+		self::escreverArquivo(self::$nomeEntidade."/html/{$nomeTema}{$controle}_verPesquisa.html",$visualizacao->pegar("{$nomeTema}templateVerPesquisa.html"));
 	}
 }
 ?>

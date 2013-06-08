@@ -2,33 +2,35 @@
 	.fc-listagem-grupo{
 		margin-top: 15px;
 		margin-bottom: 15px;
-}
+	}
 </style>
-<form name="formulario" method="post" action="«$action»" >
-<div class="fc-pesquisa">
-	<h1 class="fc-titulo-especifico">Pesquisa Geral</h1>
-	<div class="fc-campo-grupo">
-		<div class="fc-campo-subgrupo">
-			<center>«$filtro» «php»if($this->_tpl_vars['listagens']) echo $this->_tpl_vars['nivel'];«/php»«$pesquisar»</center>
-		</div>
-	</div>
-«php»if($this->_tpl_vars['listagens']) foreach($this->_tpl_vars['listagens'] as $listagem):«/php»
-	<h1 class="fc-titulo-especifico">
-		<span>«php»echo $listagem['nome'];«/php» <b>(«php»echo $listagem['ocorrencias'];«/php»)</b></span>
-	</h1>
-	<div class="fc-campo-grupo">
-		<div class="fc-listagem-grupo">
-			<h1 class="fc-listagem-titulo"><span class='fc-icon-pesquisa' ></span> «$textoTituloListagem»</h1>
-			<div class="fc-listagem">
-			«php»echo $listagem['listagem'];«/php»
+<div class="container">
+	<form name="formulario" method="post" action="«$action»" >
+		<fieldset>
+			<legend>Pesquisa Geral</legend>
+			<div class="fc-campo-grupo">
+				<div class="fc-campo-subgrupo">
+					<center>«$filtro» «php»if($this->_tpl_vars['listagens']) echo $this->_tpl_vars['nivel'];«/php»«$pesquisar»</center>
+				</div>
 			</div>
+			«php»if($this->_tpl_vars['listagens']) foreach($this->_tpl_vars['listagens'] as $listagem):«/php»
+			<h4 class="fc-titulo-especifico">
+				<span>«php»echo $listagem['nome'];«/php» <b>(«php»echo $listagem['ocorrencias'];«/php»)</b></span>
+			</h4>
+			<div class="fc-campo-grupo">
+				<div class="fc-listagem-grupo">
+					<h5 class="fc-listagem-titulo"><span class='fc-icon-pesquisa' ></span> «$textoTituloListagem»</h5>
+					<div class="fc-listagem">
+						«php»echo $listagem['listagem'];«/php»
+					</div>
+				</div>
+				<a class="fc-menu-item" href="?c=«php»echo $listagem['controlePesquisa'];«/php»">Pesquisa avançada de «php»echo $listagem['nome'];«/php»</a>
+				<br/>
+			</div>
+			«php»endforeach«/php»
+		</fieldset>
+		<div id='menu_corpo'>
+			«$menuPrograma»
 		</div>
-		<a class="fc-menu-item" href="?c=«php»echo $listagem['controlePesquisa'];«/php»">Pesquisa avançada de «php»echo $listagem['nome'];«/php»</a>
-	<br/>
-	</div>
-«php»endforeach«/php»
+	</form>	
 </div>
-<div id='menu_corpo'>
-	«$menuPrograma»
-</div>
-</form>

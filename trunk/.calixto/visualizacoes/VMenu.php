@@ -86,7 +86,7 @@ class VMenu extends objeto{
 		$classe = $this->_classe ? " class='{$this->_classe}'" : null;
 		$classeLink = $this->_classe ? " class='{$this->_classeLink}'" : null;
 		$link = $this->_link ? " href='{$this->_link}'" : " href='#'";
-		$imagem = !$this->_imagem ? null : "<img src='{$this->_imagem}' style='border:0px; vertical-align:bottom;' /> ";
+		$imagem = !$this->_imagem ? null : "<i class='{$this->_imagem}'></i> ";
 		if($this->_coMenu->possuiItens()){
 			$menu = "<li{$classe}{$id} ><a href='#'>{$imagem}{$this->_nome}</a>\n";
 			$menu.= $this->_coMenu;
