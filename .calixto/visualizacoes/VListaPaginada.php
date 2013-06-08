@@ -326,7 +326,7 @@ class VListaPaginada extends objeto{
 	{
 		$controle = definicaoEntidade::controle($negocio,'excluir');
 		$link = sprintf("?c=%s&amp;chave=%s",$controle,$negocio->valorChave());
-		return "<a href='javascript:if(confirm(\"Deseja mesmo excluir este item?\")){window.location=\"{$link}\";}' title='Excluir registro'><img src='.sistema/icones/delete.png' border='0' /></a>";
+		return "<a href='javascript:if(confirm(\"Deseja mesmo excluir este item?\")){window.location=\"{$link}\";}' title='Excluir registro'><i class='icon-trash'></i></a>";
 	}
 
 	/**
@@ -338,7 +338,7 @@ class VListaPaginada extends objeto{
 	{
 		$controle = definicaoEntidade::controle($negocio,'verEdicao');
 		$link = sprintf("?c=%s&amp;chave=%s",$controle,$negocio->valorChave());
-		return "<a href='{$link}' title='Alterar registro'><img src='.sistema/icones/pencil.png' border='0' /></a>";
+		return "<a href='{$link}' title='Alterar registro'><i class='icon-pencil'></i></a>";
 	}
 }
 ?>

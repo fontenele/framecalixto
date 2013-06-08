@@ -7,18 +7,18 @@ $.fn.testar = function(link,dados,msg,teste){
 		dataType: 'text',
 		success: function(data){
 			if(data){
-				teste.addClass('erro');
+				teste.addClass('icon-remove');
 				teste.attr('title',data);
 			}else{
-				teste.removeClass('erro');
+				teste.removeClass('icon-remove');
 				teste.attr('title',msg);
 			}
 		}
 	});
 }
 $.fn.testarConexao = function(){
-	var cmp = $(this).parents('.d-tr').find('.d-td select, .db input:not(:disabled)');
-	var teste = $(this).parents('.d-tr').find('.d-td .teste-db');
+	var cmp = $(this).parents('tr:first').find('td select, .db input:not(:disabled)');
+	var teste = $(this).parents('tr:first').find('td .teste-db');
 	$(this).testar("?c=CUtilitario_testarConexao",cmp.serialize(),'Conexão estabelecida.',teste);
 }
 $.fn.testarDiretorio = function(){
@@ -33,9 +33,18 @@ $.fn.testarClasse = function(){
 $.fn.testarMetodo = function(){
 	$(this).testar("?c=CUtilitario_testarClasse",'metodo='+$(this).val()+'&classe='+$('#'+$(this).attr('classe')).val(),'Método encontrado.');
 }
+$.fn.classeErro = function(msg){
+	$(this).removeAttr('class');
+	$(this).addClass('icon-ok');
+	$(this).attr('title',msg);
+}
+$.fn.classeOk = function(msg){
+	$(this).removeAttr('class');
+	$(this).addClass('icon-remove');
+	$(this).attr('title',msg);
+}
 $(document).ready(function(){
-	$('#tabs').tabs();
-	$('#novaConexao').click(function(){$('#conexoes').append($('#conexoes>.d-tr:last').clone());});
+	$('#novaConexao').click(function(){$('#conexoes').append($('#conexoes tr:last').clone());});
 	$('.classe').change(function(){$(this).testarClasse();}).trigger('change');
 	$('.metodo').change(function(){$(this).testarMetodo();}).trigger('change');
 	$('#inter').change(function(){$(this).testarArquivo();}).trigger('change');
@@ -59,9 +68,9 @@ $(document).ready(function(){
 		$('form').submit();
 	});
 	$('form').submit(function(event){
-		if($('.erro')[0]){
-			$($('.erro:first').attr('guia')).trigger('click');
-			alert($('.erro:first').attr('title'));
+		if($('.icon-remove')[0]){
+			$($('.icon-remove:first').attr('data-guia')).trigger('click');
+			alert($('.icon-remove:first').attr('title'));
 			return false;
 		}
 	});

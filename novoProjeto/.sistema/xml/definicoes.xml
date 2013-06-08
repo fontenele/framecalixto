@@ -8,7 +8,7 @@
 	</bancos>
 	<diretorios>
 		<diretorio id='temporario' dir='.tmp/' entidade='nao' />
-		<diretorio id='tema' dir='.sistema/temas/branco/' entidade='nao' />
+		<diretorio id='tema' dir='.sistema/temas/bootstrap/' entidade='nao' />
 		<diretorio id='templates' dir='html/' entidade='sim' />
 		<diretorio id='css' dir='css/' entidade='sim' />
 		<diretorio id='js' dir='scripts/' entidade='sim' />

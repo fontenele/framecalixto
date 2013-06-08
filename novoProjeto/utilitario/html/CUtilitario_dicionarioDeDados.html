@@ -1,165 +1,171 @@
-<form name="formulario" method="post" action="«$action»" >
-	«if $tabelas»
-	<style type="text/css">
-		/*ol contagem recursiva*/
-		.contador ol { counter-reset: item }
-		.contador li { display: block }
-		.contador li:before {
-			content: counters(item, ".") " "; counter-increment: item
-		}
-		/*fim da ol contagem recursiva*/
-		.contador ol{
-			list-style:decimal !important;
-			padding: 10px;
-		}
-		.contador li{
-			font-family: arial;
-			font-weight: bold;
-		}
-		.contador li>p{
-			font-weight: normal;
-			padding: 10px;
-			color: #0000FF;
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span11">
+            <form name="formulario" method="post" action="«$action»" >
+                «if $tabelas»
+                <style type="text/css">
+                    /*ol contagem recursiva*/
+                    .contador ol { counter-reset: item }
+                    .contador li { display: block }
+                    .contador li:before {
+                        content: counters(item, ".") " "; counter-increment: item
+                    }
+                    /*fim da ol contagem recursiva*/
+                    .contador ol{
+                        list-style:decimal !important;
+                        padding: 10px;
+                    }
+                    .contador li{
+                        font-family: arial;
+                        font-weight: bold;
+                    }
+                    .contador li>p{
+                        font-weight: normal;
+                        padding: 10px;
+                        color: #0000FF;
 
-		}
-		.contador table{
-			font-family: arial;
-			font-weight: normal;
-/*			padding: 10px;*/
-		}
-		.contador table>caption{
-			text-align:left;
-		}
-	</style>
-	<div class="contador">
-		<ol>
-			<li>Objetos de Banco de Dados
-				<ol>
-					<div class="contador">
-						«php»foreach($this->_tpl_vars['tabelas'] as $this->_tpl_vars['dados']):«/php»
-						<li>«$dados.tabela.nome»
-							«php»$this->_tpl_vars['constraints'] = false;«/php»
-							<div class="lista fc-listagem-grupo descricao-tabela" >
-								<h1 class="fc-listagem-titulo">Detalhe da tabela</h1>
-								<div class="fc-listagem">
-								<table summary="text" class="fc-dados-listagem">
-<!--									<caption>«$dados.tabela.nome»:«$dados.tabela.descricao»</caption>-->
-									<thead>
-										<tr>
-											<th class="ui-state-default">Tipo do campo</th>
-											<th class="ui-state-default">Campo</th>
-											<th class="ui-state-default">Tipo de dado</th>
-											<th class="ui-state-default" title="Primary Key">PK</th>
-											<th class="ui-state-default" title="Foreing Key">FK</th>
-											<th class="ui-state-default" title="Unique Key">UK</th>
-											<th class="ui-state-default" title="Not Null">NN</th>
-											<th class="ui-state-default">Descrição</th>
-										</tr>
-									</thead>
-									<tbody>
-									«php» foreach($this->_tpl_vars['dados']['campos'] as $this->_tpl_vars['campo']): «/php»
-									<tr title="«$campo.descricao»" class="«cycle values='fc-linha fc-linha1,fc-linha fc-linha2'»">
-										<td class="campo1">«$campo.tipo_de_dado»</td>
-										<td class="campo1">«$campo.campo»</td>
-										<td class="campo1">«if $campo.tipo == 'character varying'»varchar«else»«$campo.tipo»«/if»«if $campo.tamanho»(«$campo.tamanho»)«/if»</td>
-										<td class="campo1" align='center' width='5px'>«if $campo.campo_pk»x«/if»</td>
-										<td class="campo1" align='center' width='5px'>«if $campo.tabela_fk»x«/if»</td>
-										<td class="campo1" align='center' width='5px'>«if $campo.unique_key»x«/if»</td>
-										<td class="campo1" align='center' width='5px'>«if $campo.obrigatorio»x«/if»</td>
-										<td class="campo1">«$campo.descricao»</td>
-									</tr>
-									«if $campo.tabela_fk»
-										«php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['campo']=$this->_tpl_vars['campo']['campo'];«/php»
-										«php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['constraint']=$this->_tpl_vars['campo']['constraint'];«/php»
-										«php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['esquema_fk']=$this->_tpl_vars['campo']['esquema_fk'];«/php»
-										«php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['tabela_fk']=$this->_tpl_vars['campo']['tabela_fk'];«/php»
-										«php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['campo_fk']=$this->_tpl_vars['campo']['campo_fk'];«/php»
-									«/if»
-									«php»endforeach;«/php»
-								</table>
-								</div>
-							«if $constraints»
-								<h1 class="fc-listagem-titulo">Chaves estrangeiras</h1>
-								<table summary="text" class="fc-dados-listagem">
-<!--									<caption>Chaves estrangeiras</caption>-->
-									<thead>
-										<tr>
-											<th class="ui-state-default">Campo</th>
-											<th class="ui-state-default">Nome da Restrição</th>
-											<th class="ui-state-default">Tabela FK</th>
-											<th class="ui-state-default">Campo FK</th>
-										</tr>
-									</thead>
-									<tbody>
-									«php» foreach($this->_tpl_vars['constraints'] as $this->_tpl_vars['constraint']): «/php»
-									<tr title="«$campo.descricao»" class="«cycle values='fc-linha fc-linha1,fc-linha fc-linha2'»">
-										<td class="campo1">«$constraint.campo»</td>
-										<td class="campo1">«$constraint.constraint»</td>
-										<td class="campo1">«$constraint.esquema_fk».«$constraint.tabela_fk»</td>
-										<td class="campo1">«$constraint.campo_fk»</td>
-									</tr>
-									«php»endforeach;«/php»
-								</table>
-							«/if»
-							«if $dados.restricoes»
-								<table summary="text" class="tabela0 ui-widget-content ui-corner-all" style="width:100%;" border='1'>
-									<caption>Outras restrições</caption>
-									<thead>
-										<tr>
-											<th class="ui-state-default">Nome da Restrição</th>
-											<th class="ui-state-default">Condição</th>
-											<th class="ui-state-default">Descrição</th>
-										</tr>
-									</thead>
-									<tbody>
-									«php» foreach($this->_tpl_vars['dados']['restricoes'] as $this->_tpl_vars['restricao']): «/php»
-									<tr class="«cycle values='linhaListagem1,linhaListagem2'»">
-										<td class="campo1">«$restricao.nome»</td>
-										<td class="campo1">«$restricao.condicao»</td>
-										<td class="campo1">«$restricao.descricao»</td>
-									</tr>
-									«php»endforeach;«/php»
-								</table>
-							«/if»
-							</div>
-							<br/>
-						</li>
-						«php»endforeach;«/php»
-					</div>
-				</ol>
-			</li>
-		</ol>
-	</div>
-«else»
-	<div class="contador ui-widget-content ui-corner-all">
-		<h1 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h1>
-		<div class="texto">
-			<div class="tabela2">
-				<div class="campo">
-					<label>Servidor:</label>
-					<span>«$servidor»</span>
-				</div>
-				<div class="campo">
-					<label>Porta:</label>
-					<span>«$porta»</span>
-				</div>
-				<div class="campo">
-					<label>Banco:</label>
-					<span>«$banco»</span>
-				</div>
-				<div class="campo">
-					<label>Usuário:</label>
-					<span>«$usuario»</span>
-				</div>
-				<div class="campo">
-					<label>Senha:</label>
-					<span>«$senha»</span>
-				</div>
-			</div>
-	        <div id='menu_corpo'>
-	            «$menuPrograma»
-	        </div>
-		</div>
-	</div>
-«/if»
-</form>
+                    }
+                    .contador table{
+                        font-family: arial;
+                        font-weight: normal;
+                        /*			padding: 10px;*/
+                    }
+                    .contador table>caption{
+                        text-align:left;
+                    }
+                </style>
+                <div class="contador">
+                    <ol>
+                        <li>Objetos de Banco de Dados
+                            <ol>
+                                <div class="contador">
+                                    «php»foreach($this->_tpl_vars['tabelas'] as $this->_tpl_vars['dados']):«/php»
+                                    <li>«$dados.tabela.nome»
+                                        «php»$this->_tpl_vars['constraints'] = false;«/php»
+                                        <div class="lista fc-listagem-grupo descricao-tabela" >
+                                            <h4 class="fc-listagem-titulo">Detalhe da tabela</h4>
+                                            <div class="fc-listagem">
+                                                <table summary="text" class="fc-dados-listagem table table-striped table-bordered table-condensed">
+                                                    <!--									<caption>«$dados.tabela.nome»:«$dados.tabela.descricao»</caption>-->
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="ui-state-default">Tipo do campo</th>
+                                                            <th class="ui-state-default">Campo</th>
+                                                            <th class="ui-state-default">Tipo de dado</th>
+                                                            <th class="ui-state-default" title="Primary Key">PK</th>
+                                                            <th class="ui-state-default" title="Foreing Key">FK</th>
+                                                            <th class="ui-state-default" title="Unique Key">UK</th>
+                                                            <th class="ui-state-default" title="Not Null">NN</th>
+                                                            <th class="ui-state-default">Descrição</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        «php» foreach($this->_tpl_vars['dados']['campos'] as $this->_tpl_vars['campo']): «/php»
+                                                        <tr title="«$campo.descricao»" class="«cycle values='fc-linha fc-linha1,fc-linha fc-linha2'»">
+                                                            <td class="campo1">«$campo.tipo_de_dado»</td>
+                                                            <td class="campo1">«$campo.campo»</td>
+                                                            <td class="campo1">«if $campo.tipo == 'character varying'»varchar«else»«$campo.tipo»«/if»«if $campo.tamanho»(«$campo.tamanho»)«/if»</td>
+                                                            <td class="campo1" align='center' width='5px'>«if $campo.campo_pk»x«/if»</td>
+                                                            <td class="campo1" align='center' width='5px'>«if $campo.tabela_fk»x«/if»</td>
+                                                            <td class="campo1" align='center' width='5px'>«if $campo.unique_key»x«/if»</td>
+                                                            <td class="campo1" align='center' width='5px'>«if $campo.obrigatorio»x«/if»</td>
+                                                            <td class="campo1">«$campo.descricao»</td>
+                                                        </tr>
+                                                        «if $campo.tabela_fk»
+                                                        «php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['campo']=$this->_tpl_vars['campo']['campo'];«/php»
+                                                        «php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['constraint']=$this->_tpl_vars['campo']['constraint'];«/php»
+                                                        «php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['esquema_fk']=$this->_tpl_vars['campo']['esquema_fk'];«/php»
+                                                        «php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['tabela_fk']=$this->_tpl_vars['campo']['tabela_fk'];«/php»
+                                                        «php»$this->_tpl_vars['constraints'][$this->_tpl_vars['campo']['campo']]['campo_fk']=$this->_tpl_vars['campo']['campo_fk'];«/php»
+                                                        «/if»
+                                                        «php»endforeach;«/php»
+                                                </table>
+                                            </div>
+                                            «if $constraints»
+                                            <h4 class="fc-listagem-titulo">Chaves estrangeiras</h4>
+                                            <table summary="text" class="fc-dados-listagem table table-striped table-bordered table-condensed">
+                                                <!--									<caption>Chaves estrangeiras</caption>-->
+                                                <thead>
+                                                    <tr>
+                                                        <th class="ui-state-default">Campo</th>
+                                                        <th class="ui-state-default">Nome da Restrição</th>
+                                                        <th class="ui-state-default">Tabela FK</th>
+                                                        <th class="ui-state-default">Campo FK</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    «php» foreach($this->_tpl_vars['constraints'] as $this->_tpl_vars['constraint']): «/php»
+                                                    <tr title="«$campo.descricao»" class="«cycle values='fc-linha fc-linha1,fc-linha fc-linha2'»">
+                                                        <td class="campo1">«$constraint.campo»</td>
+                                                        <td class="campo1">«$constraint.constraint»</td>
+                                                        <td class="campo1">«$constraint.esquema_fk».«$constraint.tabela_fk»</td>
+                                                        <td class="campo1">«$constraint.campo_fk»</td>
+                                                    </tr>
+                                                    «php»endforeach;«/php»
+                                            </table>
+                                            «/if»
+                                            «if $dados.restricoes»
+                                            <table summary="text" class="tabela0 ui-widget-content ui-corner-all table table-striped table-bordered table-condensed" style="width:100%;" border='1'>
+                                                <caption>Outras restrições</caption>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="ui-state-default">Nome da Restrição</th>
+                                                        <th class="ui-state-default">Condição</th>
+                                                        <th class="ui-state-default">Descrição</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    «php» foreach($this->_tpl_vars['dados']['restricoes'] as $this->_tpl_vars['restricao']): «/php»
+                                                    <tr class="«cycle values='linhaListagem1,linhaListagem2'»">
+                                                        <td class="campo1">«$restricao.nome»</td>
+                                                        <td class="campo1">«$restricao.condicao»</td>
+                                                        <td class="campo1">«$restricao.descricao»</td>
+                                                    </tr>
+                                                    «php»endforeach;«/php»
+                                            </table>
+                                            «/if»
+                                        </div>
+                                        <br/>
+                                    </li>
+                                    «php»endforeach;«/php»
+                                </div>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+                «else»
+                <div class="contador ui-widget-content ui-corner-all">
+                    <h4 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h4>
+                    <div class="texto">
+                        <div class="tabela2">
+                            <div class="campo">
+                                <label>Servidor:</label>
+                                <span>«$servidor»</span>
+                            </div>
+                            <div class="campo">
+                                <label>Porta:</label>
+                                <span>«$porta»</span>
+                            </div>
+                            <div class="campo">
+                                <label>Banco:</label>
+                                <span>«$banco»</span>
+                            </div>
+                            <div class="campo">
+                                <label>Usuário:</label>
+                                <span>«$usuario»</span>
+                            </div>
+                            <div class="campo">
+                                <label>Senha:</label>
+                                <span>«$senha»</span>
+                            </div>
+                        </div>
+                        <div id='menu_corpo'>
+                            «$menuPrograma»
+                        </div>
+                    </div>
+                </div>
+                «/if»
+            </form>
+        </div>
+    </div>
+</div>

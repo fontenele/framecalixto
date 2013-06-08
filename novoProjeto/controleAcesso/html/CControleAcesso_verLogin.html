@@ -1,40 +1,27 @@
-<style type="text/css">
-.fc-edicao{
-	margin-left: 250px;
-	margin-right: 250px;
-	margin-top: 100px;
-	margin-bottom: 100px;
-	
-}
-/*.fc-campo-grupo{
-	width: 300px;
-}
-.fc-titulo-especifico{
-	width: 343px;
-
-}*/
-</style>
-<form name="formulario" method="post" action="«$action»">
-	<div class="fc-edicao">
-		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
-		<div class="fc-campo-grupo">
-			<div class="fc-campo-subgrupo">
-				<div class='fc-campo'>
-					<label for='«$nmLogin->pegarId()»'>«$nomeNmLogin»:</label>
-					<span>«$nmLogin»</span>
+<div class="container">
+	<form name="formulario" method="post" action="«$action»" class="well">
+		<fieldset>
+			<legend>«$tituloEspecifico»</legend>
+			<div class="control-group">
+				<label class="control-label">«$nomeNmLogin»:</label>
+				<div class="controls">
+					«$nmLogin»
 				</div>
-				<div class='fc-campo'>
-					<label for='«$nmSenha->pegarId()»'>«$nomeNmSenha»:</label>
-					<span>«$nmSenha»</span>
+			</div>			
+			<div class="control-group">
+				<label class="control-label">«$nomeNmSenha»:</label>
+				<div class="controls">
+					«$nmSenha»
 				</div>
-				<div class='fc-campo'>
-					<label></label>
-					<span>«$btEnviar»</span>
+			</div>			
+			<div class="control-group">
+				<div class="controls">
+					«$btEnviar»
 				</div>
-			</div>
-	        <div id='fc-menu-corpo'>
-	            «$menuPrograma»
-	        </div>
+			</div>			
+		</fieldset>
+		<div id='fc-menu-corpo'>
+			«$menuPrograma»
 		</div>
-	</div>
-</form>
+	</form>
+</div>

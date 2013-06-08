@@ -14,7 +14,6 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$this->gerarMenus();
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->visualizacao->jsExtra = '
-			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/jquery/js/jquery-ui-1.8.2.custom.min.js"></script>
 			<script language="JavaScript" type="text/javascript" src=".sistema/scripts/calixto.string.js"></script>
 		';
 
@@ -24,7 +23,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$this->visualizacao->recriarBase = VComponente::montar('checkbox','recriarBase',null);
 		$this->visualizacao->adicionar = VComponente::montar('botao','adicionar', $this->inter->pegarTexto('adicionar'));
 		$this->visualizacao->action = '?c=CUtilitario_geradorGerarFonte';
-		$this->visualizacao->dados = null;
+		$this->visualizacao->dados = '<script>var definicao = false;</script>';
 		$this->visualizacao->campos = null;
 		$this->visualizacao->acesso = 'Nova geração de cadastro';
 		$this->visualizacao->travarSugestaoDeNomesPersistente = 'false';
@@ -80,8 +79,9 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 	*/
 	public function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
-		$menu->{'Gravar entidade'}->passar_link('javascript:$.submeter();');
+		$menu->{'Gravar entidade'}->passar_link('javascript:$(this).gerarCadastro();');
 		$menu->{'Gravar entidade'}->passar_imagem('utilitario/imagens/gravar_arquivos.png');
+		$menu->{'Gravar entidade'}->passar_classeLink('btn btn-primary');
 		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_listarEntidade');
 		$menu->{'Entidades do sistema'}->passar_imagem('utilitario/imagens/entidades.png');
 		$menu->{'Tabelas do banco'}->passar_link('?c=CUtilitario_listarTabelas');
@@ -106,39 +106,87 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$mapNegocio['inter'] = $internacionalizacao->pegarInternacionalizacao();
 		$map = self::pegarEstrutura($negocio);
 		$mapNegocio['controle'] = $map['campos'];
+//		x($mapNegocio);die;
+		$arOrdem = array_flip($mapNegocio['bd']['ordem']);
+		$arMapEntidade = array();
+		$arMapEntidade['entidade']['nome'] = $mapNegocio['inter']['nome'];
+		$arMapEntidade['banco']['tabela'] = $mapNegocio['bd']['nomeTabela'];
+		$arMapEntidade['banco']['sequencia'] = $mapNegocio['bd']['nomeSequencia'];
 		foreach($mapNegocio['negocio'] as $i => $map){
-			$mapEntidade[$i]['negocio'] = $map;
-			$mapEntidade[$i]['controle'] = $mapNegocio['controle'][$map['propriedade']];
-			$mapEntidade[$i]['persistente'] = $mapNegocio['bd']['campo'][$map['campo']];
-			$mapEntidade[$i]['inter'] = $mapNegocio['inter']['propriedade'][$map['propriedade']];
- 			if(!isset($mapNegocio['bd']['campo'][$map['campo']]['chaveEstrangeira']))
-				$mapEntidade[$i]['persistente']['chaveEstrangeira'] = false;
-			$mapEntidade[$i]['persistente']['ordem'] = '';
-			if(isset($mapNegocio['bd']['ordem']))
-			foreach($mapNegocio['bd']['ordem'] as $iOrdem => $ordem){
-				$ordem = explode(' ',$ordem);
-				if($map['campo'] == $ordem[0]){
-					$mapEntidade[$i]['persistente']['ordem'] = $iOrdem;
-					$mapEntidade[$i]['persistente']['tipoOrdem'] = isset($ordem[1]) ? true : false;
+//			$mapEntidade[$i]['negocio'] = $map;
+//			$mapEntidade[$i]['controle'] = $mapNegocio['controle'][$map['propriedade']];
+//			$mapEntidade[$i]['persistente'] = $mapNegocio['bd']['campo'][$map['campo']];
+//			$mapEntidade[$i]['inter'] = $mapNegocio['inter']['propriedade'][$map['propriedade']];
+			
+			$dominio = '';
+			if(isset($mapNegocio['inter']['propriedade'][$map['propriedade']]['dominio'])){
+				foreach($mapNegocio['inter']['propriedade'][$map['propriedade']]['dominio'] as $id => $valor){
+					$dominio .= "[$id,$valor]";
 				}
 			}
-			$res = '';
-			if(isset($mapEntidade[$i]['inter']['dominio'])){
-				foreach($mapEntidade[$i]['inter']['dominio'] as $id => $valor){
-					$res .= "[$id,$valor]";
+			if($map['classeAssociativa'].$map['metodoLeitura']){
+				$dominio = $map['classeAssociativa'].'::'.$map['metodoLeitura'];
+			}
+			$arMapEntidade['campos'][$i]['inter-nome'] = $mapNegocio['inter']['propriedade'][$map['propriedade']]['nome'];
+			$arMapEntidade['campos'][$i]['inter-abreviacao'] = $mapNegocio['inter']['propriedade'][$map['propriedade']]['abreviacao'];
+			$arMapEntidade['campos'][$i]['inter-descricao'] = $mapNegocio['inter']['propriedade'][$map['propriedade']]['descricao'];
+			$arMapEntidade['campos'][$i]['negocio-propriedade'] = $map['propriedade'];
+			$arMapEntidade['campos'][$i]['negocio-tipo'] = $map['tipo'];
+			$arMapEntidade['campos'][$i]['negocio-tamanho'] = $mapNegocio['bd']['campo'][$map['campo']]['tamanho'];
+			$arMapEntidade['campos'][$i]['negocio-pk'] = $mapNegocio['bd']['chavePrimaria'] == $map['campo'];
+			$arMapEntidade['campos'][$i]['negocio-nn'] = $map['obrigatorio'];
+			$arMapEntidade['campos'][$i]['negocio-uk'] = $map['indiceUnico'];
+			$arMapEntidade['campos'][$i]['negocio-fk'] = isset($mapNegocio['bd']['campo'][$map['campo']]['chaveEstrangeira']);
+			$arMapEntidade['campos'][$i]['negocio-dominio'] = $dominio;
+			$arMapEntidade['campos'][$i]['persistente-campo'] = $map['campo'];
+			$arMapEntidade['campos'][$i]['persistente-ordem'] = isset($arOrdem[$map['campo']]) ? $arOrdem[$map['campo']] : '';
+			$arMapEntidade['campos'][$i]['persistente-tipo-ordem'] = '';
+			$arMapEntidade['campos'][$i]['persistente-referencia-tabela'] = '';
+			$arMapEntidade['campos'][$i]['persistente-referencia-campo'] = '';
+			$arMapEntidade['campos'][$i]['visualizacao-componente'] = $mapNegocio['controle'][$map['propriedade']]['componente'];
+			$arMapEntidade['campos'][$i]['visualizacao-edicao'] = $mapNegocio['controle'][$map['propriedade']]['edicao'];
+			$arMapEntidade['campos'][$i]['visualizacao-pesquisa'] = $mapNegocio['controle'][$map['propriedade']]['pesquisa'];
+			$arMapEntidade['campos'][$i]['visualizacao-ordem'] = isset($mapNegocio['controle'][$map['propriedade']]['ordem']) ? $mapNegocio['controle'][$map['propriedade']]['ordem'] : '';
+			$arMapEntidade['campos'][$i]['visualizacao-ordem-descritivo'] = $map['descritivo'];
+			
+			if($arMapEntidade['campos'][$i]['negocio-fk']){
+				$arMapEntidade['campos'][$i]['persistente-referencia-tabela'] = $mapNegocio['bd']['campo'][$map['campo']]['chaveEstrangeira']['tabela'];
+				$arMapEntidade['campos'][$i]['persistente-referencia-campo'] = $mapNegocio['bd']['campo'][$map['campo']]['chaveEstrangeira']['campo'];
+			}
+			
+			
+// 			if(!isset($mapNegocio['bd']['campo'][$map['campo']]['chaveEstrangeira'])){
+//				$mapEntidade[$i]['persistente']['chaveEstrangeira'] = false;
+//			}
+//			$mapEntidade[$i]['persistente']['ordem'] = '';
+			if(isset($mapNegocio['bd']['ordem'])){
+				foreach($mapNegocio['bd']['ordem'] as $iOrdem => $ordem){
+					$ordem = explode(' ',$ordem);
+					if($map['campo'] == $ordem[0]){
+//						$mapEntidade[$i]['persistente']['ordem'] = $iOrdem;
+//						$mapEntidade[$i]['persistente']['tipoOrdem'] = isset($ordem[1]) ? true : false;
+						$arMapEntidade['campos'][$i]['persistente-tipo-ordem'] = isset($ordem[1]) ? true : false;
+					}
 				}
 			}
-			$mapEntidade[$i]['inter']['dominio'] = $res;
+//			$res = '';
+//			if(isset($mapEntidade[$i]['inter']['dominio'])){
+//				foreach($mapEntidade[$i]['inter']['dominio'] as $id => $valor){
+//					$res .= "[$id,$valor]";
+//				}
+//			}
+//			$mapEntidade[$i]['inter']['dominio'] = $res;
 		}
-		unset($mapNegocio['negocio']);
-		unset($mapNegocio['controle']);
-		unset($mapNegocio['inter']['propriedade']);
-		unset($mapNegocio['inter']['mensagem']);
-		unset($mapNegocio['inter']['texto']);
-		unset($mapNegocio['bd']['campo']);
-		$mapNegocio['entidade'] = $mapEntidade;
-		$this->visualizacao->dados = $json->pegarJson(array($mapNegocio));
-		$this->visualizacao->campos = $mapNegocio;
+//		unset($mapNegocio['negocio']);
+//		unset($mapNegocio['controle']);
+//		unset($mapNegocio['inter']['propriedade']);
+//		unset($mapNegocio['inter']['mensagem']);
+//		unset($mapNegocio['inter']['texto']);
+//		unset($mapNegocio['bd']['campo']);
+//		$mapNegocio['entidade'] = $mapEntidade;
+//		x($mapEntidade);die;
+		$this->visualizacao->dados = '<script>var definicao = '.$json->pegarJson($arMapEntidade).';</script>';
+//		$this->visualizacao->campos = $mapNegocio;
 		$this->visualizacao->acesso = 'Cadastro existente no sistema.';
 	}
 	/**

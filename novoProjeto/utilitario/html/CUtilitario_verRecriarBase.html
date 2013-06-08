@@ -13,7 +13,7 @@
 	}
 	#comandos{
 		font-size: .8em;
-		overflow: auto;
+		/*overflow: auto;*/
 		height: 500px;
 	}
 	pre{
@@ -21,39 +21,62 @@
 		margin: 2px;
 	}
 </style>
-<form name="formulario" method="post" action="«$action»" >
-	<div id="resultado-recriacao" title="Resultado da execução"><div id="comandos"></div></div>
-<div class="fc-pesquisa">
-	<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
-	<div class="fc-campo-grupo">
-		<div class="fc-campo">
-			<label></label>
-			<span>«$executarNoBanco»Executar os comandos no banco.</span>
-		</div>
-		<div class="fc-listagem-grupo">
-			<h1 class="fc-listagem-titulo">Tabelas</h1>
-			<table summary="text" class="fc-dados-listagem">
-			<thead>
-				<tr>
-					<th><input type="checkbox" id="checkAll"/></th>
-					<th class="nomeTabela" >Tabela</th>
-					<th class="nomeTabela" >Nome</th>
-				</tr>
-			</thead>
-				<tbody>
-			«foreach from=$listagem item=nome»
-					<tr class="«cycle values='fc-linha fc-linha1, fc-linha fc-linha2'»">
-						<td class="check" align="center">«$nome.check»</td>
-						<td align="left">«$nome.tabela»</td>
-						<td align="left">«$nome.nome»</td>
-					</tr>
-			«/foreach»
-				</tbody>
-			</table>
-			<div id='menu_corpo'>
-	            «$menuPrograma»
-			</div>
+<div class="container">
+	<div class="alert alert-danger">
+		<i class="fc-icon-error"></i>
+		<strong>Atenção,</strong>
+		<div>
+			 Nesta tela você causa a destruição de dados, muito cuidado ao utilizá-la.
 		</div>
 	</div>
+	<div id="resultado-recriacao" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Resultado</h3>
+		</div>
+		<div class="modal-body">
+			<div id="comandos"></div>
+		</div>
+	</div>
+	<form name="formulario" method="post" action="«$action»" >
+		<div class="fc-pesquisa">
+			<h4 class="fc-titulo-especifico">«$tituloEspecifico»</h4>
+			<div class="fc-campo-grupo">
+				<div class="fc-campo well well-small">
+					<label></label>
+					<span>
+						<input type="hidden" value="" name="executarNoBanco">
+						<input type="checkbox" value="executarNoBanco" class="checkbox" id="executarNoBanco" name="executarNoBanco" tabindex="1">
+						Executar os comandos no banco.</span>
+				</div>
+				<div class="fc-listagem-grupo">
+					<h4 class="fc-listagem-titulo">Tabelas do banco</h4>
+					<table summary="text" class="fc-dados-listagem table table-striped table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="checkAll"/></th>
+								<th class="nomeTabela" >Tabela</th>
+								<th class="nomeTabela" >Nome</th>
+							</tr>
+						</thead>
+						<tbody>
+							«foreach from=$listagem item=nome»
+							<tr>
+								<td class="check" align="center">
+									<input type="checkbox" id="«$nome.classe»" value="«$nome.classe»" name="classes[]" tabindex="1">
+								</td>
+								<td align="left">«$nome.tabela»</td>
+								<td align="left">«$nome.nome»</td>
+							</tr>
+							«/foreach»
+						</tbody>
+					</table>
+					<div class="btn-group">
+						<a href="#" class="btn btn-primary" id="executar" data-toggle="modal" data-target="#resultado-recriacao">
+							<i class="fc-icon-cog"></i> Executar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
-</form>

@@ -1,379 +1,559 @@
-<form id="affForm" name="formulario" method="post" action="«$action»" >
-	<h3>Acessado via: «$acesso»</h3>
+<div id="templates" style="display: none">
+	<ul>
+		<li class="js-tpl-uc-item-pesquisa">
+			O Campo <i><span class="uc-componente js-html-inter-nome"></span></i>
+			utilizando um componente <span class="js-html-negocio-tipo"></span>
+			<span class="js-oculto-negocio-tamanho">
+				com tamanho máximo definido em <span class="js-html-negocio-tamanho"></span> caracteres
+			</span>,
+			com a dica de tela [<span class="js-html-inter-descricao"></span>]
+			<span class="js-oculto-negocio-itens-dominio oculto">
+				, sendo possível somente a seleção dos valores (<span class="js-html-negocio-valores-codigo"></span>) 
+				com os respectivos textos (<span class="js-html-negocio-valores-texto"></span>)
+			</span>;
+		</li>
+		<li class="js-tpl-uc-item-edicao">
+			O Campo <span class="js-oculto-negocio-nn oculto">obrigatório </span>
+			<i><span class="uc-componente js-html-inter-nome"></span></i>
+			utilizando um componente <span class="js-html-negocio-tipo"></span>
+			<span class="js-oculto-negocio-tamanho">
+				com tamanho máximo definido em <span class="js-html-negocio-tamanho"></span> caracteres
+			</span>,
+			com a dica de tela [<span class="js-html-inter-descricao"></span>]
+			<span class="js-oculto-negocio-itens-dominio oculto">
+				, sendo possível somente a seleção dos valores (<span class="js-html-negocio-valores-codigo"></span>) 
+				com os respectivos textos (<span class="js-html-negocio-valores-texto"></span>)
+			</span>;
+		</li>
+		<li class="js-tpl-uc-item-listagem">
+			A coluna com o título <i><span class="uc-componente js-html-inter-nome"></span></i>
+			deverá apresentar os 
+			<span class="js-oculto-negocio-itens-dominio oculto">
+				valores (<span class="js-html-negocio-valores-texto"></span>) 
+			</span>
+			<span class="js-oculto-negocio-itens-ndominio">dados </span>
+			referente ao campo <span class="uc-componente js-html-persistente-campo"></span> deste cadastro;
+		</li>
+		<li class="js-tpl-uc-item-obrigatorio">
+			Caso o campo <i><span class="uc-componente js-html-inter-nome"></span></i> não esteja preenchido,
+			o registro não deverá ser gravado e o sistema deverá retornar a mensagem:
+			"O campo [<span class="uc-componente js-html-inter-nome"></span>] é obrigatório."
+		</li>
+	</ul>
+	<table>
+		<tr class="js-tpl-propriedade">
+			<td><input type="text" name="inter[nome][]" class="js-val-inter-nome"/></td>
+			<td><input type="text" name="inter[abreviacao][]" class="js-val-inter-abreviacao"/></td>
+			<td><input type="text" name="inter[descricao][]" class="js-val-inter-descricao"/></td>
+			<td><i class="icon-trash remover"></i></td>
+		</tr>
+	</table>
+	<table>
+		<tr class="js-tpl-negocio">
+			<td class="js-html-inter-nome"></td>
+			<td><input type="text" name="negocio[propriedade][]" class="js-val-negocio-propriedade"/></td>
+			<td><select name="negocio[tipo][]" class="input-small js-val-negocio-tipo">
+					<option data-componente="caixa de entrada" data-tamanho='45' value="texto" >texto</option>
+					<option data-componente="caixa de entrada" data-tamanho='10' value="numerico">numerico</option>
+					<option data-componente="data" value="data" data-tamanho-fixo=''>data</option>
+					<option data-componente="documento pessoal" value="tdocumentopessoal" data-tamanho-fixo='11'>TCpf</option>
+					<option data-componente="documento pessoal" value="tcnpj" data-tamanho-fixo='14'>TCnpj</option>
+					<option data-componente="cep" value="tcep" data-tamanho-fixo='8'>TCep</option>
+					<option data-componente="telefone" value="ttelefone" data-tamanho='15'>TTelefone</option>
+					<option data-componente="numerico" value="tnumerico" data-tamanho='10'>TNumerico</option>
+					<option data-componente="moeda" value="tmoeda" data-tamanho='10,2'>TMoeda</option>
+				</select>
+			</td>
+			<td><input type="text" name="negocio[tamanho][]" class="input-small js-val-negocio-tamanho"/></td>
+			<td><input type="radio" name="negocio[pk]" class="js-val-negocio-pk"/></td>
+			<td>
+				<input type="checkbox" name="negocio[nn][]" class="js-check-negocio-nn"/>
+			</td>
+			<td>
+				<input type="checkbox" name="negocio[uk][]" class="js-check-negocio-uk"/>
+			</td>
+			<td>
+				<input type="checkbox" name="negocio[fk][]" class="js-check-negocio-fk"/>
+			</td>
+			<td><input type="text" name="negocio[dominio-associativa][]" class="js-val-negocio-dominio"/></td>
+		</tr>
+	</table>
+	<table>
+		<tr class="js-tpl-persistente">
+			<td class="js-html-inter-nome"></td>
+			<td><input type="text" name="persistente[campo][]" class="js-val-persistente-campo"/></td>
+			<td><input type="text" name="persistente[ordem][]" class="input-small js-val-persistente-ordem"/></td>
+			<td>
+				<input type="checkbox" name="persistente[tipo-ordem][]"/>
+			</td>
+			<td><div class="oculto"><input type="text" name="persistente[referencia-tabela][]" class="input-small js-val-persistente-referencia-tabela" /></div></td>
+			<td><div class="oculto"><input type="text" name="persistente[referencia-campo][]" class="input-small js-val-persistente-referencia-campo" /></div></td>
+		</tr>
+	</table>
+	<table>
+		<tr class="js-tpl-visualizacao">
+			<td class="js-html-inter-nome"></td>
+			<td><select name="visualizacao[componente][]" class="js-val-visualizacao-componente">
+					<option value="caixa de entrada">Entrada (input)</option>
+					<option value="oculto">Oculto (hidden)</option>
+					<option value="caixa de combinacao">Caixa de Combinação (select)</option>
+					<option value="caixa de selecao">Caixa de Seleção (select multiple)</option>
+					<option value="radios">Lista de opções (radios)</option>
+					<option value="palavra chave">Palavra Chave (password)</option>
+					<option value="marcador">Marcador (checkbox)</option>
+					<option value="caixa de texto">Caixa de Texto (textarea)</option>
+					<option value="nome completo">Nome completo de pessoa</option>
+					<option value="email">Email</option>
+					<option value="data">Data: 01/01/1980</option>
+					<option value="hora">Hora: 23:59</option>
+					<option value="data e hora">Data e Hora: 01/01/1980 23:59</option>
+					<option value="telefone">Telefone: (99)9999-9999</option>
+					<option value="cep">CEP: 99.999-999</option>
+					<option value="documento pessoal">CPF: 99.999.999-99</option>
+					<option value="documento pessoal">CNPJ: 99.999.999/9999-99</option>
+					<option value="numerico">Número: 99.999.999,99</option>
+					<option value="moeda">Moeda: R$ 99.999.999,99</option>
+				</select>
+			</td>
+			<td>
+				<input type="checkbox" name="visualizacao[edicao][]" class="js-check-visualizacao-edicao"/>
+			</td>
+			<td>
+				<input type="checkbox" name="visualizacao[pesquisa][]" class="js-check-visualizacao-pesquisa"/>
+			</td>
+			<td><input type="text" name="visualizacao[ordem][]" class="input-small js-val-visualizacao-ordem"/></td>
+			<td><input type="text" name="visualizacao[ordem-descritivo][]" class="input-small js-val-visualizacao-ordem-descritivo"/></td>
+		</tr>
+	</table>
+	<table>
+		<tbody class="js-tpl-arquivo">
+			<tr><td><input type="checkbox" class="js-arquivo js-xml"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/xml/entidade.xml"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-xml"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/xml/pt_BR.xml"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/C%s_excluir.php" ></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/C%s_gravar.php"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/C%s_verEdicao.php"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/C%s_verPesquisa.php"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/C%s_verListagemPdf.php"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/I%s.php"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/N%s.php"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/P%s.mysql.php"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/P%s.postgres.php"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/P%s.sqlite.php"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-classe"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/classes/P%s.oracle.php"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-template"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/html/C%s_verEdicao.html"></td></tr>
+			<tr><td><input type="checkbox" class="js-arquivo js-template"></td>
+				<td class="js-html-arquivo" data-arquivo="%s/html/C%s_verPesquisa.html"></td></tr>
+		</tbody>
+	</table>
+</div>
+<div class="container">
+	<div class="alert alert-danger js-titulo-executando oculto">
+		<strong>Atenção, esta tela é destinada somente aos desenvolvedores do sistema.</strong><br/>
+		A manipulação desta pode destruir dados no banco e também codigo fonte do sistema, 
+		sempre que o gerador for executado ele irá recriar os arquivos do cadastro.
+	</div>
+	<div class="alert alert-success js-titulo-visualizando">
+		<strong>Nesta tela você poderá simular a geração de um cadastro.</strong><br/>
+		Preencha os dados da tela sempre prestando atenção nas dicas e clique em Gravar entidade,
+		o gerador irá simular a geração de um cadastro e irá apresentar o código fonte.
+	</div>
 
-	<style type="text/css">
-		ol{
-			list-style-type:none;
-		}
-		#tabs{
-			font-size: .8em;
-		}
-		.d-table{display:table; border:1px solid #c0c0c0; padding: 1px;}
-		.d-caption{display:table-caption; background:#c0c0c0;}
-		.d-th{display:table-cell; background:#c0c0c0; padding: 2px;}
-		.d-tr{display:table-row;}
-		.d-td{display:table-cell; padding: 5px; border: 1px solid #c0c0c0; padding: 1px;}
-		.campoListagem{
-			width: 95%;
-		}
-		input.campoListagem{
-			border-left-width: 0px;
-			border-top-width: 0px;
-			border-right-width: 0px;
-			border-bottom-width: 0px;
-		}
-		.focado{
-			background-color: #D8E4F3;
-		}
-		.atalho{
-			font-weight: bold;
-			color: #7b2929;
-		}
-		#uc{
-			padding: 30px;
-}
-		#uc ul{
-			padding-left: 20px;
-		}
-		#uc .indice ol {
-			counter-reset: indice1;
-			padding-left: 20px;
-		}
-		#uc .indice li:before {
-			content: counters(indice1, ".") "-";
-			counter-increment: indice1;
-		}
-		#uc .especificacao li{
-			padding: 10px;
-		}
-		#uc .especificacao ol {
-			counter-reset: indice2;
-			padding-left: 20px;
-		}
-		#uc .especificacao li:before {
-			content: counters(indice2, ".") "-";
-			counter-increment: indice2;
-		}
-		#uc h1{
-			font-size: 2em;
-			text-align: center;
-		}
-		#uc h2{
-			font-size: 1.2em;
-			padding: 10px;
-		}
-		#uc .indice{
-			font-size: .8em;
-		}
-		#uc .revisao{
-			font-size: .8em;
-		}
-		#uc .descritor{
-			min-height: 10px;
-			min-width: 60px;
-		}
-		#uc .descritor:hover{
-			border: 1px  dashed;
-		}
-		#uc .uc-nome-tela{
-			font-weight: bold;
-			font-style: italic;
-		}
-		#uc .uc-opcao{
-			font-style: italic;
-		}
-	</style>
-	<div class="fc-ajuda">«$textoAjudaDefinicao»</div>
-	<div class="fc-edicao">
-		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
-			<div class="fc-campo-grupo" id='camada'>
-				<div class="fc-campo-subgrupo">
-					<div class="fc-campo">
-						<label>Nome: </label>
-						<span>«$entidade»</span>
-					</div>
-					<div id="tabs">
+	<form>
+		<div class="form form-horizontal well well-small">
+			<div class="control-group">
+				<div class="controls">
+					<label><input type="radio" name="executar" value="0" checked="checked" class="js-executar"> 
+						Somente visualizar fonte do gerador.</label>
+					<label><input type="radio" name="executar" value="1" class="js-executar"> 
+						Realizar alterações no sistema.</label>
+				</div>
+			</div>		
+			<div class="control-group js-definicao-entidade">
+				<label class="control-label" >Nome: </label>
+				<div class="controls">
+					<input type="text" size="30" class="obrigatorio js-val-nome" id="entidade" name="entidade" tabindex="1" title="Digite o nome da entidade do cadastro">
+				</div>
+			</div>		
+		</div>
+		«$menuPrograma»
+		<ul class="nav nav-tabs" id="myTab">
+			<li class="active"><a href="#propriedade" data-toggle="tab" class='js-tab-propriedade'>Propriedades</a></li>
+			<li><a href="#negocio" data-toggle="tab" class='js-tab-negocio'>Negócio</a></li>
+			<li><a href="#persistente" data-toggle="tab" class='js-tab-persistente'>Persistente</a></li>
+			<li><a href="#visualizacao" data-toggle="tab" class='js-tab-visualizacao'>Visualização</a></li>
+			<li><a href="#casodeuso" data-toggle="tab" class='js-tab-caso-de-uso'>Caso de Uso</a></li>
+			<li><a href="#configuracao" data-toggle="tab" class='js-tab-configuracao'>Configuração</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="propriedade">
+				<div class="alert alert-info">
+					<strong>Defina aqui os nomes das propriedades da entidade.</strong><br/>
+					Aqui você pode definir quais caracteristicas existem na sua entidade, comece sempre pelo identificador único da entidade.
+					(Nesta etapa podem ser digitados com acentuação, veja as dicas nos títulos das colunas).
+				</div>
+				<table class="table table-striped table-condensed table-hover">
+					<thead>
+						<tr>
+							<th title="O nome da característica da entidade">Nome da Propriedade</th>
+							<th title="A abreviação da característica da entidade">Nome abreviado</th>
+							<th title="A descrição da característica da entidade">Descrição (Tooltip)</th>
+							<th title="Clique para remover esta coluna."></th>
+						</tr>
+					</thead>
+					<tbody class="js-tbody js-tbody-propriedade">
+
+					</tbody>
+				</table>
+				<a id="adicionar-linha" href="#" class="btn btn-success"><i class="icon-plus-sign icon-white"></i> Adicionar atributo</a>
+			</div>
+			<div class="tab-pane" id="negocio">
+				<div class="alert alert-info">
+					<strong>Defina aqui os atributos e regras de negócio da entidade.</strong><br/>
+					Aqui você definirá nomes, tipos e algumas regras de cada atributo do negócio. 
+					(Veja as dicas nos títulos das colunas)
+				</div>
+				<table class="table table-striped table-condensed table-hover">
+					<thead>
+						<tr>
+							<th title="O nome da propriedade da entidade">Propriedades</th>
+							<th title="O nome da propriedade na camada de negócio (clique para sugerir todos)"><a href="#" id="sugerirNomesPropriedades">Propriedades de Negócio</a></th>
+							<th title="O tipo de dado da propriedade">Tipo</th>
+							<th title="O tamanho em caracteres da propriedade">Tamanho</th>
+							<th title="Chave primária">PK</th>
+							<th title="Não Nulo">NN</th>
+							<th title="Chave única">UK</th>
+							<th title="Chave extrangeira">FK</th>
+							<th title="Selecione um método ou defina um domínio Ex:[1,Sim][2,Não]">Dominio ou Método de Leitura</th>
+						</tr>
+					</thead>
+					<tbody class="js-tbody js-tbody-negocio">
+
+					</tbody>
+				</table>
+			</div>
+			<div class="tab-pane" id="persistente">
+				<div class="alert alert-info">
+					<strong>Defina aqui a tabela, a sequence e os campos no banco de dados.</strong><br/>
+					Aqui será definido o nome da tabela, o nome da sequence e dos campos que o cadastro irá manipular no banco de dados.
+					Também pode ser definido a ordenação padrão para a leitura e as referências externas dos campos.
+					(Veja as dicas nos títulos das colunas)
+				</div>
+				<div class="form form-horizontal well well-small">
+					<div class="control-group js-definicao-banco">
+						<label class="control-label" ><a href="#" id="sugerirNomeTabela">Tabela:</a></label>
+						<div class="controls">
+							<input type="text" class="obrigatorio js-val-tabela" id="nomeTabela" name="nomeTabela" tabindex="1" title="Digite o nome da tabela do cadastro">
+						</div>
+					</div>		
+					<div class="control-group js-definicao-banco">
+						<label class="control-label" ><a href="#" id="sugerirNomeSequence">Sequence:</a></label>
+						<div class="controls">
+							<input type="text" class="obrigatorio js-val-sequencia" id="nomeSequence" name="nomeSequence" tabindex="1" title="Digite o nome da sequence referente a tabela">
+						</div>
+					</div>		
+				</div>
+				<table class="table table-striped table-condensed table-hover">
+					<thead>
+						<tr>
+							<th title="O nome da propriedade da entidade">Propriedade</th>
+							<th title="O nome do campo na tabela do banco (clique para sugerir todos)"><a href="#" id="sugerirNomesCampos" accesskey="M">Campo da tabela</a></th>
+							<th title="A prioridade de ordenação do campo na tabela do banco">Ordenação</th>
+							<th title="O tipo de ordenação do campo">Decrescente</th>
+							<th title="Caso chave extrangeira identifique o nome da tabela de referência ">Referencia a tabela</th>
+							<th title="Caso chave extrangeira identifique o nome do campo de referência ">Referencia ao campo</th>
+						</tr>
+					</thead>
+					<tbody class="js-tbody js-tbody-persistente">
+
+					</tbody>
+				</table>
+			</div>
+			<div class="tab-pane" id="visualizacao">
+				<div class="alert alert-info">
+					<strong>Defina aqui a tela de pesquisa e de edição do cadastro.</strong><br/>
+					Aqui você definirá os componentes de apresentação dos dados para edição e pesquisa.<br/>
+					(Veja as dicas nos títulos das colunas)
+				</div>
+				<table class="table table-striped table-condensed table-hover">
+					<thead>
+						<tr>
+							<th title="O nome da propriedade da entidade">Propriedade</th>
+							<th title="Definição do componente de apresentação da propriedade (clique para sugerir todos)"><a href="#" id="sugerirComponentes">Componente</a></th>
+							<th title="Apresentar na 'tela padrão de edição'">Edição</th>
+							<th title="Apresentar na 'tela padrão de pesquisa'">Pesquisa</th>
+							<th title="A ordem de apresentação na listagem da tela de pesquisa">Listagem</th>
+							<th title="A ordem na apresentação descritiva do registro Ex: 'Campo01 - Campo02 - Campo03'">Ordem na descrição</th>
+						</tr>
+					</thead>
+					<tbody class="js-tbody js-tbody-visualizacao">
+
+					</tbody>
+				</table>
+			</div>
+			<div class="tab-pane" id="configuracao">
+				<div class="alert alert-danger js-titulo-executando oculto">
+					<strong>"CUIDADO!" Defina aqui quais os arquivos deverão ser criados.</strong><br/>
+					Aqui você poderá definir se deseja criar a tabela no banco, caso já exista ela será "dropada" e criada novamente.<br/>
+					Aqui você poderá definir os arquivos a serem criados, caso os já existam estes arquivos serão apagados e criados novamente.<br/>
+				</div>
+				<div class="alert alert-success js-titulo-visualizando">
+					<strong>Selecione os arquivos para a visualização.</strong><br/>
+					Não será executada nenhuma modificação no banco de dados.<br/>
+					Aqui você poderá definir os arquivos a serem visualizados antes da criação.<br/>
+				</div>
+				<table class="table table-striped table-condensed table-hover">
+					<thead>
+						<tr>
+							<th class="span1"></th>
+							<th>Banco de dados</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>«$recriarBase»</td>
+							<td>Recriar a tabela no banco de dados</td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="table table-striped table-condensed table-hover js-tbody-arquivo">
+					<thead>
+						<tr>
+							<th class="span1"></th>
+							<th><a href="#" class="gerar-tipo" data-tipo="js-arquivo">Arquivos</a>: 
+								<a href="#" class="gerar-tipo" data-tipo="js-xml">xml</a>, 
+								<a href="#" class="gerar-tipo" data-tipo="js-classe">classes</a> e 
+								<a href="#" class="gerar-tipo" data-tipo="js-template">templates</a></th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div class="tab-pane" id="casodeuso">
+				<div class="alert alert-info">
+					<strong>Confira aqui o funcionamento do cadastro.</strong><br/>
+					Aqui você pode verificar como irá funcionar o cadastro atravéz de uma especificação de caso de uso. 
+					Leia atentamente o comportamento do cadastro.
+				</div>
+
+				<div id="uc" style="text-align: justify;" class="well">
+					<br/>
+					Especificação de Caso de Uso: <span class="descritor uc-nome">Nome</span>
+					<br/>
+					<h3>Histórico da Revisão</h3>
+					<div class="revisao">
 						<ul>
-							<li><a id="guia_1" class="guia" href="#tabs-1" accesskey="1"><label class="atalho">1.</label>Propriedades</a></li>
-							<li><a id="guia_2" class="guia" href="#tabs-2" accesskey="2"><label class="atalho">2.</label>Negócio</a></li>
-							<li><a id="guia_3" class="guia" href="#tabs-3" accesskey="3"><label class="atalho">3.</label>Persistente</a></li>
-							<li><a id="guia_4" class="guia" href="#tabs-4" accesskey="4"><label class="atalho">4.</label>Visualização</a></li>
-							<li><a id="guia_5" class="guia" href="#tabs-5" accesskey="5"><label class="atalho">5.</label>Configurações</a></li>
-							<li><a id="guia_6" class="guia" href="#tabs-6" accesskey="6"><label class="atalho">6.</label>Caso de Uso</a></li>
+							<li>Data: <span class="descritor uc-data">Data</span></li>
+							<li>Versão: <span class="descritor uc-versao">Versao</span></li>
+							<li>Descrição: <span class="descritor uc-descricao">Descricao</span></li>
+							<li>Autor:  <span class="descritor uc-autor">Nome</span></li>
+							<li><span class="descritor uc-data-criacao">Criação</span></li>
+							<li><span class="descritor uc-detalhe">Detalhe</span></li>
 						</ul>
-						<div id="tabs-1">
-							<div class="d-table t-linhas tabela1 fc-campo" id="ent">
-								<div class="d-tr">
-									<div class="d-th " title="O nome da característica da entidade">Nome da Propriedade</div>
-									<div class="d-th " title="A abreviação da característica da entidade">Nome abreviado</div>
-									<div class="d-th " title="A descrição da característica da entidade">Descrição (Tooltip)</div>
-									<div class="d-th " title="Clique para remover esta coluna."></div>
-								</div>
-							</div><br />
-							<input type="button" value="Adicionar nova propriedade" class="adicionar" accesskey="A"/>
-						</div>
-						<div id="tabs-2">
-							Sugerir nomes das <a href="#" id="sugerirNomesPropriedades" accesskey="P"><label class="atalho">p</label>ropriedades</a>.<br /><br />
-							<div class="d-table t-linhas tabela1 fc-campo" id="neg">
-								<div class="d-tr">
-									<div class="d-th " title="O nome da propriedade da entidade">Propriedade</div>
-									<div class="d-th " title="O nome da propriedade na camada de negócio">Propriedade de Negócio</div>
-									<div class="d-th " title="O tipo de dado da propriedade">Tipo</div>
-									<div class="d-th " title="O tamanho em caracteres da propriedade">Tamanho</div>
-									<div class="d-th " title="Chave primária">PK</div>
-									<div class="d-th " title="Não Nulo">NN</div>
-									<div class="d-th " title="Chave única">UK</div>
-									<div class="d-th " title="Chave extrangeira">FK</div>
-									<div class="d-th " title="Selecione um método ou defina um domínio Ex:[1,Sim][2,Não]">Dominio ou Método de Leitura</div>
-								</div>
-							</div>
-						</div>
-						<div id="tabs-3">
-							Sugerir nome de <a href="#" id="sugerirNomeTabela" accesskey="T"><label class="atalho">t</label>abela</a> de <a href="#" id="sugerirNomeSequence" accesskey="S"><label class="atalho">s</label>equence</a> e nomes dos <a href="#" id="sugerirNomesCampos" accesskey="M">ca<label class="atalho">m</label>pos</a>.<br /><br />
-							<div class="texto">
-								<div class='fc-campo'>
-									<label>Tabela: </label>
-									<span>«$nomeTabela»</span>
-								</div>
-								<div class='fc-campo'>
-									<label>Sequence: </label>
-									<span>«$nomeSequence»</span>
-								</div>
-							</div><br />
-							<div class="d-table t-linhas tabela1 fc-campo"	 id="per">
-								<div class="d-tr">
-									<div class="d-th " title="O nome da propriedade da entidade">Propriedade</div>
-									<div class="d-th " title="O nome do campo na tabela do banco">Campo da tabela</div>
-									<div class="d-th " title="A prioridade de ordenação do campo na tabela do banco">Ordenação</div>
-									<div class="d-th " title="O tipo de ordenação do campo">Decrescente</div>
-									<div class="d-th " title="Caso chave extrangeira identifique o nome da tabela de referência ">Referencia a tabela</div>
-									<div class="d-th " title="Caso chave extrangeira identifique o nome do campo de referência ">Referencia ao campo</div>
-								</div>
-							</div>
-						</div>
-						<div id="tabs-4">
-							Sugerir <a href="#" id="sugerirComponentes" accesskey="C"><label class="atalho">c</label>omponentes</a> de visualização.<br /><br />
-							<div class="d-table t-linhas tabela1 ui-corner-all" id="vis">
-								<div class="d-tr">
-									<div class="d-th " title="O nome da propriedade da entidade">Propriedade</div>
-									<div class="d-th " title="Definição do componente de apresentação da propriedade">Componente</div>
-									<div class="d-th " title="Apresentar na 'tela padrão de edição'">Edição</div>
-									<div class="d-th " title="Apresentar na 'tela padrão de pesquisa'">Pesquisa</div>
-									<div class="d-th " title="A ordem de apresentação na listagem da tela de pesquisa">Listagem</div>
-									<div class="d-th " title="A ordem na apresentação descritiva do registro Ex: 'Campo01 - Campo02 - Campo03'">Ordem na descrição</div>
-									<div class="d-th " title="A largura da coluna na listagem de apresentação (em %)">Largura</div>
-								</div>
-							</div>
-						</div>
-						<div id="tabs-5">
-							Gerar os <a href="#" id="gerarArquivos" accesskey="R">a<label class="atalho">r</label>quivos</a> das <a href="#" id="gerarClasses" accesskey="L">c<label class="atalho">l</label>asses</a>, dos <a href="#" id="gerarTemplates" accesskey="E">t<label class="atalho">e</label>mplates</a> e dos <a href="#" id="gerarXml" accesskey="X"><label class="atalho">x</label>mls</a>.
-							<br/>
-							<br/>
-							<div class="d-table tabela1" id="arq">
-								<div class="d-tr">
-									<div class="d-th "></div>
-									<div class="d-th ">Banco de dados</div>
-								</div>
-								<div class="d-tr"><div class="d-td">«$recriarBase»</div><div class="d-td">Recriar a tabela no banco de dados</div></div>
-								<div class="d-tr">
-									<div class="d-th "></div>
-									<div class="d-th " title="Selecione o arquivo para salvá-lo">Arquivos</div>
-								</div>
-							</div>
-						</div>
-						<div id="tabs-6">
-							<div class="d-table tabela1">
-								<div class="d-tr">
-									<div class="d-th ">Caso de uso do cadastro</div>
-								</div>
-								<div class="d-tr">
-									<div id="uc" style="text-align: justify;"><br/>
-
-										<h1>«$titulo»</h1><br/><br/><br/>
-										Especificação de Caso de Uso: <span class="descritor uc-nome">Nome</span><br/><br/>
-										<br/>
-										<h2>Histórico da Revisão</h2>
-										<div class="revisao">
-											<ul>
-												<li>Data: <span class="descritor uc-data">Data</span></li>
-												<li>Versão: <span class="descritor uc-versao">Versao</span></li>
-												<li>Descrição: <span class="descritor uc-descricao">Descricao</span></li>
-												<li>Autor:  <span class="descritor uc-autor">Nome</span></li>
-												<li><span class="descritor uc-data-criacao">Criação</span></li>
-												<li><span class="descritor uc-detalhe">Detalhe</span></li>
-											</ul>
-										</div>
-										<h2>Índice Analítico</h2>
-										<div class="indice">
-											<ol class="uc-indice-analitico">
-												<li>
-													<span class="descritor uc-nome" title="O template a seguir é fornecido para uma Especificação de Caso de Uso, que contém as propriedades de texto do caso de uso.  Este documento é usado com uma ferramenta de gerenciamento de requisitos, como o Rational RequisitePro, para especificar e marcar os requisitos contidos nas propriedades do caso de uso.<br/>
-												Os diagramas do caso de uso podem ser desenvolvidos em uma ferramenta de modelagem visual, como o Rational Rose.  Um relatório de caso de uso (com todas as propriedades) pode ser gerado com o Rational SoDA. Para obter mais informações, consulte os mentores de ferramentas do Rational Unified Process.">
-														Nome do caso de uso</span>
-													<ol>
-														<li>
-														<span title="A descrição relata brevemente a finalidade do caso de uso. Para tanto, será suficiente um único parágrafo.">
-														Breve descrição
-														</span>
-														</li>
-													</ol>
-												</li>
-												<li>Fluxo de Eventos
-													<ol class="uc-fluxos">
-														<li>
-															<span title="Este caso de uso é iniciado quando o ator faz algo. Um ator sempre inicia os casos de uso.  O caso de uso descreve o que o ator faz e o que o sistema faz em resposta. Ele deve ser elaborado como um diálogo entre o ator e o sistema.">
-															Fluxo básico
-															</span>
-															<ol class="uc-fluxo-basico"/>
-														</li>
-														<li>
-															<span title="As alternativas mais complexas são descritas em uma seção separada, a que é feita referência na subseção Fluxo Básico da seção Fluxo de Eventos. Pense nas subseções Fluxo Alternativo como comportamentos alternativos — cada fluxo alternativo representa um comportamento alternativo geralmente devido a exceções que ocorrem no fluxo principal. O tamanho desses fluxos poderá ser tão extenso quanto o necessário para descrever os eventos associados ao comportamento alternativo. Quando um fluxo alternativo termina, os eventos do fluxo principal de eventos são retomados a menos que seja especificado de outra maneira.">
-															Fluxo alternativos
-															</span>
-															<ol class="uc-fluxo-alternativo"/>
-														</li>
-													</ol>
-												</li>
-												<li>
-													<span title="Normalmente um requisito especial é um requisito não funcional que é específico de um caso de uso, mas que não é especificado, de maneira fácil ou natural, no texto do fluxo de eventos do caso de uso. Entre os exemplos de requisitos especiais estão incluídos requisitos legais e reguladores, padrões de aplicativo e atributos de qualidade do sistema a ser criado incluindo requisitos de usabilidade, confiabilidade, desempenho ou suportabilidade. Além disso, outros requisitos — como sistemas operacionais e ambientes, requisitos de compatibilidade e restrições de design — deverão ser capturados nesta seção.">
-													Requisitos especiais
-													</span>
-													<ol class="uc-requisitos-especiais"/>
-												</li>
-												<li>
-													<span title="Uma condição prévia de um caso de uso é o estado do sistema que deve estar presente antes de um caso de uso ser realizado.">
-													Condições Prévias
-													</span>
-													<ol class="uc-condicoes-previas"/>
-												</li>
-												<li>
-													<span title="Uma condição posterior de um caso de uso é uma lista dos possíveis estados em que o sistema poderá se encontrar imediatamente depois do término de um caso de uso.">
-													Condições Posteriores
-													</span>
-													<ol class="uc-condicoes-posteriores"/>
-												</li>
-											</ol>
-										</div>
-										<h2>Especificação</h2>
-										<div class="especificacao">
-											<ol class="uc-indice-analitico">
-												<li>
-													<span class="descritor uc-nome"  title="O template a seguir é fornecido para uma Especificação de Caso de Uso, que contém as propriedades de texto do caso de uso.  Este documento é usado com uma ferramenta de gerenciamento de requisitos, como o Rational RequisitePro, para especificar e marcar os requisitos contidos nas propriedades do caso de uso.<br/>
-												Os diagramas do caso de uso podem ser desenvolvidos em uma ferramenta de modelagem visual, como o Rational Rose.  Um relatório de caso de uso (com todas as propriedades) pode ser gerado com o Rational SoDA. Para obter mais informações, consulte os mentores de ferramentas do Rational Unified Process.">
-														Nome do caso de uso
-													</span>
-													<ol>
-														<li title="A descrição relata brevemente a finalidade do caso de uso. Para tanto, será suficiente um único parágrafo.">
-														Breve descrição</li>
-													</ol>
-												</li>
-												<li>Fluxo de Eventos
-													<ol class="uc-fluxos">
-														<li>
-															<span  title="Este caso de uso é iniciado quando o ator faz algo. Um ator sempre inicia os casos de uso.  O caso de uso descreve o que o ator faz e o que o sistema faz em resposta. Ele deve ser elaborado como um diálogo entre o ator e o sistema.">
-															Fluxo básico
-															</span>
-															<ol class="uc-fluxo-basico">
-															O ator deverá acessar a tela <span class="descritor uc-nome"></span> - Pesquisa pelo menu do sistema.
-																<li>A tela <span class="uc-nome-tela"><span class="descritor uc-nome"></span> - Pesquisa</span>:<br/>
-																	Esta tela tem a funcão de pesquisa e navegação nos registros do cadastro e é definida com os seguintes componentes e opções:
-																	<ol class="uc-campos-pesquisa">
-																		<li>A opção <span class="uc-opcao">"Novo Registro"</span> para apresentar a tela de inclusão de um novo registro.</li>
-																		<li>A opção <span class="uc-opcao">"Pesquisar"</span> para efetuar a pesquisa segundo o preenchimento dos campos da pesquisa.<br/><br/></li>
-																		<li>Também deverá apresentar uma <span>listagem</span> para a apresentação dos dados de <span class="descritor uc-nome"></span>
-																			<ol class="uc-colunas">Em cada item da listagem deverá possuir os links com as ações:
-																				<li class="uc-coluna-excluir"><span class="uc-opcao">"Excluir"</span> para acionar a exclusão do registro referente a linha da listagem.</li>
-																				<li class="uc-coluna-editar"><span class="uc-opcao">"Editar"</span> para apresentar a tela de edição do registro referente a linha da listagem.</li>
-																			</ol>
-																		</li>
-																	</ol>
-																</li>
-																<li>A tela <span class="uc-nome-tela"><span class="descritor uc-nome"></span> - Edição</span>:<br/>
-																	Esta tela tem a função de inclusão de um novo registro e a edição de um registro existente, é composta com os seguintes componentes e opções:
-																	<ol class="uc-campos-edicao">
-																		<li>A opção <span class="uc-opcao">"Gravar"</span> para executar a gravação do registro no banco de dados do sistema.</li>
-																		<li>A opção <span class="uc-opcao">"Excluir"</span> para executar a exclusão do registro no banco de dados do sistema.</li>
-																		<li>A opção <span class="uc-opcao">"Tela de Pesquisa"</span> para redirecionar o cadastro para a tela: <span class="uc-nome-tela"><span class="descritor uc-nome"></span> - Pesquisa</span> </li>
-																	</ol>
-																</li>
-															</ol>
-														</li>
-													</ol>
-												</li>
-												<li>
-													<span title="As alternativas mais complexas são descritas em uma seção separada, a que é feita referência na subseção Fluxo Básico da seção Fluxo de Eventos. Pense nas subseções Fluxo Alternativo como comportamentos alternativos — cada fluxo alternativo representa um comportamento alternativo geralmente devido a exceções que ocorrem no fluxo principal. O tamanho desses fluxos poderá ser tão extenso quanto o necessário para descrever os eventos associados ao comportamento alternativo. Quando um fluxo alternativo termina, os eventos do fluxo principal de eventos são retomados a menos que seja especificado de outra maneira.">
-														Fluxo alternativos</span>
-													<ol class="uc-fluxo-alternativo">
-														<li>Pesquisa Vazia
-															<ol>
-																<li>Ao se realizar uma pesquisa que não exista registros a serem apresentados, no local da listagem deverá ser apresentado a mensagem “Não foram encontrados registros”.</li>
-															</ol>
-														</li>
-														<li>Exclusão Condicional
-															<ol>
-																<li>Ao clicar em uma opção [Excluir], o sistema deverá solicitar uma confirmação ao ator com a seguinte mensagem <br/>
-																	<dd>“Deseja realmente excluir este registro?”. <br/>
-																	<dd>Caso a resposta do ator seja afirmativa o sistema deverá realizar a exclusão do registro, <br/>
-																	<dd>caso a resposta do ator seja negativa o sistema deverá cancelar a operação.<br/>
-																</li>
-															</ol>
-														</li>
-														<li>Gravação sem Dados
-															<ol class="uc-gravacao-sem-dados"></ol>
-														</li>
-													</ol>
-												</li>
-											</li>
-											<li>
-												<span title="Normalmente um requisito especial é um requisito não funcional que é específico de um caso de uso, mas que não é especificado, de maneira fácil ou natural, no texto do fluxo de eventos do caso de uso. Entre os exemplos de requisitos especiais estão incluídos requisitos legais e reguladores, padrões de aplicativo e atributos de qualidade do sistema a ser criado incluindo requisitos de usabilidade, confiabilidade, desempenho ou suportabilidade. Além disso, outros requisitos — como sistemas operacionais e ambientes, requisitos de compatibilidade e restrições de design — deverão ser capturados nesta seção.">
-													Requisitos especiais</span>
-												<ol class="uc-requisitos-especiais">
-													<li>Disponibilidade e conectividade do servidor web com a aplicação.</li>
+					</div>
+					<h3>Índice Analítico</h3>
+					<div class="indice">
+						<ol class="uc-indice-analitico">
+							<li>
+								<span class="descritor uc-nome" title="O template a seguir é fornecido para uma Especificação de Caso de Uso, que contém as propriedades de texto do caso de uso.  Este documento é usado com uma ferramenta de gerenciamento de requisitos, como o Rational RequisitePro, para especificar e marcar os requisitos contidos nas propriedades do caso de uso.<br/>
+									  Os diagramas do caso de uso podem ser desenvolvidos em uma ferramenta de modelagem visual, como o Rational Rose.  Um relatório de caso de uso (com todas as propriedades) pode ser gerado com o Rational SoDA. Para obter mais informações, consulte os mentores de ferramentas do Rational Unified Process.">
+									Nome do caso de uso</span>
+								<ol>
+									<li>
+										<span title="A descrição relata brevemente a finalidade do caso de uso. Para tanto, será suficiente um único parágrafo.">
+											Breve descrição
+										</span>
+									</li>
+								</ol>
+							</li>
+							<li>Fluxo de Eventos
+								<ol class="uc-fluxos">
+									<li>
+										<span title="Este caso de uso é iniciado quando o ator faz algo. Um ator sempre inicia os casos de uso.  O caso de uso descreve o que o ator faz e o que o sistema faz em resposta. Ele deve ser elaborado como um diálogo entre o ator e o sistema.">
+											Fluxo básico
+										</span>
+										<ol class="uc-fluxo-basico"></ol>
+									</li>
+									<li>
+										<span title="As alternativas mais complexas são descritas em uma seção separada, a que é feita referência na subseção Fluxo Básico da seção Fluxo de Eventos. Pense nas subseções Fluxo Alternativo como comportamentos alternativos — cada fluxo alternativo representa um comportamento alternativo geralmente devido a exceções que ocorrem no fluxo principal. O tamanho desses fluxos poderá ser tão extenso quanto o necessário para descrever os eventos associados ao comportamento alternativo. Quando um fluxo alternativo termina, os eventos do fluxo principal de eventos são retomados a menos que seja especificado de outra maneira.">
+											Fluxo alternativos
+										</span>
+										<ol class="uc-fluxo-alternativo"></ol>
+									</li>
+								</ol>
+							</li>
+							<li>
+								<span title="Normalmente um requisito especial é um requisito não funcional que é específico de um caso de uso, mas que não é especificado, de maneira fácil ou natural, no texto do fluxo de eventos do caso de uso. Entre os exemplos de requisitos especiais estão incluídos requisitos legais e reguladores, padrões de aplicativo e atributos de qualidade do sistema a ser criado incluindo requisitos de usabilidade, confiabilidade, desempenho ou suportabilidade. Além disso, outros requisitos — como sistemas operacionais e ambientes, requisitos de compatibilidade e restrições de design — deverão ser capturados nesta seção.">
+									Requisitos especiais
+								</span>
+								<ol class="uc-requisitos-especiais"></ol>
+							</li>
+							<li>
+								<span title="Uma condição prévia de um caso de uso é o estado do sistema que deve estar presente antes de um caso de uso ser realizado.">
+									Condições Prévias
+								</span>
+								<ol class="uc-condicoes-previas"></ol>
+							</li>
+							<li>
+								<span title="Uma condição posterior de um caso de uso é uma lista dos possíveis estados em que o sistema poderá se encontrar imediatamente depois do término de um caso de uso.">
+									Condições Posteriores
+								</span>
+								<ol class="uc-condicoes-posteriores"></ol>
+							</li>
+							<li>Pontos de Extensão.</li>
+						</ol>
+					</div>
+					<h2>Especificação</h2>
+					<div class="especificacao">
+						<ol class="uc-indice-analitico">
+							<li>
+								<span class="descritor uc-nome"  title="O template a seguir é fornecido para uma Especificação de Caso de Uso, que contém as propriedades de texto do caso de uso.  Este documento é usado com uma ferramenta de gerenciamento de requisitos, como o Rational RequisitePro, para especificar e marcar os requisitos contidos nas propriedades do caso de uso.<br/>
+									  Os diagramas do caso de uso podem ser desenvolvidos em uma ferramenta de modelagem visual, como o Rational Rose.  Um relatório de caso de uso (com todas as propriedades) pode ser gerado com o Rational SoDA. Para obter mais informações, consulte os mentores de ferramentas do Rational Unified Process.">
+									Nome do caso de uso
+								</span>
+								<ol>
+									<li title="A descrição relata brevemente a finalidade do caso de uso. Para tanto, será suficiente um único parágrafo.">
+										Breve descrição</li>
+								</ol>
+							</li>
+							<li>Fluxo de Eventos
+								<ol class="uc-fluxos">
+									<li>
+										<span  title="Este caso de uso é iniciado quando o ator faz algo. Um ator sempre inicia os casos de uso.  O caso de uso descreve o que o ator faz e o que o sistema faz em resposta. Ele deve ser elaborado como um diálogo entre o ator e o sistema.">
+											Fluxo básico
+										</span>
+										<ol class="uc-fluxo-basico">
+											O ator deverá acessar a tela <span class="descritor uc-nome"></span> - Pesquisa pelo menu do sistema.
+											<li>A tela <span class="uc-nome-tela"><span class="descritor uc-nome"></span> - Pesquisa</span>:<br/>
+												Esta tela tem a funcão de pesquisa e navegação nos registros do cadastro e é definida com os seguintes componentes e opções:
+												<ol class="uc-campos-pesquisa">
+													<li>A opção <span class="uc-opcao">"Novo Registro"</span> para apresentar a tela de inclusão de um novo registro.</li>
+													<li>A opção <span class="uc-opcao">"Pesquisar"</span> para efetuar a pesquisa segundo o preenchimento dos campos da pesquisa.<br/><br/></li>
+													<li>Também deverá apresentar uma <span>listagem</span> para a apresentação dos dados de <span class="descritor uc-nome"></span>
+														<ol class="uc-colunas">
+															Em cada item da listagem deverá possuir os links com as ações:
+															<li class="uc-coluna-excluir"><span class="uc-opcao">"Excluir"</span> para acionar a exclusão do registro referente a linha da listagem.</li>
+															<li class="uc-coluna-editar"><span class="uc-opcao">"Editar"</span> para apresentar a tela de edição do registro referente a linha da listagem.</li>
+														</ol>
+													</li>
 												</ol>
 											</li>
-											<li>
-												<span title="Uma condição prévia de um caso de uso é o estado do sistema que deve estar presente antes de um caso de uso ser realizado.">
-													Condições Prévias
-												</span>
-												<ol class="uc-condicoes-previas">
-													<li>O sistema deverá estar configurado e com conetado ao banco de dados.</li>
-													<li>A tabela "<span class="uc-nome-tabela"></span>" deverá existir e estar disponível para leitura e gravação.</li>
+											<li>A tela <span class="uc-nome-tela"><span class="descritor uc-nome"></span> - Edição</span>:<br/>
+												Esta tela tem a função de inclusão de um novo registro e a edição de um registro existente, é composta com os seguintes componentes e opções:
+												<ol class="uc-campos-edicao">
+													<li>A opção <span class="uc-opcao">"Gravar"</span> para executar a gravação do registro no banco de dados do sistema.</li>
+													<li>A opção <span class="uc-opcao">"Excluir"</span> para executar a exclusão do registro no banco de dados do sistema.</li>
+													<li>A opção <span class="uc-opcao">"Tela de Pesquisa"</span> para redirecionar o cadastro para a tela: <span class="uc-nome-tela"><span class="descritor uc-nome"></span> - Pesquisa</span> </li>
 												</ol>
 											</li>
-											<li>
-												<span title="Uma condição posterior de um caso de uso é uma lista dos possíveis estados em que o sistema poderá se encontrar imediatamente depois do término de um caso de uso.">
-													Condições Posteriores
-												</span>
-												<ol class="uc-condicoes-posteriores">
-													<li>O cadastro deverá conseguir efetuar as operações de inclusão, pesquisa, alteração e exclusão nos registros da tabela "<span class="uc-nome-tabela"></span>".</li>
-													<li>A pesquisa poderá ser efetuada pelos campos disponíveis na tela de pesquisa.</li>
-												</ol>
-											</li>
-											<li>Pontos de Extensão.
+										</ol>
+									</li>
+									<li>
+										<span title="As alternativas mais complexas são descritas em uma seção separada, a que é feita referência na subseção Fluxo Básico da seção Fluxo de Eventos. Pense nas subseções Fluxo Alternativo como comportamentos alternativos — cada fluxo alternativo representa um comportamento alternativo geralmente devido a exceções que ocorrem no fluxo principal. O tamanho desses fluxos poderá ser tão extenso quanto o necessário para descrever os eventos associados ao comportamento alternativo. Quando um fluxo alternativo termina, os eventos do fluxo principal de eventos são retomados a menos que seja especificado de outra maneira.">
+											Fluxo alternativos</span>
+										<ol class="uc-fluxo-alternativo">
+											<li>Pesquisa Vazia
 												<ol>
-													<li>Não se aplica.</li>
+													<li>Ao se realizar uma pesquisa que não exista registros a serem apresentados, no local da listagem deverá ser apresentado a mensagem “Não foram encontrados registros”.</li>
 												</ol>
 											</li>
-											</ol>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div><br />
-					<div id='menu_corpo'>
-						«$menuPrograma»
+											<li>Exclusão Condicional
+												<ol>
+													<li>Ao clicar em uma opção [Excluir], o sistema deverá solicitar uma confirmação ao ator com a seguinte mensagem <br/>
+													<dd>“Deseja realmente excluir este registro?”. <br/>
+													<dd>Caso a resposta do ator seja afirmativa o sistema deverá realizar a exclusão do registro, <br/>
+													<dd>caso a resposta do ator seja negativa o sistema deverá cancelar a operação.<br/>
+														</li>
+												</ol>
+											</li>
+											<li>Gravação sem Dados
+												<ol class="uc-gravacao-sem-dados"></ol>
+											</li>
+										</ol>
+									</li>
+								</ol>
+							</li>
+							<!--</li>-->
+							<li>
+								<span title="Normalmente um requisito especial é um requisito não funcional que é específico de um caso de uso, mas que não é especificado, de maneira fácil ou natural, no texto do fluxo de eventos do caso de uso. Entre os exemplos de requisitos especiais estão incluídos requisitos legais e reguladores, padrões de aplicativo e atributos de qualidade do sistema a ser criado incluindo requisitos de usabilidade, confiabilidade, desempenho ou suportabilidade. Além disso, outros requisitos — como sistemas operacionais e ambientes, requisitos de compatibilidade e restrições de design — deverão ser capturados nesta seção.">
+									Requisitos especiais</span>
+								<ol class="uc-requisitos-especiais">
+									<li>Disponibilidade e conectividade do servidor web com a aplicação.</li>
+								</ol>
+							</li>
+							<li>
+								<span title="Uma condição prévia de um caso de uso é o estado do sistema que deve estar presente antes de um caso de uso ser realizado.">
+									Condições Prévias
+								</span>
+								<ol class="uc-condicoes-previas">
+									<li>O sistema deverá estar configurado e com conetado ao banco de dados.</li>
+									<li>A tabela "<span class="uc-nome-tabela"></span>" deverá existir e estar disponível para leitura e gravação.</li>
+								</ol>
+							</li>
+							<li>
+								<span title="Uma condição posterior de um caso de uso é uma lista dos possíveis estados em que o sistema poderá se encontrar imediatamente depois do término de um caso de uso.">
+									Condições Posteriores
+								</span>
+								<ol class="uc-condicoes-posteriores">
+									<li>O cadastro deverá conseguir efetuar as operações de inclusão, pesquisa, alteração e exclusão nos registros da tabela "<span class="uc-nome-tabela"></span>".</li>
+									<li>A pesquisa poderá ser efetuada pelos campos disponíveis na tela de pesquisa.</li>
+								</ol>
+							</li>
+							<li>Pontos de Extensão.
+								<ol>
+									<li>Não se aplica.</li>
+								</ol>
+							</li>
+						</ol>
 					</div>
 				</div>
+
+			</div>
+		</div>		
+	</form>
+    <div id='certeza' class="modal hide fade">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3>Atenção</h3>
+		</div>
+		<div class="modal-body">
+			<p>Certifique-se de que você deseja realmente escrever os arquivos ou alterar o banco no servidor.</p>
+			<p class="text-right">Deseja continuar?</p>
+		</div>
+		<div class="modal-footer">
+			<a id='nao-certeza' href="#" class="btn">Não executar</a>
+			<a id='sim-certeza' href="#" class="btn btn-danger">Executar geração</a>
+		</div>
+    </div>
+	<div id="resultado" class="modal hide fade modal-resultado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<div class="alert alert-success js-titulo js-titulo-visualizando">
+				<strong>Visualizando código fonte</strong><br/>
+				O Gerador não executou alterações nos arquivos ou no banco de dados.
+			</div>
+			<div class="alert alert-danger js-titulo js-titulo-executando oculto">
+				<strong>Executando a criação do cadastro</strong><br/>
+				O Gerador <strong>executou</strong> as alterações selecionadas para os arquivos e banco.
 			</div>
 		</div>
-</form>
-«if $dados »
-<script type="text/javascript">
-	var definicao = eval('«$dados»');
-</script>
-«else»
-<script type="text/javascript">
-	var definicao = false;
-</script>
-«/if»
+		<div class="modal-body">
+		</div>
+	</div>
+</div>
+«$dados»

@@ -340,6 +340,15 @@ class persistentePadraoSqlite extends persistente {
 	public function criarComentarioCampos() {
 		
 	}
+	/**
+	 * Retorna o nome da tabela utilizada pela persistente
+	 * @param boolean verificador se retorna com o nome do schema
+	 * @return string Nome da tabela
+	 */
+	public function pegarNomeTabela($comSchema = true) {
+		$estrutura = $this->pegarEstrutura();
+		return strtolower($estrutura['nomeTabela']);
+	}
 
 }
 

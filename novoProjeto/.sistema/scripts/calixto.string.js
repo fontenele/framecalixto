@@ -1,8 +1,8 @@
-String.prototype.trim = function (){return this.ltrim().rtrim();}
-String.prototype.ltrim = function (){return new String(this.replace(eval("/^\ */") , ''));}
-String.prototype.rtrim = function (){return new String(this.replace(eval("/\ *$/") , ''));}
-String.prototype.strReplace = function (strAntiga, strNova){return new String(this.replace(eval("/"+strAntiga+"/g") , new String(strNova)));}
-String.prototype.ucFirst = function(){return this.charAt(0).toUpperCase()+this.substr(1);}
+String.prototype.trim = function (){return this.ltrim().rtrim();};
+String.prototype.ltrim = function (){return new String(this.replace(eval("/^\ */") , ''));};
+String.prototype.rtrim = function (){return new String(this.replace(eval("/\ *$/") , ''));};
+String.prototype.strReplace = function (strAntiga, strNova){return new String(this.replace(eval("/"+strAntiga+"/g") , new String(strNova)));};
+String.prototype.ucFirst = function(){return this.charAt(0).toUpperCase()+this.substr(1);};
 /**
  * função para fazer lowerCamelCase();
  */
@@ -14,14 +14,14 @@ String.prototype.upperCamelCase = function (){
 		palavraFim += arPalavra[i].ucFirst();
 	}
 	return palavraFim.retiraAcentos();
-}
+};
 /**
  * função para fazer lowerCamelCase();
  */
 String.prototype.lowerCamelCase = function (){
 	palavra = this.upperCamelCase();
 	return palavra.charAt(0).toLowerCase()+palavra.substr(1);
-}
+};
 /**
  * funcao para retirar os acentos da string
  */
@@ -31,7 +31,16 @@ String.prototype.retiraAcentos = function(){
 	stB = new String('caeiouaeiouaeiouaeiouaiouÇAEIOUAEIOUAEIOUAEIOUAIOU');
 	for(i in stA){ str = str.strReplace(stA.charAt(i),stB.charAt(i)); }
 	return str;
-}
+};
+String.prototype.retiraEspeciais = function(){
+	return this.replace(/[-[\]{}()*+?%&@!?¨:;'"<>/=\\^$|#\b]/g, "");	
+};
+String.prototype.makeLowerUnderLine = function(){
+	return this.toLowerCase().retiraAcentos().strReplace('[^a-zA-Z0-9_]', '_');
+};
+String.prototype.makeUpperUnderLine = function(){
+	return this.toUpperCase().retiraAcentos().strReplace('[^a-zA-Z0-9_]', '_');
+};
 /**
 * Função simuladora da sprintf da linguagem C
 */

@@ -77,6 +77,12 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 			$senha[] 	= VComponente::montar('palavra chave'	,'banco[senha][]'	,$banco['senha']	,$arInputConfig);
 			$multipla[] = VComponente::montar('combobox'		,'banco[conexaoMultipla][]',$banco['conexaoMultipla'] == 'sim' ? 'sim':'nao',null,$arBooleano);
 		}
+		$arConfConn = array('conexao','tipo','servidor','porta','nome','usuario','senha','multipla');
+		foreach($arConfConn as $i){
+			foreach($$i as $j){
+				$j->adicionarClass('input-small');
+			}
+		}
 		$this->visualizacao->conexao = $conexao;
 		$this->visualizacao->tipo = $tipo;
 		$this->visualizacao->servidor = $servidor;
@@ -118,9 +124,11 @@ class CUtilitario_geradorDefinirSistema extends controlePadrao{
 	public function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
 		$item = $this->inter->pegarTexto('botaoGravar');
+		$item = 'Gravar configuração do sistema';
 		$menu->$item->passar_link('#');
 		$menu->$item->passar_id('salvar');
-		$menu->$item->passar_imagem('.sistema/icones/disk.png');
+		$menu->$item->passar_classeLink('btn btn-danger');
+		$menu->$item->passar_imagem('icon-pencil icon-white');
 		return $menu;
 	}
 }

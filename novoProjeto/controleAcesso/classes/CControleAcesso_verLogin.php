@@ -16,16 +16,15 @@ class CControleAcesso_verLogin extends controlePadrao{
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'validar'));
 		
 		$this->visualizacao->nmLogin = VComponente::montar('caixa de entrada','nmLogin', null);
-		$this->visualizacao->nmLogin->passarSize(15);
 		$this->visualizacao->nmLogin->obrigatorio(true);
 		$this->visualizacao->nmLogin->passarTitle('Digite o login do usuário');
 		
 		$this->visualizacao->nmSenha = VComponente::montar('senha','nmSenha', null);
-		$this->visualizacao->nmSenha->passarSize(15);
 		$this->visualizacao->nmSenha->obrigatorio(true);
 		$this->visualizacao->nmSenha->passarTitle('Digite a senha de acesso');
 		
 		$this->visualizacao->btEnviar = VComponente::montar('confirmar','btEnviar', $this->inter->pegarTexto('enviar'));
+		$this->visualizacao->btEnviar->adicionarClass('btn btn-primary');
 		$this->visualizacao->mostrar();
 	}
 	/**

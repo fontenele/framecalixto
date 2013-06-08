@@ -1,48 +1,52 @@
-<form name="formulario" method="post" action="«$action»">
-	<div class="fc-pesquisa">
-		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
-		<div class="fc-campo-grupo">
-			<div class="fc-campo-subgrupo">
-				<div class='fc-campo'>
-					<label>«$entidade»:</label>
-					<span>«$chave»«$descricao»</span>
+<div class="container">
+
+	<form name="formulario" method="post" action="«$action»">
+		<div class="fc-pesquisa">
+			<h4 class="fc-titulo-especifico">«$tituloEspecifico»</h4>
+			<div class="fc-campo-grupo">
+				<div class="fc-campo-subgrupo well well-small">
+					<div class='fc-campo'>
+						<label>«$entidade»:</label>
+						<span>«$chave»«$descricao»</span>
+					</div>
+				</div>
+				<div id='fc-menu-corpo'>
+					«$menuPrograma»
 				</div>
 			</div>
-	        <div id='fc-menu-corpo'>
-	            «$menuPrograma»
-	        </div>
-		</div>
-		<div class="fc-listagem-grupo">
-			<h1 class="fc-listagem-titulo"><img src=".sistema/icones/application_view_list.png" />
-				(<a href='javascript:marcar(false);'>Nenhum</a>/<a href='javascript:marcar(true);'>Todos</a>)
-				Perfís
-			</h1>
-			<div class="fc-listagem">
-				«$listagem»
+			<div class="fc-listagem-grupo">
+				<h4 class="fc-listagem-titulo"><img src=".sistema/icones/application_view_list.png" />
+					(<a href='javascript:marcar(false);'>Nenhum</a>/<a href='javascript:marcar(true);'>Todos</a>)
+					Perfís
+				</h4>
+				<div class="fc-listagem">
+					«$listagem»
+				</div>
 			</div>
 		</div>
-	</div>
-</form>
-<script type="text/javascript" language="javascript">
-function marcar(valor,controle) {
-	valor = valor || false;
-	controle = controle || false;
-	if(controle){
-		var re = new RegExp('^' + controle + '');
-		for ( var i=0; i < document.formulario.elements.length; i++ ) {
-			var componente = document.formulario.elements[i];
-			if ( componente.type == "checkbox") {
-				var res = re.exec(componente.value);
-				if(res) componente.checked = valor;
+	</form>
+	<script type="text/javascript" language="javascript">
+		function marcar(valor, controle) {
+			valor = valor || false;
+			controle = controle || false;
+			if (controle) {
+				var re = new RegExp('^' + controle + '');
+				for (var i = 0; i < document.formulario.elements.length; i++) {
+					var componente = document.formulario.elements[i];
+					if (componente.type == "checkbox") {
+						var res = re.exec(componente.value);
+						if (res)
+							componente.checked = valor;
+					}
+				}
+			} else {
+				for (var i = 0; i < document.formulario.elements.length; i++) {
+					var componente = document.formulario.elements[i];
+					if (componente.type == "checkbox") {
+						componente.checked = valor;
+					}
+				}
 			}
 		}
-	}else{
-		for ( var i=0; i < document.formulario.elements.length; i++ ) {
-			var componente = document.formulario.elements[i];
-			if ( componente.type == "checkbox") {
-				componente.checked = valor;
-			}
-		}
-	}
-}
-</script>
+	</script>
+</div>

@@ -28,7 +28,7 @@ class CUsuario_selecionarAcessos extends controlePadrao{
 			}
 			$negocio->coAcessos->gravar();
 			$this->sessao->registrar('negocio',$negocio);
-			$this->registrarComunicacao($this->inter->pegarMensagem('gravarSucesso'));
+			$this->registrarComunicacao($this->inter->pegarMensagem('gravarSucesso'),'sucesso');
 			$conexao->validarTransacao();
 			$this->passarProximoControle(definicaoEntidade::controle($this,'verPesquisa'));
 		}

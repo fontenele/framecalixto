@@ -81,33 +81,34 @@ class NControleMenu extends negocio{
 		try{
 			$this->menuPrincipal = new colecaoPadraoMenu();
 			$this->menuPrincipal->passar_id('menuPrincipal');
+			$this->menuPrincipal->passar_classe('fc-menu-sistema dropdown-menu');
 			
 			$nmLoginLabel = sessaoSistema::tem('usuario') ? 'Sair' : 'Entrar';
-			$nmLoginImagem = sessaoSistema::tem('usuario') ? 'door_out.png' : 'key.png';
+			$nmLoginImagem = sessaoSistema::tem('usuario') ? 'icon-off' : 'icon-flag';
 			
 			$this->menuPrincipal->Sistema->passar_imagem('.sistema/icones/computer.png');
 			
-			$this->adicionarItem('menuPrincipal','Sistema/Página Principal','CControleAcesso_verPrincipal','.sistema/icones/monitor.png',true);
-			$this->adicionarItem('menuPrincipal',"Sistema/{$nmLoginLabel}",'CControleAcesso_verLogin',".sistema/icones/{$nmLoginImagem}",true);
+			$this->adicionarItem('menuPrincipal','Sistema/Página Principal','CControleAcesso_verPrincipal','icon-home',true);
+			$this->adicionarItem('menuPrincipal',"Sistema/{$nmLoginLabel}",'CControleAcesso_verLogin',"{$nmLoginImagem}",true);
 			
 			$this->menuPrincipal->{'Administração'}->passar_imagem('.sistema/icones/server.png');
 			
-			$this->adicionarItem('menuPrincipal','Administração/Estados','CEstado_verPesquisa','.sistema/icones/group.png');
-			$this->adicionarItem('menuPrincipal','Administração/Pessoas','CPessoa_verPesquisa','.sistema/icones/vcard.png');
-			$this->adicionarItem('menuPrincipal','Administração/Perfis','CPerfil_verPesquisa','.sistema/icones/medal_gold_1.png');
-			$this->adicionarItem('menuPrincipal','Administração/Usuários','CUsuario_verPesquisa','.sistema/icones/user.png');
-			$this->adicionarItem('menuPrincipal','Administração/Log de Acessos','CLogAcesso_verPesquisa','.sistema/icones/map_magnify.png');
+			$this->adicionarItem('menuPrincipal','Administração/Estados','CEstado_verPesquisa','icon-globe');
+			$this->adicionarItem('menuPrincipal','Administração/Pessoas','CPessoa_verPesquisa','icon-comment');
+			$this->adicionarItem('menuPrincipal','Administração/Perfis','CPerfil_verPesquisa','icon-tags');
+			$this->adicionarItem('menuPrincipal','Administração/Usuários','CUsuario_verPesquisa','icon-user');
+			$this->adicionarItem('menuPrincipal','Administração/Log de Acessos','CLogAcesso_verPesquisa','icon-edit');
 			
 			$this->menuPrincipal->Apoio->passar_imagem('.sistema/icones/help.png');
 			
-			$this->adicionarItem('menuPrincipal','Apoio/Pesquisar','CUtilitario_pesquisaGeral','.sistema/icones/find.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','.sistema/icones/cog.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Banco','','.sistema/icones/database.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Banco/Lista para gerador','CUtilitario_listarTabelas','.sistema/icones/database_lightning.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Banco/Dicionário de dados','CUtilitario_dicionarioDeDados','.sistema/icones/database_table.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Banco/Recriador de Banco','CUtilitario_verRecriarBase','.sistema/icones/database_delete.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','.sistema/icones/arrow_in.png');
-			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','.sistema/icones/wrench.png');
+			$this->adicionarItem('menuPrincipal','Apoio/Pesquisar','CUtilitario_pesquisaGeral','icon-search');
+			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','icon-cog');
+			$this->adicionarItem('menuPrincipal','Apoio/Banco','','icon-hdd');
+			$this->adicionarItem('menuPrincipal','Apoio/Banco/Lista para gerador','CUtilitario_listarTabelas','icon-list');
+			$this->adicionarItem('menuPrincipal','Apoio/Banco/Dicionário de dados','CUtilitario_dicionarioDeDados','icon-list-alt');
+			$this->adicionarItem('menuPrincipal','Apoio/Banco/Recriador de Banco','CUtilitario_verRecriarBase','icon-fire');
+			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','icon-download-alt');
+			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','icon-wrench');
 			
 			return $this->menuPrincipal;
 		}

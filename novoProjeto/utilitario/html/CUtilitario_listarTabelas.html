@@ -1,28 +1,29 @@
-<style type="text/css">
-#tabelas{
-	list-style-type: none;
-}
-#tabelas li{
-	margin: 10px;
-}
-</style>
-<form name="formulario" method="post" action="«$action»" >
-	<div class="fc-pesquisa">
-		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
-		<div class="fc-campo-grupo">
-			<br/>Gerar <a href="?c=CUtilitario_gerarTodosCadastros">todos</a> os cadastros de todas as tabelas.<br/><br/>
-			<ul id="tabelas">
-			«foreach from=$listagem item=nome»
-				<li>
-					<span class="fc-menu-item"><a href="?c=CUtilitario_listarCamposTabela&tabela=«$nome»" ><img style="border:0px; vertical-align:bottom;" src=".sistema/icones/eye.png">Ver</a></span>
-					<span class="fc-menu-item"><a href="?c=CUtilitario_geradorDefinirEntidade&tabela=«$nome»" ><img style="border:0px; vertical-align:bottom;" src=".sistema/icones/lightning_go.png">Gerar cadastro</a></span>
-					«$nome»
-				</li>
-			«/foreach»
-			</ul>
-	        <div id='menu_corpo'>
-	            «$menuPrograma»<br/><br/>
-	        </div>
-		</div>
-	</div>
-</form>
+<div class="container">
+	<form name="formulario" method="post" action="«$action»" >
+		<fieldset class="fc-pesquisa">
+			<legend class="fc-titulo-especifico">«$tituloEspecifico»</legend>
+			<div id='menu_corpo'>
+				«$menuPrograma»
+			</div>
+			<!--<div>Gerar <a href="?c=CUtilitario_gerarTodosCadastros">todos</a> os cadastros de todas as tabelas.</div>-->
+			<table class="table table-striped table-bordered table-hover table-condensed">
+				<thead>
+					<tr>
+						<th>Tabela</th>
+						<th class="span2"></th>
+						<th class="span1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					«foreach from=$listagem item=nome»
+					<tr>
+						<td>«$nome»</td>
+						<td><a href="?c=CUtilitario_geradorDefinirEntidade&tabela=«$nome»" ><i class="icon-star"></i> Gerar cadastro</a></td>
+						<td><a href="?c=CUtilitario_listarCamposTabela&tabela=«$nome»" ><i class="icon-eye-open"></i> Ver</a></td>
+					</tr>
+					«/foreach»
+				</tbody>
+			</table>
+		</fieldset>
+	</form>
+</div>
