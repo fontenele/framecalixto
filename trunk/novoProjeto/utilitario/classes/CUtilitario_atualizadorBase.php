@@ -34,7 +34,7 @@ class CUtilitario_atualizadorBase extends controlePadrao{
 			CUtilitario_importadorXML::importarXml(file_get_contents('dados.xml'));
 		}
 		if($imprimir) die;
-		$this->registrarComunicacao("Base de dados recriada.");
+		$this->registrarComunicacao("Base de dados recriada.",'sucesso');
 	}
 	/**
 	* Método de geração das classes e ordem a serem recriadas
