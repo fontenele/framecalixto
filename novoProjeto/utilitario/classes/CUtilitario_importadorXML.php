@@ -14,7 +14,7 @@ class CUtilitario_importadorXML extends controlePadrao{
 		if(isset($_POST['xml'])){
 			self::importarXml($_POST['xml']);
 		}
-		$this->registrarComunicacao($this->inter->pegarMensagem('importarSucesso'));
+		$this->registrarComunicacao($this->inter->pegarMensagem('importarSucesso'),'sucesso');
 	}
 	public static function importarXml($xml){
 		$xml = simplexml_load_string(str_replace("\'","'",$xml));

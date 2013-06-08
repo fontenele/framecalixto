@@ -26,8 +26,10 @@ class CUtilitario_verImportador extends controlePadrao{
 	* @return array itens do menu do programa
 	*/
 	function montarMenuPrograma(){
-		$link = "?c=%s";
-		$menu[$this->inter->pegarTexto('botaoGravar')]  = 'javascript:$.submeter();';
+        $menu = parent::montarMenuPrograma();
+		$gravar = $this->inter->pegarTexto('botaoGravar');
+		$menu->$gravar = new VMenu($gravar,'javascript:$.submeter();','icon-pencil icon-white');
+        $menu->$gravar->passar_classeLink('btn btn-primary');
 		return $menu;
 	}
 }

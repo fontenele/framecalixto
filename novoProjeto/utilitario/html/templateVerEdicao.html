@@ -1,27 +1,32 @@
 <!---------------------- TEMPLATE PADRÃO ---------------------->
-<form name="formulario" method="post" action="«ldelim»$action«rdelim»" >
-	<div class="fc-edicao">
-		<h1 class="fc-titulo-especifico">«ldelim»$tituloEspecifico«rdelim»</h1>
-		<div class="fc-campo-grupo">
-			«ldelim»$«$chaveNegocio»«rdelim»
-			«*
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span11">
+            <form name="formulario" method="post" action="«ldelim»$action«rdelim»" class="form-horizontal well">
+                <div class="fc-edicao">
+                    <h2 class="fc-titulo-especifico">«ldelim»$tituloEspecifico«rdelim»</h2>
+                    <div class="fc-campo-grupo">
+                        «ldelim»$«$chaveNegocio»«rdelim»
+                        «*
 
-				ATENÇÃO AO MODIFICAR ESTE TEMPLATE VERIFIQUE A QUESTÃO DE IDENTAÇÃO
-				O FOREACH ABAIXO PARECE BAGUNÇADO "MAS" ELE DEIXA O RESULTADO ORGANIZADO
+                        ATENÇÃO AO MODIFICAR ESTE TEMPLATE VERIFIQUE A QUESTÃO DE IDENTAÇÃO
+                        O FOREACH ABAIXO PARECE BAGUNÇADO "MAS" ELE DEIXA O RESULTADO ORGANIZADO
 
-				
-			*»<div class="fc-campo-subgrupo">«foreach from=$nomes key=indice item=propriedade »
 
-				<div class="fc-campo">
-					<label for="«$propriedade»">«ldelim»$«$indice»«rdelim»:</label>
-					<span>«ldelim»$«$propriedade»«rdelim»</span>
-				</div>			«/foreach»
+                        *»<div class="fc-campo-subgrupo">«foreach from=$nomes key=indice item=propriedade »
+                            <div class="fc-campo control-group">
+                                <label for="«$propriedade»" class="control-label">«ldelim»$«$indice»«rdelim»:</label>
+                                <span class="">«ldelim»$«$propriedade»«rdelim»</span>
+                            </div>«/foreach»
 
-			</div>
-	        <div id='fc-menu_corpo'>
-	            «ldelim»$menuPrograma«rdelim»<br/>
-	        </div>
-		</div>
-	</div>
-</form>
+                        </div>
+                        <div id='fc-menu_corpo'>
+                            «ldelim»$menuPrograma«rdelim»<br/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!---------------------- TEMPLATE PADRÃO ---------------------->
