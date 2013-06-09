@@ -20,7 +20,7 @@ $(document).ready( function() {
 	$('.obrigatorio')
 		.focus(function(){$(this).campoObrigatorio();})
 		.keypress(function(){$(this).campoObrigatorio();})
-		.blur(function(){$('#'+$(this).attr('id')+'_obrigatoriedade').html('*');});
+		.blur(function(){$('#'+$(this).attr('id')+'_obrigatoriedade').html('<i class="icon-asterisk"></i>');});
     $('.cnpj').mask("99.999.999/9999-99",{completed:function(){}});
     $('.cpf').mask("999.999.999-99",{completed:function(){}});
 	$('.cep').mask("99.999-999",{completed:function(){}});
@@ -163,7 +163,10 @@ jQuery.validar = {
 	hora:function (valor){},
 	email:function (valor){}
 };
-jQuery.fn.campoObrigatorio = function(){if(!jQuery(this).val()) jQuery('#'+jQuery(this).attr('id')+'_obrigatoriedade').html('* Campo obrigatório');}
+jQuery.fn.campoObrigatorio = function(){
+	if(!jQuery(this).val()) 
+		jQuery('#'+jQuery(this).attr('id')+'_obrigatoriedade').html('<i class="icon-hand-left"></i> Campo obrigatório');
+}
 jQuery.msg = function(titulo,msg){alert(titulo+"\n\n"+msg);}
 jQuery.erro = function(titulo,msg){alert(titulo+"\n\n"+msg);}
 jQuery.submeter = function(formulario){

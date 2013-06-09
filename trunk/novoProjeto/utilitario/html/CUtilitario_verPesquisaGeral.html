@@ -6,8 +6,9 @@
 </style>
 <div class="container">
 	<form name="formulario" method="post" action="«$action»" >
-		<fieldset>
-			<legend>«$tituloEspecifico»</legend>
+		<div>
+			<h4>«$tituloEspecifico»</h4>
+			<hr/>
 			<div class="fc-campo-grupo">
 				<div class="fc-campo-subgrupo">
 					<center>
@@ -25,7 +26,7 @@
 					Ir para Pesquisa avançada de «php»echo $listagem['nome'];«/php»</a>
 			</div>
 			«php»endforeach«/php»
-		</fieldset>
+		</div>
 		<div id='menu_corpo'>
 			«$menuPrograma»
 		</div>
