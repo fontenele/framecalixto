@@ -352,6 +352,7 @@ abstract class persistente extends objeto {
 			default:
 				$schema = definicaoBanco::pegarSchema();
 		}
+		if(!$schema) return '';
 		return $schema . ($ponto ? '.' : '');
 	}
 
@@ -362,9 +363,9 @@ abstract class persistente extends objeto {
 	 */
 	public function pegarNomeTabela($comSchema = true) {
 		$estrutura = $this->pegarEstrutura();
+		if(strpos($estrutura['nomeTabela'],'.') !== false) return $estrutura['nomeTabela'];
 		if (!$comSchema)
 			return strtolower($estrutura['nomeTabela']);
-		$estrutura = $this->pegarEstrutura();
 		return strtolower($this->pegarNomeSchema() ? $this->pegarNomeSchema() . $estrutura['nomeTabela'] : $estrutura['nomeTabela']);
 	}
 
@@ -372,8 +373,11 @@ abstract class persistente extends objeto {
 	 * Retorna o nome da sequencia de banco utilizada pela persistente
 	 * @return string Nome da Sequencia
 	 */
-	public function pegarNomeSequencia() {
+	public function pegarNomeSequencia($comSchema = true) {
 		$estrutura = $this->pegarEstrutura();
+		if(strpos($estrutura['nomeSequencia'],'.') !== false) return $estrutura['nomeSequencia'];
+		if (!$comSchema)
+			return strtolower($estrutura['nomeSequencia']);
 		return strtolower($this->pegarNomeSchema() ? $this->pegarNomeSchema() . $estrutura['nomeSequencia'] : $estrutura['nomeSequencia']);
 	}
 

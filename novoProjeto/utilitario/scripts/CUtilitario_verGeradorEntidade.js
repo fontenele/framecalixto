@@ -218,7 +218,7 @@ jQuery.fn.executarGeracao = function(){
 	$('#resultado .modal-body').html('Gerando cadastro ...');
 	$('#resultado').modal('show');
 	$.ajax({
-		url: '?c=CUtilitario_geradorGerarFonte',
+		url: '?c=CUtilitario_geradorEntidade',
 		type: 'post',
 		dataType: 'html',
 		data: $('form').serialize({checkboxesAsBools: true})

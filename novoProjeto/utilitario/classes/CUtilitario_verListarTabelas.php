@@ -5,7 +5,7 @@
 * @package Sistema
 * @subpackage Utilitario
 */
-class CUtilitario_listarTabelas extends controlePadrao{
+class CUtilitario_verListarTabelas extends controlePadrao{
 	/**
 	* Método inicial do controle
 	*/
@@ -25,8 +25,8 @@ class CUtilitario_listarTabelas extends controlePadrao{
 	*/
 	function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
-		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_listarEntidade');
-		$menu->{'Entidades do sistema'}->passar_imagem('.sistema/icones/package.png');
+		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_verListarEntidade');
+		$menu->{'Entidades do sistema'}->passar_imagem('icon-globe');
 		return $menu;
 	}
 }

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade nomeBanco='public.pessoa' nomeSequencia='public.sq_pessoa'>
+<entidade nomeBanco='pessoa' nomeSequencia='sq_pessoa'>
 	<propriedades>
 		<propriedade id='idPessoa' tipo='numerico' tamanho='10' indicePrimario='sim'>
 			<banco nome='pess_id_pessoa' />
@@ -51,7 +51,7 @@
 		</propriedade>
 		<propriedade id='idEstado' tipo='numerico' tamanho='2' classeAssociativa='NEstado'>
 			<banco nome='pess_id_estado'>
-				<chaveEstrangeira tabela='public.estado' campo='esta_id_estado' />
+				<chaveEstrangeira tabela='estado' campo='esta_id_estado' />
 			</banco>
 			<apresentacao componente='caixa de combinacao' pesquisa='nao' />
 		</propriedade>

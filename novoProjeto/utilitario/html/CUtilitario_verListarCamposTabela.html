@@ -1,0 +1,34 @@
+<div class="container">
+	<fieldset>
+		<legend class="fc-titulo-especifico">«$tituloEspecifico»<span style="font-weight:bold;">«$tabela»</span></legend>
+		<table summary="text" class="table table-bordered table-condensed table-hover table-striped">
+			<thead>
+				<tr>
+					<th class="ui-state-default">Campo</th>
+					<th class="ui-state-default">Tipo</th>
+					<th class="ui-state-default">Tamanho</th>
+					<th class="ui-state-default">PK</th>
+					<th class="ui-state-default">Esquema FK</th>
+					<th class="ui-state-default">Tabela FK</th>
+					<th class="ui-state-default">Campo FK</th>
+				</tr>
+			</thead>
+			<tbody>
+				«foreach from=$listagem item=nome»
+				<tr title="«php»echo $this->nome['descricao']«/php»" class="«cycle values='fc-linha fc-linha1,fc-linha fc-linha2'»">
+					<td class="campo1">«php»echo $this->nome['campo'] «/php»</td>
+					<td class="campo1">«php»echo $this->nome['tipo_de_dado'] «/php»</td>
+					<td class="campo1">«php»echo $this->nome['tamanho'] «/php»</td>
+					<td class="campo1">«php»echo $this->nome['campo_pk'] «/php»</td>
+					<td class="campo1">«php»echo $this->nome['esquema_fk'] «/php»</td>
+					<td class="campo1">«php»echo $this->nome['tabela_fk'] «/php»</td>
+					<td class="campo1">«php»echo $this->nome['campo_fk'] «/php»</td>
+				</tr>
+				«/foreach»
+			</tbody>
+		</table>
+		<div id='menu_corpo'>
+			«$menuPrograma»
+		</div>
+	</fieldset>
+</div>

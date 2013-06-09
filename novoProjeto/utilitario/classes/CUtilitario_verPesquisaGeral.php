@@ -5,8 +5,8 @@
 * @package Sistema
 * @subpackage Utilitario
  */
-class CUtilitario_pesquisaGeral extends controlePadraoPesquisa{
-	public $filtro = 'calixto';
+class CUtilitario_verPesquisaGeral extends controlePadraoPesquisa{
+	public $filtro = '';
 	/**
 	* Método inicial do controle
 	*/
@@ -17,11 +17,8 @@ class CUtilitario_pesquisaGeral extends controlePadraoPesquisa{
 		if(controle::tipoResposta() == controle::json) controle::responderJson($this->definirColecao()->json());
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
-		//$this->montarApresentacao($this->filtro);
 		$this->entidades();
-		//$this->montarListagem($this->visualizacao,$this->definirColecao(),$this->pegarPagina());
 		controlePadrao::inicial();
-		//$this->finalizar();
 	}
 	/**
 	* Método que define a página que será exibida na pesquisa
@@ -70,9 +67,9 @@ class CUtilitario_pesquisaGeral extends controlePadraoPesquisa{
 	protected function entidades(){
 		for($i=1; $i < 6;$i++) $niveis[$i] = "nivel de busca {$i}";
 		$this->visualizacao->nivel = VComponente::montar(VComponente::caixaCombinacao, 'nivel', isset($_POST['nivel']) ? $_POST['nivel'] : 1 ,null,$niveis);
-		$this->visualizacao->filtro = VComponente::montar(VComponente::caixaEntrada, 'filtro', isset($_POST['filtro']) ? $_POST['filtro'] : null);
-		$this->visualizacao->pesquisar = VComponente::montar(VComponente::confirmar, 'Pesquisar','Pesquisar');
-		if(!$this->pegarFiltro()) return $this->visualizacao->listagens = array();
+		$this->visualizacao->filtro = isset($_POST['filtro']) ? $_POST['filtro'] : null;
+		$this->visualizacao->listagens = false;
+		if(!$this->visualizacao->filtro) return;
 		$d = dir(".");
 		$negocios = new colecao();
 		$controles = new colecao();

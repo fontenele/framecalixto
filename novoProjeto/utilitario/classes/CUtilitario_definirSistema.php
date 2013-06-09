@@ -21,7 +21,7 @@ class CUtilitario_definirSistema extends controle{
 			$this->passarProximoControle($_POST['sistema']['paginaInicial']);
 			$this->montarArquivoDefinicaoXML();
 		}catch(erro $e){
-			$this->passarProximoControle('CUtilitario_geradorDefinirSistema');
+			$this->passarProximoControle('CUtilitario_verDefinirSistema');
 			throw $e;
 		}
 	}

@@ -5,7 +5,7 @@
 * @package Sistema
 * @subpackage Utilitario
 */
-class CUtilitario_geradorDefinirEntidade extends controlePadrao{
+class CUtilitario_verGeradorEntidade extends controlePadrao{
 	/**
 	* Método inicial do controle
 	*/
@@ -22,7 +22,7 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 		$this->visualizacao->nomeSequence = VComponente::montar('input','nomeSequence',null);
 		$this->visualizacao->recriarBase = VComponente::montar('checkbox','recriarBase',null);
 		$this->visualizacao->adicionar = VComponente::montar('botao','adicionar', $this->inter->pegarTexto('adicionar'));
-		$this->visualizacao->action = '?c=CUtilitario_geradorGerarFonte';
+		$this->visualizacao->action = '?c=CUtilitario_geradorEntidade';
 		$this->visualizacao->dados = '<script>var definicao = false;</script>';
 		$this->visualizacao->campos = null;
 		$this->visualizacao->acesso = 'Nova geração de cadastro';
@@ -80,12 +80,12 @@ class CUtilitario_geradorDefinirEntidade extends controlePadrao{
 	public function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
 		$menu->{'Gravar entidade'}->passar_link('javascript:$(this).gerarCadastro();');
-		$menu->{'Gravar entidade'}->passar_imagem('utilitario/imagens/gravar_arquivos.png');
+		$menu->{'Gravar entidade'}->passar_imagem('icon-pencil icon-white');
 		$menu->{'Gravar entidade'}->passar_classeLink('btn btn-primary');
-		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_listarEntidade');
-		$menu->{'Entidades do sistema'}->passar_imagem('utilitario/imagens/entidades.png');
-		$menu->{'Tabelas do banco'}->passar_link('?c=CUtilitario_listarTabelas');
-		$menu->{'Tabelas do banco'}->passar_imagem('utilitario/imagens/tabelas.png');
+		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_verListarEntidade');
+		$menu->{'Entidades do sistema'}->passar_imagem('icon-globe');
+		$menu->{'Tabelas do banco'}->passar_link('?c=CUtilitario_verListarTabelas');
+		$menu->{'Tabelas do banco'}->passar_imagem('icon-list');
 		return $menu;
 	}
 

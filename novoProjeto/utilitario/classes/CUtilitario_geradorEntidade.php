@@ -5,7 +5,7 @@
 * @package Sistema
 * @subpackage Utilitario
 */
-class CUtilitario_geradorGerarFonte extends controle{
+class CUtilitario_geradorEntidade extends controle{
 	public static $nomeEntidade;
 	public static $nomeNegocio;
 	public static $nomeTabela;

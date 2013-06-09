@@ -5,7 +5,7 @@
 * @package Sistema
 * @subpackage Utilitario
 */
-class CUtilitario_geradorDefinirSistema extends controlePadrao{
+class CUtilitario_verDefinirSistema extends controlePadrao{
 	/**
 	* Método inicial do controle
 	*/

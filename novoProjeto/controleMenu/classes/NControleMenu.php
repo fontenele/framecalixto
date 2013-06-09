@@ -86,30 +86,35 @@ class NControleMenu extends negocio{
 			$nmLoginLabel = sessaoSistema::tem('usuario') ? 'Sair' : 'Entrar';
 			$nmLoginImagem = sessaoSistema::tem('usuario') ? 'icon-off' : 'icon-flag';
 			
-			$this->menuPrincipal->Sistema->passar_imagem('.sistema/icones/computer.png');
+			$this->adicionarItem('menuPrincipal','l0','');
+			$this->adicionarItem('menuPrincipal','Sistema','');
+			$this->adicionarItem('menuPrincipal','Página Principal','CControleAcesso_verPrincipal','icon-home',true);
+			$this->adicionarItem('menuPrincipal',"{$nmLoginLabel}",'CControleAcesso_verLogin',"{$nmLoginImagem}",true);
 			
-			$this->adicionarItem('menuPrincipal','Sistema/Página Principal','CControleAcesso_verPrincipal','icon-home',true);
-			$this->adicionarItem('menuPrincipal',"Sistema/{$nmLoginLabel}",'CControleAcesso_verLogin',"{$nmLoginImagem}",true);
+			$this->adicionarItem('menuPrincipal','l1','');
+			$this->adicionarItem('menuPrincipal','Administração','');
+			$this->adicionarItem('menuPrincipal','Estados','CEstado_verPesquisa','icon-globe');
+			$this->adicionarItem('menuPrincipal','Pessoas','CPessoa_verPesquisa','icon-comment');
+			$this->adicionarItem('menuPrincipal','Perfis','CPerfil_verPesquisa','icon-tags');
+			$this->adicionarItem('menuPrincipal','Usuários','CUsuario_verPesquisa','icon-user');
+			$this->adicionarItem('menuPrincipal','Log de Acessos','CLogAcesso_verPesquisa','icon-edit');
 			
-			$this->menuPrincipal->{'Administração'}->passar_imagem('.sistema/icones/server.png');
+			$this->adicionarItem('menuPrincipal','l2','','');
+			$this->adicionarItem('menuPrincipal','Apoio','','');
+			$this->adicionarItem('menuPrincipal','Pesquisar','CUtilitario_verPesquisaGeral','icon-search');
+			$this->adicionarItem('menuPrincipal','Gerador','CUtilitario_verListarEntidade','icon-cog');
+			$this->adicionarItem('menuPrincipal','Lista para gerador','CUtilitario_verListarTabelas','icon-list');
+			$this->adicionarItem('menuPrincipal','Dicionário de dados','CUtilitario_verDicionarioDeDados','icon-list-alt');
+			$this->adicionarItem('menuPrincipal','Recriador de Banco','CUtilitario_verRecriarBase','icon-fire');
+			$this->adicionarItem('menuPrincipal','Importador','CUtilitario_verImportador','icon-download-alt');
+			$this->adicionarItem('menuPrincipal','Definições do Sistema','CUtilitario_verDefinirSistema','icon-wrench');
 			
-			$this->adicionarItem('menuPrincipal','Administração/Estados','CEstado_verPesquisa','icon-globe');
-			$this->adicionarItem('menuPrincipal','Administração/Pessoas','CPessoa_verPesquisa','icon-comment');
-			$this->adicionarItem('menuPrincipal','Administração/Perfis','CPerfil_verPesquisa','icon-tags');
-			$this->adicionarItem('menuPrincipal','Administração/Usuários','CUsuario_verPesquisa','icon-user');
-			$this->adicionarItem('menuPrincipal','Administração/Log de Acessos','CLogAcesso_verPesquisa','icon-edit');
-			
-			$this->menuPrincipal->Apoio->passar_imagem('.sistema/icones/help.png');
-			
-			$this->adicionarItem('menuPrincipal','Apoio/Pesquisar','CUtilitario_pesquisaGeral','icon-search');
-			$this->adicionarItem('menuPrincipal','Apoio/Gerador','CUtilitario_listarEntidade','icon-cog');
-			$this->adicionarItem('menuPrincipal','Apoio/Banco','','icon-hdd');
-			$this->adicionarItem('menuPrincipal','Apoio/Banco/Lista para gerador','CUtilitario_listarTabelas','icon-list');
-			$this->adicionarItem('menuPrincipal','Apoio/Banco/Dicionário de dados','CUtilitario_dicionarioDeDados','icon-list-alt');
-			$this->adicionarItem('menuPrincipal','Apoio/Banco/Recriador de Banco','CUtilitario_verRecriarBase','icon-fire');
-			$this->adicionarItem('menuPrincipal','Apoio/Importador','CUtilitario_verImportador','icon-download-alt');
-			$this->adicionarItem('menuPrincipal','Apoio/Definições do Sistema','CUtilitario_geradorDefinirSistema','icon-wrench');
-			
+			$this->menuPrincipal->l0->passar_classe('divider');
+			$this->menuPrincipal->l1->passar_classe('divider');
+			$this->menuPrincipal->l2->passar_classe('divider');
+			$this->menuPrincipal->Sistema->passar_classe('disabled');
+			$this->menuPrincipal->{'Administração'}->passar_classe('disabled');
+			$this->menuPrincipal->Apoio->passar_classe('disabled');
 			return $this->menuPrincipal;
 		}
 		catch(erro $e){

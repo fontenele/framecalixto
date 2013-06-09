@@ -22,7 +22,7 @@ class CUtilitario_gerarTodosCadastros extends controle{
 		foreach($this->tabelas as $tabela){
 			$arTabela = $persistente->lerTabela($tabela);
 			$arDadosGerador = $this->prepararDados($tabela,$arTabela);
-			CUtilitario_geradorGerarFonte::gerarFonte($this->visualizacao,$arDadosGerador);
+			CUtilitario_geradorEntidade::gerarFonte($this->visualizacao,$arDadosGerador);
 		}
 	}
 	/**

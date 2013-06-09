@@ -341,13 +341,34 @@ class persistentePadraoSqlite extends persistente {
 		
 	}
 	/**
+	 * Nome do schema utilizado na persistente
+	 * @param boolean $ponto setando para true já vem com o ponto para ligar na tabela
+	 * @return string
+	 */
+	public function pegarNomeSchema($ponto = true) {
+		return '';
+	}
+
+
+	/**
 	 * Retorna o nome da tabela utilizada pela persistente
 	 * @param boolean verificador se retorna com o nome do schema
 	 * @return string Nome da tabela
 	 */
 	public function pegarNomeTabela($comSchema = true) {
 		$estrutura = $this->pegarEstrutura();
-		return strtolower($estrutura['nomeTabela']);
+		$n = explode('.',$estrutura['nomeTabela']);
+		return strtolower(array_pop($n));
+	}
+
+	/**
+	 * Retorna o nome da sequencia de banco utilizada pela persistente
+	 * @return string Nome da Sequencia
+	 */
+	public function pegarNomeSequencia($comSchema = true) {
+		$estrutura = $this->pegarEstrutura();
+		$n = explode('.',$estrutura['nomeSequencia']);
+		return strtolower(array_pop($n));
 	}
 
 }
