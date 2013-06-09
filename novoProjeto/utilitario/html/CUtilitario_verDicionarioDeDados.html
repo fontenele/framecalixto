@@ -132,8 +132,9 @@
 	</div>
 	«else»
 	<form name="formulario" method="post" action="«$action»" class="contador form form-horizontal well well-small">
-		<fieldset>
-			<legend class="ui-state-default ui-corner-all">«$tituloEspecifico»</legend>
+		<div>
+			<h4 class="ui-state-default ui-corner-all">«$tituloEspecifico»</h4>
+			<hr/>
 			<div>
 				<div class="tabela2">
 					<div class="control-group">
@@ -162,7 +163,7 @@
 					</div>
 				</div>
 			</div>
-		</fieldset>
+		</div>
 	</form>
 	<div id='menu_corpo'>
 		«$menuPrograma»

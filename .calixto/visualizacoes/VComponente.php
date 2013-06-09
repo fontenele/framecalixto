@@ -251,7 +251,7 @@ class VComponente extends VEtiquetaHtml{
 	protected function campoObrigatorio(){
 		$id = $this->pegarId();
 		$id = $id ? "id='{$id}_obrigatoriedade'" : null;
-		return '<span '.$id.' class="campoObrigatorio">*</span>';
+		return '<span '.$id.' class="campoObrigatorio"><i class="icon-asterisk"></i></span>';
 	}
 }
 ?>

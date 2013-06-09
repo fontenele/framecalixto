@@ -1,38 +1,34 @@
 <!---------------------- TEMPLATE PADRÃO ---------------------->
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span11">
-            <form name="formulario" method="post" action="«ldelim»$action«rdelim»" >
-                <div class="fc-pesquisa">
-                    <h2 class="fc-titulo-especifico">«ldelim»$tituloEspecifico«rdelim»</h2>
-                    <div class="fc-campo-grupo">
-                        «*
+<div class="container">
+	«$mensageria»
+	<form name="formulario" method="post" action="«ldelim»$action«rdelim»" >
+		<h4 class="fc-titulo-especifico">«$tituloEspecifico»</h4>
+		<hr/>
+		<div class="fc-campo-grupo">
+			«*
 
-                        ATENÇÃO AO MODIFICAR ESTE TEMPLATE VERIFIQUE A QUESTÃO DE IDENTAÇÃO
-                        O FOREACH ABAIXO PARECE BAGUNÇADO "MAS" ELE DEIXA O RESULTADO ORGANIZADO
+			ATENÇÃO AO MODIFICAR ESTE TEMPLATE VERIFIQUE A QUESTÃO DE IDENTAÇÃO
+			O FOREACH ABAIXO PARECE BAGUNÇADO "MAS" ELE DEIXA O RESULTADO ORGANIZADO
 
 
-                        *»<div class="fc-campo-subgrupo">«foreach from=$nomes key=indice item=propriedade »
+			*»<div class="fc-campo-subgrupo">«foreach from=$nomes key=indice item=propriedade »
 
-                            <div class="fc-campo">
-                                <label for="«$propriedade»">«ldelim»$«$indice»«rdelim»:</label>
-                                <span>«ldelim»$«$propriedade»«rdelim»</span>
-                            </div>«/foreach»
+				<div class="fc-campo">
+					<label for="«$propriedade»">«ldelim»$«$indice»«rdelim»:</label>
+					<span>«ldelim»$«$propriedade»«rdelim»</span>
+				</div>«/foreach»
 
-                        </div>
-                        <div id='menu_corpo'>
-                            «ldelim»$menuPrograma«rdelim»<br/><br/>
-                        </div>
-                        <div class="fc-listagem-grupo">
-                            <h4 class="fc-listagem-titulo"><span class='fc-icon-pesquisa' ></span> «ldelim»$textoTituloListagem«rdelim»</h4>
-                            <div class="fc-listagem">
-                                «ldelim»$listagem«rdelim»
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+			</div>
+			<div id='menu_corpo'>
+				«ldelim»$menuPrograma«rdelim»<br/><br/>
+			</div>
+			<div class="fc-listagem-grupo">
+				<h4 class="fc-listagem-titulo"><i class='icon-search' ></i> «ldelim»$textoTituloListagem«rdelim»</h4>
+				<div class="fc-listagem">
+					«ldelim»$listagem«rdelim»
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
 <!---------------------- TEMPLATE PADRÃO ---------------------->

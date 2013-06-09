@@ -12,12 +12,14 @@ class CUtilitario_verImportador extends controlePadrao{
 	public function inicial(){
 		$this->registrarInternacionalizacao($this,$this->visualizacao);
 		$this->gerarMenus();
+		$this->visualizacao->descricaoDeAjuda = $this->inter->pegarTexto('ajudaImportador');
 		$this->visualizacao->action = sprintf('?c=%s',definicaoEntidade::controle($this,'importadorXML'));
 		$this->visualizacao->xml = VComponente::montar('textArea','xml',null);
-		$this->visualizacao->xml->passarRows(20);
+		$this->visualizacao->xml->passarRows(15);
 		$this->visualizacao->xml->passarCols(70);
 		$this->visualizacao->xml->passarTitle('Preencher o campo de texto com xml para a importação');
 		$this->visualizacao->xml->passarLimite(1000000);
+		$this->visualizacao->xml->adicionarClass('input-xxlarge');
 		$this->visualizacao->xml->obrigatorio(true);
 		parent::inicial();
 	}
@@ -28,7 +30,7 @@ class CUtilitario_verImportador extends controlePadrao{
 	function montarMenuPrograma(){
         $menu = parent::montarMenuPrograma();
 		$gravar = $this->inter->pegarTexto('botaoGravar');
-		$menu->$gravar = new VMenu($gravar,'javascript:$.submeter();','icon-pencil icon-white');
+		$menu->$gravar = new VMenu($gravar,'javascript:$(this).importar();','icon-pencil icon-white');
         $menu->$gravar->passar_classeLink('btn btn-primary');
 		return $menu;
 	}

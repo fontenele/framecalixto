@@ -13,6 +13,7 @@
 			<texto id="verListarEntidade">Entidades do Sistema</texto>
 			<texto id="verListarTabelas">Tabelas do Banco</texto>
 			<texto id="verListarCamposTabela">Campos da tabela: </texto>
+			<texto id="verImportador">Importador de dados</texto>
 			<texto id="ajudaDefinicao">Defina o nome da entidade e suas propriedades ou atributos e clique em [definir].</texto>
 			<texto id="adicionar">adicionar</texto>
 
@@ -43,6 +44,9 @@
 			<texto id="diretorios">Configurações de diretórios</texto>
 			<!-- Arquivos -->
 			<texto id="arquivos">Configurações de arquivos</texto>
+			<!--Importador-->
+			<texto id="ajudaImportador">Dados para a importação no formato xml com encoding utf-8</texto>
+			
 
 		</textos>
 	</controles>
