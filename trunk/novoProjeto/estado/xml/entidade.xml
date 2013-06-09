@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade  nomeBanco='estado' nomeSequencia='public.sq_estado'>
+<entidade nomeBanco='estado' nomeSequencia='sq_estado'>
 	<propriedades>
 		<propriedade id='idEstado' tipo='numerico' tamanho='2' obrigatorio='sim' indicePrimario='sim'  >
 			<banco nome='esta_id_estado'  />

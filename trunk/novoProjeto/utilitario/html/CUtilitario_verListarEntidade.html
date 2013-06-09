@@ -24,13 +24,13 @@
 					<tr class="«cycle values='fc-linha fc-linha1,fc-linha fc-linha2'»">
 						<td class="nomeEntidade">«$nome» </td>
 						<td class="nomeNegocio">«$negocios[$negocio]»</td>
-						<td class="nomeTabela"><a title="Definição da tabela '«$tabelas[$negocio]»' no banco de dados" href="?c=CUtilitario_listarCamposTabela&tabela=«$tabelas[$negocio]»">«$tabelas[$negocio]» </a></td>
+						<td class="nomeTabela"><a title="Definição da tabela '«$tabelas[$negocio]»' no banco de dados" href="?c=CUtilitario_verListarCamposTabela&tabela=«$tabelas[$negocio]»">«$tabelas[$negocio]» </a></td>
 						<td class="nomeSequence">«$sequencias[$negocio]» </td>
 						<td class="numerico direita">«$camposExistentes[$negocio]»</td>
 						<td class="numerico direita">«$camposDefinidos[$negocio]»</td>
 						<td align="left" >«$diferencas[$negocio]»</td>
 						<td class="centralizado"><a href="?c=«$controles[$negocio]»" title="Ver Tela de Pesquisa dessa Entidade"><i class="icon-th-list"></i></td>
-						<td class="centralizado"><a href="?c=CUtilitario_geradorDefinirEntidade&amp;entidade=«$negocio»" title="Editar essa Entidade"><i class="icon-pencil"></i></td>
+						<td class="centralizado"><a href="?c=CUtilitario_verGeradorEntidade&amp;entidade=«$negocio»" title="Editar essa Entidade"><i class="icon-pencil"></i></td>
 					</tr>
 					«/foreach»
 				</tbody>

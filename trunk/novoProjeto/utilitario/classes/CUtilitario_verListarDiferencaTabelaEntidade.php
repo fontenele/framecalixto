@@ -5,7 +5,7 @@
 * @package Sistema
 * @subpackage Utilitario
 */
-class CUtilitario_listarDiferencaTabelaEntidade extends controlePadrao{
+class CUtilitario_verListarDiferencaTabelaEntidade extends controlePadrao{
 	/**
 	* Método inicial do controle
 	*/
@@ -35,9 +35,9 @@ class CUtilitario_listarDiferencaTabelaEntidade extends controlePadrao{
 	*/
 	public function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
-		$menu->{'Tabelas do Banco'}->passar_link('?c=CUtilitario_listarTabelas');
+		$menu->{'Tabelas do Banco'}->passar_link('?c=CUtilitario_verListarTabelas');
 		$menu->{'Tabelas do Banco'}->passar_imagem('utilitario/imagens/tabelas.png');
-		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_listarEntidade');
+		$menu->{'Entidades do sistema'}->passar_link('?c=CUtilitario_verListarEntidade');
 		$menu->{'Entidades do sistema'}->passar_imagem('utilitario/imagens/entidades.png');
 		return $menu;
 	}

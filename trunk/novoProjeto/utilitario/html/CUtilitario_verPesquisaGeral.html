@@ -1,0 +1,33 @@
+<style type="text/css">
+	.fc-listagem-grupo{
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+</style>
+<div class="container">
+	<form name="formulario" method="post" action="«$action»" >
+		<fieldset>
+			<legend>«$tituloEspecifico»</legend>
+			<div class="fc-campo-grupo">
+				<div class="fc-campo-subgrupo">
+					<center>
+						«php»if($this->_tpl_vars['listagens']) echo $this->_tpl_vars['nivel'];«/php»
+						<input type="text" class="componente input-medium search-query" id="filtro" name="filtro" tabindex="1" value="«$filtro»" placeholder="digite algo para buscar">
+						<button type="submit" value="Pesquisar" class="componente btn btn-primary" id="Pesquisar" name="Pesquisar" tabindex="1"><i class="icon-search icon-white"></i> Pesquisar</button>
+					</center>
+				</div>
+			</div>
+			«php»if($this->_tpl_vars['listagens']) foreach($this->_tpl_vars['listagens'] as $listagem):«/php»
+			<h5 class="titulo">«php»echo $listagem['nome'];«/php» <span class="label label-info">«php»echo $listagem['ocorrencias'];«/php»</span></h5>
+			<div class="corpo">
+				«php»echo $listagem['listagem'];«/php»
+				<a class="btn" href="?c=«php»echo $listagem['controlePesquisa'];«/php»"><i class="icon-list-alt"></i>
+					Ir para Pesquisa avançada de «php»echo $listagem['nome'];«/php»</a>
+			</div>
+			«php»endforeach«/php»
+		</fieldset>
+		<div id='menu_corpo'>
+			«$menuPrograma»
+		</div>
+	</form>	
+</div>

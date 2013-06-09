@@ -5,7 +5,7 @@
 * @package Sistema
 * @subpackage Utilitario
 */
-class CUtilitario_listarEntidade extends controlePadrao{
+class CUtilitario_verListarEntidade extends controlePadrao{
 	/**
 	* Método inicial do controle
 	*/
@@ -30,8 +30,8 @@ class CUtilitario_listarEntidade extends controlePadrao{
 					$obNegocio = new $negocio();
 					if( $obNegocio instanceof negocioPadrao ) {
 						$negocios->$arquivo = $obNegocio->pegarInter()->pegarNome();
-						$tabelas->$arquivo = $obNegocio->pegarPersistente()->pegarNomeTabela();
-						$sequencias->$arquivo = $obNegocio->pegarPersistente()->pegarNomeSequencia();
+						$tabelas->$arquivo = $obNegocio->pegarPersistente()->pegarNomeTabela(false);
+						$sequencias->$arquivo = $obNegocio->pegarPersistente()->pegarNomeSequencia(false);
 						$classesNegocio->$arquivo = 'N'.ucfirst($arquivo);
 						$camposDefinidos->$arquivo = count($obNegocio->pegarMapeamento());
 						$camposExistentes->$arquivo = count($pUtilitario->lerCampos($obNegocio->pegarPersistente()->pegarNomeTabela(false)));
@@ -62,8 +62,9 @@ class CUtilitario_listarEntidade extends controlePadrao{
 	*/
 	function montarMenuPrograma(){
 		$menu = parent::montarMenuPrograma();
-		$menu->{'Novo Cadastro'} = new VMenu('Novo Cadastro','?c=CUtilitario_geradorDefinirEntidade','.sistema/icones/folder_add.png');
-		$menu->{'Tabelas do Banco'} = new VMenu('Tabelas do Banco','?c=CUtilitario_listarTabelas','.sistema/icones/table_multiple.png');
+		$menu->{'Novo Cadastro'} = new VMenu('Novo Cadastro','?c=CUtilitario_verGeradorEntidade','icon-folder-open icon-white');
+		$menu->{'Novo Cadastro'}->passar_classeLink('btn btn-primary');
+		$menu->{'Tabelas do Banco'} = new VMenu('Tabelas do Banco','?c=CUtilitario_verListarTabelas','icon-list');
 		return $menu;
 	}
 }

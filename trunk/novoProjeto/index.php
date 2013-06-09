@@ -64,6 +64,7 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 		debug_print_backtrace();
 		$back = ob_get_clean();
 	}
+	$tipoErro = is_array($tipoErro) ? implode('|',$tipoErro) : $tipoErro; 
 	echo "
 		<link type='text/css' rel='stylesheet' href='.sistema/debug.css' />
 		<fieldset class='erroNegro'>

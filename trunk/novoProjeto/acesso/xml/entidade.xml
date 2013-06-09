@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<entidade  nomeBanco='public.acesso' nomeSequencia='public.sq_acesso'>
+<entidade  nomeBanco='acesso' nomeSequencia='sq_acesso'>
 	<propriedades>
 		<propriedade id='idAcesso' tipo='numerico' tamanho='10' indicePrimario='sim'>
 			<banco nome='aces_id_acesso' />
@@ -7,7 +7,7 @@
 		</propriedade>
 		<propriedade id='idPerfil' tipo='numerico' tamanho='10' classeAssociativa='NPerfil' metodoLeitura='lerTodos'>
 			<banco nome='aces_id_perfil'>
-				<chaveEstrangeira tabela='public.perfil' campo='perf_id_perfil' />
+				<chaveEstrangeira tabela='perfil' campo='perf_id_perfil' />
 			</banco>
 			<apresentacao componente='caixa de combinacao'>
 				<listagem ordem='1' tamanho='20%' />
@@ -15,7 +15,7 @@
 		</propriedade>
 		<propriedade id='idUsuario' tipo='numerico' tamanho='10' classeAssociativa='NUsuario' metodoLeitura='lerTodos'>
 			<banco nome='aces_id_usuario'>
-				<chaveEstrangeira tabela='public.usuario' campo='usua_id_usuario' />
+				<chaveEstrangeira tabela='usuario' campo='usua_id_usuario' />
 			</banco>
 			<apresentacao componente='caixa de combinacao'>
 				<listagem ordem='2' tamanho='20%' />
