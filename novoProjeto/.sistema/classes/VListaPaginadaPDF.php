@@ -121,6 +121,10 @@ class VListaPaginadaPDF extends objeto{
 			}
 		}
 	}
+	/**
+	 * @param type $nrValorPorcentagem
+	 * @return type
+	 */
 	public static function calcularLargura($nrValorPorcentagem) {
 		return ($nrValorPorcentagem * 190)/100;
 	}
@@ -133,24 +137,27 @@ class VListaPaginadaPDF extends objeto{
 			$conexao = conexao::criar();
 			$chaves = array_keys($this->campos);
 			sort($chaves);
+			$alinhamentos = $tamanhos = $campos = array();
 			foreach($chaves as $chave){
 				$campo = $this->campos[$chave];
-				$tamanho = $campo['tamanho'] ? self::calcularLargura($campo['tamanho']) : '30';
-				$controlePDF->celula($tamanho,4,$campo['titulo'],1,0,$campo['alinhamento']);
+				$tamanhos[] = $campo['tamanho'] ? self::calcularLargura($campo['tamanho']) : '30';
+				$campos[] = $campo['titulo'];
+				$alinhamentos = $campo['alinhamento'];
 			}
-			$controlePDF->ln(4);
+			$controlePDF->Linha($campos,$tamanhos,4,$alinhamentos);
+			$controlePDF->visualizacao->SetFillColor(239,239,239);
 			$x = 0;
 			if($this->colecao->possuiItens()){
 				$item = $this->colecao->retornarItem();
 				$mapeador  = controlePadrao::pegarEstrutura($item);
+				$controlePDF->visualizacao->SetFont('Arial','',6);
 				while($item = $this->colecao->avancar()){
-					$corFundo = $this->definirCorFundo($controlePDF,++$x);
+					$alinhamentos = $tamanhos = $campos = array();
 					foreach($chaves as $chave){
 						$campo = $this->campos[$chave];
-						$tamanho = $campo['tamanho'] ? self::calcularLargura($campo['tamanho']) : '30';
 						switch(true){
 							case(isset($campo['campoPersonalizado'])):
-								$controlePDF->celula($tamanho,4,call_user_func($campo['campoPersonalizado'],$item),1,0,$campo['alinhamento'],1);
+								$valorDoCampo  = call_user_func($campo['campoPersonalizado'],$item);
 							break;
 							case(isset($campo['campoLink'])):
 								$controle = definicaoEntidade::controle($item,'verEdicao');
@@ -171,7 +178,6 @@ class VListaPaginadaPDF extends objeto{
 											$valorDoCampo = $valorDoCampo->__toString();
 										}
 								}
-								$controlePDF->celula($tamanho,4,$valorDoCampo,0,0,$campo['alinhamento'],1,$link);
 							break;
 							default:
 								$pegar = 'pegar'.ucfirst($campo['campo']);
@@ -190,11 +196,13 @@ class VListaPaginadaPDF extends objeto{
 											$valorDoCampo = $valorDoCampo->__toString();
 										}
 								}
-								$controlePDF->celula($tamanho,4,$valorDoCampo,0,0,$campo['alinhamento'],1);
 							break;
 						}
+						$tamanhos[] = $campo['tamanho'] ? self::calcularLargura($campo['tamanho']) : '30';
+						$alinhamentos[]  = $campo['alinhamento'];
+						$campos[] = $valorDoCampo;
 					}
-					$controlePDF->ln(4);
+					$controlePDF->Linha($campos,$tamanhos,4,$alinhamentos, false, ++$x%2);
 				}
 			}else{
 				$mensagem = $this->inter->pegarMensagem('registrosNaoEncontrados');
@@ -209,7 +217,6 @@ class VListaPaginadaPDF extends objeto{
 	*/
 	public function definirCorFundo(controlePadraoPDF $controlePDF,$nrLinha){
 		if($nrLinha%2){
-			$controlePDF->visualizacao->SetFillColor(239,239,239);
 		}else{
 			$controlePDF->visualizacao->SetFillColor(255,255,255);
 		}

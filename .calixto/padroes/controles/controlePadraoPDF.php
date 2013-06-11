@@ -74,6 +74,8 @@ class controlePadraoPDF extends controle{
 	public function criarVisualizacaoPadrao(){
 		$this->visualizacao = new Spdf();
 		$this->visualizacao->AliasNbPages('{nb}');
+		$this->visualizacao->addPage();
+
 	}
 	/**
 	* Método de criação da visualizacao
@@ -154,6 +156,18 @@ class controlePadraoPDF extends controle{
 	*/
 	public function celula($largura,$altura=10,$texto='',$borda=0,$posicao=0,$alinhamento='',$fundo=0,$link=''){
 		$this->visualizacao->Cell($largura,$altura,$texto,$borda,$posicao,$alinhamento,$fundo,$link);
+	}
+	/**
+	 * Constroi uma linha de grid
+	 * @param array $dados os dados na ordem das colunas
+	 * @param array $larguras as larguras na ordem das colunas
+	 * @param integer $altura a altura de cada quebra de linha dentro da tupla
+	 * @param array $alinhamentos os alinhamentos na ordem das colunas
+	 * @param boolean $borda definição de preenchimento do fundo
+	 * @param boolean $fundo definição de preenchimento do fundo
+	 */
+	function Linha($dados, $larguras, $altura = 5, $alinhamentos = null, $borda = true, $fundo = false) {
+		$this->visualizacao->Linha($dados, $larguras, $altura, $alinhamentos, $borda, $fundo);
 	}
 	/**
 	*

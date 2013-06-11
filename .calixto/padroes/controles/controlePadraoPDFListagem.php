@@ -31,6 +31,7 @@ class controlePadraoPDFListagem extends controlePadraoPDF{
 			$this->passarCampos(array());
 			$this->definirFiltro();
 			$this->registrarInternacionalizacao();
+			$this->criarVisualizacaoPadrao();
 			$this->montarTopo();
 			$this->montarListagem($this->definirColecao());
 			$this->mostrar();
@@ -45,25 +46,26 @@ class controlePadraoPDFListagem extends controlePadraoPDF{
 	public function montarTopo($mostrarTodos = true){
 		$estrutura = $this->pegarEstrutura($this);
 		$negocio = $this->pegarFiltro();
-		$this->ln();
-		$this->visualizacao->SetFont('Times','B',6);
+		$this->visualizacao->SetFont('Times','B',8);
+		$this->ln(3);
+		$this->visualizacao->SetFillColor(220,220,220);
+		$this->celula(190,5,$this->titulo,0,1,'C',1);
+		$this->visualizacao->SetFont('Times','',8);
+		$this->visualizacao->SetFont('Times','B',8);
+		$campos = false;
 		foreach($estrutura['campos'] as $nomeCampo => $dadosCampo){
 		//foreach($this->campos as $campo => $label){
 			$metodo = 'pegar'.ucfirst($nomeCampo);
 			$valor = $negocio->$metodo();
 			if($mostrarTodos || $valor){
 				if($dadosCampo['pesquisa']){
-					$this->celula(100,4,"{$dadosCampo['label']}: {$valor}");
-					$this->ln(2);
+					$this->celula(100,7,"{$dadosCampo['label']}: {$valor}",0,0);
+					$this->ln(4);
+					$campos = true;
 				}
 			}
 		}
-		$this->visualizacao->SetFont('Times','B',8);
-		$this->ln(10);
-		$this->celula(190,5,$this->titulo,1);
-		$this->visualizacao->SetFont('Times','',8);
-		$this->ln();
-		
+		if($campos) $this->ln(4);
 	}
 	/**
 	 * Retorna o nome da variável que irá segurar o filtro na sessão
