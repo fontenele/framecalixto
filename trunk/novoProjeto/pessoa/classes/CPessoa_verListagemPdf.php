@@ -5,5 +5,6 @@
 * @package Sistema
 * @subpackage Pessoa
 */
-class CPessoa_verListagemPdf extends controlePadraoPDFListagem{}
+class CPessoa_verListagemPdf extends controlePadraoPDFListagem{
+}
 ?>
