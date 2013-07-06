@@ -332,7 +332,9 @@ $(document).ready(function() {
 		Template.adicionar();
 	});
 	$('.js-val-negocio-propriedade').change(function(){
-		$(this).val($(this).val().lowerCamelCase().retiraEspeciais());
+		var valor = $(this).val().lowerCamelCase().retiraEspeciais();
+		$(this).val(valor);
+		$(this).parents('tr').find('.js-val-negocio-pk').val(valor);
 	});
 	$('.js-val-persistente-campo').change(function(){
 		$(this).val($(this).val().makeLowerUnderLine().retiraEspeciais());
@@ -370,8 +372,9 @@ $(document).ready(function() {
 	});
 	$('#sugerirNomesPropriedades').click(function() {
 		$('.js-tbody-propriedade .js-val-inter-nome').each(function() {
-			var valor = $(this).val().lowerCamelCase().retiraEspeciais();
-			$(this).pegarLinhas('.js-tbody-negocio').find('.js-val-negocio-propriedade').val(valor);
+			var $prop = $(this).pegarLinhas('.js-tbody-negocio').find('.js-val-negocio-propriedade');
+			$prop.val($(this).val());
+			$prop.trigger('change');
 		});
 	});
 	$('#sugerirNomesCampos').click(function() {

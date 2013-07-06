@@ -107,7 +107,7 @@ class CUtilitario_verGeradorEntidade extends controlePadrao{
 		$map = self::pegarEstrutura($negocio);
 		$mapNegocio['controle'] = $map['campos'];
 //		x($mapNegocio);die;
-		$arOrdem = array_flip($mapNegocio['bd']['ordem']);
+		$arOrdem = isset($mapNegocio['bd']['ordem']) ? array_flip($mapNegocio['bd']['ordem']) : array();
 		$arMapEntidade = array();
 		$arMapEntidade['entidade']['nome'] = $mapNegocio['inter']['nome'];
 		$arMapEntidade['banco']['tabela'] = $mapNegocio['bd']['nomeTabela'];

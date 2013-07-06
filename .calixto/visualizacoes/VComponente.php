@@ -15,7 +15,8 @@ class VComponente extends VEtiquetaHtml{
 	const radioLista = 'radiolista';
 	const marcador = 'marcador';
 	const caixaEntrada = 'caixa de entrada';
-	const documentoPessoal = 'documento pessoal';
+	const documentoPessoal = 'cpf';
+	const cpf = 'cpf';
 	const cnpj = 'cnpj';
 	const cep = 'cep';
 	const telefone = 'telefone';
@@ -117,16 +118,11 @@ class VComponente extends VEtiquetaHtml{
 					$objeto = new VInput($nome,$valor);
 				break;
 				case 'cpf':
-				case 'nr documento':
 				case 'documento pessoal':
-					$tTipoDado = ($valor instanceof TNumerico) ? $valor : new TDocumentoPessoal(null) ;
-					$objeto = new VInputDocumentoPessoal($nome,$tTipoDado);
+					$objeto = new VInputCpf($nome,($valor instanceof TCpf) ? $valor : new TCpf(null));
 				break;
 				case 'cnpj':
-					$tTipoDado = ($valor instanceof TNumerico) ? $valor : new TCnpj(null) ;
-					$tTipoDado->passarTipo('cnpj');
-					$objeto = new VInputDocumentoPessoal($nome,$tTipoDado);
-					$objeto->passarTipo('cnpj');
+					$objeto = new VInputCnpj($nome,($valor instanceof TCnpj) ? $valor : new TCnpj(null));
 				break;
 				case 'cep':
 					$tTipoDado = ($valor instanceof TCep) ? $valor : new TCep(null) ;

@@ -10,15 +10,16 @@ class controlePadrao extends controle{
 	* Método inicial do controle
 	*/
 	public function inicial(){
-		try{
-			if($this->requisicaoAjax()){
-				$this->visualizacao->mostrarParaAjax();
-			}else{
-				$this->visualizacao->mostrar();
-			}
-		}
-		catch(erro $e){
-			throw $e;
+		$this->mostrar();
+	}
+	/**
+	 * Método que mostra a visualização do controle
+	 */
+	protected function mostrar(){
+		if($this->requisicaoAjax()){
+			$this->visualizacao->mostrarParaAjax();
+		}else{
+			$this->visualizacao->mostrar();
 		}
 	}
 	/**
@@ -623,8 +624,8 @@ class controlePadrao extends controle{
 			case 'tcep':
 				$negocio->$metodo(new TCep($valor));
 			break;
-			case 'tdocumentopessoal':
-				$negocio->$metodo(new TDocumentoPessoal($valor));
+			case 'tcpf':
+				$negocio->$metodo(new TCpf($valor));
 			break;
 			case 'tcnpj':
 				$negocio->$metodo(new TCnpj($valor));

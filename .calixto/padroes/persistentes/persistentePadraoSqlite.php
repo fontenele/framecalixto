@@ -10,7 +10,7 @@ class persistentePadraoSqlite extends persistente {
 	/**
 	 * Verificacao de correcao para o schema no nome da tabela
 	 */
-	protected static $corrrecaoSchema;
+	protected static $correcaoSchema;
 
 	/**
 	 * Monta o mapeamento de tipo de dados do banco
@@ -37,8 +37,8 @@ class persistentePadraoSqlite extends persistente {
 	 * @param string caminho do arquivo
 	 */
 	public function pegarEstrutura($arquivoXML = null) {
-		if (isset(self::$corrrecaoSchema[get_class($this)])) {
-			return self::$corrrecaoSchema[get_class($this)];
+		if (isset(self::$correcaoSchema[get_class($this)])) {
+			return self::$correcaoSchema[get_class($this)];
 		} else {
 			$estrutura = parent::pegarEstrutura($arquivoXML);
 			$arNome = explode('.', $estrutura['nomeTabela']);
@@ -50,36 +50,8 @@ class persistentePadraoSqlite extends persistente {
 					$estrutura['campo'][$nomeCampo]['chaveEstrangeira']['tabela'] = $arNome[count($arNome) - 1];
 				}
 			}
-			return self::$corrrecaoSchema[get_class($this)] = $estrutura;
+			return self::$correcaoSchema[get_class($this)] = $estrutura;
 		}
-	}
-
-	//**************************************************************************
-	//**************************************************************************
-	// 							COMANDOS DML
-	//**************************************************************************
-	//**************************************************************************
-	/**
-	 * Gera o comando de inserção de um registro no banco de dados
-	 * @param array correlativa entre campos e valores do registro
-	 * @return string comando de inserção
-	 */
-	public function gerarComandoInserir($array) {
-		$estrutura = $this->pegarEstrutura();
-		$campos = implode(',', array_keys($array));
-		foreach ($array as $campo => $valor) {
-			if (empty($valor)) {
-				$valores[] = "null";
-			} else {
-				if ($campo == $estrutura['chavePrimaria']) {
-					$valores[] = "null";
-				} else {
-					$valores[] = "'" . str_replace("'", "''", $valor) . "'";
-				}
-			}
-		}
-		$valores = implode(',', $valores);
-		return "insert into {$estrutura['nomeTabela']} ($campos) values ($valores);\n";
 	}
 
 	//**************************************************************************
@@ -188,7 +160,7 @@ class persistentePadraoSqlite extends persistente {
 	 * Gera a sequencia numérica da persistente correspondente
 	 */
 	public function gerarSequencia() {
-		return 'null';
+		return null;
 	}
 
 	/**
