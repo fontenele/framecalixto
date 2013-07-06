@@ -123,6 +123,7 @@ function debug2($var,$metodos = true, $visualizacao = false){
 			switch(true){
 				case ($var instanceof TData):
 				case ($var instanceof TNumerico):
+				case ($var instanceof TDocumentoPessoal):
 					echo $var;
 				break;
 				case (($var instanceof visualizacao) && !$visualizacao):

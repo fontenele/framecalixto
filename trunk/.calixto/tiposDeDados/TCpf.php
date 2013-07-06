@@ -1,16 +1,16 @@
 <?php
 /**
 * Classe de reprensação de arquivo
-* Esta classe representa numerico no formato de CNPJ
+* Esta classe representa numerico no formato de CPF
 * @package FrameCalixto
 * @subpackage tipoDeDados
 */
-class TCnpj extends TDocumentoPessoal{
+class TCpf extends TDocumentoPessoal{
 	/**
 	* Método de validação
 	*/
 	public function validar(){
-		if(strlen($this->numero) != 11){throw("CNPJ inválido!");}
+		if(strlen($this->numero) != 11){throw("CPF inválido!");}
 	}
 	/**
 	* Método de sobrecarga para printar a classe
@@ -23,12 +23,11 @@ class TCnpj extends TDocumentoPessoal{
 		$j = 0 ;
 		for($i = $tamanho -1; $i >= 0; $i--){
 			$j++;
-			if($j == 15){ break; }
+			if($j == 12){ break; }
 			$res = $this->numero{$i}.$res;
 			if($j == 2){ $res = '-'.$res; }
-			if($j == 6){ $res = '/'.$res; }
-			if($j == 9){ $res = '.'.$res; }
-			if($j == 12){ $res = '.'.$res; }
+			if($j == 5){ $res = '.'.$res; }
+			if($j == 8){ $res = '.'.$res; }
 		}
 		return $res;
 	}

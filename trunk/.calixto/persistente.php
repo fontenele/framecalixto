@@ -40,7 +40,7 @@ abstract class persistente extends objeto {
 	 */
 	protected static $imprimirComandos = false;
 	protected static $pilhaDeChamadas = false;
-	public static $arquivoLog = false;
+	protected static $arquivoLog = false;
 	protected $schema = null;
 
 	/**
@@ -180,6 +180,14 @@ abstract class persistente extends objeto {
 		}
 		return persistente::$estrutura[get_class($this)];
 	}
+	
+	/**
+	 * Configura o arquivo de log da persistente
+	 * @param string $arquivo caminho e nome do arquivo de log
+	 */
+	public static function arquivoLog($arquivo){
+		self::$arquivoLog = $arquivo;
+	}
 
 	/**
 	 * Executa um comando SQL no banco de dados.(necessita de controle de transação)
@@ -266,8 +274,8 @@ abstract class persistente extends objeto {
 				case 'tcep':
 					return new TCep($valor);
 					break;
-				case 'tdocumentopessoal':
-					return new TDocumentoPessoal($valor);
+				case 'tcpf':
+					return new TCpf($valor);
 					break;
 				case 'tcnpj':
 					return new TCnpj($valor);
@@ -278,6 +286,7 @@ abstract class persistente extends objeto {
 		} else {
 			switch (true) {
 				case($valor instanceof TNumerico):
+				case($valor instanceof TDocumentoPessoal):
 					return $valor->pegarNumero();
 					break;
 				case(is_object($valor)):
@@ -670,7 +679,8 @@ abstract class persistente extends objeto {
 		foreach ($array as $campo => $valor) {
 			switch (true) {
 				case(empty($valor) && ($campo == $estrutura['chavePrimaria'])):
-					$valores[] = $this->gerarSequencia();
+					$seq = $this->gerarSequencia();
+					$valores[] = $seq ? $seq : "null";
 					break;
 				case(empty($valor)):
 					$valores[] = "null";
