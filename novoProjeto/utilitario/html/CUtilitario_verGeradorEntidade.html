@@ -272,7 +272,13 @@
 					<thead>
 						<tr>
 							<th title="O nome da propriedade da entidade">Propriedade</th>
-							<th title="O nome do campo na tabela do banco (clique para sugerir todos)"><a href="#" id="sugerirNomesCampos" accesskey="M">Campo da tabela</a></th>
+							<th title="O nome do campo na tabela do banco (clique para sugerir todos)">
+								«if $travarSugestaoDeNomesPersistente»
+									Campo da tabela
+								«else»
+									<a href="#" id="sugerirNomesCampos" accesskey="M">Campo da tabela</a>
+								«/if»
+							</th>
 							<th title="A prioridade de ordenação do campo na tabela do banco">Ordenação</th>
 							<th title="O tipo de ordenação do campo">Decrescente</th>
 							<th title="Caso chave extrangeira identifique o nome da tabela de referência ">Referencia a tabela</th>
