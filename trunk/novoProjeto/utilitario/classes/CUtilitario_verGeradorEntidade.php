@@ -106,17 +106,12 @@ class CUtilitario_verGeradorEntidade extends controlePadrao{
 		$mapNegocio['inter'] = $internacionalizacao->pegarInternacionalizacao();
 		$map = self::pegarEstrutura($negocio);
 		$mapNegocio['controle'] = $map['campos'];
-//		x($mapNegocio);die;
 		$arOrdem = isset($mapNegocio['bd']['ordem']) ? array_flip($mapNegocio['bd']['ordem']) : array();
 		$arMapEntidade = array();
 		$arMapEntidade['entidade']['nome'] = $mapNegocio['inter']['nome'];
 		$arMapEntidade['banco']['tabela'] = $mapNegocio['bd']['nomeTabela'];
 		$arMapEntidade['banco']['sequencia'] = $mapNegocio['bd']['nomeSequencia'];
 		foreach($mapNegocio['negocio'] as $i => $map){
-//			$mapEntidade[$i]['negocio'] = $map;
-//			$mapEntidade[$i]['controle'] = $mapNegocio['controle'][$map['propriedade']];
-//			$mapEntidade[$i]['persistente'] = $mapNegocio['bd']['campo'][$map['campo']];
-//			$mapEntidade[$i]['inter'] = $mapNegocio['inter']['propriedade'][$map['propriedade']];
 			
 			$dominio = '';
 			if(isset($mapNegocio['inter']['propriedade'][$map['propriedade']]['dominio'])){
@@ -155,38 +150,16 @@ class CUtilitario_verGeradorEntidade extends controlePadrao{
 			}
 			
 			
-// 			if(!isset($mapNegocio['bd']['campo'][$map['campo']]['chaveEstrangeira'])){
-//				$mapEntidade[$i]['persistente']['chaveEstrangeira'] = false;
-//			}
-//			$mapEntidade[$i]['persistente']['ordem'] = '';
 			if(isset($mapNegocio['bd']['ordem'])){
 				foreach($mapNegocio['bd']['ordem'] as $iOrdem => $ordem){
 					$ordem = explode(' ',$ordem);
 					if($map['campo'] == $ordem[0]){
-//						$mapEntidade[$i]['persistente']['ordem'] = $iOrdem;
-//						$mapEntidade[$i]['persistente']['tipoOrdem'] = isset($ordem[1]) ? true : false;
 						$arMapEntidade['campos'][$i]['persistente-tipo-ordem'] = isset($ordem[1]) ? true : false;
 					}
 				}
 			}
-//			$res = '';
-//			if(isset($mapEntidade[$i]['inter']['dominio'])){
-//				foreach($mapEntidade[$i]['inter']['dominio'] as $id => $valor){
-//					$res .= "[$id,$valor]";
-//				}
-//			}
-//			$mapEntidade[$i]['inter']['dominio'] = $res;
 		}
-//		unset($mapNegocio['negocio']);
-//		unset($mapNegocio['controle']);
-//		unset($mapNegocio['inter']['propriedade']);
-//		unset($mapNegocio['inter']['mensagem']);
-//		unset($mapNegocio['inter']['texto']);
-//		unset($mapNegocio['bd']['campo']);
-//		$mapNegocio['entidade'] = $mapEntidade;
-//		x($mapEntidade);die;
 		$this->visualizacao->dados = '<script>var definicao = '.$json->pegarJson($arMapEntidade).';</script>';
-//		$this->visualizacao->campos = $mapNegocio;
 		$this->visualizacao->acesso = 'Cadastro existente no sistema.';
 	}
 	/**
@@ -200,15 +173,12 @@ class CUtilitario_verGeradorEntidade extends controlePadrao{
 		$sequences = $persistente->lerSequenciasDoBanco($_GET['tabela']);
 		$sequences = array_merge(array(''=>'&nbsp;'),$sequences);
 		if($sequences) $this->visualizacao->nomeSequence = VComponente::montar('select','nomeSequence',null,null,$sequences);
-		$mapNegocio['bd']['nomeTabela'] = $_GET['tabela'];
-		$mapNegocio['bd']['nomeSequencia'] = '«Nome da sequência???»';
+		$mapNegocio['entidade']['nome'] = '«Nome da entidade??»';
+		$mapNegocio['banco']['tabela'] = $_GET['tabela'];
+		$mapNegocio['banco']['sequencia'] = '«Nome da sequência???»';
 		$mapNegocio['bd']['chavePrimaria'] = '';
 		$mapNegocio['bd']['ordem'] = array('1'=>'');
-		$mapNegocio['inter']['nome'] = '«Nome da entidade??»';
-		$mapNegocio['inter']['titulo'] = '';
-		$mapNegocio['inter']['tituloSistema'] = '';
-		$mapNegocio['inter']['subtituloSistema'] = '';
-		foreach ($desc as $indice => $campo) {
+		foreach ($desc as $i => $campo) {
 			$tipoDeDado = $campo['tipo_de_dado'];
 			switch ($campo['tipo_de_dado']) {
 				case 'numerico':
@@ -224,60 +194,70 @@ class CUtilitario_verGeradorEntidade extends controlePadrao{
 			}
 			switch (true) {
 				case $campo['campo_pk']:
-					$mapNegocio['bd']['chavePrimaria'] = $campo['campo_pk'];
+					$pk = $mapNegocio['bd']['chavePrimaria'] = $campo['campo_pk'];
 					$componente = 'oculto';
 					$chaveEstrangeira = false;
 				break;
 				case $campo['campo_fk']:
 					$componente = 'caixa de combinacao';
 					$chaveEstrangeira = array('tabela'=>$campo['esquema_fk'].'.'.$campo['tabela_fk'],'campo'=>$campo['campo_fk']);
+					$tabelaEstrangeira = $campo['esquema_fk'] ? $campo['esquema_fk'].'.'.$campo['tabela_fk'] : $campo['tabela_fk'];
+					$campoEstrangeiro = $campo['campo_fk'];
 				break;
 				default:
 					$tipoDeDado = ($campo['tipo_de_dado'] == 'numerico') ? 'tnumerico' : $campo['tipo_de_dado'];
 					$chaveEstrangeira = false;
 			}
-			$mapNegocio['entidade'][$indice]['negocio']['propriedade'] = str_replace(' ','',ucwords(str_replace('_',' ',$campo['campo'])));
-			$mapNegocio['entidade'][$indice]['negocio']['propriedade']{0} = strtolower($mapNegocio['entidade'][$indice]['negocio']['propriedade']{0});
-			$mapNegocio['entidade'][$indice]['negocio']['tipo'] = $tipoDeDado;
-			$mapNegocio['entidade'][$indice]['negocio']['campo'] = $campo['campo'];
-			$mapNegocio['entidade'][$indice]['negocio']['obrigatorio'] = $campo['obrigatorio'] ? 'sim':'';
-			$mapNegocio['entidade'][$indice]['negocio']['indiceUnico'] = '';
-			$mapNegocio['entidade'][$indice]['negocio']['dominio'] = '';
-			$mapNegocio['entidade'][$indice]['negocio']['descritivo'] = '';
-			$mapNegocio['entidade'][$indice]['negocio']['classeAssociativa'] = $chaveEstrangeira ? '«Classe de Negocio ???»':'';
-			$mapNegocio['entidade'][$indice]['negocio']['metodoLeitura'] = $chaveEstrangeira ? 'lerTodos':'';
+			$mapNegocio['campos'][$i]['negocio-propriedade'] = str_replace(' ','',ucwords(str_replace('_',' ',$campo['campo'])));
+			$mapNegocio['campos'][$i]['negocio-propriedade']{0} = strtolower($mapNegocio['campos'][$i]['negocio-propriedade']{0});
+			$mapNegocio['campos'][$i]['negocio-tipo'] = $tipoDeDado;
+			$mapNegocio['campos'][$i]['negocio-campo'] = $campo['campo'];
+			$mapNegocio['campos'][$i]['negocio-pk'] = $campo['campo_pk'];
+			$mapNegocio['campos'][$i]['negocio-nn'] = $campo['obrigatorio'] ? 'sim':'';
+			$mapNegocio['campos'][$i]['negocio-uk'] = '';
+			$mapNegocio['campos'][$i]['negocio-fk'] = $campo['campo_fk'];
+			$mapNegocio['campos'][$i]['negocio-descritivo'] = '';
+			$mapNegocio['campos'][$i]['negocio-dominio'] = $chaveEstrangeira ? '«Classe de Negocio ???»::lerTodos':'';
 			
-			$mapNegocio['entidade'][$indice]['controle']['componente'] = $componente;
-			$mapNegocio['entidade'][$indice]['controle']['tamanho'] = '';
-			$mapNegocio['entidade'][$indice]['controle']['tipo'] = $campo['tipo_de_dado'];
-			$mapNegocio['entidade'][$indice]['controle']['obrigatorio'] = $campo['obrigatorio'] ? 'sim':'';
-			$mapNegocio['entidade'][$indice]['controle']['pesquisa'] = '';
-			$mapNegocio['entidade'][$indice]['controle']['valores'] = array();
-			$mapNegocio['entidade'][$indice]['controle']['classeAssociativa'] = $chaveEstrangeira ? 'Classe de Negocio ???':'';
-			$mapNegocio['entidade'][$indice]['controle']['metodoLeitura'] = $chaveEstrangeira ? 'lerTodos':'';
-			$mapNegocio['entidade'][$indice]['controle']['listagem'] = $campo['campo_pk'] ? '1':'';
-			$mapNegocio['entidade'][$indice]['controle']['hyperlink'] = $campo['campo_pk'] ? 'sim': '';
-			$mapNegocio['entidade'][$indice]['controle']['largura'] = $campo['campo_pk'] ?'10%' :'';
-			$mapNegocio['entidade'][$indice]['controle']['ordem'] = $campo['campo_pk'] ? 1 : '';
-			$mapNegocio['entidade'][$indice]['controle']['campoPersonalizado'] = '';
+			$mapNegocio['campos'][$i]['controle-componente'] = $componente;
+			$mapNegocio['campos'][$i]['controle-tamanho'] = '';
+			$mapNegocio['campos'][$i]['controle-tipo'] = $campo['tipo_de_dado'];
+			$mapNegocio['campos'][$i]['controle-obrigatorio'] = $campo['obrigatorio'] ? 'sim':'';
+			$mapNegocio['campos'][$i]['controle-pesquisa'] = '';
+			$mapNegocio['campos'][$i]['controle-valores'] = array();
+			$mapNegocio['campos'][$i]['controle-classeAssociativa'] = $campo['campo_fk'] ? 'Classe de Negocio ???':'';
+			$mapNegocio['campos'][$i]['controle-metodoLeitura'] = $chaveEstrangeira ? 'lerTodos':'';
+			$mapNegocio['campos'][$i]['controle-listagem'] = $campo['campo_pk'] ? '1':'';
+			$mapNegocio['campos'][$i]['controle-hyperlink'] = $campo['campo_pk'] ? 'sim': '';
+			$mapNegocio['campos'][$i]['controle-largura'] = $campo['campo_pk'] ?'10%' :'';
+			$mapNegocio['campos'][$i]['controle-ordem'] = $campo['campo_pk'] ? 1 : '';
+			$mapNegocio['campos'][$i]['controle-campoPersonalizado'] = '';
 			
-			$mapNegocio['entidade'][$indice]['persistente']['nome'] = $campo['campo'];
-			$mapNegocio['entidade'][$indice]['persistente']['tipo'] = $tipoDeDado;
-			$mapNegocio['entidade'][$indice]['persistente']['tamanho'] = $campo['tamanho'];
-			$mapNegocio['entidade'][$indice]['persistente']['obrigatorio'] = '';
-			$mapNegocio['entidade'][$indice]['persistente']['operadorDeBusca'] = 'igual';
-			$mapNegocio['entidade'][$indice]['persistente']['chaveEstrangeira'] = $chaveEstrangeira;
-			$mapNegocio['entidade'][$indice]['persistente']['ordem'] = $campo['campo_pk']? '1':'';
+			$mapNegocio['campos'][$i]['persistente-campo'] = $campo['campo'];
+			$mapNegocio['campos'][$i]['persistente-tipo'] = $tipoDeDado;
+			$mapNegocio['campos'][$i]['persistente-tamanho'] = $campo['tamanho'];
+			$mapNegocio['campos'][$i]['persistente-obrigatorio'] = '';
+			$mapNegocio['campos'][$i]['persistente-operadorDeBusca'] = 'igual';
+			$mapNegocio['campos'][$i]['persistente-referencia-tabela'] = $campo['campo_fk'] ? ($campo['esquema_fk'] ? $campo['esquema_fk'].'.'.$campo['tabela_fk'] : $campo['tabela_fk']) : '';
+			$mapNegocio['campos'][$i]['persistente-referencia-campo'] = $campo['campo_fk'] ? $campo['campo_fk'] : '';
+			$mapNegocio['campos'][$i]['persistente-ordem'] = $campo['campo_pk']? '1':'';
 			
-			$mapNegocio['entidade'][$indice]['inter']['nome'] = ucfirst(str_replace('_',' ',$campo['campo']));
-			$mapNegocio['entidade'][$indice]['inter']['abreviacao'] = ucwords(str_replace('_',' ',$campo['campo']));
-			$mapNegocio['entidade'][$indice]['inter']['descricao'] = $campo['descricao'];
-			$mapNegocio['entidade'][$indice]['inter']['dominio'] = '';
+			$mapNegocio['campos'][$i]['inter-nome'] = ucfirst(str_replace('_',' ',$campo['campo']));
+			$mapNegocio['campos'][$i]['inter-abreviacao'] = ucwords(str_replace('_',' ',$campo['campo']));
+			$mapNegocio['campos'][$i]['inter-descricao'] = $campo['descricao'];
+			$mapNegocio['campos'][$i]['inter-dominio'] = '';
+			
+			$mapNegocio['campos'][$i]['visualizacao-componente'] = $componente;
+			$mapNegocio['campos'][$i]['visualizacao-edicao'] = true;
+			$mapNegocio['campos'][$i]['visualizacao-pesquisa'] = true;
+			$mapNegocio['campos'][$i]['visualizacao-ordem'] = '';
+			$mapNegocio['campos'][$i]['visualizacao-ordem-descritivo'] = '';
 		}
-		$this->visualizacao->dados = $json->pegarJson(array($mapNegocio));
+		
 		$this->visualizacao->campos = $mapNegocio;
 		$this->visualizacao->acesso = 'Carga de tabela do banco';
 		$this->visualizacao->travarSugestaoDeNomesPersistente = 'true';
+		$this->visualizacao->dados = '<script>var definicao = '.$json->pegarJson($mapNegocio).';</script>';
 	}
 }
 ?>
