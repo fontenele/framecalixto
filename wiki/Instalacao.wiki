@@ -10,9 +10,9 @@ Veja como realizar a instalação do framecalixto.
   # Linux  svn checkout http://framecalixto.googlecode.com/svn/trunk/ framecalixto-read-only
   # Windows utilize o [http://code.google.com/p/framecalixto/wiki/Tortoise Tortoise SVN]
  * Descompacte em uma pasta do apache que execute PHP.
- * Para a primeira execução determine as configurações iniciais do sistema e do banco de  dados.
- * Execute a recriação do banco de dados.
- * Cadastre uma pessoa.
- * Cadastre um usuário.
- * Libere os acessos do usuário.
+ * Para a primeira execução acesse a opção do menu "Definições do Sistema" e determine as configurações iniciais do sistema e do banco de  dados (Deixe o controle de acesso liberado).
+ * Acesse a opção do menu "Recriador de banco" e execute a recriação do banco de dados.
+ * Acesse a opção do menu "Perfis" para cadastrar um perfil e definir os acessos.
+ * Acesse a opção do menu "Cadastro de pessoas" e cadastre uma pessoa.
+ * Acesse a opção do menu "Usuários" para cadastrar um usuário e definir seus perfís.
  * Retorne a tela de configurações do sistema e trave o controle de acesso.
