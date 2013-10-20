@@ -321,6 +321,18 @@ abstract class negocioPadrao extends negocio{
 		$this->__filtroDePesquisa->$campo = $operador;
 	}
 	/**
+	 * Retorna a colecão de valores passados para o filtro
+	 * @return \colecao
+	 */
+	public function filtroPraVetor(){
+		$itens = array();
+		while($item = $this->__filtroDePesquisa->avancar()){
+			$key = array_keys($item);
+			$itens[][$key[0]] = $item[$key[0]]->valor;
+		}
+		return $itens;
+	}
+	/**
 	 * Metodo que preenche todos os atributos de negocio com um valor
 	 * @param string $valorDePreenchimento
 	 * @return colecaoPadraoNegocio
@@ -404,6 +416,20 @@ abstract class negocioPadrao extends negocio{
 		catch(erro $e){
 			throw $e;
 		}
+	}
+	/**
+	 * Executa o comando de leitura dos objetos com as chaves passadas
+	 * @param array $arChaves
+	 * @return colecaoPadraoNegocio
+	 */
+	public function lerChaves($arChaves){
+		$obj = get_class($this);
+		$negocio = new $obj();
+		foreach($arChaves as $id){
+			$filtro = "filtrar".  ucfirst($this->nomeChave());
+			$negocio->$filtro(operador::igual($id,operador::restricaoOU));
+		}
+		return $negocio->pesquisar();
 	}
 	/**
 	* Executa o comando de gravação do objeto
@@ -587,6 +613,12 @@ abstract class negocioPadrao extends negocio{
 		}
 		return $novoFiltro;
 	}
+	public function pegarFiltroParaPersistente($filtro = null){
+		if($filtro) return $filtro;
+		if($this->__filtroDePesquisa->possuiItens())
+			return $this->montarFiltroParaPersistente($this->__filtroDePesquisa);
+		return $this->negocioPraVetor();
+	}
 	/**
 	* Retorna uma coleção com os negócios pesquisados
 	* @param pagina pagina referente
@@ -594,21 +626,9 @@ abstract class negocioPadrao extends negocio{
 	* @return colecaoPadraoNegocio
 	*/
 	public function pesquisar(pagina $pagina = null, $filtro = null){
-		try{
-			if(!$pagina) $pagina = new pagina(0);
-			$persistente = $this->pegarPersistente();
-			if($this->__filtroDePesquisa->possuiItens()){
-				$arResultadoLeitura = $persistente->pesquisar(
-						$this->montarFiltroParaPersistente($filtro ? $filtro : $this->__filtroDePesquisa)
-						,$pagina);
-			}else{
-				$arResultadoLeitura = $persistente->pesquisar($this->negocioPraVetor(),$pagina);
-			}
-			return $this->vetorPraColecao($arResultadoLeitura);
-		}
-		catch(Erro $e){
-			throw $e;
-		}
+		if(!$pagina) $pagina = new pagina(0);
+		$persistente = $this->pegarPersistente();
+		return $this->vetorPraColecao($persistente->pesquisar($this->pegarFiltroParaPersistente(),$pagina));
 	}
 	/**
 	* Retorna a quantidade de objetos que o metodo pesquisar irá retornar
@@ -630,18 +650,7 @@ abstract class negocioPadrao extends negocio{
 	* @return colecaoPadraoNegocio
 	*/
 	public function lerTodos($pagina = null){
-		try{
-			$persistente = $this->pegarPersistente();
-			if($pagina){
-				$arResultadoLeitura = $persistente->lerTodosPaginado($pagina);
-			}else{
-				$arResultadoLeitura = $persistente->lerTodos();
-			}
-			return $this->vetorPraColecao($arResultadoLeitura);
-		}
-		catch(Erro $e){
-			throw $e;
-		}
+		return $this->vetorPraColecao($this->pegarPersistente()->lerTodos($pagina));
 	}
 	/**
 	 * Converte um array lido da persistente para uma coleção de negócios padronizados

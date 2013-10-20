@@ -28,8 +28,8 @@ class controlePadraoPesquisa extends controlePadrao {
 			controle::responderJson($this->definirColecao()->json());
 		$this->registrarInternacionalizacao($this, $this->visualizacao);
 		$this->gerarMenus();
-		$this->montarApresentacao($this->filtro);
 		$this->montarListagem($this->visualizacao, $this->definirColecao(), $this->pegarPagina());
+		$this->montarApresentacao($this->filtro);
 		parent::inicial();
 		$this->finalizar();
 	}

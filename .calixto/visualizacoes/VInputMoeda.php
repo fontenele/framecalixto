@@ -7,7 +7,7 @@
 class VInputMoeda extends VInputNumerico{
 	function __construct($nome = 'naoInformado',TNumerico $valor){
 		parent::__construct($nome, new TMoeda($valor));
-		$this->adicionarClass('moeda');
+		$this->adicionarClass('moeda text-right');
 	}
 }
 ?>

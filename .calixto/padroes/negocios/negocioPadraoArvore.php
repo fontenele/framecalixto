@@ -37,6 +37,11 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 	 */
 	protected $colecaoFilhos;
 	/**
+	 * Nível em que se encontra o objeto após aninhar
+	 * @var integer
+	 */
+	public $nivel = 1;
+	/**
 	* Metodo construtor
 	* @param conexao (opcional) conexão com o banco de dados
 	*/
@@ -235,10 +240,11 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 	 * @param colecaoPadraoNegocio $colecao
 	 * @param integer $ate parâmetro de limite para percorrer a coleção
 	 */
-	protected function aninhar(colecaoPadraoNegocio $colecao, $ate = null){
+	protected function aninhar(colecaoPadraoNegocio $colecao, $ate = null, $nivel = 0){
 		while($negocio = $colecao->arrancar()){
+			$negocio->passarNivel($nivel);
 			if(($negocio->valorChaveDireita() - $negocio->valorChaveEsquerda()) > 1 ){
-				$negocio->aninhar($colecao, $negocio->valorChaveDireita() -1);
+				$negocio->aninhar($colecao, $negocio->valorChaveDireita() -1, $nivel +1);
 			}
 			$this->colecaoFilhos->passar($negocio->valorChave(),$negocio);
 			if($negocio->valorChaveDireita() == $ate) return;
@@ -270,11 +276,11 @@ abstract class negocioPadraoArvore extends negocioPadrao{
 	 * Método de visualização da coleção aninhada
 	 * @param integer $nivel nível de repasse para a mostragem
 	 */
-	public function mostrarArvore($nivel = 0){
+	public function mostrarArvore(){
 		while($negocio = $this->colecaoFilhos->avancar()){
-			echo str_repeat("|-----", $nivel).'['.$negocio->valorDescricao().']<br/>';
+			echo str_repeat("|-----", $negocio->pegarNivel()).'['.$negocio->valorDescricao().']<br/>';
 			if($negocio->pegarColecaoFilhos()->possuiItens()){
-				$negocio->mostrarArvore($nivel+1);
+				$negocio->mostrarArvore();
 			}
 		}
 	}
