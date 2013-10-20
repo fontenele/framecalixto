@@ -76,23 +76,23 @@ abstract class objeto{
         $variaveis = $this->vetor();
         if(isset($variaveis['conexao'])) unset($variaveis['conexao']);
         $classe = get_class($this);
-        $xml = "<{$classe}>\n";
+        $xml = "<classe nome=\"{$classe}\">";
         foreach($variaveis as $var => $val){
             if($val instanceof objeto) $val = $val->xml();
             if(is_array($val)) $val = $this->arrayXml($val);
-            $xml.="<{$var}>{$val}</{$var}>\n";
+            $xml.="<{$var}>{$val}</{$var}>";
         }
-        $xml.= "</{$classe}>\n\n";
+        $xml.= "</classe>";
 		return $xml;
     }
     protected function arrayXml($array){
-        $xml = "\n";
+        $xml = "";
         foreach($array as $var => $val){
             if($val instanceof objeto) $val = $val->xml();
             if(is_array($val)) $val = $this->arrayXml($val);
             $xml.= $val;
         }
-        $xml.= "\n\n";
+        $xml.= "";
         return $xml;
     }
 	/**

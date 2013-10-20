@@ -57,8 +57,22 @@ class controlePadrao extends controle{
 		$this->visualizacao->jsEntidade			= is_file($arquivo = definicaoPasta::js($this).'principal.js')?$arquivo:'';
 		$this->visualizacao->jsLocal			= is_file($arquivo = definicaoPasta::js($this).get_class($this).'.js')?$arquivo:'';
 		$this->visualizacao->dirTema			= definicaoPasta::tema();
-		$this->visualizacao->{' pesquisa '}		= ($this instanceof controlePadraoPesquisa);
+		$this->visualizacao->{' pesquisa '}		= ($this instanceof controlePadraoPesquisa) || ($this instanceof controlePadraoVerPesquisa);
 		$this->visualizacao->{' edicao '}		= ($this instanceof controlePadraoVerEdicao);
+		if(sessaoSistema::tem('abrirMenu')){
+			sessaoSistema::retirar('abrirMenu');
+			$this->visualizacao->abrirMenu			= '';
+			$this->visualizacao->abrirTela			= 'oculto';
+		}else{
+			$this->visualizacao->abrirMenu			= 'oculto';
+			$this->visualizacao->abrirTela			= '';
+		}
+		if($this->visualizacao->estaLogado){
+			$nUsuario = sessaoSistema::pegar('usuario');
+			$nAcesso = new NAcesso();
+			$this->visualizacao->{' acessosLiberados'} = array_flip($nAcesso->lerAcessosPorUsuario($nUsuario)->gerarVetorDeAtributo('nmAcesso'));
+		}
+		
 	}
 	/**
 	* Método que retorna o negócio referente ao controle
@@ -105,10 +119,15 @@ class controlePadrao extends controle{
 							$arValores[strval($opcao['id'])] = $inter->pegarOpcao($idPropriedade,strval($opcao['id']));
 						}
 					}
+					$operadorPadrao = strval($propriedade['tipo']) == 'texto' ? operador::como : operador::igual;
+					$operador = isset($propriedade->banco['operadorDeBusca']) ? strtolower(strval($propriedade->banco['operadorDeBusca'])) : $operadorPadrao;
 					$mapeador['campos'][$idPropriedade] = array(
+						'atributo'		=> $idPropriedade,
+						'campo'			=> strtolower(strval($propriedade->banco['nome'])),
 						'componente'	=> strval($propriedade->apresentacao['componente']	),
 						'tamanho'		=> strval($propriedade['tamanho']	),
 						'tipo'			=> strval($propriedade['tipo']	),
+						'operadorDeBusca'=> $operador,
 						'obrigatorio'	=> strval($propriedade['obrigatorio']	),
 						'pesquisa'		=> (caracteres::RetiraAcentos(strtolower(strval($propriedade->apresentacao['pesquisa']))) == 'nao') ? false : true ,
 						'edicao'		=> (caracteres::RetiraAcentos(strtolower(strval($propriedade->apresentacao['edicao']))) == 'nao') ? false : true ,
@@ -455,6 +474,7 @@ class controlePadrao extends controle{
 		$estrutura = controlePadrao::pegarEstrutura($negocio);
 		foreach($estrutura['campos'] as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
+			$dataHtml = 'data-val-'.$nome;
 			$valor = $negocio->$pegarPropriedade();
 			$grupoNome = $grupo.'_'.$nome;
 			if($opcoes['componente']){
@@ -474,6 +494,7 @@ class controlePadrao extends controle{
 					$visualizacao->$grupoNome->passarMaxlength($opcoes['tamanho']);
 				}
 				$visualizacao->$grupoNome->passarTitle($negocio->pegarInter()->pegarPropriedade($nome,'descricao'));
+				$visualizacao->$grupoNome->propriedades[$dataHtml] = null;
 				if($visualizacao->$grupoNome instanceof VInput ){
 					if(($opcoes['tamanho'] + 2) > 60){
 						$visualizacao->$grupoNome->passarSize(60);
@@ -493,6 +514,7 @@ class controlePadrao extends controle{
 		$estrutura = controlePadrao::pegarEstrutura($negocio);
 		foreach($estrutura['campos'] as $nome => $opcoes){
 			$pegarPropriedade = 'pegar'.ucfirst($nome);
+			$dataHtml = 'data-val-'.$nome;
 			$valor = $negocio->$pegarPropriedade();
 			if($opcoes['componente']){
 				switch(true){
@@ -510,6 +532,7 @@ class controlePadrao extends controle{
 				if ($visualizacao->$nome instanceof VInput && $opcoes['tamanho']) {
 					$visualizacao->$nome->passarMaxlength($opcoes['tamanho']);
 				}
+				$visualizacao->$nome->propriedades[$dataHtml] = null;
 				$visualizacao->$nome->passarTitle($negocio->pegarInter()->pegarPropriedade($nome,'descricao'));
 				if($visualizacao->$nome instanceof VInput ){
 					if(($opcoes['tamanho'] + 2) > 60){

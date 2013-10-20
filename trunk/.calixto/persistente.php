@@ -180,12 +180,12 @@ abstract class persistente extends objeto {
 		}
 		return persistente::$estrutura[get_class($this)];
 	}
-	
+
 	/**
 	 * Configura o arquivo de log da persistente
 	 * @param string $arquivo caminho e nome do arquivo de log
 	 */
-	public static function arquivoLog($arquivo){
+	public static function arquivoLog($arquivo) {
 		self::$arquivoLog = $arquivo;
 	}
 
@@ -361,7 +361,8 @@ abstract class persistente extends objeto {
 			default:
 				$schema = definicaoBanco::pegarSchema();
 		}
-		if(!$schema) return '';
+		if (!$schema)
+			return '';
 		return $schema . ($ponto ? '.' : '');
 	}
 
@@ -372,7 +373,8 @@ abstract class persistente extends objeto {
 	 */
 	public function pegarNomeTabela($comSchema = true) {
 		$estrutura = $this->pegarEstrutura();
-		if(strpos($estrutura['nomeTabela'],'.') !== false) return $estrutura['nomeTabela'];
+		if (strpos($estrutura['nomeTabela'], '.') !== false)
+			return $estrutura['nomeTabela'];
 		if (!$comSchema)
 			return strtolower($estrutura['nomeTabela']);
 		return strtolower($this->pegarNomeSchema() ? $this->pegarNomeSchema() . $estrutura['nomeTabela'] : $estrutura['nomeTabela']);
@@ -384,7 +386,8 @@ abstract class persistente extends objeto {
 	 */
 	public function pegarNomeSequencia($comSchema = true) {
 		$estrutura = $this->pegarEstrutura();
-		if(strpos($estrutura['nomeSequencia'],'.') !== false) return $estrutura['nomeSequencia'];
+		if (strpos($estrutura['nomeSequencia'], '.') !== false)
+			return $estrutura['nomeSequencia'];
 		if (!$comSchema)
 			return strtolower($estrutura['nomeSequencia']);
 		return strtolower($this->pegarNomeSchema() ? $this->pegarNomeSchema() . $estrutura['nomeSequencia'] : $estrutura['nomeSequencia']);
@@ -396,20 +399,18 @@ abstract class persistente extends objeto {
 	 */
 	public function gerarComandoLerTodos() {
 		$estrutura = $this->pegarEstrutura();
-		if (isset($estrutura['ordem'])) {
-			$ordem = ' order by ' . implode(',', $estrutura['ordem']);
-		} else {
-			$ordem = '';
-		}
-		return "select * from {$this->pegarNomeTabela()}" . $ordem;
+		return "select * from {$this->pegarNomeTabela()} ";
 	}
 
 	/**
 	 * Executa o comando de leitura de todos os registros
+	 * @param pagina $pagina
 	 * @return array seleção de registros
 	 */
-	public function lerTodos() {
-		return $this->pegarSelecao($this->gerarComandoLerTodos());
+	public function lerTodos(pagina $pagina = null) {
+		if (!$pagina)
+			return $this->pegarSelecao($this->gerarComandoLerTodos() . $this->gerarClausulaOrdem());
+		return $this->lerPaginado($pagina, $this->gerarComandoLerTodos() . $this->gerarClausulaOrdem());
 	}
 
 	/**
@@ -514,11 +515,13 @@ abstract class persistente extends objeto {
 				if ($valor instanceof operador) {
 					$arItens[][$campo] = $valor;
 				} else {
-					$operador = new operador();
-					$operador->passarOperador($estrutura['campo'][$campo]['operadorDeBusca']);
-					$operador->passarRestricao(operador::restricaoE);
-					$operador->passarValor($valor);
-					$arItens[][$campo] = $operador;
+					if (isset($estrutura['campo'][$campo])) {
+						$operador = new operador();
+						$operador->passarOperador($estrutura['campo'][$campo]['operadorDeBusca']);
+						$operador->passarRestricao(operador::restricaoE);
+						$operador->passarValor($valor);
+						$arItens[][$campo] = $operador;
+					}
 				}
 			}
 			$filtro = new colecaoPadraoFiltro($arItens);
@@ -526,7 +529,8 @@ abstract class persistente extends objeto {
 		foreach ($filtro->itens as $item) {
 			list($campo, $operador) = each($item);
 			$operador->passarValor($this->converterDado($operador->pegarValor()));
-			$comando.=$this->gerarItemDeFiltro($operador, $campo, $estrutura['campo'][$campo]['tipo']);
+			if (isset($estrutura['campo'][$campo]))
+				$comando.=$this->gerarItemDeFiltro($operador, $campo, $estrutura['campo'][$campo]['tipo']);
 		}
 		if ($comando) {
 			$comando = substr($comando, 0, -5);
@@ -548,22 +552,22 @@ abstract class persistente extends objeto {
 		
 	}
 
+	public function gerarClausulaOrdem() {
+		$estrutura = $this->pegarEstrutura();
+		return (isset($estrutura['ordem'])) ? ' order by ' . implode(',', $estrutura['ordem']) : '';
+	}
+
 	/**
 	 * Gera o comando SQL de leitura dos registros pesquisados
 	 * @return string comando SQL de leitura de um registro
 	 */
 	public function gerarComandoPesquisar($filtro) {
 		$estrutura = $this->pegarEstrutura();
-		$comando = "select * from {$this->pegarNomeTabela()} ";
+		$comando = $this->gerarComandoLerTodos();
 		$tamanhoComando = strlen($comando);
 		$comando .= $this->gerarClausulaDeFiltro($filtro);
 		if ($tamanhoComando != strlen($comando)) {
-			if (isset($estrutura['ordem'])) {
-				$ordem = ' order by ' . implode(',', $estrutura['ordem']);
-			} else {
-				$ordem = '';
-			}
-			$comando = $comando . $ordem;
+			$comando = $comando . $this->gerarClausulaOrdem();
 		} else {
 			$comando = $this->gerarComandoLerTodos();
 		}
@@ -609,7 +613,7 @@ abstract class persistente extends objeto {
 	 * @return array seleção de registros
 	 */
 	public function lerTodosPaginado(pagina $pagina) {
-		return $this->lerPaginado($pagina, $this->gerarComandoLerTodos());
+		return $this->lerPaginado($pagina, $this->gerarComandoLerTodos() . $this->gerarClausulaOrdem());
 	}
 
 	/**
@@ -951,7 +955,7 @@ abstract class persistente extends objeto {
 				$arTabelaExtrangeira = explode('.', $referencia['chaveEstrangeira']['tabela']);
 				$tabelaExtrangeira = $referencia['chaveEstrangeira']['tabela'];
 				if (count($arTabelaExtrangeira) == 1) {
-					$tabelaExtrangeira = $this->schema . '.' . $tabelaExtrangeira;
+					$tabelaExtrangeira = $this->pegarNomeSchema($this->pegarNomeSchema()).$tabelaExtrangeira;
 				}
 				$chaves[strtolower($tabelaExtrangeira)] = " {$this->pegarNomeTabela()}.{$nomeCampo} = {$tabelaExtrangeira}.{$referencia['chaveEstrangeira']['campo']} ";
 			}

@@ -9,6 +9,7 @@ class VInputEmail extends VInput{
 		parent::__construct($nome, $valor);
 		$this->passarOnChange('validarEmail(this);');
 		$this->passarValue($valor);
+                $this->passarType("email");
 	}
 	public function __toString(){
 		return parent::__toString();

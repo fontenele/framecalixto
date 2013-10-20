@@ -178,5 +178,14 @@ class controlePadraoPDF extends controle{
 	public function ln($h = 7){
 		$this->visualizacao->Ln($h);
 	}
+	public function corDeFundo($R=0, $G=-1, $B=-1){
+		$this->visualizacao->SetFillColor($R, $G, $B);
+	}
+	public function corDeTexto($R=0, $G=-1, $B=-1){
+		$this->visualizacao->SetTextColor($R, $G, $B);
+	}
+	public function fonte($nome = 'helvetica', $estilo = 'B', $tamanho = 20){
+		$this->visualizacao->SetFont($nome, $estilo, $tamanho);
+	}
 }
 ?>

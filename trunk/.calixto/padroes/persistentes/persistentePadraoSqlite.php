@@ -53,6 +53,59 @@ class persistentePadraoSqlite extends persistente {
 			return self::$correcaoSchema[get_class($this)] = $estrutura;
 		}
 	}
+	/**
+	* Método de conversão de tipo de dado
+	* @param mixed dado a ser convertido
+	* @param array campo referente
+	*/
+	public function converterDado($valor,$campo = null){
+		if((!$campo) && ($valor instanceof TData)){
+			return $valor->pegarData('Y-m-d');
+		}
+		if($campo){
+			switch(strtolower($campo['tipo'])){
+				case 'datahora':
+					return new TDataHora($valor,'Y/m/d');
+				break;
+				case 'data':
+					//x(new TData($valor,'Y-m-d'));
+					return new TData($valor,'Y/m/d');
+				break;
+			}
+		}
+		return parent::converterDado($valor, $campo);
+	}
+
+	//**************************************************************************
+	//**************************************************************************
+	// 							COMANDOS DML
+	//**************************************************************************
+	//**************************************************************************
+	/**
+	 * Gera o comando de inserção de um registro no banco de dados
+	 * @param array correlativa entre campos e valores do registro
+	 * @return string comando de inserção
+	 */
+	public function gerarComandoInserir($array) {
+		$estrutura = $this->pegarEstrutura();
+		$campos = implode(',', array_keys($array));
+		foreach ($array as $campo => $valor) {
+			if (empty($valor)) {
+				$valores[] = "null";
+			} else {
+				if ($campo == $estrutura['chavePrimaria']) {
+					$valores[] = "null";
+				} else {
+					if(is_object($valor)){
+						$valor = $this->converterDado($valor);
+					}
+					$valores[] = "'" . str_replace("'", "''", $valor) . "'";
+				}
+			}
+		}
+		$valores = implode(',', $valores);
+		return "insert into {$estrutura['nomeTabela']} ($campos) values ($valores);\n";
+	}
 
 	//**************************************************************************
 	//**************************************************************************
@@ -160,7 +213,7 @@ class persistentePadraoSqlite extends persistente {
 	 * Gera a sequencia numérica da persistente correspondente
 	 */
 	public function gerarSequencia() {
-		return null;
+		return 'null';
 	}
 
 	/**
