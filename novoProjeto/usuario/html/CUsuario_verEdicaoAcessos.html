@@ -1,0 +1,41 @@
+<form name="formulario" method="post" action="«$action»">
+	<div class="container0">
+		<div class="a"></div>
+		<div class="b"></div>
+		<div class="c"></div>
+		<div class="d"></div>
+		<div class="e"></div>
+		<div class="f"></div>
+		<div class="g"></div>
+		<div class="h"></div>
+		<h1 class="titulo">&nbsp;</h1>
+		<div class="texto">
+			«$idUsuario»
+			<div class="tabela2">
+				<div class='campo'>
+					<label for='«$idPessoa->pegarId()»'>«$nomeIdPessoa»:</label>
+					<span>«$idPessoa»</span>
+				</div>
+				<div class='campo'>
+					<label>«$nomeNmUsuario»:</label>
+					<span>«$nmUsuario»</span>
+				</div>
+				<div class='campo'>
+					<label>«$nomeNmSenha»:</label>
+					<span>«$nmSenha»</span>
+				</div>
+				<div class='campo'>
+					<label>«$nomeStatus»:</label>
+					<span>«$status»</span>
+				</div>
+				<div class='campo'>
+					<label>«$nomeDtCadastro»:</label>
+					<span>«$dtCadastro»</span>
+				</div>
+			</div>
+	        <div id='menu_corpo'>
+	            «$menuPrograma»
+	        </div>
+		</div>
+	</div>
+</form>

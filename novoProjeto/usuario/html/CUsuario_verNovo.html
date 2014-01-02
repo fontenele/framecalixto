@@ -1,0 +1,35 @@
+<!---------------------- TEMPLATE PADRÃO ---------------------->
+
+<div class="container">
+    «$mensageria»
+    <form name="formulario" method="post" action="«$action»" class="well">
+        <h4 class="fc-titulo-especifico">Cadastro de Novo Usuário</h4>
+        <hr/>
+
+        <div class="fc-campo-grupo">
+            «$usuario_idUsuario»
+            <div class="fc-campo-subgrupo">
+                <div class="fc-campo control-group js-cmp js-F js-J">
+                    <label for="nmLogin" class="control-label">«$nomeNmLogin»:</label>
+                    <span class="">«$usuario_nmLogin»</span>
+                </div>
+                <div class="fc-campo control-group js-cmp js-F js-J">
+                    <label for="nmSenha" class="control-label">«$nomeNmSenha»:</label>
+                    <span class="">«$usuario_nmSenha»</span>
+                </div>
+                <div class="fc-campo control-group js-cmp js-F js-J">
+                    <label for="nmSenhaC" class="control-label">«$nomeNmSenhaC»:</label>
+                    <span class="">
+                        <input id="usuario-nmSenhaC" class="componente obrigatorio" type="password" data-val-nmsenhac="" title="Confirme sua senha" maxlength="32" size="34" name="usuario[nmSenhaC]" tabindex="1"></input>
+                        <span id="usuario-nmSenhaC_obrigatoriedade" class="campoObrigatorio"></span>
+                        
+                    </span>
+                </div>
+			</div>
+            <div id='fc-menu_corpo'>
+				<button class="btn btn-primary">Criar novo usuário</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!---------------------- TEMPLATE PADRÃO ---------------------->

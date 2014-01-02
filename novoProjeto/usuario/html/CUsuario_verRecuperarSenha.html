@@ -1,0 +1,30 @@
+<div class="container">
+    «$mensageria»
+    <form name="formulario" method="post" action="«$action»" class="form well">
+        <h4 class="fc-titulo-especifico">Criação de nova senha</h4>
+        <hr/>
+        <div class="fc-campo-grupo">
+            <div class="fc-campo-subgrupo">
+                <div class="fc-campo control-group">
+                    <label class="control-label">Email:</label>
+					<span><strong>«$emailUsuario»</strong></span>
+                </div>
+                <div class="fc-campo control-group">
+                    <label class="control-label">Nova Senha:</label>
+					<span>«$novaSenha»</span>
+                </div>
+                <div class="fc-campo control-group">
+                    <label class="control-label">Confirmação da Nova Senha:</label>
+					<span>«$confirmaSenha»</span>
+                </div>
+                <div class="fc-campo control-group">
+                    <label class="control-label">Senha recebida no email:</label>
+					<span>«$senhaEmail»</span>
+                </div>
+			</div>
+            <div id='fc-menu_corpo'>
+				<button class="btn btn-primary">Recuperar minha senha</button>
+            </div>
+        </div>
+    </form>
+</div>
