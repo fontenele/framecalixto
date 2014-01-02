@@ -16,7 +16,7 @@
 		</propriedades>
 	</entidade>
 	<mensagens>
-		<mensagem id="usuarioLogado">Bem vido ao sistema!</mensagem>
+		<mensagem id="usuarioLogado">Bem vindo ao sistema!</mensagem>
 	</mensagens>
 	<controles>
 		<titulo>Acesso ao Sistema</titulo>

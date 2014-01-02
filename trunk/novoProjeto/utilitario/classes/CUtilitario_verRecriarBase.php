@@ -36,11 +36,11 @@ class CUtilitario_verRecriarBase extends controlePadrao {
  		$classes[] = 'NEstado';
  		$classes[] = 'NPessoa';
  		$classes[] = 'NUsuario';
+ 		$classes[] = 'NPessoaUsuario';
  		$classes[] = 'NPerfil';
  		$classes[] = 'NAcesso';
  		$classes[] = 'NUsuarioPerfil';
  		$classes[] = 'NLogAcesso';
- 		$classes[] = 'NMenu';
 		return $classes;
 	}
 	/**

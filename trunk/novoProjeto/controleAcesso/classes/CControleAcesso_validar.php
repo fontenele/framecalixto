@@ -16,7 +16,7 @@ class CControleAcesso_validar extends controle{
 			$controleAcesso->passarNmLogin($_POST['nmLogin']);
 			$controleAcesso->passarNmSenha(md5($_POST['nmSenha']));
 			$controleAcesso->validarLogin();
-			$this->registrarComunicacao($this->inter->pegarMensagem('usuarioLogado'));
+			$this->registrarComunicacao($this->inter->pegarMensagem('usuarioLogado'),'sucesso');
 			$this->passarProximoControle(definicaoEntidade::controle($this,'verPrincipal'));
 		}
 		catch(erro $e){

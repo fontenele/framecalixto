@@ -8,34 +8,66 @@
  */
 class NUsuario extends negocioPadrao {
 
+	const ativo = 1;
+	const inativo = 2;
+	const naoConfirmado = 3;
+
 	/**
-	 * @var integer Identificador
+	 * @gerador variavelPadrao
+	 * @var integer Código
 	 */
 	public $idUsuario;
 
 	/**
-	 * @var integer Pessoa
-	 */
-	public $idPessoa;
-
-	/**
+	 * @gerador variavelPadrao
 	 * @var string Login
 	 */
 	public $nmLogin;
 
 	/**
+	 * @gerador variavelPadrao
 	 * @var string Senha
 	 */
 	protected $nmSenha;
+
+	/**
+	 * @gerador variavelPadrao
+	 * @var string Senha Gerada
+	 */
+	protected $senhaGerada;
+
+	/**
+	 * @gerador variavelPadrao
+	 * @var string Status do usuário
+	 */
+	public $status;
+
+	/**
+	 * @gerador variavelPadrao
+	 * @var string Status do usuário
+	 */
+	public $dataSolicitacao;
+	/**
+	 * @gerador variavelPadrao
+	 * @var string Status do usuário
+	 */
+	public $dataConfirmacao;
 
 	/**
 	 * Coleção de perfis do usuário
 	 * @var colecaoPadraoNegocio
 	 */
 	public $coPerfis;
+	
+	/**
+	 * Array de acessos liberados para o usuário
+	 * @var array
+	 */
+	protected static $acessosLiberados = array();
 
 	/**
 	 * Retorna o nome da propriedade que contém o valor chave de negócio
+	 * @gerador metodoPadrao
 	 * @return string
 	 */
 	public function nomeChave() {
@@ -50,6 +82,16 @@ class NUsuario extends negocioPadrao {
 		parent::__construct($conexao);
 		$this->coAcessos = new colecaoPadraoNegocio(null, $conexao);
 		$this->coPerfis = new colecaoPadraoNegocio(null, $conexao);
+		//$this->nPessoa = new NPessoa();
+	}
+
+	/**
+	 * Carrega a pessoa referente ao usuário
+	 */
+	public function carregarPessoa() {
+		if ($this->idPessoa) {
+			$this->nPessoa->ler($this->idPessoa);
+		}
 	}
 
 	/**
@@ -124,7 +166,6 @@ class NUsuario extends negocioPadrao {
 		$this->passarNmSenha(self::encriptarSenha($this->pegarNmSenha()));
 	}
 
-
 	/**
 	 * Método de apresentação simplificada do objeto de negócio
 	 * @return string descrição do objeto
@@ -136,6 +177,18 @@ class NUsuario extends negocioPadrao {
 			return 'Visitante';
 		}
 	}
+	
+	/**
+	 * Retorna os acessos liberados para o usuário
+	 * @return array
+	 */
+	public function pegarAcessosLiberados(){
+		if (!count(self::$acessosLiberados)) {
+			$nAcesso = new NAcesso();
+			self::$acessosLiberados = array_flip($nAcesso->lerAcessosPorUsuario($this)->gerarVetorDeAtributo('nmAcesso'));
+		}
+		return self::$acessosLiberados;
+	}
 
 	/**
 	 * Retorna se o usuário possui acesso a um controle
@@ -143,11 +196,62 @@ class NUsuario extends negocioPadrao {
 	 * @return boolean
 	 */
 	public function possuiAcesso($controle) {
-		if (!count(self::$acessosLiberados)) {
-			$nAcesso = new NAcesso();
-			self::$acessosLiberados = array_flip($nAcesso->lerAcessosPorUsuario($this)->gerarVetorDeAtributo('nmAcesso'));
+		$acessos = $this->pegarAcessosLiberados();
+		return isset($acessos[$controle]);
+	}
+
+
+	/**
+	 * Gera uma nova senha para alteração de senha do usuário
+	 */
+	public function gerarNovaSenha($linkRecuperarSenha) {
+		$this->ler($this->valorChave());
+		//$this->carregarPessoa();
+		$this->passarSenhaGerada(md5($novaSenha = caracteres::encrypt(rand(1, 1000000))));
+		$this->gravar();
+		$email = new emailSistema();
+		$email->addEmailDestinatario($this->pegarNmLogin(), $this->pegarNmLogin());
+		$email->passarAssunto($this->inter->pegarMensagem('mensagemAssuntoTrocaSenhaEmail'));
+		$email->passarConteudo(sprintf($this->inter->pegarMensagem('mensagemTrocaSenhaEmail'), $novaSenha, $linkRecuperarSenha));
+		$email->enviar();
+	}
+
+	/**
+	 * Valida a senha do usuário
+	 * @param string $senha
+	 * @return boolean 
+	 */
+	public function validarSenha($senha) {
+		if ($this->pegarSenhaGerada() && ($this->pegarSenhaGerada() == md5($senha)))
+			return true;
+		$nUsuario = new NUsuario($this->pegarConexao());
+		$nUsuario->ler($this->valorChave());
+		return md5($senha) == $nUsuario->pegarNmSenha();
+	}
+
+	/**
+	 * Altera a senha atual do usuário
+	 * @param string $novaSenha
+	 */
+	public function trocarSenha($novaSenha) {
+		$this->ler($this->valorChave());
+		$this->passarNmSenha(md5($novaSenha));
+		$this->passarSenhaGerada('');
+		$this->gravar();
+	}
+	
+	public function verificarAntesExcluir() {
+		if($this->valorChave() == 1){
+			throw new erroNegocio('Não é permitido excluir o administrador do sistema.');
 		}
-		return isset(self::$acessosLiberados[$controle]);
+		parent::verificarAntesExcluir();
+	}
+	
+	public function verificarAntesAlterar($negocio) {
+		if($this->valorChave() == 1){
+			throw new erroNegocio('Não é permitido alterar o administrador do sistema.');
+		}
+		parent::verificarAntesAlterar($negocio);
 	}
 
 }

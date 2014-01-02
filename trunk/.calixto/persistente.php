@@ -67,7 +67,7 @@ abstract class persistente extends objeto {
 	 * Retorna se a persistente está imprimindo os comandos de execução
 	 * @return boolean 
 	 */
-	public static function imprimindoComandos() {
+	public static function estaImprimindoComandos() {
 		return (boolean) self::$imprimirComandos;
 	}
 

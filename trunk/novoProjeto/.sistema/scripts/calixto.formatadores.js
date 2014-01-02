@@ -45,7 +45,6 @@ jQuery.fn.formatarData = function (configurador){
 			if(re.exec(jQuery(componente).val())) jQuery(componente).val('0' + jQuery(componente).val());
 			var arData  = jQuery(componente).val().split('/');
 			var dataAtual = configurador.dataAtual.split('/');
-			console.log(dataAtual);
 			if(arData.length > 3) throw 1;
 			switch (configurador.formato){
 				case 'YYYYMMDD': form = [2,1,0]; break;
