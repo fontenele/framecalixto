@@ -313,6 +313,9 @@
 								date: this.date,
 								viewMode: DPGlobal.modes[this.viewMode].clsName
 							});
+							if (this.viewMode === 0) {
+								this.hide();
+							}
 						}
 						break;
 				}

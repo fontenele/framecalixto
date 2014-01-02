@@ -16,13 +16,13 @@ abstract class controlePadraoVerPesquisa extends controlePadrao {
 	 * @var coletor de dados que será utilizado para gerar a pesquisa
 	 */
 	public $filtro;
-	
+
 	/**
 	 * Objeto de negócio utilizado para preencher a tela de pesquisa
 	 * @var negocioPadrao
 	 */
 	public $negocio;
-	
+
 	/**
 	 * @var array valores postados para a pesquisa
 	 */
@@ -42,15 +42,29 @@ abstract class controlePadraoVerPesquisa extends controlePadrao {
 		$this->definirParametros();
 		$this->montarFiltro();
 		if (controle::tipoResposta() == controle::xml)
-			controle::responderXml($this->definirColecao()->xml());
+			$this->respostaXml();
 		if (controle::tipoResposta() == controle::json)
-			controle::responderJson($this->definirColecao()->json());
+			$this->respostaJson();
 		$this->registrarInternacionalizacao($this, $this->visualizacao);
 		$this->gerarMenus();
 		$this->montarListagem($this->visualizacao, $this->definirColecao(), $this->pegarPagina());
-		$this->montarApresentacaoPesquisa($this->negocio, $this->visualizacao,$this->parametros);
+		$this->montarApresentacaoPesquisa($this->negocio, $this->visualizacao, $this->parametros);
 		parent::inicial();
 		$this->finalizar();
+	}
+
+	/**
+	 * Método que realiza a resposta XML
+	 */
+	public function respostaXml() {
+		controle::responderXml($this->definirColecao()->xml());
+	}
+
+	/**
+	 * Método que realiza a resposta JSON
+	 */
+	public function respostaJson() {
+		controle::responderJson($this->definirColecao()->json());
 	}
 
 	/**
@@ -134,11 +148,11 @@ abstract class controlePadraoVerPesquisa extends controlePadrao {
 			$this->parametros = ($this->sessao->tem('parametros')) ? $this->sessao->pegar('parametros') : array();
 		}
 	}
-	
+
 	/**
 	 * Método que monta o filtro para a pesquisa
 	 */
-	protected function montarFiltro(){
+	protected function montarFiltro() {
 		$this->filtro = new coletor();
 		$obNegocio = definicaoEntidade::negocio($this);
 		$this->negocio = new $obNegocio();

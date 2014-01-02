@@ -18,6 +18,7 @@ Configure este template para atender as necessidades do tema do seu sistema
         *	para a visualização básica do tema do sistema
         *»
         «if $cssGlobal»<link type="text/css" rel="stylesheet" href="«$cssGlobal»" media="screen" id="cssGlobalDoSistema"/>«/if»
+		<link type="text/css" rel="stylesheet" href=".sistema/temas/bootstrap/js/select2/select2.css" media="screen"/>
         «**
         * "CSS comum da entidade do sistema"
         *	O arquivo css abaixo irá definir as necessidades comuns da aparência de 
@@ -62,6 +63,8 @@ Configure este template para atender as necessidades do tema do seu sistema
         <script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/jquery-1.7.1.min.js" id="jsJQuery" ></script>
         <script language="javascript" type="text/javascript" src=".sistema/temas/bootstrap/js/bootstrap.min.js"></script>
         <script language="javascript" type="text/javascript" src=".sistema/temas/bootstrap/js/bootstrap-datepicker.js"></script>
+        <script language="javascript" type="text/javascript" src=".sistema/temas/bootstrap/js/select2/select2.js"></script>
+        <script language="javascript" type="text/javascript" src=".sistema/temas/bootstrap/js/select2/select2_locale_pt-BR.js"></script>
         <script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/plugins/jquery.maskedinput-1.2.2.js" ></script>
         <script language="javascript" type="text/javascript" src=".sistema/scripts/jquery/plugins/jquery.price_format.1.0.js"></script>
         <script language="javascript" type="text/javascript" src=".sistema/scripts/calixto.date.js"></script>
@@ -90,7 +93,13 @@ Configure este template para atender as necessidades do tema do seu sistema
 							«$menuPrincipal»
 						</a> 
 					</li>
-					<li><a href="?c=CControleAcesso_verLogin"><i class="icon-off icon-white"></i> «if $nomeLogado == 'Visitante'»Acessar«else»Desligar«/if»</a> </li>
+					<li>
+						«if $nomeLogado == 'Visitante'»
+						<a href="?c=CControleAcesso_verLogin"><i class="icon-off icon-white"></i> Acessar</a>
+						«else»
+						<a href="?c=CControleAcesso_deslogar"><i class="icon-off icon-white"></i> Desligar</a>
+						«/if»
+					</li>
 				</ul>
 			</div>
 		</div>

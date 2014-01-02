@@ -1,60 +1,63 @@
-<form name="formulario" method="post" action="«$action»">
-	<div class="fc-pesquisa">
-		<h1 class="fc-titulo-especifico">«$tituloEspecifico»</h1>
-		<div class="fc-campo-grupo">
-			<div class="fc-campo-subgrupo">
-				<div class='fc-campo'>
-					<label>«$nomeNmLogin»:</label>
-					<span>«$idUsuario»«$nmLogin»</span>
+<div class="container">
+	<form name="formulario" method="post" action="«$action»">
+		<div class="fc-pesquisa">
+			<h4 class="fc-titulo-especifico">«$tituloEspecifico»</h4>
+			<div class="fc-campo-grupo">
+				<div class="fc-campo-subgrupo">
+					<div class='fc-campo'>
+						<label>«$nomeNmLogin»:</label>
+						<span>«$idUsuario»«$nmLogin»</span>
+					</div>
+				</div>
+				<div id='fc-menu-corpo'>
+					«$menuPrograma»
 				</div>
 			</div>
-	        <div id='fc-menu-corpo'>
-	            «$menuPrograma»
-	        </div>
-		</div>
-		<div class="fc-listagem-grupo">
-			<h1 class="fc-listagem-titulo"><img src=".sistema/icones/application_view_list.png" />
-				(<a href='javascript:marcar(false);'>Nenhum</a>/<a href='javascript:marcar(true);'>Todos</a>)
-				Acessos
-			</h1>
-			<div class="fc-listagem">
-				<table summary="text" class="fc-listagem-dados">
-					<thead>
-						<tr>
-							<th>Entidade</th>
-							<th colspan="2">Acesso</th>
-							<th>Descrição</th>
-							<!--<th colspan='2'>Dt.Início</th><th colspan='2'>Dt.Fim</th>-->
-						</tr>
-					</thead>
-					<tbody>
-						«$listagem»
-					</tbody>
-				</table>
+			<div class="fc-listagem-grupo">
+				<h4 class="fc-listagem-titulo"><img src=".sistema/icones/application_view_list.png" />
+					(<a href='javascript:marcar(false);'>Nenhum</a>/<a href='javascript:marcar(true);'>Todos</a>)
+					Acessos
+				</h4>
+				<div class="fc-listagem">
+					<table summary="text" class="fc-listagem-dados">
+						<thead>
+							<tr>
+								<th>Entidade</th>
+								<th colspan="2">Acesso</th>
+								<th>Descrição</th>
+								<!--<th colspan='2'>Dt.Início</th><th colspan='2'>Dt.Fim</th>-->
+							</tr>
+						</thead>
+						<tbody>
+							«$listagem»
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
-</form>
+	</form>
+</div>
 <script type="text/javascript" language="javascript">
-function marcar(valor,controle) {
-	valor = valor || false;
-	controle = controle || false;
-	if(controle){
-		var re = new RegExp('^' + controle + '');
-		for ( var i=0; i < document.formulario.elements.length; i++ ) {
-			var componente = document.formulario.elements[i];
-			if ( componente.type == "checkbox") {
-				var res = re.exec(componente.value);
-				if(res) componente.checked = valor;
+	function marcar(valor, controle) {
+		valor = valor || false;
+		controle = controle || false;
+		if (controle) {
+			var re = new RegExp('^' + controle + '');
+			for (var i = 0; i < document.formulario.elements.length; i++) {
+				var componente = document.formulario.elements[i];
+				if (componente.type == "checkbox") {
+					var res = re.exec(componente.value);
+					if (res)
+						componente.checked = valor;
+				}
 			}
-		}
-	}else{
-		for ( var i=0; i < document.formulario.elements.length; i++ ) {
-			var componente = document.formulario.elements[i];
-			if ( componente.type == "checkbox") {
-				componente.checked = valor;
+		} else {
+			for (var i = 0; i < document.formulario.elements.length; i++) {
+				var componente = document.formulario.elements[i];
+				if (componente.type == "checkbox") {
+					componente.checked = valor;
+				}
 			}
 		}
 	}
-}
 </script>

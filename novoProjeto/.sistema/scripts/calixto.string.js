@@ -6,9 +6,10 @@ String.prototype.ucFirst = function(){return this.charAt(0).toUpperCase()+this.s
 /**
  * função para fazer lowerCamelCase();
  */
-String.prototype.upperCamelCase = function (){
+String.prototype.upperCamelCase = function (quebra){
+	quebra = quebra || ' ';
 	palavra = this.toLowerCase();
-	arPalavra = palavra.split(' ');
+	arPalavra = palavra.split(quebra);
 	palavraFim = '';
 	for(i in arPalavra){
 		palavraFim += arPalavra[i].ucFirst();
@@ -18,8 +19,8 @@ String.prototype.upperCamelCase = function (){
 /**
  * função para fazer lowerCamelCase();
  */
-String.prototype.lowerCamelCase = function (){
-	palavra = this.upperCamelCase();
+String.prototype.lowerCamelCase = function (quebra){
+	palavra = this.upperCamelCase(quebra);
 	return palavra.charAt(0).toLowerCase()+palavra.substr(1);
 };
 /**
@@ -41,6 +42,32 @@ String.prototype.makeLowerUnderLine = function(){
 String.prototype.makeUpperUnderLine = function(){
 	return this.toUpperCase().retiraAcentos().strReplace('[^a-zA-Z0-9_]', '_');
 };
+/**
+ * Funcao simuladora da number_format
+ */
+function number_format (number, decimals, dec_point, thousands_sep) {
+	number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+	var n = !isFinite(+number) ? 0 : +number,
+	prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+	sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+	dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+	s = '',
+	toFixedFix = function (n, prec) {
+		var k = Math.pow(10, prec);
+		return '' + Math.round(n * k) / k;
+	};
+	// Fix for IE parseFloat(0.55).toFixed(0) = 0;
+	s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+	if (s[0].length > 3) {
+		s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+	}
+	if ((s[1] || '').length < prec) {
+		s[1] = s[1] || '';
+		s[1] += new Array(prec - s[1].length + 1).join('0');
+	}
+	return s.join(dec);
+}
+
 /**
 * Função simuladora da sprintf da linguagem C
 */

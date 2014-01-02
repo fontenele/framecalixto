@@ -1,35 +1,144 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <internacionalizacao>
-	<entidade>
-		<nome>Usuário</nome>
-		<propriedades>
-		<propriedade nome='idUsuario'>
-			<nome>Código</nome>
-			<abreviacao>Cód.</abreviacao>
-			<descricao>Informe o código</descricao>
-		</propriedade>
-		<propriedade nome='idPessoa'>
-			<nome>Pessoa</nome>
-			<abreviacao>Pessoa</abreviacao>
-			<descricao>Informe a pessoa responsável</descricao>
-		</propriedade>
-		<propriedade nome='nmLogin'>
-			<nome>Login</nome>
-			<abreviacao>Login</abreviacao>
-			<descricao>Informe o Login</descricao>
-		</propriedade>
-		<propriedade nome='nmSenha'>
-			<nome>Senha</nome>
-			<abreviacao>Senha</abreviacao>
-			<descricao>Informe a senha</descricao>
-		</propriedade>
-		</propriedades>
-	</entidade>
-	<controles>
-		<titulo>Usuários</titulo>
-		<textos>
-			<texto id="verSelecionarAcessos">Selecionar os acessos</texto>
-			<texto id="verColecaoUsuarioPerfil">Selecionar os perfís</texto>
-		</textos>
-	</controles>
+    <entidade>
+        <nome>Usuário</nome>
+        <propriedades>
+            <propriedade nome='idUsuario'>
+                <nome>Código</nome>
+                <abreviacao>Cód.</abreviacao>
+                <descricao>Informe o código</descricao>
+            </propriedade>
+            <propriedade nome='nmLogin'>
+                <nome>Email</nome>
+                <abreviacao>Email</abreviacao>
+                <descricao>Informe o seu Email</descricao>
+            </propriedade>
+            <propriedade nome='nmSenha'>
+                <nome>Senha</nome>
+                <abreviacao>Senha</abreviacao>
+                <descricao>Informe a senha</descricao>
+            </propriedade>
+            <propriedade nome='nmSenhaC'>
+                <nome>Confirma Senha</nome>
+                <abreviacao>Confirma Senha</abreviacao>
+                <descricao>Confirme a sua senha</descricao>
+            </propriedade>
+            <propriedade nome='senhaGerada'>
+                <nome>Senha Gerada</nome>
+                <abreviacao>Senha Gerada</abreviacao>
+                <descricao>Senha Gerada e enviada para o email do usuário</descricao>
+            </propriedade>
+            <propriedade nome='dataSolicitacao'>
+                <nome>Data Solicitacao</nome>
+                <abreviacao>Data Solicitacao</abreviacao>
+                <descricao>Data de Solicitacao do usuário</descricao>
+            </propriedade>
+            <propriedade nome='dataConfirmacao'>
+                <nome>Data Confirmacao</nome>
+                <abreviacao>Data Confirmacao</abreviacao>
+                <descricao>Data de Confirmacao do usuário</descricao>
+            </propriedade>
+            <propriedade nome='status'>
+                <nome>Status do usuário</nome>
+                <abreviacao>Status</abreviacao>
+                <descricao>Selecione o status do usuário</descricao>
+                <dominio>
+                    <opcao id='1' >Ativo</opcao>
+                    <opcao id='2' >Inativo</opcao>
+                    <opcao id='3' >Email não confirmado</opcao>
+                </dominio>
+            </propriedade>
+        </propriedades>
+    </entidade>
+    <controles>
+        <titulo>Usuários</titulo>
+        <textos>
+            <texto id="verSelecionarAcessos">Selecionar os acessos</texto>
+            <texto id="verColecaoUsuarioPerfil">Selecionar os perfís</texto>
+        </textos>
+    </controles>
+    <mensagens>
+        <mensagem id="assuntoBemVindo">Bem Vindo ao SIGCON!</mensagem>
+        <mensagem id="conteudoBemVindo"><![CDATA[
+		Ol&aacute;, %s !<br/>
+		<br/>
+		Seja muito Bem Vindo ao SIGCON.<br/>
+		<br/>
+		Para ativar seu usu&aacute;rio acesse <a href="%s">este endere&ccedil;o</a>
+		<br/>
+		<br/>
+		Atenciosamente.<br/>
+		Equipe SIGCON<br/>
+		<br/>
+		]]>
+        </mensagem>
+        <mensagem id="senhaRecuperada">Sua senha foi recuperada com sucesso.</mensagem>
+        <mensagem id="novaSenhaGerada">Uma nova senha foi gerada e enviada ao seu email, acesse o link do email para recuperar sua senha.</mensagem>
+        <mensagem id="usuarioNaoCadastrado">O usuário não está cadastrado no sistema.</mensagem>
+        <mensagem id="gravarNovoSucesso"><![CDATA[
+                <strong>Dados gravados com sucesso</strong><br/>
+                Você receberá um email com instruções para a ativação do seu usuário
+        ]]>
+        </mensagem>
+        <mensagem id="mensagemAssuntoTrocaSenhaEmail">Alteracao de senha.</mensagem>
+        <mensagem id="mensagemTrocaSenhaEmail"><![CDATA[
+        Ol&aacute;,<br/>
+        <br/>
+        Foi solicitado uma troca de senha para o seu usu&aacute;rio no SIGCON.<br/>
+        Caso seja realmente a sua vontade trocar a senha do seu usu&aacute;rio,<br/>
+        clique no link abaixo, e informe esta senha <big>%s</big> no campo senha do email.<br/>
+        <br/>
+        <a href='%s'>Trocar Minha Senha</a><br/>
+        <br/>
+        Atenciosamente.<br/>
+        Equipe SIGCON<br/>
+        <br/>
+        <br/>
+        ]]>
+        </mensagem>
+       <mensagem id="ajudaEsqueciSenha"><![CDATA[
+                <strong>Recuperação de senha</strong><br/>
+                Para recuperar sua senha preencha o seu email abaixo para receber uma nova senha em seu email e alterá-la.
+        ]]>
+        </mensagem>
+       <mensagem id="gravarNovoSucesso"><![CDATA[
+			<strong>Dados gravados com sucesso</strong><br/>
+			Você receberá um email com instruções para a ativação do seu usuário
+		]]>
+        </mensagem>   
+        <mensagem id="emailNaoConfirmado"><![CDATA[
+		<strong>Erro</strong><br/>
+		Chave inválida para a confirmação de email.
+		]]>
+        </mensagem>
+        <mensagem id="usuarioNaoExiste"><![CDATA[
+		<strong>Erro</strong><br/>
+		Usuário nao existe.
+		]]>
+        </mensagem>
+         <mensagem id="emailChaveInvalida"><![CDATA[
+		<strong>Erro</strong><br/>
+		Chave inválida para a confirmação de email.
+		]]>
+        </mensagem>
+        <mensagem id="emailChaveJaConfirmada"><![CDATA[
+		<strong>Erro</strong><br/>
+		Chave já confirmada anteriormente!.</br>
+                </br>
+                Verifique com a administração sua permissão de acesso.
+		]]>
+        </mensagem>
+        <mensagem id="emailConfirmado"><![CDATA[
+		<strong>Usuário Ativado</strong><br/>
+		Olá,<br/>
+		<br/>
+		Bem vindo ao SIGCON.<br/>
+		A criação do seu usuário foi concluída, aguarde permissão de acesso ao sistema.<br/>
+		<br/>
+		Atenciosamente.<br/>
+		Equipe SIGCON<br/>
+		<br/>
+		]]>
+        </mensagem>
+    </mensagens>
 </internacionalizacao>

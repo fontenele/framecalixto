@@ -38,7 +38,7 @@ class erro extends Exception{
 		if(strtolower(ini_get('display_errors')) != 'on') return '';
 		return "
 		<fieldset class='erroNegro'>
-			<legend>{$this->titulo}</legend>
+			<legend><i class='icon-warning-sign icon-danger'></i>{$this->titulo}</legend>
 			<link type='text/css' rel='stylesheet' href='.sistema/debug.css' />
 			<img src='.sistema/icones/error.png'/>
 			<table summary='text' class='erroNegro'>

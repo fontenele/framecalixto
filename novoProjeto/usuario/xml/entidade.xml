@@ -5,23 +5,42 @@
 			<banco nome='usua_id_usuario' />
 			<apresentacao componente='oculto' />
 		</propriedade>
-		<propriedade id='idPessoa' tipo='numerico' tamanho='10' obrigatorio='sim' classeAssociativa='NPessoa' metodoLeitura='lerTodos' descritivo='1'>
-			<banco nome='usua_id_pessoa'>
-				<chaveEstrangeira tabela='pessoa' campo='pess_id_pessoa' />
-			</banco>
-			<apresentacao componente='caixa de combinacao'>
-				<listagem ordem='1' tamanho='60%' />
-			</apresentacao>
-		</propriedade>
-		<propriedade id='nmLogin' tipo='texto' tamanho='25' obrigatorio='sim' descritivo='2' indiceUnico='sim'>
+		<propriedade id='nmLogin' tipo='texto' tamanho='200' obrigatorio='sim' descritivo='2' indiceUnico='sim'>
 			<banco nome='usua_nm_login' ordem='1' operador='igual' />
-			<apresentacao componente='caixa de entrada'>
-				<listagem ordem='2' tamanho='40%' hyperlink='sim' />
+			<apresentacao componente='email'>
+				<listagem ordem='2' tamanho='%' hyperlink='sim' />
 			</apresentacao>
 		</propriedade>
 		<propriedade id='nmSenha' tipo='texto' tamanho='32' obrigatorio='sim'>
 			<banco nome='usua_nm_senha' operador='igual' />
 			<apresentacao componente='palavra chave' pesquisa='nao' />
+		</propriedade>
+        <propriedade id='senhaGerada' tipo='texto' tamanho='32' >
+			<banco nome='usua_senha_gerada' operador='igual' />
+			<apresentacao componente='palavra chave' pesquisa='nao' />
+		</propriedade>
+		<propriedade id='status' tipo='texto' tamanho='60' obrigatorio='sim'>
+			<dominio>
+				<opcao id='1' />
+				<opcao id='2' />
+				<opcao id='3' />
+			</dominio>
+			<banco nome='usua_status' operador='igual' />
+			<apresentacao componente='caixa de combinacao'>
+				<listagem ordem='3' tamanho='%'/>
+			</apresentacao>
+		</propriedade>
+        <propriedade id='dataSolicitacao' tipo='data e hora'>
+			<banco nome='usua_data_solicitacao' operador='igual' />
+			<apresentacao componente='caixa de entrada'  pesquisa='nao'>
+				<listagem ordem='4' tamanho='%'/>
+			</apresentacao>
+		</propriedade>
+        <propriedade id='dataConfirmacao' tipo='data e hora'>
+			<banco nome='usua_data_confirmacao' operador='igual' />
+			<apresentacao componente='caixa de entrada'  pesquisa='nao'>
+				<listagem ordem='5' tamanho='%'/>
+			</apresentacao>
 		</propriedade>
 	</propriedades>
 </entidade>

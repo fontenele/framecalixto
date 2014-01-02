@@ -23,7 +23,7 @@ class coletor extends objeto {
 	protected $persistentes = array();
 	/**
 	* Negócios existentes no coletor
-	* @var array com os negócios existentes
+	* @var colecao com os negócios existentes
 	*/
 	public $colecoes;
 	/**
@@ -153,7 +153,7 @@ class coletor extends objeto {
 	*/
 	public function lerPaginado(pagina $pagina, $sql){
 		try{
-			if(persistente::imprimindoComandos()){
+			if(persistente::estaImprimindoComandos()){
 				x("select count(*) as quantidade from ({$sql}) selecao");
 				x("{$sql}");
 			}
@@ -185,6 +185,13 @@ class coletor extends objeto {
 		catch(erro $e){
 			throw $e;
 		}
+	}
+    /**
+	* Método de codificação para JSON
+	* @return string JSON
+	*/
+	public function json(){
+		return $this->colecoes->json();
 	}
 }
 ?>

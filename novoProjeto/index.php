@@ -40,11 +40,11 @@ set_error_handler('reportarErro');
  */
 function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 	if(strpos($arquivo,'conexaoPadrao')) return;
-	$imagemErro = 'erro.png';
+	$clsErro = 'icon-warning-sign icon-danger';
 	switch($codigo){
 		case E_NOTICE:
 			$tipoErro = 'Notice';
-			$imagemErro = 'notice.png';
+			$clsErro = 'icon-warning-sign icon-warning';
 		break;
 		case E_WARNING:
 			$tipoErro = 'Warning';
@@ -69,8 +69,7 @@ function reportarErro($codigo,$mensagem,$arquivo,$linha,$tipoErro){
 	echo "
 		<link type='text/css' rel='stylesheet' href='.sistema/debug.css' />
 		<fieldset class='erroNegro'>
-			<legend>{$tipoErro}</legend>
-			<img src='.sistema/imagens/{$imagemErro}' alt='[imagem]'>
+			<legend><i class='{$clsErro}'></i> {$tipoErro}</legend>
 			<table summary='text' class='erroNegro'>
 				<tr>
 					<td>Mensagem:</td>
