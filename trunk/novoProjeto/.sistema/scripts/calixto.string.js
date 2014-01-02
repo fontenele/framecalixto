@@ -4,23 +4,36 @@ String.prototype.rtrim = function (){return new String(this.replace(eval("/\ *$/
 String.prototype.strReplace = function (strAntiga, strNova){return new String(this.replace(eval("/"+strAntiga+"/g") , new String(strNova)));};
 String.prototype.ucFirst = function(){return this.charAt(0).toUpperCase()+this.substr(1);};
 /**
- * função para fazer lowerCamelCase();
+ * função para fazer CamelCase();
  */
-String.prototype.upperCamelCase = function (quebra){
-	quebra = quebra || ' ';
-	palavra = this.toLowerCase();
-	arPalavra = palavra.split(quebra);
+String.prototype.CamelCase = function (tipo){
+	palavra = this.toLowerCase().retiraAcentos().strReplace(' ','_');
+	arPalavra = palavra.split('_');
+	primeira = arPalavra.shift();
 	palavraFim = '';
 	for(i in arPalavra){
 		palavraFim += arPalavra[i].ucFirst();
 	}
-	return palavraFim.retiraAcentos();
+	if(tipo !== 'lower') primeira = primeira.ucFirst();
+	return primeira + palavraFim;
+};
+/**
+ * função para fazer upperCamelCase();
+ */
+String.prototype.upperCamelCase = function (){
+	return this.CamelCase('upper');
 };
 /**
  * função para fazer lowerCamelCase();
  */
-String.prototype.lowerCamelCase = function (quebra){
-	palavra = this.upperCamelCase(quebra);
+String.prototype.lowerCamelCase = function (){
+	return this.CamelCase('lower');
+};
+/**
+ * função para fazer lowerCamelCase();
+ */
+String.prototype.lowerCamelCase = function (){
+	palavra = this.upperCamelCase();
 	return palavra.charAt(0).toLowerCase()+palavra.substr(1);
 };
 /**
