@@ -7,12 +7,20 @@ String.prototype.ucFirst = function(){return this.charAt(0).toUpperCase()+this.s
  * função para fazer CamelCase();
  */
 String.prototype.CamelCase = function (tipo){
-	palavra = this.toLowerCase().retiraAcentos().strReplace(' ','_');
+	palavra = this.strReplace(' ','_');
 	arPalavra = palavra.split('_');
-	primeira = arPalavra.shift();
-	palavraFim = '';
-	for(i in arPalavra){
-		palavraFim += arPalavra[i].ucFirst();
+	if(arPalavra.length > 1){
+		palavra = this.strReplace(' ','_').toLowerCase().retiraAcentos();
+		arPalavra = palavra.split('_');
+		primeira = arPalavra.shift();
+		palavraFim = '';
+		for(i in arPalavra){
+			palavraFim += arPalavra[i].ucFirst();
+		}
+		
+	}else{
+		primeira = this;
+		palavraFim = '';
 	}
 	if(tipo !== 'lower') primeira = primeira.ucFirst();
 	return primeira + palavraFim;
