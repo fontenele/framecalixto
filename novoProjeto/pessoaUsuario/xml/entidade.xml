@@ -5,7 +5,7 @@
 			<banco nome='pesu_id_pessoa_usuario' ordem='1'  />
 			<apresentacao componente='oculto' edicao='sim' pesquisa='nao'  />
 		</propriedade>
-		<propriedade id='Pessoa' tipo='numerico' tamanho='10' obrigatorio='sim' indiceUnico='sim' classeAssociativa='NPessoa' metodoLeitura='lerTodos' descritivo='1'  >
+		<propriedade id='idPessoa' tipo='numerico' tamanho='10' obrigatorio='sim' indiceUnico='sim' classeAssociativa='NPessoa' metodoLeitura='lerTodos' descritivo='1'  >
 			<banco nome='pesu_id_pessoa' >
 				<chaveEstrangeira tabela='pessoa' campo='pess_id_pessoa' />
 			</banco>
@@ -13,7 +13,7 @@
 				<listagem ordem='1' />
 			</apresentacao>
 		</propriedade>
-		<propriedade id='Usuario' tipo='numerico' tamanho='10' obrigatorio='sim' indiceUnico='sim' classeAssociativa='NUsuario' metodoLeitura='lerTodos'  >
+		<propriedade id='idUsuario' tipo='numerico' tamanho='10' obrigatorio='sim' indiceUnico='sim' classeAssociativa='NUsuario' metodoLeitura='lerTodos'  >
 			<banco nome='pesu_id_usuario' >
 				<chaveEstrangeira tabela='usuario' campo='usua_id_usuario' />
 			</banco>

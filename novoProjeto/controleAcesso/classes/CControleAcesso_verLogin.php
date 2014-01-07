@@ -1,7 +1,7 @@
 <?php
 /**
 * Classe de controle
-* Ver o login
+* Apresenta a tela de login do sistema
 * @package Sistema
 * @subpackage ControleAcesso
 */
