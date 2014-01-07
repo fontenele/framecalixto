@@ -8,12 +8,12 @@
 			<abreviacao>Identificador</abreviacao>
 			<descricao>Identificador da relação pessoa usuário</descricao>
 		</propriedade>
-		<propriedade nome='Pessoa'>
+		<propriedade nome='idPessoa'>
 			<nome>Pessoa</nome>
 			<abreviacao>Pessoa</abreviacao>
 			<descricao>Pessoa da relação</descricao>
 		</propriedade>
-		<propriedade nome='Usuario'>
+		<propriedade nome='idUsuario'>
 			<nome>Usuário</nome>
 			<abreviacao>Usuário</abreviacao>
 			<descricao>Usuário da relação</descricao>

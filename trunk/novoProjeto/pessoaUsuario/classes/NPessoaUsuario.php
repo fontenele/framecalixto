@@ -15,12 +15,12 @@ class NPessoaUsuario extends negocioPadrao{
 	* @gerador variavelPadrao
 	* @var integer Pessoa
 	*/
-	public $Pessoa;
+	public $idPessoa;
 	/**
 	* @gerador variavelPadrao
 	* @var integer Usuário
 	*/
-	public $Usuario;
+	public $idUsuario;
 	/**
 	* Retorna o nome da propriedade que contém o valor chave de negócio
 	* @gerador metodoPadrao

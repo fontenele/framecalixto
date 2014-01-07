@@ -240,20 +240,6 @@ class NUsuario extends negocioPadrao {
 		$this->gravar();
 	}
 	
-	public function verificarAntesExcluir() {
-		if($this->valorChave() == 1){
-			throw new erroNegocio('Não é permitido excluir o administrador do sistema.');
-		}
-		parent::verificarAntesExcluir();
-	}
-	
-	public function verificarAntesAlterar($negocio) {
-		if($this->valorChave() == 1){
-			throw new erroNegocio('Não é permitido alterar o administrador do sistema.');
-		}
-		parent::verificarAntesAlterar($negocio);
-	}
-
 }
 
 ?>
